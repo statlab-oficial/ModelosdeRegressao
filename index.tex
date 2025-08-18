@@ -418,6 +418,64 @@ resposta \(y\) e uma variável preditora \(x\)!
 
 \subsection{Pressupostos do modelo}\label{pressupostos-do-modelo}
 
+\textbf{Observação:}
+
+Importante destacar que o termo regressão linear significa
+.blue{[}regressão linear nos parâmetros{]}, ou seja, da forma
+
+\[y_i =  \alpha + \beta x_i^2 + u_i\] ou da forma
+
+\[\log(y_i) = \alpha + \beta \log(x_i) +  u_i,\] também são considerados
+\textbf{regressões lineares}.
+
+O parâmetro
+
+\[E(Y|X = x) = \alpha + \beta x\] que representa a média da variável
+aleatória \(Y\), condicionada a \(X = x\), será estimada por
+
+\[\widehat{E(Y|X=x)} = a + bx,\]
+
+em que \(a\) e \(b\) são estimativas para \(\alpha\) e \(\beta\). A
+quantidade
+
+\[e_i = y_i - \hat{y}_i = y_i - (a + b x_i), \quad i = 1, \dots, n,\] é
+chamada de resíduo.
+
+Assim, o valor \(e_i\) pode ser interpretado como o erro cometido por
+prever \(y_i (i = 1, \dots, n)\) a partir de \(\hat{y}_i.\)
+
+\textbf{Voltando ao Exemplo (Semana 1)}
+
+Quais as estimativas do modelo de regressão linear simples de interesse?
+
+\[\hat{y} = 390 - 6x.\]
+\[y_i = E(Y|X = x_i) + u_i = \alpha + \beta x_i + u_i,\] em que
+\(\alpha\) é o intercepto e \(\beta\) é o coeficiente angular da reta de
+regressão.
+
+\begin{quote}
+Na prática, nem sempre \(\alpha\) (intercepto) apresenta interpretação.
+\end{quote}
+
+Como as estimativas devem ser interpretadas?
+
+\textbf{Voltando ao Exemplo (Semana 1)}
+
+\[\hat{y} = 390 - 6x.\]
+
+\begin{itemize}
+\item
+  390: valor médio de mortes por cancêr de pele em um estado com
+  latitude central igual a zero. (Faz sentido essa interpretação?)
+\item
+  -6: variação média no número de mortes quando aumenta-se a latitude em
+  1 unidade.
+\end{itemize}
+
+\textbf{Exercício:} Encontre a matriz hessiana e verifique sob quais
+condições a mesma é definida como positiva. Ainda, discuta se os
+estimadores encontrados geram o mínimo da função de interesse.
+
 \subsection{Estimação dos parâmetros pelo método dos mínimos
 quadrados}\label{estimauxe7uxe3o-dos-paruxe2metros-pelo-muxe9todo-dos-muxednimos-quadrados}
 
@@ -427,13 +485,97 @@ estimadores}\label{propriedades-dos-estimadores}
 \subsection{Decomposição da Soma de Quadrados
 Total}\label{decomposiuxe7uxe3o-da-soma-de-quadrados-total}
 
+O modelo de regressão proposto está bem ajustado? Como medir a qualidade
+de ajuste do modelo?
+
+\begin{quote}
+\textbf{Objetivo:} Construir uma medida que indique, mesmo que de modo
+imperfeito, a qualidade do ajuste do modelo de regressão.
+\end{quote}
+
+\begin{itemize}
+\item
+  \(y - \bar{y}:\) erro ao se prever \(y\) pela média geral.
+\item
+  \(y - \hat{y}:\) erro ao se prever \(y\) pelo valor estimado para
+  \(E(Y|X)\).
+\item
+  \(\hat{y} - \bar{y}:\) ``ganho'' ao se prever \(y\) pelo valor
+  estimado para \(E(Y|X)\) em comparação ao se prever \(y\) pela média
+  geral.
+\item
+  Soma de Quadrados Total (SQT):
+  \(SQT = \sum \limits_{i =1}^n (y_i - \bar{y})^2.\)
+\item
+  Soma de Quadrados devido aos Resíduos (SQE):
+  \(SQE = \sum \limits_{i =1}^n (y_i - \hat{y}_i)^2.\)
+\item
+  Soma de Quadrados devido ao modelo de regressão (SQReg):
+  \(SQReg = \sum \limits_{i =1}^n (\hat{y}_i - \bar{y})^2.\)
+\end{itemize}
+
+\textbf{Resultado:} \(SQT = SQReg + SQE\)
+
+\begin{itemize}
+\tightlist
+\item
+  Na \(SQT\) temos \(n -1\) graus de liberdade.
+\item
+  Na \(SQE\) temos \(n -2\) graus de liberdade.
+\item
+  Assim, chegamos aos chamados \textbf{quadrados médios}:
+\end{itemize}
+
+\[QMT = \frac{SQT}{n-1} = S^2, \quad QME = \frac{SQE}{n-2} \quad \text{e} \quad QMReg = \frac{SQReg}{1}.\]
+- Desta forma, chegamos na estatística
+\(F = \frac{QMreg}{QME} \sim F(1, n-2).\)
+
 \subsection{Tabela de ANOVA}\label{tabela-de-anova}
+
+Esses resultados nos levam a seguinte tabela de análise de variâncias:
+
+\begin{longtable}[]{@{}ccccc@{}}
+\toprule\noalign{}
+CV & GL & SQ & QM & F \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Regressão & \(1\) & \(SQReg\) & \(QMReg\) & \(QMReg/QME\) \\
+Resíduo & \(n-2\) & \(SQE\) & \(QME\) & \\
+Total & \(n-1\) & \(SQT\) & & \\
+\end{longtable}
 
 \subsection{Coeficiente de
 Determinação}\label{coeficiente-de-determinauxe7uxe3o}
 
-\subsection{Coeficiente de Determinação Ajustado para Graus de
-Liberdade}\label{coeficiente-de-determinauxe7uxe3o-ajustado-para-graus-de-liberdade}
+O coeficiente de determinação (explicação) é definido por
+
+\[R^2 = \frac{SQReg}{SQT} = 1- \frac{SQE}{SQT},\] e mostra a proporção
+da variabilidade de \(y\) que é ``explicada'' pelos regressores do
+modelo adotado. Já o coeficiente de determinação ajustado é definido
+por:
+
+\[\bar{R}^2 =  1 - \frac{SQE/(n-2)}{SQT/(n-1)}.\]
+
+\textbf{Voltando ao Exemplo (Semana 1)}
+
+\textbf{Interpretação:} 67\% das variações das mortes por câncer de pele
+são explicadas pela latitude no centro de cada um dos 48 estados
+americanos.
+
+\textbf{Conclusão:} Desta forma, parece que a posição geográfica do
+estado é relevante para a explicação da mortalidade por câncer de pele
+uma vez que tal regressor explica mais da metade das variações da
+variável resposta.
+
+\textbf{Exercício:} Prove que, no caso do modelo de regressão linear
+simples com intercepto, o coeficiente de correlação linear de Pearson
+elevado ao quadrado é igual ao coeficiente de explicação (ou
+determinação) -- \(R^2\). Ou seja,
+
+\$\$R\^{}2 = \frac{SQReg}{SQT} = \frac{S_{XY}^2}{S_{XX}S_{YY}} =
+b\left(\frac{S_{XY}}{S_{YY}}\right).
 
 \subsection{Testes de Hipóteses sobre a inclinação e o
 intercepto}\label{testes-de-hipuxf3teses-sobre-a-inclinauxe7uxe3o-e-o-intercepto}
@@ -587,11 +729,11 @@ parâmetros \(\boldsymbol{\beta}\).
 \tightlist
 \item
   \(E(\widehat{\boldsymbol{\beta}}) = \boldsymbol{\beta}\). (Prove!)
-  \protect\includegraphics[height=0.7em]{/tmp/Rtmpe27qm1/file147e756b839d9.pdf}
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmp6588IZ/file15cdb614076da.pdf}
 \item
   \(Var(\widehat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\).
   (Prove!)
-  \protect\includegraphics[height=0.7em]{/tmp/Rtmpe27qm1/file147e76d3991cc.pdf}
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmp6588IZ/file15cdb3fe16773.pdf}
 \item
   A distribuição do vetor \(\mathbf{y}\), correspondente aos valores
   prefixados das variáveis regressoras dados em \(\mathbf{X}\), é
