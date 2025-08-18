@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.8.15)  18 AUG 2025 08:19
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.8.15)  18 AUG 2025 08:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1084,21 +1084,78 @@ Underfull \hbox (badness 1584) in paragraph at lines 423--425
 Package longtable Warning: Column widths have changed
 (longtable)                in table 3.1 on input line 547.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.577 \$\$R\^{}2 = \frac{SQReg}{SQT}
-                                     = \frac{S_{XY}^2}{S_{XX}S_{YY}} =
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+
+
+[12]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 3.2 on input line 621.
+
+
+
+[13]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 3.3 on input line 651.
+
+
+
+[14]
+Missing character: There is no í ("ED) in font lmmi10!
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 725.
+
+
+[15]
+File: reg_files/figure-pdf/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+<use reg_files/figure-pdf/unnamed-chunk-5-1.pdf>
+
+Underfull \hbox (badness 2478) in paragraph at lines 755--757
+[]\TU/lmr/m/n/10.95 Iremos considerar uma estrutura similar a do modelo de regressão linear simples.
+ []
+
+
+
+[16]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 10.95pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 7.665pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 5.475pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 10.95099pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 7.66568pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 5.4755pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 10.94882pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 7.66417pt on input line 812.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 5.47441pt on input line 812.
+
+
+[17]
+
+LaTeX Warning: File `/tmp/Rtmptj5iru/file1730e5882329.pdf' not found on input line 871.
+
+! Unable to load picture or PDF file '/tmp/Rtmptj5iru/file1730e5882329.pdf'.
+<to be read again> 
+                   }
+l.871 ...em]{/tmp/Rtmptj5iru/file1730e5882329.pdf}
+                                                  
+The requested image couldn't be read because
+it was not a recognized image format.
 
  
 Here is how much of TeX's memory you used:
- 23389 strings out of 470457
- 448799 string characters out of 5491064
- 1156492 words of memory out of 5000000
- 51445 multiletter control sequences out of 15000+600000
- 633272 words of font info for 92 fonts, out of 8000000 for 9000
+ 23496 strings out of 470457
+ 452525 string characters out of 5491064
+ 1158492 words of memory out of 5000000
+ 51534 multiletter control sequences out of 15000+600000
+ 634749 words of font info for 104 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 108i,8n,114p,10900b,432s stack positions out of 10000i,1000n,20000p,200000b,200000s
-Output written on index.pdf (11 pages).
+ 108i,11n,114p,10900b,432s stack positions out of 10000i,1000n,20000p,200000b,200000s
+Output written on index.pdf (17 pages).

@@ -574,8 +574,7 @@ simples com intercepto, o coeficiente de correlação linear de Pearson
 elevado ao quadrado é igual ao coeficiente de explicação (ou
 determinação) -- \(R^2\). Ou seja,
 
-\$\$R\^{}2 = \frac{SQReg}{SQT} = \frac{S_{XY}^2}{S_{XX}S_{YY}} =
-b\left(\frac{S_{XY}}{S_{YY}}\right).
+\[R^2 = \frac{SQReg}{SQT} = \frac{S_{XY}^2}{S_{XX}S_{YY}} = b\left(\frac{S_{XY}}{S_{YY}}\right).\]
 
 \subsection{Testes de Hipóteses sobre a inclinação e o
 intercepto}\label{testes-de-hipuxf3teses-sobre-a-inclinauxe7uxe3o-e-o-intercepto}
@@ -592,13 +591,153 @@ independente}\label{intervalos-de-confianuxe7a-para-a-variuxe2ncia-e-para-a-muxe
 \subsection{Teste para Falta de
 Ajustamento}\label{teste-para-falta-de-ajustamento}
 
+Quando dispomos, para um ou mais valores de \(X\), de mais de um valor
+observado \(Y\), é possível obter uma outra estimativa da variância do
+erro. Essa outra estimativa de \(\sigma^2\) é dada pelo quadrado médio
+do resíduo de uma análise de variância em que cada valor distinto de
+\(X\) é encarado como um diferente ``tratamento'' a que está sendo
+submetida a variável \(Y\). Temos neste caso, portanto, dois resíduos,
+vamos nos referir ao primeiro, explicitamente, como ``resíduo da
+regressão'' e ao segundo, simplesmente como ``resíduo''.
+
+Seja \(K\) o número de valores distintos de \(X\), representamos por
+\(T_k (k = 1, \dots, K)\) os totais dos tratamentos, isto é, as soma dos
+valores de \(Y_i\), para cada valor distinto de \(X_i\).
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule\noalign{}
+\(X_k\) & \(Y_i\) & \(T_k\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 3 & 3 \\
+1 & 2 e 3 & 5 \\
+2 & 5 & 5 \\
+3 & 4 e 4 & 8 \\
+4 & 7 & 7 \\
+5 & 6 e 7 & 13 \\
+6 & 9 & 9 \\
+\end{longtable}
+
+\[SQTrat = \sum \limits_{k = 1}^K \frac{T_k}{n_k} - \frac{\left(\sum \limits_{i = 1}^n Y_i\right)^2}{n}, \quad \text{e} \quad SQRes = \sum \limits_{i = 1}^n Y_i^2 - \sum \limits_{k = 1}^K \frac{T_k}{n_k}.\]
+
+Com base nas esperanças dessas soma de quadrados, justifica-se a
+associação de \(K-1\) e \(n - K\) graus de liberdade à \(SQTrat\) e
+\(SQRes\), respectivamente.
+
+As diferenças entre as médias de tratamentos \(\bar{Y}_k\) e os
+respectivos valores de \(Y\) estimados pela regressão \(\hat{Y}_k\)
+associamos a soma de quadrados de ``falta de ajustamento'', definida por
+
+\[SQFA = \sum \limits_{k = 1}^K n_k (\bar{Y}_k - \hat{Y}_k)^2  \quad \text{com} \;K-2 \; \text{graus de liberdade}.\]
+
+E pode ser obtido também da seguinte maneira:
+
+\[SQFA = SQResReg - SQRes.\]
+
+\begin{longtable}[]{@{}ccccc@{}}
+\toprule\noalign{}
+C.V & G.L & SQ & QM & F \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Total & 9 & 44 & & \\
+Regressão & 1 & 36 & 36 & 36 \\
+Res. de Regressão & 8 & 8 & 1 & \\
+Falta de Ajustamento & 5 & 7 & 1,4 & 4,2 \\
+Resíduo & 3 & 1 & 1/3 & \\
+\end{longtable}
+
+O resultado obtido mostra que a ``falta de ajustamento'' não
+significativa ao nível de significância de 5\%.
+
+Nos caso em que a ``falta de ajustamento'' é significativa, concluímos
+que o modelo linear utilizado não é apropriado, pois o quadrado médio do
+resíduo da regressão não estimaria corretamente a variância residual
+\((\sigma^2)\), uma vez que estaria incluindo um erro sistemático devido
+ao uso de um modelo inapropriado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{ajuste }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{X)}
+\NormalTok{ajusteFA }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(X))}
+\FunctionTok{anova}\NormalTok{(ajuste)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Response: Y
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+X          1     36      36      36 0.0003234 ***
+Residuals  8      8       1                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova}\NormalTok{(ajuste, ajusteFA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Model 1: Y ~ X
+Model 2: Y ~ factor(X)
+  Res.Df RSS Df Sum of Sq   F Pr(>F)
+1      8   8                        
+2      3   1  5         7 4.2 0.1336
+\end{verbatim}
+
 \subsection{Análise de Resíduos}\label{anuxe1lise-de-resuxedduos}
+
+O \(í\)-ésimo resíduo e dado por
+
+\[\hat{u}_i = y_i - \hat{y}_i, \quad i = 1,\dots, n.\] Agora iremos
+estudar o comportamento individual e conjunto destes resíduos,
+comparando com as suposições feitas sobre os verdadeiros erros \(u_i\).
+Existem várias técnicas formais para conduzir essa análise, mas aqui
+iremos ressaltar basicamente métodos gráficos.
+
+Uma representação gráfica bastante útil é obtida plotando-se pares
+\((x_i, \hat{u}_i), i = 1, \dots, n\). Outras vezes, é de maior
+utilidade fazer a representação gráfica dos chamados \textbf{resíduos
+padronizados},
+
+\[\hat{z}_i  = \frac{\hat{u}_i}{s^2},\]
+
+plotando-se os pares \((x_i, \hat{z}_i)\). Outro resíduo usado é o
+chamado \textbf{resíduo estudentizado}, definido por
+
+\[\hat{r}_i  = \frac{\hat{u}_i}{s^2\sqrt{1 - v_{ii}}},\]
+
+em que
+\(v_{ii} = \frac{1}{n} + \frac{x_i^2}{\sum \limits_{i=1}^n x_i^2}\).
 
 \subsection{\texorpdfstring{Analisar dados usando o
 \texttt{R}}{Analisar dados usando o R}}\label{analisar-dados-usando-o-r}
 
 \section{Regressão Linear
 Múltipla}\label{regressuxe3o-linear-muxfaltipla}
+
+Até aqui, aprendemos a trabalhar com o modelo de regressão linear
+simples, com uma variável explicativa, e notamos que o mesmo pode ser
+utilizado em diversas situações. Porém, vários problemas envolvem duas
+ou mais variáveis explicativas influenciando o comportamento da variável
+resposta \((Y)\). Qualquer modelo de regressão linear com dois ou mais
+regressores recebe o nome de .red{[}\textbf{modelo de regressão linear
+múltipla}
+
+\begin{center}
+\includegraphics[width=\textwidth,height=0.3125in]{reg_files/figure-pdf/unnamed-chunk-5-1.pdf}
+\end{center}
 
 Agora iremos admitir que \(X_1, X_2, \ldots, X_k\) sejam variáveis
 independentes e \(Y\) a variável resposta. Dada uma amostra aleatória de
@@ -729,11 +868,11 @@ parâmetros \(\boldsymbol{\beta}\).
 \tightlist
 \item
   \(E(\widehat{\boldsymbol{\beta}}) = \boldsymbol{\beta}\). (Prove!)
-  \protect\includegraphics[height=0.7em]{/tmp/Rtmp6588IZ/file15cdb614076da.pdf}
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmptj5iru/file1730e5882329.pdf}
 \item
   \(Var(\widehat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\).
   (Prove!)
-  \protect\includegraphics[height=0.7em]{/tmp/Rtmp6588IZ/file15cdb3fe16773.pdf}
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmptj5iru/file1730e4d2a391e.pdf}
 \item
   A distribuição do vetor \(\mathbf{y}\), correspondente aos valores
   prefixados das variáveis regressoras dados em \(\mathbf{X}\), é
