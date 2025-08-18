@@ -29,7 +29,7 @@ Por que o modelo clássico de regressão linear pressupõe que não há multicol
 
 Há várias fontes de multicolinearidade. Como observam Montgomery e Peck, a multicolinearidade pode ocorrer devido aos seguintes fatores:
 
-1. O *método de coleta de dados empregado*;
+1. *O método de coleta de dados empregado*;
 2. *Restrições ao modelo ou à população que está sendo amostrada*;
 3. *Especificação do modelo*;
 4. *Um modelo sobredeterminado*.
@@ -64,7 +64,7 @@ p. 82-83
 Gujarati e Porter (*Econometria Básica*)
 
 
-## Multicolinearidade: muito barulho por nada? Consequências teóricas da multicolinearidade
+### Multicolinearidade: muito barulho por nada? Consequências teóricas da multicolinearidade
 
 
 Em primeiro lugar, é verdade que, mesmo no caso de quase multicolinearidade, os estimadores de
@@ -91,7 +91,7 @@ não ser “rica” o suficiente para acomodar todas as variáveis $X$ na análi
 
 Gujarati e Porter (*Econometria Básica*)
 
-## Consequências práticas da multicolinearidade
+#### Consequências práticas da multicolinearidade
 
 Em casos de quase ou de alta multicolinearidade, é muito provável nos depararmos com as seguintes consequências:
 
@@ -109,7 +109,7 @@ dados.
 Gujarati e Porter (*Econometria Básica*)
 
 
-## Exemplo 
+#### Exemplo 
 
 
 Para ilustrar os pontos destacados até aqui, consideremos o exemplo de consumo-renda. A Tabela abaixo contém dados hipotéticos sobre consumo, renda e riqueza. 
@@ -131,28 +131,24 @@ datatable(tabela, options = list(
 
 Se pressupormos que os gastos de consumo estejam linearmente relacionados à renda e à riqueza, então, na Tabela acima, obteremos a seguinte regressão:
 
-.footer-note[.tiny[.green[Créditos: ][Gujarati e Porter (*Econometria Básica*)]()]]
----
+[Gujarati e Porter (*Econometria Básica*)
 
-## Exemplo
+
 ```{r echo=FALSE}
 fit <- lm(Consumo ~ Renda + Riqueza, data = tabela)
 summary(fit)
 ```
 
-.content-box-yellow[
-.small[
-*Os resultados acima mostram que renda e riqueza juntas explicam cerca de 96% da variação na despesa de consumo, e nenhum dos coeficientes angulares é, individualmente, estatisticamente significativo. Além disso, a variável riqueza não só é estatisticamente
+Os resultados acima mostram que renda e riqueza juntas explicam cerca de 96% da variação na despesa de consumo, e nenhum dos coeficientes angulares é, individualmente, estatisticamente significativo. Além disso, a variável riqueza não só é estatisticamente
 insignificante, mas também tem o sinal errado. A priori, pode-se esperar uma relação positiva
 entre consumo e riqueza. Embora $\hat \beta_1$ e $\hat \beta_2$ sejam sejam individualmente insignificantes, do ponto de vista estatístico, se testarmos a hipótese de que $\beta_1 = \beta_2 = 0$ simultaneamente, essa hipótese
-poderá ser rejeitada ( $F = 92,4$  e $p$-valor $< 0,001$ ).*]
-]
+poderá ser rejeitada ( $F = 92,4$  e $p$-valor $< 0,001$ ).
 
-.footer-note[.tiny[.green[Créditos: ][Gujarati e Porter (*Econometria Básica*)]()]]
----
+Gujarati e Porter (*Econometria Básica*)
 
 
-## Detecção da multicolinearidade
+
+#### Detecção da multicolinearidade
 
 
 Uma vez que a multicolinearidade é essencialmente um fenômeno amostral decorrente de grande quantidade de dados não experimentais coletados, não temos um método único para detectá-la ou para medir sua força. O que temos são regras práticas; algumas informais e outras formais, mas, ainda assim regras práticas. Consideremos algumas delas.
@@ -165,21 +161,20 @@ problema sério. O problema desse critério é que, embora altas correlações d
 sugerir colinearidade, não é necessário que sejam altas para que exista colinearidade em qualquer
 caso específico.*
 
-- Regressões auxiliares. *Uma vez que a multicolinearidade surge, porque um ou mais regressores são combinações lineares aproximadas ou exatas dos outros regressores, uma forma de descobrir
-qual variável $X$ está relacionada a outras variáveis $X$ é fazer a regressão de cada $X_i$ contra as demais
-variáveis $X$ e calcular o $R^2$ correspondente.*
+- Regressões auxiliares. Uma vez que a multicolinearidade surge, porque um ou mais regressores são combinações lineares aproximadas ou exatas dos outros regressores, uma forma de descobrir
+qual variável $X$ está relacionada a outras variáveis $X$ é fazer a regressão de cada $X_i$ contra as demais variáveis $X$ e calcular o $R^2$ correspondente.
 
 - Diagrama de dispersão. É uma boa prática usar um diagrama de dispersão para verificar como
 as diversas variáveis estão relacionadas em um modelo de regressão.
 
 
 
-## Medidas corretivas
+### Medidas corretivas
 
 O que podemos fazer se a multicolinearidade for grave? Temos duas opções: (1) não fazer nada;
 ou (2) seguir alguns procedimentos.
 
-### Não fazer nada
+#### Não fazer nada
 
 A escola do “deixa pra lá” é expressa por Blanchard, como se segue:
 
@@ -195,9 +190,7 @@ Blanchard, O. J. “Comment.” Journal of Business and Economics Statistics, v.
 O que Blanchard está dizendo é que a multicolinearidade é essencialmente um problema de deficiência de dados (de novo, a micronumerosidade) e às vezes não temos escolha sobre os dados disponíveis para análise empírica. Também não podemos dizer que todos os coeficientes em um modelo de regressão sejam estatisticamente insignificantes. Além disso, mesmo que não possamos estimar um ou mais coeficientes de regressão com maior precisão, uma combinação linear deles (função estimável) pode ser estimada com relativa eficiência.
 
 
-## Medidas corretivas
-
-### Procedimentos
+#### Procedimentos
 
 Podemos tentar seguir as regras práticas para resolver o problema da multicolinearidade; o sucesso dependerá da gravidade do problema de colinearidade.
 
@@ -215,10 +208,6 @@ da colinearidade.
 
 
 
-
-## Medidas corretivas
-
-
 Outros métodos de remediar a multicolinearidade. Técnicas estatísticas multivariadas como
 a análise de fator e componentes principais ou técnicas como a regressão ridge são empregadas
 com frequência para “resolver” o problema da multicolinaridade.
@@ -226,14 +215,11 @@ com frequência para “resolver” o problema da multicolinaridade.
 
 
 
-### Exemplo
+#### Exemplo
 
 Embora coletados originalmente para avaliar a exatidão computacional das estimativas dos mínimos quadrados em vários programas de computador, os dados de Longley tornaram-se o instrumento para ilustrar vários problemas econométricos, inclusive a multicolinearidade. Este conjunto de dados está disponível no `R` e para carregar o mesmo, basta usar `data("longley")`. Também é possível usar o pacote `gujarati`. Para instalar o pacote basta usar `devtools::install_github('https://github.com/brunoruas2/gujarati')`. As variáveis são: $Y =$ número de pessoas empregadas, em milhares (`Employed`); $X_1 =$ deflator implícito dos preços no PNB (`GNP.deflator`); $X_2 =$ PNB (`GNP`), em milhões de \$; $X_3 =$ número de pessoas desempregadas, em milhares (`Unemployed`) ; $X_4 =$ número de pessoas nas forças armadas (`Armed.Forces`); $X_5 =$ população não institucionalizada com mais de 14 anos de idade (`Population`); e $X_6 =$ ano, igual a 1 em 1947, 2 em 1948 e 16 em 1962 (`Year`).
 
 
-
-
-### Exemplo
 
 Suponha agora que nosso objetivo é estudar $Y$ com base nas seis variáveis regressoras. Usando o `R`, obtemos os seguintes resultados:
 
@@ -243,9 +229,6 @@ fit <- lm(Employed ~ ., data = longley)
 summary(fit)
 ```
 
-
-
-### Exemplo
 
 Um exame rápido desses resultados sugeriria que temos o problema de colinearidade, pois o valor de $R^2$ é muito alto, mas metade das variáveis são estatisticamente insignificantes ( $X_1$ , $X_2$ e $X_5$), um sintoma clássico de multicolinearidade. A seguir apresentamos a *matriz de correlação*.
 
@@ -257,9 +240,6 @@ cor(X)
 Várias das correlações acima são muito altas, sugerindo que pode haver um
 problema grave de colinearidade. Importante lembrar que essas correlações entre pares de variáveis podem ser uma condição suficiente, mas não necessária, para a existência de multicolinearidade.
 
-
-
-### Exemplo
 
 Para entendermos a natureza do problema da multicolinearidade, efetuemos as regressões auxiliares, que são as regressão de cada variáveis $X$ contra as variáveis $X$ remanescentes.
 
@@ -275,23 +255,17 @@ excedem o valor do $R^2$ geral em 3 de 6 regressões auxiliares, novamente suger
 
 
 
-
-### Exemplo
-
-.red[Agora que constatamos um problema de multicolinearidade, que ações “corretivas” podemos tomar?] .tiny[Vamos reconsiderar nosso modelo original. Antes de mais nada, poderíamos expressar o PNB não em termos nominais, mas em termos reais, o que podemos fazer dividindo o PNB nominal pelo
+Agora que constatamos um problema de multicolinearidade, que ações “corretivas” podemos tomar? Vamos reconsiderar nosso modelo original. Antes de mais nada, poderíamos expressar o PNB não em termos nominais, mas em termos reais, o que podemos fazer dividindo o PNB nominal pelo
 deflator implícito dos preços. Em segundo lugar, uma vez que a população não institucionalizada de mais de 14 anos aumenta ao longo do tempo devido ao crescimento populacional natural, ela estará altamente correlacionada com o tempo, a variável `Year` de nosso modelo. Em vez de mantermos ambas
 as variáveis, manteremos a variável `Population` e excluiremos `Year` . Em terceiro lugar, não há razão contundente
 para incluir `Unemployed`, o número de pessoas desempregadas; talvez a taxa de desemprego tivesse sido uma
-medida melhor das condições do mercado de trabalho. Mas não temos dados sobre elas. Logo, excluiremos a variável `Unemployed` . Efetuando essas alterações, obtemos os seguintes resultados de regressão:]
+medida melhor das condições do mercado de trabalho. Mas não temos dados sobre elas. Logo, excluiremos a variável `Unemployed` . Efetuando essas alterações, obtemos os seguintes resultados de regressão:
 
 ```{r}
 fit1 <- lm(Employed ~ I(GNP/GNP.deflator) + Armed.Forces + Population, data = longley)
 summary(fit1)
 ```
 
-
-
-### Exemplo
 
 Embora o valor de $R^2$ tenha declinado ligeiramente em comparação ao $R^2$ original, ainda é muito
 alto. Agora, todos os coeficientes estimados são significativos e os sinais dos coeficientes fazem sen-
@@ -336,9 +310,9 @@ modelos lineares versus log-lineares).
 
 
 
-## Detecção da heterocedasticidade
+### Detecção da heterocedasticidade
 
-### Métodos informais
+#### Métodos informais
 
 - **Natureza do problema**. Com muita frequência, a natureza do problema em consideração sugere a probabilidade de encontrarmos heterocedasticidade. Por exemplo, seguindo o trabalho pioneiro de Prais e Houthakker sobre
 estudos de orçamentos familiares, em que verificaram que a variância residual em torno da regressão
@@ -352,8 +326,6 @@ tamanho pequeno, médio e grande fizerem parte da amostra.
 
 
 
-### Detecção da heterocedasticidade
-
 #### Métodos formais
 
 - Teste de Park.
@@ -362,7 +334,7 @@ tamanho pequeno, médio e grande fizerem parte da amostra.
 - Teste de Breusch-Pagan-Godfrey
 - Teste de White.
 
-#### Teste de Park
+##### Teste de Park
 
 Park formaliza o método gráfico sugerindo que $\sigma^2$ seja uma função da variável explanatória $X_i$. A forma funcional sugerida por ele é 
 
@@ -381,9 +353,7 @@ $$\log(\hat\epsilon_i^2) = \log(\sigma^2) + \beta \log(X_i) + \nu_i = \alpha + \
 Se $\beta$ for significativo estatisticamente, isso sugere que a heterocedasticidade está presente nos dados. Se nao for significativo, não rejeitamos a hipótese da homocedasticidade. O teste de Park é um procesimento que envolve duas etapas. Na primeira fazemos a regressão de MQO desconsiderando a questão da heterocedasticidade. Obtemos $\hat\epsilon_i$ dessa regressão, então na segunda etapa fazemos a regressão dos residuos contra $X$.
 
 
-
-
-### Exemplo
+#### Exemplo
 
 Para ilustrar a abordagem de Park, usamos a seguinte regressão:
 
@@ -467,12 +437,12 @@ Em tal situação, a perturbação provocada por uma greve neste trimestre pode 
 
 
 
-## Consequências do uso dos MQO na presença de autocorrelação
+### Consequências do uso dos MQO na presença de autocorrelação
 
 Podemos declarar que um coeficiente é estatisticamente igual a zero, embora na realidade possa não ser.
 
 
-### Detecção de autocorrelação
+#### Detecção de autocorrelação
 
 1. Método gráfico - podemos plotar os resíduos padronizados contra o tempo.
 2. O teste das carreiras, também conhecido como teste de Geary, um teste não paramétrico.
@@ -481,7 +451,7 @@ Podemos declarar que um coeficiente é estatisticamente igual a zero, embora na 
 
 
 
-## O que fazer ao deparar-se com a autocorrelação: medidas corretivas
+### O que fazer ao deparar-se com a autocorrelação: medidas corretivas
 
 Se, depois de aplicarmos um ou mais testes diagnósticos de autocorrelação discutidos na seção
 anterior, verificamos a presença dela, o que fazer? Temos quatro opções:
@@ -498,7 +468,7 @@ anterior, verificamos a presença dela, o que fazer? Temos quatro opções:
 
 
 
-## Correção da autocorrelação (pura): o método dos mínimos quadrados generalizados (MQG)
+### Correção da autocorrelação (pura): o método dos mínimos quadrados generalizados (MQG)
 
 Conhecendo as consequências da autocorrelação, principalmente a falta de eficiência dos estimadores, podemos precisar corrigir o problema. A correção depende do conhecimento que se tem da
 natureza da interdependência entre os termos de erro, ou seja, do conhecimento da estrutura da autocorrelação.
@@ -512,8 +482,6 @@ $$u_t = \rho u_{t-1} + \epsilon_t, \quad -1 < \rho < 1.$$
 Aqui iremos considerar apenas o caso em que $\rho$ é conhecido.
 
 
-
-##  Correção da autocorrelação (pura): o método dos mínimos quadrados generalizados (MQG)
 
 Se a relação funcional do modelo de regressão for verdadeira no tempo $t$, também será no tempo $(t - 1).$ Portanto,
 

@@ -587,11 +587,11 @@ parâmetros \(\boldsymbol{\beta}\).
 \tightlist
 \item
   \(E(\widehat{\boldsymbol{\beta}}) = \boldsymbol{\beta}\). (Prove!)
-  \protect\includegraphics[height=0.7em]{/tmp/Rtmpt1nhmh/file12b127a1befa.pdf}
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmpe27qm1/file147e756b839d9.pdf}
 \item
   \(Var(\widehat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\).
   (Prove!)
-  \protect\includegraphics[height=0.7em]{/tmp/Rtmpt1nhmh/file12b123f88409f.pdf}
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmpe27qm1/file147e76d3991cc.pdf}
 \item
   A distribuição do vetor \(\mathbf{y}\), correspondente aos valores
   prefixados das variáveis regressoras dados em \(\mathbf{X}\), é
@@ -1545,7 +1545,7 @@ a multicolinearidade pode ocorrer devido aos seguintes fatores:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  O \emph{método de coleta de dados empregado};
+  \emph{O método de coleta de dados empregado};
 \item
   \emph{Restrições ao modelo ou à população que está sendo amostrada};
 \item
@@ -1596,7 +1596,7 @@ Califórnia: Sage Publications, 1982. p.~82-83
 
 Gujarati e Porter (\emph{Econometria Básica})
 
-\section{Multicolinearidade: muito barulho por nada? Consequências
+\subsection{Multicolinearidade: muito barulho por nada? Consequências
 teóricas da
 multicolinearidade}\label{multicolinearidade-muito-barulho-por-nada-consequuxeancias-teuxf3ricas-da-multicolinearidade-1}
 
@@ -1633,7 +1633,7 @@ variáveis \(X\) na análise.
 
 Gujarati e Porter (\emph{Econometria Básica})
 
-\section{Consequências práticas da
+\subsubsection{Consequências práticas da
 multicolinearidade}\label{consequuxeancias-pruxe1ticas-da-multicolinearidade}
 
 Em casos de quase ou de alta multicolinearidade, é muito provável nos
@@ -1663,7 +1663,7 @@ depararmos com as seguintes consequências:
 
 Gujarati e Porter (\emph{Econometria Básica})
 
-\section{Exemplo}\label{exemplo-1}
+\subsubsection{Exemplo}\label{exemplo-1}
 
 Para ilustrar os pontos destacados até aqui, consideremos o exemplo de
 consumo-renda. A Tabela abaixo contém dados hipotéticos sobre consumo,
@@ -1675,12 +1675,7 @@ Se pressupormos que os gastos de consumo estejam linearmente
 relacionados à renda e à riqueza, então, na Tabela acima, obteremos a
 seguinte regressão:
 
-.footer-note{[}.tiny{[}.green{[}Créditos: {]}{[}Gujarati e Porter
-(\emph{Econometria Básica}){]}(){]}{]}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\section{Exemplo}\label{exemplo-2}
+{[}Gujarati e Porter (\emph{Econometria Básica})
 
 \begin{verbatim}
 
@@ -1704,23 +1699,20 @@ Multiple R-squared:  0.9635,    Adjusted R-squared:  0.9531
 F-statistic:  92.4 on 2 and 7 DF,  p-value: 9.286e-06
 \end{verbatim}
 
-.content-box-yellow{[} .small{[} \emph{Os resultados acima mostram que
-renda e riqueza juntas explicam cerca de 96\% da variação na despesa de
-consumo, e nenhum dos coeficientes angulares é, individualmente,
-estatisticamente significativo. Além disso, a variável riqueza não só é
-estatisticamente insignificante, mas também tem o sinal errado. A
-priori, pode-se esperar uma relação positiva entre consumo e riqueza.
-Embora \(\hat \beta_1\) e \(\hat \beta_2\) sejam sejam individualmente
-insignificantes, do ponto de vista estatístico, se testarmos a hipótese
-de que \(\beta_1 = \beta_2 = 0\) simultaneamente, essa hipótese poderá
-ser rejeitada ( \(F = 92,4\) e \(p\)-valor \(< 0,001\) ).}{]}{]}
+Os resultados acima mostram que renda e riqueza juntas explicam cerca de
+96\% da variação na despesa de consumo, e nenhum dos coeficientes
+angulares é, individualmente, estatisticamente significativo. Além
+disso, a variável riqueza não só é estatisticamente insignificante, mas
+também tem o sinal errado. A priori, pode-se esperar uma relação
+positiva entre consumo e riqueza. Embora \(\hat \beta_1\) e
+\(\hat \beta_2\) sejam sejam individualmente insignificantes, do ponto
+de vista estatístico, se testarmos a hipótese de que
+\(\beta_1 = \beta_2 = 0\) simultaneamente, essa hipótese poderá ser
+rejeitada ( \(F = 92,4\) e \(p\)-valor \(< 0,001\) ).
 
-.footer-note{[}.tiny{[}.green{[}Créditos: {]}{[}Gujarati e Porter
-(\emph{Econometria Básica}){]}(){]}{]}
+Gujarati e Porter (\emph{Econometria Básica})
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\section{Detecção da
+\subsubsection{Detecção da
 multicolinearidade}\label{detecuxe7uxe3o-da-multicolinearidade}
 
 Uma vez que a multicolinearidade é essencialmente um fenômeno amostral
@@ -1741,24 +1733,24 @@ ainda assim regras práticas. Consideremos algumas delas.
   necessário que sejam altas para que exista colinearidade em qualquer
   caso específico.}
 \item
-  Regressões auxiliares. \emph{Uma vez que a multicolinearidade surge,
-  porque um ou mais regressores são combinações lineares aproximadas ou
-  exatas dos outros regressores, uma forma de descobrir qual variável
-  \(X\) está relacionada a outras variáveis \(X\) é fazer a regressão de
-  cada \(X_i\) contra as demais variáveis \(X\) e calcular o \(R^2\)
-  correspondente.}
+  Regressões auxiliares. Uma vez que a multicolinearidade surge, porque
+  um ou mais regressores são combinações lineares aproximadas ou exatas
+  dos outros regressores, uma forma de descobrir qual variável \(X\)
+  está relacionada a outras variáveis \(X\) é fazer a regressão de cada
+  \(X_i\) contra as demais variáveis \(X\) e calcular o \(R^2\)
+  correspondente.
 \item
   Diagrama de dispersão. É uma boa prática usar um diagrama de dispersão
   para verificar como as diversas variáveis estão relacionadas em um
   modelo de regressão.
 \end{itemize}
 
-\section{Medidas corretivas}\label{medidas-corretivas}
+\subsection{Medidas corretivas}\label{medidas-corretivas}
 
 O que podemos fazer se a multicolinearidade for grave? Temos duas
 opções: (1) não fazer nada; ou (2) seguir alguns procedimentos.
 
-\subsection{Não fazer nada}\label{nuxe3o-fazer-nada}
+\subsubsection{Não fazer nada}\label{nuxe3o-fazer-nada}
 
 A escola do ``deixa pra lá'' é expressa por Blanchard, como se segue:
 
@@ -1782,9 +1774,7 @@ mesmo que não possamos estimar um ou mais coeficientes de regressão com
 maior precisão, uma combinação linear deles (função estimável) pode ser
 estimada com relativa eficiência.
 
-\section{Medidas corretivas}\label{medidas-corretivas-1}
-
-\subsection{Procedimentos}\label{procedimentos}
+\subsubsection{Procedimentos}\label{procedimentos}
 
 Podemos tentar seguir as regras práticas para resolver o problema da
 multicolinearidade; o sucesso dependerá da gravidade do problema de
@@ -1814,14 +1804,12 @@ colinearidade.
   problema da colinearidade.
 \end{itemize}
 
-\section{Medidas corretivas}\label{medidas-corretivas-2}
-
 Outros métodos de remediar a multicolinearidade. Técnicas estatísticas
 multivariadas como a análise de fator e componentes principais ou
 técnicas como a regressão ridge são empregadas com frequência para
 ``resolver'' o problema da multicolinaridade.
 
-\subsection{Exemplo}\label{exemplo-3}
+\subsubsection{Exemplo}\label{exemplo-2}
 
 Embora coletados originalmente para avaliar a exatidão computacional das
 estimativas dos mínimos quadrados em vários programas de computador, os
@@ -1839,8 +1827,6 @@ As variáveis são: \(Y =\) número de pessoas empregadas, em milhares
 (\texttt{Armed.Forces}); \(X_5 =\) população não institucionalizada com
 mais de 14 anos de idade (\texttt{Population}); e \(X_6 =\) ano, igual a
 1 em 1947, 2 em 1948 e 16 em 1962 (\texttt{Year}).
-
-\subsection{Exemplo}\label{exemplo-4}
 
 Suponha agora que nosso objetivo é estudar \(Y\) com base nas seis
 variáveis regressoras. Usando o \texttt{R}, obtemos os seguintes
@@ -1880,8 +1866,6 @@ Multiple R-squared:  0.9955,    Adjusted R-squared:  0.9925
 F-statistic: 330.3 on 6 and 9 DF,  p-value: 4.984e-10
 \end{verbatim}
 
-\subsection{Exemplo}\label{exemplo-5}
-
 Um exame rápido desses resultados sugeriria que temos o problema de
 colinearidade, pois o valor de \(R^2\) é muito alto, mas metade das
 variáveis são estatisticamente insignificantes ( \(X_1\) , \(X_2\) e
@@ -1916,8 +1900,6 @@ Várias das correlações acima são muito altas, sugerindo que pode haver
 um problema grave de colinearidade. Importante lembrar que essas
 correlações entre pares de variáveis podem ser uma condição suficiente,
 mas não necessária, para a existência de multicolinearidade.
-
-\subsection{Exemplo}\label{exemplo-6}
 
 Para entendermos a natureza do problema da multicolinearidade, efetuemos
 as regressões auxiliares, que são as regressão de cada variáveis \(X\)
@@ -1960,23 +1942,21 @@ obtidos das regressões auxiliares excedem o valor do \(R^2\) geral em 3
 de 6 regressões auxiliares, novamente sugerindo que de fato os dados de
 Longley são afetados pelo problema da multicolinearidade
 
-\subsection{Exemplo}\label{exemplo-7}
-
-.red{[}Agora que constatamos um problema de multicolinearidade, que
-ações ``corretivas'' podemos tomar?{]} .tiny{[}Vamos reconsiderar nosso
-modelo original. Antes de mais nada, poderíamos expressar o PNB não em
-termos nominais, mas em termos reais, o que podemos fazer dividindo o
-PNB nominal pelo deflator implícito dos preços. Em segundo lugar, uma
-vez que a população não institucionalizada de mais de 14 anos aumenta ao
-longo do tempo devido ao crescimento populacional natural, ela estará
-altamente correlacionada com o tempo, a variável \texttt{Year} de nosso
-modelo. Em vez de mantermos ambas as variáveis, manteremos a variável
+Agora que constatamos um problema de multicolinearidade, que ações
+``corretivas'' podemos tomar? Vamos reconsiderar nosso modelo original.
+Antes de mais nada, poderíamos expressar o PNB não em termos nominais,
+mas em termos reais, o que podemos fazer dividindo o PNB nominal pelo
+deflator implícito dos preços. Em segundo lugar, uma vez que a população
+não institucionalizada de mais de 14 anos aumenta ao longo do tempo
+devido ao crescimento populacional natural, ela estará altamente
+correlacionada com o tempo, a variável \texttt{Year} de nosso modelo. Em
+vez de mantermos ambas as variáveis, manteremos a variável
 \texttt{Population} e excluiremos \texttt{Year} . Em terceiro lugar, não
 há razão contundente para incluir \texttt{Unemployed}, o número de
 pessoas desempregadas; talvez a taxa de desemprego tivesse sido uma
 medida melhor das condições do mercado de trabalho. Mas não temos dados
 sobre elas. Logo, excluiremos a variável \texttt{Unemployed} . Efetuando
-essas alterações, obtemos os seguintes resultados de regressão:{]}
+essas alterações, obtemos os seguintes resultados de regressão:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2008,8 +1988,6 @@ Residual standard error: 0.5354 on 12 degrees of freedom
 Multiple R-squared:  0.9814,    Adjusted R-squared:  0.9768 
 F-statistic: 211.1 on 3 and 12 DF,  p-value: 1.203e-10
 \end{verbatim}
-
-\subsection{Exemplo}\label{exemplo-8}
 
 Embora o valor de \(R^2\) tenha declinado ligeiramente em comparação ao
 \(R^2\) original, ainda é muito alto. Agora, todos os coeficientes
@@ -2072,10 +2050,10 @@ variáveis, algumas das quais são dadas a seguir:
   lineares versus log-lineares).
 \end{enumerate}
 
-\section{Detecção da
+\subsection{Detecção da
 heterocedasticidade}\label{detecuxe7uxe3o-da-heterocedasticidade}
 
-\subsection{Métodos informais}\label{muxe9todos-informais}
+\subsubsection{Métodos informais}\label{muxe9todos-informais}
 
 \begin{itemize}
 \item
@@ -2100,9 +2078,6 @@ heterocedasticidade}\label{detecuxe7uxe3o-da-heterocedasticidade}
   contra uma das variáveis explanatórias.
 \end{itemize}
 
-\subsection{Detecção da
-heterocedasticidade}\label{detecuxe7uxe3o-da-heterocedasticidade-1}
-
 \subsubsection{Métodos formais}\label{muxe9todos-formais}
 
 \begin{itemize}
@@ -2119,7 +2094,7 @@ heterocedasticidade}\label{detecuxe7uxe3o-da-heterocedasticidade-1}
   Teste de White.
 \end{itemize}
 
-\subsubsection{Teste de Park}\label{teste-de-park}
+\paragraph{Teste de Park}\label{teste-de-park}
 
 Park formaliza o método gráfico sugerindo que \(\sigma^2\) seja uma
 função da variável explanatória \(X_i\). A forma funcional sugerida por
@@ -2143,7 +2118,7 @@ MQO desconsiderando a questão da heterocedasticidade. Obtemos
 \(\hat\epsilon_i\) dessa regressão, então na segunda etapa fazemos a
 regressão dos residuos contra \(X\).
 
-\subsection{Exemplo}\label{exemplo-9}
+\subsubsection{Exemplo}\label{exemplo-3}
 
 Para ilustrar a abordagem de Park, usamos a seguinte regressão:
 
@@ -2363,13 +2338,13 @@ perturbação provocada por uma greve neste trimestre pode afetar a
 produção do próximo, ou os aumentos da despesa de uma família podem
 levar outra a aumentar seu consumo para não ficar para trás.
 
-\section{Consequências do uso dos MQO na presença de
+\subsection{Consequências do uso dos MQO na presença de
 autocorrelação}\label{consequuxeancias-do-uso-dos-mqo-na-presenuxe7a-de-autocorrelauxe7uxe3o}
 
 Podemos declarar que um coeficiente é estatisticamente igual a zero,
 embora na realidade possa não ser.
 
-\subsection{Detecção de
+\subsubsection{Detecção de
 autocorrelação}\label{detecuxe7uxe3o-de-autocorrelauxe7uxe3o}
 
 \begin{enumerate}
@@ -2387,7 +2362,7 @@ autocorrelação}\label{detecuxe7uxe3o-de-autocorrelauxe7uxe3o}
   Um teste geral de autocorrelação: o teste de Breusch-Godfrey (BG).
 \end{enumerate}
 
-\section{O que fazer ao deparar-se com a autocorrelação: medidas
+\subsection{O que fazer ao deparar-se com a autocorrelação: medidas
 corretivas}\label{o-que-fazer-ao-deparar-se-com-a-autocorrelauxe7uxe3o-medidas-corretivas}
 
 Se, depois de aplicarmos um ou mais testes diagnósticos de
@@ -2417,7 +2392,7 @@ dela, o que fazer? Temos quatro opções:
   Em algumas situações podemos continuar a usar o método dos MQO.
 \end{enumerate}
 
-\section{Correção da autocorrelação (pura): o método dos mínimos
+\subsection{Correção da autocorrelação (pura): o método dos mínimos
 quadrados generalizados
 (MQG)}\label{correuxe7uxe3o-da-autocorrelauxe7uxe3o-pura-o-muxe9todo-dos-muxednimos-quadrados-generalizados-mqg}
 
@@ -2434,10 +2409,6 @@ o processo AR(1), a saber,
 
 \[u_t = \rho u_{t-1} + \epsilon_t, \quad -1 < \rho < 1.\] Aqui iremos
 considerar apenas o caso em que \(\rho\) é conhecido.
-
-\section{Correção da autocorrelação (pura): o método dos mínimos
-quadrados generalizados
-(MQG)}\label{correuxe7uxe3o-da-autocorrelauxe7uxe3o-pura-o-muxe9todo-dos-muxednimos-quadrados-generalizados-mqg-1}
 
 Se a relação funcional do modelo de regressão for verdadeira no tempo
 \(t\), também será no tempo \((t - 1).\) Portanto,
