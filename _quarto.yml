@@ -1,0 +1,23 @@
+project:
+  type: book
+
+book:
+  title: "Análise de Regressão: Teoria e Prática"
+  author: "Rafael Braz"
+  date: "17/08/2025"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - preliminares.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
