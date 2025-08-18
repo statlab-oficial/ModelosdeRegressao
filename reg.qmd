@@ -299,7 +299,7 @@ em que $v_{ii} = \frac{1}{n} + \frac{x_i^2}{\sum \limits_{i=1}^n x_i^2}$.
 
 Até aqui, aprendemos a trabalhar com o modelo de regressão linear simples, com uma variável explicativa, e notamos que o mesmo pode ser utilizado em diversas situações. Porém, vários problemas envolvem duas ou mais variáveis explicativas influenciando o comportamento da variável resposta $(Y)$. Qualquer modelo de regressão linear com dois ou mais regressores recebe o nome de .red[**modelo de regressão linear múltipla**
 
-```{r  out.height= 30, fig.align='center', echo = FALSE}
+```{r  fig.align='center', echo = FALSE}
 library(DiagrammeR)
 library(flipbookr)
 
