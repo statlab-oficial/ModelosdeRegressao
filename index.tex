@@ -52,6 +52,46 @@
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -193,7 +233,7 @@
 \subtitle{Departamento de Estatística e Matemática Aplicada}
 \author{Rafael Braz, Ronald Targino, Juvêncio Nobre e Manoel
 Santos-Neto}
-\date{2025-08-17}
+\date{2025-08-18}
 
 \begin{document}
 \maketitle
@@ -223,18 +263,2418 @@ Este livro\ldots.
 
 \bookmarksetup{startatroot}
 
-\chapter{Regressão}\label{regressuxe3o}
+\chapter{Análise de Regressão}\label{anuxe1lise-de-regressuxe3o}
 
-\section{Introdução}\label{introduuxe7uxe3o-1}
+\section{Regressão Linear Simples}\label{regressuxe3o-linear-simples}
+
+\subsection{Motivação}\label{motivauxe7uxe3o}
+
+\textbf{Regressão Linear Simples:} É um método estatístico que nos
+permite resumir e estudar as relações entre duas variáveis
+quantitativas:
+
+\begin{itemize}
+\tightlist
+\item
+  Uma variável, denotada por \(x\), é considerada como preditora,
+  explicativa ou variável independentes.\\
+\item
+  A outra variável, denotada por \(y\), é considerada como a resposta,
+  resultado ou variável dependente.
+\end{itemize}
+
+\begin{quote}
+Usaremos os termos \textbf{``preditor''} e \textbf{``resposta''} para
+nos referirmos às variáveis utilizadas neste curso. Os outros termos são
+mencionados apenas para torná-lo ciente deles caso você os encontre em
+outros materiais. A regressão linear simples recebe o adjetivo
+\emph{``simples''}, porque diz respeito ao estudo de apenas uma variável
+preditora. Em contraste, a regressão linear múltipla, que estudaremos
+mais adiante neste curso, recebe o adjetivo \emph{``múltipla''}, porque
+diz respeito ao estudo de duas ou mais variáveis preditoras.
+\end{quote}
+
+No slide anterior, foi possível observar que se você conhece a
+temperatura em graus Celsius, pode usar uma equação para determinar
+exatamente a temperatura em graus Fahrenheit.
+
+Agora serão apresentadas outros exemplos de relações determinística.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\text{Circuferência} = \pi \times \text{diâmetro}\).\\
+\item
+  \textbf{Lei de Hooke:} \(Y = \alpha + \beta X\), em que \(Y\) é a
+  quantidade de alogamento em uma mola e \(X\) é o peso aplicado.\\
+\item
+  \textbf{Lei de Ohm:} \(I = V/r\), em que \(V\) é a tensão aplicada,
+  \(r\) é a resistência elétrica e \(I\) é a corrente elétrica.\\
+\item
+  \textbf{Lei de Boyle:} Para uma temperatura constate,
+  \(P = \alpha/V\), em que \(P\) é a pressão, \(\alpha\) é uma constante
+  para cada gás e \(V\) é o volume do gás.
+\end{enumerate}
+
+Para cada uma dessas relações determinísticas, a equação descreve
+exatamente a relação entre as duas variáveis. Esta disciplina não
+examina relacionamentos determinísticos. Em vez disso, estamos
+interessados em relações estatísticas, nas quais a relação entre as
+variáveis não é perfeita.
+
+Primeiro devemos deixar claro quais tipos de relacionamentos não
+estudaremos neste curso, ou seja, relacionamentos determinísticos (ou
+funcionais). Abaixo está um exemplo de uma relação determinística.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Carregando pacotes exigidos: ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cels }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{, }\AttributeTok{by =} \DecValTok{5}\NormalTok{)}
+\NormalTok{fahr }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{9}\SpecialCharTok{/}\DecValTok{5}\NormalTok{)}\SpecialCharTok{*}\NormalTok{cels }\SpecialCharTok{+} \DecValTok{32} 
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =}\NormalTok{ cels, }\AttributeTok{y =}\NormalTok{ fahr)}
+\FunctionTok{ggscatter}\NormalTok{(data,}
+          \AttributeTok{x =} \StringTok{"x"}\NormalTok{,}
+          \AttributeTok{y =} \StringTok{"y"}\NormalTok{,}
+          \AttributeTok{xlab =} \StringTok{"Celsius"}\NormalTok{,}
+          \AttributeTok{ylab =} \StringTok{"Fahrenheit"}\NormalTok{,}
+          \AttributeTok{add =} \StringTok{"reg.line"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{reg_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+Observe que os pontos de dados observados caem diretamente em uma linha.
+Como você deve se lembrar, a relação entre graus Fahrenheit e graus
+Celsius é conhecida como:
+
+\[\text{Fahrenheit} = (9/5) \times \text{Celsius} + 32.\]
+
+Agora iremos apresentar um exeplo de relação estatística. A variável
+resposta \(Y\) é a mortalidade por cancêr de pele (por 10 milhões de
+pessoas) e a variável preditora \(X\) é a latitude no centro de cada um
+dos 48 estados americanos (dados de câncer de pele dos EUA). Os dados
+foram obtidos na década de 1950, então o Alasca e o Havaí ainda não eram
+estados. Além disso, Washington, DC está incluído no conjunto de dados,
+embora não seja tecnicamente um estado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(DT)}
+\NormalTok{skincancer }\OtherTok{\textless{}{-}} \FunctionTok{read\_table}\NormalTok{(}\StringTok{"skincancer.txt"}\NormalTok{)}
+\FunctionTok{datatable}\NormalTok{(skincancer, }
+          \AttributeTok{options =} \FunctionTok{list}\NormalTok{(}\AttributeTok{pageLength =} \DecValTok{5}\NormalTok{, }\AttributeTok{scrollY =} \StringTok{"200px"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{reg_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+Note que viver nas latitudes mais altas do norte dos Estados Unidos,
+diminuiria a exposição aos raios nocivos do sol e, portanto, menos risco
+teria de morrer devido ao câncer de pele. O gráfico de dispersão suporta
+tal hipótese. Parece haver uma relação linear negativa entre latitude e
+mortalidade por câncer de pele, mas a relação não é perfeita. De fato, o
+enredo exibe alguma ``tendência'', mas também exibe alguma
+``dispersão''. Portanto, é uma relação estatística, não determinística.
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{reg_files/figure-pdf/unnamed-chunk-3-1.pdf}
+\end{center}
+
+Alguns outros exemplos de relações estatísticas podem incluir:
+
+\begin{itemize}
+\item
+  Altura e peso -- à medida que a altura aumenta, você esperaria que o
+  peso aumentasse, mas não perfeitamente.
+\item
+  Álcool consumido e teor alcoólico no sangue --- à medida que o consumo
+  de álcool aumenta, você esperaria que o teor alcoólico no sangue
+  aumentasse, mas não perfeitamente.
+\item
+  Capacidade pulmonar vital e maços-ano de tabagismo --- à medida que a
+  quantidade de fumo aumenta (conforme quantificado pelo número de
+  maços-ano de tabagismo), você esperaria que a função pulmonar
+  (conforme quantificada pela capacidade pulmonar vital) diminuísse, mas
+  não perfeitamente.
+\item
+  Velocidade de direção e consumo de combustível --- à medida que a
+  velocidade de direção aumenta, você esperaria que o consumo de
+  combustível diminuísse, mas não perfeitamente.
+\end{itemize}
+
+Portanto, vamos estudar as relações estatísticas entre uma variável de
+resposta \(y\) e uma variável preditora \(x\)!
+
+\subsection{Pressupostos do modelo}\label{pressupostos-do-modelo}
+
+\subsection{Estimação dos parâmetros pelo método dos mínimos
+quadrados}\label{estimauxe7uxe3o-dos-paruxe2metros-pelo-muxe9todo-dos-muxednimos-quadrados}
+
+\subsection{Propriedades dos
+estimadores}\label{propriedades-dos-estimadores}
+
+\subsection{Decomposição da Soma de Quadrados
+Total}\label{decomposiuxe7uxe3o-da-soma-de-quadrados-total}
+
+\subsection{Tabela de ANOVA}\label{tabela-de-anova}
+
+\subsection{Coeficiente de
+Determinação}\label{coeficiente-de-determinauxe7uxe3o}
+
+\subsection{Coeficiente de Determinação Ajustado para Graus de
+Liberdade}\label{coeficiente-de-determinauxe7uxe3o-ajustado-para-graus-de-liberdade}
+
+\subsection{Testes de Hipóteses sobre a inclinação e o
+intercepto}\label{testes-de-hipuxf3teses-sobre-a-inclinauxe7uxe3o-e-o-intercepto}
+
+\subsection{Intervalos de Confiança para a inclinação e para o
+intercepto}\label{intervalos-de-confianuxe7a-para-a-inclinauxe7uxe3o-e-para-o-intercepto}
+
+\subsection{Intervalos de Confiança para a variância e para a média da
+variável resposta para um valor fixo da variável
+independente}\label{intervalos-de-confianuxe7a-para-a-variuxe2ncia-e-para-a-muxe9dia-da-variuxe1vel-resposta-para-um-valor-fixo-da-variuxe1vel-independente}
+
+\subsection{Intervalos de Previsão}\label{intervalos-de-previsuxe3o}
+
+\subsection{Teste para Falta de
+Ajustamento}\label{teste-para-falta-de-ajustamento}
+
+\subsection{Análise de Resíduos}\label{anuxe1lise-de-resuxedduos}
+
+\subsection{\texorpdfstring{Analisar dados usando o
+\texttt{R}}{Analisar dados usando o R}}\label{analisar-dados-usando-o-r}
+
+\section{Regressão Linear
+Múltipla}\label{regressuxe3o-linear-muxfaltipla}
+
+Agora iremos admitir que \(X_1, X_2, \ldots, X_k\) sejam variáveis
+independentes e \(Y\) a variável resposta. Dada uma amostra aleatória de
+\(n\) observações
+\((x_{1i}, x_{2i}, \ldots, x_{ki}, y_i), \quad i = 1, 2, \ldots, n\), o
+modelo de regressão linear múltipla será dado por
+
+\[E(Y_i| x_{1i}, x_{2i}, \ldots, x_{ki}) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki},  \quad i = 1, 2, \ldots, n,\]
+
+ou
+
+\[Y_i  = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + \epsilon_i,  \quad i = 1, 2, \ldots, n,\]
+em que \(n > k+1.\)
+
+Iremos considerar uma estrutura similar a do modelo de regressão linear
+simples. Especificamente, estamos considerando o seguinte:
+
+\begin{itemize}
+\tightlist
+\item
+  Modelo de regressão linear, ou \textbf{linear nos parâmetros}.
+\item
+  Valores fixos de \(X\).
+\item
+  O termo de erro \(\epsilon_i\) tem valor médio zero.
+\item
+  Homocedasticidade ou variância constante de \(\epsilon_i\).
+\item
+  Ausência de autocorrelação, ou de correlação serial, entre os termos
+  de erro.
+\item
+  Não há colinearidade exata entre as variáveis \(X\).
+\item
+  Ausência de viés de especificação.
+\end{itemize}
+
+\subsection{Interpretação da equação de regressão
+múltipla}\label{interpretauxe7uxe3o-da-equauxe7uxe3o-de-regressuxe3o-muxfaltipla}
+
+Considerando que temos apenas duas variáveis regressoras, então
+
+\[E(Y_i| x_{1i}, x_{2i}) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}.\]
+
+Desta forma, a equação acima fornece o \textbf{valor esperado ou média
+de} \(Y\) \textbf{condicional aos valores dados ou fixados de} \(X_1\) e
+\(X_2\).
+
+Os coeficientes de regressão \(\beta_1\) e \(\beta_2\) são conhecidos
+como \textbf{coeficientes parciais de regressão} ou \textbf{coeficientes
+parciais angulares}. Seu significado é o seguinte: \(\beta_1\) mede a
+\emph{variação} no valor médio de \(Y\), \(E(Y)\), por unidade de
+variação em \(X_2\), mantendo-se o valor de \(X_2\) constante. Em outras
+palavras, ele nos dá o efeito ``direto'' ou ``liquido'' de uma unidade
+de variação em \(X_2\) sobre o valor médio em \(Y\), excluídos os
+efeitos que \(X_2\) possa ter sobre a média de \(Y\). De modo análogo,
+\(\beta_2\) mede a variação do valor médio de \(Y\) por unidade de
+variação em \(X_2\), mantendo-se constante o valor de \(X_1\). Eles nos
+dá o efeito ``direto'' ou ``liquido'' de uma unidade de variação de
+\(X_2\) sobre o valor médio de \(Y\), excluídos quaiquer efeitos que
+\(X_1\) possa ter sobre o valor médio de \(Y\).
+
+\subsection{Abordagem Matricial}\label{abordagem-matricial}
+
+Por patricidade iremos utilizar a abordagem matricial, que no
+permitirar, entre outras coisas: i) encontrar o vetor de estimadores;
+ii) verificar as propriedade estatísticas dos estimadores; iii) obter a
+distribuição dos estimadores; qualquer que seja o número de variáveis
+independentes no modelo.
+
+Sendo assim, podemos escrever o modelo de regressão linear múltipla
+como:
+\[\mathbf{y} = \mathbf{X} \boldsymbol{\beta} +  \boldsymbol{\epsilon},\]
+que é conhecido como \textbf{modelo linear geral}.
+
+Para determinarmos os estimadores de mínimos quadrados ordinários
+devemos minimizar
+
+\[S(\boldsymbol\beta) = \sum\limits_{i=1}^{n}(\epsilon_i)^2 = \epsilon_1^2 + \cdots + \epsilon_n^2 = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon},\]
+
+ou
+
+\[S(\boldsymbol\beta) = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon} = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}).\]
+
+\subsection{Método dos Mínimos Quadrados
+Ordinários}\label{muxe9todo-dos-muxednimos-quadrados-ordinuxe1rios}
+
+Podemos abrir a expressão anterios da seguinte maneira
+
+\[\begin{aligned}
+S(\boldsymbol\beta) &= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
+&= (\mathbf{y}^\top - \boldsymbol{\beta}^\top\mathbf{X}^\top)(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})\\
+&= \mathbf{y}^\top \mathbf{y} - \mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} - \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y} + \boldsymbol{\beta}^\top\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.
+\end{aligned}\]
+
+Observe que \(\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta}\) e
+\(\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y}\) são escalares e
+
+\[\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} = (\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y})^\top,\]
+
+consequentemente
+\(\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} = \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y}\).
+Desta forma,
+
+\[S(\boldsymbol\beta) = \mathbf{y}^\top \mathbf{y} - 2\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^\top\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.\]
+
+Nosso interesse, agora, é calcular
+\(\frac{\partial S(\boldsymbol\beta)}{\partial \boldsymbol{\beta}}\).
+Temos que
+\[\frac{\partial S(\boldsymbol\beta)}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^\top \mathbf{y} + 2\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.\]
+
+\subsection{Equações Normais}\label{equauxe7uxf5es-normais}
+
+Se igualarmos o resultado anterior a zero, temos
+
+\[-2\mathbf{X}^\top \mathbf{y} + 2\mathbf{X}^\top \mathbf{X}\widehat{\boldsymbol{\beta}} = \mathbf{0} \Longleftrightarrow \mathbf{X}^\top \mathbf{X}\widehat{\boldsymbol{\beta}} =  \mathbf{X}^\top \mathbf{y},\]
+
+que é o sistema de equações normais na abordagem matricial. Assumindo
+que \(\mathbf{X}^\top \mathbf{X}\) é não-singular, a solução do sistema
+de equações normais é
+\[\widehat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \mathbf{y},\]
+que é o vetor de estimadores de mínimos quadrados ordinários do vetor de
+parâmetros \(\boldsymbol{\beta}\).
+
+\subsection{Propriedades}\label{propriedades}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(E(\widehat{\boldsymbol{\beta}}) = \boldsymbol{\beta}\). (Prove!)
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmpt1nhmh/file12b127a1befa.pdf}
+\item
+  \(Var(\widehat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\).
+  (Prove!)
+  \protect\includegraphics[height=0.7em]{/tmp/Rtmpt1nhmh/file12b123f88409f.pdf}
+\item
+  A distribuição do vetor \(\mathbf{y}\), correspondente aos valores
+  prefixados das variáveis regressoras dados em \(\mathbf{X}\), é
+  \(\text{NM}_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I})\), e
+  portanto
+\end{enumerate}
+
+\[\widehat{\boldsymbol{\beta}} \sim \text{NM}_{k+1}(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}).\]
+
+\subsection{Análise de variância da regressão linear
+múltipla}\label{anuxe1lise-de-variuxe2ncia-da-regressuxe3o-linear-muxfaltipla}
+
+Podemos escrever a soma de quadrados dos resíduos como
+
+\[SQE = \mathbf{e}^\top\mathbf{e} = \mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y}.\]
+
+Já a soma de quadrados total é dada por:
+
+\[SQT = \mathbf{y}^\top \mathbf{y} - n \bar{y}^2.\]
+
+Por fim, a soma de quadrados da regressão é dada por:
+
+\[SQReg = \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2.\]
+
+Esses resultados nos levam a seguinte tabela de análise de variâncias:
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+CV
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+GL
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SQ
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Regressão & \(k\) &
+\(\widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2\) \\
+Erro & \(n-k-1\) &
+\(\mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y}\) \\
+Total & \(n-1\) & \(\mathbf{y}^\top \mathbf{y} - n \bar{y}^2\) \\
+\end{longtable}
+
+O quadrado médio do erro (ou residual), dado pelo quociente
+\(SQE/(n-k-1)\), é portanto, uma estimativa não-tendenciosa da variância
+residual \((\sigma^2)\). Subtituindo \(\sigma^2\) por \(s^2 = QME\) em
+\(\sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\) obtemos a matriz das
+estimativas das variâncias e covariâncias das estimativas dos parâmetro:
+
+\[s^2 (\mathbf{X}^\top \mathbf{X})^{-1}.\]
+
+É possível demonstrar que, se os erros \(\epsilon_i\) têm distribuição
+normal e se \(\beta_1 = \beta_2 = \cdots = \beta_k = 0\), o quociente
+
+\[F = \frac{QMReg}{QME},\] tem distribuição \(F\) com \(k\) e \(n-k-1\)
+graus de liberdade. Estão, o valor \(F\) assim obtido é utilizado para
+testar a hipótese
+
+\[H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0.\]
+
+Obtidas as estimativas dos desvios padrões das estimativas dos
+parâmetros dadas pelas raízes quadradas dos elementos da diagonal
+principal da matriz \(s^2 (\mathbf{X}^\top \mathbf{X})^{-1}\), podemos
+utilizar o valor
+
+\[t = \frac{\widehat{\beta}_i - \beta_i}{s(\widehat{\beta}_i)},\]
+associado a \(n-k-1\) graus de liberdade, para testar hipóteses a
+respeito dos valores dos parâmetros.
+
+Podemos, ainda, construir intervalos de confiança para os parâmetros.
+Escolhido o nível de confiança, e sendo \(t_0\) o correspondente valor
+crítico de \(t\), o intervalo de confiança para \(\beta_i\) é
+
+\[\widehat{\beta}_i \pm t_0 s(\widehat{\beta}_i).\]
+
+\begin{quote}
+Devemos ressaltar que tanto o teste \(t\) como o intervalo de confiança
+só são válidos se os erros \(\epsilon_i\) tiverem distribuição normal.
+\end{quote}
+
+O coeficiente de determinação múltipla é definido por
+
+\[R^2 = \frac{SQReg}{SQT},\] e mostra a proporção da soma de quadrados
+total que é ``explicada'' pela regressão múltipla. Já o coeficiente de
+terminação corrigido é definido por:
+
+\[\bar{R}^2 = R^2 - \frac{k}{n-k-1}(1 - R²).\] \#\#\# Ajustando um
+modelo de regressão linear múltipla no R
+
+O pacote \texttt{wooldridge} contém 115 conjuntos de dados do livro
+\emph{Introductory Econometrics: A Modern Approach, 7ed} de Jeffrey M.
+Wooldridge. Para instalar o pacote via CRAN basta usar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"wooldridge"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Para obter informações sobre os conjunto de dados, basta acessar a
+documentação. Por exemplo, se tenho interesse em ler a documentação do
+conjunto de dados \texttt{wage1} (com 526 observações e 24 variáveis)
+basta usar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\NormalTok{?wage1}
+\end{Highlighting}
+\end{Shaded}
+
+Iremos considerar um conjunto de dados chamado de \texttt{gpa1}. O mesmo
+foi coletado por \emph{Christopher Lemmon}, um ex-aluno da
+\emph{Michigan State University (MSU)}, para uma pesquisa com estudantes
+da MSU no outono de 1994. Este conjunto de dados tem 141 observações e
+29 variáveis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\FunctionTok{head}\NormalTok{(gpa1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  age soph junior senior senior5 male campus business engineer colGPA hsGPA ACT
+1  21    0      0      1       0    0      0        1        0    3.0   3.0  21
+2  21    0      0      1       0    0      0        1        0    3.4   3.2  24
+3  20    0      1      0       0    0      0        1        0    3.0   3.6  26
+4  19    1      0      0       0    1      1        1        0    3.5   3.5  27
+5  20    0      1      0       0    0      0        1        0    3.6   3.9  28
+6  20    0      0      1       0    1      1        1        0    3.0   3.4  25
+  job19 job20 drive bike walk voluntr PC greek car siblings bgfriend clubs
+1     0     1     1    0    0       0  0     0   1        1        0     0
+2     0     1     1    0    0       0  0     0   1        0        1     1
+3     1     0     0    0    1       0  0     0   1        1        0     1
+4     1     0     0    0    1       0  0     0   0        1        0     0
+5     0     1     0    1    0       0  0     0   1        1        1     0
+6     0     0     0    0    1       0  0     0   1        1        0     0
+  skipped alcohol gradMI fathcoll mothcoll
+1       2     1.0      1        0        0
+2       0     1.0      1        1        1
+3       0     1.0      1        1        1
+4       0     0.0      0        0        0
+5       0     1.5      1        1        0
+6       0     0.0      0        1        0
+\end{verbatim}
+
+Nosso interesse é saber qual o efeito da nota média do ensino médio
+(hsGPA) e da pontuação no teste padronizado utilizado para seleção de
+alunos (ACT) na nota média da faculdade (ColGPA).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lm}\NormalTok{(colGPA }\SpecialCharTok{\textasciitilde{}}\NormalTok{ hsGPA }\SpecialCharTok{+}\NormalTok{ ACT, }\AttributeTok{data =}\NormalTok{ gpa1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = colGPA ~ hsGPA + ACT, data = gpa1)
+
+Coefficients:
+(Intercept)        hsGPA          ACT  
+   1.286328     0.453456     0.009426  
+\end{verbatim}
+
+\begin{quote}
+Agora iremos interpretar os coeficientes da regressão: 0,453456 é o
+coeficiente parcial de regressão da hsGPA e diz que, mantida constante a
+influência da ACT, quando a hsGPA aumenta, por exemplo, em um ponto, a
+nota média da faculdade aumenta, em média, aproximadamente meio ponto.
+\end{quote}
+
+Em outras palavras, se selecionamos dois alunos, A e B, e esses alunos
+tiverem a mesma ACT, mas a hsGPA do aluno A é um ponto maior do que a
+hsGPA do aluno B, então esperamos que o aluno A tenha uma nota média da
+faculdade, aproximadamente meio ponto superior a do aluno B. (Interprete
+o outro coeficiente!)
+
+\subsection{Exercício}\label{exercuxedcio}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Considere o seguinte modelo:
+\end{enumerate}
+
+\[Y_i = \beta_0 + \beta_1 \texttt{Escolaridade} + \beta_2 \texttt{Anos de experiência} + \epsilon_i.\]
+Suponha que você deixe de fora do cálculo a variável anos de
+experiência. Que tipos de problemas ou vieses você esperaria encontrar?
+
+\subsection{Conjunto de Dados}\label{conjunto-de-dados}
+
+O pacote \texttt{wooldridge} contém 115 conjuntos de dados do livro
+\emph{Introductory Econometrics: A Modern Approach, 7ed} de Jeffrey M.
+Wooldridge. Para instalar o pacote via CRAN basta usar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"wooldridge"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Para obter informações sobre os conjunto de dados, basta acessar a
+documentação. Por exemplo, se tenho interesse em ler a documentação do
+conjunto de dados \texttt{wage1} (com 526 observações e 24 variáveis)
+basta usar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\NormalTok{?wage1}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Intervalos de confiança}\label{intervalos-de-confianuxe7a}
+
+Seja \(\mathbf{x}_i^\top\) a \(i\)-ésima linha de \(\mathbf{X}\), isto
+é, o vetor linha com valores das variáveis regressoras e primeiro
+elemento igual a 1. O estimador de mínimos quadrados da esperança de
+\(Y\), correspondente aos valores de \(\mathbf{x}_i^\top\), é dada por:
+
+\[\hat y_i = \mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}.\]
+
+Este estimador tem distribuição normal univariada, com média e variância
+iguais a:
+
+\[E(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top E(\widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top\boldsymbol{\beta},\]
+
+e
+
+\[Var(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top Var(\widehat{\boldsymbol{\beta}})\mathbf{x}_i = \sigma^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i.\]
+
+Portanto,
+
+\[\hat y_i = \mathbf{x}_i^\top \widehat{\boldsymbol{\beta}} \sim N(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i).\]
+
+Além disso, substituindo \(\sigma^2\) por \(s^2 = \hat{\sigma}^2 = QME\)
+temos que
+\(\widehat{Var}(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = s^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i\).
+Obtida a estimativa da variância de \(\hat{y}_i\), podemos construir o
+intervalo de confiança para
+\(E(\hat{y}_i) = \mathbf{x}_i^\top\boldsymbol{\beta}\). Sendo \(t_0\) o
+valor crítico da distribuição \(t\) com \(n-k-1\) graus de liberdade e
+ao nível de confiança adotado, o intervalo de confiança é:
+
+\[\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}} \pm t_0 \sqrt{s^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i}.\]
+
+Na tabela abaixo apresentamos os valores de uma amostra de 6 observações
+das variáveis \(Y_i, X_{1i}\) e \(X_{1i}.\)
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule\noalign{}
+\(Y_i\) & \(X_{1i}\) & \(X_{2i}\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1,5 & 0 & 0 \\
+6,5 & 1 & 2 \\
+10,0 & 1 & 4 \\
+11,0 & 2 & 2 \\
+11,5 & 2 & 4 \\
+16,5 & 3 & 6 \\
+\end{longtable}
+
+\subsection{O uso das variáveis
+centradas}\label{o-uso-das-variuxe1veis-centradas}
+
+Para simplificar os cálculos, muitas vezes trabalhamos com as variáveis
+centradas
+
+\[x_{ji} = X_{ji} - \bar X_j, \quad j = 1,\ldots, k,\]
+
+em que
+
+\[\bar X_j = \frac{1}{n}\sum\limits_{i=1}^{n} X_{ji}.\]
+
+Neste caso o modelo estatístico fica
+
+\[Y_i = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki} + \epsilon_i, \quad i = 1, 2, \ldots, n.\]
+
+Consideremos o conjunto de dados do slide anterior. Tendo em vista o
+modelo
+
+\[Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i, \quad i = 1, \ldots, 6,\]
+
+com \(x_{1i} = X_{1i} - 1,5\) e \(x_{2i} = X_{2i} - 3,0\), obtivemos os
+seguintes resultados:
+
+Temos que \[\mathbf{X}^\top\mathbf{X} = \begin{bmatrix}
+n & 0 & 0 \\
+0&\sum x_{1i}^2 &  \sum x_{1i}x_{2i}\\
+0& \sum x_{1i}x_{2i} & \sum x_{2i}^2
+\end{bmatrix} = \begin{bmatrix}
+6 & 0 & 0 \\
+0& 5,5 &  9\\
+0& 9 & 22
+\end{bmatrix},\]
+
+\[\mathbf{X}^\top \mathbf{y} = \begin{bmatrix}
+\sum Y_i \\
+\sum x_{1i}Y_i\\
+\sum x_{2i}Y_i
+\end{bmatrix} = \begin{bmatrix}
+57\\
+25,5\\
+49
+\end{bmatrix}.\]
+
+e
+
+\[(\mathbf{X}^\top\mathbf{X})^{-1} = \begin{bmatrix}
+1/6 & 0 & 0 \\
+0& 11/20 &  -9/40\\
+0& -9/40 & 11/80
+\end{bmatrix}.\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Yi }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{6.5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\FloatTok{11.5}\NormalTok{, }\FloatTok{16.5}\NormalTok{) }\CommentTok{\#resposta}
+\NormalTok{X1i }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{) }
+\NormalTok{X2i }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{x1i }\OtherTok{\textless{}{-}}\NormalTok{ X1i }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(X1i) }\CommentTok{\#variavel centrada}
+\NormalTok{x2i }\OtherTok{\textless{}{-}}\NormalTok{ X2i }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(X2i) }\CommentTok{\#variavel centrada}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{, x1i, x2i)}
+\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X }\CommentTok{\#X\textquotesingle{}X}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      x1i x2i
+    6 0.0   0
+x1i 0 5.5   9
+x2i 0 9.0  22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{Yi }\CommentTok{\#X\textquotesingle{}y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    [,1]
+    57.0
+x1i 25.5
+x2i 49.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X) }\CommentTok{\#(X\textquotesingle{}X)\^{}{-}1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                 x1i     x2i
+    0.1666667  0.000  0.0000
+x1i 0.0000000  0.550 -0.2250
+x2i 0.0000000 -0.225  0.1375
+\end{verbatim}
+
+No slide anterior, encontre as estimativas dos parâmetros manualmente e
+usando o \texttt{R} como calculadora!
+
+Usando o comando \texttt{lm()} podemos obter facilmente as estimativas
+dos coeficientes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#data \textless{}{-} data.frame(Yi, x1i, x2i)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Yi }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x1i }\SpecialCharTok{+}\NormalTok{ x2i)}
+\NormalTok{fit}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(Intercept)         x1i         x2i 
+        9.5         3.0         1.0 
+\end{verbatim}
+
+Consideremos \(X_{1h} = 2\) e \(X_{2h} = 4\). Uma vez estamos fazendo os
+cálculos tendo em vista o modelo com as variáveis indepedentes
+centradas, obtemos \(x_{1h} = 0,5\) e \(x_{2h} = 1\) e fazendo
+\(\mathbf{x}_h^\top = [1, 0,5, 1],\) temos que
+
+\[\hat y_h = \mathbf{x}_h^\top \widehat{\boldsymbol{\beta}} = 12.\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b }\OtherTok{\textless{}{-}}\NormalTok{  fit}\SpecialCharTok{$}\NormalTok{coefficients}
+\NormalTok{xh }\OtherTok{\textless{}{-}}\NormalTok{ X[}\DecValTok{5}\NormalTok{,]}
+\NormalTok{y\_hat\_h }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(xh)}\SpecialCharTok{\%*\%}\NormalTok{b; }\FunctionTok{as.vector}\NormalTok{(y\_hat\_h)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 12
+\end{verbatim}
+
+Iremos agora obter as somas de quadrados. Dos slides da
+\href{https://rpubs.com/santosneto/slides_semana10}{Semana 10} temos que
+
+\[SQE  = \mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} = 670 - 667 = 3,\]
+
+\[SQT = \mathbf{y}^\top \mathbf{y} - n \bar{y}^2 = 670 - 541,5 = 128,5,\]
+
+e
+
+\[SQReg = \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2 = 667 - 541,5 = 125,5.\]
+
+\begin{longtable}[]{@{}ccccc@{}}
+\toprule\noalign{}
+CV & GL & SQ & QM & F \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Regressão & \(2\) & 125,5 & 62,75 & 62,75 \\
+Erro (Resíduos) & \(3\) & 3 & 1 & \\
+Total & \(5\) & 128,5 & & \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SQE }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(Yi) }\SpecialCharTok{\%*\%}\NormalTok{ Yi }\SpecialCharTok{{-}}\NormalTok{ b}\SpecialCharTok{\%*\%}\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{Yi; SQE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]
+[1,]    3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SQT }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(Yi) }\SpecialCharTok{\%*\%}\NormalTok{ Yi }\SpecialCharTok{{-}} \FunctionTok{NROW}\NormalTok{(X)}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{mean}\NormalTok{(Yi)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{); SQT}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      [,1]
+[1,] 128.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SQReg }\OtherTok{\textless{}{-}}\NormalTok{ b}\SpecialCharTok{\%*\%}\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{Yi }\SpecialCharTok{{-}} \FunctionTok{NROW}\NormalTok{(X)}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{mean}\NormalTok{(Yi)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{); SQReg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      [,1]
+[1,] 125.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{QME }\OtherTok{\textless{}{-}}\NormalTok{  SQE}\SpecialCharTok{/}\DecValTok{3}\NormalTok{;}\FunctionTok{as.vector}\NormalTok{(QME)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{QMReg }\OtherTok{\textless{}{-}}\NormalTok{ SQReg}\SpecialCharTok{/}\DecValTok{2}\NormalTok{;}\FunctionTok{as.vector}\NormalTok{(QMReg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 62.75
+\end{verbatim}
+
+No \texttt{R} se desejamos testar a hipótese
+\(H_0: \beta_1 = \beta_2 = 0\), basta usar os comandos abaixo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Carregando pacotes exigidos: carData
+\end{verbatim}
+
+\begin{verbatim}
+
+Anexando pacote: 'car'
+\end{verbatim}
+
+\begin{verbatim}
+O seguinte objeto é mascarado por 'package:dplyr':
+
+    recode
+\end{verbatim}
+
+\begin{verbatim}
+O seguinte objeto é mascarado por 'package:purrr':
+
+    some
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{linearHypothesis}\NormalTok{(fit, }\FunctionTok{c}\NormalTok{(}\StringTok{"x1i=0"}\NormalTok{, }\StringTok{"x2i=0"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Linear hypothesis test:
+x1i = 0
+x2i = 0
+
+Model 1: restricted model
+Model 2: Yi ~ x1i + x2i
+
+  Res.Df   RSS Df Sum of Sq     F   Pr(>F)   
+1      5 128.5                               
+2      3   3.0  2     125.5 62.75 0.003567 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+Portanto, o resultado é significativo, isto é, rejeita-se, ao nível de
+significância de 1\%, a hipótese \(H_0: \beta_1 = \beta_2 = 0\) (
+\(p\)-valor = 0.003567 \textless{} 0.01).
+
+Retornando aos cálculos para a obtenção do intervalo de confiança, temos
+que \(s^2\) é igual a 1. Portanto,
+
+\[\begin{aligned}
+Var(\mathbf{x}_h^\top \widehat{\boldsymbol{\beta}}) &= s^2 \mathbf{x}_h^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_h\\
+&= \begin{bmatrix}
+1 & 0,5 & 1
+\end{bmatrix}\begin{bmatrix}
+1/6 & 0 & 0 \\
+0 & 11/20 & -9/40\\
+0 & -9/40 & 11/80
+\end{bmatrix}\begin{bmatrix}
+1 \\ 
+0,5\\ 
+1
+\end{bmatrix} \\
+&= \frac{13}{60}.
+\end{aligned}\]
+
+Para um nível de confiança de 99\%, o quantil da distribuição \emph{t}
+com 3 graus de liberdade é 5.841. Então, o intervalo de confiança para
+
+\[E(Y_h) = \beta_0 + 2\beta_1 + 4\beta_2,\]
+
+é
+
+\[9,28 < E(Y_h) < 14,72.\]
+
+\subsubsection{\texorpdfstring{Usando o
+\texttt{R}!}{Usando o R!}}\label{usando-o-r}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{varyhat\_h }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(xh)}\SpecialCharTok{\%*\%}\FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X)}\SpecialCharTok{\%*\%}\NormalTok{xh;varyhat\_h}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+          [,1]
+[1,] 0.2166667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{c}\NormalTok{(}\FunctionTok{round}\NormalTok{(y\_hat\_h }\SpecialCharTok{{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{qt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(}\FloatTok{0.01}\SpecialCharTok{/}\DecValTok{2}\NormalTok{), }\DecValTok{3}\NormalTok{), }\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(varyhat\_h), }\DecValTok{2}\NormalTok{), }\FunctionTok{round}\NormalTok{(y\_hat\_h }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\FunctionTok{qt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(}\FloatTok{0.01}\SpecialCharTok{/}\DecValTok{2}\NormalTok{), }\DecValTok{3}\NormalTok{), }\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(varyhat\_h), }\DecValTok{2}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  9.28 14.72
+\end{verbatim}
+
+O mesmo resultado pode ser obtido usando o comando \texttt{predict()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(fit, }\CommentTok{\#modelo ajustado}
+        \AttributeTok{newdata =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x1i =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{x2i =} \DecValTok{1}\NormalTok{), }\CommentTok{\#valores de xh}
+        \AttributeTok{interval =} \StringTok{"confidence"}\NormalTok{, }\CommentTok{\#tipo de intervalo}
+        \AttributeTok{level =} \FloatTok{0.99} \CommentTok{\#nivel de confianca}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  fit      lwr     upr
+1  12 9.281205 14.7188
+\end{verbatim}
+
+\subsection{Coeficientes de correlação
+parcial}\label{coeficientes-de-correlauxe7uxe3o-parcial}
+
+No início do curso apresentamos o coeficiente de correlação \(r\) como
+uma medida do grau de associação linear entre duas variáveis. No caso de
+um modelo de regressão com três variáveis, por exemplo, podemos computar
+três coeficientes de correlação: \(r_{12}\) (correlação entre \(Y\) e
+\(X_2\)), \(r_{13}\) (coeficiente de correlação entre \(Y\) e \(X_3\)) e
+\(r_{23}\) (coeficiente de correlação entre \(X_2\) e \(X_3\)). Note que
+por conveniência estamos usando o subscrito 1 para representar \(Y\).
+Esses coeficientes de correlação são denominados \textbf{coeficientes de
+correlação brutos} ou \textbf{simples}, ou ainda, \textbf{coeficientes
+de correlação de ordem zero}. Eles podem ser calculados conforme a
+definição dada abaixo:
+
+\[r = \frac{\sum x_i y_i}{\sqrt{(\sum x_i^2) (\sum y_i^2)}} = \frac{n\sum X_i Y_i - (\sum X_i)(\sum Y_i)}{\sqrt{[n\sum X_i^2 - (\sum X_i)^2][n\sum Y_i^2 - (\sum Y_i)^2]}},\]
+em que \(x_i = (X_i - \bar X)\) e \(y_i = (Y_i - \bar Y)\).
+
+Será que, digamos, \(r_{12}\), mede de fato o ``verdadeiro'' grau de
+associação (linear) entre \(Y\) e \(X_2\) quando uma terceira variável,
+\(X_3\), pode estar associada às outras duas? \emph{A resposta é: em
+geral, \(r_{12}\) não refletirá o verdadeiro grau de associação entre
+\(Y\) e \(X_2\) na presença de \(X_3\)}.
+
+Precisamos de um coeficiente de correlação independente da influência,
+se é que ela existe, de \(X_3\) sobre \(Y\) e \(X_2\). Esse coeficiente
+de correlação pode ser obtido e é conhecido como \textbf{coeficiente de
+correlação parcial}. Conceitualmente, é semelhante ao coeficiente
+parcial de regressão. Definimos
+
+\begin{itemize}
+\item
+  \(r_{12,3} =\) coeficiente de correlação parcial entre \(Y\) e
+  \(X_2\), mantendo \(X_3\) constante;
+\item
+  \(r_{13,2} =\) coeficiente de correlação parcial entre \(Y\) e
+  \(X_3\), mantendo \(X_2\) constante; e
+\item
+  \(r_{23,1} =\) coeficiente de correlação parcial entre \(X_2\) e
+  \(X_3\), mantendo \(Y\) constante.
+\end{itemize}
+
+Esses coeficientes de correlação parcial podem ser facilmente obtidos
+por meio do coeficiente de correlação simples ou de ordem zero:
+
+\[r_{12,3} = \frac{r_{12} - r_{13}r_{23} }{\sqrt{(1 - r_{13}^2)(1 - r_{23}^2)}}, \quad r_{13,2} = \frac{r_{13} - r_{12}r_{23} }{\sqrt{(1 - r_{12}^2)(1 - r_{23}^2)}} \quad \text{e} \quad r_{23,1} = \frac{r_{23} - r_{12}r_{13} }{\sqrt{(1 - r_{12}^2)(1 - r_{13}^2)}}.\]
+As correlações parciais dadas acima são chamadas de \textbf{coeficientes
+de correlação de primeira ordem}. Por \emph{ordem} entendemos o número
+de subscritos secundários.
+
+\subsection{Interpretação dos coeficientes de correlação simples e
+parcial}\label{interpretauxe7uxe3o-dos-coeficientes-de-correlauxe7uxe3o-simples-e-parcial}
+
+No caso de duas variáveis, o \(r\) simples tem um significado objetivo:
+mede o grau de associação (linear) entre a variável dependente \(Y\) e a
+única variável explanatória, \(X\). Mas, quando além do caso de duas
+variáveis, precisamos estar muito atentos à interpretação dos
+coeficientes de correlação simples. Na equação de \(r_{12,3}\), por
+exemplo, observamos o seguinte:
+
+\begin{itemize}
+\item
+  Mesmo se \(r_{12} = 0\), \(r_{12,3}\) não será igual a zero a menos
+  que \(r_{13}\) ou \(r_{23}\), ou ambos, sejam iguais a zero;
+\item
+  Se \(r_{12} = 0\) e \(r_{13}\) e \(r_{23}\) forem diferentes de zero e
+  apresentarem o mesmo sinal, \(r_{12,3}\) será nagativo, mas se
+  apresentarem sinais contrários, será positivo. Um exemplo esclarecerá
+  isso. Seja \(Y =\) rendimento da colheita, \(X_2 =\) precipitação
+  pluviométrica e \(X_3 =\) temperatura. Suponha que \(r_{12} = 0\), ou
+  seja, que não haja associação entre rendimento da colheita e chuva.
+  Suponha, ainda, que \(r_{13}\) seja positivo e \(r_{23}\), negativo.
+  Portanto, \(r_{12,3}\) será positivo, isto é, mantendo a temperatura
+  constante, há uma associação positiva entre rendimento e chuva. Esse
+  resultado aparentemente paradoxal não é surpreendente. Como a
+  temperatura, \(X_3\), afeta tanto o rendimento \(Y\) quanto a
+  precipitação pluviométrica \(X_2\), para encontrarmos a relação
+  líquida entre rendimento da colheira e chuva, precisamos remover a
+  influência da variável ``incômoda'' temperatura. Esse exemplo mostra
+  como podemos ser enganados pelo coeficiente de correlação simples.
+\item
+  Os termos \(r_{12,3}\) e \(r_{12}\) (e comparações semelhantes) não
+  precisam ter o mesmo sinal.
+\item
+  No caso de duas variáveis, vimos que \(r^2\) situa-se entre 0 e 1. A
+  mesma propriedade é valida para o quadrado dos coeficientes de
+  correlação parcial.
+\item
+  Suponha que \(r_{13} = r_{23} = 0\). Isso significa que \(r_{12}\)
+  também é zero? O fato de \(Y, X_3, X_2\) e \(X_3\) não serem
+  correlacionados, não significa que \(Y\) e \(X_2\) não são
+  correlacionados.
+\end{itemize}
+
+Note que a expressão \(r_{12,3}^2\) pode ser denominada coeficiente de
+determinação parcial e pode ser interpretada como a proporção da
+variação de \(Y\) não explicada pela variável \(X_3\), que foi explicada
+pela inclusão de \(X_2\) no modelo. Conceitualmente, é semelhante a
+\(R^2\). Observe as seguinte relações entre \(R^2\) e os coeficientes de
+correlação simples e os coeficientes de correlação parcial:
+
+\[R^2 = \frac{r_{12}^2 + r_{13}^2 - 2r_{12}r_{13}r_{23}}{1 - r_{23}^2}, \quad R^2 = r_{12}^2 + (1 - r_{12}^2)r_{13,2}^2, \quad \text{e} \quad  R^2 = r_{13}^2 + (1 - r_{13}^2)r_{12,3}^2.\]
+
+Note que \(R^2\) não diminui quando se inclui uma variável explanatória
+no modelo, o que pode ser visto com base na segunda equação apresentada
+no slide anterior. Essa equação informa que a proporção da variação de
+\(Y\) explicada conjuntamente por \(X_2\) e \(X_3\) é a soma de duas
+partes: (i) a parte explicada apenas por \(X_2 (= r_{12}^2)\) e (ii) a
+parte não explicada por \(X_2 (= 1 - r_{12}^2)\) multiplicada pela
+proporção explicada por \(X_3\) depois de manter a influência de \(X_2\)
+constante. Agora, \(R^2 > r_{12}^2\) desde que \(r_{13,2}^2 > 0\). Na
+pior das hipóteses será igual a zero, caso em que \(R^2 = r_{12}^2\).
+
+\subsection{Exemplo}\label{exemplo}
+
+Considere o exemplo numérico da
+\href{https://rpubs.com/santosneto/slides_semana11}{semana 11} (slide
+5). Vamos calcular, inicialmente, os valores dos coeficientes de
+correlação simples:
+
+\[r_{12} = \frac{25,5}{\sqrt{5,5 \times 125,5}} = 0,9592 , \quad r_{13} = \frac{49}{\sqrt{22 \times 125,5}} = 0,9216 \quad \text{e} \quad r_{23} = \frac{9}{\sqrt{5,5 \times 22}} = 0,8182.\]
+
+No \texttt{R} podemos obter facilmente os valores dos coeficientes de
+correlação simples:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Yi }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{6.5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\FloatTok{11.5}\NormalTok{, }\FloatTok{16.5}\NormalTok{) }\CommentTok{\#resposta}
+\NormalTok{X1i }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{) }
+\NormalTok{X2i }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{x1i }\OtherTok{\textless{}{-}}\NormalTok{ X1i }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(X1i) }\CommentTok{\#variavel centrada}
+\NormalTok{x2i }\OtherTok{\textless{}{-}}\NormalTok{ X2i }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(X2i) }\CommentTok{\#variavel centrada}
+
+\NormalTok{r12 }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(Yi, x1i); }\FunctionTok{round}\NormalTok{(r12, }\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.9592
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r13 }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(Yi, x2i); }\FunctionTok{round}\NormalTok{(r13, }\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.9216
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r23 }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(x1i, x2i); }\FunctionTok{round}\NormalTok{(r23, }\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.8182
+\end{verbatim}
+
+Agora substituindo os valores dos coeficientes de correlação simples na
+equação de \(r_{12,3}\), temos
+
+\[r_{12,3} = \frac{r_{12} - r_{13}r_{23} }{\sqrt{(1 - r_{13}^2)(1 - r_{23}^2)}} = \frac{0,9592 - 0,754}{\sqrt{0,1507 \times 0,3306}} = 0,9193.\]
+
+Esse coeficiente de correlação parcial também pode ser obtido usando
+\texttt{R}. Será usada a função \texttt{pcor.test()} do pacote
+\texttt{ppcor}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ppcor) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Carregando pacotes exigidos: MASS
+\end{verbatim}
+
+\begin{verbatim}
+
+Anexando pacote: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+O seguinte objeto é mascarado por 'package:wooldridge':
+
+    cement
+\end{verbatim}
+
+\begin{verbatim}
+O seguinte objeto é mascarado por 'package:dplyr':
+
+    select
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Y =}\NormalTok{ Yi, }\AttributeTok{X2 =}\NormalTok{ x1i, }\AttributeTok{X3 =}\NormalTok{ x2i)}
+\FunctionTok{pcor.test}\NormalTok{(Yi, x1i, x2i, }\AttributeTok{method=}\StringTok{"pearson"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   estimate    p.value statistic n gp  Method
+1 0.9192771 0.02719563  4.045199 6  1 pearson
+\end{verbatim}
+
+ou usando o comando \texttt{pcor()} do mesmo pacote. Qual é o resultado
+impresso quando usamos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pcor}\NormalTok{(data)}\SpecialCharTok{$}\NormalTok{estimate}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Seleção de variáveis
+regressoras}\label{seleuxe7uxe3o-de-variuxe1veis-regressoras}
+
+Vamos apresentar os seguinte procedimentos:
+
+\begin{itemize}
+\tightlist
+\item
+  todas as regressões possíveis;
+\item
+  método ``passo a frente'' (\emph{forward});
+\item
+  método ``passo atrás'' (\emph{backward});
+\item
+  método ``passo a passo'' (\emph{stepwise}).
+\end{itemize}
+
+\textbf{Todas as regressões possíveis:} Suponha que temos \(k\)
+variáveis regressoras. O procedimento consiste em fazer os ajustes de
+todos os modelo possíveis. Na prática, este procedimento não é viável se
+o valor de \(k\) é grande. Para a comparação dos modelos, vamos
+considerar os seguintes critérios:
+
+\begin{itemize}
+\tightlist
+\item
+  estatística \(C_p\) de Mallows; e
+\item
+  \(R^2\) ou \(R^2\) ajustado.
+\end{itemize}
+
+\emph{Outros critérios podem ser utilizados, por exemplo AIC, SBIC, SBC,
+entre outros.}
+
+Muitos procedimentos estão disponíveis para selecionar um subconjunto de
+um conjunto de \(k\) variáveis regressoras candidatas em um problema de
+regressão linear múltipla. Mas suponha que só escolhamos \(p\)
+regressores \((p \leq k)\) e obtemos a SQE da regressão usando esses
+\(p\) regressores. Um método comumente usado é realizar todas as
+regressões e comparar os resultados com base na estatística \(C_p\) de
+Mallows. Para um determinado modelo com \(p\) parâmetros
+
+\[C_p = \frac{SQE_p}{\hat \sigma^2} - n + 2p,\] em que \(SQE_p\) é a
+soma de quadrados do erro para o modelo a ser considerado, \(n\) é o
+número de observações e \(\hat \sigma^2\) e uma estimativa da variância
+do erro, \(\sigma^2\). O quadrado médio do erro (QME) para o modelo
+completo é frequentemente usado como estimativa de \(\sigma^2\).
+
+\begin{quote}
+Vários textos recomendam plotar \(C_p\) contra \(p\) para todas as
+regressões possíveis e escolher o modelo com \(C_p\) baixo ou com
+\(C_p\) próximo de \(p\).
+\end{quote}
+
+No \texttt{R} existe a função \texttt{ols\_mallows\_cp()} do pacote
+\texttt{\{olsrr\}}. E para gerar todos os possíveis modelos podemos usar
+a função \texttt{ols\_step\_all\_possible()} do mesmo pacote.
 
 \bookmarksetup{startatroot}
 
 \chapter{Verificação dos
 Pressupostos}\label{verificauxe7uxe3o-dos-pressupostos}
 
+\section{Multicolinearidade: o que acontece se os regressores estiverem
+correlacionados?}\label{multicolinearidade-o-que-acontece-se-os-regressores-estiverem-correlacionados}
+
+Umas das hipóteses do modelo clássico de regressão linear afirma que não
+há \textbf{multicolinearidade} entre os regressores incluídos no modelo
+de regressão. Iremos buscar responder as seguintes perguntas:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Qual a natureza da multicolinearidade?
+\item
+  A multicolinearidade é realmente um problema?
+\item
+  Quais são suas consequências práticas?
+\item
+  Como é detectada?
+\item
+  Que medidas podem ser tomadas para atenuar o problema de
+  multicolinearidade?
+\end{enumerate}
+
+\subsection{Qual a natureza da
+multicolinearidade?}\label{qual-a-natureza-da-multicolinearidade}
+
+O termo \emph{multicolinearidade} deve-se a Ragnar Frisch.
+Originalmente, significava a existência de uma relação linear
+``perfeita'' ou exata entre algumas ou todas as variáveis explanatórias
+do modelo de regressão.
+
+No caso de regressão com \(k\) variáveis explanatórias
+\(X_1, X_2, \ldots, X_k\) (em que \(X_1 = 1\) para todas as observações,
+de modo que permita o termo de intercepto), diz-se existir uma relação
+linear exata se a seguinte condição for satisfeita:
+
+\[\lambda_1 X_1 + \lambda_2 X_2 + \cdots + \lambda_k X_k = 0,\] em que
+\(\lambda_1, \lambda_2, \ldots, \lambda_k\) são constantes tais que nem
+todas são simultaneamente zero.
+
+Hoje, no entanto, o termo multicolinearidade é usado em um sentido mais
+amplo, para incluir o caso de multicolinearidade perfeita, como na
+equação acima, como o caso em que as variáveis \(X\) estão
+intercorrelacionadas, mas não perfeitamente, como se segue:
+
+\[\lambda_1 X_1 + \lambda_2 X_2 + \cdots + \lambda_k X_k + v_i = 0,\] em
+que \(v_i\) é um termo de erro estocástico.
+
+Por que o modelo clássico de regressão linear pressupõe que não há
+multicolinearidade entre os \(X\)? \emph{Se a multicolinearidade for
+perfeita os coeficientes de regressão serão indeterminados e seus erros
+padrão, infinitos. Se a multicolinearidade for menos que perfeita, os
+coeficientes, embora determinados, possuirão grandes erros padrão}.
+
+Há várias fontes de multicolinearidade. Como observam Montgomery e Peck,
+a multicolinearidade pode ocorrer devido aos seguintes fatores:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  O \emph{método de coleta de dados empregado};
+\item
+  \emph{Restrições ao modelo ou à população que está sendo amostrada};
+\item
+  \emph{Especificação do modelo};
+\item
+  \emph{Um modelo sobredeterminado}.
+\end{enumerate}
+
+Outra razão para a multicolinearidade, principalmente nos dados de
+séries temporais, pode ser que os regressores incluídos no modelo tenham
+uma tendência comum: todos aumentam ou diminuem ao longo do tempo. Na
+regressão de gastos de consumo sobre renda, riqueza e população, os
+regressores renda, riqueza e população podem estar crescendo com o
+tempo, aproximadamente na mesma taxa, gerando colinearidade dessas
+variáveis.
+
+\subsection{Multicolinearidade: muito barulho por nada? Consequências
+teóricas da
+multicolinearidade}\label{multicolinearidade-muito-barulho-por-nada-consequuxeancias-teuxf3ricas-da-multicolinearidade}
+
+Lembre-se de que, se as hipóteses do modelo clássico forem satisfeitas,
+os estimadores de MQO dos estimadores da regressão serão MELNT (melhores
+estimadores lineares não viesados) ou MENT (melhores estimadores não
+viesados) se a hipótese da normalidade for acrescentada. Agora podemos
+mostrar que, mesmo se a multicolinearidade for muito alta, como no caso
+da quase multicolinearidade, os estimadores de MQO ainda conservarão a
+propriedade de melhores estimadores lineares não viesados. Por que toda
+essa confusão por causa da multicolinearidade? Como Christopher Achen
+ressalta:
+
+Os alunos que estão começando a estudar metodologia às vezes se
+preocupam com a correlação de suas variáveis independentes - o chamado
+problema da multicolinearidade. Mas esta não viola nenhuma das hipóteses
+de regressão. Estimativas consistentes, não viesadas, resultarão, e seus
+erros padrão serão estimados corretamente. O único efeito da
+multicolinearidade é dificultar a obtenção de estimativas dos
+coeficientes com erros padrão pequenos. Mas ter um pequeno número de
+observações também gera esse efeito, como ter variáveis independentes
+com pequenas variâncias. (Na verdade, teoricamente, a
+multicolinearidade, poucas observações e pequenas variâncias das
+variáveis independentes são essencialmente o mesmo problema.) Perguntar
+``O que devo fazer com a multicolinearidade?'' é como perguntar ``O que
+devo fazer se não tenho muitas observações?''. Não há resposta
+estatística para essa pergunta.
+
+Achen, Christopher H. Interpreting and using regression. Beverly Hills,
+Califórnia: Sage Publications, 1982. p.~82-83
+
+Gujarati e Porter (\emph{Econometria Básica})
+
+\section{Multicolinearidade: muito barulho por nada? Consequências
+teóricas da
+multicolinearidade}\label{multicolinearidade-muito-barulho-por-nada-consequuxeancias-teuxf3ricas-da-multicolinearidade-1}
+
+Em primeiro lugar, é verdade que, mesmo no caso de quase
+multicolinearidade, os estimadores de MQO são não viesados, mas a não
+viesidade é uma propriedade de amostragem repetida ou de
+multiamostragem. Em outras palavras, mantendo fixos os valores das
+variáveis \(X\), se obtivermos amostras repetidas e calcularmos os
+estimadores de MQO para cada uma dessas amostras, a média dos valores da
+amostra convergirá para os verdadeiros valores populacionais dos
+estimadores à medida que o número das amostras aumenta. Mas isso não diz
+nada sobre as propriedades dos estimadores em qualquer amostra dada.
+
+Em segundo lugar, também é verdade que a colinearidade não destrói a
+propriedade de variância mínima: na classe de todos os estimadores não
+viesados, os estimadores de MQO têm variância mínima; são eficientes.
+Contudo não significa que a variância de um estimador de MQO será
+necessariamente pequena (em relação ao valor do estimador) em qualquer
+amostra dada.
+
+Terceiro, a multicolinearidade é essencialmente um fenômeno amostral (da
+regressão) no sentido de que, mesmo que as variáveis \(X\) não estejam
+relacionadas linearmente na população, elas podem estar relacionadas na
+amostra em questão: quando postulamos a função de regressão populacional
+ou teórica (FRP), acreditamos que todas as variáveis \(X\) incluídas no
+modelo tenham uma influência separada ou independente sobre a variável
+dependente \(Y\). Mas pode acontecer que, em qualquer amostra dada que
+seja usada para testar a FRP, algumas ou todas as variáveis \(X\) sejam
+tão colineares que não podemos isolar sua influência sobre \(Y\). É como
+se disséssemos que nossa amostra nos decepcionou, embora a teoria
+informe que todas as variáveis \(X\) são importantes. Em resumo, nossa
+amostra pode não ser ``rica'' o suficiente para acomodar todas as
+variáveis \(X\) na análise.
+
+Gujarati e Porter (\emph{Econometria Básica})
+
+\section{Consequências práticas da
+multicolinearidade}\label{consequuxeancias-pruxe1ticas-da-multicolinearidade}
+
+Em casos de quase ou de alta multicolinearidade, é muito provável nos
+depararmos com as seguintes consequências:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Embora sejam os melhores estimadores lineares não viesados, os
+  estimadores de MQO têm grandes variâncias e covariâncias, tornando
+  difícil uma estimação precisa.
+\item
+  Devido à consequência 1, os intervalos de confiança tendem a ser muito
+  mais amplos, levando à aceitação imediata da ``hipótese nula igual a
+  zero'' (isto é, o verdadeiro coeficiente populacional igual a zero).
+\item
+  Também, devido à consequência 1, a razão \(t\) de um ou mais
+  coeficientes tende a ser estatisticamente insignificante.
+\item
+  Embora a razão \(t\) de um ou mais coeficientes seja estatisticamente
+  insignificante, \(R^2\) , a medida geral da qualidade do ajustamento,
+  pode ser muito alto.
+\item
+  Os estimadores de MQO e seus erros padrão podem ser sensíveis a
+  pequenas alterações nos dados.
+\end{enumerate}
+
+Gujarati e Porter (\emph{Econometria Básica})
+
+\section{Exemplo}\label{exemplo-1}
+
+Para ilustrar os pontos destacados até aqui, consideremos o exemplo de
+consumo-renda. A Tabela abaixo contém dados hipotéticos sobre consumo,
+renda e riqueza.
+
+\includegraphics{pres_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+Se pressupormos que os gastos de consumo estejam linearmente
+relacionados à renda e à riqueza, então, na Tabela acima, obteremos a
+seguinte regressão:
+
+.footer-note{[}.tiny{[}.green{[}Créditos: {]}{[}Gujarati e Porter
+(\emph{Econometria Básica}){]}(){]}{]}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Exemplo}\label{exemplo-2}
+
+\begin{verbatim}
+
+Call:
+lm(formula = Consumo ~ Renda + Riqueza, data = tabela)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.1120  -4.4767   0.9206   4.1744   7.5844 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept) 24.77473    6.75250   3.669  0.00798 **
+Renda        0.94154    0.82290   1.144  0.29016   
+Riqueza     -0.04243    0.08066  -0.526  0.61509   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.808 on 7 degrees of freedom
+Multiple R-squared:  0.9635,    Adjusted R-squared:  0.9531 
+F-statistic:  92.4 on 2 and 7 DF,  p-value: 9.286e-06
+\end{verbatim}
+
+.content-box-yellow{[} .small{[} \emph{Os resultados acima mostram que
+renda e riqueza juntas explicam cerca de 96\% da variação na despesa de
+consumo, e nenhum dos coeficientes angulares é, individualmente,
+estatisticamente significativo. Além disso, a variável riqueza não só é
+estatisticamente insignificante, mas também tem o sinal errado. A
+priori, pode-se esperar uma relação positiva entre consumo e riqueza.
+Embora \(\hat \beta_1\) e \(\hat \beta_2\) sejam sejam individualmente
+insignificantes, do ponto de vista estatístico, se testarmos a hipótese
+de que \(\beta_1 = \beta_2 = 0\) simultaneamente, essa hipótese poderá
+ser rejeitada ( \(F = 92,4\) e \(p\)-valor \(< 0,001\) ).}{]}{]}
+
+.footer-note{[}.tiny{[}.green{[}Créditos: {]}{[}Gujarati e Porter
+(\emph{Econometria Básica}){]}(){]}{]}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Detecção da
+multicolinearidade}\label{detecuxe7uxe3o-da-multicolinearidade}
+
+Uma vez que a multicolinearidade é essencialmente um fenômeno amostral
+decorrente de grande quantidade de dados não experimentais coletados,
+não temos um método único para detectá-la ou para medir sua força. O que
+temos são regras práticas; algumas informais e outras formais, mas,
+ainda assim regras práticas. Consideremos algumas delas.
+
+\begin{itemize}
+\item
+  \(R^2\) alto, mas poucas razões \(t\) significativas.
+\item
+  Altas correlações entre pares de regressores. \emph{Outra regra
+  sugerida é que se o coeficiente de correlação entre dois regressores
+  for alto, por exempo, maior que 0,8, a multicolinearidade será um
+  problema sério. O problema desse critério é que, embora altas
+  correlações de ordem zero possam sugerir colinearidade, não é
+  necessário que sejam altas para que exista colinearidade em qualquer
+  caso específico.}
+\item
+  Regressões auxiliares. \emph{Uma vez que a multicolinearidade surge,
+  porque um ou mais regressores são combinações lineares aproximadas ou
+  exatas dos outros regressores, uma forma de descobrir qual variável
+  \(X\) está relacionada a outras variáveis \(X\) é fazer a regressão de
+  cada \(X_i\) contra as demais variáveis \(X\) e calcular o \(R^2\)
+  correspondente.}
+\item
+  Diagrama de dispersão. É uma boa prática usar um diagrama de dispersão
+  para verificar como as diversas variáveis estão relacionadas em um
+  modelo de regressão.
+\end{itemize}
+
+\section{Medidas corretivas}\label{medidas-corretivas}
+
+O que podemos fazer se a multicolinearidade for grave? Temos duas
+opções: (1) não fazer nada; ou (2) seguir alguns procedimentos.
+
+\subsection{Não fazer nada}\label{nuxe3o-fazer-nada}
+
+A escola do ``deixa pra lá'' é expressa por Blanchard, como se segue:
+
+Quando estudantes calculam sua primeira regressão dos mínimos quadrados
+ordinários (MQO), em geral o primeiro problema que encontram é o da
+multicolinearidade. Muitos deles concluem que há algo errado no MQO;
+alguns recorrem a técnicas novas e frequentemente criativas de resolver
+o problema. Mas, dizemos a eles, isso é um erro. A multicolinearidade é
+da vontade divina (algo foge ao nosso controle) e não um problema com os
+MQO ou com uma técnica estatística de modo geral.
+
+Blanchard, O. J. ``Comment.'' Journal of Business and Economics
+Statistics, v. 5, p.~449-451, 1967.
+
+O que Blanchard está dizendo é que a multicolinearidade é essencialmente
+um problema de deficiência de dados (de novo, a micronumerosidade) e às
+vezes não temos escolha sobre os dados disponíveis para análise
+empírica. Também não podemos dizer que todos os coeficientes em um
+modelo de regressão sejam estatisticamente insignificantes. Além disso,
+mesmo que não possamos estimar um ou mais coeficientes de regressão com
+maior precisão, uma combinação linear deles (função estimável) pode ser
+estimada com relativa eficiência.
+
+\section{Medidas corretivas}\label{medidas-corretivas-1}
+
+\subsection{Procedimentos}\label{procedimentos}
+
+Podemos tentar seguir as regras práticas para resolver o problema da
+multicolinearidade; o sucesso dependerá da gravidade do problema de
+colinearidade.
+
+\begin{itemize}
+\item
+  Uma informação a priori. Como obtemos uma informação a priori? Ela
+  poderia vir de trabalho empírico feito anteriormente, em que o
+  problema da colinearidade é menos grave, ou da teoria relevante de
+  nossa área de estudo.
+\item
+  Exclusão de variável(is) e viés de especificação. Quando nos deparamos
+  com uma multicolinearidade grave, uma das coisas mais ``simples'' a
+  fazer é excluir uma das variáveis colineares. Mas, ao excluirmos uma
+  variável do modelo, podemos cometer um viés de especificação ou erro
+  de especificação. Este surge de uma especificação incorreta do modelo
+  usado na análise. Se a teoria econômica informa que a renda e a
+  riqueza deveriam, ambas, ser incluídas no modelo que explica gastos de
+  consumo, excluir a variável riqueza constituiria viés de
+  especificação.
+\item
+  Dados adicionais ou novos: Como a multicolinearidade é um aspecto da
+  amostra, é possível que, em outra amostra envolvendo as mesmas
+  variáveis, a colinearidade possa não ser tão grave quanto na primeira.
+  Às vezes aumentar o tamanho da amostra (se possível) pode atenuar o
+  problema da colinearidade.
+\end{itemize}
+
+\section{Medidas corretivas}\label{medidas-corretivas-2}
+
+Outros métodos de remediar a multicolinearidade. Técnicas estatísticas
+multivariadas como a análise de fator e componentes principais ou
+técnicas como a regressão ridge são empregadas com frequência para
+``resolver'' o problema da multicolinaridade.
+
+\subsection{Exemplo}\label{exemplo-3}
+
+Embora coletados originalmente para avaliar a exatidão computacional das
+estimativas dos mínimos quadrados em vários programas de computador, os
+dados de Longley tornaram-se o instrumento para ilustrar vários
+problemas econométricos, inclusive a multicolinearidade. Este conjunto
+de dados está disponível no \texttt{R} e para carregar o mesmo, basta
+usar \texttt{data("longley")}. Também é possível usar o pacote
+\texttt{gujarati}. Para instalar o pacote basta usar
+\texttt{devtools::install\_github(\textquotesingle{}https://github.com/brunoruas2/gujarati\textquotesingle{})}.
+As variáveis são: \(Y =\) número de pessoas empregadas, em milhares
+(\texttt{Employed}); \(X_1 =\) deflator implícito dos preços no PNB
+(\texttt{GNP.deflator}); \(X_2 =\) PNB (\texttt{GNP}), em milhões de \$;
+\(X_3 =\) número de pessoas desempregadas, em milhares
+(\texttt{Unemployed}) ; \(X_4 =\) número de pessoas nas forças armadas
+(\texttt{Armed.Forces}); \(X_5 =\) população não institucionalizada com
+mais de 14 anos de idade (\texttt{Population}); e \(X_6 =\) ano, igual a
+1 em 1947, 2 em 1948 e 16 em 1962 (\texttt{Year}).
+
+\subsection{Exemplo}\label{exemplo-4}
+
+Suponha agora que nosso objetivo é estudar \(Y\) com base nas seis
+variáveis regressoras. Usando o \texttt{R}, obtemos os seguintes
+resultados:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"longley"}\NormalTok{)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Employed }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data =}\NormalTok{ longley)}
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = Employed ~ ., data = longley)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.41011 -0.15767 -0.02816  0.10155  0.45539 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -3.482e+03  8.904e+02  -3.911 0.003560 ** 
+GNP.deflator  1.506e-02  8.492e-02   0.177 0.863141    
+GNP          -3.582e-02  3.349e-02  -1.070 0.312681    
+Unemployed   -2.020e-02  4.884e-03  -4.136 0.002535 ** 
+Armed.Forces -1.033e-02  2.143e-03  -4.822 0.000944 ***
+Population   -5.110e-02  2.261e-01  -0.226 0.826212    
+Year          1.829e+00  4.555e-01   4.016 0.003037 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.3049 on 9 degrees of freedom
+Multiple R-squared:  0.9955,    Adjusted R-squared:  0.9925 
+F-statistic: 330.3 on 6 and 9 DF,  p-value: 4.984e-10
+\end{verbatim}
+
+\subsection{Exemplo}\label{exemplo-5}
+
+Um exame rápido desses resultados sugeriria que temos o problema de
+colinearidade, pois o valor de \(R^2\) é muito alto, mas metade das
+variáveis são estatisticamente insignificantes ( \(X_1\) , \(X_2\) e
+\(X_5\)), um sintoma clássico de multicolinearidade. A seguir
+apresentamos a \emph{matriz de correlação}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X }\OtherTok{\textless{}{-}}\NormalTok{ longley[, }\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{] }\CommentTok{\#excluindo a variavel resposta}
+\FunctionTok{cor}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             GNP.deflator       GNP Unemployed Armed.Forces Population
+GNP.deflator    1.0000000 0.9915892  0.6206334    0.4647442  0.9791634
+GNP             0.9915892 1.0000000  0.6042609    0.4464368  0.9910901
+Unemployed      0.6206334 0.6042609  1.0000000   -0.1774206  0.6865515
+Armed.Forces    0.4647442 0.4464368 -0.1774206    1.0000000  0.3644163
+Population      0.9791634 0.9910901  0.6865515    0.3644163  1.0000000
+Year            0.9911492 0.9952735  0.6682566    0.4172451  0.9939528
+                  Year
+GNP.deflator 0.9911492
+GNP          0.9952735
+Unemployed   0.6682566
+Armed.Forces 0.4172451
+Population   0.9939528
+Year         1.0000000
+\end{verbatim}
+
+Várias das correlações acima são muito altas, sugerindo que pode haver
+um problema grave de colinearidade. Importante lembrar que essas
+correlações entre pares de variáveis podem ser uma condição suficiente,
+mas não necessária, para a existência de multicolinearidade.
+
+\subsection{Exemplo}\label{exemplo-6}
+
+Para entendermos a natureza do problema da multicolinearidade, efetuemos
+as regressões auxiliares, que são as regressão de cada variáveis \(X\)
+contra as variáveis \(X\) remanescentes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(mctest)}
+\FunctionTok{imcdiag}\NormalTok{(fit, }\AttributeTok{method =} \StringTok{"Klein"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+imcdiag(mod = fit, method = "Klein")
+
+
+ Klein Multicollinearity Diagnostics
+
+                R2j R2(overall) Difference detection
+GNP.deflator 0.9926      0.9955    -0.0029         0
+GNP          0.9994      0.9955     0.0040         1
+Unemployed   0.9703      0.9955    -0.0252         0
+Armed.Forces 0.7214      0.9955    -0.2741         0
+Population   0.9975      0.9955     0.0020         1
+Year         0.9987      0.9955     0.0032         1
+
+Multicollinearity may be due to GNP Population Year regressors
+
+
+1 --> COLLINEARITY is detected by the test 
+0 --> COLLINEARITY is not detected by the test
+
+===================================
+\end{verbatim}
+
+Aplicando a regra prática de Klein, vemos que os valores de \(R^2\)
+obtidos das regressões auxiliares excedem o valor do \(R^2\) geral em 3
+de 6 regressões auxiliares, novamente sugerindo que de fato os dados de
+Longley são afetados pelo problema da multicolinearidade
+
+\subsection{Exemplo}\label{exemplo-7}
+
+.red{[}Agora que constatamos um problema de multicolinearidade, que
+ações ``corretivas'' podemos tomar?{]} .tiny{[}Vamos reconsiderar nosso
+modelo original. Antes de mais nada, poderíamos expressar o PNB não em
+termos nominais, mas em termos reais, o que podemos fazer dividindo o
+PNB nominal pelo deflator implícito dos preços. Em segundo lugar, uma
+vez que a população não institucionalizada de mais de 14 anos aumenta ao
+longo do tempo devido ao crescimento populacional natural, ela estará
+altamente correlacionada com o tempo, a variável \texttt{Year} de nosso
+modelo. Em vez de mantermos ambas as variáveis, manteremos a variável
+\texttt{Population} e excluiremos \texttt{Year} . Em terceiro lugar, não
+há razão contundente para incluir \texttt{Unemployed}, o número de
+pessoas desempregadas; talvez a taxa de desemprego tivesse sido uma
+medida melhor das condições do mercado de trabalho. Mas não temos dados
+sobre elas. Logo, excluiremos a variável \texttt{Unemployed} . Efetuando
+essas alterações, obtemos os seguintes resultados de regressão:{]}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Employed }\SpecialCharTok{\textasciitilde{}} \FunctionTok{I}\NormalTok{(GNP}\SpecialCharTok{/}\NormalTok{GNP.deflator) }\SpecialCharTok{+}\NormalTok{ Armed.Forces }\SpecialCharTok{+}\NormalTok{ Population, }\AttributeTok{data =}\NormalTok{ longley)}
+\FunctionTok{summary}\NormalTok{(fit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = Employed ~ I(GNP/GNP.deflator) + Armed.Forces + 
+    Population, data = longley)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1318 -0.1395  0.0136  0.3063  0.6817 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         65.720366  10.624808   6.186 4.69e-05 ***
+I(GNP/GNP.deflator)  9.736496   1.791552   5.435 0.000151 ***
+Armed.Forces        -0.006880   0.003222  -2.135 0.054074 .  
+Population          -0.299537   0.141761  -2.113 0.056234 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5354 on 12 degrees of freedom
+Multiple R-squared:  0.9814,    Adjusted R-squared:  0.9768 
+F-statistic: 211.1 on 3 and 12 DF,  p-value: 1.203e-10
+\end{verbatim}
+
+\subsection{Exemplo}\label{exemplo-8}
+
+Embora o valor de \(R^2\) tenha declinado ligeiramente em comparação ao
+\(R^2\) original, ainda é muito alto. Agora, todos os coeficientes
+estimados são significativos e os sinais dos coeficientes fazem sen-
+tido, do ponto de vista econômico.
+
+\begin{quote}
+Agora é com você! Crie seu próprio modelo alternativo.
+\end{quote}
+
+\section{Heterocedasticidade: o que acontece se os regressores se a
+variância do erro não é
+constante?}\label{heterocedasticidade-o-que-acontece-se-os-regressores-se-a-variuxe2ncia-do-erro-nuxe3o-uxe9-constante}
+
+Uma hipótese importante do modelo clássico de regressão linear é que os
+termos de erro \(\epsilon_i\) que aparecem na função de regressão
+populacional são homocedásticos; ou seja, todos têm a mesma variância.
+Examinaremos a validade dessa hipótese e descobriremos o que acontece
+quando ela não é constatada. Buscamos respostas às seguintes questões:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Qual a natureza da heterocedasticidade?
+\item
+  Quais suas consequências?
+\item
+  Como é detectada?
+\item
+  Quais as medidas corretivas?
+\end{enumerate}
+
+\subsection{A natureza da
+heterocedasticidade}\label{a-natureza-da-heterocedasticidade}
+
+Várias são as razões para as variâncias de \(\epsilon_i\) poderem ser
+variáveis, algumas das quais são dadas a seguir:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Seguindo os \emph{modelos de erro-aprendizagem}, comportamentos
+  incorretos das pessoas diminuem com o tempo ou o número de erros
+  torna-se mais consistente. Neste caso, espera-se que \(\sigma^2\)
+  diminua.
+\item
+  A heterocedasticidade também ocorre como resultado da presença de
+  dados discrepantes (outliers).
+\item
+  Outra fonte de heterocedasticidade surge da violação da suposição de
+  que o modelo está especificado corretamente.
+\item
+  Outra fonte de heterocedasticidade é a assimetria na distribuição de
+  um ou mais regressores incluídos no modelo.
+\item
+  Outras fontes de heterocedasticidade: como David Hendry observa, a
+  heterocedasticidade também pode surgir (1) da transformação incorreta
+  de dados (por exemplo, transformações proporcionais ou de primeira
+  diferença) e (2) da forma funcional incorreta (por exemplo, modelos
+  lineares versus log-lineares).
+\end{enumerate}
+
+\section{Detecção da
+heterocedasticidade}\label{detecuxe7uxe3o-da-heterocedasticidade}
+
+\subsection{Métodos informais}\label{muxe9todos-informais}
+
+\begin{itemize}
+\item
+  \textbf{Natureza do problema}. Com muita frequência, a natureza do
+  problema em consideração sugere a probabilidade de encontrarmos
+  heterocedasticidade. Por exemplo, seguindo o trabalho pioneiro de
+  Prais e Houthakker sobre estudos de orçamentos familiares, em que
+  verificaram que a variância residual em torno da regressão de consumo
+  sobre a renda aumentava com a renda, agora se supõe, de modo geral,
+  que em estudos semelhantes pode-se esperar variâncias desiguais entre
+  os termos de erro. Na verdade, em dados de corte transversal
+  envolvendo unidades heterogêneas, a heterocedasticidade pode ser a
+  regra e não a exceção. Em uma análise de corte transversal que envolve
+  despesas com investimento em relação a vendas, taxa de juros etc., em
+  geral espera-se encontrar heterocedasticidade se empresas de tamanho
+  pequeno, médio e grande fizerem parte da amostra.
+\item
+  \textbf{Método gráfico}. Gráficos de \(\hat \epsilon_i\) contra
+  \(\hat Y_i\) para descobrir se o valor médio estimado de \(Y\) está
+  sistematicamente relacionado aos resíduos elevados ao quadrado. Em vez
+  de traçar \(\hat \epsilon_i\) contra \(\hat Y_i\) pode-se traçá-los
+  contra uma das variáveis explanatórias.
+\end{itemize}
+
+\subsection{Detecção da
+heterocedasticidade}\label{detecuxe7uxe3o-da-heterocedasticidade-1}
+
+\subsubsection{Métodos formais}\label{muxe9todos-formais}
+
+\begin{itemize}
+\tightlist
+\item
+  Teste de Park.
+\item
+  Teste de Glejser.
+\item
+  Teste de Goldfeld-Quandt.
+\item
+  Teste de Breusch-Pagan-Godfrey
+\item
+  Teste de White.
+\end{itemize}
+
+\subsubsection{Teste de Park}\label{teste-de-park}
+
+Park formaliza o método gráfico sugerindo que \(\sigma^2\) seja uma
+função da variável explanatória \(X_i\). A forma funcional sugerida por
+ele é
+
+\[\sigma_i^2 = \sigma^2 X_i^\beta e^{\nu_i},\] ou
+
+\[\log(\sigma_i^2) = \log(\sigma^2) + \beta \log(X_i) + \nu_i,\] em que
+\(\nu_i\) é o termo de erro estocástico.
+
+Uma vez que \(\sigma_i^2\) em geral não é conhecido, Park sugere usar
+\(\hat\epsilon_i^2\) como \emph{proxy} e calcular a seguinte regressão:
+
+\[\log(\hat\epsilon_i^2) = \log(\sigma^2) + \beta \log(X_i) + \nu_i = \alpha + \beta \log(X_i) + \nu_i.\]
+
+Se \(\beta\) for significativo estatisticamente, isso sugere que a
+heterocedasticidade está presente nos dados. Se nao for significativo,
+não rejeitamos a hipótese da homocedasticidade. O teste de Park é um
+procesimento que envolve duas etapas. Na primeira fazemos a regressão de
+MQO desconsiderando a questão da heterocedasticidade. Obtemos
+\(\hat\epsilon_i\) dessa regressão, então na segunda etapa fazemos a
+regressão dos residuos contra \(X\).
+
+\subsection{Exemplo}\label{exemplo-9}
+
+Para ilustrar a abordagem de Park, usamos a seguinte regressão:
+
+\[Y_i = \beta_0 + \beta_1 X_i + \epsilon_i,\] em que \(Y =\) remuneração
+média em milhares de dólares, \(X =\) produtividade média em milhares de
+dólares e \(i =\) \(i\)-ésimo tamanho do emprego de estabelecimento. Os
+resultados são os seguintes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{remuneracao\_media }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{3396}\NormalTok{, }\DecValTok{3787}\NormalTok{, }\DecValTok{4013}\NormalTok{, }\DecValTok{4104}\NormalTok{, }\DecValTok{4146}\NormalTok{, }\DecValTok{4241}\NormalTok{, }\DecValTok{4388}\NormalTok{, }\DecValTok{4538}\NormalTok{, }\DecValTok{4843}\NormalTok{)}
+\NormalTok{produtividade\_media }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{9355}\NormalTok{, }\DecValTok{8584}\NormalTok{, }\DecValTok{7962}\NormalTok{, }\DecValTok{8275}\NormalTok{, }\DecValTok{8389}\NormalTok{, }\DecValTok{9418}\NormalTok{, }\DecValTok{9795}\NormalTok{, }\DecValTok{10281}\NormalTok{, }\DecValTok{11750}\NormalTok{)}
+\NormalTok{fit2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(remuneracao\_media }\SpecialCharTok{\textasciitilde{}}\NormalTok{ produtividade\_media); }\FunctionTok{summary}\NormalTok{(fit2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = remuneracao_media ~ produtividade_media)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-775.77   54.55  113.71  165.80  199.31 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)  
+(Intercept)         1.992e+03  9.366e+02   2.127   0.0710 .
+produtividade_media 2.330e-01  9.985e-02   2.333   0.0523 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 337.3 on 7 degrees of freedom
+Multiple R-squared:  0.4375,    Adjusted R-squared:  0.3572 
+F-statistic: 5.445 on 1 and 7 DF,  p-value: 0.05235
+\end{verbatim}
+
+Os resultados revelam que o coeficiente angular estimado é significante
+no nível de 10\%. A equação mostra que, quando a produtividade no
+trabalho aumenta em, por exemplo, um dólar, a remuneração da mão de obra
+aumenta em média 23 centavos.
+
+Então, calcula-se a regressão dos resíduos obtidos na regressão contra
+\(X_i\). Temos os resultados a seguir:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logu2 }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{logx }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(produtividade\_media)}
+\NormalTok{fit3 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(logu2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ logx)}
+\FunctionTok{summary}\NormalTok{(fit3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = logu2 ~ logx)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.18904 -0.43633 -0.10916  0.08593  3.10162 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   35.827     38.323   0.935    0.381
+logx          -2.802      4.196  -0.668    0.526
+
+Residual standard error: 1.467 on 7 degrees of freedom
+Multiple R-squared:  0.05989,   Adjusted R-squared:  -0.07442 
+F-statistic: 0.4459 on 1 and 7 DF,  p-value: 0.5257
+\end{verbatim}
+
+\begin{quote}
+Não há relação estatisticamente significativa entre as duas variáveis.
+Seguindo o teste de Park, pode-se concluir que não há
+heterocedasticidade na variância dos erros.
+\end{quote}
+
+Agora iremos considerar o conjunto de dados \texttt{hprice1} do pacote
+\texttt{\{wooldridge\}} do \texttt{R}. Este conjunto de dados foi
+apresentado nos slides da
+\href{https://rpubs.com/santosneto/slides_semana11}{semana 11} do curso.
+Como mencionado no slide 2 estes dados devem ser usados na realização da
+atividade prática final da disciplina. Para ajudar nesta atividade irei
+apresentar uma pequena análise prévia deste conjunto de dados. Irei
+considerar o seguinte modelo:
+
+\[
+\text{price} = \beta_0 + \beta_1 \, \text{lotsize} + \beta_2\, \text{sqrft} + \beta_3\, \text{bdrms} + \epsilon_i,
+\] em que \(\epsilon_i \sim N(0, \sigma^2)\),
+\(E(\epsilon_i, \epsilon_j) = 0\; \forall i \neq j\). Usando a função
+\texttt{lm()} para ajustar o modelo acima temos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\NormalTok{fit4  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ lotsize }\SpecialCharTok{+}\NormalTok{ sqrft }\SpecialCharTok{+}\NormalTok{ bdrms, }\AttributeTok{data =}\NormalTok{ hprice1); fit4 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = price ~ lotsize + sqrft + bdrms, data = hprice1)
+
+Coefficients:
+(Intercept)      lotsize        sqrft        bdrms  
+ -21.770308     0.002068     0.122778    13.852522  
+\end{verbatim}
+
+Agora iremos utilizar o teste de Breusch-Pagan para verificar a presença
+de heterocedasticidade. Para isso, basta usar a função \texttt{bptest()}
+do pacote \texttt{\{lmtest\}}. Vejamos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lmtest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Carregando pacotes exigidos: zoo
+\end{verbatim}
+
+\begin{verbatim}
+
+Anexando pacote: 'zoo'
+\end{verbatim}
+
+\begin{verbatim}
+Os seguintes objetos são mascarados por 'package:base':
+
+    as.Date, as.Date.numeric
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bp }\OtherTok{\textless{}{-}} \FunctionTok{bptest}\NormalTok{(fit4); bp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    studentized Breusch-Pagan test
+
+data:  fit4
+BP = 14.092, df = 3, p-value = 0.002782
+\end{verbatim}
+
+A estatística de teste é 14,092 e o correspondente \(p\)-valor é 0,003.
+Se consideramos um nível de significância de \(1\%\), nós rejeitamos a
+hipótese nula, ou seja, temos fortes evidências contra a hipótese de
+homocedasticidade.
+
+Um benefício de usar a forma funcional logarítmica para a variável
+dependente é que a heterocedasticidade é frequentemente reduzida. Neste
+exeplo, iremos considerar também as variáveis \texttt{lotsize} e
+\texttt{sqrft} na forma logarítmica. Estas transformações já estão
+presentes no conjunto de dados do \texttt{R}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit5  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(lprice }\SpecialCharTok{\textasciitilde{}}\NormalTok{ llotsize }\SpecialCharTok{+}\NormalTok{ lsqrft }\SpecialCharTok{+}\NormalTok{ bdrms, }\AttributeTok{data =}\NormalTok{ hprice1); fit5 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = lprice ~ llotsize + lsqrft + bdrms, data = hprice1)
+
+Coefficients:
+(Intercept)     llotsize       lsqrft        bdrms  
+   -1.29704      0.16797      0.70023      0.03696  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bptest}\NormalTok{(fit5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    studentized Breusch-Pagan test
+
+data:  fit5
+BP = 4.2232, df = 3, p-value = 0.2383
+\end{verbatim}
+
+\begin{quote}
+Portanto, não rejeitamos a hipótese nula de homocedasticidade no modelo
+com as formas funcionais logarítmicas.
+\end{quote}
+
+\section{Autocorrelação: o que acontece se os termos de erro são
+correlacionados?}\label{autocorrelauxe7uxe3o-o-que-acontece-se-os-termos-de-erro-suxe3o-correlacionados}
+
+A autocorrelação pode ser definida como ``correlação entre integrantes
+de séries de observações ordenadas no tempo {[}como as séries
+temporais{]} ou no espaço {[}como nos dados de corte transversal{]}''.
+No contexto da regressão, o modelo clássico de regressão linear
+pressupõe que essa autocorrelação não existe nos termos de erro
+\(\epsilon_i\) . Simbolicamente
+
+\[cov(\epsilon_i, \epsilon_j| x_i, x_j) = E(\epsilon_i, \epsilon_j) = 0, \quad i \neq j.\]
+Em outras palavras, o modelo clássico pressupõe que o termo de erro
+relacionado a qualquer uma das observações não é influenciado pelo termo
+de erro de qualquer outra observação.
+
+Contudo, se for verificada essa dependência, teremos autocorrelação.
+Simbolicamente
+
+\[E(\epsilon_i, \epsilon_j) \neq 0, \quad i \neq j.\] Em tal situação, a
+perturbação provocada por uma greve neste trimestre pode afetar a
+produção do próximo, ou os aumentos da despesa de uma família podem
+levar outra a aumentar seu consumo para não ficar para trás.
+
+\section{Consequências do uso dos MQO na presença de
+autocorrelação}\label{consequuxeancias-do-uso-dos-mqo-na-presenuxe7a-de-autocorrelauxe7uxe3o}
+
+Podemos declarar que um coeficiente é estatisticamente igual a zero,
+embora na realidade possa não ser.
+
+\subsection{Detecção de
+autocorrelação}\label{detecuxe7uxe3o-de-autocorrelauxe7uxe3o}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Método gráfico - podemos plotar os resíduos padronizados contra o
+  tempo.
+\item
+  O teste das carreiras, também conhecido como teste de Geary, um teste
+  não paramétrico.
+\item
+  O teste \(d\) de Durbin-Watson.
+\item
+  Um teste geral de autocorrelação: o teste de Breusch-Godfrey (BG).
+\end{enumerate}
+
+\section{O que fazer ao deparar-se com a autocorrelação: medidas
+corretivas}\label{o-que-fazer-ao-deparar-se-com-a-autocorrelauxe7uxe3o-medidas-corretivas}
+
+Se, depois de aplicarmos um ou mais testes diagnósticos de
+autocorrelação discutidos na seção anterior, verificamos a presença
+dela, o que fazer? Temos quatro opções:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Tentar verificar se é um caso de autocorrelação pura e não o resultado
+  da especificação equivocada do modelo. Às vezes observamos padrões em
+  resíduos, porque o modelo é mal especificado - ou seja, excluiu
+  algumas variáveis importantes - ou porque sua forma funcional é
+  incorreta.
+\item
+  Se for autocorrelação pura, podemos usar a transformação adequada do
+  modelo original de modo que, no modelo transformado não tenhamos o
+  problema de autocorrelação (pura). Como no caso de
+  heterocedasticidade, teremos de usar algum tipo de método de mínimos
+  quadrados generalizados (MQG).
+\item
+  Em amostras grandes, podemos usar o método de Newey-West para obter os
+  erros padrão dos estimadores de MQO que estão corrigidos para a
+  autocorrelação. Esse método na verdade é uma extensão do de erros
+  padrão consistentes para heterocedastividade de White;
+\item
+  Em algumas situações podemos continuar a usar o método dos MQO.
+\end{enumerate}
+
+\section{Correção da autocorrelação (pura): o método dos mínimos
+quadrados generalizados
+(MQG)}\label{correuxe7uxe3o-da-autocorrelauxe7uxe3o-pura-o-muxe9todo-dos-muxednimos-quadrados-generalizados-mqg}
+
+Conhecendo as consequências da autocorrelação, principalmente a falta de
+eficiência dos estimadores, podemos precisar corrigir o problema. A
+correção depende do conhecimento que se tem da natureza da
+interdependência entre os termos de erro, ou seja, do conhecimento da
+estrutura da autocorrelação.
+
+Considere o modelo de regressão de duas variáveis:
+
+\[Y_{t} = \beta_1 + \beta_2 X_{t} + u_{t},\] em que o termo de erro siga
+o processo AR(1), a saber,
+
+\[u_t = \rho u_{t-1} + \epsilon_t, \quad -1 < \rho < 1.\] Aqui iremos
+considerar apenas o caso em que \(\rho\) é conhecido.
+
+\section{Correção da autocorrelação (pura): o método dos mínimos
+quadrados generalizados
+(MQG)}\label{correuxe7uxe3o-da-autocorrelauxe7uxe3o-pura-o-muxe9todo-dos-muxednimos-quadrados-generalizados-mqg-1}
+
+Se a relação funcional do modelo de regressão for verdadeira no tempo
+\(t\), também será no tempo \((t - 1).\) Portanto,
+
+\[Y_{t-1} = \beta_1 + \beta_2 X_{t - 1} + u_{t - 1}.\] Multiplicando a
+equação acima por \(\rho\) em ambos os lados, obtemos
+
+\[\rho Y_{t-1} = \rho\beta_1 + \rho\beta_2 X_{t - 1} + \rho u_{t - 1}.\]
+
+Subtraindo a última equação do equação inicial, temos
+
+\[(Y_t - \rho Y_{t-1}) = \beta_1 (1 - \rho) + \beta_2 (X_t - \rho X_{t-1}) + \epsilon_t,\]
+em que \(\epsilon_t = (u_t - \rho u_{t-1})\). Podemos expressar esta
+equação como \[Y^*_{t} = \beta_1^* + \beta_2^* X_t^* + \epsilon_t,\] em
+que
+\(\beta_1^* = \beta_1(1 - \rho), Y_t^* = (Y_t - \rho Y_{t-1}), X_t^* = (X_t - \rho X_{t -1})\)
+e \(\beta^*_2 = \beta_2\). Pontanto, podemos aplicar o MQO às variáveis
+transformadas e obter com todas as propriedades ótimas.
+
 \bookmarksetup{startatroot}
 
 \chapter{Análise de Diagnóstico}\label{anuxe1lise-de-diagnuxf3stico}
+
+\section{Técnicas de Diagnóstico}\label{tuxe9cnicas-de-diagnuxf3stico}
+
+Conceitos Importantes:
+
+\begin{itemize}
+\item
+  \textbf{Outliers:} definido como uma observação que possui um grande
+  resíduo. Em outras palavras, o valor observado para o ponto e muito
+  diferente do predito pelo modelo de regressão.
+\item
+  \textbf{Pontos de Alavanca:} definidos como uma observação que tem um
+  valor de \(x\) que está longe da média de \(x\). A eliminação do mesmo
+  não necessariamente afeta a reta de regressão.
+\item
+  \textbf{Observações influentes:} definidas como uma observação que
+  altera a inclinação da reta. Desta forma, observações influentes têm
+  uma grande influência no ajuste do modelo. Um método para verificar se
+  o ponto é influente é comparar o ajuste do modelo com e sem cada
+  observação.
+\end{itemize}
+
+Com o objetivo de detectarmos os pontos de alavanca, podemos construir
+um gráfico de índices para \(h_{ii}\) (definido no slide 15 da
+\href{https://rpubs.com/santosneto/slides_semana9}{semana 9}). No
+próximo slide mostraremos como fazer isso usando o \texttt{R}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\FunctionTok{library}\NormalTok{(olsrr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Anexando pacote: 'olsrr'
+\end{verbatim}
+
+\begin{verbatim}
+O seguinte objeto é mascarado por 'package:wooldridge':
+
+    cement
+\end{verbatim}
+
+\begin{verbatim}
+O seguinte objeto é mascarado por 'package:datasets':
+
+    rivers
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+-- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+v dplyr     1.1.4     v readr     2.1.5
+v forcats   1.0.0     v stringr   1.5.1
+v ggplot2   3.5.2     v tibble    3.3.0
+v lubridate 1.9.3     v tidyr     1.3.1
+v purrr     1.0.2     
+\end{verbatim}
+
+\begin{verbatim}
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()
+i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gghighlight)}
+\NormalTok{fit  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ lotsize }\SpecialCharTok{+}\NormalTok{ sqrft }\SpecialCharTok{+}\NormalTok{ bdrms, }\AttributeTok{data =}\NormalTok{ hprice1)}
+\NormalTok{h }\OtherTok{\textless{}{-}} \FunctionTok{ols\_leverage}\NormalTok{(fit)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{coefficients)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{NROW}\NormalTok{(hprice1)}
+\NormalTok{dt }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{indice =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(h), }\AttributeTok{alavanca =}\NormalTok{ h)}
+\FunctionTok{ggplot}\NormalTok{(dt) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ indice, }\AttributeTok{y =}\NormalTok{ alavanca)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ (}\DecValTok{2}\SpecialCharTok{*}\NormalTok{p)}\SpecialCharTok{/}\NormalTok{n, }\AttributeTok{linetype =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Índice das observações"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Alavanca"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{gghighlight}\NormalTok{(alavanca }\SpecialCharTok{\textgreater{}=}\NormalTok{ (}\DecValTok{2}\SpecialCharTok{*}\NormalTok{p)}\SpecialCharTok{/}\NormalTok{n, }\AttributeTok{label\_key =}\NormalTok{ indice) }\SpecialCharTok{+}
+  \FunctionTok{theme\_test}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{18}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: Could not calculate the predicate for layer 2; ignored
+\end{verbatim}
+
+\includegraphics{diag_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+Com a função \texttt{ols\_plot\_resid\_lev()} do pacote
+\texttt{\{olsrr\}} é possível identificar as observações que são
+\emph{outliers} e/ou pontos de alavanca.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\FunctionTok{library}\NormalTok{(olsrr)}
+\NormalTok{fit  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ lotsize }\SpecialCharTok{+}\NormalTok{ sqrft }\SpecialCharTok{+}\NormalTok{ bdrms, }\AttributeTok{data =}\NormalTok{ hprice1)}
+\FunctionTok{ols\_plot\_resid\_lev}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{diag_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+Quando o \(i\)-ésimo ponto é excluído, a distancia de Cook é dada por
+\[D_i = \frac{t_i^2}{p}\frac{h_{ii}}{(1 - h_{ii})},\]
+
+em que \(t_i\) é o resíduo studentizado. Com a função
+\texttt{ols\_cooksd\_chart()} do pacote \texttt{\{olsrr\}} é possível
+identificar as observações potencialmente influentes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\FunctionTok{library}\NormalTok{(olsrr)}
+\NormalTok{fit  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ lotsize }\SpecialCharTok{+}\NormalTok{ sqrft }\SpecialCharTok{+}\NormalTok{ bdrms, }\AttributeTok{data =}\NormalTok{ hprice1)}
+\FunctionTok{ols\_plot\_cooksd\_chart}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{diag_files/figure-pdf/unnamed-chunk-3-1.pdf}
+
+No pacote \texttt{olsrr} também existe uma função para a construção de
+gráficos de resíduos. Iremos utilizar a função
+\texttt{ols\_plot\_resid\_stud\_fit()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ols\_plot\_resid\_stud\_fit}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{diag_files/figure-pdf/unnamed-chunk-4-1.pdf}
+
+Para a construção do gráfico normal de probabilidade você pode usar a
+função \texttt{envelope\_normal()} abaixo.
+
+\includegraphics{diag_files/figure-pdf/unnamed-chunk-5-1.pdf}
+
+\section{Análise confirmatória}\label{anuxe1lise-confirmatuxf3ria}
+
+Nos slides anteriores o ponto \#77 aparece como alavanca, influente e
+aberrante (outlier). Na análise confirmatória abaixo podemos observar
+que temos uma grande variação nas estimativas dos parâmetros com a
+eliminação desta observação. Além disso, temos indícios de
+heterocedasticidade. Também observamos no gráfico normal de
+probabilidade para o modelo normal linear que o mesmo não consegue
+acomodar bem os pontos dentro do envelope.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = price ~ lotsize + sqrft + bdrms, data = hprice1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-120.026  -38.530   -6.555   32.323  209.376 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -2.177e+01  2.948e+01  -0.739  0.46221    
+lotsize      2.068e-03  6.421e-04   3.220  0.00182 ** 
+sqrft        1.228e-01  1.324e-02   9.275 1.66e-14 ***
+bdrms        1.385e+01  9.010e+00   1.537  0.12795    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 59.83 on 84 degrees of freedom
+Multiple R-squared:  0.6724,    Adjusted R-squared:  0.6607 
+F-statistic: 57.46 on 3 and 84 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit1  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ lotsize }\SpecialCharTok{+}\NormalTok{ sqrft }\SpecialCharTok{+}\NormalTok{ bdrms, }\AttributeTok{data =}\NormalTok{ hprice1, }\AttributeTok{subset =} \SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{77}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(fit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = price ~ lotsize + sqrft + bdrms, data = hprice1, 
+    subset = -c(77))
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-115.072  -30.340   -0.739   31.913  211.138 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -28.301170  25.149383  -1.125  0.26370    
+lotsize       0.009195   0.001363   6.748 1.88e-09 ***
+sqrft         0.086495   0.012949   6.680 2.55e-09 ***
+bdrms        20.481920   7.767117   2.637  0.00998 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 51 on 83 degrees of freedom
+Multiple R-squared:  0.7646,    Adjusted R-squared:  0.7561 
+F-statistic: 89.89 on 3 and 83 DF,  p-value: < 2.2e-16
+\end{verbatim}
 
 \bookmarksetup{startatroot}
 

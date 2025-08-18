@@ -1,1 +1,151 @@
 # Análise de Diagnóstico
+
+## Técnicas de Diagnóstico
+
+Conceitos Importantes:
+
+- **Outliers:** definido como uma observação que possui um grande resíduo. Em outras palavras, o valor observado para o ponto e muito diferente do predito pelo modelo de regressão.
+
+- **Pontos de Alavanca:** definidos como uma observação que tem um valor de $x$ que está longe da média de $x$. A eliminação do mesmo não necessariamente afeta a reta de regressão. 
+
+
+- **Observações influentes:** definidas como uma observação que altera a inclinação da reta. Desta forma, observações influentes têm uma grande influência no ajuste do modelo. Um método para verificar se o ponto é influente é comparar o ajuste do modelo com e sem cada observação.
+
+
+
+
+Com o objetivo de detectarmos os pontos de alavanca, podemos construir um gráfico de índices para $h_{ii}$ (definido no slide 15 da [semana 9](https://rpubs.com/santosneto/slides_semana9)). No próximo slide mostraremos como fazer isso usando o `R`.
+
+
+```{r}
+library(wooldridge)
+library(olsrr)
+library(tidyverse)
+library(gghighlight)
+fit  <- lm(price ~ lotsize + sqrft + bdrms, data = hprice1)
+h <- ols_leverage(fit)
+p <- length(fit$coefficients)
+n <- NROW(hprice1)
+dt <- data.frame(indice = 1:length(h), alavanca = h)
+ggplot(dt) + 
+  geom_point(aes(x = indice, y = alavanca)) + 
+  geom_hline(yintercept = (2*p)/n, linetype = 2) +
+  xlab("Índice das observações") + ylab("Alavanca") + 
+  gghighlight(alavanca >= (2*p)/n, label_key = indice) +
+  theme_test(base_size = 18)
+```
+
+
+
+
+
+Com a função `ols_plot_resid_lev()` do pacote `{olsrr}` é possível identificar as observações que são *outliers* e/ou pontos de alavanca.
+
+```{r}
+library(wooldridge)
+library(olsrr)
+fit  <- lm(price ~ lotsize + sqrft + bdrms, data = hprice1)
+ols_plot_resid_lev(fit)
+```
+
+
+
+
+
+
+
+
+Quando o $i$-ésimo ponto é excluído, a distancia de Cook é dada por
+$$D_i = \frac{t_i^2}{p}\frac{h_{ii}}{(1 - h_{ii})},$$
+
+em que $t_i$ é o resíduo studentizado. Com a função `ols_cooksd_chart()` do pacote `{olsrr}` é possível identificar as observações potencialmente influentes.
+
+```{r}
+library(wooldridge)
+library(olsrr)
+fit  <- lm(price ~ lotsize + sqrft + bdrms, data = hprice1)
+ols_plot_cooksd_chart(fit)
+```
+
+
+No pacote `olsrr` também existe uma função para a construção de gráficos de resíduos. Iremos utilizar a função `ols_plot_resid_stud_fit()`.
+
+
+
+```{r }
+ols_plot_resid_stud_fit(fit)
+```
+
+
+
+Para a construção do gráfico normal de probabilidade você pode usar a função `envelope_normal()` abaixo. 
+
+
+```{r echo=FALSE}
+envelope_normal <- function(modelo){
+#funcao escrita tendo como base o codigo da pagina
+#do Prof. Dr. Gilberto A. Paula da USP 
+#https://www.ime.usp.br/~giapaula/envel_norm
+  X <- model.matrix(modelo)
+  n <- nrow(X)
+  H <- X%*%solve(t(X)%*%X)%*%t(X)
+  tsi <- rstudent(modelo)
+  #
+  ident <- diag(n)
+  epsilon <- matrix(0,n,100)
+  e <- matrix(0,n,100)
+  e1 <- numeric(n)
+  e2 <- numeric(n)
+
+  for(i in 1:100){
+    epsilon[,i] <- rnorm(n,0,1)
+    e[,i] <- (ident - H)%*%epsilon[,i]
+    u <- diag(ident - H)
+    e[,i] <- e[,i]/sqrt(u)
+    e[,i] <- sort(e[,i]) 
+    }
+
+  for(i in 1:n){
+    eo <- sort(e[i,])
+    e1[i] <- (eo[2]+eo[3])/2
+    e2[i] <- (eo[97]+eo[98])/2 
+    }
+  #
+  med <- apply(e,1,mean)
+  faixa <- range(tsi,e1,e2)
+  
+  xmed <- qqnorm(med,plot = FALSE)$x
+  ymed <- qqnorm(med,plot = FALSE)$y
+  
+  df <- data.frame(med = med, tsi = tsi, e1 = e1, e2 = e2, xmed = xmed, ymed= ymed)
+  #
+ p <- ggplot(df, aes(sample = tsi)) + stat_qq()  + ylab("Resíduo Studentizado") +
+   xlab("Percentil da N(0,1)") + geom_line(data = df, aes(x = xmed, y = ymed), linetype = 2) + 
+   ylim(faixa[1], faixa[2]) +  geom_ribbon(aes(med, ymin = e1, ymax = e2), alpha=0.2) + theme_test(base_size = 18)
+ 
+ p
+}
+
+envelope_normal(fit)
+```
+
+
+
+
+## Análise confirmatória
+
+
+Nos slides anteriores  o ponto #77 aparece como alavanca, influente e aberrante (outlier). Na análise confirmatória abaixo podemos observar que temos uma grande variação nas estimativas dos parâmetros com a eliminação desta observação. Além disso, temos indícios de heterocedasticidade.  Também observamos no gráfico normal de probabilidade para o modelo normal linear que o mesmo não consegue acomodar bem os pontos dentro do envelope.
+
+
+```{r}
+summary(fit)
+```
+
+
+```{r}
+fit1  <- lm(price ~ lotsize + sqrft + bdrms, data = hprice1, subset = -c(77))
+summary(fit1)
+```
+
+

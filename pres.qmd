@@ -1,1 +1,533 @@
 # Verificação dos Pressupostos
+
+## Multicolinearidade: o que acontece se os regressores estiverem correlacionados?
+
+Umas das hipóteses do modelo clássico de regressão linear afirma que não há **multicolinearidade** entre os regressores incluídos no modelo de regressão. Iremos buscar responder as seguintes perguntas:
+
+1. Qual a natureza da multicolinearidade?
+2. A multicolinearidade é realmente um problema?
+3. Quais são suas consequências práticas?
+4. Como é detectada?
+5. Que medidas podem ser tomadas para atenuar o problema de multicolinearidade?
+
+### Qual a natureza da multicolinearidade?
+
+O termo *multicolinearidade* deve-se a Ragnar Frisch. Originalmente, significava a existência de uma relação linear "perfeita" ou exata entre algumas ou todas as variáveis explanatórias do modelo de regressão.
+
+No caso de regressão com $k$ variáveis explanatórias $X_1, X_2, \ldots, X_k$ (em que $X_1 = 1$ para todas as observações, de modo que permita o termo de intercepto), diz-se existir uma relação linear exata se a seguinte condição for satisfeita:
+
+$$\lambda_1 X_1 + \lambda_2 X_2 + \cdots + \lambda_k X_k = 0,$$
+em que $\lambda_1, \lambda_2, \ldots, \lambda_k$ são constantes tais que nem todas são simultaneamente zero.
+
+Hoje, no entanto, o termo multicolinearidade é usado em um sentido mais amplo, para incluir o caso de multicolinearidade perfeita, como na equação acima, como o caso em que as variáveis $X$ estão intercorrelacionadas, mas não perfeitamente, como se segue:
+
+$$\lambda_1 X_1 + \lambda_2 X_2 + \cdots + \lambda_k X_k + v_i = 0,$$
+em que $v_i$ é um termo de erro estocástico.
+
+Por que o modelo clássico de regressão linear pressupõe que não há multicolinearidade entre os $X$? *Se a multicolinearidade for perfeita os coeficientes de regressão serão indeterminados e seus erros padrão, infinitos. Se a multicolinearidade for menos que perfeita, os coeficientes, embora determinados, possuirão grandes erros padrão*.
+
+
+Há várias fontes de multicolinearidade. Como observam Montgomery e Peck, a multicolinearidade pode ocorrer devido aos seguintes fatores:
+
+1. O *método de coleta de dados empregado*;
+2. *Restrições ao modelo ou à população que está sendo amostrada*;
+3. *Especificação do modelo*;
+4. *Um modelo sobredeterminado*.
+
+Outra razão para a multicolinearidade, principalmente nos dados de séries temporais, pode ser que
+os regressores incluídos no modelo tenham uma tendência comum: todos aumentam ou diminuem ao
+longo do tempo. Na regressão de gastos de consumo sobre renda, riqueza e população, os regressores
+renda, riqueza e população podem estar crescendo com o tempo, aproximadamente na mesma taxa,
+gerando colinearidade dessas variáveis.
+
+
+### Multicolinearidade: muito barulho por nada? Consequências teóricas da multicolinearidade
+
+Lembre-se de que, se as hipóteses do modelo clássico forem satisfeitas, os estimadores de MQO
+dos estimadores da regressão serão MELNT (melhores estimadores lineares não viesados) ou MENT
+(melhores estimadores não viesados) se a hipótese da normalidade for acrescentada. Agora podemos
+mostrar que, mesmo se a multicolinearidade for muito alta, como no caso da quase multicolinearidade, os estimadores de MQO ainda conservarão a propriedade de melhores estimadores lineares não
+viesados. Por que toda essa confusão por causa da multicolinearidade? Como Christopher Achen
+ressalta:
+
+
+Os alunos que estão começando a estudar metodologia às vezes se preocupam com a correlação de suas
+variáveis independentes - o chamado problema da multicolinearidade. Mas esta não viola nenhuma das
+hipóteses de regressão. Estimativas consistentes, não viesadas, resultarão, e seus erros padrão serão estimados corretamente. O único efeito da multicolinearidade é dificultar a obtenção de estimativas dos coeficientes com erros padrão pequenos. Mas ter um pequeno número de observações também gera esse
+efeito, como ter variáveis independentes com pequenas variâncias. (Na verdade, teoricamente, a multicolinearidade, poucas observações e pequenas variâncias das variáveis independentes são essencialmente o mesmo problema.) Perguntar “O que devo fazer com a multicolinearidade?” é como perguntar “O que devo fazer se não tenho muitas observações?”. Não há resposta estatística para essa pergunta.
+
+
+Achen, Christopher H. Interpreting and using regression. Beverly Hills, Califórnia: Sage Publications, 1982.
+p. 82-83
+
+
+Gujarati e Porter (*Econometria Básica*)
+
+
+## Multicolinearidade: muito barulho por nada? Consequências teóricas da multicolinearidade
+
+
+Em primeiro lugar, é verdade que, mesmo no caso de quase multicolinearidade, os estimadores de
+MQO são não viesados, mas a não viesidade é uma propriedade de amostragem repetida ou de multiamostragem. Em outras palavras, mantendo fixos os valores das variáveis $X$, se obtivermos amostras
+repetidas e calcularmos os estimadores de MQO para cada uma dessas amostras, a média dos valores
+da amostra convergirá para os verdadeiros valores populacionais dos estimadores à medida que o
+número das amostras aumenta. Mas isso não diz nada sobre as propriedades dos estimadores em
+qualquer amostra dada.
+
+
+Em segundo lugar, também é verdade que a colinearidade não destrói a propriedade de variância mínima: na classe de todos os estimadores não viesados, os estimadores de MQO têm variância mínima; são
+eficientes. Contudo não significa que a variância de um estimador de MQO será necessariamente pequena
+(em relação ao valor do estimador) em qualquer amostra dada.
+
+Terceiro, a multicolinearidade é essencialmente um fenômeno amostral (da regressão) no sentido
+de que, mesmo que as variáveis $X$ não estejam relacionadas linearmente na população, elas podem
+estar relacionadas na amostra em questão: quando postulamos a função de regressão populacional ou
+teórica (FRP), acreditamos que todas as variáveis $X$ incluídas no modelo tenham uma influência separada ou independente sobre a variável dependente $Y$. Mas pode acontecer que, em qualquer amostra
+dada que seja usada para testar a FRP, algumas ou todas as variáveis $X$ sejam tão colineares que não
+podemos isolar sua influência sobre $Y$. É como se disséssemos que nossa amostra nos decepcionou,
+embora a teoria informe que todas as variáveis $X$ são importantes. Em resumo, nossa amostra pode
+não ser “rica” o suficiente para acomodar todas as variáveis $X$ na análise.
+
+
+Gujarati e Porter (*Econometria Básica*)
+
+## Consequências práticas da multicolinearidade
+
+Em casos de quase ou de alta multicolinearidade, é muito provável nos depararmos com as seguintes consequências:
+
+1. Embora sejam os melhores estimadores lineares não viesados, os estimadores de MQO têm grandes variâncias e covariâncias, tornando difícil uma estimação precisa.
+
+2. Devido à consequência 1, os intervalos de confiança tendem a ser muito mais amplos, levando à aceitação imediata da “hipótese nula igual a zero” (isto é, o verdadeiro coeficiente populacional igual a zero).
+
+3. Também, devido à consequência 1, a razão $t$ de um ou mais coeficientes tende a ser estatisticamente insignificante.
+
+4. Embora a razão $t$ de um ou mais coeficientes seja estatisticamente insignificante, $R^2$ , a medida geral da qualidade do ajustamento, pode ser muito alto.
+
+5. Os estimadores de MQO e seus erros padrão podem ser sensíveis a pequenas alterações nos
+dados.
+
+Gujarati e Porter (*Econometria Básica*)
+
+
+## Exemplo 
+
+
+Para ilustrar os pontos destacados até aqui, consideremos o exemplo de consumo-renda. A Tabela abaixo contém dados hipotéticos sobre consumo, renda e riqueza. 
+
+```{r echo=FALSE}
+library(DT)
+Y <- c(70, 65, 90, 95, 110, 115, 120, 140, 155, 150)
+X2 <- c(80, 100, 120, 140, 160, 180, 200, 220, 240, 260)
+X3 <- c(810, 1009, 1273, 1425, 1633, 1876, 2052, 2201, 2435, 2686)
+
+tabela <- data.frame(Consumo = Y, Renda = X2, Riqueza = X3)
+
+datatable(tabela, options = list(
+  columnDefs = list(list(className = 'dt-center', targets = 3)),
+  pageLength = 5,
+  lengthMenu = c(5, 10)
+))
+```
+
+Se pressupormos que os gastos de consumo estejam linearmente relacionados à renda e à riqueza, então, na Tabela acima, obteremos a seguinte regressão:
+
+.footer-note[.tiny[.green[Créditos: ][Gujarati e Porter (*Econometria Básica*)]()]]
+---
+
+## Exemplo
+```{r echo=FALSE}
+fit <- lm(Consumo ~ Renda + Riqueza, data = tabela)
+summary(fit)
+```
+
+.content-box-yellow[
+.small[
+*Os resultados acima mostram que renda e riqueza juntas explicam cerca de 96% da variação na despesa de consumo, e nenhum dos coeficientes angulares é, individualmente, estatisticamente significativo. Além disso, a variável riqueza não só é estatisticamente
+insignificante, mas também tem o sinal errado. A priori, pode-se esperar uma relação positiva
+entre consumo e riqueza. Embora $\hat \beta_1$ e $\hat \beta_2$ sejam sejam individualmente insignificantes, do ponto de vista estatístico, se testarmos a hipótese de que $\beta_1 = \beta_2 = 0$ simultaneamente, essa hipótese
+poderá ser rejeitada ( $F = 92,4$  e $p$-valor $< 0,001$ ).*]
+]
+
+.footer-note[.tiny[.green[Créditos: ][Gujarati e Porter (*Econometria Básica*)]()]]
+---
+
+
+## Detecção da multicolinearidade
+
+
+Uma vez que a multicolinearidade é essencialmente um fenômeno amostral decorrente de grande quantidade de dados não experimentais coletados, não temos um método único para detectá-la ou para medir sua força. O que temos são regras práticas; algumas informais e outras formais, mas, ainda assim regras práticas. Consideremos algumas delas.
+
+- $R^2$ alto, mas poucas razões $t$ significativas.
+
+- Altas correlações entre pares de regressores. *Outra regra sugerida é que se o coeficiente de
+correlação entre dois regressores for alto, por exempo, maior que 0,8, a multicolinearidade será um
+problema sério. O problema desse critério é que, embora altas correlações de ordem zero possam
+sugerir colinearidade, não é necessário que sejam altas para que exista colinearidade em qualquer
+caso específico.*
+
+- Regressões auxiliares. *Uma vez que a multicolinearidade surge, porque um ou mais regressores são combinações lineares aproximadas ou exatas dos outros regressores, uma forma de descobrir
+qual variável $X$ está relacionada a outras variáveis $X$ é fazer a regressão de cada $X_i$ contra as demais
+variáveis $X$ e calcular o $R^2$ correspondente.*
+
+- Diagrama de dispersão. É uma boa prática usar um diagrama de dispersão para verificar como
+as diversas variáveis estão relacionadas em um modelo de regressão.
+
+
+
+## Medidas corretivas
+
+O que podemos fazer se a multicolinearidade for grave? Temos duas opções: (1) não fazer nada;
+ou (2) seguir alguns procedimentos.
+
+### Não fazer nada
+
+A escola do “deixa pra lá” é expressa por Blanchard, como se segue:
+
+
+Quando estudantes calculam sua primeira regressão dos mínimos quadrados ordinários (MQO), em geral
+o primeiro problema que encontram é o da multicolinearidade. Muitos deles concluem que há algo errado no MQO; alguns recorrem a técnicas novas e frequentemente criativas de resolver o problema. Mas,
+dizemos a eles, isso é um erro. A multicolinearidade é da vontade divina (algo foge ao nosso controle) e
+não um problema com os MQO ou com uma técnica estatística de modo geral.
+
+Blanchard, O. J. “Comment.” Journal of Business and Economics Statistics, v. 5, p. 449-451, 1967.
+
+
+O que Blanchard está dizendo é que a multicolinearidade é essencialmente um problema de deficiência de dados (de novo, a micronumerosidade) e às vezes não temos escolha sobre os dados disponíveis para análise empírica. Também não podemos dizer que todos os coeficientes em um modelo de regressão sejam estatisticamente insignificantes. Além disso, mesmo que não possamos estimar um ou mais coeficientes de regressão com maior precisão, uma combinação linear deles (função estimável) pode ser estimada com relativa eficiência.
+
+
+## Medidas corretivas
+
+### Procedimentos
+
+Podemos tentar seguir as regras práticas para resolver o problema da multicolinearidade; o sucesso dependerá da gravidade do problema de colinearidade.
+
+- Uma informação a priori. Como obtemos uma informação a priori? Ela poderia vir de trabalho empírico feito anteriormente, em que o problema da colinearidade é menos grave, ou da teoria relevante de nossa área de estudo.
+
+- Exclusão de variável(is) e viés de especificação. Quando nos deparamos com uma multicolinearidade grave, uma das coisas mais “simples” a fazer é excluir uma das variáveis colineares. Mas, ao excluirmos uma variável do modelo, podemos cometer um viés de especificação ou erro
+de especificação. Este surge de uma especificação incorreta do modelo usado na análise. Se a teoria
+econômica informa que a renda e a riqueza deveriam, ambas, ser incluídas no modelo que explica
+gastos de consumo, excluir a variável riqueza constituiria viés de especificação.
+
+- Dados adicionais ou novos: Como a multicolinearidade é um aspecto da amostra, é possível
+que, em outra amostra envolvendo as mesmas variáveis, a colinearidade possa não ser tão grave
+quanto na primeira. Às vezes aumentar o tamanho da amostra (se possível) pode atenuar o problema
+da colinearidade.
+
+
+
+
+## Medidas corretivas
+
+
+Outros métodos de remediar a multicolinearidade. Técnicas estatísticas multivariadas como
+a análise de fator e componentes principais ou técnicas como a regressão ridge são empregadas
+com frequência para “resolver” o problema da multicolinaridade.
+
+
+
+
+### Exemplo
+
+Embora coletados originalmente para avaliar a exatidão computacional das estimativas dos mínimos quadrados em vários programas de computador, os dados de Longley tornaram-se o instrumento para ilustrar vários problemas econométricos, inclusive a multicolinearidade. Este conjunto de dados está disponível no `R` e para carregar o mesmo, basta usar `data("longley")`. Também é possível usar o pacote `gujarati`. Para instalar o pacote basta usar `devtools::install_github('https://github.com/brunoruas2/gujarati')`. As variáveis são: $Y =$ número de pessoas empregadas, em milhares (`Employed`); $X_1 =$ deflator implícito dos preços no PNB (`GNP.deflator`); $X_2 =$ PNB (`GNP`), em milhões de \$; $X_3 =$ número de pessoas desempregadas, em milhares (`Unemployed`) ; $X_4 =$ número de pessoas nas forças armadas (`Armed.Forces`); $X_5 =$ população não institucionalizada com mais de 14 anos de idade (`Population`); e $X_6 =$ ano, igual a 1 em 1947, 2 em 1948 e 16 em 1962 (`Year`).
+
+
+
+
+### Exemplo
+
+Suponha agora que nosso objetivo é estudar $Y$ com base nas seis variáveis regressoras. Usando o `R`, obtemos os seguintes resultados:
+
+```{r}
+data("longley")
+fit <- lm(Employed ~ ., data = longley)
+summary(fit)
+```
+
+
+
+### Exemplo
+
+Um exame rápido desses resultados sugeriria que temos o problema de colinearidade, pois o valor de $R^2$ é muito alto, mas metade das variáveis são estatisticamente insignificantes ( $X_1$ , $X_2$ e $X_5$), um sintoma clássico de multicolinearidade. A seguir apresentamos a *matriz de correlação*.
+
+```{r}
+X <- longley[, -7] #excluindo a variavel resposta
+cor(X)
+```
+
+Várias das correlações acima são muito altas, sugerindo que pode haver um
+problema grave de colinearidade. Importante lembrar que essas correlações entre pares de variáveis podem ser uma condição suficiente, mas não necessária, para a existência de multicolinearidade.
+
+
+
+### Exemplo
+
+Para entendermos a natureza do problema da multicolinearidade, efetuemos as regressões auxiliares, que são as regressão de cada variáveis $X$ contra as variáveis $X$ remanescentes.
+
+```{r}
+library(mctest)
+imcdiag(fit, method = "Klein")
+```
+
+
+
+Aplicando a regra prática de Klein, vemos que os valores de $R^2$ obtidos das regressões auxiliares
+excedem o valor do $R^2$ geral em 3 de 6 regressões auxiliares, novamente sugerindo que de fato os dados de Longley são afetados pelo problema da multicolinearidade
+
+
+
+
+### Exemplo
+
+.red[Agora que constatamos um problema de multicolinearidade, que ações “corretivas” podemos tomar?] .tiny[Vamos reconsiderar nosso modelo original. Antes de mais nada, poderíamos expressar o PNB não em termos nominais, mas em termos reais, o que podemos fazer dividindo o PNB nominal pelo
+deflator implícito dos preços. Em segundo lugar, uma vez que a população não institucionalizada de mais de 14 anos aumenta ao longo do tempo devido ao crescimento populacional natural, ela estará altamente correlacionada com o tempo, a variável `Year` de nosso modelo. Em vez de mantermos ambas
+as variáveis, manteremos a variável `Population` e excluiremos `Year` . Em terceiro lugar, não há razão contundente
+para incluir `Unemployed`, o número de pessoas desempregadas; talvez a taxa de desemprego tivesse sido uma
+medida melhor das condições do mercado de trabalho. Mas não temos dados sobre elas. Logo, excluiremos a variável `Unemployed` . Efetuando essas alterações, obtemos os seguintes resultados de regressão:]
+
+```{r}
+fit1 <- lm(Employed ~ I(GNP/GNP.deflator) + Armed.Forces + Population, data = longley)
+summary(fit1)
+```
+
+
+
+### Exemplo
+
+Embora o valor de $R^2$ tenha declinado ligeiramente em comparação ao $R^2$ original, ainda é muito
+alto. Agora, todos os coeficientes estimados são significativos e os sinais dos coeficientes fazem sen-
+tido, do ponto de vista econômico.
+
+
+> Agora é com você! Crie seu próprio modelo alternativo.
+
+
+## Heterocedasticidade: o que acontece se os regressores se a variância do erro não é constante?
+
+Uma hipótese importante do modelo clássico de regressão linear é que os termos de erro $\epsilon_i$ que aparecem na função de regressão populacional são homocedásticos; ou seja, todos têm a mesma
+variância. Examinaremos a validade dessa hipótese e descobriremos o que acontece quando ela não é constatada. Buscamos respostas às seguintes questões:
+
+1. Qual a natureza da heterocedasticidade?
+
+2. Quais suas consequências?
+
+3. Como é detectada?
+
+4. Quais as medidas corretivas?
+
+
+
+### A natureza da heterocedasticidade
+
+Várias são as razões para as variâncias de  $\epsilon_i$ poderem ser variáveis, algumas das quais são dadas
+a seguir:
+
+1. Seguindo os *modelos de erro-aprendizagem*, comportamentos incorretos das pessoas diminuem com o tempo ou o número de erros torna-se mais consistente. Neste caso, espera-se que $\sigma^2$ diminua.
+
+2. A heterocedasticidade também ocorre como resultado da presença de dados discrepantes (outliers).
+
+3. Outra fonte de heterocedasticidade surge da violação da suposição de que o modelo está especificado corretamente.
+
+4. Outra fonte de heterocedasticidade é a assimetria na distribuição de um ou mais regressores incluídos no modelo.
+
+5. Outras fontes de heterocedasticidade: como David Hendry observa, a heterocedasticidade
+também pode surgir (1) da transformação incorreta de dados (por exemplo, transformações
+proporcionais ou de primeira diferença) e (2) da forma funcional incorreta (por exemplo,
+modelos lineares versus log-lineares).
+
+
+
+## Detecção da heterocedasticidade
+
+### Métodos informais
+
+- **Natureza do problema**. Com muita frequência, a natureza do problema em consideração sugere a probabilidade de encontrarmos heterocedasticidade. Por exemplo, seguindo o trabalho pioneiro de Prais e Houthakker sobre
+estudos de orçamentos familiares, em que verificaram que a variância residual em torno da regressão
+de consumo sobre a renda aumentava com a renda, agora se supõe, de modo geral, que em estudos
+semelhantes pode-se esperar variâncias desiguais entre os termos de erro. Na verdade, em dados de
+corte transversal envolvendo unidades heterogêneas, a heterocedasticidade pode ser a regra e não
+a exceção. Em uma análise de corte transversal que envolve despesas com investimento em relação a vendas, taxa de juros etc., em geral espera-se encontrar heterocedasticidade se empresas de
+tamanho pequeno, médio e grande fizerem parte da amostra.
+
+- **Método gráfico**. Gráficos de $\hat \epsilon_i$ contra $\hat Y_i$ para descobrir se o valor médio estimado de $Y$ está sistematicamente relacionado aos resíduos elevados ao quadrado. Em vez de traçar  $\hat \epsilon_i$ contra $\hat Y_i$ pode-se traçá-los contra uma das variáveis explanatórias.
+
+
+
+### Detecção da heterocedasticidade
+
+#### Métodos formais
+
+- Teste de Park.
+- Teste de Glejser.
+- Teste de Goldfeld-Quandt.
+- Teste de Breusch-Pagan-Godfrey
+- Teste de White.
+
+#### Teste de Park
+
+Park formaliza o método gráfico sugerindo que $\sigma^2$ seja uma função da variável explanatória $X_i$. A forma funcional sugerida por ele é 
+
+$$\sigma_i^2 = \sigma^2 X_i^\beta e^{\nu_i},$$
+ou
+
+$$\log(\sigma_i^2) = \log(\sigma^2) + \beta \log(X_i) + \nu_i,$$
+em que $\nu_i$ é o termo de erro estocástico. 
+
+
+
+Uma vez que $\sigma_i^2$ em geral não é conhecido, Park sugere usar $\hat\epsilon_i^2$ como *proxy* e calcular a seguinte regressão:
+
+$$\log(\hat\epsilon_i^2) = \log(\sigma^2) + \beta \log(X_i) + \nu_i = \alpha + \beta \log(X_i) + \nu_i.$$
+
+Se $\beta$ for significativo estatisticamente, isso sugere que a heterocedasticidade está presente nos dados. Se nao for significativo, não rejeitamos a hipótese da homocedasticidade. O teste de Park é um procesimento que envolve duas etapas. Na primeira fazemos a regressão de MQO desconsiderando a questão da heterocedasticidade. Obtemos $\hat\epsilon_i$ dessa regressão, então na segunda etapa fazemos a regressão dos residuos contra $X$.
+
+
+
+
+### Exemplo
+
+Para ilustrar a abordagem de Park, usamos a seguinte regressão:
+
+$$Y_i = \beta_0 + \beta_1 X_i + \epsilon_i,$$
+em que $Y =$ remuneração média em milhares de dólares, $X =$ produtividade média em milhares de dólares e $i =$ $i$-ésimo tamanho do emprego de estabelecimento. Os resultados são os seguintes:
+
+
+```{r}
+remuneracao_media <- c(3396, 3787, 4013, 4104, 4146, 4241, 4388, 4538, 4843)
+produtividade_media <- c(9355, 8584, 7962, 8275, 8389, 9418, 9795, 10281, 11750)
+fit2 <- lm(remuneracao_media ~ produtividade_media); summary(fit2)
+```
+
+
+Os resultados revelam que o coeficiente angular estimado é significante no nível de 10%. A equação mostra que, quando a produtividade no trabalho aumenta em, por exemplo, um dólar, a remuneração da mão de obra aumenta em média 23 centavos.
+
+
+Então, calcula-se a regressão dos resíduos obtidos na regressão contra $X_i$. Temos os resultados a seguir:
+
+```{r}
+logu2 <- log(fit2$residuals^2)
+logx <- log(produtividade_media)
+fit3 <- lm(logu2 ~ logx)
+summary(fit3)
+```
+
+
+> Não há relação estatisticamente significativa entre as duas variáveis. Seguindo o teste de Park, pode-se concluir que não há heterocedasticidade na variância dos erros.
+
+
+Agora iremos considerar o conjunto de dados `hprice1` do pacote `{wooldridge}` do `R`. Este conjunto de dados foi apresentado nos slides da [semana 11 ](https://rpubs.com/santosneto/slides_semana11) do curso. Como mencionado no slide 2 estes dados devem ser usados na realização da atividade prática final da disciplina. Para ajudar nesta atividade irei apresentar uma pequena análise prévia deste conjunto de dados. Irei considerar o seguinte modelo:
+
+$$
+\text{price} = \beta_0 + \beta_1 \, \text{lotsize} + \beta_2\, \text{sqrft} + \beta_3\, \text{bdrms} + \epsilon_i,
+$$
+em que $\epsilon_i \sim N(0, \sigma^2)$, $E(\epsilon_i, \epsilon_j) = 0\; \forall i \neq j$. Usando a função `lm()` para ajustar o modelo acima temos
+
+
+```{r, max.height='10px'}
+library(wooldridge)
+fit4  <- lm(price ~ lotsize + sqrft + bdrms, data = hprice1); fit4 
+```
+
+
+Agora iremos utilizar o teste de Breusch-Pagan para verificar a presença de heterocedasticidade. Para isso, basta usar a função `bptest()` do pacote `{lmtest}`. Vejamos
+
+```{r}
+library(lmtest)
+bp <- bptest(fit4); bp
+```
+
+A estatística de teste é `r format(round(bp$statistic, 3), decimal.mark = ",")` e o correspondente $p$-valor é `r format(round(bp$p.value, 3), decimal.mark = ",")`. Se consideramos um nível de significância de $1\%$, nós rejeitamos a hipótese nula, ou seja, temos fortes evidências contra a hipótese de homocedasticidade. 
+
+Um benefício de usar a forma funcional logarítmica para
+a variável dependente é que a heterocedasticidade é frequentemente reduzida. Neste exeplo, iremos considerar também as variáveis `lotsize` e `sqrft` na forma logarítmica. Estas transformações já estão presentes no conjunto de dados do `R`. 
+
+
+```{r}
+fit5  <- lm(lprice ~ llotsize + lsqrft + bdrms, data = hprice1); fit5 
+bptest(fit5)
+```
+
+
+> Portanto, não rejeitamos a hipótese nula de homocedasticidade no modelo
+com as formas funcionais logarítmicas.
+
+
+## Autocorrelação: o que acontece se os termos de erro são correlacionados?
+
+A autocorrelação pode ser definida como “correlação entre integrantes de séries de observações
+ordenadas no tempo [como as séries temporais] ou no espaço [como nos dados de corte transversal]”. No contexto da regressão, o modelo clássico de regressão linear pressupõe que essa autocorrelação não existe nos termos de erro $\epsilon_i$ . Simbolicamente
+
+$$cov(\epsilon_i, \epsilon_j| x_i, x_j) = E(\epsilon_i, \epsilon_j) = 0, \quad i \neq j.$$
+Em outras palavras, o modelo clássico pressupõe que o termo de erro relacionado a qualquer uma das observações não é influenciado pelo termo de erro de qualquer outra observação.
+
+Contudo, se for verificada essa dependência, teremos autocorrelação. Simbolicamente
+
+$$E(\epsilon_i, \epsilon_j) \neq 0, \quad i \neq j.$$
+Em tal situação, a perturbação provocada por uma greve neste trimestre pode afetar a produção do próximo, ou os aumentos da despesa de uma família podem levar outra a aumentar seu consumo para não ficar para trás.
+
+
+
+
+## Consequências do uso dos MQO na presença de autocorrelação
+
+Podemos declarar que um coeficiente é estatisticamente igual a zero, embora na realidade possa não ser.
+
+
+### Detecção de autocorrelação
+
+1. Método gráfico - podemos plotar os resíduos padronizados contra o tempo.
+2. O teste das carreiras, também conhecido como teste de Geary, um teste não paramétrico.
+3. O teste $d$ de Durbin-Watson.
+4. Um teste geral de autocorrelação: o teste de Breusch-Godfrey (BG).
+
+
+
+## O que fazer ao deparar-se com a autocorrelação: medidas corretivas
+
+Se, depois de aplicarmos um ou mais testes diagnósticos de autocorrelação discutidos na seção
+anterior, verificamos a presença dela, o que fazer? Temos quatro opções:
+
+1. Tentar verificar se é um caso de autocorrelação pura e não o resultado da especificação equivocada do modelo. Às vezes observamos padrões em resíduos, porque o modelo é mal especificado - ou seja, excluiu algumas variáveis importantes - ou porque sua forma funcional é incorreta.
+
+2. Se for autocorrelação pura, podemos usar a transformação adequada do modelo original de modo que, no modelo transformado não tenhamos o problema de autocorrelação (pura). Como no caso de heterocedasticidade, teremos de usar algum tipo de método de mínimos quadrados generalizados (MQG).
+
+3. Em amostras grandes, podemos usar o método de Newey-West para obter os erros padrão dos estimadores de MQO que estão corrigidos para a autocorrelação. Esse método na verdade é uma extensão do de erros padrão consistentes para heterocedastividade de White;
+
+4. Em algumas situações podemos continuar a usar o método dos MQO.
+
+
+
+
+
+## Correção da autocorrelação (pura): o método dos mínimos quadrados generalizados (MQG)
+
+Conhecendo as consequências da autocorrelação, principalmente a falta de eficiência dos estimadores, podemos precisar corrigir o problema. A correção depende do conhecimento que se tem da
+natureza da interdependência entre os termos de erro, ou seja, do conhecimento da estrutura da autocorrelação.
+
+Considere o modelo de regressão de duas variáveis:
+
+$$Y_{t} = \beta_1 + \beta_2 X_{t} + u_{t},$$
+em que o termo de erro siga o processo AR(1), a saber,
+
+$$u_t = \rho u_{t-1} + \epsilon_t, \quad -1 < \rho < 1.$$
+Aqui iremos considerar apenas o caso em que $\rho$ é conhecido.
+
+
+
+##  Correção da autocorrelação (pura): o método dos mínimos quadrados generalizados (MQG)
+
+Se a relação funcional do modelo de regressão for verdadeira no tempo $t$, também será no tempo $(t - 1).$ Portanto,
+
+$$Y_{t-1} = \beta_1 + \beta_2 X_{t - 1} + u_{t - 1}.$$
+Multiplicando a equação acima por $\rho$ em ambos os lados, obtemos
+
+$$\rho Y_{t-1} = \rho\beta_1 + \rho\beta_2 X_{t - 1} + \rho u_{t - 1}.$$ 
+
+Subtraindo a última equação do equação inicial, temos 
+
+$$(Y_t - \rho Y_{t-1}) = \beta_1 (1 - \rho) + \beta_2 (X_t - \rho X_{t-1}) + \epsilon_t,$$
+em que $\epsilon_t = (u_t - \rho u_{t-1})$. Podemos expressar esta equação como
+$$Y^*_{t} = \beta_1^* + \beta_2^* X_t^* + \epsilon_t,$$
+em que $\beta_1^* = \beta_1(1 - \rho), Y_t^* = (Y_t - \rho Y_{t-1}), X_t^* = (X_t - \rho X_{t -1})$ e $\beta^*_2 = \beta_2$. Pontanto, podemos aplicar o MQO às variáveis transformadas e obter com todas as propriedades ótimas.
+
+
+

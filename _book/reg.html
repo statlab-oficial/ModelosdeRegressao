@@ -8,7 +8,7 @@
 
 <meta name="description" content="Laboratório de Inovação em Estatística - StatLab">
 
-<title>Análise de Regressão: Teoria e Prática - 3&nbsp; Regressão</title>
+<title>Análise de Regressão: Teoria e Prática - 3&nbsp; Análise de Regressão</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,7 +103,45 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Procurar"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<script src="site_libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./reg.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regressão</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./reg.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise de Regressão</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -128,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reg.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regressão</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise de Regressão</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -159,7 +231,41 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">3.1</span> Introdução</a></li>
+  <li><a href="#regressão-linear-simples" id="toc-regressão-linear-simples" class="nav-link active" data-scroll-target="#regressão-linear-simples"><span class="header-section-number">3.1</span> Regressão Linear Simples</a>
+  <ul class="collapse">
+  <li><a href="#motivação" id="toc-motivação" class="nav-link" data-scroll-target="#motivação"><span class="header-section-number">3.1.1</span> Motivação</a></li>
+  <li><a href="#pressupostos-do-modelo" id="toc-pressupostos-do-modelo" class="nav-link" data-scroll-target="#pressupostos-do-modelo"><span class="header-section-number">3.1.2</span> Pressupostos do modelo</a></li>
+  <li><a href="#estimação-dos-parâmetros-pelo-método-dos-mínimos-quadrados" id="toc-estimação-dos-parâmetros-pelo-método-dos-mínimos-quadrados" class="nav-link" data-scroll-target="#estimação-dos-parâmetros-pelo-método-dos-mínimos-quadrados"><span class="header-section-number">3.1.3</span> Estimação dos parâmetros pelo método dos mínimos quadrados</a></li>
+  <li><a href="#propriedades-dos-estimadores" id="toc-propriedades-dos-estimadores" class="nav-link" data-scroll-target="#propriedades-dos-estimadores"><span class="header-section-number">3.1.4</span> Propriedades dos estimadores</a></li>
+  <li><a href="#decomposição-da-soma-de-quadrados-total" id="toc-decomposição-da-soma-de-quadrados-total" class="nav-link" data-scroll-target="#decomposição-da-soma-de-quadrados-total"><span class="header-section-number">3.1.5</span> Decomposição da Soma de Quadrados Total</a></li>
+  <li><a href="#tabela-de-anova" id="toc-tabela-de-anova" class="nav-link" data-scroll-target="#tabela-de-anova"><span class="header-section-number">3.1.6</span> Tabela de ANOVA</a></li>
+  <li><a href="#coeficiente-de-determinação" id="toc-coeficiente-de-determinação" class="nav-link" data-scroll-target="#coeficiente-de-determinação"><span class="header-section-number">3.1.7</span> Coeficiente de Determinação</a></li>
+  <li><a href="#coeficiente-de-determinação-ajustado-para-graus-de-liberdade" id="toc-coeficiente-de-determinação-ajustado-para-graus-de-liberdade" class="nav-link" data-scroll-target="#coeficiente-de-determinação-ajustado-para-graus-de-liberdade"><span class="header-section-number">3.1.8</span> Coeficiente de Determinação Ajustado para Graus de Liberdade</a></li>
+  <li><a href="#testes-de-hipóteses-sobre-a-inclinação-e-o-intercepto" id="toc-testes-de-hipóteses-sobre-a-inclinação-e-o-intercepto" class="nav-link" data-scroll-target="#testes-de-hipóteses-sobre-a-inclinação-e-o-intercepto"><span class="header-section-number">3.1.9</span> Testes de Hipóteses sobre a inclinação e o intercepto</a></li>
+  <li><a href="#intervalos-de-confiança-para-a-inclinação-e-para-o-intercepto" id="toc-intervalos-de-confiança-para-a-inclinação-e-para-o-intercepto" class="nav-link" data-scroll-target="#intervalos-de-confiança-para-a-inclinação-e-para-o-intercepto"><span class="header-section-number">3.1.10</span> Intervalos de Confiança para a inclinação e para o intercepto</a></li>
+  <li><a href="#intervalos-de-confiança-para-a-variância-e-para-a-média-da-variável-resposta-para-um-valor-fixo-da-variável-independente" id="toc-intervalos-de-confiança-para-a-variância-e-para-a-média-da-variável-resposta-para-um-valor-fixo-da-variável-independente" class="nav-link" data-scroll-target="#intervalos-de-confiança-para-a-variância-e-para-a-média-da-variável-resposta-para-um-valor-fixo-da-variável-independente"><span class="header-section-number">3.1.11</span> Intervalos de Confiança para a variância e para a média da variável resposta para um valor fixo da variável independente</a></li>
+  <li><a href="#intervalos-de-previsão" id="toc-intervalos-de-previsão" class="nav-link" data-scroll-target="#intervalos-de-previsão"><span class="header-section-number">3.1.12</span> Intervalos de Previsão</a></li>
+  <li><a href="#teste-para-falta-de-ajustamento" id="toc-teste-para-falta-de-ajustamento" class="nav-link" data-scroll-target="#teste-para-falta-de-ajustamento"><span class="header-section-number">3.1.13</span> Teste para Falta de Ajustamento</a></li>
+  <li><a href="#análise-de-resíduos" id="toc-análise-de-resíduos" class="nav-link" data-scroll-target="#análise-de-resíduos"><span class="header-section-number">3.1.14</span> Análise de Resíduos</a></li>
+  <li><a href="#analisar-dados-usando-o-r" id="toc-analisar-dados-usando-o-r" class="nav-link" data-scroll-target="#analisar-dados-usando-o-r"><span class="header-section-number">3.1.15</span> Analisar dados usando o <code>R</code></a></li>
+  </ul></li>
+  <li><a href="#regressão-linear-múltipla" id="toc-regressão-linear-múltipla" class="nav-link" data-scroll-target="#regressão-linear-múltipla"><span class="header-section-number">3.2</span> Regressão Linear Múltipla</a>
+  <ul class="collapse">
+  <li><a href="#interpretação-da-equação-de-regressão-múltipla" id="toc-interpretação-da-equação-de-regressão-múltipla" class="nav-link" data-scroll-target="#interpretação-da-equação-de-regressão-múltipla"><span class="header-section-number">3.2.1</span> Interpretação da equação de regressão múltipla</a></li>
+  <li><a href="#abordagem-matricial" id="toc-abordagem-matricial" class="nav-link" data-scroll-target="#abordagem-matricial"><span class="header-section-number">3.2.2</span> Abordagem Matricial</a></li>
+  <li><a href="#método-dos-mínimos-quadrados-ordinários" id="toc-método-dos-mínimos-quadrados-ordinários" class="nav-link" data-scroll-target="#método-dos-mínimos-quadrados-ordinários"><span class="header-section-number">3.2.3</span> Método dos Mínimos Quadrados Ordinários</a></li>
+  <li><a href="#equações-normais" id="toc-equações-normais" class="nav-link" data-scroll-target="#equações-normais"><span class="header-section-number">3.2.4</span> Equações Normais</a></li>
+  <li><a href="#propriedades" id="toc-propriedades" class="nav-link" data-scroll-target="#propriedades"><span class="header-section-number">3.2.5</span> Propriedades</a></li>
+  <li><a href="#análise-de-variância-da-regressão-linear-múltipla" id="toc-análise-de-variância-da-regressão-linear-múltipla" class="nav-link" data-scroll-target="#análise-de-variância-da-regressão-linear-múltipla"><span class="header-section-number">3.2.6</span> Análise de variância da regressão linear múltipla</a></li>
+  <li><a href="#exercício" id="toc-exercício" class="nav-link" data-scroll-target="#exercício"><span class="header-section-number">3.2.7</span> Exercício</a></li>
+  <li><a href="#conjunto-de-dados" id="toc-conjunto-de-dados" class="nav-link" data-scroll-target="#conjunto-de-dados"><span class="header-section-number">3.2.8</span> Conjunto de Dados</a></li>
+  <li><a href="#intervalos-de-confiança" id="toc-intervalos-de-confiança" class="nav-link" data-scroll-target="#intervalos-de-confiança"><span class="header-section-number">3.2.9</span> Intervalos de confiança</a></li>
+  <li><a href="#o-uso-das-variáveis-centradas" id="toc-o-uso-das-variáveis-centradas" class="nav-link" data-scroll-target="#o-uso-das-variáveis-centradas"><span class="header-section-number">3.2.10</span> O uso das variáveis centradas</a></li>
+  <li><a href="#coeficientes-de-correlação-parcial" id="toc-coeficientes-de-correlação-parcial" class="nav-link" data-scroll-target="#coeficientes-de-correlação-parcial"><span class="header-section-number">3.2.11</span> Coeficientes de correlação parcial</a></li>
+  <li><a href="#interpretação-dos-coeficientes-de-correlação-simples-e-parcial" id="toc-interpretação-dos-coeficientes-de-correlação-simples-e-parcial" class="nav-link" data-scroll-target="#interpretação-dos-coeficientes-de-correlação-simples-e-parcial"><span class="header-section-number">3.2.12</span> Interpretação dos coeficientes de correlação simples e parcial</a></li>
+  <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo"><span class="header-section-number">3.2.13</span> Exemplo</a></li>
+  <li><a href="#seleção-de-variáveis-regressoras" id="toc-seleção-de-variáveis-regressoras" class="nav-link" data-scroll-target="#seleção-de-variáveis-regressoras"><span class="header-section-number">3.2.14</span> Seleção de variáveis regressoras</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -168,7 +274,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regressão</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise de Regressão</span></h1>
 </div>
 
 
@@ -185,10 +291,720 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introdução" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">3.1</span> Introdução</h2>
+<section id="regressão-linear-simples" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="regressão-linear-simples"><span class="header-section-number">3.1</span> Regressão Linear Simples</h2>
+<section id="motivação" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="motivação"><span class="header-section-number">3.1.1</span> Motivação</h3>
+<p><strong>Regressão Linear Simples:</strong> É um método estatístico que nos permite resumir e estudar as relações entre duas variáveis quantitativas:</p>
+<ul>
+<li>Uma variável, denotada por <span class="math inline">\(x\)</span>, é considerada como preditora, explicativa ou variável independentes.<br>
+</li>
+<li>A outra variável, denotada por <span class="math inline">\(y\)</span>, é considerada como a resposta, resultado ou variável dependente.</li>
+</ul>
+<blockquote class="blockquote">
+<p>Usaremos os termos <strong>“preditor”</strong> e <strong>“resposta”</strong> para nos referirmos às variáveis utilizadas neste curso. Os outros termos são mencionados apenas para torná-lo ciente deles caso você os encontre em outros materiais. A regressão linear simples recebe o adjetivo <em>“simples”</em>, porque diz respeito ao estudo de apenas uma variável preditora. Em contraste, a regressão linear múltipla, que estudaremos mais adiante neste curso, recebe o adjetivo <em>“múltipla”</em>, porque diz respeito ao estudo de duas ou mais variáveis preditoras.</p>
+</blockquote>
+<p>No slide anterior, foi possível observar que se você conhece a temperatura em graus Celsius, pode usar uma equação para determinar exatamente a temperatura em graus Fahrenheit.</p>
+<p>Agora serão apresentadas outros exemplos de relações determinística.</p>
+<ol type="1">
+<li><span class="math inline">\(\text{Circuferência} = \pi \times \text{diâmetro}\)</span>.<br>
+</li>
+<li><strong>Lei de Hooke:</strong> <span class="math inline">\(Y = \alpha + \beta X\)</span>, em que <span class="math inline">\(Y\)</span> é a quantidade de alogamento em uma mola e <span class="math inline">\(X\)</span> é o peso aplicado.<br>
+</li>
+<li><strong>Lei de Ohm:</strong> <span class="math inline">\(I = V/r\)</span>, em que <span class="math inline">\(V\)</span> é a tensão aplicada, <span class="math inline">\(r\)</span> é a resistência elétrica e <span class="math inline">\(I\)</span> é a corrente elétrica.<br>
+</li>
+<li><strong>Lei de Boyle:</strong> Para uma temperatura constate, <span class="math inline">\(P = \alpha/V\)</span>, em que <span class="math inline">\(P\)</span> é a pressão, <span class="math inline">\(\alpha\)</span> é uma constante para cada gás e <span class="math inline">\(V\)</span> é o volume do gás.</li>
+</ol>
+<p>Para cada uma dessas relações determinísticas, a equação descreve exatamente a relação entre as duas variáveis. Esta disciplina não examina relacionamentos determinísticos. Em vez disso, estamos interessados em relações estatísticas, nas quais a relação entre as variáveis não é perfeita.</p>
+<p>Primeiro devemos deixar claro quais tipos de relacionamentos não estudaremos neste curso, ou seja, relacionamentos determinísticos (ou funcionais). Abaixo está um exemplo de uma relação determinística.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: ggplot2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cels <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fahr <span class="ot">&lt;-</span> (<span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>)<span class="sc">*</span>cels <span class="sc">+</span> <span class="dv">32</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> cels, <span class="at">y =</span> fahr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggscatter</span>(data,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">"y"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"Celsius"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">"Fahrenheit"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">"reg.line"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reg_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Observe que os pontos de dados observados caem diretamente em uma linha. Como você deve se lembrar, a relação entre graus Fahrenheit e graus Celsius é conhecida como:</p>
+<p><span class="math display">\[\text{Fahrenheit} = (9/5) \times \text{Celsius} + 32.\]</span></p>
+<p>Agora iremos apresentar um exeplo de relação estatística. A variável resposta <span class="math inline">\(Y\)</span> é a mortalidade por cancêr de pele (por 10 milhões de pessoas) e a variável preditora <span class="math inline">\(X\)</span> é a latitude no centro de cada um dos 48 estados americanos (dados de câncer de pele dos EUA). Os dados foram obtidos na década de 1950, então o Alasca e o Havaí ainda não eram estados. Além disso, Washington, DC está incluído no conjunto de dados, embora não seja tecnicamente um estado.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>skincancer <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"skincancer.txt"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(skincancer, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">5</span>, <span class="at">scrollY =</span> <span class="st">"200px"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-69af165be955ce0d857b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-69af165be955ce0d857b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49"],["Alabama","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","\"Wash,D.C.\"","Florida","Georgia","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","NewHampshire","NewJersey","NewMexico","MewYork","NorthCarolina","NorthDakota","Ohio","Oklahoma","Oregon","Pennsylvania","RhodeIsland","SouthCarolina","SouthDakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","WestVirginia","Wisconsin","Wyoming"],[33,34.5,35,37.5,39,41.8,39,39,28,33,44.5,40,40.2,42.2,38.5,37.8,31.2,45.2,39,42.2,43.5,46,32.8,38.5,47,41.5,39,43.8,40.2,35,43,35.5,47.5,40.2,35.5,44,40.8,41.8,33.8,44.8,36,31.5,39.5,44,37.5,47.5,38.8,44.5,43],[219,160,170,182,149,159,200,177,197,214,116,124,128,128,166,147,190,117,162,143,117,116,207,131,109,122,191,129,159,141,152,199,115,131,182,136,132,137,178,86,186,229,142,153,166,117,136,110,134],[1,0,0,1,0,1,1,0,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,0,0,0,0,1,1,0,1,1,0,0,0,1,0,1,1,0,0,1,0,1,1,1,0,0,0],[87,112,92.5,119.5,105.5,72.8,75.5,77,82,83.5,114,89.5,86.2,93.8,98.5,85,91.8,69,76.5,71.8,84.5,94.5,90,92,110.5,99.5,117,71.5,74.5,106,75.5,79.5,100.5,82.8,97.2,120.5,77.8,71.5,81,100,86.2,98,111.5,72.5,78.5,121,80.8,90.2,107.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>Lat<\/th>\n      <th>Mort<\/th>\n      <th>Ocean<\/th>\n      <th>Long<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollY":"200px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"State","targets":1},{"name":"Lat","targets":2},{"name":"Mort","targets":3},{"name":"Ocean","targets":4},{"name":"Long","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Note que viver nas latitudes mais altas do norte dos Estados Unidos, diminuiria a exposição aos raios nocivos do sol e, portanto, menos risco teria de morrer devido ao câncer de pele. O gráfico de dispersão suporta tal hipótese. Parece haver uma relação linear negativa entre latitude e mortalidade por câncer de pele, mas a relação não é perfeita. De fato, o enredo exibe alguma “tendência”, mas também exibe alguma “dispersão”. Portanto, é uma relação estatística, não determinística.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="reg_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alguns outros exemplos de relações estatísticas podem incluir:</p>
+<ul>
+<li><p>Altura e peso – à medida que a altura aumenta, você esperaria que o peso aumentasse, mas não perfeitamente.</p></li>
+<li><p>Álcool consumido e teor alcoólico no sangue — à medida que o consumo de álcool aumenta, você esperaria que o teor alcoólico no sangue aumentasse, mas não perfeitamente.</p></li>
+<li><p>Capacidade pulmonar vital e maços-ano de tabagismo — à medida que a quantidade de fumo aumenta (conforme quantificado pelo número de maços-ano de tabagismo), você esperaria que a função pulmonar (conforme quantificada pela capacidade pulmonar vital) diminuísse, mas não perfeitamente.</p></li>
+<li><p>Velocidade de direção e consumo de combustível — à medida que a velocidade de direção aumenta, você esperaria que o consumo de combustível diminuísse, mas não perfeitamente.</p></li>
+</ul>
+<p>Portanto, vamos estudar as relações estatísticas entre uma variável de resposta <span class="math inline">\(y\)</span> e uma variável preditora <span class="math inline">\(x\)</span>!</p>
+</section>
+<section id="pressupostos-do-modelo" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="pressupostos-do-modelo"><span class="header-section-number">3.1.2</span> Pressupostos do modelo</h3>
+</section>
+<section id="estimação-dos-parâmetros-pelo-método-dos-mínimos-quadrados" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="estimação-dos-parâmetros-pelo-método-dos-mínimos-quadrados"><span class="header-section-number">3.1.3</span> Estimação dos parâmetros pelo método dos mínimos quadrados</h3>
+</section>
+<section id="propriedades-dos-estimadores" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="propriedades-dos-estimadores"><span class="header-section-number">3.1.4</span> Propriedades dos estimadores</h3>
+</section>
+<section id="decomposição-da-soma-de-quadrados-total" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="decomposição-da-soma-de-quadrados-total"><span class="header-section-number">3.1.5</span> Decomposição da Soma de Quadrados Total</h3>
+</section>
+<section id="tabela-de-anova" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="tabela-de-anova"><span class="header-section-number">3.1.6</span> Tabela de ANOVA</h3>
+</section>
+<section id="coeficiente-de-determinação" class="level3" data-number="3.1.7">
+<h3 data-number="3.1.7" class="anchored" data-anchor-id="coeficiente-de-determinação"><span class="header-section-number">3.1.7</span> Coeficiente de Determinação</h3>
+</section>
+<section id="coeficiente-de-determinação-ajustado-para-graus-de-liberdade" class="level3" data-number="3.1.8">
+<h3 data-number="3.1.8" class="anchored" data-anchor-id="coeficiente-de-determinação-ajustado-para-graus-de-liberdade"><span class="header-section-number">3.1.8</span> Coeficiente de Determinação Ajustado para Graus de Liberdade</h3>
+</section>
+<section id="testes-de-hipóteses-sobre-a-inclinação-e-o-intercepto" class="level3" data-number="3.1.9">
+<h3 data-number="3.1.9" class="anchored" data-anchor-id="testes-de-hipóteses-sobre-a-inclinação-e-o-intercepto"><span class="header-section-number">3.1.9</span> Testes de Hipóteses sobre a inclinação e o intercepto</h3>
+</section>
+<section id="intervalos-de-confiança-para-a-inclinação-e-para-o-intercepto" class="level3" data-number="3.1.10">
+<h3 data-number="3.1.10" class="anchored" data-anchor-id="intervalos-de-confiança-para-a-inclinação-e-para-o-intercepto"><span class="header-section-number">3.1.10</span> Intervalos de Confiança para a inclinação e para o intercepto</h3>
+</section>
+<section id="intervalos-de-confiança-para-a-variância-e-para-a-média-da-variável-resposta-para-um-valor-fixo-da-variável-independente" class="level3" data-number="3.1.11">
+<h3 data-number="3.1.11" class="anchored" data-anchor-id="intervalos-de-confiança-para-a-variância-e-para-a-média-da-variável-resposta-para-um-valor-fixo-da-variável-independente"><span class="header-section-number">3.1.11</span> Intervalos de Confiança para a variância e para a média da variável resposta para um valor fixo da variável independente</h3>
+</section>
+<section id="intervalos-de-previsão" class="level3" data-number="3.1.12">
+<h3 data-number="3.1.12" class="anchored" data-anchor-id="intervalos-de-previsão"><span class="header-section-number">3.1.12</span> Intervalos de Previsão</h3>
+</section>
+<section id="teste-para-falta-de-ajustamento" class="level3" data-number="3.1.13">
+<h3 data-number="3.1.13" class="anchored" data-anchor-id="teste-para-falta-de-ajustamento"><span class="header-section-number">3.1.13</span> Teste para Falta de Ajustamento</h3>
+</section>
+<section id="análise-de-resíduos" class="level3" data-number="3.1.14">
+<h3 data-number="3.1.14" class="anchored" data-anchor-id="análise-de-resíduos"><span class="header-section-number">3.1.14</span> Análise de Resíduos</h3>
+</section>
+<section id="analisar-dados-usando-o-r" class="level3" data-number="3.1.15">
+<h3 data-number="3.1.15" class="anchored" data-anchor-id="analisar-dados-usando-o-r"><span class="header-section-number">3.1.15</span> Analisar dados usando o <code>R</code></h3>
+</section>
+</section>
+<section id="regressão-linear-múltipla" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="regressão-linear-múltipla"><span class="header-section-number">3.2</span> Regressão Linear Múltipla</h2>
+<p>Agora iremos admitir que <span class="math inline">\(X_1, X_2, \ldots, X_k\)</span> sejam variáveis independentes e <span class="math inline">\(Y\)</span> a variável resposta. Dada uma amostra aleatória de <span class="math inline">\(n\)</span> observações <span class="math inline">\((x_{1i}, x_{2i}, \ldots, x_{ki}, y_i), \quad i = 1, 2, \ldots, n\)</span>, o modelo de regressão linear múltipla será dado por</p>
+<p><span class="math display">\[E(Y_i| x_{1i}, x_{2i}, \ldots, x_{ki}) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki},  \quad i = 1, 2, \ldots, n,\]</span></p>
+<p>ou</p>
+<p><span class="math display">\[Y_i  = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + \epsilon_i,  \quad i = 1, 2, \ldots, n,\]</span> em que <span class="math inline">\(n &gt; k+1.\)</span></p>
+<p>Iremos considerar uma estrutura similar a do modelo de regressão linear simples. Especificamente, estamos considerando o seguinte:</p>
+<ul>
+<li>Modelo de regressão linear, ou <strong>linear nos parâmetros</strong>.</li>
+<li>Valores fixos de <span class="math inline">\(X\)</span>.</li>
+<li>O termo de erro <span class="math inline">\(\epsilon_i\)</span> tem valor médio zero.</li>
+<li>Homocedasticidade ou variância constante de <span class="math inline">\(\epsilon_i\)</span>.</li>
+<li>Ausência de autocorrelação, ou de correlação serial, entre os termos de erro.</li>
+<li>Não há colinearidade exata entre as variáveis <span class="math inline">\(X\)</span>.</li>
+<li>Ausência de viés de especificação.</li>
+</ul>
+<section id="interpretação-da-equação-de-regressão-múltipla" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="interpretação-da-equação-de-regressão-múltipla"><span class="header-section-number">3.2.1</span> Interpretação da equação de regressão múltipla</h3>
+<p>Considerando que temos apenas duas variáveis regressoras, então</p>
+<p><span class="math display">\[E(Y_i| x_{1i}, x_{2i}) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}.\]</span></p>
+<p>Desta forma, a equação acima fornece o <strong>valor esperado ou média de</strong> <span class="math inline">\(Y\)</span> <strong>condicional aos valores dados ou fixados de</strong> <span class="math inline">\(X_1\)</span> e <span class="math inline">\(X_2\)</span>.</p>
+<p>Os coeficientes de regressão <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\beta_2\)</span> são conhecidos como <strong>coeficientes parciais de regressão</strong> ou <strong>coeficientes parciais angulares</strong>. Seu significado é o seguinte: <span class="math inline">\(\beta_1\)</span> mede a <em>variação</em> no valor médio de <span class="math inline">\(Y\)</span>, <span class="math inline">\(E(Y)\)</span>, por unidade de variação em <span class="math inline">\(X_2\)</span>, mantendo-se o valor de <span class="math inline">\(X_2\)</span> constante. Em outras palavras, ele nos dá o efeito “direto” ou “liquido” de uma unidade de variação em <span class="math inline">\(X_2\)</span> sobre o valor médio em <span class="math inline">\(Y\)</span>, excluídos os efeitos que <span class="math inline">\(X_2\)</span> possa ter sobre a média de <span class="math inline">\(Y\)</span>. De modo análogo, <span class="math inline">\(\beta_2\)</span> mede a variação do valor médio de <span class="math inline">\(Y\)</span> por unidade de variação em <span class="math inline">\(X_2\)</span>, mantendo-se constante o valor de <span class="math inline">\(X_1\)</span>. Eles nos dá o efeito “direto” ou “liquido” de uma unidade de variação de <span class="math inline">\(X_2\)</span> sobre o valor médio de <span class="math inline">\(Y\)</span>, excluídos quaiquer efeitos que <span class="math inline">\(X_1\)</span> possa ter sobre o valor médio de <span class="math inline">\(Y\)</span>.</p>
+</section>
+<section id="abordagem-matricial" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="abordagem-matricial"><span class="header-section-number">3.2.2</span> Abordagem Matricial</h3>
+<p>Por patricidade iremos utilizar a abordagem matricial, que no permitirar, entre outras coisas: i) encontrar o vetor de estimadores; ii) verificar as propriedade estatísticas dos estimadores; iii) obter a distribuição dos estimadores; qualquer que seja o número de variáveis independentes no modelo.</p>
+<p>Sendo assim, podemos escrever o modelo de regressão linear múltipla como: <span class="math display">\[\mathbf{y} = \mathbf{X} \boldsymbol{\beta} +  \boldsymbol{\epsilon},\]</span> que é conhecido como <strong>modelo linear geral</strong>.</p>
+<p>Para determinarmos os estimadores de mínimos quadrados ordinários devemos minimizar</p>
+<p><span class="math display">\[S(\boldsymbol\beta) = \sum\limits_{i=1}^{n}(\epsilon_i)^2 = \epsilon_1^2 + \cdots + \epsilon_n^2 = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon},\]</span></p>
+<p>ou</p>
+<p><span class="math display">\[S(\boldsymbol\beta) = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon} = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}).\]</span></p>
+</section>
+<section id="método-dos-mínimos-quadrados-ordinários" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="método-dos-mínimos-quadrados-ordinários"><span class="header-section-number">3.2.3</span> Método dos Mínimos Quadrados Ordinários</h3>
+<p>Podemos abrir a expressão anterios da seguinte maneira</p>
+<p><span class="math display">\[\begin{aligned}
+S(\boldsymbol\beta) &amp;= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
+&amp;= (\mathbf{y}^\top - \boldsymbol{\beta}^\top\mathbf{X}^\top)(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})\\
+&amp;= \mathbf{y}^\top \mathbf{y} - \mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} - \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y} + \boldsymbol{\beta}^\top\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.
+\end{aligned}\]</span></p>
+<p>Observe que <span class="math inline">\(\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta}\)</span> e <span class="math inline">\(\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y}\)</span> são escalares e</p>
+<p><span class="math display">\[\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} = (\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y})^\top,\]</span></p>
+<p>consequentemente <span class="math inline">\(\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} = \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y}\)</span>. Desta forma,</p>
+<p><span class="math display">\[S(\boldsymbol\beta) = \mathbf{y}^\top \mathbf{y} - 2\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^\top\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.\]</span></p>
+<p>Nosso interesse, agora, é calcular <span class="math inline">\(\frac{\partial S(\boldsymbol\beta)}{\partial \boldsymbol{\beta}}\)</span>. Temos que <span class="math display">\[\frac{\partial S(\boldsymbol\beta)}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^\top \mathbf{y} + 2\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.\]</span></p>
+</section>
+<section id="equações-normais" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="equações-normais"><span class="header-section-number">3.2.4</span> Equações Normais</h3>
+<p>Se igualarmos o resultado anterior a zero, temos</p>
+<p><span class="math display">\[-2\mathbf{X}^\top \mathbf{y} + 2\mathbf{X}^\top \mathbf{X}\widehat{\boldsymbol{\beta}} = \mathbf{0} \Longleftrightarrow \mathbf{X}^\top \mathbf{X}\widehat{\boldsymbol{\beta}} =  \mathbf{X}^\top \mathbf{y},\]</span></p>
+<p>que é o sistema de equações normais na abordagem matricial. Assumindo que <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> é não-singular, a solução do sistema de equações normais é <span class="math display">\[\widehat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \mathbf{y},\]</span> que é o vetor de estimadores de mínimos quadrados ordinários do vetor de parâmetros <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+</section>
+<section id="propriedades" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="propriedades"><span class="header-section-number">3.2.5</span> Propriedades</h3>
+<ol type="1">
+<li><span class="math inline">\(E(\widehat{\boldsymbol{\beta}}) = \boldsymbol{\beta}\)</span>. (Prove!) <svg viewbox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"></path></svg></li>
+<li><span class="math inline">\(Var(\widehat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\)</span>. (Prove!) <svg viewbox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"></path></svg></li>
+<li>A distribuição do vetor <span class="math inline">\(\mathbf{y}\)</span>, correspondente aos valores prefixados das variáveis regressoras dados em <span class="math inline">\(\mathbf{X}\)</span>, é <span class="math inline">\(\text{NM}_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I})\)</span>, e portanto</li>
+</ol>
+<p><span class="math display">\[\widehat{\boldsymbol{\beta}} \sim \text{NM}_{k+1}(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}).\]</span></p>
+</section>
+<section id="análise-de-variância-da-regressão-linear-múltipla" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="análise-de-variância-da-regressão-linear-múltipla"><span class="header-section-number">3.2.6</span> Análise de variância da regressão linear múltipla</h3>
+<p>Podemos escrever a soma de quadrados dos resíduos como</p>
+<p><span class="math display">\[SQE = \mathbf{e}^\top\mathbf{e} = \mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y}.\]</span></p>
+<p>Já a soma de quadrados total é dada por:</p>
+<p><span class="math display">\[SQT = \mathbf{y}^\top \mathbf{y} - n \bar{y}^2.\]</span></p>
+<p>Por fim, a soma de quadrados da regressão é dada por:</p>
+<p><span class="math display">\[SQReg = \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2.\]</span></p>
+<p>Esses resultados nos levam a seguinte tabela de análise de variâncias:</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">CV</th>
+<th style="text-align: center;">GL</th>
+<th style="text-align: center;">SQ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Regressão</td>
+<td style="text-align: center;"><span class="math inline">\(k\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Erro</td>
+<td style="text-align: center;"><span class="math inline">\(n-k-1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Total</td>
+<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\mathbf{y}^\top \mathbf{y} - n \bar{y}^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>O quadrado médio do erro (ou residual), dado pelo quociente <span class="math inline">\(SQE/(n-k-1)\)</span>, é portanto, uma estimativa não-tendenciosa da variância residual <span class="math inline">\((\sigma^2)\)</span>. Subtituindo <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(s^2 = QME\)</span> em <span class="math inline">\(\sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}\)</span> obtemos a matriz das estimativas das variâncias e covariâncias das estimativas dos parâmetro:</p>
+<p><span class="math display">\[s^2 (\mathbf{X}^\top \mathbf{X})^{-1}.\]</span></p>
+<p>É possível demonstrar que, se os erros <span class="math inline">\(\epsilon_i\)</span> têm distribuição normal e se <span class="math inline">\(\beta_1 = \beta_2 = \cdots = \beta_k = 0\)</span>, o quociente</p>
+<p><span class="math display">\[F = \frac{QMReg}{QME},\]</span> tem distribuição <span class="math inline">\(F\)</span> com <span class="math inline">\(k\)</span> e <span class="math inline">\(n-k-1\)</span> graus de liberdade. Estão, o valor <span class="math inline">\(F\)</span> assim obtido é utilizado para testar a hipótese</p>
+<p><span class="math display">\[H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0.\]</span></p>
+<p>Obtidas as estimativas dos desvios padrões das estimativas dos parâmetros dadas pelas raízes quadradas dos elementos da diagonal principal da matriz <span class="math inline">\(s^2 (\mathbf{X}^\top \mathbf{X})^{-1}\)</span>, podemos utilizar o valor</p>
+<p><span class="math display">\[t = \frac{\widehat{\beta}_i - \beta_i}{s(\widehat{\beta}_i)},\]</span> associado a <span class="math inline">\(n-k-1\)</span> graus de liberdade, para testar hipóteses a respeito dos valores dos parâmetros.</p>
+<p>Podemos, ainda, construir intervalos de confiança para os parâmetros. Escolhido o nível de confiança, e sendo <span class="math inline">\(t_0\)</span> o correspondente valor crítico de <span class="math inline">\(t\)</span>, o intervalo de confiança para <span class="math inline">\(\beta_i\)</span> é</p>
+<p><span class="math display">\[\widehat{\beta}_i \pm t_0 s(\widehat{\beta}_i).\]</span></p>
+<blockquote class="blockquote">
+<p>Devemos ressaltar que tanto o teste <span class="math inline">\(t\)</span> como o intervalo de confiança só são válidos se os erros <span class="math inline">\(\epsilon_i\)</span> tiverem distribuição normal.</p>
+</blockquote>
+<p>O coeficiente de determinação múltipla é definido por</p>
+<p><span class="math display">\[R^2 = \frac{SQReg}{SQT},\]</span> e mostra a proporção da soma de quadrados total que é “explicada” pela regressão múltipla. Já o coeficiente de terminação corrigido é definido por:</p>
+<p><span class="math display">\[\bar{R}^2 = R^2 - \frac{k}{n-k-1}(1 - R²).\]</span> ### Ajustando um modelo de regressão linear múltipla no R</p>
+<p>O pacote <code>wooldridge</code> contém 115 conjuntos de dados do livro <em>Introductory Econometrics: A Modern Approach, 7ed</em> de Jeffrey M. Wooldridge. Para instalar o pacote via CRAN basta usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"wooldridge"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para obter informações sobre os conjunto de dados, basta acessar a documentação. Por exemplo, se tenho interesse em ler a documentação do conjunto de dados <code>wage1</code> (com 526 observações e 24 variáveis) basta usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wooldridge)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>?wage1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Iremos considerar um conjunto de dados chamado de <code>gpa1</code>. O mesmo foi coletado por <em>Christopher Lemmon</em>, um ex-aluno da <em>Michigan State University (MSU)</em>, para uma pesquisa com estudantes da MSU no outono de 1994. Este conjunto de dados tem 141 observações e 29 variáveis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wooldridge)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gpa1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  age soph junior senior senior5 male campus business engineer colGPA hsGPA ACT
+1  21    0      0      1       0    0      0        1        0    3.0   3.0  21
+2  21    0      0      1       0    0      0        1        0    3.4   3.2  24
+3  20    0      1      0       0    0      0        1        0    3.0   3.6  26
+4  19    1      0      0       0    1      1        1        0    3.5   3.5  27
+5  20    0      1      0       0    0      0        1        0    3.6   3.9  28
+6  20    0      0      1       0    1      1        1        0    3.0   3.4  25
+  job19 job20 drive bike walk voluntr PC greek car siblings bgfriend clubs
+1     0     1     1    0    0       0  0     0   1        1        0     0
+2     0     1     1    0    0       0  0     0   1        0        1     1
+3     1     0     0    0    1       0  0     0   1        1        0     1
+4     1     0     0    0    1       0  0     0   0        1        0     0
+5     0     1     0    1    0       0  0     0   1        1        1     0
+6     0     0     0    0    1       0  0     0   1        1        0     0
+  skipped alcohol gradMI fathcoll mothcoll
+1       2     1.0      1        0        0
+2       0     1.0      1        1        1
+3       0     1.0      1        1        1
+4       0     0.0      0        0        0
+5       0     1.5      1        1        0
+6       0     0.0      0        1        0</code></pre>
+</div>
+</div>
+<p>Nosso interesse é saber qual o efeito da nota média do ensino médio (hsGPA) e da pontuação no teste padronizado utilizado para seleção de alunos (ACT) na nota média da faculdade (ColGPA).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(colGPA <span class="sc">~</span> hsGPA <span class="sc">+</span> ACT, <span class="at">data =</span> gpa1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = colGPA ~ hsGPA + ACT, data = gpa1)
+
+Coefficients:
+(Intercept)        hsGPA          ACT  
+   1.286328     0.453456     0.009426  </code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Agora iremos interpretar os coeficientes da regressão: 0,453456 é o coeficiente parcial de regressão da hsGPA e diz que, mantida constante a influência da ACT, quando a hsGPA aumenta, por exemplo, em um ponto, a nota média da faculdade aumenta, em média, aproximadamente meio ponto.</p>
+</blockquote>
+<p>Em outras palavras, se selecionamos dois alunos, A e B, e esses alunos tiverem a mesma ACT, mas a hsGPA do aluno A é um ponto maior do que a hsGPA do aluno B, então esperamos que o aluno A tenha uma nota média da faculdade, aproximadamente meio ponto superior a do aluno B. (Interprete o outro coeficiente!)</p>
+</section>
+<section id="exercício" class="level3" data-number="3.2.7">
+<h3 data-number="3.2.7" class="anchored" data-anchor-id="exercício"><span class="header-section-number">3.2.7</span> Exercício</h3>
+<ol type="1">
+<li>Considere o seguinte modelo:</li>
+</ol>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 \texttt{Escolaridade} + \beta_2 \texttt{Anos de experiência} + \epsilon_i.\]</span> Suponha que você deixe de fora do cálculo a variável anos de experiência. Que tipos de problemas ou vieses você esperaria encontrar?</p>
+</section>
+<section id="conjunto-de-dados" class="level3" data-number="3.2.8">
+<h3 data-number="3.2.8" class="anchored" data-anchor-id="conjunto-de-dados"><span class="header-section-number">3.2.8</span> Conjunto de Dados</h3>
+<p>O pacote <code>wooldridge</code> contém 115 conjuntos de dados do livro <em>Introductory Econometrics: A Modern Approach, 7ed</em> de Jeffrey M. Wooldridge. Para instalar o pacote via CRAN basta usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"wooldridge"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para obter informações sobre os conjunto de dados, basta acessar a documentação. Por exemplo, se tenho interesse em ler a documentação do conjunto de dados <code>wage1</code> (com 526 observações e 24 variáveis) basta usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wooldridge)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>?wage1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="intervalos-de-confiança" class="level3" data-number="3.2.9">
+<h3 data-number="3.2.9" class="anchored" data-anchor-id="intervalos-de-confiança"><span class="header-section-number">3.2.9</span> Intervalos de confiança</h3>
+<p>Seja <span class="math inline">\(\mathbf{x}_i^\top\)</span> a <span class="math inline">\(i\)</span>-ésima linha de <span class="math inline">\(\mathbf{X}\)</span>, isto é, o vetor linha com valores das variáveis regressoras e primeiro elemento igual a 1. O estimador de mínimos quadrados da esperança de <span class="math inline">\(Y\)</span>, correspondente aos valores de <span class="math inline">\(\mathbf{x}_i^\top\)</span>, é dada por:</p>
+<p><span class="math display">\[\hat y_i = \mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}.\]</span></p>
+<p>Este estimador tem distribuição normal univariada, com média e variância iguais a:</p>
+<p><span class="math display">\[E(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top E(\widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top\boldsymbol{\beta},\]</span></p>
+<p>e</p>
+<p><span class="math display">\[Var(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top Var(\widehat{\boldsymbol{\beta}})\mathbf{x}_i = \sigma^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i.\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[\hat y_i = \mathbf{x}_i^\top \widehat{\boldsymbol{\beta}} \sim N(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i).\]</span></p>
+<p>Além disso, substituindo <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(s^2 = \hat{\sigma}^2 = QME\)</span> temos que <span class="math inline">\(\widehat{Var}(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = s^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i\)</span>. Obtida a estimativa da variância de <span class="math inline">\(\hat{y}_i\)</span>, podemos construir o intervalo de confiança para <span class="math inline">\(E(\hat{y}_i) = \mathbf{x}_i^\top\boldsymbol{\beta}\)</span>. Sendo <span class="math inline">\(t_0\)</span> o valor crítico da distribuição <span class="math inline">\(t\)</span> com <span class="math inline">\(n-k-1\)</span> graus de liberdade e ao nível de confiança adotado, o intervalo de confiança é:</p>
+<p><span class="math display">\[\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}} \pm t_0 \sqrt{s^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i}.\]</span></p>
+<p>Na tabela abaixo apresentamos os valores de uma amostra de 6 observações das variáveis <span class="math inline">\(Y_i, X_{1i}\)</span> e <span class="math inline">\(X_{1i}.\)</span></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(Y_i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X_{1i}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X_{2i}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1,5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6,5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10,0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">11,0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11,5</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16,5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="o-uso-das-variáveis-centradas" class="level3" data-number="3.2.10">
+<h3 data-number="3.2.10" class="anchored" data-anchor-id="o-uso-das-variáveis-centradas"><span class="header-section-number">3.2.10</span> O uso das variáveis centradas</h3>
+<p>Para simplificar os cálculos, muitas vezes trabalhamos com as variáveis centradas</p>
+<p><span class="math display">\[x_{ji} = X_{ji} - \bar X_j, \quad j = 1,\ldots, k,\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[\bar X_j = \frac{1}{n}\sum\limits_{i=1}^{n} X_{ji}.\]</span></p>
+<p>Neste caso o modelo estatístico fica</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki} + \epsilon_i, \quad i = 1, 2, \ldots, n.\]</span></p>
+<p>Consideremos o conjunto de dados do slide anterior. Tendo em vista o modelo</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i, \quad i = 1, \ldots, 6,\]</span></p>
+<p>com <span class="math inline">\(x_{1i} = X_{1i} - 1,5\)</span> e <span class="math inline">\(x_{2i} = X_{2i} - 3,0\)</span>, obtivemos os seguintes resultados:</p>
+<p>Temos que <span class="math display">\[\mathbf{X}^\top\mathbf{X} = \begin{bmatrix}
+n &amp; 0 &amp; 0 \\
+0&amp;\sum x_{1i}^2 &amp;  \sum x_{1i}x_{2i}\\
+0&amp; \sum x_{1i}x_{2i} &amp; \sum x_{2i}^2
+\end{bmatrix} = \begin{bmatrix}
+6 &amp; 0 &amp; 0 \\
+0&amp; 5,5 &amp;  9\\
+0&amp; 9 &amp; 22
+\end{bmatrix},\]</span></p>
+<p><span class="math display">\[\mathbf{X}^\top \mathbf{y} = \begin{bmatrix}
+\sum Y_i \\
+\sum x_{1i}Y_i\\
+\sum x_{2i}Y_i
+\end{bmatrix} = \begin{bmatrix}
+57\\
+25,5\\
+49
+\end{bmatrix}.\]</span></p>
+<p>e</p>
+<p><span class="math display">\[(\mathbf{X}^\top\mathbf{X})^{-1} = \begin{bmatrix}
+1/6 &amp; 0 &amp; 0 \\
+0&amp; 11/20 &amp;  -9/40\\
+0&amp; -9/40 &amp; 11/80
+\end{bmatrix}.\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Yi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">6.5</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="fl">11.5</span>, <span class="fl">16.5</span>) <span class="co">#resposta</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>X1i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>) </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>X2i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>x1i <span class="ot">&lt;-</span> X1i <span class="sc">-</span> <span class="fu">mean</span>(X1i) <span class="co">#variavel centrada</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>x2i <span class="ot">&lt;-</span> X2i <span class="sc">-</span> <span class="fu">mean</span>(X2i) <span class="co">#variavel centrada</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x1i, x2i)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(X) <span class="sc">%*%</span> X <span class="co">#X'X</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x1i x2i
+    6 0.0   0
+x1i 0 5.5   9
+x2i 0 9.0  22</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(X)<span class="sc">%*%</span>Yi <span class="co">#X'y</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    [,1]
+    57.0
+x1i 25.5
+x2i 49.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="co">#(X'X)^-1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 x1i     x2i
+    0.1666667  0.000  0.0000
+x1i 0.0000000  0.550 -0.2250
+x2i 0.0000000 -0.225  0.1375</code></pre>
+</div>
+</div>
+<p>No slide anterior, encontre as estimativas dos parâmetros manualmente e usando o <code>R</code> como calculadora!</p>
+<p>Usando o comando <code>lm()</code> podemos obter facilmente as estimativas dos coeficientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data &lt;- data.frame(Yi, x1i, x2i)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Yi <span class="sc">~</span> x1i <span class="sc">+</span> x2i)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>coefficients</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)         x1i         x2i 
+        9.5         3.0         1.0 </code></pre>
+</div>
+</div>
+<p>Consideremos <span class="math inline">\(X_{1h} = 2\)</span> e <span class="math inline">\(X_{2h} = 4\)</span>. Uma vez estamos fazendo os cálculos tendo em vista o modelo com as variáveis indepedentes centradas, obtemos <span class="math inline">\(x_{1h} = 0,5\)</span> e <span class="math inline">\(x_{2h} = 1\)</span> e fazendo <span class="math inline">\(\mathbf{x}_h^\top = [1, 0,5, 1],\)</span> temos que</p>
+<p><span class="math display">\[\hat y_h = \mathbf{x}_h^\top \widehat{\boldsymbol{\beta}} = 12.\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span>  fit<span class="sc">$</span>coefficients</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>xh <span class="ot">&lt;-</span> X[<span class="dv">5</span>,]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y_hat_h <span class="ot">&lt;-</span> <span class="fu">t</span>(xh)<span class="sc">%*%</span>b; <span class="fu">as.vector</span>(y_hat_h)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<p>Iremos agora obter as somas de quadrados. Dos slides da <a href="https://rpubs.com/santosneto/slides_semana10">Semana 10</a> temos que</p>
+<p><span class="math display">\[SQE  = \mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} = 670 - 667 = 3,\]</span></p>
+<p><span class="math display">\[SQT = \mathbf{y}^\top \mathbf{y} - n \bar{y}^2 = 670 - 541,5 = 128,5,\]</span></p>
+<p>e</p>
+<p><span class="math display">\[SQReg = \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2 = 667 - 541,5 = 125,5.\]</span></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">CV</th>
+<th style="text-align: center;">GL</th>
+<th style="text-align: center;">SQ</th>
+<th style="text-align: center;">QM</th>
+<th style="text-align: center;">F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Regressão</td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;">125,5</td>
+<td style="text-align: center;">62,75</td>
+<td style="text-align: center;">62,75</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Erro (Resíduos)</td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Total</td>
+<td style="text-align: center;"><span class="math inline">\(5\)</span></td>
+<td style="text-align: center;">128,5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>SQE <span class="ot">&lt;-</span> <span class="fu">t</span>(Yi) <span class="sc">%*%</span> Yi <span class="sc">-</span> b<span class="sc">%*%</span><span class="fu">t</span>(X)<span class="sc">%*%</span>Yi; SQE</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>SQT <span class="ot">&lt;-</span> <span class="fu">t</span>(Yi) <span class="sc">%*%</span> Yi <span class="sc">-</span> <span class="fu">NROW</span>(X)<span class="sc">*</span>(<span class="fu">mean</span>(Yi)<span class="sc">^</span><span class="dv">2</span>); SQT</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+[1,] 128.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>SQReg <span class="ot">&lt;-</span> b<span class="sc">%*%</span><span class="fu">t</span>(X)<span class="sc">%*%</span>Yi <span class="sc">-</span> <span class="fu">NROW</span>(X)<span class="sc">*</span>(<span class="fu">mean</span>(Yi)<span class="sc">^</span><span class="dv">2</span>); SQReg</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+[1,] 125.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>QME <span class="ot">&lt;-</span>  SQE<span class="sc">/</span><span class="dv">3</span>;<span class="fu">as.vector</span>(QME)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>QMReg <span class="ot">&lt;-</span> SQReg<span class="sc">/</span><span class="dv">2</span>;<span class="fu">as.vector</span>(QMReg)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 62.75</code></pre>
+</div>
+</div>
+<p>No <code>R</code> se desejamos testar a hipótese <span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span>, basta usar os comandos abaixo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Anexando pacote: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>O seguinte objeto é mascarado por 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>O seguinte objeto é mascarado por 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">linearHypothesis</span>(fit, <span class="fu">c</span>(<span class="st">"x1i=0"</span>, <span class="st">"x2i=0"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Linear hypothesis test:
+x1i = 0
+x2i = 0
+
+Model 1: restricted model
+Model 2: Yi ~ x1i + x2i
+
+  Res.Df   RSS Df Sum of Sq     F   Pr(&gt;F)   
+1      5 128.5                               
+2      3   3.0  2     125.5 62.75 0.003567 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Portanto, o resultado é significativo, isto é, rejeita-se, ao nível de significância de 1%, a hipótese <span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span> ( <span class="math inline">\(p\)</span>-valor = 0.003567 &lt; 0.01).</p>
+<p>Retornando aos cálculos para a obtenção do intervalo de confiança, temos que <span class="math inline">\(s^2\)</span> é igual a 1. Portanto,</p>
+<p><span class="math display">\[\begin{aligned}
+Var(\mathbf{x}_h^\top \widehat{\boldsymbol{\beta}}) &amp;= s^2 \mathbf{x}_h^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_h\\
+&amp;= \begin{bmatrix}
+1 &amp; 0,5 &amp; 1
+\end{bmatrix}\begin{bmatrix}
+1/6 &amp; 0 &amp; 0 \\
+0 &amp; 11/20 &amp; -9/40\\
+0 &amp; -9/40 &amp; 11/80
+\end{bmatrix}\begin{bmatrix}
+1 \\
+0,5\\
+1
+\end{bmatrix} \\
+&amp;= \frac{13}{60}.
+\end{aligned}\]</span></p>
+<p>Para um nível de confiança de 99%, o quantil da distribuição <em>t</em> com 3 graus de liberdade é 5.841. Então, o intervalo de confiança para</p>
+<p><span class="math display">\[E(Y_h) = \beta_0 + 2\beta_1 + 4\beta_2,\]</span></p>
+<p>é</p>
+<p><span class="math display">\[9,28 &lt; E(Y_h) &lt; 14,72.\]</span></p>
+<section id="usando-o-r" class="level4" data-number="3.2.10.1">
+<h4 data-number="3.2.10.1" class="anchored" data-anchor-id="usando-o-r"><span class="header-section-number">3.2.10.1</span> Usando o <code>R</code>!</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>varyhat_h <span class="ot">&lt;-</span> <span class="fu">t</span>(xh)<span class="sc">%*%</span><span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)<span class="sc">%*%</span>xh;varyhat_h</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.2166667</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">round</span>(y_hat_h <span class="sc">-</span> <span class="fu">round</span>(<span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>(<span class="fl">0.01</span><span class="sc">/</span><span class="dv">2</span>), <span class="dv">3</span>), <span class="dv">3</span>)<span class="sc">*</span><span class="fu">sqrt</span>(varyhat_h), <span class="dv">2</span>), <span class="fu">round</span>(y_hat_h <span class="sc">+</span> <span class="fu">round</span>(<span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>(<span class="fl">0.01</span><span class="sc">/</span><span class="dv">2</span>), <span class="dv">3</span>), <span class="dv">3</span>)<span class="sc">*</span><span class="fu">sqrt</span>(varyhat_h), <span class="dv">2</span>) )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  9.28 14.72</code></pre>
+</div>
+</div>
+<p>O mesmo resultado pode ser obtido usando o comando <code>predict()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="co">#modelo ajustado</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1i =</span> <span class="fl">0.5</span>, <span class="at">x2i =</span> <span class="dv">1</span>), <span class="co">#valores de xh</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="co">#tipo de intervalo</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">level =</span> <span class="fl">0.99</span> <span class="co">#nivel de confianca</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  fit      lwr     upr
+1  12 9.281205 14.7188</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="coeficientes-de-correlação-parcial" class="level3" data-number="3.2.11">
+<h3 data-number="3.2.11" class="anchored" data-anchor-id="coeficientes-de-correlação-parcial"><span class="header-section-number">3.2.11</span> Coeficientes de correlação parcial</h3>
+<p>No início do curso apresentamos o coeficiente de correlação <span class="math inline">\(r\)</span> como uma medida do grau de associação linear entre duas variáveis. No caso de um modelo de regressão com três variáveis, por exemplo, podemos computar três coeficientes de correlação: <span class="math inline">\(r_{12}\)</span> (correlação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_2\)</span>), <span class="math inline">\(r_{13}\)</span> (coeficiente de correlação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_3\)</span>) e <span class="math inline">\(r_{23}\)</span> (coeficiente de correlação entre <span class="math inline">\(X_2\)</span> e <span class="math inline">\(X_3\)</span>). Note que por conveniência estamos usando o subscrito 1 para representar <span class="math inline">\(Y\)</span>. Esses coeficientes de correlação são denominados <strong>coeficientes de correlação brutos</strong> ou <strong>simples</strong>, ou ainda, <strong>coeficientes de correlação de ordem zero</strong>. Eles podem ser calculados conforme a definição dada abaixo:</p>
+<p><span class="math display">\[r = \frac{\sum x_i y_i}{\sqrt{(\sum x_i^2) (\sum y_i^2)}} = \frac{n\sum X_i Y_i - (\sum X_i)(\sum Y_i)}{\sqrt{[n\sum X_i^2 - (\sum X_i)^2][n\sum Y_i^2 - (\sum Y_i)^2]}},\]</span> em que <span class="math inline">\(x_i = (X_i - \bar X)\)</span> e <span class="math inline">\(y_i = (Y_i - \bar Y)\)</span>.</p>
+<p>Será que, digamos, <span class="math inline">\(r_{12}\)</span>, mede de fato o “verdadeiro” grau de associação (linear) entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_2\)</span> quando uma terceira variável, <span class="math inline">\(X_3\)</span>, pode estar associada às outras duas? <em>A resposta é: em geral, <span class="math inline">\(r_{12}\)</span> não refletirá o verdadeiro grau de associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_2\)</span> na presença de <span class="math inline">\(X_3\)</span></em>.</p>
+<p>Precisamos de um coeficiente de correlação independente da influência, se é que ela existe, de <span class="math inline">\(X_3\)</span> sobre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_2\)</span>. Esse coeficiente de correlação pode ser obtido e é conhecido como <strong>coeficiente de correlação parcial</strong>. Conceitualmente, é semelhante ao coeficiente parcial de regressão. Definimos</p>
+<ul>
+<li><p><span class="math inline">\(r_{12,3} =\)</span> coeficiente de correlação parcial entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_2\)</span>, mantendo <span class="math inline">\(X_3\)</span> constante;</p></li>
+<li><p><span class="math inline">\(r_{13,2} =\)</span> coeficiente de correlação parcial entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_3\)</span>, mantendo <span class="math inline">\(X_2\)</span> constante; e</p></li>
+<li><p><span class="math inline">\(r_{23,1} =\)</span> coeficiente de correlação parcial entre <span class="math inline">\(X_2\)</span> e <span class="math inline">\(X_3\)</span>, mantendo <span class="math inline">\(Y\)</span> constante.</p></li>
+</ul>
+<p>Esses coeficientes de correlação parcial podem ser facilmente obtidos por meio do coeficiente de correlação simples ou de ordem zero:</p>
+<p><span class="math display">\[r_{12,3} = \frac{r_{12} - r_{13}r_{23} }{\sqrt{(1 - r_{13}^2)(1 - r_{23}^2)}}, \quad r_{13,2} = \frac{r_{13} - r_{12}r_{23} }{\sqrt{(1 - r_{12}^2)(1 - r_{23}^2)}} \quad \text{e} \quad r_{23,1} = \frac{r_{23} - r_{12}r_{13} }{\sqrt{(1 - r_{12}^2)(1 - r_{13}^2)}}.\]</span> As correlações parciais dadas acima são chamadas de <strong>coeficientes de correlação de primeira ordem</strong>. Por <em>ordem</em> entendemos o número de subscritos secundários.</p>
+</section>
+<section id="interpretação-dos-coeficientes-de-correlação-simples-e-parcial" class="level3" data-number="3.2.12">
+<h3 data-number="3.2.12" class="anchored" data-anchor-id="interpretação-dos-coeficientes-de-correlação-simples-e-parcial"><span class="header-section-number">3.2.12</span> Interpretação dos coeficientes de correlação simples e parcial</h3>
+<p>No caso de duas variáveis, o <span class="math inline">\(r\)</span> simples tem um significado objetivo: mede o grau de associação (linear) entre a variável dependente <span class="math inline">\(Y\)</span> e a única variável explanatória, <span class="math inline">\(X\)</span>. Mas, quando além do caso de duas variáveis, precisamos estar muito atentos à interpretação dos coeficientes de correlação simples. Na equação de <span class="math inline">\(r_{12,3}\)</span>, por exemplo, observamos o seguinte:</p>
+<ul>
+<li><p>Mesmo se <span class="math inline">\(r_{12} = 0\)</span>, <span class="math inline">\(r_{12,3}\)</span> não será igual a zero a menos que <span class="math inline">\(r_{13}\)</span> ou <span class="math inline">\(r_{23}\)</span>, ou ambos, sejam iguais a zero;</p></li>
+<li><p>Se <span class="math inline">\(r_{12} = 0\)</span> e <span class="math inline">\(r_{13}\)</span> e <span class="math inline">\(r_{23}\)</span> forem diferentes de zero e apresentarem o mesmo sinal, <span class="math inline">\(r_{12,3}\)</span> será nagativo, mas se apresentarem sinais contrários, será positivo. Um exemplo esclarecerá isso. Seja <span class="math inline">\(Y =\)</span> rendimento da colheita, <span class="math inline">\(X_2 =\)</span> precipitação pluviométrica e <span class="math inline">\(X_3 =\)</span> temperatura. Suponha que <span class="math inline">\(r_{12} = 0\)</span>, ou seja, que não haja associação entre rendimento da colheita e chuva. Suponha, ainda, que <span class="math inline">\(r_{13}\)</span> seja positivo e <span class="math inline">\(r_{23}\)</span>, negativo. Portanto, <span class="math inline">\(r_{12,3}\)</span> será positivo, isto é, mantendo a temperatura constante, há uma associação positiva entre rendimento e chuva. Esse resultado aparentemente paradoxal não é surpreendente. Como a temperatura, <span class="math inline">\(X_3\)</span>, afeta tanto o rendimento <span class="math inline">\(Y\)</span> quanto a precipitação pluviométrica <span class="math inline">\(X_2\)</span>, para encontrarmos a relação líquida entre rendimento da colheira e chuva, precisamos remover a influência da variável “incômoda” temperatura. Esse exemplo mostra como podemos ser enganados pelo coeficiente de correlação simples.</p></li>
+<li><p>Os termos <span class="math inline">\(r_{12,3}\)</span> e <span class="math inline">\(r_{12}\)</span> (e comparações semelhantes) não precisam ter o mesmo sinal.</p></li>
+<li><p>No caso de duas variáveis, vimos que <span class="math inline">\(r^2\)</span> situa-se entre 0 e 1. A mesma propriedade é valida para o quadrado dos coeficientes de correlação parcial.</p></li>
+<li><p>Suponha que <span class="math inline">\(r_{13} = r_{23} = 0\)</span>. Isso significa que <span class="math inline">\(r_{12}\)</span> também é zero? O fato de <span class="math inline">\(Y, X_3, X_2\)</span> e <span class="math inline">\(X_3\)</span> não serem correlacionados, não significa que <span class="math inline">\(Y\)</span> e <span class="math inline">\(X_2\)</span> não são correlacionados.</p></li>
+</ul>
+<p>Note que a expressão <span class="math inline">\(r_{12,3}^2\)</span> pode ser denominada coeficiente de determinação parcial e pode ser interpretada como a proporção da variação de <span class="math inline">\(Y\)</span> não explicada pela variável <span class="math inline">\(X_3\)</span>, que foi explicada pela inclusão de <span class="math inline">\(X_2\)</span> no modelo. Conceitualmente, é semelhante a <span class="math inline">\(R^2\)</span>. Observe as seguinte relações entre <span class="math inline">\(R^2\)</span> e os coeficientes de correlação simples e os coeficientes de correlação parcial:</p>
+<p><span class="math display">\[R^2 = \frac{r_{12}^2 + r_{13}^2 - 2r_{12}r_{13}r_{23}}{1 - r_{23}^2}, \quad R^2 = r_{12}^2 + (1 - r_{12}^2)r_{13,2}^2, \quad \text{e} \quad  R^2 = r_{13}^2 + (1 - r_{13}^2)r_{12,3}^2.\]</span></p>
+<p>Note que <span class="math inline">\(R^2\)</span> não diminui quando se inclui uma variável explanatória no modelo, o que pode ser visto com base na segunda equação apresentada no slide anterior. Essa equação informa que a proporção da variação de <span class="math inline">\(Y\)</span> explicada conjuntamente por <span class="math inline">\(X_2\)</span> e <span class="math inline">\(X_3\)</span> é a soma de duas partes: (i) a parte explicada apenas por <span class="math inline">\(X_2 (= r_{12}^2)\)</span> e (ii) a parte não explicada por <span class="math inline">\(X_2 (= 1 - r_{12}^2)\)</span> multiplicada pela proporção explicada por <span class="math inline">\(X_3\)</span> depois de manter a influência de <span class="math inline">\(X_2\)</span> constante. Agora, <span class="math inline">\(R^2 &gt; r_{12}^2\)</span> desde que <span class="math inline">\(r_{13,2}^2 &gt; 0\)</span>. Na pior das hipóteses será igual a zero, caso em que <span class="math inline">\(R^2 = r_{12}^2\)</span>.</p>
+</section>
+<section id="exemplo" class="level3" data-number="3.2.13">
+<h3 data-number="3.2.13" class="anchored" data-anchor-id="exemplo"><span class="header-section-number">3.2.13</span> Exemplo</h3>
+<p>Considere o exemplo numérico da <a href="https://rpubs.com/santosneto/slides_semana11">semana 11</a> (slide 5). Vamos calcular, inicialmente, os valores dos coeficientes de correlação simples:</p>
+<p><span class="math display">\[r_{12} = \frac{25,5}{\sqrt{5,5 \times 125,5}} = 0,9592 , \quad r_{13} = \frac{49}{\sqrt{22 \times 125,5}} = 0,9216 \quad \text{e} \quad r_{23} = \frac{9}{\sqrt{5,5 \times 22}} = 0,8182.\]</span></p>
+<p>No <code>R</code> podemos obter facilmente os valores dos coeficientes de correlação simples:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>Yi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">6.5</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="fl">11.5</span>, <span class="fl">16.5</span>) <span class="co">#resposta</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>X1i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>) </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>X2i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>x1i <span class="ot">&lt;-</span> X1i <span class="sc">-</span> <span class="fu">mean</span>(X1i) <span class="co">#variavel centrada</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>x2i <span class="ot">&lt;-</span> X2i <span class="sc">-</span> <span class="fu">mean</span>(X2i) <span class="co">#variavel centrada</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>r12 <span class="ot">&lt;-</span> <span class="fu">cor</span>(Yi, x1i); <span class="fu">round</span>(r12, <span class="dv">4</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9592</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>r13 <span class="ot">&lt;-</span> <span class="fu">cor</span>(Yi, x2i); <span class="fu">round</span>(r13, <span class="dv">4</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9216</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>r23 <span class="ot">&lt;-</span> <span class="fu">cor</span>(x1i, x2i); <span class="fu">round</span>(r23, <span class="dv">4</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8182</code></pre>
+</div>
+</div>
+<p>Agora substituindo os valores dos coeficientes de correlação simples na equação de <span class="math inline">\(r_{12,3}\)</span>, temos</p>
+<p><span class="math display">\[r_{12,3} = \frac{r_{12} - r_{13}r_{23} }{\sqrt{(1 - r_{13}^2)(1 - r_{23}^2)}} = \frac{0,9592 - 0,754}{\sqrt{0,1507 \times 0,3306}} = 0,9193.\]</span></p>
+<p>Esse coeficiente de correlação parcial também pode ser obtido usando <code>R</code>. Será usada a função <code>pcor.test()</code> do pacote <code>ppcor</code>.</p>
+<div class="cell" data-highlight.output="2">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ppcor) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: MASS</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Anexando pacote: 'MASS'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>O seguinte objeto é mascarado por 'package:wooldridge':
+
+    cement</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>O seguinte objeto é mascarado por 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> Yi, <span class="at">X2 =</span> x1i, <span class="at">X3 =</span> x2i)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pcor.test</span>(Yi, x1i, x2i, <span class="at">method=</span><span class="st">"pearson"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   estimate    p.value statistic n gp  Method
+1 0.9192771 0.02719563  4.045199 6  1 pearson</code></pre>
+</div>
+</div>
+<p>ou usando o comando <code>pcor()</code> do mesmo pacote. Qual é o resultado impresso quando usamos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pcor</span>(data)<span class="sc">$</span>estimate</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="seleção-de-variáveis-regressoras" class="level3" data-number="3.2.14">
+<h3 data-number="3.2.14" class="anchored" data-anchor-id="seleção-de-variáveis-regressoras"><span class="header-section-number">3.2.14</span> Seleção de variáveis regressoras</h3>
+<p>Vamos apresentar os seguinte procedimentos:</p>
+<ul>
+<li>todas as regressões possíveis;</li>
+<li>método “passo a frente” (<em>forward</em>);</li>
+<li>método “passo atrás” (<em>backward</em>);</li>
+<li>método “passo a passo” (<em>stepwise</em>).</li>
+</ul>
+<p><strong>Todas as regressões possíveis:</strong> Suponha que temos <span class="math inline">\(k\)</span> variáveis regressoras. O procedimento consiste em fazer os ajustes de todos os modelo possíveis. Na prática, este procedimento não é viável se o valor de <span class="math inline">\(k\)</span> é grande. Para a comparação dos modelos, vamos considerar os seguintes critérios:</p>
+<ul>
+<li>estatística <span class="math inline">\(C_p\)</span> de Mallows; e</li>
+<li><span class="math inline">\(R^2\)</span> ou <span class="math inline">\(R^2\)</span> ajustado.</li>
+</ul>
+<p><em>Outros critérios podem ser utilizados, por exemplo AIC, SBIC, SBC, entre outros.</em></p>
+<p>Muitos procedimentos estão disponíveis para selecionar um subconjunto de um conjunto de <span class="math inline">\(k\)</span> variáveis regressoras candidatas em um problema de regressão linear múltipla. Mas suponha que só escolhamos <span class="math inline">\(p\)</span> regressores <span class="math inline">\((p \leq k)\)</span> e obtemos a SQE da regressão usando esses <span class="math inline">\(p\)</span> regressores. Um método comumente usado é realizar todas as regressões e comparar os resultados com base na estatística <span class="math inline">\(C_p\)</span> de Mallows. Para um determinado modelo com <span class="math inline">\(p\)</span> parâmetros</p>
+<p><span class="math display">\[C_p = \frac{SQE_p}{\hat \sigma^2} - n + 2p,\]</span> em que <span class="math inline">\(SQE_p\)</span> é a soma de quadrados do erro para o modelo a ser considerado, <span class="math inline">\(n\)</span> é o número de observações e <span class="math inline">\(\hat \sigma^2\)</span> e uma estimativa da variância do erro, <span class="math inline">\(\sigma^2\)</span>. O quadrado médio do erro (QME) para o modelo completo é frequentemente usado como estimativa de <span class="math inline">\(\sigma^2\)</span>.</p>
+<blockquote class="blockquote">
+<p>Vários textos recomendam plotar <span class="math inline">\(C_p\)</span> contra <span class="math inline">\(p\)</span> para todas as regressões possíveis e escolher o modelo com <span class="math inline">\(C_p\)</span> baixo ou com <span class="math inline">\(C_p\)</span> próximo de <span class="math inline">\(p\)</span>.</p>
+</blockquote>
+<p>No <code>R</code> existe a função <code>ols_mallows_cp()</code> do pacote <code>{olsrr}</code>. E para gerar todos os possíveis modelos podemos usar a função <code>ols_step_all_possible()</code> do mesmo pacote.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

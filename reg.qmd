@@ -1,3 +1,678 @@
-# Regressão
+# Análise de Regressão
 
-## Introdução
+## Regressão Linear Simples
+
+
+### Motivação
+
+**Regressão Linear Simples:** É um método estatístico que nos permite resumir e estudar as relações entre duas variáveis quantitativas:
+
+- Uma variável, denotada por $x$, é considerada como preditora, explicativa ou variável independentes.\
+- A outra variável, denotada por $y$, é considerada como a resposta, resultado ou variável dependente.
+
+> Usaremos os termos **"preditor"** e **"resposta"** para nos referirmos às variáveis utilizadas neste curso. Os outros termos são mencionados apenas para torná-lo ciente deles caso você os encontre em outros materiais. A regressão linear simples recebe o adjetivo *"simples"*, porque diz respeito ao estudo de apenas uma variável preditora. Em contraste, a regressão linear múltipla, que estudaremos mais adiante neste curso, recebe o adjetivo *"múltipla"*, porque diz respeito ao estudo de duas ou mais variáveis preditoras.
+
+No slide anterior, foi possível observar que se você conhece a temperatura em graus Celsius, pode usar uma equação para determinar exatamente a temperatura em graus Fahrenheit.
+
+
+Agora serão apresentadas outros exemplos de relações determinística.
+
+1. $\text{Circuferência} = \pi \times \text{diâmetro}$.\
+2. **Lei de Hooke:** $Y = \alpha + \beta X$, em que $Y$ é a quantidade de alogamento em uma mola e $X$ é o peso aplicado.\
+3. **Lei de Ohm:** $I = V/r$, em que $V$ é a tensão aplicada, $r$ é a resistência elétrica e $I$ é a corrente elétrica.\
+4. **Lei de Boyle:** Para uma temperatura constate, $P = \alpha/V$, em que $P$ é a pressão, $\alpha$ é uma constante para cada gás e $V$ é o volume do gás.
+
+
+Para cada uma dessas relações determinísticas, a equação descreve exatamente a relação entre as duas variáveis. Esta disciplina não examina relacionamentos determinísticos. Em vez disso, estamos interessados em relações estatísticas, nas quais a relação entre as variáveis não é perfeita.
+
+
+Primeiro devemos deixar claro quais tipos de relacionamentos não estudaremos neste curso, ou seja, relacionamentos determinísticos (ou funcionais). Abaixo está um exemplo de uma relação determinística.
+
+```{r eval = TRUE, echo = TRUE}
+library(ggpubr)
+cels <- seq(0, 50, by = 5)
+fahr <- (9/5)*cels + 32 
+data <- data.frame(x = cels, y = fahr)
+ggscatter(data,
+          x = "x",
+          y = "y",
+          xlab = "Celsius",
+          ylab = "Fahrenheit",
+          add = "reg.line")
+```
+
+Observe que os pontos de dados observados caem diretamente em uma linha. Como você deve se lembrar, a relação entre graus Fahrenheit e graus Celsius é conhecida como:
+
+$$\text{Fahrenheit} = (9/5) \times \text{Celsius} + 32.$$
+
+Agora iremos apresentar um exeplo de relação estatística. A variável resposta $Y$ é a mortalidade por cancêr de pele (por 10 milhões de pessoas) e a variável preditora $X$ é a latitude no centro de cada um dos 48 estados americanos (dados de câncer de pele dos EUA). Os dados foram obtidos na década de 1950, então o Alasca e o Havaí ainda não eram estados. Além disso, Washington, DC está incluído no conjunto de dados, embora não seja tecnicamente um estado.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(DT)
+skincancer <- read_table("skincancer.txt")
+datatable(skincancer, 
+          options = list(pageLength = 5, scrollY = "200px"))
+```
+
+Note que viver nas latitudes mais altas do norte dos Estados Unidos, diminuiria a exposição aos raios nocivos do sol e, portanto, menos risco teria de morrer devido ao câncer de pele. O gráfico de dispersão suporta tal hipótese. Parece haver uma relação linear negativa entre latitude e mortalidade por câncer de pele, mas a relação não é perfeita. De fato, o enredo exibe alguma "tendência", mas também exibe alguma "dispersão". Portanto, é uma relação estatística, não determinística.
+
+```{r echo = FALSE, out.width = "100%", fig.align='center'}
+library(ggpubr)
+ggscatter(skincancer, 
+          x = "Lat",
+          y = "Mort",
+          add = "reg.line") +
+stat_cor(label.x = 40, label.y = 200) +
+stat_regline_equation(label.x = 40, label.y = 195)
+```
+
+
+
+
+Alguns outros exemplos de relações estatísticas podem incluir:
+
+ - Altura e peso – à medida que a altura aumenta, você esperaria que o peso aumentasse, mas não perfeitamente.
+ 
+- Álcool consumido e teor alcoólico no sangue — à medida que o consumo de álcool aumenta, você esperaria que o teor alcoólico no sangue aumentasse, mas não perfeitamente.
+
+- Capacidade pulmonar vital e maços-ano de tabagismo — à medida que a quantidade de fumo aumenta (conforme quantificado pelo número de maços-ano de tabagismo), você esperaria que a função pulmonar (conforme quantificada pela capacidade pulmonar vital) diminuísse, mas não perfeitamente.
+
+- Velocidade de direção e consumo de combustível — à medida que a velocidade de direção aumenta, você esperaria que o consumo de combustível diminuísse, mas não perfeitamente.
+
+
+Portanto, vamos estudar as relações estatísticas entre uma variável de resposta $y$ e uma variável preditora $x$!
+
+### Pressupostos do modelo
+
+### Estimação dos parâmetros pelo método dos mínimos quadrados
+
+### Propriedades dos estimadores
+
+### Decomposição da Soma de Quadrados Total
+
+### Tabela de ANOVA
+
+### Coeficiente de Determinação
+
+### Coeficiente de Determinação Ajustado para Graus de Liberdade
+
+### Testes de Hipóteses sobre a inclinação e o intercepto
+
+### Intervalos de Confiança para a inclinação e para o intercepto
+
+### Intervalos de Confiança para a variância e para a média da variável resposta para um valor fixo da variável independente
+
+### Intervalos de Previsão
+
+### Teste para Falta de Ajustamento
+
+### Análise de Resíduos
+
+### Analisar dados usando o `R`
+
+
+## Regressão Linear Múltipla
+
+Agora iremos admitir que $X_1, X_2, \ldots, X_k$ sejam variáveis independentes e 
+$Y$ a variável resposta. Dada uma amostra aleatória de $n$ observações $(x_{1i}, x_{2i}, \ldots, x_{ki}, y_i), \quad i = 1, 2, \ldots, n$, o modelo de regressão linear múltipla será dado por
+
+$$E(Y_i| x_{1i}, x_{2i}, \ldots, x_{ki}) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki},  \quad i = 1, 2, \ldots, n,$$
+  
+  ou
+
+$$Y_i  = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + \epsilon_i,  \quad i = 1, 2, \ldots, n,$$
+  em que $n > k+1.$
+  
+  Iremos considerar uma estrutura similar a do modelo de regressão linear simples. Especificamente,
+estamos considerando o seguinte:
+  
+  - Modelo de regressão linear, ou **linear nos parâmetros**. 
+- Valores fixos de $X$. 
+- O termo de erro $\epsilon_i$ tem valor médio zero.
+- Homocedasticidade ou variância constante de $\epsilon_i$.
+- Ausência de autocorrelação, ou de correlação serial, entre os termos de erro.
+- Não há colinearidade exata entre as variáveis $X$.
+- Ausência de viés de especificação.
+
+### Interpretação da equação de regressão múltipla
+
+Considerando que temos apenas duas variáveis regressoras, então 
+
+$$E(Y_i| x_{1i}, x_{2i}) = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}.$$
+  
+  Desta forma, a equação acima fornece o **valor esperado ou média de** $Y$
+  **condicional aos valores dados ou fixados de** $X_1$ e $X_2$. 
+
+Os coeficientes de regressão $\beta_1$ e $\beta_2$ são conhecidos como 
+**coeficientes parciais de regressão** ou **coeficientes parciais angulares**.
+Seu significado é o seguinte: $\beta_1$ mede a *variação* no valor médio
+de $Y$, $E(Y)$, por unidade de variação em $X_2$, mantendo-se o valor de $X_2$ constante.
+Em outras palavras, ele nos dá o efeito "direto" ou "liquido" de uma unidade de variação
+em $X_2$ sobre o valor médio em $Y$, excluídos os efeitos que $X_2$ possa ter sobre
+a média de $Y$. De modo análogo, $\beta_2$ mede a variação do valor médio de $Y$
+  por unidade de variação em $X_2$, mantendo-se constante o valor de $X_1$. Eles nos dá
+o efeito "direto" ou "liquido" de uma unidade de variação de $X_2$ sobre o valor médio
+de $Y$, excluídos quaiquer efeitos que $X_1$ possa ter sobre o valor médio de $Y$.
+
+### Abordagem Matricial
+
+
+Por patricidade iremos utilizar a abordagem matricial, que no permitirar, entre outras coisas: i) encontrar o vetor de estimadores; ii) verificar as propriedade estatísticas dos estimadores; iii) obter a distribuição dos estimadores; qualquer que seja o número de variáveis independentes no modelo.
+
+
+Sendo assim, podemos escrever o modelo de regressão linear múltipla como:
+  $$\mathbf{y} = \mathbf{X} \boldsymbol{\beta} +  \boldsymbol{\epsilon},$$
+  que é conhecido como **modelo linear geral**.
+
+Para determinarmos os estimadores de mínimos quadrados ordinários devemos minimizar
+
+$$S(\boldsymbol\beta) = \sum\limits_{i=1}^{n}(\epsilon_i)^2 = \epsilon_1^2 + \cdots + \epsilon_n^2 = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon},$$
+  
+  ou 
+
+$$S(\boldsymbol\beta) = \boldsymbol{\epsilon}^\top\boldsymbol{\epsilon} = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}).$$
+  
+### Método dos Mínimos Quadrados Ordinários
+  
+  Podemos abrir a expressão anterios da seguinte maneira
+
+$$\begin{aligned}
+S(\boldsymbol\beta) &= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
+&= (\mathbf{y}^\top - \boldsymbol{\beta}^\top\mathbf{X}^\top)(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})\\
+&= \mathbf{y}^\top \mathbf{y} - \mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} - \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y} + \boldsymbol{\beta}^\top\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.
+\end{aligned}$$
+  
+  Observe que $\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta}$ e $\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y}$ são escalares e 
+
+$$\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} = (\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y})^\top,$$
+  
+  consequentemente $\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} = \boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{y}$. Desta forma,
+
+$$S(\boldsymbol\beta) = \mathbf{y}^\top \mathbf{y} - 2\mathbf{y}^\top\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^\top\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.$$
+  
+  Nosso interesse, agora, é calcular $\frac{\partial S(\boldsymbol\beta)}{\partial \boldsymbol{\beta}}$. Temos que
+$$\frac{\partial S(\boldsymbol\beta)}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^\top \mathbf{y} + 2\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}.$$
+  
+### Equações Normais
+  
+  Se igualarmos o resultado anterior a zero, temos
+
+$$-2\mathbf{X}^\top \mathbf{y} + 2\mathbf{X}^\top \mathbf{X}\widehat{\boldsymbol{\beta}} = \mathbf{0} \Longleftrightarrow \mathbf{X}^\top \mathbf{X}\widehat{\boldsymbol{\beta}} =  \mathbf{X}^\top \mathbf{y},$$
+  
+  que é o sistema de equações normais na abordagem matricial. Assumindo que $\mathbf{X}^\top \mathbf{X}$ é não-singular, 
+a solução do sistema de equações normais é 
+$$\widehat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \mathbf{y},$$
+  que é o vetor de estimadores de mínimos quadrados ordinários do vetor de parâmetros $\boldsymbol{\beta}$.
+
+
+### Propriedades
+
+1. $E(\widehat{\boldsymbol{\beta}}) = \boldsymbol{\beta}$. (Prove!) `r icons::fontawesome$solid$pen`
+2. $Var(\widehat{\boldsymbol{\beta}}) = \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}$. (Prove!) `r icons::fontawesome$solid$pen`
+3. A distribuição do vetor $\mathbf{y}$, correspondente aos valores prefixados das variáveis regressoras dados em $\mathbf{X}$, é $\text{NM}_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I})$, e portanto
+
+
+$$\widehat{\boldsymbol{\beta}} \sim \text{NM}_{k+1}(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}).$$
+
+
+### Análise de variância da regressão linear múltipla
+  
+Podemos escrever a soma de quadrados dos resíduos como 
+
+$$SQE = \mathbf{e}^\top\mathbf{e} = \mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y}.$$
+
+Já a soma de quadrados total é dada por:
+
+$$SQT = \mathbf{y}^\top \mathbf{y} - n \bar{y}^2.$$
+
+Por fim, a soma de quadrados da regressão é dada por:
+  
+$$SQReg = \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2.$$
+  
+Esses resultados nos levam a seguinte tabela de análise de variâncias:
+  
+  | CV | GL | SQ |
+  |:--:|:--:|:--:|
+  | Regressão |  $k$ |  $\widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2$  |
+  | Erro |  $n-k-1$ |  $\mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y}$  |
+  |  Total |  $n-1$ | $\mathbf{y}^\top \mathbf{y} - n \bar{y}^2$   |
+  
+O quadrado médio do erro (ou residual), dado pelo quociente $SQE/(n-k-1)$, é portanto, uma estimativa não-tendenciosa da variância residual $(\sigma^2)$. Subtituindo $\sigma^2$ por $s^2 = QME$ em $\sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1}$ obtemos a matriz das estimativas das variâncias e covariâncias das estimativas dos parâmetro:
+  
+$$s^2 (\mathbf{X}^\top \mathbf{X})^{-1}.$$
+  
+  
+É possível demonstrar que, se os erros $\epsilon_i$ têm distribuição normal e se $\beta_1 = \beta_2 = \cdots = \beta_k = 0$, o quociente
+
+$$F = \frac{QMReg}{QME},$$
+tem distribuição $F$ com $k$ e $n-k-1$ graus de liberdade. Estão, o valor $F$ assim obtido é utilizado para testar a hipótese
+
+$$H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0.$$
+  
+  
+Obtidas as estimativas dos desvios padrões das estimativas dos parâmetros dadas pelas raízes quadradas dos elementos da diagonal principal da matriz $s^2 (\mathbf{X}^\top \mathbf{X})^{-1}$, podemos utilizar o valor
+
+$$t = \frac{\widehat{\beta}_i - \beta_i}{s(\widehat{\beta}_i)},$$
+associado a $n-k-1$ graus de liberdade, para testar hipóteses a respeito dos valores dos parâmetros. 
+
+Podemos, ainda, construir intervalos de confiança para os parâmetros. Escolhido o nível de confiança, e sendo $t_0$ o correspondente valor crítico de $t$, o intervalo de confiança para $\beta_i$ é
+
+$$\widehat{\beta}_i \pm t_0 s(\widehat{\beta}_i).$$
+  
+>Devemos ressaltar que tanto o teste $t$ como o intervalo de confiança só são válidos se os erros $\epsilon_i$ tiverem distribuição normal.
+
+
+O coeficiente de determinação múltipla é definido por
+
+$$R^2 = \frac{SQReg}{SQT},$$
+e mostra a proporção da soma de quadrados total que é "explicada" pela regressão múltipla. Já o coeficiente de terminação corrigido é definido por:
+
+$$\bar{R}^2 = R^2 - \frac{k}{n-k-1}(1 - R²).$$
+### Ajustando um modelo de regressão linear múltipla no R
+  
+O pacote `wooldridge` contém 115 conjuntos de dados do livro *Introductory Econometrics: A Modern Approach, 7ed* de Jeffrey M. Wooldridge. Para instalar o pacote via CRAN basta usar:
+
+```{r eval = FALSE}
+install.packages("wooldridge")
+```
+
+Para obter informações sobre os conjunto de dados, basta acessar a documentação. Por exemplo, se tenho interesse em ler a documentação do conjunto de dados `wage1` (com 526 observações e 24 variáveis) basta usar:
+  
+```{r eval = FALSE}
+library(wooldridge)
+?wage1
+```
+
+Iremos considerar um conjunto de dados chamado de `gpa1`. O mesmo foi coletado por *Christopher Lemmon*, um ex-aluno da *Michigan State University (MSU)*, para uma pesquisa com estudantes da MSU no outono de 1994. Este conjunto de dados tem 141 observações e 29 variáveis.
+
+
+```{r}
+library(wooldridge)
+head(gpa1)
+```
+
+
+Nosso interesse é saber qual o efeito da nota média do ensino médio (hsGPA) e da pontuação no teste padronizado utilizado para seleção de alunos (ACT) na nota média da faculdade (ColGPA).
+
+```{r}
+lm(colGPA ~ hsGPA + ACT, data = gpa1)
+```
+
+
+>Agora iremos interpretar os coeficientes da regressão: 0,453456 é o coeficiente parcial de regressão da hsGPA e diz que, mantida constante a influência da ACT, quando a hsGPA aumenta, por exemplo, em um ponto, a nota média da faculdade aumenta, em média, aproximadamente meio ponto. 
+
+
+Em outras palavras, se selecionamos dois alunos, A e B, e esses alunos tiverem a mesma ACT, mas a hsGPA do aluno A é um ponto maior do que a hsGPA do aluno B, então esperamos que o aluno A tenha uma nota média da faculdade, aproximadamente meio ponto superior a do aluno B. (Interprete o outro coeficiente!)
+
+
+### Exercício 
+
+1. Considere o seguinte modelo:
+  
+$$Y_i = \beta_0 + \beta_1 \texttt{Escolaridade} + \beta_2 \texttt{Anos de experiência} + \epsilon_i.$$
+Suponha que você deixe de fora do cálculo a variável anos de experiência. Que tipos 
+de problemas ou vieses você esperaria encontrar? 
+  
+  
+### Conjunto de Dados
+  
+O pacote `wooldridge` contém 115 conjuntos de dados do livro *Introductory Econometrics: A Modern Approach, 7ed* de Jeffrey M. Wooldridge. Para instalar o pacote via CRAN basta usar:
+  
+```{r eval = FALSE}
+install.packages("wooldridge")
+```
+
+Para obter informações sobre os conjunto de dados, basta acessar a documentação. Por exemplo, se tenho interesse em ler a documentação do conjunto de dados `wage1` (com 526 observações e 24 variáveis) basta usar:
+  
+```{r eval = FALSE}
+library(wooldridge)
+?wage1
+```
+
+
+### Intervalos de confiança  
+
+
+Seja $\mathbf{x}_i^\top$ a $i$-ésima linha de $\mathbf{X}$, isto é, o vetor linha 
+com valores das variáveis regressoras e primeiro elemento igual a 1. O estimador 
+de mínimos quadrados da esperança de $Y$, correspondente aos valores de $\mathbf{x}_i^\top$, é dada por:
+  
+$$\hat y_i = \mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}.$$
+
+Este estimador tem distribuição normal univariada, com média e variância iguais a:
+
+$$E(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top E(\widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top\boldsymbol{\beta},$$
+
+e
+
+$$Var(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = \mathbf{x}_i^\top Var(\widehat{\boldsymbol{\beta}})\mathbf{x}_i = \sigma^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i.$$
+  
+Portanto, 
+
+
+$$\hat y_i = \mathbf{x}_i^\top \widehat{\boldsymbol{\beta}} \sim N(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i).$$
+  
+  
+Além disso, substituindo $\sigma^2$ por $s^2 = \hat{\sigma}^2 = QME$ temos que $\widehat{Var}(\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}}) = s^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i$. Obtida a estimativa da variância de $\hat{y}_i$, podemos construir o intervalo de confiança para $E(\hat{y}_i) = \mathbf{x}_i^\top\boldsymbol{\beta}$. Sendo $t_0$ o valor crítico da distribuição $t$ com $n-k-1$ graus de liberdade e ao nível de confiança adotado, o intervalo de confiança é:
+  
+$$\mathbf{x}_i^\top \widehat{\boldsymbol{\beta}} \pm t_0 \sqrt{s^2 \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_i}.$$
+  
+Na tabela abaixo apresentamos os valores de uma amostra de 6 observações das variáveis $Y_i, X_{1i}$ e $X_{1i}.$
+  
+  | $Y_i$ | $X_{1i}$ | $X_{2i}$ |
+  |:--:|:--:|:--:|
+  |1,5 | 0 |0 |
+  |6,5 | 1 | 2 |
+  |10,0 | 1 | 4 |
+  |11,0 | 2 | 2 |
+  |11,5 | 2 | 4 |
+  |16,5 | 3 | 6 |
+  
+  
+### O uso das variáveis centradas
+  
+Para simplificar os cálculos, muitas vezes trabalhamos com as variáveis centradas
+
+$$x_{ji} = X_{ji} - \bar X_j, \quad j = 1,\ldots, k,$$ 
+
+em que
+
+$$\bar X_j = \frac{1}{n}\sum\limits_{i=1}^{n} X_{ji}.$$
+
+Neste caso o modelo estatístico fica
+
+$$Y_i = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki} + \epsilon_i, \quad i = 1, 2, \ldots, n.$$
+
+Consideremos o conjunto de dados do slide anterior. Tendo em vista o modelo
+
+$$Y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i, \quad i = 1, \ldots, 6,$$
+
+com $x_{1i} = X_{1i} - 1,5$ e $x_{2i} = X_{2i} - 3,0$, obtivemos os seguintes resultados:
+  
+
+Temos que 
+$$\mathbf{X}^\top\mathbf{X} = \begin{bmatrix}
+n & 0 & 0 \\
+0&\sum x_{1i}^2 &  \sum x_{1i}x_{2i}\\
+0& \sum x_{1i}x_{2i} & \sum x_{2i}^2
+\end{bmatrix} = \begin{bmatrix}
+6 & 0 & 0 \\
+0& 5,5 &  9\\
+0& 9 & 22
+\end{bmatrix},$$
+  
+$$\mathbf{X}^\top \mathbf{y} = \begin{bmatrix}
+\sum Y_i \\
+\sum x_{1i}Y_i\\
+\sum x_{2i}Y_i
+\end{bmatrix} = \begin{bmatrix}
+57\\
+25,5\\
+49
+\end{bmatrix}.$$
+  
+e
+
+$$(\mathbf{X}^\top\mathbf{X})^{-1} = \begin{bmatrix}
+1/6 & 0 & 0 \\
+0& 11/20 &  -9/40\\
+0& -9/40 & 11/80
+\end{bmatrix}.$$
+  
+  
+  
+```{r}
+Yi <- c(1.5, 6.5, 10, 11, 11.5, 16.5) #resposta
+X1i <- c(0, 1, 1, 2, 2, 3) 
+X2i <- c(0, 2, 4, 2, 4, 6)
+x1i <- X1i - mean(X1i) #variavel centrada
+x2i <- X2i - mean(X2i) #variavel centrada
+X <- cbind(1, x1i, x2i)
+t(X) %*% X #X'X
+t(X)%*%Yi #X'y
+solve(t(X) %*% X) #(X'X)^-1
+```
+
+
+No slide anterior, encontre as estimativas dos parâmetros manualmente e usando o `R` como calculadora!
+  
+  
+Usando o comando `lm()` podemos obter facilmente as estimativas 
+dos coeficientes:
+  
+```{r}
+#data <- data.frame(Yi, x1i, x2i)
+fit <- lm(Yi ~ x1i + x2i)
+fit$coefficients
+```
+
+Consideremos $X_{1h} = 2$ e $X_{2h} = 4$. Uma vez estamos fazendo os cálculos tendo em vista o modelo com as variáveis indepedentes centradas, obtemos $x_{1h} = 0,5$ e $x_{2h} = 1$ e fazendo 
+$\mathbf{x}_h^\top = [1, 0,5, 1],$ temos que 
+
+$$\hat y_h = \mathbf{x}_h^\top \widehat{\boldsymbol{\beta}} = 12.$$
+
+```{r}
+b <-  fit$coefficients
+xh <- X[5,]
+y_hat_h <- t(xh)%*%b; as.vector(y_hat_h)
+```
+
+Iremos agora obter as somas de quadrados. Dos slides da [Semana 10](https://rpubs.com/santosneto/slides_semana10) temos que
+
+$$SQE  = \mathbf{y}^\top \mathbf{y} -  \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} = 670 - 667 = 3,$$
+  
+$$SQT = \mathbf{y}^\top \mathbf{y} - n \bar{y}^2 = 670 - 541,5 = 128,5,$$
+
+e
+
+$$SQReg = \widehat{\boldsymbol{\beta}}^\top\mathbf{X}^\top\mathbf{y} - n \bar{y}^2 = 667 - 541,5 = 125,5.$$
+  
+| CV | GL | SQ | QM | F |
+|:--:|:--:|:--:| :--:|:--:|
+| Regressão |  $2$ |  125,5  | 62,75 |  62,75  |
+| Erro (Resíduos) |  $3$ | 3  | 1|   |
+|  Total |  $5$ | 128,5   |   |   |
+  
+
+```{r}
+SQE <- t(Yi) %*% Yi - b%*%t(X)%*%Yi; SQE
+SQT <- t(Yi) %*% Yi - NROW(X)*(mean(Yi)^2); SQT
+SQReg <- b%*%t(X)%*%Yi - NROW(X)*(mean(Yi)^2); SQReg
+
+QME <-  SQE/3;as.vector(QME)
+QMReg <- SQReg/2;as.vector(QMReg)
+```
+
+
+No `R` se desejamos testar a hipótese $H_0: \beta_1 = \beta_2 = 0$, basta usar os comandos abaixo:
+  
+```{r}
+library(car)
+linearHypothesis(fit, c("x1i=0", "x2i=0"))
+```
+
+
+Portanto, o resultado é significativo, isto é, rejeita-se, ao nível de significância de 1%, a hipótese $H_0: \beta_1 = \beta_2 = 0$ ( $p$-valor =  0.003567 < 0.01).
+
+Retornando aos cálculos para a obtenção do intervalo de confiança, temos que $s^2$ é igual a `r QME`. Portanto,
+
+$$\begin{aligned}
+Var(\mathbf{x}_h^\top \widehat{\boldsymbol{\beta}}) &= s^2 \mathbf{x}_h^\top (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{x}_h\\
+&= \begin{bmatrix}
+1 & 0,5 & 1
+\end{bmatrix}\begin{bmatrix}
+1/6 & 0 & 0 \\
+0 & 11/20 & -9/40\\
+0 & -9/40 & 11/80
+\end{bmatrix}\begin{bmatrix}
+1 \\ 
+0,5\\ 
+1
+\end{bmatrix} \\
+&= \frac{13}{60}.
+\end{aligned}$$
+  
+  
+Para um nível de confiança de 99%, o quantil da distribuição *t* com 3 graus de liberdade é `r round(qt(1-(0.01/2), 3), 3)`. Então, o intervalo de confiança para 
+
+$$E(Y_h) = \beta_0 + 2\beta_1 + 4\beta_2,$$ 
+
+é 
+
+$$9,28 < E(Y_h) < 14,72.$$
+  
+  
+#### Usando o `R`!
+  
+```{r}
+varyhat_h <- t(xh)%*%solve(t(X) %*% X)%*%xh;varyhat_h
+c(round(y_hat_h - round(qt(1-(0.01/2), 3), 3)*sqrt(varyhat_h), 2), round(y_hat_h + round(qt(1-(0.01/2), 3), 3)*sqrt(varyhat_h), 2) )
+```
+
+O mesmo resultado pode ser obtido usando o comando `predict()`.
+
+
+```{r}
+predict(fit, #modelo ajustado
+        newdata = data.frame(x1i = 0.5, x2i = 1), #valores de xh
+        interval = "confidence", #tipo de intervalo
+        level = 0.99 #nivel de confianca
+)
+```
+
+
+### Coeficientes de correlação parcial
+
+
+No início do curso apresentamos o coeficiente de correlação $r$ como uma medida do grau de associação linear entre duas variáveis. No caso de um modelo de regressão com três variáveis, por exemplo, podemos computar três coeficientes de correlação: $r_{12}$ (correlação entre $Y$ e $X_2$), $r_{13}$ (coeficiente de correlação entre $Y$ e $X_3$) e $r_{23}$ (coeficiente de correlação entre $X_2$ e $X_3$). Note que por conveniência estamos usando o subscrito 1 para representar $Y$. Esses coeficientes de correlação são denominados **coeficientes de correlação brutos** ou **simples**, ou ainda, **coeficientes de correlação de ordem zero**. Eles podem ser calculados conforme a definição dada abaixo: 
+  
+$$r = \frac{\sum x_i y_i}{\sqrt{(\sum x_i^2) (\sum y_i^2)}} = \frac{n\sum X_i Y_i - (\sum X_i)(\sum Y_i)}{\sqrt{[n\sum X_i^2 - (\sum X_i)^2][n\sum Y_i^2 - (\sum Y_i)^2]}},$$
+em que $x_i = (X_i - \bar X)$ e $y_i = (Y_i - \bar Y)$. 
+
+
+
+Será que, digamos, $r_{12}$, mede de fato o "verdadeiro" grau de associação (linear) entre $Y$ e $X_2$ quando uma terceira variável, $X_3$, pode estar associada às outras duas? *A resposta é: em geral, $r_{12}$ não refletirá o verdadeiro grau de associação entre $Y$ e $X_2$ na presença de $X_3$*.
+
+
+
+
+Precisamos de um coeficiente de correlação independente da influência, se é que ela existe, de $X_3$ sobre $Y$ e $X_2$. Esse coeficiente de correlação pode ser obtido e é conhecido como **coeficiente de correlação parcial**. Conceitualmente, é semelhante ao coeficiente parcial de regressão. Definimos
+
+
+
+- $r_{12,3} =$ coeficiente de correlação parcial entre $Y$ e $X_2$, mantendo $X_3$ constante;
+
+- $r_{13,2} =$ coeficiente de correlação parcial entre $Y$ e $X_3$, mantendo $X_2$ constante; e
+
+- $r_{23,1} =$ coeficiente de correlação parcial entre $X_2$ e $X_3$, mantendo $Y$ constante.
+
+
+
+Esses coeficientes de correlação parcial podem ser facilmente obtidos por meio do coeficiente de correlação simples ou de ordem zero: 
+  
+$$r_{12,3} = \frac{r_{12} - r_{13}r_{23} }{\sqrt{(1 - r_{13}^2)(1 - r_{23}^2)}}, \quad r_{13,2} = \frac{r_{13} - r_{12}r_{23} }{\sqrt{(1 - r_{12}^2)(1 - r_{23}^2)}} \quad \text{e} \quad r_{23,1} = \frac{r_{23} - r_{12}r_{13} }{\sqrt{(1 - r_{12}^2)(1 - r_{13}^2)}}.$$
+  As correlações parciais dadas acima são chamadas de **coeficientes de correlação de primeira ordem**. Por *ordem* entendemos o número de subscritos secundários. 
+
+
+
+### Interpretação dos coeficientes de correlação simples e parcial
+
+
+No caso de duas variáveis, o $r$ simples tem um significado objetivo: mede o grau de associação (linear) entre a variável dependente $Y$ e a única variável explanatória, $X$. Mas, quando além do caso de duas variáveis, precisamos estar muito atentos à interpretação dos coeficientes de correlação simples. Na equação de $r_{12,3}$, por exemplo, observamos o seguinte:
+  
+- Mesmo se $r_{12} = 0$, $r_{12,3}$ não será igual a zero a menos que $r_{13}$ ou $r_{23}$, ou ambos, sejam iguais a zero;
+
+- Se $r_{12} = 0$ e $r_{13}$ e $r_{23}$ forem diferentes de zero e apresentarem o mesmo sinal, $r_{12,3}$ será nagativo, mas se apresentarem sinais contrários, será positivo. Um exemplo esclarecerá isso. Seja $Y =$ rendimento da colheita, $X_2 =$ precipitação pluviométrica e $X_3 =$ temperatura. Suponha que $r_{12} = 0$, ou seja, que não haja associação entre rendimento da colheita e chuva. Suponha, ainda, que $r_{13}$ seja positivo e $r_{23}$, negativo. Portanto, $r_{12,3}$ será positivo, isto é, mantendo a temperatura constante, há uma associação positiva entre rendimento e chuva. Esse resultado aparentemente paradoxal não é surpreendente. Como a temperatura, $X_3$, afeta tanto o rendimento $Y$ quanto a precipitação pluviométrica $X_2$, para encontrarmos a relação líquida entre rendimento da colheira e chuva, precisamos remover a influência da variável "incômoda" temperatura. Esse exemplo mostra como podemos ser enganados pelo coeficiente de correlação simples. 
+
+
+
+- Os termos $r_{12,3}$ e $r_{12}$ (e comparações semelhantes) não precisam ter o mesmo sinal.
+
+- No caso de duas variáveis, vimos que $r^2$ situa-se entre 0 e 1. A mesma propriedade é valida para o quadrado dos coeficientes de correlação parcial.
+
+- Suponha que $r_{13} = r_{23} = 0$. Isso significa que $r_{12}$ também é zero? O fato de $Y, X_3, X_2$ e $X_3$ não serem correlacionados, não significa que $Y$ e $X_2$ não são correlacionados.
+
+Note que a expressão $r_{12,3}^2$ pode ser denominada coeficiente de determinação parcial e pode ser interpretada como a proporção da variação de $Y$ não explicada pela variável $X_3$, que foi explicada pela inclusão de $X_2$ no modelo. Conceitualmente, é semelhante a $R^2$. Observe as seguinte relações entre $R^2$ e os coeficientes de correlação simples e os coeficientes de correlação parcial:
+  
+$$R^2 = \frac{r_{12}^2 + r_{13}^2 - 2r_{12}r_{13}r_{23}}{1 - r_{23}^2}, \quad R^2 = r_{12}^2 + (1 - r_{12}^2)r_{13,2}^2, \quad \text{e} \quad  R^2 = r_{13}^2 + (1 - r_{13}^2)r_{12,3}^2.$$
+  
+  
+  
+  
+Note que $R^2$ não diminui quando se inclui uma variável explanatória no modelo, o que pode ser visto com base na segunda equação apresentada no slide anterior. Essa equação informa que a proporção da variação de $Y$ explicada conjuntamente por $X_2$ e $X_3$ é a soma de duas partes: (i) a parte explicada apenas por $X_2 (= r_{12}^2)$ e (ii) a parte não explicada por $X_2 (= 1 - r_{12}^2)$ multiplicada pela proporção explicada por $X_3$ depois de manter a influência de $X_2$ constante. Agora, $R^2 > r_{12}^2$ desde que $r_{13,2}^2 > 0$. Na pior das hipóteses será igual a zero, caso em que $R^2 = r_{12}^2$. 
+
+
+### Exemplo
+
+Considere o exemplo numérico da [semana 11](https://rpubs.com/santosneto/slides_semana11) (slide 5). Vamos calcular, inicialmente, os valores dos coeficientes de correlação simples:
+  
+$$r_{12} = \frac{25,5}{\sqrt{5,5 \times 125,5}} = 0,9592 , \quad r_{13} = \frac{49}{\sqrt{22 \times 125,5}} = 0,9216 \quad \text{e} \quad r_{23} = \frac{9}{\sqrt{5,5 \times 22}} = 0,8182.$$
+  
+  
+  No `R` podemos obter facilmente os valores dos coeficientes de correlação simples:
+  
+```{r}
+Yi <- c(1.5, 6.5, 10, 11, 11.5, 16.5) #resposta
+X1i <- c(0, 1, 1, 2, 2, 3) 
+X2i <- c(0, 2, 4, 2, 4, 6)
+x1i <- X1i - mean(X1i) #variavel centrada
+x2i <- X2i - mean(X2i) #variavel centrada
+
+r12 <- cor(Yi, x1i); round(r12, 4)
+r13 <- cor(Yi, x2i); round(r13, 4)
+r23 <- cor(x1i, x2i); round(r23, 4)
+```
+
+Agora substituindo os valores dos coeficientes de correlação simples na equação de $r_{12,3}$, temos
+
+$$r_{12,3} = \frac{r_{12} - r_{13}r_{23} }{\sqrt{(1 - r_{13}^2)(1 - r_{23}^2)}} = \frac{`r format(round(r12,4), decimal.mark = ",")` - `r format(round(r13*r23, 4), decimal.mark = ",")`}{\sqrt{`r format(round((1 - r13^2), 4), decimal.mark = ",")` \times `r format(round((1 - r23^2), 4), decimal.mark = ",")`}} = `r format(round((r12 - r13*r23)/sqrt((1 - r13^2)*(1-r23^2)), 4), decimal.mark = ",")`.$$
+  
+  
+Esse coeficiente de correlação parcial também pode ser obtido usando `R`.  Será usada a função `pcor.test()` do pacote `ppcor`.
+
+```{r highlight.output = 2 }
+library(ppcor) 
+data <- data.frame(Y = Yi, X2 = x1i, X3 = x2i)
+pcor.test(Yi, x1i, x2i, method="pearson")
+```
+
+ou usando o comando `pcor()` do mesmo pacote. Qual é o resultado impresso quando usamos
+
+```{r eval=FALSE}
+pcor(data)$estimate
+```
+
+### Seleção de variáveis regressoras
+
+
+Vamos apresentar os seguinte procedimentos:
+  
+- todas as regressões possíveis;
+- método "passo a frente" (*forward*);
+- método "passo atrás" (*backward*);
+- método "passo a passo" (*stepwise*).
+
+
+
+**Todas as regressões possíveis:** Suponha que temos $k$ variáveis regressoras. O procedimento consiste em fazer os ajustes de todos os modelo possíveis. Na prática, este procedimento não é viável se o valor de $k$ é grande. Para a comparação dos modelos, vamos considerar os seguintes critérios:
+  
+- estatística $C_p$ de Mallows; e
+- $R^2$ ou $R^2$ ajustado.
+
+*Outros critérios podem ser utilizados, por exemplo AIC, SBIC, SBC, entre outros.*
+  
+  
+Muitos procedimentos estão disponíveis para selecionar um subconjunto de um conjunto de $k$ variáveis regressoras candidatas em um problema de regressão linear múltipla. Mas suponha que só escolhamos $p$ regressores $(p \leq k)$ e obtemos a SQE da regressão usando esses $p$ regressores. Um método comumente usado é realizar todas as regressões e comparar os resultados com base na estatística $C_p$ de Mallows. Para um determinado modelo com $p$ parâmetros 
+
+$$C_p = \frac{SQE_p}{\hat \sigma^2} - n + 2p,$$
+em que $SQE_p$ é a soma de quadrados do erro para o modelo a ser considerado, $n$ é o número de observações e $\hat \sigma^2$ e uma estimativa da variância do erro, $\sigma^2$. O quadrado médio do erro (QME) para o modelo completo é frequentemente usado como estimativa de $\sigma^2$.
+
+>Vários textos recomendam plotar $C_p$ contra $p$ para todas as regressões possíveis e escolher o modelo com $C_p$ baixo ou com $C_p$ próximo de $p$.
+
+
+No `R` existe a função `ols_mallows_cp()` do pacote `{olsrr}`. E para gerar todos os possíveis modelos podemos usar a função `ols_step_all_possible()` do mesmo pacote.
+
+
+
+
