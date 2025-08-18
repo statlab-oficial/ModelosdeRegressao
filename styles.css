@@ -1,0 +1,28 @@
+/* Justificar parágrafos, itens de listas e legendas */
+p, li, figcaption {
+  text-align: justify;
+  hyphens: auto;
+}
+
+
+/* styles.css */
+main { max-width: 72ch; }      /* largura de linha ideal */
+p, li { text-align: justify; hyphens: auto; }  /* texto justificado */
+
+
+/* styles.css */
+.blue {
+  color: blue;
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+.green {
+  color: green;
+  font-weight: bold;
+}
+/* styles.css */
