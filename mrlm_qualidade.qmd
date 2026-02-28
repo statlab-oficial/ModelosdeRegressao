@@ -1,0 +1,249 @@
+# Medidas de Qualidade de Ajuste e Seleção de Modelos  
+
+Ao estimar um modelo de regressão linear múltipla, não basta obter os coeficientes de MQO: é fundamental avaliar **quão bem o modelo explica a variabilidade de $Y$**, **se é parcimonioso** e **se as variáveis incluídas fazem sentido estatístico e substantivo**.  
+
+Nesta seção, distinguimos dois eixos complementares:  
+1. **Medidas de qualidade de ajuste**, que avaliam o desempenho de um modelo dado.  
+2. **Critérios e métodos de seleção**, que ajudam a escolher, entre diferentes modelos, aquele que equilibra explicação e simplicidade.  
+
+Para evitar ambiguidade, usaremos a convenção:  
+- $p$ = número de **variáveis explicativas** (sem contar o intercepto);  
+- $k=p+1$ = número total de **parâmetros** (inclui o intercepto).
+
+
+## Medidas de Qualidade de Ajuste  
+
+Essas medidas quantificam o grau de aderência do modelo aos dados observados. Em linhas gerais, comparam a **variabilidade explicada** (devida às regressoras) e a **variabilidade residual** (não explicada).
+
+### Coeficiente de Determinação ($R^2$)  
+
+O **coeficiente de determinação $R^2$** mede a proporção da variabilidade total da resposta que é explicada pelo modelo:
+$$
+R^2 = \frac{SQ_{Reg}}{SQ_T} = 1 - \frac{SQ_{Res}}{SQ_T}.
+$$
+- $SQ_{Reg}$: soma de quadrados da regressão (explicada pelo modelo).  
+- $SQ_T$: soma de quadrados total (em torno da média).  
+- $SQ_{Res}$: soma de quadrados dos resíduos.  
+
+Valores de $R^2$ próximos de 1 indicam bom ajuste; valores próximos de 0 indicam fraca explicação.
+
+**Limitações:**  
+- O $R^2$ **sempre aumenta** quando se adicionam variáveis, mesmo que irrelevantes.  
+- Não há penalização direta pela complexidade.  
+- Não mede causalidade.
+
+### Coeficiente de Determinação Ajustado ($\bar{R}^2$)  
+
+Corrige a tendência inflacionada de $R^2$ ao considerar o número de parâmetros estimados ($k$):
+$$
+\bar{R}^2 = 1 - \frac{SQ_{Res}/(n-k)}{SQ_T/(n-1)} = 1 - \frac{SQ_{Res}/(n-p-1)}{SQ_T/(n-1)}.
+$$
+- Penaliza a inclusão de variáveis desnecessárias.  
+- Pode **diminuir** quando uma variável é incluída sem ganho real.
+
+É mais confiável que $R^2$ para comparar modelos de tamanhos diferentes; ainda assim, não substitui o julgamento substantivo.
+
+### Critério de Informação de Akaike (AIC)  
+
+Mede o compromisso ajuste–complexidade (via verossimilhança):
+$$
+AIC = -2\log L(\hat{\boldsymbol{\beta}}) + 2k.
+$$
+- **Menor AIC** → melhor equilíbrio.  
+- Compara modelos inclusive **não aninhados**.  
+- Favorece predição, penalizando menos que o BIC.
+
+No MRLM Normal: $-2\log L(\hat{\boldsymbol{\beta}})$ é monotônico em $SQ_{Res}$, de modo que
+$$
+AIC = n\log\!\Big(\frac{SQ_{Res}}{n}\Big) + 2k + \text{constante},
+$$
+o que evidencia a troca entre **ajuste** (via $SQ_{Res}$) e **complexidade** (via $k$).
+
+### Critério de Informação Bayesiano (BIC)  
+
+Semelhante ao AIC, porém com penalização mais forte:
+$$
+BIC = -2\log L(\hat{\boldsymbol{\beta}}) + k\log n.
+$$
+- **Menor BIC** → melhor; tende a modelos mais **parcimoniosos**.  
+- Em amostras grandes, pune fortemente a complexidade.  
+- Útil para escolhas com foco inferencial.
+
+**Comparação resumida:**
+
+| Critério | Penalização | Favorece | Uso comum |
+|-----------|-------------|----------|-----------|
+| $R^2$ | Nenhuma | Ajuste puro | Descritivo/explicação |
+| $\bar{R}^2$ | Moderada ($k$) | Parcimônia relativa | Comparar tamanhos distintos |
+| AIC | $2k$ | Predição | Seleção automática |
+| BIC | $k\log n$ | Simplicidade | Inferência/parcimônia |
+
+### Diagnóstico de Multicolinearidade  
+
+A **multicolinearidade** aparece quando preditores são altamente correlacionados, dificultando isolar efeitos parciais. O **Fator de Inflação da Variância (VIF)** é dado por:
+$$
+VIF_j = \frac{1}{1 - R_j^2},
+$$
+onde $R_j^2$ é o $R^2$ da regressão de $x_j$ nas demais.  $VIF\!\approx\!1$: sem problema; $>5$: atenção; $>10$: forte colinearidade.  
+
+Consequências: erros-padrão inflados, sinais instáveis, interpretação difícil.  
+Possíveis ações: remover/combinar variáveis redundantes; avaliar regularização (ridge/LASSO); centrar variáveis; respeitar hierarquia de termos (interações vs. principais).
+
+### Estimativa da Variância do Erro ($\hat{\sigma}^2$)
+
+A variância do erro $\sigma^2$ é central para **inferência** e **comparação de modelos**.  Para um modelo candidato $m$ com $k_m$ parâmetros, a estimativa usual (não viesada sob MRLM Normal) é:
+$$
+\hat{\sigma}^2_m = \frac{SQ_{Res,m}}{n-k_m}.
+$$
+Em seleção de modelos, é comum adotar também uma **estimativa de referência** (externa) $\hat{\sigma}^2_{\text{ref}}$, tipicamente obtida do **modelo completo** com todas as variáveis:
+$$
+\hat{\sigma}^2_{\text{ref}} = \frac{SQ_{Res,\text{completo}}}{n-k_{\text{completo}}}.
+$$
+Essa estimativa externa entra em critérios como o $C_p$ de Mallows e em thresholds baseados em **mudança de $SQ_{Res}$** ou **$F$**. O $\hat{\sigma}^2_m$ reflete “quanto erro sobra” no modelo $m$. Valores pequeno para $\hat{\sigma}^2_m$ com $k_m$ grande pode ser sobreajuste; por isso, combinamos com penalizações (AIC/BIC) ou com **$C_p$**.
+
+### Critério $C_p$ de Mallows  
+
+O **$C_p$ de Mallows** equilibra **viés** e **variância** em modelos candidatos sob MRLM Normal. Para um modelo $m$:
+$$
+C_p(m) = \frac{SQ_{Res,m}}{\hat{\sigma}^2_{\text{ref}}} - \big(n - 2k_m\big).
+$$
+- $k_m$ = número de parâmetros do modelo $m$ (inclui intercepto).  
+- $\hat{\sigma}^2_{\text{ref}}$ = estimativa “boa” de $\sigma^2$ (tipicamente a do modelo completo).
+
+Valores de $C_p(m)$ **próximos de $k_m$** sugerem **pouco viés** (modelo adequado). Enquanto que- $C_p(m) \gg k_m$ indica **subajuste** (viés alto, deixou explicação “na mesa”). Adicionalmente, entre dois modelos com $C_p$ semelhantes, prefira o de **menor $k_m$** (parcimônia).
+
+**Uso prático:**  
+- Gráfico $C_p$ vs. $k_m$; pontos próximos da **diagonal** ($C_p\approx k_m$) são atraentes.  
+- O $C_p$ está intimamente relacionado a AIC/BIC em MRLM Normal: todos comparam **$SQ_{Res}$** e **complexidade**.  
+- Útil como **critério de parada** e como **ranking** de modelos quando se explora subconjuntos.
+
+
+
+## Seleção de Modelos  
+
+Há muitas combinações possíveis de variáveis explicativas e, portanto, precisamos decidir **quais permanecem** no modelo final. O objetivo é equilibrar **precisão**, **parcimônia** e **coerência substantiva**.
+
+### Estratégias Gerais e Critérios Possíveis  
+
+A seleção de modelos envolve o trade-off:  
+- Modelos **simples** podem subajustar;  
+- Modelos **complexos** podem sobreajustar.
+
+Além de $AIC$, $BIC$ e $\bar{R}^2$, é perfeitamente legítimo basear inclusões/remoções em:
+
+- **Estatísticas $F$ parciais** (ganho em $SQ_R$, ou queda em $SQ_{Res}$, dado o custo em $k$);  
+- **$\hat{\sigma}^2_m$** (não deve crescer com inclusões que realmente ajudam);  
+- **$C_p$ de Mallows** (procurar $C_p \approx k_m$).  
+
+Combinar um critério principal (p.ex., AIC/BIC ou $C_p$) com **checagens** por $F$ parcial e coerência substantiva é uma boa prática da modelagem.
+
+
+### Todas as Regressões Possíveis (*Best Subsets*)  
+
+Essa técnica avalia **todos** os subconjuntos de preditores (total $2^p-1$).  Para cada modelo $m$, compute $R^2$, $\bar{R}^2$, AIC, BIC, $C_p$, $\hat{\sigma}^2_m$ e estatísticas $F$ onde fizer sentido.
+
+**Vantagens:** encontra o “melhor” segundo o critério escolhido; compara modelos **não aninhados**.  
+**Limitações:** custo exponencial; risco de p-hacking; exige disciplina analítica.  
+**Dica:** use quando $p$ é pequeno (até 10–12). Prefira critérios penalizados e verifique **hierarquia** (não inclua interações sem os efeitos principais).
+
+
+### Seleção Passo a frente (*Forward Selection*)  
+
+No Forward, inicia-se com o **modelo mais simples** (apenas o intercepto) e adicionam-se variáveis **uma a uma**, escolhendo em cada passo a que mais melhora o ajuste segundo um critério.
+
+**Etapas:**  
+1) Modelo inicial: $Y=\beta_0+\varepsilon$.  
+2) Para cada variável candidata ainda fora, avalie o **ganho marginal** por:  
+   - $F$ **parcial** (valor-$p$ < nível de entrada, esse nível costuma ser 0,05 ou 0,10);  
+   - **queda em $AIC$** ou **$BIC$**;  
+   - **aumento de $\bar{R}^2$**;  
+   - **queda em $C_p$** (aproximando-se de $k_m$);  
+   - **redução de $\hat{\sigma}^2_m$**.  
+3) Inclua a “melhor” segundo o(s) critério(s).  
+4) Reestime e repita até **nenhuma** atender o critério de entrada.
+
+**Vantagens:**
+
+- Simples e intuitivo.  
+- Boa opção quando há muitas variáveis candidatas.  
+- Requer menos tempo computacional que todas as regressões possíveis.
+
+**Limitações:**
+
+- Uma vez incluída, uma variável raramente é removida. O processo pode “travar” em soluções locais.  
+- Pode ignorar combinações de variáveis que só são úteis em conjunto.  
+- Sensível à multicolinearidade.
+
+**Dicas:** use **$F$ parcial** em conjunto com $AIC/BIC$ ou $C_p$; respeite hierarquia (se incluir interação, inclua os principais).
+
+
+
+### Seleção Passo para trás (*Backward Elimination*)  
+
+O método Backward inicia-se com o **modelo completo**, contendo todas as variáveis candidatas, e elimina-se uma a uma as menos relevantes.
+
+**Etapas:**  
+1) Ajuste o modelo com todos os preditores (requer $n>k$).  
+2) Identifique o pior candidato para remoção por:  
+   - $F$ **parcial** (valor-$p$ > nível de permanência, esse nível costuma ser 0,05);  
+   - **aumento mínimo em AIC** (ou menor queda em BIC ao remover);  
+   - **menor impacto em $\bar{R}^2$**;  
+   - **melhora de $C_p$**;  
+   - **queda (ou não aumento) de $\hat{\sigma}^2_m$**.  
+3) Remova e reestime até que **todas** as variáveis remanescentes atendam ao critério de permanência.
+
+**Vantagens:**
+
+- Útil quando há razoável confiança de que a maioria das variáveis é relevante.  
+- Geralmente mais estável que o forward.  
+
+**Limitações:**
+
+- Exige $n > p+1$ (modelo completo deve ser estimável).  
+- Pode remover variáveis que seriam importantes quando combinadas com outras.  
+- Também sensível à multicolinearidade.
+
+**Dica:** verifique se as variáveis excluídas alteram substancialmente os coeficientes das restantes. Isso pode indicar interdependência forte entre preditores.
+
+
+### Seleção Passo a Passo (*Stepwise Selection*)  
+
+Método híbrido que combina *forward* e *backward*:
+
+**Etapas:**  
+1) Comece com modelo inicial: $Y=\beta_0+\varepsilon$  
+2) Teste inclusões via $F$ parcial (valor-$p$ < nível de entrada), **AIC/BIC**, **$C_p$**, **$\bar{R}^2$** ou **$\hat{\sigma}^2_m$**.  
+3) Após incluir, teste remoções via valor-$p$ > nível de permanência (ou critério de piora em AIC/BIC ou $C_p$).  
+4) Pare quando **nenhuma** inclusão/remoção atende aos limiares.
+
+
+**Vantagens:**
+
+- Equilibra os pontos fortes de *forward* e *backward*.  
+- Tende a ser mais parcimonioso.  
+- Funciona bem quando há moderada correlação entre preditores.
+
+**Limitações:**
+
+- Altamente dependente da ordem das variáveis e do critério adotado.  
+- Instabilidade (pequenas variações nos dados → solução diferente); dependência de limiares (nível de entrada/nível de saída) e do critério (pequenas mudanças nos dados → modelo diferente).  
+- Não substitui o julgamento teórico.
+
+**Dicas práticas:**
+
+- Compare o modelo final com o completo e o nulo; verifique coerência de sinais e magnitudes.  
+- Use critérios penalizados ($AIC$, $BIC$, $\bar{R}^2$) para evitar sobreajuste.  
+- Sempre interprete à luz do contexto: variáveis excluídas podem ser relevantes teoricamente.
+
+
+### Reflexões finais sobre seleção de modelos  
+
+- Não existe “o” modelo verdadeiro; buscamos **modelos úteis**: claros, parcimoniosos e coerentes. 
+- Combine critério **primário** (AIC, BIC, $C_p$, $\bar{R}^2$) com **checagens** ($F$ parcial, $\hat{\sigma}^2_m$) e **fundamentação teórica**.  
+- Evite tratar nível de entrada/nível de saída como regras fixas (0,05 ou 0,10); use-os como ferramentas heurísticas.
+- Prefira critérios de informação (AIC, BIC, $C_p$) quando possível, pois são menos sensíveis a flutuações amostrais.
+- Mesmo quando usar nível de entrada e nível de saída, combine com critérios adicionais (mudança em $\hat{\sigma}^2$, $R^2$ ajustado, ou coerência teórica).
+- Respeite a **hierarquia**: não inclua termos de interação sem os principais correspondentes.  
+- Atenção a **multicolinearidade** e **diagnósticos** (Seção 3.8). 
+- Sempre discuta **magnitude** (efeitos parciais, $R^2$ parcial, $f^2$) além da significância.
+- O melhor modelo é aquele que **explica com clareza, prevê com razoável precisão e faz sentido dentro do contexto da pesquisa**.

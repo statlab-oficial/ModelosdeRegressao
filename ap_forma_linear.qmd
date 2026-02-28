@@ -1,0 +1,373 @@
+# Formas Lineares e Quadráticas na Normal Multivariada
+
+Em regressão linear clássica, muitos estimadores e estatísticas fundamentais são **formas lineares** e **formas quadráticas** de um vetor aleatório Normal multivariado. Essa conexão não é meramente técnica: ela é estrutural e explica por que distribuições exatas em amostras finitas podem ser obtidas sob normalidade. A fundamentação matricial e geométrica desses resultados pode ser encontrada, em diferentes níveis de formalidade, em @harville1997 e @anderson2003.
+
+## Preliminares: Normal multivariada e transformações lineares
+
+Seja 
+$$
+\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma}),
+$$
+com $\boldsymbol{\Sigma}$ simétrica definida positiva.
+
+Uma propriedade central da Normal multivariada é sua **estabilidade por transformações lineares**: se $\mathbf{A}$ é uma matriz fixa $m\times n$ e $\mathbf{a}\in\mathbb{R}^m$, então
+$$
+\mathbf{Z}=\mathbf{A}\mathbf{Y}+\mathbf{a}
+\sim
+N_m(\mathbf{A}\boldsymbol{\mu}+\mathbf{a},\, \mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top).
+$$
+Esse resultado é apresentado de forma sistemática em @anderson2003 e constitui a base probabilística da teoria da regressão linear.
+
+Como caso particular, para um vetor fixo $\mathbf{c}\in\mathbb{R}^n$,
+$$
+L=\mathbf{c}^\top\mathbf{Y}
+\sim
+N\!\left(\mathbf{c}^\top\boldsymbol{\mu},\, \mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}\right).
+$$
+A dedução segue diretamente da propriedade anterior e também pode ser vista como aplicação do fato de que combinações lineares de vetores Normais permanecem Normais, como discutido em @casella2002.
+
+Essa estrutura será aplicada diretamente a:
+
+- $\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$;
+- contrastes $\mathbf{C}\hat{\boldsymbol{\beta}}$;
+- predições lineares e combinações de coeficientes.
+
+## Padronização multivariada e redução ao caso $\mathbf{I}$
+
+Para estudar formas quadráticas, é útil reduzir o problema ao caso esférico.
+
+Como $\boldsymbol{\Sigma}$ é definida positiva, existe uma matriz simétrica definida positiva $\boldsymbol{\Sigma}^{1/2}$ tal que
+$$
+\boldsymbol{\Sigma}^{1/2}\boldsymbol{\Sigma}^{1/2}=\boldsymbol{\Sigma},
+\qquad
+(\boldsymbol{\Sigma}^{1/2})^{-1}=\boldsymbol{\Sigma}^{-1/2}.
+$$
+A existência dessa raiz quadrada decorre da decomposição espectral de matrizes simétricas definidas positivas, tratada em detalhe em @harville1997.
+
+Defina
+$$
+\mathbf{Z}=\boldsymbol{\Sigma}^{-1/2}(\mathbf{Y}-\boldsymbol{\mu}).
+$$
+
+Então
+$$
+\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n).
+$$
+
+Essa transformação separa de maneira conceitualmente limpa os papéis de média e dispersão, reduzindo a análise probabilística ao caso esférico. Além disso, ela mostra que a chamada distância de Mahalanobis
+$$
+(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})
+$$
+é simplesmente a norma euclidiana ao quadrado de um vetor Normal padrão:
+$$
+(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})
+=
+\mathbf{Z}^\top\mathbf{Z}.
+$$
+Essa ponte entre geometria (normas e projeções) e distribuição (Qui-quadrado) é central na teoria da inferência sob normalidade.
+
+## Forma linear: distribuição, interpretação e conexão com regressão
+
+Uma **forma linear** de um vetor aleatório é uma expressão do tipo
+$$
+L=\mathbf{c}^\top\mathbf{Y},
+$$
+onde $\mathbf{c}$ é fixo.
+
+Se $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$, então:
+
+- $L$ é Normal;
+- $\mathbb{E}(L)=\mathbf{c}^\top\boldsymbol{\mu}$;
+- $\mathrm{Var}(L)=\mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}$.
+
+Na regressão linear, quando se assume normalidade dos erros, tanto $\hat{\boldsymbol{\beta}}$ quanto qualquer contraste $\mathbf{C}\hat{\boldsymbol{\beta}}$ são formas lineares em $\mathbf{Y}$. Por isso, possuem distribuição Normal exata em amostras finitas.
+
+## Forma quadrática: definição e interpretação
+
+Uma **forma quadrática** em $\mathbf{Y}$ é uma expressão do tipo
+$$
+Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y},
+$$
+onde $\mathbf{A}$ é uma matriz fixa $n\times n$.
+
+Primeira observação fundamental: apenas a parte simétrica de $\mathbf{A}$ influencia $Q$. De fato,
+$$
+\mathbf{Y}^\top\mathbf{A}\mathbf{Y}
+=
+\mathbf{Y}^\top\left(\frac{\mathbf{A}+\mathbf{A}^\top}{2}\right)\mathbf{Y}.
+$$
+Logo, pode-se assumir $\mathbf{A}$ simétrica sem perda de generalidade, fato discutido na literatura matricial estatística como em @harville1997.
+
+Em regressão, as somas de quadrados são precisamente formas quadráticas:
+$$
+\mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y},
+\qquad
+\mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+O comportamento probabilístico de $Q$ depende criticamente das propriedades estruturais de $\mathbf{A}$. Quando $\mathbf{A}$ é uma projeção ortogonal (simétrica e idempotente), a forma quadrática se reduz a uma soma de quadrados de componentes Normais padrão em um subespaço.
+
+## O caso central: $\mathbf{Z}^\top\mathbf{Z}$ e a distribuição $\chi^2$
+
+Se $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$, então suas componentes são independentes e
+$$
+Z_i\sim N(0,1).
+$$
+
+Consequentemente,
+$$
+\mathbf{Z}^\top\mathbf{Z}
+=
+\sum_{i=1}^n Z_i^2
+\sim
+\chi^2_n.
+$$
+
+Esse resultado é a base de todas as somas de quadrados na regressão sob normalidade, como apresentado em textos de inferência como @casella2002.
+
+## Projeções ortogonais e Qui-quadrado
+
+Seja $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$ e seja $\mathbf{A}$ simétrica e idempotente:
+$$
+\mathbf{A}^\top=\mathbf{A},
+\qquad
+\mathbf{A}^2=\mathbf{A}.
+$$
+
+Se $r=\mathrm{rank}(\mathbf{A})=\mathrm{tr}(\mathbf{A})$, então
+$$
+\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\sim \chi^2_r.
+$$
+Esse resultado pode ser deduzido via decomposição espectral de $\mathbf{A}$ e é tratado com rigor em @harville1997 e @rencher2012.
+
+Geometricamente, $\mathbf{A}$ projeta sobre um subespaço $S$ de dimensão $r$. Assim, $\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$ mede o comprimento ao quadrado da componente projetada de $\mathbf{Z}$ em $S$, que se comporta como soma de quadrados de $r$ Normais padrão.
+
+Esse resultado aplica-se diretamente às matrizes $\mathbf{H}$ (posto $p+1$) e $\mathbf{M}$ (posto $n-p-1$). Quando $\mathbf{Z}$ representa a versão padronizada do vetor de erros, as somas de quadrados do modelo e do resíduo assumem distribuições Qui-quadrado com graus de liberdade dados por esses postos.
+
+## Independência via ortogonalidade
+
+Se $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$ e $\mathbf{A}$, $\mathbf{B}$ são simétricas idempotentes tais que
+$$
+\mathbf{A}\mathbf{B}=\mathbf{0},
+$$
+então
+$$
+\mathbf{Z}^\top\mathbf{A}\mathbf{Z}
+\ \perp\
+\mathbf{Z}^\top\mathbf{B}\mathbf{Z}.
+$$
+A independência decorre da decomposição ortogonal do espaço combinada com a simetria esférica da Normal padrão.
+
+Critério análogo vale para independência entre forma linear $L=\mathbf{a}^\top\mathbf{Z}$ e forma quadrática $Q=\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$: se
+$$
+\mathbf{A}\mathbf{a}=\mathbf{0},
+$$
+então $L$ e $Q$ são independentes.
+
+## MRLM Normal
+
+Considere o modelo de regressão linear múltipla sob normalidade e homocedasticidade:
+
+$$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n).
+$$
+
+Como consequência direta da estabilidade da Normal multivariada por transformações lineares, tem-se
+
+$$
+\mathbf{Y}\sim N_n(\mathbf{X}\boldsymbol{\beta},\sigma^2\mathbf{I}_n).
+$$
+
+As quantidades centrais do modelo podem ser classificadas estruturalmente da seguinte forma, destacando-se suas distribuições quando há uma forma conhecida.
+
+### Estimador como forma linear em $\mathbf{Y}$
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
+$$
+
+Trata-se de uma transformação linear do vetor aleatório $\mathbf{Y}$. Logo,
+
+$$
+\hat{\boldsymbol{\beta}}
+\sim
+N_{p+1}
+\!\left(
+\boldsymbol{\beta},
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
+\right).
+$$
+
+Em particular, para cada componente $\hat{\beta}_j$,
+
+$$
+\frac{\hat{\beta}_j-\beta_j}
+{\sigma\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}
+\sim N(0,1).
+$$
+
+### Resíduos como transformação linear
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{M}\mathbf{Y},
+\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H}.
+$$
+
+Como $\hat{\boldsymbol{\varepsilon}}$ é transformação linear de um vetor Normal multivariado, segue que
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+\sim
+N_n\!\left(
+\mathbf{M}\mathbf{X}\boldsymbol{\beta},
+\,\sigma^2\mathbf{M}
+\right).
+$$
+
+Como $\mathbf{M}\mathbf{X}=\mathbf{0}$, obtém-se
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+\sim
+N_n(\mathbf{0},\,\sigma^2\mathbf{M}).
+$$
+
+Assim, os resíduos possuem estrutura Normal degenerada em um subespaço de dimensão $n-p-1$.
+
+### Soma de quadrados residual como forma quadrática
+
+$$
+\mathrm{SQRes}
+=
+\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Como $\mathbf{M}$ é simétrica idempotente com
+
+$$
+\mathrm{rank}(\mathbf{M})=n-p-1,
+$$
+
+segue que, após padronização por $\sigma^2$,
+
+$$
+\frac{\mathrm{SQRes}}{\sigma^2}
+=
+\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}
+\sim
+\chi^2_{\,n-p-1}.
+$$
+
+Equivalentemente,
+
+$$
+\mathrm{SQRes}
+\sim
+\sigma^2\,\chi^2_{\,n-p-1}.
+$$
+
+Além disso, definindo
+
+$$
+\hat{\sigma}^2=\frac{\mathrm{SQRes}}{n-p-1},
+$$
+
+tem-se
+
+$$
+\frac{(n-p-1)\hat{\sigma}^2}{\sigma^2}
+\sim
+\chi^2_{\,n-p-1}.
+$$
+
+### Decomposição ortogonal da soma de quadrados total
+
+$$
+\mathbf{Y}^\top\mathbf{Y}
+=
+\mathbf{Y}^\top\mathbf{H}\mathbf{Y}
++
+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Sob o modelo Normal, após padronização por $\sigma^2$, as duas parcelas tornam-se formas quadráticas associadas a projeções ortogonais complementares.
+
+Escrevendo $\boldsymbol{\mu}=\mathbf{X}\boldsymbol{\beta}$, obtém-se:
+
+- **Parte ajustada (forma quadrática não-central)**
+
+$$
+\frac{\mathbf{Y}^\top\mathbf{H}\mathbf{Y}}{\sigma^2}
+\sim
+\chi^2_{\,p+1}(\lambda),
+\qquad
+\lambda=\frac{\boldsymbol{\mu}^\top\boldsymbol{\mu}}{\sigma^2}.
+$$
+
+- **Parte residual (forma quadrática central)**
+
+$$
+\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}
+\sim
+\chi^2_{\,n-p-1}.
+$$
+
+Como $\mathbf{H}\mathbf{M}=\mathbf{0}$ e ambas são projeções ortogonais, essas duas formas quadráticas são independentes:
+
+$$
+\frac{\mathbf{Y}^\top\mathbf{H}\mathbf{Y}}{\sigma^2}
+\ \perp\
+\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}.
+$$
+
+### Surgimento das distribuições $t$ e $F$
+
+A partir dessas distribuições, emergem naturalmente as estatísticas de inferência.
+
+Para cada coeficiente,
+
+$$
+T_j
+=
+\frac{\hat{\beta}_j-\beta_j}
+{\hat{\sigma}\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}
+=
+\frac{
+\displaystyle
+\frac{\hat{\beta}_j-\beta_j}
+{\sigma\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}
+}
+{
+\sqrt{\frac{\mathrm{SQRes}/\sigma^2}{\,n-p-1\,}}
+}
+\sim t_{\,n-p-1}.
+$$
+
+A estatística $t$ surge como razão entre uma Normal padrão e a raiz de uma Qui-quadrado independente dividida por seus graus de liberdade.
+
+De modo análogo, a estatística global de significância do modelo pode ser escrita como
+
+$$
+F
+=
+\frac{
+\left(\mathbf{Y}^\top\mathbf{H}\mathbf{Y}\right)/(p+1)
+}{
+\left(\mathbf{Y}^\top\mathbf{M}\mathbf{Y}\right)/(n-p-1)
+}
+\sim
+F_{\,p+1,\;n-p-1},
+$$
+
+no caso central sob a hipótese nula apropriada.
+
+Assim, as distribuições $t$ e $F$ não são introduzidas ad hoc: elas emergem diretamente da estrutura geométrica das projeções ortogonais combinada com a Normalidade multivariada do vetor de respostas.

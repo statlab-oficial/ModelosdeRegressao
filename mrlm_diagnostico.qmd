@@ -1,0 +1,1035 @@
+# Diagnóstico do Modelo: Resíduos, Alavancagem e Influência  
+
+## Motivação e objetivos do diagnóstico
+
+Depois de estimar e selecionar o modelo, o passo seguinte é **avaliar sua adequação**.  Mesmo um modelo com bom ajuste (alto $R^2$, baixo AIC, variáveis significativas) pode **violar as suposições do MRLM** ou ser fortemente afetado por **observações individuais**.  O diagnóstico do modelo busca justamente verificar se as conclusões inferenciais são confiáveis e se o ajuste representa bem o comportamento dos dados.  
+
+## Estrutura do capítulo e roteiro prático
+
+Esta seção apresenta duas dimensões complementares de diagnóstico:  
+
+- **Análise de Resíduos e Verificação das Suposições**, que examina o comportamento dos erros estimados e testa hipóteses de linearidade, homocedasticidade, normalidade e independência;  
+- **Observações Influentes, Alavancagem e Diagnóstico de Cook**, que investiga se algum ponto individual exerce influência desproporcional sobre o modelo ajustado.  
+
+Juntas, essas análises formam o núcleo da **avaliação pós-ajuste**. Etapa indispensável para garantir que o modelo seja estatisticamente válido, interpretável e robusto.
+
+**Roteiro prático.**  
+Ao longo desta seção, adotaremos um fluxo simples e eficaz de diagnóstico:
+
+1. verificar **resíduos** (adequação global das suposições);  
+2. investigar **alavancagem e influência** (sensibilidade a observações);  
+3. se necessário, **re-ajustar o modelo** (transformações, pesos, termos de interação ou não linearidade) e **reavaliar**.  
+
+Esse ciclo é iterativo: conclui-se apenas quando o modelo estiver consistente **estatística e substantivamente**.
+
+## Preparação computacional e dados simulados para ilustração
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# =========================
+# 3.7 Diagnóstico (R)
+# Conjunto de funções + geradores (equivalente ao Python)
+# =========================
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(patchwork)
+  library(MASS)       # rstudent()
+})
+
+# Paleta "python-like"
+col_blue   <- "#1f77b4"
+col_orange <- "#E69F00"
+col_red    <- "#d62728"
+
+# -------------------------
+# Função auxiliar: ajuste + medidas de influência
+# -------------------------
+fit_ols <- function(df, formula = y ~ x1 + x2) {
+  mod <- lm(formula, data = df)
+  infl <- influence.measures(mod)   # cook.d, hat, dfbetas etc.
+  
+  hat   <- hatvalues(mod)
+  resid <- residuals(mod)
+  fitted <- fitted(mod)
+  
+  # "std_resid": semi-studentizado (interno)
+  # rstandard(mod) usa sigma global e (1-h_ii)
+  std_resid  <- rstandard(mod)
+  
+  # "stud_resid": studentizado externo (R-student)
+  stud_resid <- rstudent(mod)
+  
+  cooks <- cooks.distance(mod)
+  dfbetas_mat <- dfbetas(mod)  # n x (p+1)
+  
+  list(
+    mod = mod,
+    fitted = fitted,
+    resid = resid,
+    std_resid = std_resid,
+    stud_resid = stud_resid,
+    hat = hat,
+    cooks = cooks,
+    dfbetas = dfbetas_mat
+  )
+}
+
+# -------------------------
+# Geradores de cenários (equivalentes ao Python)
+# -------------------------
+make_ok <- function(n = 200, seed = 1) {
+  set.seed(seed)
+  x1 <- runif(n, 0, 10)
+  x2 <- runif(n, 0, 10)
+  eps <- rnorm(n, 0, 2.0)
+  y <- 5 + 1.2*x1 + 0.8*x2 + eps
+  tibble(y = y, x1 = x1, x2 = x2)
+}
+
+make_hetero <- function(n = 200, seed = 2) {
+  set.seed(seed)
+  x1 <- runif(n, 0, 10)
+  x2 <- runif(n, 0, 10)
+  sigma <- 0.8 + 0.35*x1
+  eps <- rnorm(n, 0, sigma)
+  y <- 5 + 1.2*x1 + 0.8*x2 + eps
+  tibble(y = y, x1 = x1, x2 = x2)
+}
+
+make_nonlinear <- function(n = 200, seed = 3) {
+  set.seed(seed)
+  x1 <- runif(n, 0, 10)
+  x2 <- runif(n, 0, 10)
+  eps <- rnorm(n, 0, 2.0)
+  y <- 5 + 1.2*x1 + 0.8*x2 + 0.15*(x1^2) + eps
+  tibble(y = y, x1 = x1, x2 = x2)
+}
+
+make_heavy_tails <- function(n = 200, seed = 4, df = 3) {
+  set.seed(seed)
+  x1 <- runif(n, 0, 10)
+  x2 <- runif(n, 0, 10)
+  eps <- rt(n, df = df) * 2.0
+  y <- 5 + 1.2*x1 + 0.8*x2 + eps
+  tibble(y = y, x1 = x1, x2 = x2)
+}
+
+make_skew <- function(n = 200, seed = 5) {
+  set.seed(seed)
+  x1 <- runif(n, 0, 10)
+  x2 <- runif(n, 0, 10)
+  eps <- rlnorm(n, meanlog = 0, sdlog = 0.6)
+  eps <- eps - exp(0 + 0.6^2/2) # centraliza
+  y <- 5 + 1.2*x1 + 0.8*x2 + eps
+  tibble(y = y, x1 = x1, x2 = x2)
+}
+
+make_influential <- function(n = 199, seed = 6) {
+  set.seed(seed)
+  x1 <- runif(n, 0, 10)
+  x2 <- runif(n, 0, 10)
+  eps <- rnorm(n, 0, 2.0)
+  y <- 5 + 1.2*x1 + 0.8*x2 + eps
+  df <- tibble(y = y, x1 = x1, x2 = x2)
+  bind_rows(df, tibble(x1 = 25.0, x2 = 5.0, y = 5 + 1.2*25 + 0.8*5 + 18))
+}
+```
+
+## Diagnóstico pelas suposições do MRLM  
+
+O ajuste de um modelo de regressão não se encerra na estimação dos parâmetros.  Para que os testes, intervalos e medidas de ajuste sejam válidos, é essencial verificar se as **suposições clássicas do MRLM** são razoavelmente atendidas.  
+
+A ferramenta central para isso é a **análise de resíduos**, que permite diagnosticar **violação de hipóteses**, **observações influentes** e **problemas estruturais no modelo**.
+
+
+### Resíduos como ferramenta central do diagnóstico
+
+Para cada observação $i$, considere o resíduo:
+$$
+\hat{\varepsilon}_i = y_i - \hat{y}_i,
+$$
+em que $\hat{y}_i = x_i^\top \hat{\boldsymbol{\beta}}$ é o valor ajustado pelo modelo. Os resíduos representam a parte da resposta não explicada pelas variáveis incluídas no modelo.  Em termos geométricos, $\hat{\boldsymbol{\varepsilon}} = \mathbf{M}\mathbf{Y}$ é a **projeção ortogonal** de $\mathbf{Y}$ sobre o complemento do espaço gerado por $\mathbf{X}$. Esses resíduos são a principal fonte de informação sobre a adequação do modelo.
+
+
+### Suposições do MRLM que os resíduos ajudam a avaliar 
+
+1. **Linearidade**: a relação entre $Y$ e as variáveis explicativas é linear nos parâmetros.  
+2. **Independência**: os erros são independentes.  
+3. **Homoscedasticidade**: a variância dos erros é constante: $\operatorname{Var}(\varepsilon_i) = \sigma^2$.  
+4. **Normalidade** – os erros seguem distribuição normal: $\varepsilon_i \sim N(0,\sigma^2)$.  
+
+Essas condições sustentam a validade dos testes $t$, $F$, intervalos de confiança e inferências de MQO.
+
+
+### Tipos de resíduos e por que existem 
+
+#### Resíduo ordinário e sua variância não constante
+
+   $$
+   \hat{\varepsilon}_i = y_i - \hat{y}_i.
+   $$
+   Embora úteis, os resíduos ordinários possuem variância diferente para cada observação:
+   $$
+   \operatorname{Var}(\hat{\varepsilon}_i) = \sigma^2(1 - h_{ii}),
+   $$
+   onde $h_{ii}$ é o elemento da diagonal da matriz “chapéu” $\mathbf{H} = \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top$.
+
+#### Resíduo padronizado e resíduo studentizado externo (R-student)  
+
+   São obtidos dividindo os resíduos ordinários pelo desvio-padrão estimado correspondente:
+   $$
+   r_i = \frac{\hat{\varepsilon}_i}{\hat{\sigma}\sqrt{1 - h_{ii}}}, \qquad 
+   \text{com}\quad \hat{\sigma}^2 = \frac{SQ_{Res}}{n - p - 1}.
+   $$
+   Esses resíduos têm variância aproximadamente constante e facilitam a comparação entre observações.  
+   - Espera-se $r_i \in (-2,2)$ na maioria dos casos sob normalidade.  
+   - Valores fora de $\pm 3$ sugerem possíveis **outliers**.
+
+**Nomenclatura e distribuições (o que é “studentizado” e “padronizado”?)**  
+
+- Resíduo ordinário: $\hat{\varepsilon}_i = y_i - \hat{y}_i$.  
+- Resíduo *padronizado* (ou *semi-studentizado*):
+  $$
+  r_i \;=\; \frac{\hat{\varepsilon}_i}{\hat{\sigma}\sqrt{1-h_{ii}}}.
+  $$
+  Usa a **mesma** estimativa global de $\hat{\sigma}$ para todas as observações; tem variância aproximadamente 1, mas sua distribuição não é exatamente $t$ sob normalidade.  
+  
+#### Resíduo padronizado e resíduo studentizado externo (R-student)
+
+  $$
+  t_i \;=\; \frac{\hat{\varepsilon}_i}{\hat{\sigma}_{(i)}\sqrt{1-h_{ii}}},
+  $$
+  em que $\hat{\sigma}_{(i)}$ é a estimativa de desvio-padrão obtida **sem** a observação $i$. Sob normalidade, $t_i \sim t_{n-p-2}$.  
+  
+  É mais sensível a outliers porque **exclui a própria observação na estimação de sua variância**.
+
+**Regra de bolso.**  
+Use $|r_i|\gtrsim 2$ (e sobretudo $>3$) como alerta inicial; confirme com **R-student** e inspeção visual.  
+Combine sempre com a alavancagem $h_{ii}$: um $r_i$ moderado **com $h_{ii}$ alto** pode ser mais preocupante do que um $r_i$ alto **com $h_{ii}$ baixo**.
+
+#### Resíduos PRESS e LOOCV como diagnóstico preditivo
+
+   São obtidos removendo cada observação $i$, ajustando o modelo sem ela e medindo o erro de previsão:
+   $$
+   e_{(i)} =y_i -\hat{y}_{(i)},
+   $$
+   em que $\hat{y}_{(i)}$ é o valor ajustado para $Y_i$ usando o modelo estimado sem a observação i. Essa definição é teórica e exigeria reestimar o modelo $n$ vezes (uma para cada observação removida). No entanto, podemos utilizar a seguinte expressão
+   $$
+   e_{(i)} = \frac{\hat{\varepsilon}_i}{1 - h_{ii}},
+   $$
+   pois $\hat{y}_{(i)} = y_i - \hat{\varepsilon}_i \cdot h_{ii}/(1-h_{ii})$.
+   
+   O **PRESS residual padronizado** é então:
+   $$
+   r_{PRESS,i} = \frac{e_{(i)}}{\hat{\sigma}\sqrt{1 - h_{ii}}},
+   $$
+   e o **PRESS total** é dado por:
+   $$
+   PRESS = \sum_{i=1}^n e_{(i)}^2.
+   $$
+   Esses resíduos avaliam **capacidade preditiva** do modelo. Quanto menor o PRESS, melhor o desempenho fora da amostra (Montgomery et al., 2021, p. 619).
+
+**PRESS e validação cruzada leave-one-out (LOOCV)**  
+O **PRESS** é **exatamente** a soma dos erros de predição **fora da amostra** quando cada observação é deixada de fora na estimação (LOOCV). Assim,  
+$$
+PRESS \;=\; \sum_{i=1}^n e_{(i)}^2.
+$$
+temos que quanto menor o PRESS (ou sua versão média), **melhor a capacidade preditiva** fora da amostra. Ele complementa o $R^2$ (explicação *dentro* da amostra) com uma medida de **generalização**.
+
+
+### Gráficos básicos de resíduos para checar suposições
+
+A inspeção gráfica dos resíduos é a forma mais intuitiva e poderosa de verificar as suposições.  Em geral, os resíduos devem parecer **aleatórios, sem padrão visível e centrados em zero**.
+
+
+#### Linearidade e homocedasticidade
+
+1. **Resíduos vs. valores ajustados ($\hat{y}$)**  
+   - Verifica **linearidade** e **homocedasticidade**.  
+   - Esperado: dispersão uniforme e aleatória.  
+   - Padrão curvilíneo → não linearidade; formato de funil → heterocedasticidade.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Resíduos vs Ajustados: (esq.) modelo bem especificado; (dir.) heterocedasticidade (funil)."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Resíduos vs Ajustados (OK vs Hetero)
+# =========================
+
+df_ok <- make_ok()
+fit_ok <- fit_ols(df_ok)
+
+df_he <- make_hetero()
+fit_he <- fit_ols(df_he)
+
+p_ok <- tibble(fitted = fit_ok$fitted, resid = fit_ok$resid) %>%
+  ggplot(aes(x = fitted, y = resid)) +
+  geom_point(alpha = 0.6, size = 2, color = col_blue) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.2, color = col_red) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(
+    title = "Bem especificado (dispersão aleatória)",
+    x = "Ajustados (ŷ)",
+    y = "Resíduos"
+  ) +
+  theme_minimal(base_size = 12)
+
+p_he <- tibble(fitted = fit_he$fitted, resid = fit_he$resid) %>%
+  ggplot(aes(x = fitted, y = resid)) +
+  geom_point(alpha = 0.6, size = 2, color = col_orange) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.2, color = col_red) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(
+    title = "Heterocedasticidade (padrão de funil)",
+    x = "Ajustados (ŷ)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 12)
+
+p_ok + p_he
+```
+
+Observe que, no modelo **bem especificado**, há uma nuvem aleatória em torno de 0, sem tendência; variância visualmente constante. Por outro lado, o **problema de funil** ocorre no modelo mal especificado, ocorrendo um aumento no espalhamento com o crescimento dos valores ajustados. Isso indica **heterocedasticidade**.  
+
+#### Diagnóstico por preditor e termo omitido (forma funcional)
+
+2. **Resíduos vs. cada variável explicativa ($x_j$)**  
+   - Verifica se a relação com cada preditor é linear.  
+   - Padrões sistemáticos indicam necessidade de transformação.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Resíduos padronizados vs x1: (esq.) modelo ok; (dir.) termo não linear omitido (curvatura)."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Resíduos padronizados vs x1 (OK vs Não-linearidade)
+# =========================
+
+fit_ok <- fit_ols(df_ok)
+
+df_nl <- make_nonlinear()
+fit_nl <- fit_ols(df_nl)
+
+p1 <- tibble(x1 = df_ok$x1, r = fit_ok$std_resid) %>%
+  ggplot(aes(x = x1, y = r)) +
+  geom_point(alpha = 0.6, size = 2, color = col_blue) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.2, color = col_red) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(title = "Bem especificado", x = "x1", y = "Resíduo padronizado") +
+  theme_minimal(base_size = 12)
+
+p2 <- tibble(x1 = df_nl$x1, r = fit_nl$std_resid) %>%
+  ggplot(aes(x = x1, y = r)) +
+  geom_point(alpha = 0.6, size = 2, color = col_orange) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.2, color = col_red) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(title = "Não linearidade (curvatura evidente)", x = "x1", y = NULL) +
+  theme_minimal(base_size = 12)
+
+p1 + p2
+```
+  
+
+Observe que, no modelo **bem especificado**, os pontos estão dispersos sem curvatura; linha *lowess* ~ horizontal. Já no modelo mal especificado, há **não linearidade**: arco/curvatura clara, sugerindo termo $x_1^2$ ou transformação de $x_1$.  Uma **ação:** interessante é incluir termos  polinomiais/*splines* ou transformar $x$.
+
+#### Normalidade dos erros (aproximação)
+  
+3. **Gráfico de probabilidade normal (QQ-plot)**  
+   - Compara os quantis observados dos resíduos com os da normal teórica.  
+   - Desvios sistemáticos da reta 45° indicam **violação da normalidade**.
+
+```{r}
+#| echo: false
+#| fig-cap: "QQ-plot dos resíduos: (esq.) normalidade aproximada; (dir.) caudas pesadas."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# QQ-plot (OK vs Caudas pesadas)
+# =========================
+
+set.seed(1)
+n <- 200
+x1_ok <- runif(n, 0, 10); x2_ok <- runif(n, 0, 10)
+y_ok  <- 5 + 1.2*x1_ok + 0.8*x2_ok + rnorm(n, 0, 2.0)
+
+x1_t <- runif(n, 0, 10);  x2_t <- runif(n, 0, 10)
+y_t  <- 5 + 1.2*x1_t + 0.8*x2_t + rt(n, df = 5)*2.0
+
+df_ok2 <- tibble(y = y_ok, x1 = x1_ok, x2 = x2_ok)
+df_t   <- tibble(y = y_t,  x1 = x1_t,  x2 = x2_t)
+
+mod_ok2 <- lm(y ~ x1 + x2, data = df_ok2)
+res_ok2 <- rstandard(mod_ok2)
+
+mod_t <- lm(y ~ x1 + x2, data = df_t)
+res_t <- residuals(mod_t)
+
+pqq1 <- tibble(sample = res_ok2) %>%
+  ggplot(aes(sample = sample)) +
+  stat_qq(color = col_blue, alpha = 0.7, size = 1.8) +
+  stat_qq_line(color = col_red, linewidth = 1.1) +
+  labs(title = "Bem especificado (aprox. normal)", x = "Quantis teóricos", y = "Quantis amostrais") +
+  theme_minimal(base_size = 12)
+
+pqq2 <- tibble(sample = res_t) %>%
+  ggplot(aes(sample = sample)) +
+  stat_qq(color = col_orange, alpha = 0.7, size = 1.8) +
+  stat_qq_line(color = col_red, linewidth = 1.1) +
+  labs(title = "Não-normalidade (caudas pesadas)", x = "Quantis teóricos", y = NULL) +
+  theme_minimal(base_size = 12)
+
+pqq1 + pqq2
+```
+
+
+Observe que no modelo **bem especificado**, os pontos seguem aproximadamente a **reta de 45°**,, com pequenas oscilações nas pontas — compatível com **normalidade aproximada**.  No gráfico à direita **(caudas pesadas)**, os pontos **se afastam sistematicamente** da reta (acima na cauda superior e abaixo na inferior), indicando **excesso de curtose**.  Nesta situação, deve-se considerar transformação da variável resposta, uso de erros-padrão robustos ou modelos robustos.  
+
+
+
+4. **Histograma dos resíduos**  
+   - Complementa o QQ-plot, mostrando assimetrias e caudas longas.
+
+```{r}
+#| echo: false
+#| fig-cap: "Histograma dos resíduos: (esq.) simétrico; (dir.) assimétrico (erro lognormal centralizado)."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Histograma (OK vs Assimetria)
+# =========================
+
+fit_ok <- fit_ols(df_ok)
+
+df_sk <- make_skew()
+fit_sk <- fit_ols(df_sk)
+
+h1 <- tibble(res = fit_ok$resid) %>%
+  ggplot(aes(x = res)) +
+  geom_histogram(bins = 20, color = "white", alpha = 0.85, fill = col_blue) +
+  labs(title = "Bem especificado (forma ~ simétrica)", x = "Resíduo", y = "Frequência") +
+  theme_minimal(base_size = 12)
+
+h2 <- tibble(res = fit_sk$resid) %>%
+  ggplot(aes(x = res)) +
+  geom_histogram(bins = 20, color = "white", alpha = 0.85, fill = col_orange) +
+  labs(title = "Assimetria (cauda à direita)", x = "Resíduo", y = NULL) +
+  theme_minimal(base_size = 12)
+
+h1 + h2
+```
+
+No histrograma à esquerda, a forma é aproximadamente simétrica e unimodal centrada em 0. Já o histograma à direita, há assimetria: cauda mais longa (direita/esquerda) ou múltiplos picos. Uma opção pode ser transformar $Y$ (p.ex. log) ou considerar GLM apropriado.
+
+
+**Gráfico “escala-local” (Spread–Location)**  
+- Eixo x: valores ajustados $\hat{y}_i$; eixo y: $\sqrt{|r_i|}$ (ou $|r_i|$).  
+- Destina-se a **estabilizar a variância visualmente**. Uma tendência ascendente denuncia **heterocedasticidade**. 
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Spread–Location (√|res| vs ajustados): (esq.) aleatório; (dir.) tendência ascendente (hetero)."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Spread-Location (OK vs Hetero)
+# =========================
+
+sqrt_abs_ok <- sqrt(abs(fit_ok$std_resid))
+sqrt_abs_he <- sqrt(abs(fit_he$std_resid))
+
+sl1 <- tibble(fitted = fit_ok$fitted, v = sqrt_abs_ok) %>%
+  ggplot(aes(x = fitted, y = v)) +
+  geom_point(alpha = 0.6, size = 2, color = col_blue) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.2, color = col_red) +
+  labs(title = "Bem especificado", x = "Ajustados (ŷ)", y = expression(sqrt(abs(r[i])))) +
+  theme_minimal(base_size = 12)
+
+sl2 <- tibble(fitted = fit_he$fitted, v = sqrt_abs_he) %>%
+  ggplot(aes(x = fitted, y = v)) +
+  geom_point(alpha = 0.6, size = 2, color = col_orange) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.2, color = col_red) +
+  labs(title = "Heterocedasticidade (tendência ↑)", x = "Ajustados (ŷ)", y = NULL) +
+  theme_minimal(base_size = 12)
+
+sl1 + sl2
+```
+
+Note que no modelo **bem especificado**, a banda é aproximadamente horizontal e sem tendência. Por outro lada, há uma tendência **ascendente** clara da *lowess* no gráfico à direita, o qual é um indício de heterocedasticidade. Uma opção é realizar uma transformação que estabilize variância.
+
+#### Independência e autocorrelação (quando há ordem temporal)
+
+**Resíduos em séries temporais (ACF/Correlograma)**  
+- Para dados ordenados no tempo, o **correlograma dos resíduos** (ACF) detecta **autocorrelação**; barras significativas fora dos limites  ou padrão senoinal indicam violação de independência.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Figura R8 — ACF dos resíduos: (esq.) erros independentes; (dir.) autocorrelação AR(1) evidente."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# ACF dos resíduos (IID vs AR1)
+# =========================
+
+set.seed(101)
+n_t <- 120
+x1_t <- seq(0, 10, length.out = n_t)
+x2_t <- runif(n_t, 0, 10)
+
+# erros iid
+eps_iid <- rnorm(n_t, 0, 2)
+y_ok_t  <- 5 + 1.2*x1_t + 0.8*x2_t + eps_iid
+
+# erros AR(1)
+rho <- 0.7
+u <- rnorm(n_t, 0, 2)
+eps_ar <- numeric(n_t)
+for (t in 2:n_t) eps_ar[t] <- rho*eps_ar[t-1] + u[t]
+y_bad_t <- 5 + 1.2*x1_t + 0.8*x2_t + eps_ar
+
+df_t_ok  <- tibble(y = y_ok_t,  x1 = x1_t, x2 = x2_t)
+df_t_bad <- tibble(y = y_bad_t, x1 = x1_t, x2 = x2_t)
+
+res_ok_t  <- residuals(lm(y ~ x1 + x2, data = df_t_ok))
+res_bad_t <- residuals(lm(y ~ x1 + x2, data = df_t_bad))
+
+acf1 <- tibble(lag = 1:24, acf = acf(res_ok_t,  lag.max = 24, plot = FALSE)$acf[-1]) %>%
+  ggplot(aes(x = lag, y = acf)) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
+  geom_segment(aes(xend = lag, yend = 0), color = col_blue, linewidth = 0.8) +
+  labs(title = "Erros independentes — ACF dos resíduos", x = "Defasagem", y = "Autocorrelação") +
+  theme_minimal(base_size = 12)
+
+acf2 <- tibble(lag = 1:24, acf = acf(res_bad_t, lag.max = 24, plot = FALSE)$acf[-1]) %>%
+  ggplot(aes(x = lag, y = acf)) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
+  geom_segment(aes(xend = lag, yend = 0), color = col_orange, linewidth = 0.8) +
+  labs(title = "AR(1), ρ=0.7 — ACF dos resíduos", x = "Defasagem", y = NULL) +
+  theme_minimal(base_size = 12)
+
+acf1 + acf2
+```
+
+ 
+a maioria das barras permanece **dentro** das bandas de confiança E não há padrão de decaimento sistemático no gráfico à esquerda, indicando que não há evidência de autocorrelação. Por outro lado, há barras **positivas** em baixas defasagens, com **decaimento geométrico**, frequentemente **ultrapassando** as bandas no gráfico a direita, que é um indício claro de **autocorrelação**. Dentre as ações, uma é considerar um modeolos com erros autoregressivos ou modelar a dinâmica (defasagens da resposta/preditores), além de verificar omissão de termos temporais relevantes.
+
+**Gráficos complementares:**
+
+
+#### Outliers: identificação inicial e cautelas de interpretação
+
+1. **Resíduos padronizados vs. índice da observação**  
+   - Detecta **outliers** (resíduos com magnitude alta).  
+   - Pontos fora de ±3 merecem investigação.
+
+```{r}
+#| echo: false
+#| fig-cap: "Resíduos padronizados vs índice: (esq.) sem extremos; (dir.) outliers evidentes (|r|>3)."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Resíduos padronizados vs índice (OK vs Outliers)
+# =========================
+
+idx_ok <- seq_along(fit_ok$std_resid)
+
+df_out <- make_ok(seed = 9)
+df_out$y[c(6, 43, 151)] <- df_out$y[c(6, 43, 151)] + c(10, -11, 12)
+fit_out <- fit_ols(df_out)
+idx_out <- seq_along(fit_out$std_resid)
+
+r1 <- tibble(i = idx_ok, r = fit_ok$std_resid) %>%
+  ggplot(aes(x = i, y = r)) +
+  geom_point(alpha = 0.6, size = 2, color = col_blue) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  geom_hline(yintercept = c(-3, 3), linetype = "dashed", color = col_red, linewidth = 0.9) +
+  labs(title = "Bem especificado", x = "Índice", y = "Resíduo padronizado") +
+  theme_minimal(base_size = 12)
+
+r2 <- tibble(i = idx_out, r = fit_out$std_resid) %>%
+  ggplot(aes(x = i, y = r)) +
+  geom_point(alpha = 0.6, size = 2, color = col_orange) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  geom_hline(yintercept = c(-3, 3), linetype = "dashed", color = col_red, linewidth = 0.9) +
+  labs(title = "Outliers (alguns > |3|)", x = "Índice", y = NULL) +
+  theme_minimal(base_size = 12)
+
+r1 + r2
+```
+
+No modelo **bem especificado**, a maioria dentro de $\pm 2$ e raros fora de $\pm 3$. Adicionalmente, não apresenta padrões sequenciais.  
+
+
+2. **Resíduos vs. tempo (em dados temporais)**  
+   - Avalia **autocorrelação** (dependência sequencial dos erros).
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Resíduos vs tempo: (esq.) sem autocorrelação; (dir.) padrão típico de erro AR(1)."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Resíduos vs tempo (IID vs AR1)
+# =========================
+
+fit_t_ok  <- fit_ols(df_t_ok)
+fit_t_bad <- fit_ols(df_t_bad)
+
+pt1 <- tibble(t = 1:n_t, resid = fit_t_ok$resid) %>%
+  ggplot(aes(x = t, y = resid)) +
+  geom_line(alpha = 0.8, linewidth = 0.6, color = col_blue) +
+  geom_point(alpha = 0.8, size = 1.6, color = col_blue) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(title = "Erros independentes", x = "Tempo (t)", y = "Resíduo") +
+  theme_minimal(base_size = 12)
+
+pt2 <- tibble(t = 1:n_t, resid = fit_t_bad$resid) %>%
+  ggplot(aes(x = t, y = resid)) +
+  geom_line(alpha = 0.8, linewidth = 0.6, color = col_orange) +
+  geom_point(alpha = 0.8, size = 1.6, color = col_orange) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(title = "Autocorrelação AR(1), ρ=0.7", x = "Tempo (t)", y = NULL) +
+  theme_minimal(base_size = 12)
+
+pt1 + pt2
+```
+
+ 
+A série oscila ao redor de 0 sem padrão persistente no gráfico a esquerda. Isso não ocorre no gráfico a direita. Sequências longas positivas/negativas ou padrão *serrado* típico de AR(1) indicam erros correlacionado.  Diante de tal especificação, aconselha-se uma modelagem com dependência temporal.
+
+  
+3. **Resíduos vs. variáveis omitidas**  
+   - Pode revelar estrutura sistemática não explicada (sugere incluir nova variável).
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Resíduos vs variável omitida: (esq.) ruído aleatório; (dir.) tendência clara sugere variável ausente."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(patchwork)
+})
+
+set.seed(2025)
+
+n_om <- 180
+x1_o <- runif(n_om, 0, 10)
+x2_o <- runif(n_om, 0, 10)
+x3_o <- runif(n_om, 0, 8)
+eps_o <- rnorm(n_om, 0, 2)
+
+y_true <- 5 + 1.2*x1_o + 0.8*x2_o + 1.5*x3_o + eps_o
+
+df_ok_om  <- tibble(y = y_true, x1 = x1_o, x2 = x2_o, x3 = x3_o)
+df_bad_om <- dplyr::select(df_ok_om, -x3)   # <- evita conflito com select()
+
+mod_ok  <- lm(y ~ x1 + x2 + x3, data = df_ok_om)
+mod_bad <- lm(y ~ x1 + x2,      data = df_bad_om)
+
+df_plot_ok <- df_ok_om %>% mutate(resid = resid(mod_ok))
+df_plot_bd <- df_ok_om %>% mutate(resid = resid(mod_bad))  # usa x3 para revelar padrão
+
+col_blue   <- "steelblue"
+col_orange <- "darkorange2"
+col_red    <- "red"
+
+p1 <- ggplot(df_plot_ok, aes(x = x3, y = resid)) +
+  geom_point(alpha = 0.6, size = 2, color = col_blue) +
+  geom_smooth(method = "loess", formula = y ~ x, se = FALSE, linewidth = 1.2, color = col_red) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(
+    title = "Modelo completo — resíduos aleatórios",
+    x = "x3 (variável explicativa)",
+    y = "Resíduo"
+  ) +
+  theme_minimal(base_size = 12)
+
+p2 <- ggplot(df_plot_bd, aes(x = x3, y = resid)) +
+  geom_point(alpha = 0.6, size = 2, color = col_orange) +
+  geom_smooth(method = "loess", formula = y ~ x, se = FALSE, linewidth = 1.2, color = col_red) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  labs(
+    title = "x3 omitida — padrão sistemático nos resíduos",
+    x = "x3 (variável omitida)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 12)
+
+p1 + p2
+```
+  
+No modelo **bem especificado (modelo completo)**, os resíduos apresentam comportamento de ruído contra $x_3$. No entanto, quando a variável é obtida **(modelo ajustado sem $x_3$)**, há uma tendência clara dos resíduos com $x_3$.  Portanto, deve-se incluir $x_3$ (ou proxy) e reavaliar ajuste e inferências.
+
+
+### Comentários práticos  
+
+- Nenhum gráfico deve ser interpretado isoladamente. A análise deve considerar **padrões conjuntos**.  
+- Pequenas violações das suposições não invalidam necessariamente o modelo, mas alertam sobre limitações.  
+- Se as suposições forem gravemente violadas, considere:
+  - **Transformar variáveis** (ex.: log, raiz quadrada, Box–Cox);  
+  - **Aplicar pesos** (WLS);  
+  - **Usar modelos alternativos** (GLM, regressão robusta, etc.).  
+- A análise de resíduos também ajuda a avaliar **capacidade preditiva** e **estabilidade** do modelo.
+
+Essas propriedades fundamentam os gráficos e testes formais, apresentados em detalhe na seção seguinte.
+
+
+### Observações influentes, alavancagem e diagnóstico de Cook  
+
+Além da análise dos resíduos, é fundamental investigar **quais observações exercem influência desproporcional** sobre o ajuste do modelo.   Mesmo que as suposições clássicas estejam satisfeitas, um único ponto pode distorcer coeficientes, inflar variâncias e alterar conclusões inferenciais.  A análise de **alavancagem e influência** identifica essas observações críticas, permitindo avaliar a robustez do modelo.
+
+
+### Intuição: alavancagem versus resíduo e quando surge influência
+
+Cada observação contribui para a estimação de $\hat{\boldsymbol{\beta}}$. No entanto, observações que se encontram **longe da média dos preditores** (ou **com valores extremos em $X$**) exercem maior **peso geométrico** no ajuste da reta ou hiperplano.  Esses pontos têm **alta alavancagem** (*high leverage*).
+
+Por outro lado, uma observação pode não ser extrema em $X$, mas possuir um **resíduo grande** (isto é, discrepante em $Y$).   Quando uma observação apresenta simultaneamente **grande alavancagem e grande resíduo**, ela é **influente** e sua remoção altera significativamente o modelo ajustado.
+
+
+### Alavancagem ($h_{ii}$): pontos extremos em X
+
+A alavancagem de cada ponto é dada pelo elemento $i$-ésimo da diagonal da matriz chapéu:
+
+$$
+h_{ii} = \mathbf{x}_i^\top (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{x}_i.
+$$
+
+**Propriedades:**
+
+- $0 < h_{ii} < 1$ para todas as observações;  
+- $\sum_{i=1}^n h_{ii} = p + 1$ (traço da matriz $\mathbf{H}$);  
+- $\operatorname{E}(h_{ii}) = \frac{p+1}{n}$ (alavancagem média).  
+
+**Regra prática:**  
+Um ponto é considerado de **alta alavancagem** quando
+$$
+h_{ii} > 2\frac{p+1}{n}
+\quad \text{ou, de forma mais conservadora,} \quad
+h_{ii} > 3\frac{p+1}{n}.
+$$
+
+A alavancagem mede o “peso” de $x_i$ na projeção de $\mathbf{Y}$ sobre o espaço coluna de $\mathbf{X}$.  Pontos com alto $h_{ii}$ ficam longe do “centro” das observações e têm maior capacidade de puxar o plano de regressão na sua direção.
+
+
+### Influência global: distância de Cook
+
+A medida mais tradicional de influência é a **Distância de Cook**, que quantifica o impacto de cada observação sobre todos os coeficientes do modelo:
+
+$$
+D_i = \frac{(\hat{\boldsymbol{\beta}} - \hat{\boldsymbol{\beta}}_{(i)})^\top (\mathbf{X}^\top\mathbf{X}) (\hat{\boldsymbol{\beta}} - \hat{\boldsymbol{\beta}}_{(i)})}{(p+1)\,\hat{\sigma}^2},
+$$
+onde $\hat{\boldsymbol{\beta}}_{(i)}$ é o vetor de estimativas obtido sem a $i$-ésima observação.
+
+Na prática, evita-se reestimar o modelo $n$ vezes usando a forma equivalente:
+$$
+D_i = \frac{r_i^2}{p+1} \cdot \frac{h_{ii}}{1 - h_{ii}},
+$$
+com $r_i$ os resíduos padronizados.
+
+**Interpretação:**
+
+- $D_i$ mede o **efeito conjunto** do resíduo e da alavancagem;  
+- valores altos indicam observações cuja exclusão altera substancialmente $\hat{\boldsymbol{\beta}}$.
+
+**Critérios usuais:**
+
+- $D_i > 1$: influência considerável (regra prática geral);  
+- $D_i > \frac{4}{n-p-1}$: possível influência significativa (Montgomery et al., 2021).
+
+
+### Influência local: impacto em predições e em coeficientes (DFFITS/DFBETAS)
+
+Além da influência global, é possível mensurar **quanto cada ponto altera parâmetros específicos** ou valores ajustados.
+
+- **DFFITS:** mede o efeito da exclusão de $i$ sobre o valor ajustado correspondente $\hat{y}_i$:
+  $$
+  DFFITS_i = \frac{\hat{y}_i - \hat{y}_{i(i)}}{\hat{\sigma}_{(i)}\sqrt{h_{ii}}}
+  = r_i \sqrt{\frac{h_{ii}}{1 - h_{ii}}}.
+  $$
+  Valores absolutos acima de $2 \sqrt{(p+1)/n}$ sugerem observações influentes.
+
+- **DFBETAS:** mede o impacto da observação $i$ sobre cada coeficiente $\beta_j$:
+  $$
+  DFBETAS_{ij} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\hat{\sigma}_{(i)}\sqrt{c_{jj}}},
+  $$
+  onde $c_{jj}$ é o $j$-ésimo elemento da diagonal de $(\mathbf{X}^\top\mathbf{X})^{-1}$.
+  Em geral, $|DFBETAS_{ij}| > 2/\sqrt{n}$ indica influência relevante sobre $\beta_j$.
+
+Essas medidas detalham **como** cada observação afeta o modelo: no valor ajustado, em cada coeficiente, ou no ajuste total.
+
+
+### Painel gráfico de influência e regras práticas de triagem
+
+Para sintetizar essas informações, utiliza-se frequentemente um **painel de gráficos diagnósticos de influência**:
+
+#### Mapa influência-alavancagem: $h_{ii}$ vs R-student (visão conjunta)
+
+1. **Gráfico de alavancagem ($h_{ii}$) vs. resíduos padronizados ($r_i$)**  
+   - Permite detectar simultaneamente outliers e pontos de alta alavancagem.  
+   - É a base do **gráfico de influência de Cook**, que sobrepõe círculos proporcionais a $D_i$.  
+
+```{r}
+#| echo: false
+#| fig-cap: "Alavancagem vs R-student: (esq.) sem pontos críticos; (dir.) ponto de alta alavancagem e Cook alto."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Influence plot: hat vs R-student, marcando top Cook
+# =========================
+
+fit_ok  <- fit_ols(df_ok)
+df_inf  <- make_influential()
+fit_inf <- fit_ols(df_inf)
+
+make_infl_df <- function(fit, color) {
+  tibble(
+    hat = fit$hat,
+    stud = fit$stud_resid,
+    cooks = fit$cooks,
+    idx = seq_along(fit$hat),
+    col = color
+  )
+}
+
+d_ok  <- make_infl_df(fit_ok,  col_blue)
+d_inf <- make_infl_df(fit_inf, col_orange)
+
+top_idx_ok  <- d_ok$idx[order(d_ok$cooks, decreasing = TRUE)][1:min(3, nrow(d_ok))]
+top_idx_inf <- d_inf$idx[order(d_inf$cooks, decreasing = TRUE)][1:min(3, nrow(d_inf))]
+
+p_ok_inf <- ggplot(d_ok, aes(x = hat, y = stud)) +
+  geom_point(alpha = 0.65, size = 2, color = col_blue) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  geom_hline(yintercept = c(-2, 2), linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  geom_point(data = filter(d_ok, idx %in% top_idx_ok),
+             aes(x = hat, y = stud), shape = 21, fill = NA, color = "black", size = 3.2, stroke = 1) +
+  geom_text(data = filter(d_ok, idx %in% top_idx_ok),
+            aes(label = idx), nudge_x = 0.01, nudge_y = 0.15, size = 3) +
+  labs(title = "Bem especificado (sem influentes marcantes)",
+       x = "Alavancagem (hii)", y = "Resíduo studentizado") +
+  theme_minimal(base_size = 12)
+
+p_inf_inf <- ggplot(d_inf, aes(x = hat, y = stud)) +
+  geom_point(alpha = 0.65, size = 2, color = col_orange) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+  geom_hline(yintercept = c(-2, 2), linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  geom_point(data = filter(d_inf, idx %in% top_idx_inf),
+             aes(x = hat, y = stud), shape = 21, fill = NA, color = "black", size = 3.2, stroke = 1) +
+  geom_text(data = filter(d_inf, idx %in% top_idx_inf),
+            aes(label = idx), nudge_x = 0.01, nudge_y = 0.15, size = 3) +
+  labs(title = "Ponto influente (alta alavancagem + |res|)",
+       x = "Alavancagem (hii)", y = NULL) +
+  theme_minimal(base_size = 12)
+
+p_ok_inf + p_inf_inf
+```
+
+Note que não há pontos simultaneamente com **alto** $h_{ii}$ e |resíduo| grande no modelo **bem especificado**. Por outro lado, há pontos **influentes** destacados (círculos) com $h_{ii}$ alto **e** $|t_i|$ grande. Portanto, deve-se inspecionar os caso(s) e comparar ajuste com/sem observação.
+
+  
+#### Distância de Cook por observação (influência global)  
+  
+2. **Gráfico de Cook (Cook’s distance plot)**  
+   - Eixo x: índice da observação; eixo y: $D_i$.  
+   - Linhas de referência em $D_i = 4/(n-p-1)$ e $D_i = 1$.  
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Distância de Cook — (esq.) modelo bem especificado; (dir.) com ponto influente evidente (linha 4/n)."
+#| fig-width: 10
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# Cook's distance (OK vs Influente)
+# =========================
+
+cook_df <- function(fit, color) {
+  tibble(
+    idx = seq_along(fit$cooks),
+    cooks = fit$cooks,
+    color = color
+  )
+}
+
+c_ok  <- cook_df(fit_ok,  col_blue)
+c_inf <- cook_df(fit_inf, col_orange)
+
+thr <- 4 / nrow(c_inf)
+
+pc1 <- ggplot(c_ok, aes(x = idx, y = cooks)) +
+  geom_segment(aes(xend = idx, yend = 0), color = col_blue, linewidth = 0.7) +
+  geom_point(color = col_blue, size = 1.6, alpha = 0.8) +
+  labs(title = "Bem especificado", x = "Índice", y = "Cook's D") +
+  theme_minimal(base_size = 12)
+
+pc2 <- ggplot(c_inf, aes(x = idx, y = cooks)) +
+  geom_segment(aes(xend = idx, yend = 0), color = col_orange, linewidth = 0.7) +
+  geom_point(color = col_orange, size = 1.6, alpha = 0.8) +
+  geom_hline(yintercept = thr, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  annotate("text", x = max(c_inf$idx)*0.8, y = thr*1.1,
+           label = paste0("4/n ≈ ", sprintf("%.3f", thr)),
+           size = 3, color = "gray30") +
+  labs(title = "Ponto influente evidente", x = "Índice", y = NULL) +
+  theme_minimal(base_size = 12)
+
+pc1 + pc2
+```
+
+
+No modelo **bem especificado**, há barras baixas, abaixo de $4/n$ (e bem abaixo de 1). No entanto, quando há **influência global**, aparecem uma ou poucas barras **acima** de $4/n$ (ou próximas de 1). Nesta situação, deve-se revisar esses casos e avaliar impacto em coeficientes e previsões.
+
+
+#### DFFITS e DFBETAS: quem afeta ŷ e quem afeta cada $\hat\beta_j$
+  
+3. **Gráficos de DFFITS e DFBETAS**  
+   - Mostram, respectivamente, influência nos valores ajustados e nos parâmetros individuais.  
+   - Facilitam identificar quais variáveis são mais sensíveis a uma observação específica.
+
+**DFFITS (influência na predição ajustada)**
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "|DFFITS| — (esq.) modelo bem especificado; (dir.) com ponto influente. Linhas: 2*sqrt(p/n)."
+#| fig-width: 10
+#| fig-height: 4
+#| dpi: 120
+# =========================
+# DFFITS (OK vs Influente)
+# =========================
+
+dff_ok  <- dffits(fit_ok$mod)
+dff_inf <- dffits(fit_inf$mod)
+
+p_ok  <- length(coef(fit_ok$mod))  # inclui intercepto
+n_ok  <- nobs(fit_ok$mod)
+p_inf <- length(coef(fit_inf$mod))
+n_inf <- nobs(fit_inf$mod)
+
+thr_ok  <- 2 * sqrt(p_ok / n_ok)
+thr_inf <- 2 * sqrt(p_inf / n_inf)
+
+d1 <- tibble(idx = seq_along(dff_ok),  d = abs(dff_ok))
+d2 <- tibble(idx = seq_along(dff_inf), d = abs(dff_inf))
+
+pd1 <- ggplot(d1, aes(x = idx, y = d)) +
+  geom_segment(aes(xend = idx, yend = 0), color = col_blue, linewidth = 0.7) +
+  geom_point(color = col_blue, size = 1.6, alpha = 0.8) +
+  geom_hline(yintercept = thr_ok, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  labs(title = "Bem especificado", x = "Índice", y = "|DFFITS|") +
+  theme_minimal(base_size = 12)
+
+pd2 <- ggplot(d2, aes(x = idx, y = d)) +
+  geom_segment(aes(xend = idx, yend = 0), color = col_orange, linewidth = 0.7) +
+  geom_point(color = col_orange, size = 1.6, alpha = 0.8) +
+  geom_hline(yintercept = thr_inf, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  labs(title = "Ponto influente", x = "Índice", y = NULL) +
+  theme_minimal(base_size = 12)
+
+pd1 + pd2
+```
+
+
+Observe que a maioria abaixo da linha $2\sqrt{p/n}$ no modelo **bem especificado**. No entanto, quando há **influência na predição de $\hat y_i$**, surgem picos que ultrapassam $2\sqrt{p/n}$. Uma ação interessante após a verificação de indícios de influência na predição é investigar estas observações e verificar se o resultado substantivo muda sem elas.
+
+
+**DFBETAS (influência nos coeficientes)**
+
+```{r}
+#| echo: false
+#| fig-cap: "DFBETAS por parâmetro: (esq.) bem especificado; (dir.) observação impacta fortemente os coeficientes."
+#| fig-width: 12
+#| fig-height: 4.6
+#| dpi: 120
+# =========================
+# DFBETAS (OK vs Influente)
+# =========================
+
+dfb_ok  <- as.data.frame(abs(fit_ok$dfbetas))
+dfb_inf <- as.data.frame(abs(fit_inf$dfbetas))
+
+dfb_ok$idx  <- seq_len(nrow(dfb_ok))
+dfb_inf$idx <- seq_len(nrow(dfb_inf))
+
+# nomes (Intercept, x1, x2) conforme lm()
+nm <- colnames(fit_ok$dfbetas)
+
+dfb_ok_long <- dfb_ok %>%
+  dplyr::select(idx, all_of(nm)) %>%
+  tidyr::pivot_longer(-idx, names_to = "param", values_to = "val")
+
+dfb_inf_long <- dfb_inf %>%
+  dplyr::select(idx, all_of(nm)) %>%
+  tidyr::pivot_longer(-idx, names_to = "param", values_to = "val")
+
+thr <- 2 / sqrt(nrow(dfb_ok))  # regra de bolso
+
+p_dfb_ok <- ggplot(dfb_ok_long, aes(x = idx, y = val, color = param)) +
+  geom_line(linewidth = 0.9) +
+  geom_hline(yintercept = thr, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  labs(title = "Bem especificado (efeitos pequenos)", x = "Índice", y = "|DFBETAS|") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "right")
+
+p_dfb_inf <- ggplot(dfb_inf_long, aes(x = idx, y = val, color = param)) +
+  geom_line(linewidth = 0.9) +
+  geom_hline(yintercept = thr, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  labs(title = "Ponto influente (picos marcantes)", x = "Índice", y = NULL) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "right")
+
+p_dfb_ok + p_dfb_inf
+```
+
+No modelo **bem especificado**, há séries baixas para todos os $\beta_j$, sem picos marcantes. Por outro lado, quando há **coeficientes sensíveis**, surgem picos em um parâmetro específico (ex.: apenas $x_1$). Ao visualizar tais indícios, deve-se considerar reponderação ou modelagem alternativa.
+    
+
+## O que fazer após o diagnóstico: investigar, corrigir e revalidar
+
+- Pontos influentes **devem ser investigados, não removidos automaticamente**.  
+  - Podem representar erros de coleta (dados incorretos) ou casos genuinamente especiais (observações atípicas, mas reais).  
+- O ideal é compreender **por que** a observação exerce tanta influência.  
+- Em alguns casos, pode-se ajustar modelos alternativos (sem o ponto, com pesos, ou com transformação robusta) e comparar resultados.
+
+**Resumindo:**
+
+- **Alta alavancagem** → ponto distante no espaço das variáveis explicativas.  
+- **Grande resíduo** → resposta discrepante.  
+- **Alta influência** → combinação de ambos, identificada por $D_i$, DFFITS ou DFBETAS.
+
+Essas relações mostram que todas as medidas de influência estão interligadas e são formas distintas de quantificar **o mesmo fenômeno geométrico**: a sensibilidade do hiperplano de regressão à presença de cada ponto.

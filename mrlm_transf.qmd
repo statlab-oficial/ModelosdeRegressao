@@ -1,0 +1,279 @@
+# Transformações Lineares em Modelos de Regressão: Padronização e Ponderação
+
+Nem sempre as variáveis explicativas estão em escalas comparáveis, nem os erros possuem variância constante. Nessas situações, duas transformações lineares úteis mantêm a estrutura do MRLM, mas modificam a forma de interpretar os resultados:
+
+1.  **Padronização das variáveis explicativas**, que coloca todas as covariáveis em uma escala comum (desvios-padrão), permitindo comparar magnitudes dos coeficientes e melhorar a estabilidade numérica.\
+2.  **Regressão Linear Ponderada (WLS)**, que ajusta o modelo quando os erros têm variâncias diferentes, atribuindo pesos às observações.
+
+Ambas preservam a linearidade e a validade inferencial. Os testes, intervalos e propriedades de BLUE continuam válidos, mas mudam a forma de leitura dos parâmetros e das variáveis envolvidas.
+
+## Regressão com Covariáveis Padronizadas
+
+Em dados reais, as variáveis explicativas geralmente estão em **escalas diferentes**:\
+- **Idade** (em anos),\
+- **Renda** (em reais),\
+- **Tempo de estudo** (em horas).
+
+Comparar diretamente os coeficientes $\beta_j$ é então enganoso, pois uma "unidade" de variação em renda não equivale a uma "unidade" em idade. A **padronização** resolve esse problema, expressando todas as variáveis em termos de **desvios-padrão em torno de suas médias**.
+
+Além disso: - facilita a comparação entre preditores;\
+- reduz problemas de colinearidade numérica;\
+- e prepara o modelo para métodos de regularização (Ridge, LASSO).
+
+### Definição e dois cenários de padronização
+
+Seja, para cada variável $x_j$, 
+
+$$
+z_{ij} = \frac{x_{ij} - \bar{x}_j}{s_{x_j}},
+$$ onde $\bar{x}_j$ é a média e $s_{x_j}$ o desvio-padrão amostral de $x_j$.
+
+Partindo do modelo original 
+
+$$
+Y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \varepsilon_i,
+$$ temos duas abordagens úteis:
+
+**Caso A --- padronizamos apenas as covariáveis (cenário mais comum no MRLM):** 
+
+$$
+Y_i = \beta_0^{*} + \gamma_1 z_{i1} + \cdots + \gamma_p z_{ip} + \varepsilon_i,
+\qquad
+\boxed{\gamma_j=\beta_j\,s_{x_j}},\quad
+\boxed{\beta_0^{*}=\bar{Y}}.
+$$ 
+
+Um aumento de **1 desvio-padrão em** $x_j$ altera $Y$ em $\gamma_j$ unidades (na escala original de $Y$).
+
+**Caso B --- padronizamos covariáveis e a resposta (coeficientes totalmente padronizados):** 
+
+$$
+y_i^{*}=\frac{y_i-\bar{y}}{s_Y},\qquad
+y_i^{*}=\alpha_0+\beta_1^{*} z_{i1}+\cdots+\beta_p^{*} z_{ip}+\varepsilon_i^{*},
+\qquad
+\boxed{\beta_j^{*}=\beta_j\,\frac{s_{x_j}}{s_Y}}.
+$$ 
+
+Um aumento de **1 desvio-padrão em** $x_j$ altera $Y$ em $\beta_j^{*}$ desvios-padrão.
+
+Observe que, no Caso A, o intercepto é $\beta_0^{*}=\bar{Y}$ (as covariáveis centradas têm média zero) e, no Caso B, a resposta também é centrada e escalada.
+
+### Interpretação prática
+
+-   **Coeficientes padronizados (Caso A)**: mostram o efeito em **unidades de** $Y$ decorrente de uma variação de **1 DP** em $x_j$.\
+-   **Coeficientes totalmente padronizados (Caso B)**: mostram o efeito em **DPs de** $Y$ decorrente de **1 DP** em $x_j$.\
+-   Comparar $|\gamma_j|$ (ou $|\beta_j^{*}|$) ajuda a ranquear a **importância relativa** dos preditores.
+
+Exemplo: se $\gamma_1=0{,}60$ e $\gamma_2=0{,}20$, então, mantendo as demais variáveis constantes, $x_1$ tem efeito relativo três vezes maior que $x_2$ sobre $Y$ (na escala original de $Y$).
+
+### Relação matricial e inferência
+
+Denotando $\mathbf{S}_X=\operatorname{diag}(s_{x_1},\ldots,s_{x_p})$ e $s_Y$ o DP de $Y$:
+
+-   **Caso A (apenas X padronizado):** 
+$$
+\mathbf{Z}=(\mathbf{X}-\mathbf{1}\bar{\mathbf{x}}^\top)\mathbf{S}_X^{-1},
+\qquad
+\boldsymbol{\gamma}=\mathbf{S}_X\,\boldsymbol{\beta}.
+$$
+
+-   **Caso B (X e Y padronizados):** 
+
+$$
+\boldsymbol{\beta}^{*}=\mathbf{S}_X\,\boldsymbol{\beta}/s_Y.
+$$ 
+
+Equivalente e útil para intuição: $$
+    \boldsymbol{\beta}^{*} = R_{XX}^{-1}\,r_{XY},
+    $$ onde $R_{XX}$ é a matriz de correlações entre regressores e $r_{XY}$ o vetor de correlações de cada $x_j$ com $Y$.
+
+**Pontos-chave de inferência:**
+
+-   Padronizar **não muda** $\hat{Y}$, $R^2$, $\bar{R}^2$, testes $t$ e $F$ .\
+-   Muda **apenas a escala dos coeficientes** e, portanto, a sua leitura substantiva.\
+-   Se padronizar **Y**, lembre-se de **despadronizar predições** para comunicar resultados na escala original.
+
+### Dummies e interações
+
+-   **Dummies (0/1)**: não padronize; a interpretação como diferença em relação à referência se perde.\
+-   **Interações** $D\times X$ (ANCOVA): **centre/padronize** $X$ e mantenha $D$ binária; melhora a interpretação do intercepto e reduz colinearidade entre termos.
+
+### Benefícios, limitações e relação com os coeficientes originais
+
+**Benefícios:** comparabilidade, estabilidade numérica, comunicação clara de importância relativa e pré-processamento essencial para regularização.\
+**Limitações:** o intercepto muda de interpretação (passa a ser a média de $Y$ com X centrado); não altera significância nem ajuste; pode ser desnecessária se as escalas já forem comparáveis.
+
+**Relação reversível (Caso A):** 
+
+$$
+\beta_j=\frac{\gamma_j}{s_{x_j}}\qquad\text{e}\qquad
+\hat{Y} \ \text{(no espaço original)} \ \text{é inalterado}.
+$$
+
+## Regressão Linear Ponderada (Weighted Least Squares -- WLS)
+
+O modelo clássico supõe **homocedasticidade**: 
+
+$$
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n.
+$$ 
+
+Na prática, é comum observar **heterocedasticidade**: 
+
+$$
+\operatorname{Var}(\varepsilon_i)=\sigma^2 v_i,
+\qquad
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 V,\ \ V=\operatorname{diag}(v_1,\ldots,v_n).
+$$
+
+Exemplos: variância crescente com o nível de renda; medidas com precisões instrumentais distintas; amostras com tamanhos desiguais por grupo.
+
+Sob heterocedasticidade, MQO é **não-viesado**, porém **ineficiente**. O WLS recupera eficiência ao reponderar observações segundo sua precisão.
+
+### Ideia central
+
+Observações mais precisas (menor variância) recebem **maior peso**; observações menos precisas (maior variância) recebem **menor peso**.
+
+Minimizamos uma **soma ponderada** de quadrados dos resíduos, compensando diferenças de variância entre observações.
+
+### Formulação matemática
+
+Modelo: 
+
+$$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},\qquad
+E(\boldsymbol{\varepsilon})=0,\qquad
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 V.
+$$
+
+Com $W=V^{-1}$, defina 
+
+$$
+\mathbf{Y}^{*}=W^{1/2}\mathbf{Y},\quad
+\mathbf{X}^{*}=W^{1/2}\mathbf{X},\quad
+\boldsymbol{\varepsilon}^{*}=W^{1/2}\boldsymbol{\varepsilon},
+$$ 
+
+então 
+
+$$
+\mathbf{Y}^{*}=\mathbf{X}^{*}\boldsymbol{\beta}+\boldsymbol{\varepsilon}^{*},\qquad
+\operatorname{Var}(\boldsymbol{\varepsilon}^{*})=\sigma^2 I_n.
+$$
+
+Aplicando MQO ao modelo transformado, 
+
+$$
+\boxed{\ \hat{\boldsymbol{\beta}}_{WLS}=(\mathbf{X}^\top W \mathbf{X})^{-1}\mathbf{X}^\top W \mathbf{Y}\ }.
+$$
+
+### Propriedades e estimativa de variância
+
+-   **Não-viesado:** $E(\hat{\boldsymbol{\beta}}_{WLS})=\boldsymbol{\beta}$.\
+-   **BLUE generalizado:** variância mínima entre estimadores lineares não-viesados sob $V$ conhecido/modelado: 
+
+$$
+\operatorname{Var}(\hat{\boldsymbol{\beta}}_{WLS})=\sigma^2(\mathbf{X}^\top W\mathbf{X})^{-1}.
+$$
+
+**Soma de quadrados ponderada e estimador de** $\sigma^2$: 
+
+$$
+\text{RSS}_W=(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}}_{WLS})^\top W(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}}_{WLS}),
+\qquad
+\boxed{\ \hat{\sigma}^2_{WLS}=\frac{\text{RSS}_W}{\,n-(p+1)\,}\ }.
+$$
+
+**Matriz "chapéu" ponderada e resíduos:** 
+
+$$
+H_W=W^{1/2}\mathbf{X}(\mathbf{X}^\top W\mathbf{X})^{-1}\mathbf{X}^\top W^{1/2},
+\quad
+h_{ii}^{(W)}=[H_W]_{ii}.
+$$ Resíduos ponderados: $e_i^{*}=\sqrt{w_i}\,\hat{\varepsilon}_i$.\
+Resíduos padronizados ponderados: 
+
+$$
+r_i^{*}=\frac{e_i^{*}}{\hat{\sigma}_{WLS}\sqrt{1-h_{ii}^{(W)}}}.
+$$ Após WLS bem especificado, $e_i^{*}$ deve parecer **homocedástico**.
+
+### Escolha dos pesos e FWLS
+
+Cada observação recebe 
+
+$$
+w_i=\frac{1}{v_i}.
+$$
+
+Exemplos práticos:
+
+| Situação                                               | Suposição                    | Peso adequado         |
+|:-----------------------|:-----------------------|:-----------------------|
+| $\operatorname{Var}(\varepsilon_i)\propto x_i^2$       | variância cresce com $x_i$   | $w_i = 1/x_i^2$       |
+| $\operatorname{Var}(\varepsilon_i)\propto \hat{y}_i^2$ | variância cresce com o nível | $w_i = 1/\hat{y}_i^2$ |
+| Variância conhecida de fonte externa                   | $v_i$ conhecido              | $w_i = 1/v_i$         |
+
+Em geral, $v_i$ **não é conhecido**. Usa-se **FWLS (Feasible WLS)**:
+
+1.  Ajuste MQO e calcule resíduos $\hat{\varepsilon}_i$.\
+2.  Modele $\hat{\varepsilon}_i^2$ como função de $x_i$ ou $\hat{y}_i$.\
+3.  Estime $v_i$ e defina $w_i=1/\hat{v}_i$.\
+4.  Reajuste com os pesos; repita até estabilizar.
+
+Se a forma da heterocedasticidade estiver bem modelada, FWLS recupera boa eficiência.
+
+Os **pesos de amostragem** (surveys) visam representatividade populacional e **não** são, em geral, os mesmos "pesos de variância" do WLS.
+
+O WLS minimiza 
+
+$$
+Q(\boldsymbol{\beta})=\sum_{i=1}^n w_i\,\hat{\varepsilon}_i^2,
+$$ 
+
+dando mais "voz" às observações mais precisas. Geometricamente, a transformação $W^{1/2}$ **deforma o espaço** para que os erros ponderados tenham variância constante.
+
+### MQO, WLS e erros-padrão robustos (HC): quando usar qual?
+
+| Método               | Suposição sobre a variância              | Ajuste dos coeficientes             | Uso típico                                 |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **MQO**              | Homocedasticidade ($\sigma^2$ constante) | Sem reponderação                    | Casos simples ou controle experimental     |
+| **WLS / FWLS**       | Heterocedasticidade conhecida/modelada   | **Repondera** (muda a reta)         | Quando há informação confiável sobre $v_i$ |
+| **MQO + HC (White)** | Heterocedasticidade desconhecida         | **Não** muda a reta, **corrige** EP | Inferência robusta em dados observacionais |
+
+Heurística:\
+- **Sabe/modela** $v_i$? Use **WLS/FWLS**.\
+- **Não sabe**? Mantenha MQO e use **erros-padrão robustos (HC)** para inferência confiável.
+
+### Visualizações sugeridas (para implementação posterior)
+
+1.  **MQO vs. WLS:** duas retas/hiperplanos; evidencie que WLS "segue" mais as observações de maior precisão.\
+2.  **Pesos e resíduos:** $w_i$ vs. $\hat{y}_i$ (estrutura de heterocedasticidade) e $e_i^{*}$ vs. $\hat{y}_i$ (homocedasticidade pós-WLS).\
+3.  **Diagnóstico pós-WLS:** resíduos padronizados ponderados vs. ajustados; QQ-plot dos $e_i^{*}$.
+
+### Ideias de demonstração
+
+1.  O estimador WLS minimiza 
+$$
+Q(\boldsymbol{\beta})=(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top W(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta});
+$$ 
+
+derivando e igualando a zero, 
+
+$$
+\frac{\partial Q}{\partial \boldsymbol{\beta}}=-2\mathbf{X}^\top W(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})=0
+\ \Rightarrow\
+\hat{\boldsymbol{\beta}}_{WLS}=(\mathbf{X}^\top W\mathbf{X})^{-1}\mathbf{X}^\top W\mathbf{Y}.
+$$
+
+2.  A transformação $W^{1/2}$ converte o problema heterocedástico em homocedástico (justificando a eficiência).\
+
+3.  Se $W=I_n$, WLS coincide exatamente com MQO.
+
+### Considerações finais
+
+A regressão ponderada é uma das ferramentas mais úteis para lidar com heterocedasticidade conhecida ou modelável.\
+Ela ajusta a influência das observações de forma proporcional à sua confiabilidade, **melhorando a precisão das estimativas e da inferência**.
+
+Em síntese, o WLS não muda o raciocínio da regressão linear --- apenas muda o "peso" de cada observação na construção do plano de regressão.
+
+Por isso, deve ser vista como uma **generalização natural do MQO**, essencial tanto para análises experimentais quanto observacionais, e como base para modelos ainda mais amplos, como os **Modelos Lineares Generalizados (GLM)**.

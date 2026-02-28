@@ -1,0 +1,446 @@
+# Estimadores de Máxima Verossimilhança em Modelos de Regressão
+
+No Apêndice C, a estimação por mínimos quadrados foi apresentada como um problema puramente geométrico: encontrar a projeção ortogonal do vetor de respostas $\mathbf{Y}$ sobre o espaço coluna da matriz de planejamento $\mathbf{X}$.
+
+Neste apêndice introduz-se uma segunda perspectiva: a **perspectiva probabilística**. Quando se assume que o termo de erro segue uma distribuição específica, torna-se possível estimar os parâmetros do modelo pelo método da **Máxima Verossimilhança (MV)**.
+
+É essencial a compreensão que:
+
+-   Mínimos Quadrados não exige normalidade;
+-   Máxima Verossimilhança exige especificação completa da distribuição;
+-   Sob normalidade homocedástica, os dois métodos produzem o mesmo estimador para $\boldsymbol{\beta}$;
+-   A igualdade entre MQO e MV é uma consequência estrutural da forma quadrática do logaritmo da densidade Normal.
+
+## Estimadores de Máxima Verossimilhança no MRLS Normal
+
+Considere o modelo de regressão linear simples:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2),
+$$
+
+com $\varepsilon_i$ independentes.
+
+Observe que a hipótese de normalidade é imposta **sobre o termo de erro**, e não diretamente sobre $Y_i$.
+
+Como $Y_i = \mathbb{E}[Y_i] + \varepsilon_i$, segue que:
+
+$$
+Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2).
+$$
+
+Portanto, condicionalmente aos valores observados de $X_i$, as variáveis $Y_i$ são independentes e normalmente distribuídas.
+
+#### Função de Verossimilhança
+
+A verossimilhança é definida como a função de densidade conjunta de $\mathbf{Y}$, vista como função dos parâmetros desconhecidos.
+
+Como os erros são independentes e Normais, o vetor
+
+$$
+\mathbf{Y} = (Y_1,\dots,Y_n)^\top
+$$
+
+possui distribuição conjunta:
+
+$$
+\mathbf{Y} \sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
+$$
+
+Pela independência, a densidade conjunta é o produto das densidades marginais:
+
+$$
+L(\beta_0,\beta_1,\sigma^2)
+=
+\prod_{i=1}^n
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\!\left(
+-\frac{(Y_i-\beta_0-\beta_1X_i)^2}{2\sigma^2}
+\right).
+$$
+
+Reorganizando os termos exponenciais:
+
+$$
+L(\beta_0,\beta_1,\sigma^2)
+=
+(2\pi\sigma^2)^{-n/2}
+\exp\!\left[
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2
+\right].
+$$
+
+Note que a soma de quadrados dos resíduos surge naturalmente no expoente da função de verossimilhança. Isso não é coincidência. A densidade Normal envolve um termo quadrático na variável, e a independência transforma a soma dos expoentes na soma dos quadrados.
+
+#### Log-Verossimilhança
+
+É matematicamente conveniente trabalhar com o logaritmo da verossimilhança:
+
+$$
+\ell(\beta_0,\beta_1,\sigma^2)
+=
+-\frac{n}{2}\log(2\pi)
+-\frac{n}{2}\log(\sigma^2)
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2.
+$$
+
+Os dois primeiros termos dependem apenas de $\sigma^2$. O terceiro termo contém a soma de quadrados dos resíduos.
+
+Note que, para $\sigma^2$ fixo, maximizar $\ell$ em relação a $(\beta_0,\beta_1)$ equivale a minimizar a soma de quadrados. Essa equivalência é o elo formal entre Máxima Verossimilhança e Mínimos Quadrados sob normalidade.
+
+#### Maximização em Relação a $\beta_0$ e $\beta_1$
+
+Derivando a log-verossimilhança em relação aos parâmetros e igualando a zero, obtêm-se as mesmas equações normais derivadas no Apêndice C.
+
+O resultado é:
+
+$$
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}},
+\qquad
+\hat{\beta}_0 = \bar{Y}-\hat{\beta}_1\bar{X}.
+$$
+
+Assim,
+
+$$
+\hat{\boldsymbol{\beta}}_{MV}
+=
+\hat{\boldsymbol{\beta}}_{MQO}.
+$$
+
+Essa coincidência não significa que MQO depende da normalidade. Significa que, sob normalidade, a função de verossimilhança possui a mesma estrutura quadrática que a função objetivo de MQO.
+
+#### Estimador de $\sigma^2$
+
+Derivando a log-verossimilhança em relação a $\sigma^2$:
+
+$$
+\frac{\partial \ell}{\partial \sigma^2}
+=
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+\sum_{i=1}^n (Y_i-\hat{Y}_i)^2.
+$$
+
+Igualando a zero:
+
+$$
+\hat{\sigma}^2_{MV}
+=
+\frac{1}{n}
+\sum_{i=1}^n (Y_i-\hat{Y}_i)^2.
+$$
+
+Esse estimador possui propriedades importantes:
+
+-   é consistente;
+-   é viesado para amostras finitas;
+-   seu viés desaparece quando $n \to \infty$.
+
+O estimador usual de MQO utiliza correção por graus de liberdade:
+
+$$
+\hat{\sigma}^2_{MQO}
+=
+\frac{1}{n-2}
+\sum_{i=1}^n (Y_i-\hat{Y}_i)^2.
+$$
+
+A diferença entre $n$ e $n-2$ decorre do fato de que dois parâmetros foram estimados, reduzindo a dimensão do subespaço residual. Essa distinção antecipa o conceito de graus de liberdade, que será formalizado probabilisticamente no apêndice seguinte.
+
+## Estimadores de Máxima Verossimilhança no MRLM Normal
+
+Considere agora o modelo linear múltiplo em notação matricial:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}
+\sim
+N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+onde:
+
+-   $\mathbf{Y} \in \mathbb{R}^n$ é o vetor de respostas;
+-   $\mathbf{X} \in \mathbb{R}^{n \times (p+1)}$ é a matriz de planejamento de posto completo;
+-   $\boldsymbol{\beta} \in \mathbb{R}^{p+1}$ é o vetor de parâmetros;
+-   $\sigma^2 > 0$ é a variância do erro.
+
+Sob essa hipótese, segue que
+
+$$
+\mathbf{Y}
+\sim
+N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
+$$
+
+Essa é a única hipótese probabilística adicional introduzida em relação ao Apêndice C.
+
+#### Verossimilhança em Forma Matricial
+
+A densidade da Normal multivariada fornece diretamente:
+
+$$
+L(\boldsymbol{\beta},\sigma^2)
+=
+(2\pi\sigma^2)^{-n/2}
+\exp\!\left[
+-\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+\right].
+$$
+
+Note que o termo quadrático no expoente é precisamente a soma de quadrados residual em forma matricial:
+
+$$
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+=
+\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2.
+$$
+
+Essa estrutura é consequência direta da forma da densidade Normal multivariada.
+
+#### Log-Verossimilhança
+
+Tomando logaritmo:
+
+$$
+\ell(\boldsymbol{\beta},\sigma^2)
+=
+-\frac{n}{2}\log(2\pi)
+-\frac{n}{2}\log(\sigma^2)
+-\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Observa-se que, para $\sigma^2$ fixo, maximizar $\ell$ equivale a minimizar a soma de quadrados residual.
+
+#### Maximização em Relação a $\boldsymbol{\beta}$
+
+Derivando:
+
+$$
+\frac{\partial \ell}{\partial \boldsymbol{\beta}}
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Igualando a zero:
+
+$$
+\mathbf{X}^\top \mathbf{X}\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+Estas são exatamente as equações normais.
+
+Se $\mathbf{X}^\top\mathbf{X}$ é invertível (posto completo), obtém-se a solução única:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+Portanto,
+
+$$
+\hat{\boldsymbol{\beta}}_{MV}
+=
+\hat{\boldsymbol{\beta}}_{MQO}.
+$$
+
+Se a distribuição dos erros fosse diferente, o estimador de máxima verossimilhança geralmente não coincidiria com MQO.
+
+#### Convexidade e Unicidade da Solução
+
+A função
+
+$$
+S(\boldsymbol{\beta})
+=
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+$$
+
+é uma função quadrática convexa em $\boldsymbol{\beta}$ sempre que
+
+$$
+\mathbf{X}^\top \mathbf{X}
+$$
+
+for definida positiva.
+
+Como a log-verossimilhança é a soma de um termo logarítmico em $\sigma^2$ e um termo negativo proporcional a $S(\boldsymbol{\beta})$, segue que o problema de maximização possui solução global única.
+
+#### Maximização em Relação a $\sigma^2$
+
+Derivando a log-verossimilhança em relação a $\sigma^2$:
+
+$$
+\frac{\partial \ell}{\partial \sigma^2}
+=
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Substituindo $\boldsymbol{\beta} = \hat{\boldsymbol{\beta}}$ e igualando a zero:
+
+$$
+\hat{\sigma}^2_{MV}
+=
+\frac{1}{n}
+(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top
+(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}}).
+$$
+
+Esse estimador é:
+
+-   consistente;
+-   assintoticamente normal;
+-   viesado em amostras finitas.
+
+O estimador usual corrigido por graus de liberdade é
+
+$$
+\hat{\sigma}^2_{MQO}
+=
+\frac{1}{n-p-1}
+\hat{\boldsymbol{\varepsilon}}^\top
+\hat{\boldsymbol{\varepsilon}}.
+$$
+
+A diferença entre $n$ e $n-p-1$ decorre da dimensão do subespaço residual.
+
+#### Informação de Fisher
+
+Sob normalidade,
+
+$$
+\mathcal{I}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top \mathbf{X}.
+$$
+
+Logo,
+
+$$
+\mathrm{Var}(\hat{\boldsymbol{\beta}})
+=
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Isso mostra que o estimador de MQO/MV atinge o limite inferior de variância (limite de Cramér--Rao) dentro da classe de estimadores não viesados sob normalidade.
+
+#### Interpretação Estrutural
+
+É fundamental compreender que:
+
+1.  $\hat{\boldsymbol{\beta}}$ é transformação linear de $\mathbf{Y}$;
+2.  $\hat{\sigma}^2$ é forma quadrática de $\mathbf{Y}$;
+3.  ambas as expressões derivam da estrutura da Normal multivariada.
+
+A partir dessas distribuições que emergem:
+
+-   a normalidade de $\hat{\boldsymbol{\beta}}$;
+-   a distribuição Qui-quadrado da soma de quadrados residual;
+-   a independência entre componentes ajustadas e residuais;
+-   as estatísticas $t$ e $F$ da inferência clássica.
+
+## Propriedades Estatísticas e Papel da Normalidade
+
+A análise desenvolvida até aqui permite distinguir com precisão três níveis distintos de resultado no modelo linear:
+
+1.  Resultados puramente algébricos (Apêndice C);
+2.  Resultados probabilísticos sob hipóteses fracas (Gauss--Markov);
+3.  Resultados probabilísticos sob normalidade.
+
+Essa distinção é essencial para evitar interpretações equivocadas.
+
+#### Propriedades do Estimador $\hat{\boldsymbol{\beta}}$
+
+Independentemente de normalidade, desde que:
+
+-   $\mathbb{E}(\boldsymbol{\varepsilon}) = \mathbf{0}$,
+-   $\mathrm{Var}(\boldsymbol{\varepsilon}) = \sigma^2\mathbf{I}_n$,
+
+vale que
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}
+$$
+
+é:
+
+-   linear em $\mathbf{Y}$;
+-   não viesado;
+-   com matriz de covariância $$
+    \mathrm{Var}(\hat{\boldsymbol{\beta}})
+    =
+    \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+    $$
+
+Pelo **Teorema de Gauss--Markov**, esse estimador é o melhor estimador linear não viesado (BLUE), ou seja, possui variância mínima dentro da classe dos estimadores lineares não viesados.
+
+Observe que nenhuma hipótese de normalidade foi utilizada até este ponto.
+
+#### Ganhos com a Normalidade
+
+Quando se assume adicionalmente que
+
+$$
+\boldsymbol{\varepsilon}
+\sim
+N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+obtêm-se resultados mais fortes:
+
+1.  $\hat{\boldsymbol{\beta}}$ é normalmente distribuído;
+2.  a soma de quadrados residual possui distribuição Qui-quadrado;
+3.  $\hat{\boldsymbol{\beta}}$ e $\hat{\sigma}^2$ são independentes;
+4.  as estatísticas $t$ e $F$ possuem distribuições exatas em amostras finitas.
+
+Além disso, sob normalidade, $\hat{\boldsymbol{\beta}}$ não é apenas BLUE. Ele é também o estimador de variância mínima dentro da classe de todos os estimadores não viesados. Esse é o sentido de eficiência completa sob normalidade.
+
+#### A Normalidade como Escolha de Modelagem
+
+A hipótese de normalidade não é uma necessidade lógica do modelo linear. Ela é uma escolha de modelagem baseada em propriedades matemáticas e práticas:
+
+1.  A densidade possui forma fechada simples;
+2.  O logaritmo da verossimilhança é quadrático;
+3.  A maximização conduz a soluções analíticas explícitas;
+4.  Formas lineares e quadráticas possuem distribuições conhecidas;
+5.  Estatísticas de teste têm distribuições exatas em amostras finitas.
+
+No entanto, outros cenários são possíveis:
+
+-   erros com distribuição t (robustez a outliers);
+-   heterocedasticidade (variância não constante);
+-   modelos da família exponencial (GLM);
+-   estruturas de dependência (GLS).
+
+A teoria desenvolvida aqui é, portanto, um caso particular dentro de um arcabouço mais amplo.

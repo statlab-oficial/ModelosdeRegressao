@@ -1,0 +1,310 @@
+# Análise de Covariância (ANCOVA)
+
+## Conceito geral
+
+A **Análise de Covariância (ANCOVA)** amplia o Modelo de Regressão Linear Múltipla (MRLM) ao integrar, no mesmo modelo, **variáveis quantitativas** (covariáveis) e **variáveis qualitativas** (representadas por dummies).  Essa combinação permite comparar grupos **ajustando as médias** por eventuais diferenças em variáveis contínuas de controle.
+
+Em termos práticos, a ANCOVA busca responder perguntas como:  “Os grupos diferem entre si, mesmo depois de considerar o efeito de uma variável contínua que também influencia o resultado?”
+
+
+## Motivação
+
+Imagine um estudo sobre salário ($Y$), experiência profissional ($X$) e gênero ($D$).  
+
+- Se ajustarmos apenas uma regressão simples entre salário e experiência, podemos ignorar diferenças sistemáticas entre homens e mulheres.  
+- Se considerarmos apenas o gênero, sem controlar a experiência, a comparação será enviesada — já que a média de experiência pode diferir entre os grupos.  
+
+A ANCOVA resolve esse problema ao **ajustar as médias de $Y$ pelas diferenças na covariável $X$**, de modo que as comparações entre grupos se tornem mais justas e interpretáveis.
+
+
+
+## Modelo básico (retas paralelas)
+
+O modelo mais simples da ANCOVA assume que as inclinações das retas são iguais para todos os grupos. Isto é, o efeito de $X$ é o mesmo, independentemente do grupo. Nesse caso, o modelo é:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \varepsilon_i,
+$$
+
+em que:
+
+- $X_i$ é a covariável contínua (ex.: experiência),
+
+- $D_i$ é uma dummy indicadora do grupo (ex.: 1 = feminino, 0 = masculino).
+
+As médias condicionais são:
+$$
+E(Y|X, D=0) = \beta_0 + \beta_1 X, \qquad 
+E(Y|X, D=1) = (\beta_0 + \beta_2) + \beta_1 X.
+$$
+
+Interpretação dos parâmetros:
+
+- $\beta_0$: média do grupo de referência ($D=0$) quando $X=0$;  
+- $\beta_1$: efeito médio da covariável $X$, **comum aos grupos**;  
+- $\beta_2$: diferença média entre os grupos **após controlar $X$**.  
+
+Esse modelo é chamado de **ANCOVA com retas paralelas**, pois as inclinações ($\beta_1$) são as mesmas para todos os grupos.
+
+
+
+## Modelo com interação (retas não paralelas)
+
+Caso se queira permitir que o efeito da covariável varie entre os grupos, adiciona-se o termo de interação $X_i D_i$:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \beta_3 (X_i D_i) + \varepsilon_i.
+$$
+
+Agora, as médias condicionais tornam-se:
+$$
+E(Y|X, D=0) = \beta_0 + \beta_1 X, \qquad
+E(Y|X, D=1) = (\beta_0 + \beta_2) + (\beta_1 + \beta_3)X.
+$$
+
+Interpretação:
+- $\beta_1$: inclinação do grupo de referência ($D=0$);
+- $\beta_1 + \beta_3$: inclinação do grupo $D=1$;
+- $\beta_3$: diferença entre as inclinações das retas (efeito de **interação**).
+
+> Quando $\beta_3 = 0$, as retas são paralelas e o modelo reduz-se ao caso anterior.  
+> Quando $\beta_3 \neq 0$, as inclinações diferem, indicando que o efeito da covariável depende do grupo.
+
+
+- **Sem interação (paralelas):**  
+  As médias dos grupos diferem em um valor constante ($\beta_2$), independentemente de $X$.  
+  Exemplo: homens e mulheres com a mesma experiência têm diferença média constante de salário.
+
+- **Com interação (não paralelas):**  
+  As diferenças entre grupos **mudam com $X$**.  
+  Exemplo: o ganho salarial por ano de experiência é maior em um grupo que no outro.
+  
+
+## Exemplo ilustrativo
+
+Para consolidar as ideias, vejamos um exemplo aplicado que combina uma variável **quantitativa** e uma **dummy**.  Suponha que queremos analisar o **salário mensal ($Y$)** de trabalhadores em função de sua **experiência profissional ($x$)** e do **gênero ($D$)**.  
+
+Definimos:
+
+- $Y_i$: salário mensal do indivíduo $i$ (em reais);  
+- $x_i$: anos de experiência;  
+- $D_i = 1$ se o indivíduo é **mulher**, $0$ se é **homem** (categoria de referência).
+
+Nosso interesse é investigar se há diferença entre os salários médios de homens e mulheres, **controlando pela experiência**, e se o **efeito da experiência** é o mesmo nos dois grupos.
+
+
+### Modelo sem interação: retas paralelas
+
+Começamos com o modelo:
+
+$$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 D_i + \varepsilon_i.
+$$
+
+- $\beta_0$: salário médio esperado dos **homens** com $x=0$;  
+- $\beta_1$: aumento médio no salário por ano de experiência, **comum** a ambos os gêneros;  
+- $\beta_2$: diferença média entre mulheres e homens, **mantida a mesma inclinação** para $x$.  
+
+As retas são **paralelas**. Isto é, mesmo crescimento com $x$, mas níveis diferentes de $Y$ para cada grupo.  
+Se $\beta_2 < 0$, por exemplo, o modelo indicaria que, em média, mulheres recebem menos que homens com o mesmo nível de experiência.  
+
+Em termos de expectativa condicional:
+$$
+E(Y|x,D=0) = \beta_0 + \beta_1 x, \qquad
+E(Y|x,D=1) = (\beta_0 + \beta_2) + \beta_1 x.
+$$
+
+
+### Modelo com interação: inclinações diferentes
+
+Agora, relaxamos a hipótese de paralelismo e permitimos que o efeito da experiência seja diferente entre os grupos:
+
+$$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 D_i + \beta_3 (x_i \cdot D_i) + \varepsilon_i.
+$$
+
+- $\beta_3$: **termo de interação**, que mede a diferença entre as inclinações das retas.  
+- Para homens ($D=0$):  
+  $$
+  E(Y|x, D=0) = \beta_0 + \beta_1 x.
+  $$
+- Para mulheres ($D=1$):  
+  $$
+  E(Y|x, D=1) = (\beta_0 + \beta_2) + (\beta_1 + \beta_3)x.
+  $$
+
+Aqui, as retas **não precisam ser paralelas**. Se $\beta_3 > 0$, o efeito da experiência sobre o salário é mais acentuado entre mulheres; se $\beta_3 < 0$, o ganho de experiência é menor para elas.
+
+
+### Interpretação gráfica
+
+- **Sem interação (paralelas):**  
+  Ambas as retas têm a mesma inclinação; o efeito de $x$ é idêntico, mas há um deslocamento vertical de $\beta_2$ entre os grupos.  
+
+- **Com interação:**  
+  As inclinações diferem. O impacto da experiência depende do gênero, e o efeito de $D$ sobre $Y$ muda ao longo de $x$. Em alguns casos, as retas podem até se cruzar, indicando inversão de vantagem entre grupos em diferentes níveis de experiência.
+
+Essas duas configurações ilustram o papel central das dummies e de suas interações:
+
+- sem interação, comparam-se médias ajustadas **mantendo o mesmo efeito de $x$**;
+
+- com interação, comparam-se **padrões distintos de associação** entre $x$ e $Y$ entre grupos.
+
+
+**Figura 3.6 – Efeito de dummy e interação (retas paralelas vs. inclinações diferentes)**
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Efeito de dummy e interação (retas paralelas vs. inclinações diferentes)"
+#| fig-width: 12
+#| fig-height: 4.6
+#| dpi: 150
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(patchwork)
+})
+
+set.seed(42)
+
+n <- 220
+x <- seq(0, 20, length.out = n)
+D <- rbinom(n, 1, 0.5)
+
+# Parâmetros (iguais ao Python)
+b0 <- 2000; b1 <- 300; b2 <- -2500; sigma <- 600
+y_sem <- b0 + b1*x + b2*D + rnorm(n, 0, sigma)
+
+b0i <- 2000; b1i <- 300; b2i <- -2500; b3i <- 220
+y_int <- b0i + b1i*x + b2i*D + b3i*(x*D) + rnorm(n, 0, sigma)
+
+df <- tibble(
+  x = x,
+  D = factor(D, levels = c(0, 1), labels = c("D=0", "D=1")),
+  y_sem = y_sem,
+  y_int = y_int
+)
+
+# Malha p/ linhas "teóricas"
+xg <- seq(0, 20, length.out = 200)
+
+lin_sem <- tibble(
+  x = rep(xg, 2),
+  D = factor(rep(c(0, 1), each = length(xg)), levels = c(0, 1), labels = c("D=0", "D=1")),
+  y = c(b0 + b1*xg, b0 + b1*xg + b2)
+)
+
+lin_int <- tibble(
+  x = rep(xg, 2),
+  D = factor(rep(c(0, 1), each = length(xg)), levels = c(0, 1), labels = c("D=0", "D=1")),
+  y = c(b0i + b1i*xg, b0i + (b1i + b3i)*xg + b2i)
+)
+
+# Cores (sem tab:orange)
+col_D0 <- "#1f77b4"  # azul
+col_D1 <- "#E69F00"  # laranja (válida no R)
+
+# --- Painel (a): sem interação (paralelas)
+x_ref <- 10
+y0_ref <- b0 + b1*x_ref
+y1_ref <- b0 + b1*x_ref + b2
+
+pA <- ggplot(df, aes(x = x, y = y_sem, color = D)) +
+  geom_point(size = 1.6, alpha = 0.6) +
+  geom_line(data = lin_sem, aes(y = y, color = D), linewidth = 1.2) +
+  # "seta" dupla (β2)
+  geom_segment(x = x_ref, xend = x_ref, y = y0_ref, yend = y1_ref,
+               inherit.aes = FALSE,
+               arrow = arrow(ends = "both", type = "open", length = unit(0.12, "in")),
+               linewidth = 0.6, color = "black") +
+  annotate("text", x = x_ref + 0.8, y = (y0_ref + y1_ref)/2,
+           label = expression(beta[2]~"(deslocamento)"),
+           size = 3.2, vjust = 0.5) +
+  scale_color_manual(values = c("D=0" = col_D0, "D=1" = col_D1)) +
+  labs(title = "Sem interação (retas paralelas)", x = "x (contínua)", y = "Y") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = c(0.12, 0.88),
+        legend.background = element_rect(fill = "white", color = "grey70"),
+        legend.title = element_blank())
+
+# --- Painel (b): com interação (inclinações diferentes)
+# anotações do "gap" em dois pontos
+gap_marks <- tibble(
+  x = c(5, 18),
+  y0 = b0i + b1i*c(5, 18),
+  y1 = b0i + (b1i + b3i)*c(5, 18) + b2i
+)
+
+# "réguas" de inclinação (curtas, como no Python)
+slope_seg <- tibble(
+  grp = c("D=0","D=0","D=1","D=1"),
+  x   = c(2, 4, 2, 4),
+  y   = c(b0i + b1i*2, b0i + b1i*4,
+          b0i + (b1i+b3i)*2 + b2i, b0i + (b1i+b3i)*4 + b2i)
+)
+
+pB <- ggplot(df, aes(x = x, y = y_int, color = D)) +
+  geom_point(size = 1.6, alpha = 0.6) +
+  geom_line(data = lin_int, aes(y = y, color = D), linewidth = 1.2) +
+  # gaps em x=5 e x=18
+  geom_segment(data = gap_marks,
+               aes(x = x, xend = x, y = y0, yend = y1),
+               inherit.aes = FALSE,
+               arrow = arrow(ends = "both", type = "open", length = unit(0.11, "in")),
+               linewidth = 0.6, color = "black") +
+  annotate("text", x = gap_marks$x + 1.0, y = (gap_marks$y0 + gap_marks$y1)/2,
+           label = expression(beta[3] != 0), size = 3.0, vjust = 0.5) +
+  # réguas de inclinação
+  geom_line(data = slope_seg, aes(x = x, y = y, color = grp),
+            inherit.aes = FALSE, linewidth = 2.2) +
+  scale_color_manual(values = c("D=0" = col_D0, "D=1" = col_D1)) +
+  labs(title = "Com interação (inclinações diferentes)", x = "x (contínua)", y = NULL) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = c(0.12, 0.88),
+        legend.background = element_rect(fill = "white", color = "grey70"),
+        legend.title = element_blank())
+
+pA + pB
+```
+
+
+## Hipóteses e testes na ANCOVA
+
+A ANCOVA pode ser usada para testar hipóteses específicas sobre covariáveis e efeitos de grupo:
+
+1. **Efeito da covariável:**  
+   $$
+   H_0: \beta_1 = 0 \quad \text{(a covariável não influencia $Y$)}.
+   $$
+
+2. **Diferença entre grupos (ajustada pela covariável):**  
+   $$
+   H_0: \beta_2 = 0 \quad \text{(os grupos têm a mesma média ajustada)}.
+   $$
+
+3. **Interação covariável × grupo:**  
+   $$
+   H_0: \beta_3 = 0 \quad \text{(as inclinações das retas são iguais)}.
+   $$
+
+Esses testes seguem a estrutura discutida na Seção 3.3: estatísticas $t$ e $F$, conforme o número de parâmetros envolvidos ($q=1$ ou $q>1$).
+
+
+
+## Aplicações e boas práticas
+
+- A ANCOVA é amplamente utilizada em **ensaios experimentais**, **pesquisas educacionais** e **ciências da saúde**, onde grupos são comparados após ajustar diferenças pré-existentes.  
+- A suposição central é o **paralelismo das retas**: se ele não for plausível, deve-se incluir a interação ou segmentar a análise.  
+- Recomenda-se **centrar a covariável $X$** (subtrair sua média), para que o intercepto ($\beta_0$) represente a média ajustada em um ponto de referência significativo (tipicamente a média amostral).
+
+A ANCOVA une o raciocínio da regressão e da ANOVA sob o mesmo arcabouço do MRLM. Ela permite:
+
+- Comparar médias ajustadas entre grupos;  
+- Controlar variáveis contínuas de confusão;  
+- Testar se os efeitos da covariável são homogêneos ou específicos por grupo.  
+
+Apesar da aparência mais sofisticada, do ponto de vista matricial a ANCOVA é apenas uma **regressão linear múltipla com dummies e interações**. As demonstrações formais e a derivação dos testes via projeções no espaço de colunas de $\mathbf{X}$ serão apresentadas em uma subseção posterior, mantendo a clareza e fluidez da leitura principal.
+

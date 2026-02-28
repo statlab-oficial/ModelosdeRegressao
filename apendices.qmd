@@ -1,0 +1,3751 @@
+# Apêndices
+
+## Apêndice A — Lista de Siglas e Símbolos
+
+### A.1 Lista de Siglas
+
+| Sigla               | Significado                                                            |
+|:------------------------|:----------------------------------------------|
+| MRLS                | Modelo de Regressão Linear Simples                                     |
+| MRLM                | Modelo de Regressão Linear Múltipla                                    |
+| MQO / OLS           | Mínimos Quadrados Ordinários / *Ordinary Least Squares*                |
+| MV                  | Máxima Verossimilhança                                                 |
+| WLS                 | *Weighted Least Squares* (Regressão Linear Ponderada)                  |
+| GLS                 | *Generalized Least Squares* (MQ Generalizados)                         |
+| BLUE                | *Best Linear Unbiased Estimator* (Melhor Estimador Linear Não-Viesado) |
+| GLM                 | *Generalized Linear Model* (Modelo Linear Generalizado)                |
+| GAM                 | *Generalized Additive Model* (Modelo Aditivo Generalizado)             |
+| GAMLSS              | *Generalized Additive Model for Location, Scale and Shape*             |
+| ANOVA               | Análise de Variância                                                   |
+| IC                  | Intervalo de Confiança                                                 |
+| EP                  | Erro-Padrão                                                            |
+| IC95%               | Intervalo de Confiança a 95%                                           |
+| H0, H1              | Hipótese nula, Hipótese alternativa                                    |
+| PDF, CDF            | Função Densidade de Probabilidade; Função de Distribuição Acumulada    |
+| AIC, BIC, AICc      | Critérios de Informação (Akaike, Bayesiano, Akaike corrigido)          |
+| $R^2$, $\bar{R}^2$  | Coeficiente de determinação e ajustado                                 |
+| SQTot, SQReg, SQRes | Somas de Quadrados (Total, Regressão, Resíduos)                        |
+| PRESS               | *Predicted Residual Sum of Squares* (LOOCV)                            |
+| CV-$k$              | *k*-fold Cross-Validation                                              |
+| VIF                 | *Variance Inflation Factor*                                            |
+| df                  | Graus de liberdade                                                     |
+| Var, Cov, Corr      | Variância, Covariância, Correlação                                     |
+| FDR                 | *False Discovery Rate*                                                 |
+
+\clearpage
+
+### A.2 Lista de Símbolos
+
+| Símbolo                                                | Descrição                                                                                             |
+|:--------------------------------|:--------------------------------------|
+| $Y,\ \mathbf{Y}$                                       | Variável resposta (escalar / vetor de observações)                                                    |
+| $X,\ \mathbf{X}$                                       | Matriz de covariáveis (matriz de planejamento)                                                        |
+| $\beta_0,\ \beta_1,\ \dots,\ \beta_p$                  | Parâmetros do modelo (intercepto e inclinações)                                                       |
+| $\boldsymbol{\beta}$                                   | Vetor de parâmetros $(\beta_0,\ \beta_1,\ \ldots,\ \beta_p)^\top$                                     |
+| $\varepsilon_i,\ \boldsymbol{\varepsilon}$             | Termo(s) de erro aleatório (escalar / vetor)                                                          |
+| $\hat{\beta}_j,\ \hat{\boldsymbol{\beta}}$             | Estimadores (MQO/MV) dos parâmetros                                                                   |
+| $\hat{Y}_i,\ \hat{\mathbf{Y}}$                         | Valores ajustados pelo modelo (escalar / vetor)                                                       |
+| $\hat{\varepsilon}_i,\ \hat{\boldsymbol{\varepsilon}}$ | Resíduos (observado -- ajustado; escalar / vetor)                                                     |
+| $\hat{\sigma}^2$                                       | Estimador da variância residual ($\hat{\sigma}^2=\mathrm{SQRes}/(n-p-1)$)                             |
+| $\mathbf{H}$                                           | Matriz "chapéu" (projeção): $\ \mathbf{H}=\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top$ |
+| $\mathbf{M}$                                           | Matriz dos resíduos: $\ \mathbf{M}=\mathbf{I}_n-\mathbf{H}$                                           |
+| $h_{ii}$                                               | Alavancagem (diagonal de $\mathbf{H}$)                                                                |
+| $r_i$                                                  | Resíduo *studentizado*: $r_i=\dfrac{\hat{\varepsilon}_i}{\hat{\sigma}\sqrt{1-h_{ii}}}$                |
+| $D_i$                                                  | Distância de Cook                                                                                     |
+| $\mathbf{I}_n$                                         | Matriz identidade de dimensão $n$                                                                     |
+| $\mathrm{col}(\mathbf{X})$                             | Espaço coluna de $\mathbf{X}$                                                                         |
+| $\operatorname{rank}(\mathbf{X})$                      | Posto (rank) de $\mathbf{X}$                                                                          |
+| $\mathbf{X}^+$                                         | Inversa generalizada de Moore--Penrose                                                                |
+| $\mathrm{tr}(\mathbf{A})$                              | Traço da matriz $\mathbf{A}$                                                                          |
+| $\det(\mathbf{A})$                                     | Determinante de $\mathbf{A}$                                                                          |
+| $\mathbf{A}^{-1}$, $\mathbf{A}^\top$                   | Inversa e transposta de $\mathbf{A}$                                                                  |
+| $\mathbb{R}^n$                                         | Espaço vetorial real $n$-dimensional                                                                  |
+| $\mathcal{N}_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$  | Distribuição Normal $n$-variada                                                                       |
+| $\boldsymbol{\mu},\ \boldsymbol{\Sigma}$               | Média e matriz de covariância na Normal multivariada                                                  |
+| $n,\ p$                                                | Nº de observações; Nº de variáveis explicativas                                                       |
+| $\bar{X},\ \bar{Y}$                                    | Médias amostrais de $X$ e $Y$                                                                         |
+| $S_{xx},\ S_{xy}$                                      | Somas de quadrados e produto cruzado (MRLS)                                                           |
+| $\mathbf{C},\ d$                                       | Matriz de contrastes e vetor-alvo (testes conjuntos: $H_0:\mathbf{C}\boldsymbol{\beta}=d$)            |
+
+## Apêndice B — Distribuição Normal
+
+Este apêndice tem um papel central na disciplina e no livro como um todo.  A Distribuição Normal, especialmente em sua forma **multivariada**, é o **alicerce matemático** sobre o qual os modelos de regressão linear foram construídos.  
+
+Sem uma compreensão sólida deste apêndice, os resultados da regressão aparecem como fórmulas desconectadas; com essa compreensão, eles passam a fazer sentido de forma natural.
+
+A ideia-chave que deve acompanhar você ao longo da leitura é a seguinte:
+
+> Em regressão, não estudamos variáveis isoladas, mas **vetores aleatórios** e suas **transformações lineares e quadráticas**.
+
+
+
+### B.1 Distribuição Normal Univariada
+
+Comecemos pelo caso mais simples: uma única variável aleatória.
+
+Uma variável aleatória $Y$ tem **distribuição Normal univariada**, com média $\mu \in \mathbb{R}$ e variância $\sigma^2>0$, se sua função densidade de probabilidade (fpd) é dada por
+
+$$
+f(y; \mu, \sigma^2)
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\!\left(
+-\frac{(y - \mu)^2}{2\sigma^2}
+\right),
+\quad y \in \mathbb{R}.
+$$
+
+Essa distribuição surge com frequência em modelagem estatística porque aparece como **distribuição limite** em muitos contextos, especialmente quando uma quantidade observada pode ser representada como a soma (ou média) de um grande número de contribuições aleatórias.  
+
+De forma mais precisa, resultados do tipo **Teorema Central do Limite** mostram que, sob condições adequadas, somas de variáveis aleatórias independentes, ou fracamente dependentes, tendem a apresentar comportamento aproximadamente Normal, independentemente da distribuição individual de cada termo. Essa é uma justificativa assintótica e aproximada, não uma identidade exata, e deve ser interpretada com cuidado.
+
+No contexto de modelos de regressão, a suposição de Normalidade **não é obrigatória** nem define o modelo em si. Um modelo de regressão linear pode ser formulado sem qualquer hipótese distributiva explícita sobre o erro, bastando condições sobre esperança, variância e independência.  
+
+A Normalidade é frequentemente adotada porque constitui o **caso mais simples e matematicamente tratável**, permitindo obter distribuições exatas para estimadores, estatísticas de teste e intervalos de confiança em amostras finitas. Em outros contextos, distribuições alternativas podem ser mais adequadas, levando a extensões naturais da regressão linear, como os modelos lineares generalizados.
+
+Os parâmetros da Normal univariada admitem interpretações diretas, mas é importante compreendê-las com precisão estatística.
+
+O parâmetro $\mu$ representa o **valor esperado teórico** da variável aleatória $Y$, isto é, o ponto em torno do qual a distribuição se concentra em média. Trata-se de uma quantidade populacional, definida independentemente de qualquer amostra específica, e que resume a tendência central do fenômeno sob o modelo probabilístico adotado.
+
+O parâmetro $\sigma^2$ representa a **variância populacional** da variável aleatória, quantificando a dispersão em torno de $\mu$. Essa variabilidade reflete a incerteza inerente ao fenômeno modelado e não carrega, nesse estágio, qualquer interpretação ligada a explicação ou não explicação por covariáveis. Essa distinção só surgirá no contexto de modelos condicionais, como a regressão.
+
+Essas interpretações ficam claras ao observarmos duas propriedades fundamentais da distribuição Normal:
+
+- Esperança:
+  $$
+  \mathbb{E}[Y] = \mu
+  $$
+
+- Variância:
+  $$
+  \mathrm{Var}(Y) = \sigma^2
+  $$
+
+Essas propriedades não são meros resultados técnicos; elas estabelecem o significado operacional dos parâmetros do modelo probabilístico.
+
+Uma transformação particularmente importante, tanto do ponto de vista teórico quanto prático, é a **padronização**. Definindo
+
+$$
+Z = \frac{Y - \mu}{\sigma},
+$$
+
+obtém-se uma nova variável aleatória com distribuição
+
+$$
+Z \sim N(0,1),
+$$
+
+conhecida como **Normal padrão**.
+
+A padronização desempenha um papel central em inferência estatística porque remove as unidades de medida e a escala original da variável, permitindo comparar desvios em termos relativos. Em modelos de regressão, essa ideia reaparece de forma sistemática: estatísticas de teste, resíduos padronizados e intervalos de confiança são construídos a partir de quantidades que mensuram desvios em relação a uma média teórica, expressos em unidades de desvio-padrão.
+
+Assim, compreender profundamente o significado de $\mu$, $\sigma^2$ e da padronização é essencial para interpretar corretamente os resultados inferenciais que surgirão nos modelos de regressão.
+
+### B.2 Distribuição Normal Bivariada
+
+Ao avançarmos para o caso bivariado, deixamos de estudar variáveis aleatórias isoladas e passamos a lidar explicitamente com **dependência entre variáveis aleatórias**. Esse é um passo conceitual fundamental, pois modelos estatísticos mais complexos e abrangentes, incluindo os modelos de regressão, são construídos exatamente a partir de relações entre variáveis.
+
+Considere o vetor aleatório
+$$
+\mathbf{Y} = (Y_1, Y_2)^\top.
+$$
+
+Dizemos que $\mathbf{Y}$ segue uma **Distribuição Normal bivariada** se
+
+$$
+\mathbf{Y} \sim N_2(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
+$$
+
+onde o vetor de médias é dado por
+
+$$
+\boldsymbol{\mu} =
+\begin{bmatrix}
+\mu_1 \\
+\mu_2
+\end{bmatrix},
+$$
+
+e a matriz de covariância é
+
+$$
+\boldsymbol{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 & \rho\,\sigma_1\sigma_2 \\
+\rho\,\sigma_1\sigma_2 & \sigma_2^2
+\end{bmatrix}.
+$$
+
+Neste ponto ocorre uma mudança conceitual importante.  Enquanto no caso univariado a variância era um único número, agora a **matriz $\boldsymbol{\Sigma}$ passa a concentrar toda a informação sobre dispersão e dependência**:
+
+- os termos da diagonal ($\sigma_1^2$ e $\sigma_2^2$) descrevem a variabilidade individual de cada componente;
+- os termos fora da diagonal descrevem a associação linear entre as variáveis, resumida pelo coeficiente de correlação $\rho$.
+
+Assim, a estrutura de dependência entre $Y_1$ e $Y_2$ não é um elemento acessório, mas parte integrante da própria definição da distribuição conjunta.
+
+A função densidade de probabilidade conjunta pode ser escrita de forma compacta como
+
+$$
+f(\mathbf{y})
+=
+\frac{1}{2\pi |\boldsymbol{\Sigma}|^{1/2}}
+\exp\!\left\{
+-\frac{1}{2}
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu})
+\right\}.
+$$
+
+Essa expressão merece uma leitura cuidadosa. O termo que aparece no expoente,
+$$
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu}),
+$$
+é um escalar obtido a partir de vetores e matrizes, resultado de uma operação que combina transposição, multiplicação matricial e produto interno.
+
+Neste momento, **não é necessário compreender formalmente esse termo como uma “forma quadrática”** essa noção será estudada com cuidado em um apêndice específico.
+
+Intuitivamente, essa quantidade mede quão distante o vetor $\mathbf{y}$ está do centro $\boldsymbol{\mu}$, mas **não usando a distância euclidiana usual**. Em vez disso, a distância é avaliada levando em conta a estrutura de variabilidade e dependência entre as componentes do vetor, codificada na matriz de covariância $\boldsymbol{\Sigma}$.
+
+Dessa forma, desvios ao longo de direções em que há maior variabilidade conjunta são penalizados de maneira diferente de desvios ao longo de direções com menor variabilidade. É essa ponderação que faz com que a distribuição apresente contornos elípticos, em vez de circulares.
+
+A formalização matemática desse tipo de expressão, bem como seu papel central na regressão, nas somas de quadrados e nas estatísticas de teste, será apresentada posteriormente, quando estudarmos explicitamente as distribuições associadas a expressões desse tipo.
+
+Geometricamente, isso se traduz no fato de que as curvas de mesma densidade dessa distribuição são **elipses centradas em $\boldsymbol{\mu}$**.  
+
+A forma, o tamanho e a orientação dessas elipses dependem diretamente de $\boldsymbol{\Sigma}$:
+
+- quando $\rho = 0$, as elipses são alinhadas com os eixos coordenados;
+- quando $\rho \neq 0$, as elipses tornam-se inclinadas, refletindo a associação linear entre $Y_1$ e $Y_2$.
+
+Essa interpretação geométrica será essencial mais adiante, quando discutirmos **projeções, decomposições ortogonais e ajuste de modelos de regressão**, nos quais a ideia de “direções relevantes” no espaço dos dados desempenha papel central.
+
+Mesmo nesse cenário conjunto, algumas propriedades permanecem familiares e ajudam a consolidar a intuição:
+
+- As **distribuições marginais** continuam sendo Normais univariadas:
+  $$
+  Y_1 \sim N(\mu_1, \sigma_1^2),
+  \qquad
+  Y_2 \sim N(\mu_2, \sigma_2^2).
+  $$
+
+Essas marginais mostram que, marginalmente, cada componente do vetor se comporta como uma variável Normal comum, mas isso **não elimina** a possibilidade de dependência entre elas quando observadas conjuntamente.
+
+- As **distribuições condicionais** também são Normais:
+  $$
+  Y_1 \mid Y_2 = y_2
+  \sim
+  N\!\left(
+  \mu_1 + \rho\frac{\sigma_1}{\sigma_2}(y_2 - \mu_2),
+  \,
+  (1 - \rho^2)\sigma_1^2
+  \right).
+  $$
+
+Aqui aparece uma ideia conceitualmente profunda e extremamente importante para o que virá depois: **a média condicional de uma variável Normal é uma função linear da variável condicionante**.
+
+Essa linearidade não é um artifício do modelo, nem uma escolha conveniente; ela é uma consequência direta da estrutura da Normalidade conjunta. Em modelos de regressão, essa propriedade será reinterpretada como a relação entre a resposta e as covariáveis, agora formulada de maneira explícita e sistemática.
+
+Portanto, compreender a Normal bivariada é compreender, em um cenário simples, a origem probabilística da ideia de regressão como relação média condicional.
+
+### B.3 Distribuição Normal Multivariada
+
+No caso geral, consideramos um vetor aleatório
+$$
+\mathbf{Y} \in \mathbb{R}^n,
+$$
+que segue uma **Distribuição Normal multivariada** se
+
+$$
+\mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
+$$
+
+onde $\boldsymbol{\mu}$ é o vetor de médias e $\boldsymbol{\Sigma}$ é a matriz de covariância, simétrica e definida positiva.
+
+A função densidade associada é
+
+$$
+f(\mathbf{y})
+=
+\frac{1}{(2\pi)^{n/2} |\boldsymbol{\Sigma}|^{1/2}}
+\exp\!\left\{
+-\frac{1}{2}
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu})
+\right\}.
+$$
+
+Neste ponto, é importante fazer uma mudança consciente na forma de pensar.  Não estamos mais lidando com observações isoladas, mas com **vetores aleatórios**, e a incerteza passa a ser descrita por **estruturas geométricas em espaços de dimensão maior**.
+
+O vetor $\boldsymbol{\mu}$ representa o centro da distribuição no espaço $\mathbb{R}^n$, enquanto a matriz $\boldsymbol{\Sigma}$ determina como a variabilidade se organiza em torno desse centro. Mais especificamente, $\boldsymbol{\Sigma}$ define:
+
+- direções ao longo das quais a variabilidade conjunta é maior;
+- direções ao longo das quais a variabilidade conjunta é menor;
+- dependências lineares entre as componentes do vetor.
+
+Essas direções não precisam coincidir com os eixos coordenados originais, e essa observação será fundamental quando discutirmos projeções e decomposições em regressão múltipla.
+
+A expressão que aparece no expoente da densidade envolve novamente uma quantidade do tipo
+
+$$
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu}),
+$$
+
+que produz um escalar a partir de vetores e matrizes. Assim como no caso bivariado, **não é necessário, neste momento, compreender formalmente essa expressão como uma forma quadrática**. Por ora, basta interpretar essa quantidade como uma medida de distância multivariada entre $\mathbf{y}$ e o centro $\boldsymbol{\mu}$, ajustada pela estrutura de covariância.
+
+Essa forma de medir distância explica por que as regiões de maior densidade da Normal multivariada são elipsoides em $\mathbb{R}^n$, generalizando as elipses vistas no caso bivariado.
+
+Algumas propriedades fundamentais seguem diretamente dessa definição e merecem ser destacadas, pois reaparecerão continuamente ao longo do estudo de modelos de regressão.
+
+A esperança e a covariância do vetor aleatório são dadas por
+
+$$
+\mathbb{E}[\mathbf{Y}] = \boldsymbol{\mu},
+\qquad
+\mathrm{Cov}(\mathbf{Y}) = \boldsymbol{\Sigma}.
+$$
+
+Essas expressões formalizam a interpretação de $\boldsymbol{\mu}$ como centro da distribuição e de $\boldsymbol{\Sigma}$ como descrição completa da variabilidade conjunta.
+
+Uma propriedade absolutamente central da Normal multivariada é sua **estabilidade por transformações lineares**. Se tomarmos uma transformação do tipo
+
+$$
+\mathbf{Z} = \mathbf{A}\mathbf{Y} + \mathbf{a},
+$$
+
+então a variável transformada também segue uma distribuição Normal multivariada:
+
+$$
+\mathbf{Z} \sim
+N_m(\mathbf{A}\boldsymbol{\mu} + \mathbf{a},\,
+\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top).
+$$
+
+Essa propriedade merece atenção especial. Ela afirma que **qualquer combinação linear de um vetor Normal multivariado continua sendo Normal**, independentemente da dimensão envolvida.
+
+Esse resultado será a pedra angular da teoria de regressão linear. Quando estudarmos regressão, veremos que os estimadores dos coeficientes, os valores ajustados e diversos contrastes estatísticos são obtidos exatamente como transformações lineares do vetor de respostas. A Normalidade dessas quantidades decorre diretamente desta propriedade, e não de argumentos ad hoc.
+
+Outra quantidade natural que surge no contexto da Normal multivariada é a chamada **distância de Mahalanobis**:
+
+$$
+Q =
+(\mathbf{Y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{Y} - \boldsymbol{\mu}),
+$$
+
+para o qual vale
+
+$$
+Q \sim \chi^2_n.
+$$
+
+Mais uma vez, não é necessário aprofundar formalmente esse resultado neste momento. Conceitualmente, ele afirma que a distância multivariada entre $\mathbf{Y}$ e seu centro, quando devidamente padronizada pela matriz de covariância, possui uma distribuição conhecida.
+
+Esse fato será explorado de forma sistemática em regressão, onde somas de quadrados, estatísticas de teste e medidas de ajuste surgirão como casos particulares desse tipo de expressão.
+
+Assim, a Distribuição Normal multivariada fornece não apenas um modelo probabilístico para vetores de dados, mas também a base matemática para compreender por que as quantidades centrais da regressão admitem distribuições explícitas e interpretáveis.
+
+### B.4 Partição da Normal Multivariada
+
+Um dos recursos mais poderosos da Normal multivariada é a possibilidade de **particionar o vetor aleatório** em blocos menores e ainda assim manter uma descrição probabilística completa e explícita.
+
+Considere o vetor aleatório particionado como
+
+$$
+\mathbf{Y} =
+\begin{bmatrix}
+\mathbf{Y}_1 \\
+\mathbf{Y}_2
+\end{bmatrix}
+\sim
+N_n\!\left(
+\begin{bmatrix}
+\boldsymbol{\mu}_1 \\
+\boldsymbol{\mu}_2
+\end{bmatrix},
+\begin{bmatrix}
+\boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12} \\
+\boldsymbol{\Sigma}_{21} & \boldsymbol{\Sigma}_{22}
+\end{bmatrix}
+\right).
+$$
+
+Aqui, a partição é puramente conceitual: estamos apenas reorganizando o vetor em dois blocos, sem alterar o modelo probabilístico subjacente. Ainda assim, essa simples reorganização permite responder a perguntas fundamentais sobre o comportamento do vetor aleatório.
+
+Em particular, ela nos permite distinguir claramente dois tipos de informação:
+
+- **comportamento marginal**, isto é, como cada bloco se distribui quando considerado isoladamente;
+- **comportamento condicional**, isto é, como um bloco se distribui quando o outro é observado.
+
+As distribuições marginais seguem diretamente da definição da Normal multivariada:
+
+$$
+\mathbf{Y}_1 \sim N_{n_1}(\boldsymbol{\mu}_1, \boldsymbol{\Sigma}_{11}),
+\qquad
+\mathbf{Y}_2 \sim N_{n_2}(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_{22}).
+$$
+
+Essas expressões mostram que, ao “olharmos apenas para uma parte do vetor”, o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$. No entanto, essa visão marginal ignora completamente a dependência entre os blocos.
+
+A riqueza da Normal multivariada aparece de forma ainda mais clara ao analisarmos o comportamento **condicional**. A distribuição de $\mathbf{Y}_1$ dado que $\mathbf{Y}_2 = \mathbf{y}_2$ é
+
+$$
+\mathbf{Y}_1 \mid \mathbf{Y}_2 = \mathbf{y}_2
+\sim
+N_{n_1}\!\left(
+\boldsymbol{\mu}_1 +
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+(\mathbf{y}_2 - \boldsymbol{\mu}_2),
+\,
+\boldsymbol{\Sigma}_{11} -
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+\boldsymbol{\Sigma}_{21}
+\right).
+$$
+
+Essa expressão concentra vários conceitos importantes em um único resultado.
+
+Primeiro, observe que a **média condicional** de $\mathbf{Y}_1$ não é simplesmente $\boldsymbol{\mu}_1$. Ela é ajustada pelo termo
+$$
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+(\mathbf{y}_2 - \boldsymbol{\mu}_2),
+$$
+que incorpora a informação trazida pela observação de $\mathbf{Y}_2$. Esse ajuste depende exclusivamente da estrutura de covariância entre os blocos, e não de escolhas arbitrárias de modelagem.
+
+Segundo, note que a **matriz de covariância condicional**
+$$
+\boldsymbol{\Sigma}_{11} -
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+\boldsymbol{\Sigma}_{21}
+$$
+é sempre menor, no sentido de variância, do que a covariância marginal $\boldsymbol{\Sigma}_{11}$. Isso formaliza matematicamente uma ideia intuitiva: **ao observar parte do vetor, reduzimos a incerteza sobre o restante**.
+
+Esse resultado mostra que, na Normal multivariada, o condicionamento produz dois efeitos simultâneos e bem definidos:
+
+- a média é deslocada de forma linear em função da parte observada;
+
+- a variabilidade é reduzida de maneira controlada pela estrutura de dependência.
+
+Essas duas propriedades; linearidade da média condicional e redução da variância, não são hipóteses adicionais nem aproximações, elas são consequências diretas da Normalidade conjunta.
+
+Embora ainda não estejamos estudando modelos de regressão, é importante registrar que essa lógica será reinterpretada mais adiante quando os coeficientes de um modelo passarem a ser entendidos como **efeitos condicionais**, isto é, como variações esperadas em uma componente do vetor quando outras são mantidas fixas.
+
+Assim, a partição da Normal multivariada fornece o arcabouço probabilístico que sustenta a noção de regressão como estudo de relações condicionais, mesmo antes de qualquer equação de regressão ser escrita explicitamente.
+
+### B.5 Papel da Distribuição Normal na fundamentação dos modelos de regressão
+
+Os resultados apresentados neste apêndice fornecem uma base probabilística razoável para a formulação e a análise dos modelos clássicos de regressão linear. O objetivo aqui é explicitar as estruturas matemáticas que a tornam analisável de forma rigorosa.
+
+Em modelos de regressão linear com erros normalmente distribuídos, considera-se que o vetor de respostas pode ser escrito como
+
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon} \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n),
+$$
+
+o que implica diretamente que
+
+$$
+\mathbf{Y} \sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
+$$
+
+Essa especificação não define o modelo de regressão em si, que pode ser formulado sob hipóteses mais gerais, mas estabelece um **caso fundamental** no qual resultados exatos de inferência podem ser obtidos em amostras finitas.
+
+A partir dessa estrutura probabilística decorrem, de forma sistemática, várias propriedades centrais da regressão linear clássica:
+
+- os estimadores dos coeficientes surgem como **transformações lineares** do vetor aleatório $\mathbf{Y}$;
+
+- os resíduos e as somas de quadrados associadas ao ajuste do modelo surgem como **expressões quadráticas** em $\mathbf{Y}$;
+
+- as distribuições amostrais das estatísticas utilizadas para inferência são obtidas a partir das distribuições dessas transformações lineares e quadráticas.
+
+Deste modo, estatísticas do tipo $t$ e $F$ não são introduzidas de maneira ad hoc, mas emergem naturalmente da combinação entre a Normal multivariada e as operações algébricas realizadas sobre o vetor de respostas.
+
+Os próximos apêndices exploram explicitamente essas estruturas, estudando as distribuições associadas a transformações lineares e quadráticas de vetores aleatórios conjuntamente normais. Esse desenvolvimento permitirá compreender, de forma unificada, a origem das principais ferramentas inferenciais utilizadas em modelos de regressão linear.
+
+
+## Apêndice C — Estrutura Matricial dos Modelos de Regressão Linear
+
+A formulação moderna dos modelos de regressão linear é essencialmente matricial.  Essa notação vetorial revela a estrutura geométrica do problema de estimação, explicita as condições necessárias para identificabilidade dos parâmetros e permite analisar propriedades estatísticas dos estimadores de forma sistemática.
+
+Este apêndice consolida os principais elementos de Álgebra Linear utilizados ao longo do estudo de regressão, com ênfase nas estruturas que reaparecem na estimação por mínimos quadrados, na inferência e na análise de diagnóstico.
+
+
+### C.1 Operações Fundamentais com Matrizes e Vetores
+
+A linguagem matricial é  uma forma compacta de escrever o modelo de regressão que permite enxergar o problema como um problema geométrico em $\mathbb{R}^n$. Cada vetor corresponde a um ponto ou direção nesse espaço, e cada matriz representa uma transformação linear.
+
+Sejam $\mathbf{A}$ e $\mathbf{B}$ matrizes de dimensões compatíveis e $\mathbf{x}, \mathbf{y}$ vetores coluna em $\mathbb{R}^n$.
+
+Para fixar ideias, considere explicitamente:
+
+$$
+\mathbf{x} =
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix},
+\qquad
+\mathbf{y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}.
+$$
+
+
+#### Soma Matricial
+
+Se
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix},
+\qquad
+\mathbf{B} =
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix},
+$$
+
+então
+
+$$
+\mathbf{A} + \mathbf{B}
+=
+\begin{bmatrix}
+a_{11}+b_{11} & a_{12}+b_{12} \\
+a_{21}+b_{21} & a_{22}+b_{22}
+\end{bmatrix}.
+$$
+
+A soma é definida elemento a elemento e exige dimensões idênticas.  Em regressão, essa operação aparece quando decomponemos matrizes como $\mathbf{I} - \mathbf{H}$ ou quando expandimos produtos quadráticos.
+
+
+#### Produto Matricial
+
+Se
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix},
+\qquad
+\mathbf{B} =
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix},
+$$
+
+então
+
+$$
+\mathbf{A}\mathbf{B}
+=
+\begin{bmatrix}
+a_{11}b_{11}+a_{12}b_{21} & a_{11}b_{12}+a_{12}b_{22} \\
+a_{21}b_{11}+a_{22}b_{21} & a_{21}b_{12}+a_{22}b_{22}
+\end{bmatrix}.
+$$
+
+O produto matricial corresponde à composição de transformações lineares.  
+No modelo linear
+
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta},
+$$
+
+a matriz $\mathbf{X}$ transforma o vetor de parâmetros $\boldsymbol{\beta}$ em um vetor no espaço das respostas.  Assim, $\mathbf{X}$ pode ser interpretada como uma transformação que leva parâmetros em $\mathbb{R}^{p+1}$ para vetores ajustados em $\mathbb{R}^n$.
+
+
+#### Produto Interno e Norma
+
+O produto interno entre vetores é dado por
+
+$$
+\mathbf{x}^\top \mathbf{y}
+=
+\sum_{i=1}^n x_i y_i.
+$$
+
+Quando $\mathbf{x} = \mathbf{y}$, obtemos
+
+$$
+\mathbf{x}^\top \mathbf{x}
+=
+\sum_{i=1}^n x_i^2,
+$$
+
+que define o quadrado da norma euclidiana:
+
+$$
+\|\mathbf{x}\|^2 = \mathbf{x}^\top \mathbf{x}.
+$$
+
+Essa noção de norma é central na regressão, pois a estimação por mínimos quadrados consiste em minimizar
+
+$$
+\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2.
+$$
+
+Portanto, o problema de estimação é um problema geométrico de minimizar distância no espaço $\mathbb{R}^n$.
+
+#### Forma Quadrática
+
+Uma expressão da forma
+
+$$
+\mathbf{x}^\top \mathbf{A}\mathbf{x}
+$$
+
+é chamada forma quadrática.
+
+Para visualizar, considere
+
+$$
+\mathbf{x} =
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix},
+\qquad
+\mathbf{A} =
+\begin{bmatrix}
+a & b \\
+b & c
+\end{bmatrix}.
+$$
+
+Então
+
+$$
+\mathbf{x}^\top \mathbf{A}\mathbf{x}
+=
+a x_1^2 + 2b x_1 x_2 + c x_2^2.
+$$
+
+Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor $\mathbf{Y}$.
+
+#### Transposição
+
+A transposta de uma matriz é obtida trocando linhas por colunas:
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}
+\quad
+\Rightarrow
+\quad
+\mathbf{A}^\top =
+\begin{bmatrix}
+a_{11} & a_{21} \\
+a_{12} & a_{22}
+\end{bmatrix}.
+$$
+
+A transposição é essencial para definir produtos internos e garantir que expressões como $\mathbf{X}^\top\mathbf{X}$ sejam matrizes quadradas.
+
+#### Inversão
+
+Uma matriz quadrada $\mathbf{A}$ é invertível se existe $\mathbf{A}^{-1}$ tal que
+
+$$
+\mathbf{A}^{-1}\mathbf{A} = \mathbf{A}\mathbf{A}^{-1} = \mathbf{I}.
+$$
+
+Por exemplo, para uma matriz $2 \times 2$,
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix},
+$$
+
+se $ad - bc \neq 0$, então
+
+$$
+\mathbf{A}^{-1}
+=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix}.
+$$
+
+Na regressão, a invertibilidade de $\mathbf{X}^\top \mathbf{X}$ é condição necessária para a existência do estimador de mínimos quadrados único.
+
+
+#### Propriedades Importantes
+
+Duas identidades frequentemente utilizadas são
+
+$$
+(\mathbf{A}\mathbf{B})^\top = \mathbf{B}^\top \mathbf{A}^\top,
+\qquad
+(\mathbf{A}^{-1})^\top = (\mathbf{A}^\top)^{-1}.
+$$
+
+Essas propriedades são fundamentais na dedução de resultados como:
+
+$$
+\mathrm{Var}(\hat{\boldsymbol{\beta}})
+=
+\sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1},
+$$
+
+e na demonstração das propriedades das matrizes de projeção.
+
+
+Essas operações constituem o mecanismo estrutural que permitirá:
+
+- interpretar o estimador como projeção ortogonal;
+- escrever somas de quadrados como formas quadráticas;
+- analisar variâncias e covariâncias de estimadores;
+- compreender a geometria do ajuste e do diagnóstico.
+
+Nos itens seguintes, essas operações serão organizadas dentro da estrutura específica do modelo linear múltiplo.
+
+### C.2 Estruturas Matriciais Relevantes
+
+Determinados tipos de matrizes surgem de forma recorrente na teoria da regressão linear. Cada uma delas corresponde a uma propriedade geométrica ou estatística que será explorada na estimação, na inferência e na análise de diagnóstico.
+
+A tabela a seguir resume algumas dessas estruturas fundamentais.
+
+| Tipo | Definição | Relevância |
+|------|-----------|------------|
+| Identidade $\mathbf{I}_n$ | Diagonal principal composta por 1's | Elemento neutro da multiplicação |
+| Simétrica | $\mathbf{A} = \mathbf{A}^\top$ | Autovalores reais |
+| Idempotente | $\mathbf{A}^2 = \mathbf{A}$ | Projeções |
+| Ortogonal | $\mathbf{A}^\top \mathbf{A} = \mathbf{I}$ | Preserva norma |
+| Diagonal | Elementos fora da diagonal iguais a zero | Simplifica formas quadráticas |
+| Definida positiva | $\mathbf{x}^\top \mathbf{A}\mathbf{x} > 0$ para todo $\mathbf{x}\neq 0$ | Garantia de invertibilidade e convexidade |
+
+A seguir, detalham-se as propriedades e implicações dessas estruturas no contexto do modelo linear.
+
+
+#### Matriz Identidade
+
+A matriz identidade de ordem $n$ é
+
+$$
+\mathbf{I}_n =
+\begin{bmatrix}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 1
+\end{bmatrix}.
+$$
+
+Ela satisfaz
+
+$$
+\mathbf{I}_n \mathbf{x} = \mathbf{x}
+\quad
+\text{para todo } \mathbf{x} \in \mathbb{R}^n.
+$$
+
+No modelo linear, a identidade aparece, por exemplo, na matriz de covariância dos erros sob homocedasticidade:
+
+$$
+\mathrm{Cov}(\boldsymbol{\varepsilon}) = \sigma^2 \mathbf{I}_n.
+$$
+
+Essa estrutura implica independência e variância constante dos erros.
+
+
+#### Matrizes Simétricas
+
+Uma matriz é simétrica se
+
+$$
+\mathbf{A} = \mathbf{A}^\top.
+$$
+
+Por exemplo,
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+2 & -1 \\
+-1 & 3
+\end{bmatrix}
+$$
+
+é simétrica.
+
+Matrizes simétricas possuem autovalores reais e podem ser diagonalizadas por matrizes ortogonais. Essa propriedade é crucial para compreender a decomposição espectral de $\mathbf{X}^\top \mathbf{X}$ e analisar problemas como multicolinearidade.
+
+No modelo linear, as matrizes $\mathbf{X}^\top \mathbf{X}$, $\mathbf{H}$ e $\mathbf{M}$ são simétricas.
+
+
+#### Matrizes Idempotentes
+
+Uma matriz é idempotente se
+
+$$
+\mathbf{A}^2 = \mathbf{A}.
+$$
+
+Isso implica que aplicar a transformação duas vezes produz o mesmo resultado que aplicá-la uma vez.
+
+Por exemplo, a matriz
+
+$$
+\mathbf{P} =
+\begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix}
+$$
+
+é idempotente.
+
+No modelo linear, a matriz de projeção
+
+$$
+\mathbf{H} = \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+$$
+
+satisfaz
+
+$$
+\mathbf{H}^2 = \mathbf{H}.
+$$
+
+Isso significa que $\mathbf{H}$ projeta vetores no subespaço $\mathrm{col}(\mathbf{X})$. Uma vez projetado, aplicar novamente a projeção não altera o vetor.
+
+Essa propriedade é fundamental para compreender:
+
+- decomposição ortogonal;
+- independência entre componentes projetadas sob normalidade;
+- decomposição da soma de quadrados total.
+
+#### Matrizes Ortogonais
+
+Uma matriz $\mathbf{Q}$ é ortogonal se
+
+$$
+\mathbf{Q}^\top \mathbf{Q} = \mathbf{I}.
+$$
+
+Isso implica que
+
+$$
+\|\mathbf{Q}\mathbf{x}\| = \|\mathbf{x}\|.
+$$
+
+Ou seja, matrizes ortogonais preservam comprimentos e ângulos.
+
+Essa propriedade é central na decomposição espectral de matrizes simétricas:
+
+$$
+\mathbf{A} = \mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\top,
+$$
+
+onde $\boldsymbol{\Lambda}$ é diagonal contendo os autovalores.
+
+Na regressão, essa decomposição permite analisar:
+
+- a estrutura de $\mathbf{X}^\top \mathbf{X}$;
+- a estabilidade numérica da estimação;
+- o efeito da multicolinearidade.
+
+
+#### Matrizes Diagonais
+
+Uma matriz diagonal possui a forma
+
+$$
+\mathbf{D} =
+\begin{bmatrix}
+d_1 & 0 & \cdots & 0 \\
+0 & d_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & d_n
+\end{bmatrix}.
+$$
+
+Formas quadráticas envolvendo matrizes diagonais simplificam-se para
+
+$$
+\mathbf{x}^\top \mathbf{D}\mathbf{x}
+=
+\sum_{i=1}^n d_i x_i^2.
+$$
+
+Essa simplificação é útil na análise de variâncias e na interpretação de decomposições espectrais.
+
+
+#### Matrizes Definidas Positivas
+
+Uma matriz simétrica $\mathbf{A}$ é definida positiva se
+
+$$
+\mathbf{x}^\top \mathbf{A}\mathbf{x} > 0
+\quad
+\text{para todo } \mathbf{x} \neq \mathbf{0}.
+$$
+
+Equivalentemente, todos os seus autovalores são positivos.
+
+Essa propriedade possui consequências fundamentais:
+
+1. $\mathbf{A}$ é invertível;
+2. a função $\mathbf{x}^\top \mathbf{A}\mathbf{x}$ é estritamente convexa;
+3. problemas de minimização associados possuem solução única.
+
+No modelo de regressão linear, a matriz
+
+$$
+\mathbf{X}^\top \mathbf{X}
+$$
+
+é simétrica e definida positiva se, e somente se, as colunas de $\mathbf{X}$ forem linearmente independentes. Isso equivale à condição
+
+$$
+\operatorname{rank}(\mathbf{X}) = p+1.
+$$
+
+Quando essa condição é satisfeita, o estimador de mínimos quadrados
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \mathbf{Y}
+$$
+
+existe e é único.
+
+Se $\mathbf{X}^\top \mathbf{X}$ não for definida positiva, o problema de estimação perde identificabilidade, caracterizando multicolinearidade perfeita.
+
+A compreensão dessas estruturas matriciais permite interpretar o modelo linear como:
+
+- um problema geométrico de projeção em subespaços;
+- um problema analítico de minimização convexa;
+- um problema espectral envolvendo autovalores e autovetores.
+
+Essas perspectivas convergem na teoria de estimação, inferência e diagnóstico que será desenvolvida nos próximos itens.
+
+### C.3 Estrutura Geométrica do Modelo Linear
+
+Considere o modelo linear múltiplo em notação matricial:
+
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+$$
+
+em que
+
+- $\mathbf{Y} \in \mathbb{R}^n$ é o vetor de respostas observadas,
+- $\mathbf{X} \in \mathbb{R}^{n \times (p+1)}$ é a matriz de planejamento,
+- $\boldsymbol{\beta} \in \mathbb{R}^{p+1}$ é o vetor de parâmetros,
+- $\boldsymbol{\varepsilon} \in \mathbb{R}^n$ é o vetor de erros.
+
+Explicitamente, pode-se escrever
+
+$$
+\mathbf{X}
+=
+\begin{bmatrix}
+1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix},
+\qquad
+\boldsymbol{\beta}
+=
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_p
+\end{bmatrix}.
+$$
+
+Cada coluna de $\mathbf{X}$ é um vetor em $\mathbb{R}^n$. Assim, $\mathbf{X}$ pode ser vista como um conjunto de $p+1$ vetores que geram um subespaço de $\mathbb{R}^n$.
+
+
+#### Espaço Coluna e Identificabilidade
+
+O **espaço coluna** de $\mathbf{X}$ é definido como
+
+$$
+\mathrm{col}(\mathbf{X})
+=
+\left\{
+\mathbf{X}\boldsymbol{\beta}
+:
+\boldsymbol{\beta} \in \mathbb{R}^{p+1}
+\right\}.
+$$
+
+Esse conjunto é um subespaço vetorial de $\mathbb{R}^n$, cujo posto é
+
+$$
+\operatorname{rank}(\mathbf{X}) \leq p+1.
+$$
+
+Se as colunas de $\mathbf{X}$ forem linearmente independentes, então
+
+$$
+\operatorname{rank}(\mathbf{X}) = p+1,
+$$
+
+e o espaço coluna tem dimensão $p+1$.
+
+Essa condição é equivalente à positividade definida de $\mathbf{X}^\top \mathbf{X}$ e garante a identificabilidade única dos parâmetros.
+
+
+#### O Problema de Mínimos Quadrados como Problema de Projeção
+
+O estimador de mínimos quadrados é definido como a solução do problema
+
+$$
+\min_{\boldsymbol{\beta}}
+\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2.
+$$
+
+Geometricamente, isso significa encontrar o vetor em $\mathrm{col}(\mathbf{X})$ que esteja mais próximo de $\mathbf{Y}$ na métrica euclidiana.
+
+Seja
+
+$$
+\hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}}.
+$$
+
+Então
+
+$$
+\hat{\mathbf{Y}} \in \mathrm{col}(\mathbf{X})
+$$
+
+e
+
+$$
+\mathbf{Y} - \hat{\mathbf{Y}}
+\perp
+\mathrm{col}(\mathbf{X}).
+$$
+
+Ou seja,
+
+$$
+\mathbf{X}^\top(\mathbf{Y} - \hat{\mathbf{Y}}) = \mathbf{0}.
+$$
+
+Essa condição é exatamente a forma matricial das equações normais.
+
+
+#### Interpretação Ortogonal e Soma Direta
+
+Seja $V = \mathbb{R}^n$ equipado com o produto interno usual
+$$
+\langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y}.
+$$
+
+Se $S$ é um subespaço de $\mathbb{R}^n$, define-se seu complemento ortogonal como
+
+$$
+S^\perp
+=
+\left\{
+\mathbf{z} \in \mathbb{R}^n :
+\mathbf{z}^\top \mathbf{s} = 0
+\ \text{para todo } \mathbf{s} \in S
+\right\}.
+$$
+
+Diz-se que $\mathbb{R}^n$ é a **soma direta ortogonal** de dois subespaços $S$ e $T$ se:
+
+1. todo vetor de $\mathbb{R}^n$ pode ser escrito como soma de um vetor em $S$ e um vetor em $T$;
+2. essa decomposição é única;
+3. $S$ e $T$ são ortogonais, isto é, $\mathbf{s}^\top \mathbf{t} = 0$ para todo $\mathbf{s}\in S$ e $\mathbf{t}\in T$.
+
+Nessa situação escreve-se
+
+$$
+\mathbb{R}^n = S \oplus T,
+$$
+
+em que o símbolo $\oplus$ indica soma direta.
+
+No contexto do modelo linear, tomando
+
+$$
+S = \mathrm{col}(\mathbf{X}),
+\qquad
+T = \mathrm{col}(\mathbf{X})^\perp,
+$$
+
+obtém-se
+
+$$
+\mathbb{R}^n
+=
+\mathrm{col}(\mathbf{X})
+\oplus
+\mathrm{col}(\mathbf{X})^\perp.
+$$
+
+Isso significa que qualquer vetor $\mathbf{Y} \in \mathbb{R}^n$ pode ser decomposto de maneira única como
+
+$$
+\mathbf{Y}
+=
+\hat{\mathbf{Y}}
++
+\hat{\boldsymbol{\varepsilon}},
+$$
+
+onde
+
+- $\hat{\mathbf{Y}} \in \mathrm{col}(\mathbf{X})$,
+- $\hat{\boldsymbol{\varepsilon}} \in \mathrm{col}(\mathbf{X})^\perp$.
+
+A ortogonalidade implica
+
+$$
+\hat{\mathbf{Y}}^\top \hat{\boldsymbol{\varepsilon}} = 0,
+$$
+
+ou, equivalentemente,
+
+$$
+\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = \mathbf{0}.
+$$
+
+Essa decomposição é puramente geométrica e independe de qualquer hipótese probabilística sobre os erros.  Ela constitui o núcleo estrutural do método de mínimos quadrados e fundamenta:
+
+- a decomposição da soma de quadrados total;
+- a contagem de graus de liberdade;
+- a independência entre componentes projetadas sob normalidade.
+
+Assim, o modelo linear pode ser interpretado como a decomposição ortogonal do vetor de respostas em duas componentes pertencentes a subespaços complementares.
+
+#### Relação com Posto e Dimensão
+
+Se $\operatorname{rank}(\mathbf{X}) = r$, então:
+
+- $\dim(\mathrm{col}(\mathbf{X})) = r$,
+- $\dim(\mathrm{col}(\mathbf{X})^\perp) = n - r$.
+
+No modelo linear completo com intercepto e colunas independentes,
+
+$$
+r = p+1,
+$$
+
+e, portanto, o espaço residual tem dimensão
+
+$$
+n - (p+1).
+$$
+
+Essa contagem de dimensões será reinterpretada mais adiante como graus de liberdade na decomposição das somas de quadrados.
+
+
+#### Conexão com Diagnóstico
+
+A estrutura geométrica permite compreender diversos elementos de diagnóstico:
+
+- Vetores de alta alavancagem correspondem a observações cuja projeção sobre $\mathrm{col}(\mathbf{X})$ é dominante.
+- Resíduos grandes correspondem a componentes significativas no subespaço ortogonal.
+- A decomposição da variabilidade total decorre da ortogonalidade entre componentes projetadas.
+
+O modelo linear é, portato, uma decomposição geométrica do vetor de respostas em dois componentes ortogonais.
+
+Nos próximos itens, essa estrutura será formalizada por meio das matrizes de projeção associadas a esses subespaços.
+
+### C.4 Matrizes de Projeção e Decomposição Ortogonal
+
+A matriz de projeção associada ao modelo linear múltiplo é definida por
+
+$$
+\mathbf{H}
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top.
+$$
+
+Essa matriz desempenha papel central na teoria da regressão, pois formaliza algebraicamente a projeção ortogonal sobre o subespaço $\mathrm{col}(\mathbf{X})$.
+
+
+#### Verificação das Propriedades Estruturais
+
+**Simetria**
+
+$$
+\mathbf{H}^\top
+=
+\left[
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+\right]^\top
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+=
+\mathbf{H}.
+$$
+
+Utilizou-se o fato de que $\mathbf{X}^\top \mathbf{X}$ é simétrica e que a transposta de um produto inverte a ordem dos fatores.
+
+
+**Idempotência**
+
+$$
+\mathbf{H}^2
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top.
+$$
+
+Como
+
+$$
+\mathbf{X}^\top \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}
+=
+\mathbf{I},
+$$
+
+segue que
+
+$$
+\mathbf{H}^2
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+=
+\mathbf{H}.
+$$
+
+A idempotência caracteriza transformações que, uma vez aplicadas, não alteram mais o vetor.
+
+
+#### Interpretação Geométrica
+
+Para qualquer vetor $\mathbf{y} \in \mathbb{R}^n$,
+
+$$
+\mathbf{H}\mathbf{y}
+\in
+\mathrm{col}(\mathbf{X}).
+$$
+
+Além disso,
+
+$$
+\mathbf{y} - \mathbf{H}\mathbf{y}
+\in
+\mathrm{col}(\mathbf{X})^\perp.
+$$
+
+Portanto,
+
+$$
+\mathbf{y}
+=
+\mathbf{H}\mathbf{y}
++
+(\mathbf{I}-\mathbf{H})\mathbf{y}.
+$$
+
+Definindo
+
+$$
+\mathbf{M} = \mathbf{I}_n - \mathbf{H},
+$$
+
+obtém-se a projeção complementar sobre o subespaço ortogonal.
+
+
+#### Propriedades da Matriz Residual
+
+A matriz
+
+$$
+\mathbf{M} = \mathbf{I}_n - \mathbf{H}
+$$
+
+satisfaz:
+
+- $\mathbf{M}^\top = \mathbf{M}$,
+- $\mathbf{M}^2 = \mathbf{M}$,
+- $\mathbf{H}\mathbf{M} = \mathbf{0}$,
+- $\mathbf{M}\mathbf{H} = \mathbf{0}$.
+
+Essas propriedades garantem que os subespaços são ortogonais e complementares.
+
+
+#### Decomposição do Vetor de Respostas
+
+Aplicando as matrizes ao vetor $\mathbf{Y}$:
+
+$$
+\mathbf{Y}
+=
+\mathbf{H}\mathbf{Y}
++
+\mathbf{M}\mathbf{Y}
+=
+\hat{\mathbf{Y}}
++
+\hat{\boldsymbol{\varepsilon}}.
+$$
+
+em que
+
+- $\hat{\mathbf{Y}} = \mathbf{H}\mathbf{Y}$ pertence ao espaço coluna;
+- $\hat{\boldsymbol{\varepsilon}} = \mathbf{M}\mathbf{Y}$ pertence ao complemento ortogonal.
+
+A ortogonalidade implica
+
+$$
+\hat{\mathbf{Y}}^\top \hat{\boldsymbol{\varepsilon}} = 0.
+$$
+
+Essa identidade é a base da decomposição da soma de quadrados total.
+
+
+#### Traço, Posto e Autovalores
+
+Para matrizes idempotentes e simétricas, os autovalores são apenas 0 ou 1.
+
+Se
+
+$$
+\operatorname{rank}(\mathbf{X}) = p+1,
+$$
+
+então:
+
+- $\mathbf{H}$ possui $p+1$ autovalores iguais a 1,
+- e $n-(p+1)$ autovalores iguais a 0.
+
+Assim,
+
+$$
+\mathrm{tr}(\mathbf{H}) = p+1.
+$$
+
+De forma análoga,
+
+$$
+\mathrm{tr}(\mathbf{M}) = n - p - 1.
+$$
+
+Como o traço de uma matriz idempotente simétrica coincide com seu posto, essas quantidades correspondem às dimensões dos subespaços projetados.
+
+
+#### Conexão com Somas de Quadrados
+
+A soma de quadrados ajustada pode ser escrita como
+
+$$
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}.
+$$
+
+A soma de quadrados residual é
+
+$$
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Como $\mathbf{H}$ e $\mathbf{M}$ projetam sobre subespaços ortogonais,
+
+$$
+\mathbf{Y}^\top \mathbf{Y}
+=
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}
++
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Essa identidade é puramente geométrica e antecede qualquer consideração probabilística.
+
+
+#### Relação com Diagnóstico
+
+A diagonal de $\mathbf{H}$ contém as alavancagens:
+
+$$
+h_{ii} = (\mathbf{H})_{ii}.
+$$
+
+Essas quantidades medem o grau de influência estrutural da $i$-ésima observação no ajuste, pois determinam o peso da projeção sobre o espaço coluna.
+
+Valores elevados de $h_{ii}$ indicam observações que ocupam posições extremas no espaço das covariáveis.
+
+
+A matriz de projeção sintetiza, portanto, três dimensões fundamentais do modelo linear:
+
+1. Estrutura geométrica (projeção ortogonal);
+2. Estrutura algébrica (idempotência e posto);
+3. Estrutura estatística (somas de quadrados e graus de liberdade).
+
+No próximo apêndice, essas propriedades serão analisadas sob a hipótese de normalidade, permitindo derivar as distribuições associadas às transformações lineares e quadráticas do vetor aleatório $\mathbf{Y}$.
+
+### C.5 Diferenciação Matricial e Estimação por Mínimos Quadrados
+
+A estimação por mínimos quadrados consiste na minimização da soma de quadrados dos resíduos,
+
+$$
+S(\boldsymbol{\beta})
+=
+(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}).
+$$
+
+Essa função é uma forma quadrática em $\boldsymbol{\beta}$.  Para compreender sua estrutura, é útil expandi-la explicitamente:
+
+$$
+S(\boldsymbol{\beta})
+=
+\mathbf{Y}^\top \mathbf{Y}
+-
+2\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{Y}
++
+\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{X} \boldsymbol{\beta}.
+$$
+
+Observa-se que:
+
+- $\mathbf{Y}^\top \mathbf{Y}$ é constante em relação a $\boldsymbol{\beta}$;
+- $\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{Y}$ é termo linear;
+- $\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{X} \boldsymbol{\beta}$ é forma quadrática.
+
+A função objetivo é, portanto, um polinômio quadrático convexo sempre que $\mathbf{X}^\top \mathbf{X}$ for definida positiva.
+
+
+#### Derivadas Matriciais Fundamentais
+
+Algumas identidades de diferenciação matricial que serão utilizadas são:
+
+1.  
+$$
+\frac{\partial (\mathbf{a}^\top \mathbf{x})}{\partial \mathbf{x}}
+=
+\mathbf{a}
+$$
+
+2.  
+$$
+\frac{\partial (\mathbf{x}^\top \mathbf{A}\mathbf{x})}{\partial \mathbf{x}}
+=
+(\mathbf{A} + \mathbf{A}^\top)\mathbf{x}
+$$
+
+Em particular, se $\mathbf{A}$ é simétrica,
+
+$$
+\frac{\partial (\mathbf{x}^\top \mathbf{A}\mathbf{x})}{\partial \mathbf{x}}
+=
+2\mathbf{A}\mathbf{x}.
+$$
+
+3.  
+$$
+\frac{\partial (\mathbf{x}^\top \mathbf{A}\mathbf{b})}{\partial \mathbf{x}}
+=
+\mathbf{A}^\top \mathbf{b}
+$$
+
+4.  
+$$
+\frac{\partial \mathrm{tr}(\mathbf{A}\mathbf{X})}{\partial \mathbf{X}}
+=
+\mathbf{A}^\top
+$$
+
+5.  
+$$
+\frac{\partial
+(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})
+}
+{\partial \boldsymbol{\beta}}
+=
+-2\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}).
+$$
+
+#### Derivação das Equações Normais
+
+Aplicando a derivada à função $S(\boldsymbol{\beta})$:
+
+$$
+\nabla_{\boldsymbol{\beta}} S(\boldsymbol{\beta})
+=
+-2\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}).
+$$
+
+Igualando o gradiente a zero:
+
+$$
+\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}) = 0.
+$$
+
+Reorganizando,
+
+$$
+\mathbf{X}^\top \mathbf{X}\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+Essas são as **equações normais**. 
+
+Se $\mathbf{X}^\top \mathbf{X}$ é invertível, isto é, se as colunas de $\mathbf{X}$ são linearmente independentes, obtém-se a solução única:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+#### Interpretação Algébrica
+
+A condição
+
+$$
+\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}})=0
+$$
+
+implica
+
+$$
+\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = 0,
+$$
+
+ou seja, o vetor residual é ortogonal a cada coluna de $\mathbf{X}$. Essa condição caracteriza precisamente a projeção ortogonal discutida na seção anterior.
+
+
+#### Interpretação Geométrica
+
+A minimização de $S(\boldsymbol{\beta})$ equivale a resolver
+
+$$
+\min_{\mathbf{v} \in \mathrm{col}(\mathbf{X})}
+\|\mathbf{Y} - \mathbf{v}\|^2.
+$$
+
+Portanto,
+
+$$
+\hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}}
+$$
+
+é a projeção ortogonal de $\mathbf{Y}$ sobre $\mathrm{col}(\mathbf{X})$. Essa caracterização independe de qualquer hipótese probabilística.
+
+
+#### Interpretação Estatística
+
+A expressão
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{X}^\top \mathbf{Y}
+$$
+
+mostra explicitamente que o estimador é uma **transformação linear do vetor aleatório $\mathbf{Y}$**.
+
+Portanto, se $\mathbf{Y}$ possui distribuição Normal multivariada, então $\hat{\boldsymbol{\beta}}$ também será Normal, pois combinações lineares de vetores Normais permanecem Normais.
+
+Além disso,
+
+$$
+\hat{\boldsymbol{\varepsilon}} = \mathbf{M}\mathbf{Y}
+$$
+
+é uma transformação linear distinta de $\mathbf{Y}$.
+
+No próximo apêndice será demonstrado que, sob normalidade, formas lineares e quadráticas de vetores aleatórios conjuntamente normais possuem distribuições explícitas, das quais emergem:
+
+- a distribuição Normal de $\hat{\boldsymbol{\beta}}$,
+- a distribuição Qui-quadrado da soma de quadrados residual,
+- as estatísticas $t$ e $F$ da inferência clássica.
+
+Assim, a estimação por mínimos quadrados estabelece o elo entre a estrutura geométrica do modelo e sua teoria probabilística.
+
+### C.6 Estrutura Matricial para Diagnóstico e Inferência
+
+A formulação matricial do modelo linear não se limita à obtenção do estimador de mínimos quadrados.  Ela estrutura integralmente os procedimentos de diagnóstico e prepara o terreno para a inferência estatística.
+
+Recordemos a decomposição fundamental:
+
+$$
+\mathbf{Y}
+=
+\mathbf{H}\mathbf{Y}
++
+\mathbf{M}\mathbf{Y}
+=
+\hat{\mathbf{Y}}
++
+\hat{\boldsymbol{\varepsilon}}.
+$$
+
+Essa identidade organiza o vetor de respostas em duas componentes ortogonais pertencentes a subespaços complementares.
+
+
+#### Alavancagem e Estrutura da Matriz $\mathbf{H}$
+
+A diagonal da matriz de projeção
+
+$$
+h_{ii} = (\mathbf{H})_{ii}
+$$
+
+mensura o quanto a $i$-ésima observação contribui estruturalmente para sua própria projeção.
+
+Explicitamente,
+
+$$
+h_{ii}
+=
+\mathbf{x}_i^\top
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{x}_i,
+$$
+
+em que $\mathbf{x}_i^\top$ é a $i$-ésima linha da matriz $\mathbf{X}$.
+
+Propriedades fundamentais:
+
+- $0 \le h_{ii} \le 1$;
+- $\sum_{i=1}^n h_{ii} = p+1$;
+- observações com valores elevados de $h_{ii}$ ocupam posições extremas no espaço das covariáveis.
+
+
+
+#### Estrutura dos Resíduos
+
+Os resíduos podem ser escritos como
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{M}\mathbf{Y}.
+$$
+
+Como $\mathbf{M}$ é simétrica e idempotente,
+
+$$
+\mathbf{M}^2 = \mathbf{M},
+\qquad
+\mathbf{M}^\top = \mathbf{M}.
+$$
+
+Além disso,
+
+$$
+\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = \mathbf{0},
+$$
+
+o que garante que os resíduos são ortogonais às colunas de $\mathbf{X}$.
+
+Essa ortogonalidade fundamenta:
+
+- a decomposição das somas de quadrados;
+- a independência geométrica entre componentes ajustadas e residuais;
+- a contagem de graus de liberdade.
+
+
+#### Somas de Quadrados em Forma Matricial
+
+A soma de quadrados total pode ser escrita como
+
+$$
+\mathbf{Y}^\top \mathbf{Y}.
+$$
+
+A soma de quadrados explicada pelo modelo é
+
+$$
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}.
+$$
+
+A soma de quadrados residual é
+
+$$
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Como $\mathbf{H}$ e $\mathbf{M}$ projetam sobre subespaços ortogonais,
+
+$$
+\mathbf{Y}^\top \mathbf{Y}
+=
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}
++
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Essa identidade é puramente algébrica e independe de qualquer suposição probabilística.
+
+
+#### Postos e Graus de Liberdade
+
+Como visto anteriormente,
+
+$$
+\mathrm{tr}(\mathbf{H}) = p+1,
+\qquad
+\mathrm{tr}(\mathbf{M}) = n - p - 1.
+$$
+
+Para matrizes simétricas idempotentes, o traço coincide com o posto. Portanto:
+
+- o subespaço ajustado tem dimensão $p+1$;
+- o subespaço residual tem dimensão $n-p-1$.
+
+Essas dimensões serão reinterpretadas, no contexto probabilístico, como graus de liberdade associados às somas de quadrados.
+
+
+#### Preparação para a Inferência
+
+Até este ponto, todos os resultados obtidos são puramente geométricos e algébricos.
+
+No entanto, ao introduzir a hipótese de que
+
+$$
+\mathbf{Y}
+\sim
+N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}),
+$$
+
+as transformações lineares
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{X}^\top \mathbf{Y}
+$$
+
+e
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{M}\mathbf{Y}
+$$
+
+passam a possuir distribuições explícitas. 
+
+Além disso, as formas quadráticas
+
+$$
+\mathbf{Y}^\top \mathbf{H}\mathbf{Y},
+\qquad
+\mathbf{Y}^\top \mathbf{M}\mathbf{Y}
+$$
+
+passam a ser interpretadas como formas quadráticas de vetores aleatórios normalmente distribuídos.
+
+O estudo dessas distribuições constitui o passo necessário para derivar:
+
+- a distribuição Normal dos estimadores;
+- a distribuição Qui-quadrado das somas de quadrados;
+- as estatísticas $t$ e $F$ da inferência clássica;
+- as propriedades de independência entre componentes ajustadas e residuais.
+
+Outros apêndice formalizará o comportamento probabilístico dessas transformações, completando a articulação entre estrutura algébrica e teoria estatística.
+
+\clearpage
+
+## Apêndice D — Estimadores de Máxima Verossimilhança em Modelos de Regressão
+
+No Apêndice C, a estimação por mínimos quadrados foi apresentada como um problema puramente geométrico: encontrar a projeção ortogonal do vetor de respostas $\mathbf{Y}$ sobre o espaço coluna da matriz de planejamento $\mathbf{X}$.
+
+Neste apêndice introduz-se uma segunda perspectiva: a **perspectiva probabilística**. Quando se assume que o termo de erro segue uma distribuição específica, torna-se possível estimar os parâmetros do modelo pelo método da **Máxima Verossimilhança (MV)**.
+
+É essencial a compreensão que:
+
+- Mínimos Quadrados não exige normalidade;
+- Máxima Verossimilhança exige especificação completa da distribuição;
+- Sob normalidade homocedástica, os dois métodos produzem o mesmo estimador para $\boldsymbol{\beta}$;
+- A igualdade entre MQO e MV é uma consequência estrutural da forma quadrática do logaritmo da densidade Normal.
+
+
+### D.1 Estimadores de Máxima Verossimilhança no MRLS Normal
+
+Considere o modelo de regressão linear simples:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2),
+$$
+
+com $\varepsilon_i$ independentes.
+
+Observe que a hipótese de normalidade é imposta **sobre o termo de erro**, e não diretamente sobre $Y_i$.  
+
+Como $Y_i = \mathbb{E}[Y_i] + \varepsilon_i$, segue que:
+
+$$
+Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2).
+$$
+
+Portanto, condicionalmente aos valores observados de $X_i$, as variáveis $Y_i$ são independentes e normalmente distribuídas.
+
+
+
+#### Função de Verossimilhança
+
+A verossimilhança é definida como a função de densidade conjunta de $\mathbf{Y}$, vista como função dos parâmetros desconhecidos.
+
+Como os erros são independentes e Normais, o vetor
+
+$$
+\mathbf{Y} = (Y_1,\dots,Y_n)^\top
+$$
+
+possui distribuição conjunta:
+
+$$
+\mathbf{Y} \sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
+$$
+
+Pela independência, a densidade conjunta é o produto das densidades marginais:
+
+$$
+L(\beta_0,\beta_1,\sigma^2)
+=
+\prod_{i=1}^n
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\!\left(
+-\frac{(Y_i-\beta_0-\beta_1X_i)^2}{2\sigma^2}
+\right).
+$$
+
+Reorganizando os termos exponenciais:
+
+$$
+L(\beta_0,\beta_1,\sigma^2)
+=
+(2\pi\sigma^2)^{-n/2}
+\exp\!\left[
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2
+\right].
+$$
+
+Note que a soma de quadrados dos resíduos surge naturalmente no expoente da função de verossimilhança. Isso não é coincidência. A densidade Normal envolve um termo quadrático na variável, e a independência transforma a soma dos expoentes na soma dos quadrados.
+
+
+
+#### Log-Verossimilhança
+
+É matematicamente conveniente trabalhar com o logaritmo da verossimilhança:
+
+$$
+\ell(\beta_0,\beta_1,\sigma^2)
+=
+-\frac{n}{2}\log(2\pi)
+-\frac{n}{2}\log(\sigma^2)
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2.
+$$
+
+Os dois primeiros termos dependem apenas de $\sigma^2$. O terceiro termo contém a soma de quadrados dos resíduos.
+
+Note que, para $\sigma^2$ fixo, maximizar $\ell$ em relação a $(\beta_0,\beta_1)$ equivale a minimizar a soma de quadrados. Essa equivalência é o elo formal entre Máxima Verossimilhança e Mínimos Quadrados sob normalidade.
+
+
+#### Maximização em Relação a $\beta_0$ e $\beta_1$
+
+Derivando a log-verossimilhança em relação aos parâmetros e igualando a zero, obtêm-se as mesmas equações normais derivadas no Apêndice C.
+
+O resultado é:
+
+$$
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}},
+\qquad
+\hat{\beta}_0 = \bar{Y}-\hat{\beta}_1\bar{X}.
+$$
+
+Assim,
+
+$$
+\hat{\boldsymbol{\beta}}_{MV}
+=
+\hat{\boldsymbol{\beta}}_{MQO}.
+$$
+
+Essa coincidência não significa que MQO depende da normalidade.  Significa que, sob normalidade, a função de verossimilhança possui a mesma estrutura quadrática que a função objetivo de MQO.
+
+
+#### Estimador de $\sigma^2$
+
+Derivando a log-verossimilhança em relação a $\sigma^2$:
+
+$$
+\frac{\partial \ell}{\partial \sigma^2}
+=
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+\sum_{i=1}^n (Y_i-\hat{Y}_i)^2.
+$$
+
+Igualando a zero:
+
+$$
+\hat{\sigma}^2_{MV}
+=
+\frac{1}{n}
+\sum_{i=1}^n (Y_i-\hat{Y}_i)^2.
+$$
+
+Esse estimador possui propriedades importantes:
+
+- é consistente;
+- é viesado para amostras finitas;
+- seu viés desaparece quando $n \to \infty$.
+
+O estimador usual de MQO utiliza correção por graus de liberdade:
+
+$$
+\hat{\sigma}^2_{MQO}
+=
+\frac{1}{n-2}
+\sum_{i=1}^n (Y_i-\hat{Y}_i)^2.
+$$
+
+A diferença entre $n$ e $n-2$ decorre do fato de que dois parâmetros foram estimados, reduzindo a dimensão do subespaço residual. Essa distinção antecipa o conceito de graus de liberdade, que será formalizado probabilisticamente no apêndice seguinte.
+
+### D.2 Estimadores de Máxima Verossimilhança no MRLM Normal
+
+Considere agora o modelo linear múltiplo em notação matricial:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}
+\sim
+N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+onde:
+
+- $\mathbf{Y} \in \mathbb{R}^n$ é o vetor de respostas;
+- $\mathbf{X} \in \mathbb{R}^{n \times (p+1)}$ é a matriz de planejamento de posto completo;
+- $\boldsymbol{\beta} \in \mathbb{R}^{p+1}$ é o vetor de parâmetros;
+- $\sigma^2 > 0$ é a variância do erro.
+
+Sob essa hipótese, segue que
+
+$$
+\mathbf{Y}
+\sim
+N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
+$$
+
+Essa é a única hipótese probabilística adicional introduzida em relação ao Apêndice C.
+
+
+#### Verossimilhança em Forma Matricial
+
+A densidade da Normal multivariada fornece diretamente:
+
+$$
+L(\boldsymbol{\beta},\sigma^2)
+=
+(2\pi\sigma^2)^{-n/2}
+\exp\!\left[
+-\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+\right].
+$$
+
+Note que o termo quadrático no expoente é precisamente a soma de quadrados residual em forma matricial:
+
+$$
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+=
+\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2.
+$$
+
+Essa estrutura é consequência direta da forma da densidade Normal multivariada.
+
+
+#### Log-Verossimilhança
+
+Tomando logaritmo:
+
+$$
+\ell(\boldsymbol{\beta},\sigma^2)
+=
+-\frac{n}{2}\log(2\pi)
+-\frac{n}{2}\log(\sigma^2)
+-\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Observa-se que, para $\sigma^2$ fixo, maximizar $\ell$ equivale a minimizar a soma de quadrados residual.
+
+
+
+#### Maximização em Relação a $\boldsymbol{\beta}$
+
+Derivando:
+
+$$
+\frac{\partial \ell}{\partial \boldsymbol{\beta}}
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Igualando a zero:
+
+$$
+\mathbf{X}^\top \mathbf{X}\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+Estas são exatamente as equações normais.
+
+Se $\mathbf{X}^\top\mathbf{X}$ é invertível (posto completo), obtém-se a solução única:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+Portanto,
+
+$$
+\hat{\boldsymbol{\beta}}_{MV}
+=
+\hat{\boldsymbol{\beta}}_{MQO}.
+$$
+
+Se a distribuição dos erros fosse diferente, o estimador de máxima verossimilhança geralmente não coincidiria com MQO.
+
+#### Convexidade e Unicidade da Solução
+
+A função
+
+$$
+S(\boldsymbol{\beta})
+=
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+$$
+
+é uma função quadrática convexa em $\boldsymbol{\beta}$ sempre que
+
+$$
+\mathbf{X}^\top \mathbf{X}
+$$
+
+for definida positiva.
+
+Como a log-verossimilhança é a soma de um termo logarítmico em $\sigma^2$ e um termo negativo proporcional a $S(\boldsymbol{\beta})$, segue que o problema de maximização possui solução global única.
+
+
+
+#### Maximização em Relação a $\sigma^2$
+
+Derivando a log-verossimilhança em relação a $\sigma^2$:
+
+$$
+\frac{\partial \ell}{\partial \sigma^2}
+=
+-\frac{n}{2\sigma^2}
++
+\frac{1}{2\sigma^4}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Substituindo $\boldsymbol{\beta} = \hat{\boldsymbol{\beta}}$ e igualando a zero:
+
+$$
+\hat{\sigma}^2_{MV}
+=
+\frac{1}{n}
+(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top
+(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}}).
+$$
+
+Esse estimador é:
+
+- consistente;
+- assintoticamente normal;
+- viesado em amostras finitas.
+
+O estimador usual corrigido por graus de liberdade é
+
+$$
+\hat{\sigma}^2_{MQO}
+=
+\frac{1}{n-p-1}
+\hat{\boldsymbol{\varepsilon}}^\top
+\hat{\boldsymbol{\varepsilon}}.
+$$
+
+A diferença entre $n$ e $n-p-1$ decorre da dimensão do subespaço residual.
+
+
+#### Informação de Fisher
+
+Sob normalidade,
+
+$$
+\mathcal{I}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top \mathbf{X}.
+$$
+
+Logo,
+
+$$
+\mathrm{Var}(\hat{\boldsymbol{\beta}})
+=
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Isso mostra que o estimador de MQO/MV atinge o limite inferior de variância (limite de Cramér–Rao) dentro da classe de estimadores não viesados sob normalidade.
+
+
+#### Interpretação Estrutural
+
+É fundamental compreender que:
+
+1. $\hat{\boldsymbol{\beta}}$ é transformação linear de $\mathbf{Y}$;
+2. $\hat{\sigma}^2$ é forma quadrática de $\mathbf{Y}$;
+3. ambas as expressões derivam da estrutura da Normal multivariada.
+
+A partir dessas distribuições que emergem:
+
+- a normalidade de $\hat{\boldsymbol{\beta}}$;
+- a distribuição Qui-quadrado da soma de quadrados residual;
+- a independência entre componentes ajustadas e residuais;
+- as estatísticas $t$ e $F$ da inferência clássica.
+
+### D.3 Propriedades Estatísticas e Papel da Normalidade
+
+A análise desenvolvida até aqui permite distinguir com precisão três níveis distintos de resultado no modelo linear:
+
+1. Resultados puramente algébricos (Apêndice C);
+2. Resultados probabilísticos sob hipóteses fracas (Gauss–Markov);
+3. Resultados probabilísticos sob normalidade.
+
+Essa distinção é essencial para evitar interpretações equivocadas.
+
+
+#### Propriedades do Estimador $\hat{\boldsymbol{\beta}}$
+
+Independentemente de normalidade, desde que:
+
+- $\mathbb{E}(\boldsymbol{\varepsilon}) = \mathbf{0}$,
+- $\mathrm{Var}(\boldsymbol{\varepsilon}) = \sigma^2\mathbf{I}_n$,
+
+vale que
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}
+$$
+
+é:
+
+- linear em $\mathbf{Y}$;
+- não viesado;
+- com matriz de covariância
+  $$
+  \mathrm{Var}(\hat{\boldsymbol{\beta}})
+  =
+  \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+  $$
+
+Pelo **Teorema de Gauss–Markov**, esse estimador é o melhor estimador linear não viesado (BLUE), ou seja, possui variância mínima dentro da classe dos estimadores lineares não viesados.
+
+Observe que nenhuma hipótese de normalidade foi utilizada até este ponto.
+
+
+#### Ganhos com a Normalidade
+
+Quando se assume adicionalmente que
+
+$$
+\boldsymbol{\varepsilon}
+\sim
+N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+obtêm-se resultados mais fortes:
+
+1. $\hat{\boldsymbol{\beta}}$ é normalmente distribuído;
+2. a soma de quadrados residual possui distribuição Qui-quadrado;
+3. $\hat{\boldsymbol{\beta}}$ e $\hat{\sigma}^2$ são independentes;
+4. as estatísticas $t$ e $F$ possuem distribuições exatas em amostras finitas.
+
+Além disso, sob normalidade, $\hat{\boldsymbol{\beta}}$ não é apenas BLUE. Ele é também o estimador de variância mínima dentro da classe de todos os estimadores não viesados. Esse é o sentido de eficiência completa sob normalidade.
+
+
+#### A Normalidade como Escolha de Modelagem
+
+A hipótese de normalidade não é uma necessidade lógica do modelo linear. Ela é uma escolha de modelagem baseada em propriedades matemáticas e práticas:
+
+1. A densidade possui forma fechada simples;
+2. O logaritmo da verossimilhança é quadrático;
+3. A maximização conduz a soluções analíticas explícitas;
+4. Formas lineares e quadráticas possuem distribuições conhecidas;
+5. Estatísticas de teste têm distribuições exatas em amostras finitas.
+
+No entanto, outros cenários são possíveis:
+
+- erros com distribuição t (robustez a outliers);
+- heterocedasticidade (variância não constante);
+- modelos da família exponencial (GLM);
+- estruturas de dependência (GLS).
+
+A teoria desenvolvida aqui é, portanto, um caso particular dentro de um arcabouço mais amplo.
+
+\clearpage
+
+## Apêndice E — Formas Lineares e Quadráticas na Normal Multivariada 
+
+Este apêndice faz a ligação matemática que  entre os Apêndices B–D e a inferência clássica em regressão linear.
+
+- No Apêndice B é introduzida a Normal multivariada e suas propriedades.
+- No Apêndice C é construída a estrutura matricial do modelo linear, com projeções via $\mathbf{H}$ (ajuste) e $\mathbf{M}$ (resíduos).
+- No Apêndice D é mostrado que, sob Normalidade, MQO coincide com MV, e que a inferência clássica exige compreender distribuições de certas expressões em $\mathbf{Y}$.
+
+Em regressão linear clássica, muitos estimadores são **formas lineares** e **formas quadráticas** de um vetor aleatório Normal multivariado.  Quando essas formas se apoiam em **projeções ortogonais** (matrizes simétricas idempotentes), surgem naturalmente as distribuições $\chi^2$, $t$ e $F$, bem como independências.
+
+
+### E.1 Preliminares: Normal multivariada e transformações lineares
+
+Seja $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$, com $\boldsymbol{\Sigma}$ simétrica definida positiva.
+
+Uma propriedade estrutural (Apêndice B) é:
+
+Se $\mathbf{A}$ é uma matriz fixa $m\times n$ e $\mathbf{a}\in\mathbb{R}^m$, então
+$$
+\mathbf{Z}=\mathbf{A}\mathbf{Y}+\mathbf{a}
+\sim
+N_m(\mathbf{A}\boldsymbol{\mu}+\mathbf{a},\, \mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top).
+$$
+
+Como caso particular, para um vetor fixo $\mathbf{c}\in\mathbb{R}^n$:
+$$
+L=\mathbf{c}^\top\mathbf{Y}
+\sim
+N\!\left(\mathbf{c}^\top\boldsymbol{\mu},\, \mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}\right).
+$$
+
+Essa é a ideia que mais adiante será aplicada diretamente a:
+- $\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$,
+- contrastes $\mathbf{C}\hat{\boldsymbol{\beta}}$,
+- predições lineares e combinações de coeficientes.
+
+
+### E.2 Padronização multivariada e redução ao caso $\mathbf{I}$
+
+Para estudar formas quadráticas, é útil reduzir o problema ao caso padrão.
+
+Como $\boldsymbol{\Sigma}$ é definida positiva, existe uma matriz $\boldsymbol{\Sigma}^{1/2}$ simétrica definida positiva tal que
+$$
+\boldsymbol{\Sigma}^{1/2}\boldsymbol{\Sigma}^{1/2}=\boldsymbol{\Sigma},
+\qquad
+(\boldsymbol{\Sigma}^{1/2})^{-1}=\boldsymbol{\Sigma}^{-1/2}.
+$$
+
+Defina
+$$
+\mathbf{Z}=\boldsymbol{\Sigma}^{-1/2}(\mathbf{Y}-\boldsymbol{\mu}).
+$$
+
+Então:
+$$
+\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n).
+$$
+
+Essa transformação é conceitualmente importante porque:
+
+1. ela separa “média” e “dispersão” de forma limpa;
+2. ela mostra que muitos resultados sobre $\mathbf{Y}$ podem ser obtidos estudando $\mathbf{Z}$ com covariância identidade;
+3. ela permite interpretar expressões do tipo $(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})$ como norma de um vetor padrão.
+
+De fato:
+$$
+(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})
+=
+\mathbf{Z}^\top\mathbf{Z}.
+$$
+
+
+### E.3 Forma linear: distribuição, interpretação e conexão com regressão
+
+Uma **forma linear** de um vetor aleatório é uma expressão do tipo
+$$
+L=\mathbf{c}^\top\mathbf{Y},
+$$
+onde $\mathbf{c}$ é fixo.
+
+Se $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$, então:
+
+- $L$ é Normal;
+- a média é $\mathbf{c}^\top\boldsymbol{\mu}$;
+- a variância é $\mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}$.
+
+Na regressão linear (quando for introduzida a hipótese probabilística), $\hat{\boldsymbol{\beta}}$ e qualquer contraste $\mathbf{C}\hat{\boldsymbol{\beta}}$ serão formas lineares do vetor $\mathbf{Y}$. É por isso que, sob normalidade do erro, essas quantidades têm distribuição Normal exata.
+
+
+### E.4 Forma quadrática: definição e interpretação 
+
+Uma **forma quadrática** (em $\mathbf{Y}$) é uma expressão do tipo
+$$
+Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y},
+$$
+onde $\mathbf{A}$ é uma matriz fixa $n\times n$.
+
+Observações essenciais:
+
+1. Somente a parte simétrica de $\mathbf{A}$ importa.
+   $$
+   \mathbf{Y}^\top\mathbf{A}\mathbf{Y}
+   =
+   \mathbf{Y}^\top\left(\frac{\mathbf{A}+\mathbf{A}^\top}{2}\right)\mathbf{Y}.
+   $$
+   Daí, pode-se assumir $\mathbf{A}$ simétrica sem perda de generalidade.
+
+2. Em regressão, as somas de quadrados aparecem exatamente nessa forma:
+   $$
+   \mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y},
+   \qquad
+   \mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+   $$
+
+3. O comportamento probabilístico de $Q$ depende criticamente de propriedades de $\mathbf{A}$ se $\mathbf{A}$ for uma projeção (simétrica idempotente), $Q$ se reduz a uma soma de quadrados de Normais padrão em um subespaço, gerando uma Qui-quadrado.
+
+É por isso que o Apêndice C (projeções via $\mathbf{H}$ e $\mathbf{M}$) é estruturalmente necessário para a inferência no caso Normal.
+
+
+### E.5 O caso central: $\mathbf{Z}^\top\mathbf{Z}$ e a distribuição $\chi^2$
+
+Se $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$, então as componentes $Z_1,\dots,Z_n$ são independentes e
+$$
+Z_i\sim N(0,1).
+$$
+
+Logo:
+$$
+\mathbf{Z}^\top\mathbf{Z}=\sum_{i=1}^n Z_i^2 \sim \chi^2_n.
+$$
+
+Esse resultado é o protótipo de todas as “somas de quadrados” em regressão quando os erros são Normais: sempre que uma soma de quadrados puder ser escrita como norma de um vetor Normal padrão (ou de sua projeção), ela terá distribuição Qui-quadrado.
+
+
+### E.6 Projeções ortogonais e Qui-quadrado: o papel das matrizes idempotentes
+
+Agora vem o resultado estrutural mais importante para regressão.
+
+Seja $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$ e seja $\mathbf{A}$ uma matriz **simétrica idempotente**, isto é:
+$$
+\mathbf{A}^\top=\mathbf{A},
+\qquad
+\mathbf{A}^2=\mathbf{A}.
+$$
+
+Seja $r=\mathrm{rank}(\mathbf{A})=\mathrm{tr}(\mathbf{A})$.
+
+Então:
+$$
+\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\sim \chi^2_r.
+$$
+
+**Interpretação geométrica.**  
+Uma matriz simétrica idempotente é uma projeção ortogonal sobre algum subespaço $S\subset\mathbb{R}^n$. Assim:
+
+- $\mathbf{A}\mathbf{Z}$ é a projeção de $\mathbf{Z}$ em $S$;
+- $\mathbf{Z}^\top\mathbf{A}\mathbf{Z}=\|\mathbf{A}\mathbf{Z}\|^2$ é o quadrado do comprimento da componente projetada.
+
+Como o subespaço tem dimensão $r$, essa norma quadrática se comporta como soma de quadrados de $r$ Normais padrão.
+
+Esse resultado será aplicado diretamente a:
+- $\mathbf{H}$ (posto $p+1$),
+- $\mathbf{M}$ (posto $n-p-1$),
+
+quando $\mathbf{Z}$ for uma versão padronizada do vetor de erros.
+
+
+### E.7 Aplicação direta a $\mathbf{H}$ e $\mathbf{M}$: por que somas de quadrados têm distribuição $\chi^2$
+
+No Apêndice C, foram definidas:
+
+$$
+\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top,
+\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H}.
+$$
+
+Com $\operatorname{rank}(\mathbf{X})=p+1$, vale:
+
+- $\mathbf{H}^\top=\mathbf{H}$ e $\mathbf{H}^2=\mathbf{H}$;
+- $\mathbf{M}^\top=\mathbf{M}$ e $\mathbf{M}^2=\mathbf{M}$;
+- $\mathbf{H}\mathbf{M}=\mathbf{0}$ e $\mathbf{M}\mathbf{H}=\mathbf{0}$;
+- $\mathrm{tr}(\mathbf{H})=p+1$ e $\mathrm{tr}(\mathbf{M})=n-p-1$.
+
+Essas propriedades garantem que $\mathbf{H}$ e $\mathbf{M}$ são projeções ortogonais sobre subespaços complementares. Em particular, se $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I})$, então:
+
+$$
+\mathbf{Z}^\top\mathbf{H}\mathbf{Z}\sim \chi^2_{p+1},
+\qquad
+\mathbf{Z}^\top\mathbf{M}\mathbf{Z}\sim \chi^2_{n-p-1}.
+$$
+
+Em regressão, a soma de quadrados residual aparece como $\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$ (ou, mais precisamente, como $(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top\mathbf{M}(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})$). Sob normalidade, depois de padronizar por $\sigma^2$, ela cai exatamente nesse caso.
+
+
+### E.8 Independência: quando projeções ortogonais geram variáveis independentes
+
+A inferência clássica em regressão depende não apenas de distribuições marginais, mas de **independência** entre certas quantidades. O mecanismo que produz isso é a ortogonalidade.
+
+#### Independência de duas formas quadráticas (caso projetivo)
+
+Se $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$ e $\mathbf{A}$, $\mathbf{B}$ são matrizes simétricas idempotentes tais que
+$$
+\mathbf{A}\mathbf{B}=\mathbf{0},
+$$
+então:
+
+1. $\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$ e $\mathbf{Z}^\top\mathbf{B}\mathbf{Z}$ são independentes;
+2. cada uma tem distribuição $\chi^2$ com graus de liberdade iguais aos respectivos postos.
+
+Aplicando a $\mathbf{H}$ e $\mathbf{M}$:
+
+- como $\mathbf{H}\mathbf{M}=\mathbf{0}$, então
+  $$
+  \mathbf{Z}^\top\mathbf{H}\mathbf{Z}
+  \ \perp\
+  \mathbf{Z}^\top\mathbf{M}\mathbf{Z}.
+  $$
+
+Essa independência é a base do teste $F$ na regressão.
+
+#### Independência entre uma forma linear e uma quadrática
+
+Ainda com $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I})$, considere:
+
+- uma forma linear $L=\mathbf{a}^\top\mathbf{Z}$;
+- uma forma quadrática $Q=\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$, com $\mathbf{A}$ simétrica.
+
+Um critério clássico (no caso padrão) é:
+$$
+\mathbf{A}\mathbf{a}=\mathbf{0}
+\quad \Rightarrow \quad
+L \ \perp\ Q.
+$$
+
+Geometricamente, temos que se $\mathbf{A}$ projeta em um subespaço $S$, então $\mathbf{A}\mathbf{a}=\mathbf{0}$ significa que $\mathbf{a}$ está no complemento ortogonal $S^\perp$. Assim, $L$ depende apenas da componente de $\mathbf{Z}$ em $S^\perp$, enquanto $Q$ depende apenas da componente em $S$.
+
+Em regressão, essa lógica explica a independência entre:
+- estimadores (formas lineares em $\mathbf{Y}$) e
+- soma de quadrados residual (forma quadrática via $\mathbf{M}$),
+sob normalidade.
+
+
+### E.9 Surgimento das distribuições $t$ e $F$ como razões padronizadas
+
+A inferência clássica não usa apenas Qui-quadrado; ela usa razões entre Normais e Qui-quadrados (e entre Qui-quadrados), o que produz $t$ e $F$.
+
+#### Distribuição $t$ de Student
+
+Seja $Z\sim N(0,1)$ e $U\sim \chi^2_\nu$ independentes. Define-se:
+$$
+T=\frac{Z}{\sqrt{U/\nu}}.
+$$
+Então:
+$$
+T\sim t_\nu.
+$$
+
+Esse resultado é exatamente o formato de um “estimador padronizado por um erro-padrão estimado”. 
+Em regressão, $Z$ surgirá ao padronizar $\hat{\beta}_j-\beta_j$ pelo desvio-padrão **verdadeiro**; e $U$ surgirá da soma de quadrados residual, que permite estimar $\sigma^2$.
+
+#### E.9.2 Distribuição $F$ de Fisher–Snedecor
+
+Sejam $U_1\sim\chi^2_{\nu_1}$ e $U_2\sim\chi^2_{\nu_2}$ independentes. Defina:
+$$
+F=\frac{(U_1/\nu_1)}{(U_2/\nu_2)}.
+$$
+Então:
+$$
+F\sim F_{\nu_1,\nu_2}.
+$$
+
+Em regressão, $U_1$ e $U_2$ surgem como **somas de quadrados em subespaços ortogonais** (por exemplo, subespaço ajustado e residual), o que garante independência e produz um teste $F$ exato.
+
+
+### MRLM Normal
+
+Considere o modelo de regressão linear múltipla com normalidade e homocedasticidade:
+$$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n).
+$$
+
+As quantidades centrais podem ser reescritas como:
+
+1. **Estimador de MQO/MV**
+   $$
+   \hat{\boldsymbol{\beta}}
+   =
+   (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y},
+   $$
+   que é uma **forma linear** em $\mathbf{Y}$.
+
+2. **Resíduos**
+   $$
+   \hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y},
+   $$
+   também uma transformação linear.
+
+3. **Soma de quadrados residual**
+   $$
+   \mathrm{SQRes}=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}
+   =
+   \mathbf{Y}^\top\mathbf{M}\mathbf{Y},
+   $$
+   uma **forma quadrática**.
+
+4. **Decomposição ortogonal**
+   $$
+   \mathbf{Y}^\top\mathbf{Y}
+   =
+   \mathbf{Y}^\top\mathbf{H}\mathbf{Y}
+   +
+   \mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+   $$
+
+Sob normalidade, após padronização por $\sigma^2$, as expressões quadráticas envolvendo $\mathbf{H}$ e $\mathbf{M}$ se tornam Qui-quadrados com graus de liberdade dados por seus postos. Além disso, a ortogonalidade ($\mathbf{H}\mathbf{M}=\mathbf{0}$) implica independências.
+
+É exatamente desse mecanismo que emergem:
+- a distribuição Normal de $\hat{\boldsymbol{\beta}}$;
+- a distribuição Qui-quadrado da soma de quadrados residual;
+- a independência entre $\hat{\boldsymbol{\beta}}$ e $\hat{\sigma}^2$;
+- as estatísticas $t$ e $F$ com distribuições exatas em amostras finitas.
+
+O próximo apêndice aplicará sistematicamente esses resultados ao MRLM Normal, derivando as formas finais das estatísticas de inferência (testes $t$ e $F$), bem como sua interpretação em termos de ANOVA e hipóteses lineares gerais.
+
+
+## Apêndice F — Inferência Clássica no Modelo de Regressão Linear Múltipla Normal
+
+Este apêndice aplica sistematicamente os resultados do Apêndice E ao modelo de regressão linear múltipla sob normalidade e homocedasticidade:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}
+\sim
+N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+com $\operatorname{rank}(\mathbf{X})=p+1$.
+
+A estrutura matricial (Apêndice C) e os resultados sobre formas lineares e quadráticas (Apêndice E) permitem derivar:
+
+- a distribuição exata de $\hat{\boldsymbol{\beta}}$;
+- a distribuição da soma de quadrados residual;
+- a independência entre estimadores e estimador da variância;
+- as estatísticas $t$ e $F$;
+- a decomposição ANOVA da regressão;
+- testes gerais de hipóteses lineares.
+
+
+### F.1 Distribuição de $\hat{\boldsymbol{\beta}}$
+
+Recorde que
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}.
+$$
+
+Substituindo o modelo:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top
+(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})
+=
+\boldsymbol{\beta}
++
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top
+\boldsymbol{\varepsilon}.
+$$
+
+Portanto, $\hat{\boldsymbol{\beta}}$ é uma **transformação linear** de $\boldsymbol{\varepsilon}$.
+
+Como $\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n)$, segue que
+
+$$
+\hat{\boldsymbol{\beta}}
+\sim
+N_{p+1}
+\left(
+\boldsymbol{\beta},
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
+\right).
+$$
+
+Em particular, para cada componente:
+
+$$
+\hat{\beta}_j
+\sim
+N\!\left(
+\beta_j,
+\sigma^2 c_{jj}
+\right),
+$$
+
+em que $c_{jj}$ é o elemento diagonal correspondente de $(\mathbf{X}^\top\mathbf{X})^{-1}$.
+
+
+### F.2 Distribuição da Soma de Quadrados Residual
+
+Os resíduos são
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{M}\mathbf{Y},
+\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H}.
+$$
+
+A soma de quadrados residual é
+
+$$
+\mathrm{SQRes}
+=
+\hat{\boldsymbol{\varepsilon}}^\top
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Substituindo o modelo:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon}.
+$$
+
+Como $\mathbf{M}\mathbf{X}=\mathbf{0}$ (propriedade de projeção ortogonal),
+
+$$
+\mathbf{M}\mathbf{Y}
+=
+\mathbf{M}\boldsymbol{\varepsilon}.
+$$
+
+Logo,
+
+$$
+\mathrm{SQRes}
+=
+\boldsymbol{\varepsilon}^\top
+\mathbf{M}
+\boldsymbol{\varepsilon}.
+$$
+
+Agora, escreva
+
+$$
+\boldsymbol{\varepsilon}
+=
+\sigma\mathbf{Z},
+\qquad
+\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n).
+$$
+
+Então
+
+$$
+\frac{\mathrm{SQRes}}{\sigma^2}
+=
+\mathbf{Z}^\top
+\mathbf{M}
+\mathbf{Z}.
+$$
+
+Como $\mathbf{M}$ é simétrica, idempotente e tem posto $n-p-1$, pelo Apêndice E:
+
+$$
+\frac{\mathrm{SQRes}}{\sigma^2}
+\sim
+\chi^2_{n-p-1}.
+$$
+
+Consequentemente,
+
+$$
+\hat{\sigma}^2
+=
+\frac{\mathrm{SQRes}}{n-p-1}
+$$
+
+é um estimador não viesado de $\sigma^2$.
+
+
+### F.3 Independência entre $\hat{\boldsymbol{\beta}}$ e $\hat{\sigma}^2$
+
+Temos:
+
+- $\hat{\boldsymbol{\beta}}$ é função linear de $\mathbf{Y}$;
+- $\mathrm{SQRes}$ é forma quadrática via $\mathbf{M}$;
+- $\mathbf{H}\mathbf{M}=\mathbf{0}$.
+
+A ortogonalidade entre os subespaços de projeção implica que:
+
+$$
+\hat{\boldsymbol{\beta}}
+\ \perp\
+\mathrm{SQRes}.
+$$
+
+Portanto,
+
+$$
+\hat{\boldsymbol{\beta}}
+\ \perp\
+\hat{\sigma}^2.
+$$
+
+Essa independência é fundamental para a validade exata das estatísticas $t$ e $F$ em amostras finitas.
+
+
+### F.4 Testes $t$ para Coeficientes Individuais
+
+Considere a hipótese:
+
+$$
+H_0:\ \beta_j=\beta_{j,0}.
+$$
+
+Sob $H_0$,
+
+$$
+\frac{\hat{\beta}_j-\beta_{j,0}}
+{\sigma\sqrt{c_{jj}}}
+\sim
+N(0,1).
+$$
+
+Como $\sigma^2$ é desconhecido, substitui-se por $\hat{\sigma}^2$.
+
+Defina:
+
+$$
+t_j
+=
+\frac{\hat{\beta}_j-\beta_{j,0}}
+{\hat{\sigma}\sqrt{c_{jj}}}.
+$$
+
+Como o numerador é Normal padrão e o denominador envolve uma Qui-quadrado independente, pelo Apêndice E:
+
+$$
+t_j
+\sim
+t_{n-p-1}.
+$$
+
+Essa é a base dos intervalos de confiança e testes individuais na regressão múltipla.
+
+
+### F.5 Teste $F$ Global e Decomposição ANOVA
+
+A decomposição fundamental é:
+
+$$
+\mathbf{Y}^\top\mathbf{Y}
+=
+\mathbf{Y}^\top\mathbf{H}\mathbf{Y}
++
+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Definindo:
+
+- $\mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y}$,
+- $\mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$.
+
+Sob $H_0:\boldsymbol{\beta}_{(1:p)}=\mathbf{0}$,
+
+$$
+\frac{\mathrm{SQReg}}{\sigma^2}
+\sim
+\chi^2_{p},
+\qquad
+\frac{\mathrm{SQRes}}{\sigma^2}
+\sim
+\chi^2_{n-p-1},
+$$
+
+e são independentes.
+
+A estatística
+
+$$
+F
+=
+\frac{(\mathrm{SQReg}/p)}
+{(\mathrm{SQRes}/(n-p-1))}
+$$
+
+segue:
+
+$$
+F\sim F_{p,n-p-1}.
+$$
+
+Essa é a base do teste global de significância do modelo.
+
+
+### F.6 Testes de Hipóteses Lineares Gerais
+
+Considere:
+
+$$
+H_0:\ \mathbf{C}\boldsymbol{\beta}=\mathbf{d},
+$$
+
+onde $\mathbf{C}$ é $q\times(p+1)$ com posto $q$.
+
+Define-se:
+
+$$
+F
+=
+\frac{
+(\mathbf{C}\hat{\boldsymbol{\beta}}-\mathbf{d})^\top
+\left[
+\mathbf{C}
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{C}^\top
+\right]^{-1}
+(\mathbf{C}\hat{\boldsymbol{\beta}}-\mathbf{d})
+/q
+}
+{\hat{\sigma}^2}.
+$$
+
+Sob $H_0$,
+
+$$
+F\sim F_{q,n-p-1}.
+$$
+
+Esse resultado generaliza:
+
+- testes individuais ($q=1$);
+- teste global;
+- comparação de modelos aninhados.
+
+
+### F.7 Ponte para Diagnóstico
+
+A estrutura probabilística também informa o diagnóstico.
+
+Por exemplo:
+
+- resíduos padronizados:
+  $$
+  r_i
+  =
+  \frac{\hat{\varepsilon}_i}
+  {\hat{\sigma}\sqrt{1-h_{ii}}},
+  $$
+  onde $h_{ii}$ é a alavancagem (diagonal de $\mathbf{H}$);
+
+- sob normalidade, resíduos studentizados têm distribuição aproximada $t$.
+
+Avaliação de outliers, influência e medidas como distância de Cook fazem uso dessa base probabilística.
+
+## Apêndice G — Tratamento de dados para regressão (pré-modelagem)
+
+Este apêndice organiza, em forma de roteiro estruturado, os procedimentos que devem ser realizados **antes** do ajuste de qualquer modelo de regressão. O objetivo é preparar bases de dados tabulares (em que linhas representam observações e colunas representam variáveis) para que estejam **coerentes, consistentes, completas e adequadas à modelagem estatística**.
+
+Os métodos de regressão (lineares, generalizados ou penalizados) **pressupõem** que a variabilidade observada nos dados represente o fenômeno real sob estudo, e não erros de registro, inconsistências de escala ou problemas de codificação. O tratamento pré-modelagem constitui, portanto, o **primeiro passo do raciocínio estatístico aplicado**: garantir que o modelo descreva o mundo observado e não artefatos do processo de coleta ou organização dos dados.
+
+**Princípios norteadores da preparação de dados**
+
+1. **Parcimônia:** trate o necessário, não o possível. Cada transformação modifica o significado estatístico das variáveis e pode alterar a interpretação dos resultados.
+2. **Transparência:** todo procedimento deve ser reprodutível e documentado (log de alterações + dicionário de variáveis).
+3. **Consistência:** mantenha coerência entre bases, períodos e versões (nomes de variáveis, unidades de medida, tipos e categorias).
+4. **Domínio do contexto:** conheça o fenômeno estudado antes de decidir se determinado valor é erro, exceção legítima ou padrão relevante.
+5. **Validação cruzada:** confirme decisões de tratamento por mais de uma ótica — estatística e substantiva.
+
+
+**Ferramentas e escopo**
+
+- Trabalharemos com **R** (por exemplo, utilizando `tidyverse` ou `data.table`) e com **dados estruturados em formato tabular**.
+- **Não** abordaremos, neste apêndice, dados não estruturados ou semi-estruturados (texto livre, JSON heterogêneo, imagens, áudio ou bases documentais).
+- Quando utilizarmos expressões como “detectar”, “verificar” ou “avaliar”, estaremos nos referindo a **operações descritivas e exploratórias**, sem ajuste formal de modelos nesta etapa.
+
+
+**Fluxo geral do processo analítico**
+
+coleta → organização → tratamento → **(entregável: base tratada + dicionário + log de decisões)** → modelagem → diagnóstico → interpretação
+
+O tratamento de dados é, portanto, uma etapa intermediária e estruturante, que conecta a coleta bruta à modelagem estatística.
+
+
+### G.1 Exemplos do dia a dia e Checklist rápido
+
+**Exemplos rápidos do dia a dia** 
+
+- **CSV que não abre “corretamente”**: o arquivo foi salvo com `;` em vez de `,` como separador, e o decimal usa `,` (ex.: `3,14`). Resultado: números são interpretados como texto.  
+  **Tratamento**: especificar corretamente o delimitador e o símbolo decimal na leitura; padronizar separadores.
+
+- **Acentos e caracteres estranhos**: colunas aparecem como `ação`, `aÃ§Ã£o` ou nomes quebrados.  
+  **Tratamento**: ajustar o `encoding` (ex.: UTF-8 vs latin-1) e padronizar nomes de variáveis.
+
+- **Tipos incorretos**: idades lidas como texto (`"21"`), datas como strings (`"2025-10-24"`) e variáveis 0/1 lidas como numéricas quando deveriam ser categóricas.    **Tratamento**: converter explicitamente para os tipos adequados (numérico, data/hora, fator) e validar o resultado.
+
+- **Códigos de “faltante” disfarçados**: valores como `999`, `-1`, `NA`, `""` representam ausência, mas estão misturados com dados válidos.  
+  **Tratamento**: recodificar para ausentes padronizados e decidir entre excluir, imputar ou manter com justificativa.
+
+- **Duplicatas e chaves quebradas**: a mesma unidade amostral aparece repetida; totais e médias ficam incorretos.  
+  **Tratamento**: identificar chaves únicas, remover ou conciliar duplicatas e documentar a decisão.
+
+- **Categorias inconsistentes**: `Masculino`, `M`, `masc` e `male` aparecem como níveis distintos.  
+  **Tratamento**: unificar rótulos, definir categoria de referência substantiva e gerar dummies adequadamente.
+
+- **Datas em formatos mistos**: `31/12/2025` e `12-31-2025` na mesma coluna.  
+  **Tratamento**: normalizar formato, verificar timezone quando relevante e extrair componentes (ano/mês/dia) se necessário.
+
+- **Valores impossíveis**: `altura = -5`, `proporção > 1`, `idade = 300`.  
+  **Tratamento**: definir faixas válidas segundo o domínio e corrigir ou descartar observações inconsistentes.
+
+- **Escalas heterogêneas**: receita em reais e custo em milhares de reais; área em m² e km².  
+  **Tratamento**: padronizar unidades ou aplicar reescala/padronização (ex.: z-score).
+
+- **Outliers evidentes**: uma observação muito superior às demais; zero estrutural inesperado.  
+  **Tratamento**: verificar plausibilidade no contexto, decidir entre correção, winsorização, transformação ou manutenção justificada.
+
+- **Resposta incompatível com o objetivo**: deseja-se regressão linear contínua, mas a variável resposta é binária ou contagem.  
+  **Tratamento**: verificar se o tipo de resposta é compatível com o modelo pretendido (linear, logístico, Poisson etc.).
+
+
+Observe que, assim como a cozinha precisa estar organizada para a receita “dar certo”, a base precisa estar **coerente, completa e padronizada** para que a modelagem produza resultados interpretáveis e estatisticamente válidos.
+
+
+**Checklist rápido: Faça antes de modelar**
+
+1. **Defina o objetivo e o tipo de resposta**: contínua, binária ou contagem; confirme que a variável resposta é compatível com o modelo pretendido.
+2. **Garanta leitura correta**: verifique separador, encoding e símbolo decimal; confirme que variáveis numéricas não foram importadas como texto.
+3. **Acerte tipos e unidades**: converta datas, inteiros e reais; padronize unidades e nomes de variáveis.
+4. **Mapeie e trate dados faltantes**: identifique `NA`, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa.
+5. **Elimine inconsistências**: remova ou una duplicatas, valide chaves, corrija valores impossíveis.
+6. **Cuide de outliers**: identifique pontos extremos; corrija, transforme ou mantenha. Todas as ações com outliers devem ser realizadas com justificativa documentada.
+7. **Codifique variáveis qualitativas**: unifique rótulos, defina categoria de referência e evite colinearidade perfeita na matriz de projeto.
+8. **Cheque condições mínimas para regressão**:  
+   - Variabilidade das covariáveis;  
+   - Ausência de colinearidade perfeita ($X^\top X$ não singular);  
+   - Número de observações maior que o número de parâmetros (**$n > p + 1$**);  
+   - Gere sumários e gráficos básicos;  
+   - **Salve a versão tratada com dicionário de variáveis e log de decisões.**
+
+
+**Cartões de decisão**
+
+- **Faltantes:**  
+  Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)?  
+  → excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa.
+
+- **Outliers:**  
+  Erro de digitação ou unidade? Valor plausível no domínio?  
+  → corrigir / winsorizar / transformar / manter e justificar.
+
+- **Categóricas:**  
+  Existem níveis raros (alta cardinalidade)?  
+  → agrupar em “outros”; escolher referência substantiva; padronizar rótulos.
+
+- **Escalas:**  
+  Magnitudes muito diferentes entre covariáveis?  
+  → aplicar padronização (z-score) ou reescala; revisar unidades.
+
+- **Reprodutibilidade:**  
+  Toda decisão foi registrada no **log de tratamento**?
+  
+### G.2 Leitura e organização dos dados
+
+Ler corretamente um arquivo de dados (formato, delimitador, encoding, símbolo decimal) é a primeira barreira contra erros que podem comprometer toda a análise. Uma leitura incorreta pode fazer com que números sejam interpretados como texto, datas como caracteres ou colunas inteiras sejam deslocadas. Esses problemas, se não detectados no início, propagam-se até a modelagem e podem invalidar inferências.
+
+Em regressão, erros de tipagem e leitura afetam diretamente a construção da matriz de projeto $\mathbf{X}$ e da variável resposta $\mathbf{y}$. Portanto, esta etapa é estrutural, não meramente operacional.
+
+
+**Conexões com a literatura e boas práticas**
+
+Autores como *Charnet et al. (2008)* e *Sheather (2009)* enfatizam que a qualidade dos dados influencia diretamente as estimativas, testes e intervalos de confiança. Essa etapa integra o que se denomina **análise exploratória de dados (AED)**: conhecer o material empírico antes de ajustar qualquer modelo.
+
+Explorar não é modelar, é compreender a estrutura do dado.
+
+
+**Funções úteis no R**
+
+Pacotes e funções frequentemente utilizados nessa etapa incluem:
+
+- `readr`: `read_csv()`, `read_delim()`, `guess_encoding()`, `locale()`
+- `readxl`: `read_excel()`
+- `dplyr`: `glimpse()`, `summarise()`, `count()`
+- `fs` e `here`: organização de diretórios e caminhos reproduzíveis
+- `vroom`: leitura rápida de arquivos grandes
+- `stringi`: diagnóstico e conversão de encoding
+
+O objetivo não é “usar funções”, mas garantir que a base esteja corretamente interpretada pelo R antes de qualquer transformação.
+
+
+**O que fazer**
+
+- Mapear a **origem dos dados** (site, repositório, disciplina, experimento) e sua **licença de uso**.
+- Conferir o **formato do arquivo** (CSV, XLSX, SAV, DTA etc.) e o **delimitador** utilizado (`,`, `;`, tabulação).
+- Ajustar corretamente o **encoding** (UTF-8, latin-1) e o **símbolo decimal** (`,` ou `.`).
+- Definir um **esquema de pastas do projeto** (por exemplo: `dados_brutos/`, `dados_interinos/`, `dados_tratados/`) e convenções padronizadas de nomes.
+
+
+**Boas práticas**
+
+- Manter a pasta `dados_brutos/` **imutável**. Nunca sobrescrever dados originais.
+- Realizar todas as modificações em cópias armazenadas em `dados_tratados/`.
+- Padronizar nomes de colunas: minúsculas, sem acento, em formato `snake_case`.
+- Criar um arquivo `README_dados.md` com:
+  - Fonte dos dados
+  - Data de download
+  - Responsável
+  - Descrição geral das variáveis
+
+
+**Erros comuns (e como evitar)**
+
+- Arquivo CSV com `;` como separador lido como se fosse `,` → verificar explicitamente o delimitador.
+- Valores como `1,23` interpretados como texto → ajustar `locale(decimal_mark = ",")` ou converter adequadamente.
+- Datas ambíguas (ex.: `01/02/2020`) → padronizar formato (preferencialmente ISO 8601: `2020-02-01`).
+- Colunas numéricas importadas como `character` → converter explicitamente e validar.
+
+
+**Checklist rápido**
+
+Antes de seguir para qualquer transformação ou modelagem, verifique:
+
+- [ ] Colunas numéricas estão realmente no tipo numérico?
+- [ ] Datas foram reconhecidas como datas?
+- [ ] Há duplicatas segundo a chave da base?
+- [ ] Nomes de colunas estão padronizados?
+- [ ] A leitura preservou o número esperado de linhas e colunas?
+
+Se qualquer resposta for negativa, o tratamento ainda não começou e a leitura ainda não terminou.
+
+
+### G.3 Estrutura e tipagem das variáveis
+
+A estrutura e o tipo das variáveis determinam como a matriz de projeto $\mathbf{X}$ será construída. Uma tipagem incorreta não é apenas um erro técnico: ela altera o significado estatístico do modelo, pode introduzir colinearidade artificial e comprometer estimativas, testes e interpretações.
+
+
+De acordo com *Sheather (2009)*, a correta identificação do tipo de cada variável é condição essencial para que o modelo represente adequadamente a relação entre preditores e resposta. Uma variável categórica tratada como numérica impõe uma estrutura inexistente; uma variável numérica tratada como categórica multiplica desnecessariamente parâmetros.
+
+Em regressão, a tipagem define como cada coluna entra em $\mathbf{X}$: como valor contínuo, como conjunto de dummies ou como transformação temporal.
+
+
+**Ferramentas R úteis**
+
+Funções base do R:
+
+- `str()` — inspeciona a estrutura da base  
+- `class()` — verifica o tipo de objeto  
+- `as.numeric()`, `as.integer()` — conversões numéricas  
+- `as.Date()` — conversão de datas  
+
+Pacotes auxiliares:
+
+- `lubridate`: `ymd()`, `dmy()`, `ymd_hms()`  
+- `dplyr`: `mutate()`, `across()`  
+- `forcats`: manipulação de fatores  
+
+Para validação:
+- `is.na()` — valores ausentes  
+- `is.finite()` — valores numéricos válidos  
+- Verificações de faixa (ex.: idade ≥ 0)
+
+O objetivo não é apenas converter, mas **verificar se a conversão preserva o significado substantivo da variável**.
+
+
+**Classifique as variáveis**
+
+Antes de qualquer modelagem, identifique claramente:
+
+- Numéricas **contínuas** (salário, temperatura, peso)  
+- Numéricas **discretas** (número de visitas, contagem de eventos)  
+- **Binárias** (0/1, sim/não)  
+- **Categóricas nominais** (sexo, região)  
+- **Categóricas ordinais** (baixo, médio, alto)  
+- **Temporais** (datas, horários)  
+- **Identificadores (IDs)** que não devem entrar como preditores numéricos  
+
+Identificadores numéricos (ex.: matrícula, CPF, código do lote) **não são variáveis quantitativas** e não devem ser tratados como tal na regressão.
+
+
+**Ajustes típicos**
+
+- Converter strings numéricas para número de forma explícita.
+- Converter datas para classe apropriada e, quando necessário, extrair componentes (ano, mês).
+- Transformar variáveis 0/1 em fator quando a interpretação for categórica.
+- Definir fatores com níveis claros e ordenados quando houver estrutura ordinal.
+- Padronizar rótulos inconsistentes (ex.: `M`, `Masculino`, `male` → um único padrão).
+
+Após os ajustes, reavalie a estrutura da base e confirme que cada coluna está no tipo esperado antes de avançar para o tratamento de faltantes ou criação de dummies.
+
+### G.4 Tratamento de dados faltantes (missing)
+
+Dados faltantes alteram o tamanho efetivo da amostra, modificam a estrutura da matriz de projeto $\mathbf{X}$ e podem introduzir viés nas estimativas quando o mecanismo de ausência não é completamente aleatório (MCAR). Em regressão, a presença de faltantes pode funcionar como um **mecanismo implícito de seleção amostral**, afetando tanto a estimação quanto a interpretação dos coeficientes.
+
+Excluir observações com valores ausentes equivale, muitas vezes, a analisar uma subamostra potencialmente não representativa.
+
+
+**Erros clássicos**
+
+- Imputar zero indiscriminadamente (por exemplo, via `replace_na`) sem considerar o significado substantivo.
+- Realizar junções (*joins*) entre tabelas sem validar chaves, criando duplicações artificiais.
+- Remover colunas inteiras apenas por conterem `NA`, sem avaliar sua relevância analítica.
+- Imputar a variável resposta sem justificativa metodológica.
+
+
+**Sugestões da literatura**
+
+Segundo *Little & Rubin (2019)*, o tratamento adequado depende do mecanismo de ausência:
+
+- **MCAR (Missing Completely At Random)**: ausência independente de variáveis observadas e não observadas.
+- **MAR (Missing At Random)**: ausência depende apenas de variáveis observadas.
+- **MNAR (Missing Not At Random)**: ausência depende de informação não observada.
+
+Em situações simples e com baixa proporção de faltantes, imputações por média ou mediana podem ser aceitáveis como aproximação. Em contextos mais complexos, recomenda-se imputação múltipla ou métodos baseados em modelos, preservando a incerteza associada ao processo.
+
+
+**Como minimizar problemas**
+
+- Mapear sistematicamente os valores ausentes com `is.na()` e quantificar proporções por variável.
+- Identificar códigos artificiais de ausência (`999`, `-1`, `""`) e recodificá-los para `NA`.
+- Avaliar a importância substantiva da variável antes de decidir pela exclusão.
+- Documentar cada remoção ou imputação realizada.
+- Para duplicatas associadas a junções, utilizar verificações de chave e funções como `duplicated()` ou `distinct()`.
+
+A decisão deve ser estatística **e** substantiva.
+
+
+**Boas práticas**
+
+- Manter um log explícito das decisões tomadas.
+- Comparar estatísticas descritivas antes e depois da imputação.
+- Evitar alterar a distribuição da variável de forma não justificada.
+- Não imputar automaticamente a variável resposta nesta etapa, salvo sob estratégia metodológica claramente definida.
+
+
+**Procedimento recomendado**
+
+1. Calcular a taxa de faltantes por coluna.
+2. Identificar padrões estruturais de ausência.
+3. Classificar o possível mecanismo (MCAR/MAR/MNAR).
+4. Definir estratégia:  
+   - excluir observações,  
+   - imputar (média, mediana, por grupo ou múltipla),  
+   - manter e modelar posteriormente o mecanismo de ausência.
+5. Registrar todas as decisões no log de tratamento.
+
+Tratamento de dados faltantes não é apenas limpeza — é uma decisão inferencial que pode alterar os resultados do modelo.
+
+### G.5 Detecção de valores extremos e inconsistências
+
+Valores extremos (outliers) podem ser resultado de erro de digitação, inconsistência de unidade ou representar fenômenos reais raros. Em regressão, esses pontos podem influenciar de forma desproporcional os estimadores $\widehat{\boldsymbol{\beta}}$, os resíduos e os diagnósticos de ajuste.
+
+Nem todo valor extremo é um erro, mas todo valor extremo exige investigação.
+
+
+**Erros clássicos**
+
+- Remover automaticamente qualquer ponto extremo sem verificar sua origem.
+- Estabelecer cortes arbitrários sem registrar critérios e justificativas.
+- Transformar a variável resposta sem considerar a nova interpretação dos coeficientes.
+- Ignorar a possibilidade de que o ponto seja informativo para o fenômeno estudado.
+
+
+Segundo *Charnet et al. (2008)* e *Sheather (2009)*, valores extremos podem distorcer estimativas, ampliar variâncias e comprometer testes de hipóteses. 
+
+*Barnett & Lewis (1994)* oferecem fundamentos formais para detecção de outliers em análises univariadas e multivariadas, distinguindo entre:
+
+- Observações extremas na distribuição marginal;
+- Pontos de alta alavancagem (leverage);
+- Observações influentes (que alteram substancialmente o ajuste do modelo).
+
+Embora diagnósticos formais de influência sejam discutidos em outros capítulos, a identificação preliminar já deve ocorrer nesta etapa.
+
+
+**Ferramentas R**
+
+Para inspeção inicial:
+
+- `quantile()` — limites interquartílicos  
+- `sd()` e `scale()` — padronização e z-score  
+- `summary()` — inspeção geral  
+
+Visualizações:
+
+- `ggplot2::geom_boxplot()`  
+- `ggplot2::geom_histogram()`  
+- `ggplot2::geom_point()`  
+
+A visualização frequentemente revela padrões que estatísticas isoladas não mostram.
+
+
+**Como resolver ou minimizar efeitos**
+
+- Confirmar se o valor resulta de erro de digitação ou unidade (ex.: centímetros vs metros).
+- Corrigir inconsistências quando verificadas documentalmente.
+- Aplicar winsorização (`DescTools::Winsorize`) quando a estratégia for limitar extremos mantendo observações.
+- Utilizar transformações (log, raiz quadrada) quando houver forte assimetria.
+- Manter a observação quando for substantivamente plausível e documentar a decisão.
+
+A remoção deve ser exceção, não regra.
+
+
+**Observação importante**
+
+Eliminar valores extremos altera a distribuição da variável, o tamanho da amostra e potencialmente a matriz $\mathbf{X}$. Toda decisão deve ser registrada no log de tratamento.
+
+
+**Leitura adicional**
+
+Barnett, V. & Lewis, T. (1994). *Outliers in Statistical Data*. Wiley.
+
+### G.6 Padronização e transformações numéricas
+
+Padronizar variáveis numéricas torna os preditores comparáveis em escala e pode melhorar a estabilidade numérica de procedimentos de estimação. Transformações adequadas, por sua vez, reduzem assimetria, estabilizam variância e facilitam interpretações coerentes com o fenômeno estudado.
+
+Em regressão linear clássica, a padronização não altera o ajuste global do modelo nem o $R^2$, mas modifica a escala dos coeficientes e sua interpretação. Já em métodos penalizados (Ridge e LASSO), a padronização é praticamente indispensável.
+
+
+*Charnet et al. (2008)* ressaltam que variáveis em escalas muito distintas podem gerar instabilidade numérica e dificultar a comparação entre efeitos. 
+
+*Sheather (2009)* destaca que reescalar variáveis pode facilitar a interpretação de coeficientes em regressões múltiplas, especialmente quando as unidades originais são muito grandes ou muito pequenas.
+
+*Montgomery et al. (2021)* enfatizam que diferenças extremas de magnitude entre covariáveis podem afetar diagnósticos e procedimentos computacionais.
+
+
+**Ferramentas R**
+
+- `scale()` — padronização pelo z-score (média zero e desvio padrão um).
+- Reescala min–max — pode ser feita manualmente via transformações aritméticas.
+- `MASS::boxcox()` — identificação de transformações do tipo Box–Cox.
+- `log()` ou `log1p()` — transformações logarítmicas (úteis para assimetria positiva).
+- Transformações via `dplyr::mutate()` para aplicação sistemática.
+
+A escolha da transformação deve ser guiada pelo comportamento empírico da variável e pelo contexto substantivo.
+
+
+**Soluções recomendadas na literatura**
+
+- Para variáveis altamente assimétricas, aplicar transformações logarítmicas pode aproximar a normalidade e reduzir heterocedasticidade.
+- Para contagens moderadas, *Paula (2004)* sugere transformação por raiz quadrada como alternativa simples.
+- Para distribuições fortemente assimétricas, considerar Box–Cox quando apropriado.
+- Evitar misturar variáveis em escalas radicalmente diferentes sem padronização prévia.
+
+**Quando padronizar**
+
+- Para comparar magnitudes relativas entre preditores.
+- Para métodos penalizados (Ridge, LASSO), em que a penalização depende da escala.
+- Para algoritmos baseados em distância ou otimização numérica.
+- Quando unidades originais dificultam interpretação direta.
+
+Padronizar não é obrigação universal; é uma decisão metodológica que deve preservar a interpretabilidade do modelo.
+
+### G.7 Codificação de variáveis categóricas (dummies)
+
+Uma variável categórica com $k$ níveis não pode entrar diretamente como coluna numérica em $\mathbf{X}$. É necessário convertê-la em variáveis indicadoras (dummies), usualmente em número $k-1$, para evitar colinearidade perfeita.
+
+A escolha da codificação determina a interpretação dos coeficientes estimados.
+
+
+**Erros comuns**
+
+- Criar $k$ dummies para $k$ categorias (armadilha da variável dummy), gerando singularidade em $\mathbf{X}^\top \mathbf{X}$.
+- Escolher categoria de referência sem critério substantivo.
+- Manter níveis raros, produzindo colunas quase vazias e estimativas instáveis.
+- Usar rótulos inconsistentes (acentos, abreviações, maiúsculas/minúsculas misturadas).
+- Tratar variável ordinal como nominal sem refletir sobre a estrutura de ordem.
+
+
+**Conexão com a modelagem**
+
+Quando uma variável categórica é convertida corretamente em $k-1$ dummies, cada coeficiente estimado representa a diferença média entre aquela categoria e a categoria de referência, mantendo os demais preditores constantes.
+
+Se todas as $k$ dummies forem incluídas juntamente com o intercepto, ocorre dependência linear exata, tornando $\mathbf{X}^\top \mathbf{X}$ não invertível no caso clássico de MRLM.
+
+Portanto, a codificação correta não é apenas conveniência computacional, é condição para a existência do estimador de mínimos quadrados.
+
+
+**Fundamentação teórica**
+
+*Charnet et al. (2008)* destacam a importância da escolha da categoria de referência para interpretação dos coeficientes.
+
+*James et al. (2013)* discutem como alta cardinalidade pode gerar modelos instáveis e sobreajustados.
+
+Para variáveis ordinais, a estrutura de ordenação pode ser incorporada explicitamente, evitando perda de informação.
+
+
+**Ferramentas R**
+
+- `model.matrix()` — gera automaticamente a matriz de projeto com codificação apropriada.
+- `fastDummies` — criação explícita de variáveis indicadoras.
+- `recipes::step_dummy()` — codificação sistemática em pipelines.
+- `forcats` — manipulação e reorganização de níveis.
+- Fatores ordenados (`ordered`) para variáveis com hierarquia natural.
+
+O R, por padrão, utiliza codificação por tratamento (*treatment contrasts*), mas outras codificações podem ser especificadas conforme necessidade.
+
+
+**Boas práticas**
+
+- Definir categoria de referência com base em critério substantivo (grupo controle, baseline, padrão).
+- Agrupar níveis raros quando apropriado.
+- Manter um dicionário de variáveis documentando níveis e significados.
+- Padronizar rótulos antes da geração de dummies.
+- Verificar o número final de parâmetros gerados após codificação.
+
+
+**Atenção à alta cardinalidade**
+
+Variáveis com muitos níveis distintos podem gerar dezenas ou centenas de colunas em $\mathbf{X}$, aumentando dimensionalidade e risco de sobreajuste.
+
+Nesses casos, considere:
+
+- Agrupamento por regras de negócio;
+- Seleção de variáveis;
+- Métodos penalizados (quando apropriado na etapa seguinte).
+
+Codificar corretamente é garantir que a estrutura qualitativa do fenômeno seja traduzida adequadamente para o modelo quantitativo.
+
+### G.8 Verificação de condições para modelagem linear
+
+Cumprir condições mínimas como variabilidade das covariáveis, ausência de colinearidade perfeita e tamanho amostral adequado ($n > p + 1$) é o que permite aplicar os resultados teóricos da regressão linear e múltipla com segurança.
+
+No modelo linear clássico, a existência do estimador de mínimos quadrados depende de $\mathbf{X}^\top \mathbf{X}$ ser invertível, o que exige que a matriz de projeto $\mathbf{X}$ tenha posto completo. Assim, esta verificação não é opcional — é estrutural.
+
+Essas checagens antecedem os diagnósticos formais e reduzem problemas posteriores na estimação e interpretação.
+
+
+**Ferramentas R úteis**
+
+- `cor()` ou pacote `corrr` — inspeção de associações entre preditores.
+- `qr()` ou `Matrix::rankMatrix()` — verificação do posto da matriz de projeto.
+- `car::vif()` — cálculo do fator de inflação da variância (VIF).
+- `summary()` e inspeção de variância — identificação de variáveis constantes.
+
+Essas ferramentas ajudam a identificar:
+
+- Colinearidade perfeita ou quase perfeita;
+- Variáveis constantes ou quase constantes;
+- Relações lineares redundantes entre preditores.
+
+
+**Como mitigar problemas**
+
+- Remover ou combinar variáveis altamente correlacionadas.
+- Revisar a codificação de dummies para evitar dependência linear.
+- Padronizar variáveis quando necessário.
+- Eliminar duplicatas estruturais na base.
+- Reduzir dimensionalidade quando $p$ se aproxima de $n$.
+
+Toda verificação deve ser documentada no relatório de tratamento.
+
+
+**Compatibilidade da variável resposta**
+
+Antes da modelagem, é essencial verificar se o tipo da variável resposta é compatível com o modelo pretendido:
+
+- **Contínua**: variável em escala intervalar ou razão.
+- **Binária**: 0/1 ou fator com dois níveis.
+- **Contagem**: inteiros não negativos.
+- **Proporção**: valores no intervalo $[0,1]$.
+
+Escolher modelo inadequado ao tipo de resposta gera inferências inválidas.
+
+
+**Tabela-guia: tipo de resposta e cuidados**
+
+| Tipo de resposta | Exemplo | Tratamento pré-modelo | Modelo típico |
+|---|---|---|---|
+| Contínua | Preço, temperatura | Verificar outliers, padronização e unidades | MRLS, MRLM |
+| Binária | Sucesso/fracasso | Conferir codificação 0/1, balanceamento e faltantes | Logístico, Probit |
+| Contagem | Nº de eventos | Avaliar zeros estruturais e dispersão | Poisson, Binomial Negativa |
+| Proporção | Taxa, share | Verificar limites 0/1 e denominadores | Beta, Quasi-binomial |
+
+Modelar sem verificar essas condições equivale a aplicar teoria sob premissas não verificadas. O tratamento adequado garante que a transição para a modelagem seja matemática e estatisticamente legítima.
+
+### G.9 Sumários e visualizações exploratórias
+
+Explorar os dados antes da modelagem permite identificar padrões, inconsistências e relações estruturais que orientam decisões de limpeza, transformação e especificação do modelo.
+
+A visualização não substitui a modelagem, ela antecipa problemas e revela estruturas que podem afetar a construção de $\mathbf{X}$ e a escolha do modelo.
+
+
+**Ferramentas R**
+
+Funções e pacotes úteis nesta etapa:
+
+- `summary()` — estatísticas descritivas básicas.
+- `table()` ou `dplyr::count()` — frequências de variáveis categóricas.
+- `ggplot2` — histogramas, boxplots, gráficos de dispersão.
+- `GGally::ggpairs()` — matriz gráfica de dispersão.
+- `corrplot` ou `ggcorrplot` — visualização de matrizes de correlação.
+- `plotly` — visualizações interativas (opcional).
+
+O objetivo é compreender estrutura, dispersão, assimetria e possíveis relações lineares preliminares.
+
+
+**Como resolver dificuldades comuns**
+
+- Distribuições muito assimétricas → aplicar transformações (log, raiz quadrada) e reavaliar.
+- Categorias vazias ou raras → reclassificar níveis ou agrupar.
+- Escalas muito distintas → padronizar antes de comparar magnitudes.
+- Correlações elevadas entre preditores → revisar especificação do modelo.
+
+Visualizar é diagnosticar antes do diagnóstico formal.
+
+
+**Produtos esperados**
+
+Ao final da etapa exploratória, espera-se:
+
+- Tabela de estatísticas descritivas por variável numérica (média, desvio padrão, p5, p50, p95).
+- Frequência absoluta e relativa por variável categórica.
+- Histogramas e boxplots para avaliar distribuição.
+- Gráficos de dispersão entre $Y$ e cada $X$.
+- Matriz de correlação entre preditores numéricos.
+
+Esses produtos funcionam como evidência documental do entendimento da base antes da modelagem.
+
+
+**Perguntas-guia**
+
+- Alguma variável apresenta assimetria extrema?
+- Existem valores fora de faixa plausível?
+- Há categorias quase vazias?
+- Quais pares de $X$ apresentam correlação elevada?
+- A relação entre $Y$ e $X$ parece aproximadamente linear?
+
+Responder a essas perguntas reduz erros na etapa seguinte.
+
+
+**Mapa de funções em R (resumo operacional)**
+
+- **Leitura**: `read_csv`, `read_delim`, `read_excel`.
+- **Inspeção**: `glimpse`, `summary`, `count`.
+- **Transformação**: `mutate`, `across`, `scale`.
+- **Tipagem**: `as.numeric`, `as.Date`, `factor`.
+- **Correlação**: `cor`.
+- **Matriz de projeto**: `model.matrix`.
+- **Diagnóstico estrutural**: `qr`, `rankMatrix`, `vif`.
+
+A exploração sistemática consolida a transição entre tratamento de dados e modelagem estatística.
+
+
+### G.10 Salvamento e documentação da base tratada
+
+A documentação do tratamento (log + dicionário) e o versionamento adequado garantem reprodutibilidade, transparência metodológica e facilitam revisão por pares. 
+
+Em regressão, a qualidade das inferências depende não apenas do modelo ajustado, mas da rastreabilidade das decisões tomadas antes da modelagem.
+
+**O que entregar ao final do tratamento**
+
+1. Base final tratada (formato padrão, por exemplo: CSV).
+2. Dicionário de variáveis contendo:
+   - Nome da variável
+   - Tipo
+   - Unidade (quando aplicável)
+   - Níveis (para categóricas)
+   - Origem ou transformação realizada
+3. Log de decisões documentando:
+   - O que foi modificado
+   - Por que foi modificado
+   - Quando foi modificado
+4. Script reproduzível contendo todas as etapas do tratamento (opcional, mas altamente recomendado).
+
+O objetivo é que qualquer outro pesquisador consiga reconstruir exatamente a base utilizada na modelagem.
+
+
+**Convenções úteis**
+
+- Utilizar nome de arquivo com carimbo de data, por exemplo:  
+  `base_tratada_2025-10-26.csv`
+- Manter script de preparo versionado e comentado.
+- Utilizar estrutura organizada de pastas:
+  - `dados_brutos/`
+  - `dados_interinos/`
+  - `dados_tratados/`
+
+Nunca sobrescrever dados brutos.
+
+
+**Pipelines modernos e reprodutibilidade**
+
+Em aplicações contemporâneas, o tratamento de dados é frequentemente organizado em **pipelines**: sequências estruturadas de leitura → transformação → validação → saída tratada → modelagem.
+
+Esse fluxo reduz erros humanos, aumenta consistência e fortalece a reprodutibilidade científica. No ecossistema R, essa abordagem é facilitada por ferramentas como `tidyverse`, `recipes` e estruturas de modelagem integradas.
+
+Mesmo quando não formalizado em código automatizado, o processo deve ser concebido como um fluxo explícito, sequencial e documentado.
+
+Modelar é o passo visível; documentar é o passo que garante credibilidade.
+
+### G.11 Checklist técnico: Condições mínimas para seguir à modelagem
+
+Este checklist consolida os critérios estruturais que devem ser verificados ao final do tratamento de dados, antes do ajuste de qualquer modelo de regressão.
+
+1. **Variabilidade das covariáveis:** nenhuma variável explicativa deve ser constante ou quase constante.
+2. **Ausência de colinearidade perfeita:** a matriz $\mathbf{X}$ deve ter posto completo; logo, $\mathbf{X}^\top \mathbf{X}$ deve ser não singular.
+3. **Tamanho amostral adequado:** $n > p + 1$ no caso do modelo linear com intercepto; caso contrário, considere reduzir dimensionalidade ou ampliar a amostra.
+4. **Escalas compatíveis:** quando necessário, variáveis reescaladas ou padronizadas para evitar instabilidade numérica.
+5. **Tipos de dados conferidos:** variáveis numéricas, categóricas e temporais corretamente tipadas.
+6. **Ausência de erros estruturais:** duplicatas removidas, chaves validadas e inconsistências corrigidas.
+7. **Base salva e documentada:** versão final armazenada com data, autor e dicionário de variáveis.
+8. **Pronta para modelagem:** a base pode ser utilizada diretamente em MRLS, MRLM, MLG ou métodos penalizados sem retrabalho estrutural.
+
+O não atendimento a qualquer desses critérios compromete a legitimidade estatística do modelo. A qualidade de toda inferência estatística depende dessa distinção, e ela começa antes do ajuste do primeiro modelo.
+
+
+### G.12 Bases para prática
+
+Ao finalizar o tratamento de uma base, tente **ajustar um modelo simples apenas para validar tipos e dummies** (sem discutir resultados). Se rodar sem erros e os sumários fizerem sentido, a base está pronta para a próxima unidade.
+
+
+**Escada de dificuldade das bases**
+- **Nível 1 (aquecimento):** Online Shoppers: tipagem + dummies + sumários.  
+- **Nível 2 (intermediário):** Ames/House Prices: faltantes moderados + reescala + dicionário.  
+- **Nível 3 (avançado):** Student Failure (messy): chaves/duplicatas + integração + plano de imputação.  
+- **Extra (discreta):** Bike Sharing: temporais + zeros estruturais + outliers climáticos.
+
+Esta seção apresenta **bases públicas e didáticas** para exercícios de tratamento pré‑modelagem. Cada item traz link de acesso, o que a base representa e **situações‑problema** que motivam o tratamento. Ao final de cada base há um bloco **Tarefas sugeridas** para orientar o estudo.
+
+#### G.10.1 House Prices: Advanced Regression Techniques (Kaggle)
+
+- **Tipo de resposta:** Contínua (`SalePrice`).
+- **Link:** [https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
+- **Sobre a base:** preços de casas em Ames (Iowa, EUA), com \~79 variáveis numéricas e categóricas.
+- **Situação:**
+  - Muitas colunas com valores ausentes (por ex.: `LotFrontage`, `Alley`, `PoolQC`).
+  - Variáveis categóricas com codificação inconsistente e níveis raros.
+  - Outliers em preço e área; unidades e escalas heterogêneas.
+- Excelente caso para um **pipeline completo** de limpeza (missing, tipagem, codificação, reescala) antes da regressão contínua.
+- **Tarefas sugeridas:**
+  1. Mapear porcentagens de faltantes por coluna e decidir estratégia (excluir, imputar, manter).
+  2. Padronizar nomes e unidades; verificar outliers em `SalePrice` e `GrLivArea`.
+  3. Unificar níveis categóricos raros e definir dummies com categoria de referência.
+  4. Salvar uma versão tratada e documentar as decisões.
+
+#### G.12.2 Ames Housing Dataset
+
+- **Tipo de resposta:** Contínua (`SalePrice`).
+- **Link:** [https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques](https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques)
+- **Sobre a base:** variação/derivação do problema de habitação de Ames, amplamente usada em cursos.
+- **Situação:**
+  - Mistura de tipos (numéricos + categóricos), com valores ausentes e níveis raros.
+  - Recomendação frequente de transformação logarítmica da resposta.
+  - Outliers estruturais (ex.: casas muito acima da média).
+- Reforça o **contraste de estratégias** de tratamento em relação à 10.1.
+- **Tarefas sugeridas:**
+  1. Comparar duas abordagens de tratamento de faltantes (ex.: imputação por mediana vs. KNN) e registrar impactos em sumários.
+  2. Testar padronização vs. não padronização nas variáveis contínuas.
+  3. Produzir um dicionário de variáveis claro.
+
+#### G.12.3 Online Shoppers Purchasing Intention (UCI)
+
+- **Tipo de resposta:** Binária (`Revenue`: sim/não).
+- **Link:** [https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset](https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset)
+- **Sobre a base:** sessões de navegação em e‑commerce; objetivo é prever se a sessão termina em compra.
+- **Situação:**
+  - Variáveis categóricas e temporais misturadas às numéricas; necessidade de codificação.
+  - Possível desbalanceamento da classe `Revenue`.
+  - Datas/temporais como texto exigindo normalização e extração de componentes.
+- Bom **caso de tratamento moderado**, contrastando com bases mais “sujas”.
+- **Tarefas sugeridas:**
+  1. Verificar distribuição de `Revenue` (balanceamento).
+  2. Definir dummies consistentes e padronizar escalas numéricas.
+  3. Criar variáveis derivadas temporais (mês, dia da semana) de forma reproducível.
+
+#### G.12.4 Student Failure (Messy) Dataset (Kaggle)
+
+- **Tipo de resposta:** Binária (`fail` = 1 se o aluno reprova/sai; 0 caso contrário).
+- **Link:** [https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset](https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset)
+- **Sobre a base:** dados educacionais com múltiplas tabelas heterogêneas para prever reprovação.
+- **Situação:**
+  - Muitos valores ausentes; tabelas com chaves não padronizadas; duplicatas.
+  - Categorias inconsistentes para o mesmo conceito (ex.: formas distintas de escrever “curso”).
+  - Necessidade de unificação/integração de fontes (join/merge) com validação.
+- Ótimo para treinar **integração e saneamento** antes de qualquer modelagem binária.
+- **Tarefas sugeridas:**
+  1. Reconstruir uma chave única estável e eliminar duplicatas.
+  2. Mapear e recodificar categorias equivalentes.
+  3. Documentar um plano de imputação apropriado por variável.
+
+#### G.12.5 Bike Sharing Dataset (UCI)
+
+- **Tipo de resposta:** Discreta (contagem de bicicletas alugadas por hora/dia).
+- **Link:** [https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset](https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset)
+- **Sobre a base:** uso de bicicletas compartilhadas, com variáveis meteorológicas, feriados, sazonalidade e efeitos de hora do dia.
+- **Situação:**
+  - Contagens com muitos zeros em horários de baixa demanda e picos em horários de pico; necessidade de identificar **zeros estruturais**.
+  - Variáveis temporais em formato de texto exigindo conversão e extração (hora, dia da semana, feriado).
+  - Possíveis outliers (eventos climáticos extremos) e variabilidade alta da resposta.
+  - Padronização de escalas e codificação consistente de feriados/sazonalidade.
+  - Prepara para o tratamento de **resposta discreta (contagem)**, anterior à escolha de modelos como Poisson ou Binomial Negativa.
+- **Tarefas sugeridas:**
+  1. Normalizar as variáveis temporais e criar indicadores (feriado, fim de semana, hora do rush).
+  2. Caracterizar zeros estruturais vs. esparsidade aleatória e discutir implicações para a modelagem.
+  3. Detectar outliers climáticos e decidir estratégia (transformação, winsorização ou justificativa de manutenção).
+  4. Entregar uma versão tratada com dicionário e log de decisões.
+
+
+### G.13. Glossário e Referências {#glossario}
+
+**Glossário rápido de termos** 
+
+**Encoding (codificação de caracteres)**  
+Como o computador guarda letras com acentos e símbolos. Exemplos: **UTF‑8**, **latin‑1**. Se o encoding está errado, aparecem “�” ou letras quebradas.
+
+**Delimitador / Separador**  
+Símbolo que separa colunas em arquivos de texto. Exemplos: vírgula `,`, ponto e vírgula `;`, tab `	`.
+
+**Decimal (símbolo decimal)**  
+O símbolo que separa parte inteira e fracionária. Em pt‑BR, vírgula (ex.: `3,14`); em en‑US, ponto (`3.14`).
+
+**CSV, XLSX, SAV, DTA**  
+Formatos de planilha/tabela. **CSV**: texto simples; **XLSX**: Excel; **SAV**: SPSS; **DTA**: Stata.
+
+**Licença (de uso dos dados)**  
+Condições legais de uso/compartilhamento do dataset (ex.: CC‑BY). Leia antes de usar.
+
+**Faltante / Dados faltantes**  
+Informação ausente em uma célula. Pode aparecer como **NA**, **NaN**, vazio `""` ou códigos como `999`.
+
+**MCAR, MAR, MNAR**  
+Tipos de mecanismo de ausência: **MCAR** (ausência completamente ao acaso), **MAR** (ao acaso condicional a outras variáveis), **MNAR** (não ao acaso; depende do próprio valor ausente).
+
+**Duplicatas e chaves**  
+**Duplicata**: linha repetida. **Chave**: coluna (ou combinação) que identifica exclusivamente cada linha (ex.: `id`).
+
+**Log de duplicatas / Log de tratamento**  
+Registro simples do que foi removido/alterado e por quê. Ajuda na reprodutibilidade.
+
+**Outlier**  
+Valor muito fora do padrão do conjunto. Pode ser erro, evento raro ou caso especial.
+
+**Winsorização (winsorize)**  
+Técnica que **limita** valores extremos a um limite (ex.: truncar no percentil 1% e 99%) para reduzir impacto de outliers.
+
+**Reescala / Padronização (z‑score)**  
+Colocar variáveis em escala comparável. **z‑score**: subtrai a média e divide pelo desvio‑padrão (fica média 0 e dp 1). **min–max**: leva para [0,1] pela fórmula `(x−min)/(max−min)`.
+
+**Cardinalidade (de categorias)**  
+Número de níveis distintos de uma variável categórica. Alta cardinalidade = muitos níveis.
+
+**Padronizar rótulos**  
+Escrever categorias de forma consistente (ex.: tudo minúsculo, sem acento, sem espaços extras), unificando sinônimos.
+
+**Dummies (one‑hot)**  
+Transformar uma variável categórica em colunas 0/1 (uma coluna a menos que o número de categorias, para evitar colinearidade perfeita). 
+
+**Variável ordinal**  
+Categorias que **têm ordem** (ex.: fundamental < médio < superior). 
+
+**Zeros estruturais**  
+Zeros esperados por construção (ex.: aluguel de bicicletas à 03h pode ser zero). Diferem de “zeros por acaso”.
+
+**Regularização (Ridge, LASSO)**  
+Técnicas que penalizam coeficientes para lidar com muitas variáveis e reduzir sobreajuste; exigem atenção à **escala** dos preditores.
+
+**JSON**  
+Formato de texto para dados estruturados em pares chave:valor (não será foco aqui; usamos tabelas).
+
+**Pipeline**  
+Sequência organizada de passos de tratamento: leitura → limpeza → transformação → verificação → saída tratada.
+
+
+**Leituras de extensão**
+- [tidyr — Missing values](https://tidyr.tidyverse.org/articles/missing-values.html)
+
+- [recipes — Imputation steps](https://recipes.tidymodels.org/reference/step_impute_mean.html)  
+
+- [mice — CRAN](https://cran.r-project.org/package=mice)  
+
+- [pointblank — Data validation](https://rstudio.github.io/pointblank/)  
+
+- [car::vif — Documentação](https://search.r-project.org/CRAN/refmans/car/html/vif.html)  
+
+**Leituras complementares**
+
+- [Statistical Analysis with Missing Data – Little & Rubin (Wiley Online Library)](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119482260)  
+- [Introduction to Linear Regression Analysis – Montgomery, Peck & Vining (Wiley)](https://www.wiley.com/en-us/Introduction+to+Linear+Regression+Analysis%2C+6th+Edition-p-9781119578048)  
+- [The Visual Display of Quantitative Information – Edward Tufte (site oficial)](https://www.edwardtufte.com/tufte/books_vdqi)  
+- [Análise de Modelos de Regressão Linear com Aplicações – Charnet et al. (Amazon)](https://www.amazon.com.br/An%C3%A1lise-Modelos-Regress%C3%A3o-Linear-Aplica%C3%A7%C3%B5es/dp/8526807803)  
+- [Modelos de Regressão: com apoio computacional – G. A. Paula (Repositório USP)](https://repositorio.usp.br/item/001392542)  
+- [A Modern Approach to Regression with R – S. Sheather (SpringerLink)](https://link.springer.com/book/10.1007/978-0-387-09608-7)  
+- [Matrix Algebra Useful for Statistics – S. R. Searle (Wiley)](https://www.wiley.com/en-us/Matrix%2BAlgebra%2BUseful%2Bfor%2BStatistics%2C%2B2nd%2BEdition-p-9781118935149)  

@@ -1,0 +1,141 @@
+# Variáveis Fictícias (_Dummies_)
+
+## Introdução e motivação
+
+Até agora, consideramos variáveis explicativas **quantitativas e contínuas**, como idade, renda, horas de estudo ou temperatura.  
+Entretanto, em muitas aplicações, parte importante da explicação vem de **fatores categóricos**, isto é, variáveis que assumem apenas alguns valores discretos, como:
+
+- **Gênero:** masculino ou feminino;  
+- **Localização:** urbano ou rural;  
+- **Região geográfica:** Norte, Nordeste, Centro-Oeste, Sudeste, Sul;  
+- **Categoria de produto:** básico, intermediário, de luxo.  
+
+Para incorporar esse tipo de informação em modelos lineares, introduzimos as chamadas **variáveis fictícias** (ou *dummies*), que convertem categorias em números binários, 0 e 1, sem perder o significado interpretativo.
+
+
+
+## Definição formal
+
+Uma variável dummy é uma variável que assume apenas dois valores, 0 ou 1, indicando a **presença** ou **ausência** de uma característica.
+
+Por exemplo, para representar o hábito e fumar (fumante/não fumante), podemos definir:
+
+$$
+D =
+\begin{cases}
+1, & \text{se o indivíduo é fumante}, \\
+0, & \text{se o indivíduo é não fumante}.
+\end{cases}
+$$
+
+Assim, $D$ funciona como um indicador lógico: ele “liga” ou “desliga” o efeito associado à categoria.
+
+
+## Inclusão de variável binária no MRLM
+
+Ao incluir uma variável dummy no MRLM, o coeficiente que a acompanha é interpretado como uma **diferença média** em relação ao grupo de referência.  
+
+Exemplo com uma variável binária:
+
+$$
+Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i,
+$$
+
+onde $D_i$ indica se o indivíduo pertence ao grupo fumante.
+
+- Para indivíduos do grupo de referência ($D_i=0$):  
+  $$
+  E(Y|D=0) = \beta_0
+  $$
+- Para indivíduos da categoria indicadora ($D_i=1$):  
+  $$
+  E(Y|D=1) = \beta_0 + \beta_1
+  $$
+
+Logo, $\beta_1$ representa a **diferença média entre os dois grupos**, mantendo todas as demais condições constantes.
+
+
+## Fatores com múltiplas categorias
+
+Quando uma variável categórica possui $k$ categorias, são necessárias **$k-1$ variáveis dummy** para representá-la.  
+A categoria omitida torna-se a **categoria de referência**, e seus efeitos são capturados pelo intercepto.
+
+Por exemplo, considere a variável *Região* com cindo categorias: Norte, Nordeste, Centro-Oeste, Sudeste e Sul. Definimos:
+
+- $D_1 = 1$ se Nordeste (NE), $0$ caso contrário;  
+- $D_2 = 1$ se Centro-Oeste (CO), $0$ caso contrário. 
+- $D_3 = 1$ se Sudeste (SE), $0$ caso contrário. 
+- $D_4 = 1$ se sul (S), $0$ caso contrário. 
+
+A categoria *Norte* é a referência, e o modelo é:
+
+$$
+Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 D_{3i} + \beta_4 D_{4i} + \varepsilon_i.
+$$
+
+As médias condicionais são:
+
+$$
+E(Y|N) = \beta_0, \qquad
+E(Y|NE) = \beta_0 + \beta_1, \qquad
+E(Y|CO) = \beta_0 + \beta_2,
+$$
+$$
+E(Y|SE) = \beta_0 + \beta_3, \qquad
+E(Y|S) = \beta_0 + \beta_4,
+$$
+
+Portanto:
+- o intercepto $\beta_0$ representa a média do grupo de referência;  
+- os coeficientes $\beta_1$, $\beta_2$, $\beta_3$ e $\beta_4$ indicam as **diferenças médias** das demais regiões em relação ao Norte.
+
+
+## Interpretação estatística e relação com ANOVA
+
+- O **intercepto** corresponde à média (ou valor esperado) da categoria de referência.  
+- Cada coeficiente associado a uma dummy representa a **diferença média** entre sua categoria e a referência.  
+- Os testes de significância ($t$ ou $F$) avaliam se essas diferenças são estatisticamente relevantes.  
+- Assim, o MRLM com dummies é equivalente a uma **ANOVA paramétrica** em que os níveis de um fator são expressos por variáveis indicadoras.
+
+
+## Cuidados e armadilhas na modelagem com dummies
+
+1. **Multicolinearidade perfeita (armadilha da dummy trap).**  
+   Nunca inclua todas as $k$ dummies de uma variável categórica, pois isso gera dependência linear exata:  
+   $$
+   D_1 + D_2 + \cdots + D_k = 1.
+   $$
+   Essa redundância torna a matriz $\mathbf{X}^\top\mathbf{X}$ não inversível. Sempre exclua uma categoria como referência.
+
+2. **Escolha da categoria de referência.**  
+   A interpretação depende da categoria omitida.  
+   Normalmente escolhe-se a mais frequente ou a mais significativa do ponto de vista substantivo, garantindo comparações coerentes.
+
+3. **Interações com variáveis quantitativas.**  
+   Quando queremos avaliar se o efeito de uma variável contínua difere entre grupos, multiplicamos a dummy pela variável quantitativa, obtendo **termos de interação**.  
+   Esse caso, típico de **ANCOVA (Analysis of Covariance)**, será detalhado na Seção 3.5.
+
+
+
+## Representação matricial e interpretação geométrica
+
+Do ponto de vista matricial, as variáveis dummies são **colunas adicionais** de zeros e uns na matriz $\mathbf{X}$, e o MRLM mantém sua forma geral:
+
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}.
+$$
+
+Cada coluna dummy define um subespaço associado a um grupo.  
+A estimativa por MQO ajusta hiperplanos paralelos (um por grupo), cujas diferenças verticais são dadas pelos coeficientes das dummies.
+
+A inferência segue exatamente os mesmos princípios:
+
+- intervalos e testes $t$ avaliam efeitos individuais (diferenças entre grupos);  
+- testes $F$ avaliam blocos de dummies (efeito conjunto do fator).
+
+
+As variáveis fictícias ampliam enormemente o alcance do MRLM, permitindo que fatores **qualitativos** sejam incorporados à análise de forma direta e interpretável.  
+Combinando variáveis contínuas e categóricas, a regressão linear torna-se uma ferramenta unificada para investigar **efeitos médios**, **diferenças entre grupos** e **interações** entre variáveis de naturezas distintas.  Um ponto de partida para modelos mais gerais, como a **ANCOVA** e os **Modelos Lineares Generalizados**.
+
+
+

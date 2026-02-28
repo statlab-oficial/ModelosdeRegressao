@@ -1,0 +1,66 @@
+# Lista de Siglas e Símbolos
+
+## Lista de Siglas
+
+| Sigla               | Significado                                                            |
+|:-----------------|:-----------------------------------------------------|
+| MRLS                | Modelo de Regressão Linear Simples                                     |
+| MRLM                | Modelo de Regressão Linear Múltipla                                    |
+| MQO / OLS           | Mínimos Quadrados Ordinários / *Ordinary Least Squares*                |
+| MV                  | Máxima Verossimilhança                                                 |
+| WLS                 | *Weighted Least Squares* (Regressão Linear Ponderada)                  |
+| GLS                 | *Generalized Least Squares* (MQ Generalizados)                         |
+| BLUE                | *Best Linear Unbiased Estimator* (Melhor Estimador Linear Não-Viesado) |
+| GLM                 | *Generalized Linear Model* (Modelo Linear Generalizado)                |
+| GAM                 | *Generalized Additive Model* (Modelo Aditivo Generalizado)             |
+| GAMLSS              | *Generalized Additive Model for Location, Scale and Shape*             |
+| ANOVA               | Análise de Variância                                                   |
+| IC                  | Intervalo de Confiança                                                 |
+| EP                  | Erro-Padrão                                                            |
+| IC95%               | Intervalo de Confiança a 95%                                           |
+| H0, H1              | Hipótese nula, Hipótese alternativa                                    |
+| PDF, CDF            | Função Densidade de Probabilidade; Função de Distribuição Acumulada    |
+| AIC, BIC, AICc      | Critérios de Informação (Akaike, Bayesiano, Akaike corrigido)          |
+| $R^2$, $\bar{R}^2$  | Coeficiente de determinação e ajustado                                 |
+| SQTot, SQReg, SQRes | Somas de Quadrados (Total, Regressão, Resíduos)                        |
+| PRESS               | *Predicted Residual Sum of Squares* (LOOCV)                            |
+| CV-$k$              | *k*-fold Cross-Validation                                              |
+| VIF                 | *Variance Inflation Factor*                                            |
+| df                  | Graus de liberdade                                                     |
+| Var, Cov, Corr      | Variância, Covariância, Correlação                                     |
+| FDR                 | *False Discovery Rate*                                                 |
+
+\clearpage
+
+## Lista de Símbolos
+
+| Símbolo                                                | Descrição                                                                                             |
+|:-------------------------|:---------------------------------------------|
+| $Y,\ \mathbf{Y}$                                       | Variável resposta (escalar / vetor de observações)                                                    |
+| $X,\ \mathbf{X}$                                       | Matriz de covariáveis (matriz de planejamento)                                                        |
+| $\beta_0,\ \beta_1,\ \dots,\ \beta_p$                  | Parâmetros do modelo (intercepto e inclinações)                                                       |
+| $\boldsymbol{\beta}$                                   | Vetor de parâmetros $(\beta_0,\ \beta_1,\ \ldots,\ \beta_p)^\top$                                     |
+| $\varepsilon_i,\ \boldsymbol{\varepsilon}$             | Termo(s) de erro aleatório (escalar / vetor)                                                          |
+| $\hat{\beta}_j,\ \hat{\boldsymbol{\beta}}$             | Estimadores (MQO/MV) dos parâmetros                                                                   |
+| $\hat{Y}_i,\ \hat{\mathbf{Y}}$                         | Valores ajustados pelo modelo (escalar / vetor)                                                       |
+| $\hat{\varepsilon}_i,\ \hat{\boldsymbol{\varepsilon}}$ | Resíduos (observado -- ajustado; escalar / vetor)                                                     |
+| $\hat{\sigma}^2$                                       | Estimador da variância residual ($\hat{\sigma}^2=\mathrm{SQRes}/(n-p-1)$)                             |
+| $\mathbf{H}$                                           | Matriz "chapéu" (projeção): $\ \mathbf{H}=\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top$ |
+| $\mathbf{M}$                                           | Matriz dos resíduos: $\ \mathbf{M}=\mathbf{I}_n-\mathbf{H}$                                           |
+| $h_{ii}$                                               | Alavancagem (diagonal de $\mathbf{H}$)                                                                |
+| $r_i$                                                  | Resíduo *studentizado*: $r_i=\dfrac{\hat{\varepsilon}_i}{\hat{\sigma}\sqrt{1-h_{ii}}}$                |
+| $D_i$                                                  | Distância de Cook                                                                                     |
+| $\mathbf{I}_n$                                         | Matriz identidade de dimensão $n$                                                                     |
+| $\mathrm{col}(\mathbf{X})$                             | Espaço coluna de $\mathbf{X}$                                                                         |
+| $\operatorname{rank}(\mathbf{X})$                      | Posto (rank) de $\mathbf{X}$                                                                          |
+| $\mathbf{X}^+$                                         | Inversa generalizada de Moore--Penrose                                                                |
+| $\mathrm{tr}(\mathbf{A})$                              | Traço da matriz $\mathbf{A}$                                                                          |
+| $\det(\mathbf{A})$                                     | Determinante de $\mathbf{A}$                                                                          |
+| $\mathbf{A}^{-1}$, $\mathbf{A}^\top$                   | Inversa e transposta de $\mathbf{A}$                                                                  |
+| $\mathbb{R}^n$                                         | Espaço vetorial real $n$-dimensional                                                                  |
+| $\mathcal{N}_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$  | Distribuição Normal $n$-variada                                                                       |
+| $\boldsymbol{\mu},\ \boldsymbol{\Sigma}$               | Média e matriz de covariância na Normal multivariada                                                  |
+| $n,\ p$                                                | Nº de observações; Nº de variáveis explicativas                                                       |
+| $\bar{X},\ \bar{Y}$                                    | Médias amostrais de $X$ e $Y$                                                                         |
+| $S_{xx},\ S_{xy}$                                      | Somas de quadrados e produto cruzado (MRLS)                                                           |
+| $\mathbf{C},\ d$                                       | Matriz de contrastes e vetor-alvo (testes conjuntos: $H_0:\mathbf{C}\boldsymbol{\beta}=d$)            |

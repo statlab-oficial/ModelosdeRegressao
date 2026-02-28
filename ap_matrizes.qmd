@@ -1,0 +1,1185 @@
+# Estrutura Matricial dos Modelos de Regressão Linear
+
+A formulação moderna dos modelos de regressão linear é essencialmente matricial. Essa notação vetorial revela a estrutura geométrica do problema de estimação, explicita as condições necessárias para identificabilidade dos parâmetros e permite analisar propriedades estatísticas dos estimadores de forma sistemática (ver @harville1997).
+
+Este apêndice consolida os principais elementos de Álgebra Linear utilizados ao longo do estudo de regressão, com ênfase nas estruturas que reaparecem na estimação por mínimos quadrados, na inferência e na análise de diagnóstico.
+
+## Operações Fundamentais com Matrizes e Vetores
+
+A linguagem matricial é uma forma compacta de escrever o modelo de regressão que permite enxergar o problema como um problema geométrico em $\mathbb{R}^n$. Cada vetor corresponde a um ponto ou direção nesse espaço, e cada matriz representa uma transformação linear.
+
+Sejam $\mathbf{A}$ e $\mathbf{B}$ matrizes de dimensões compatíveis e $\mathbf{x}, \mathbf{y}$ vetores coluna em $\mathbb{R}^n$.
+
+Para fixar ideias, considere explicitamente:
+
+$$
+\mathbf{x} =
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix},
+\qquad
+\mathbf{y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}.
+$$
+
+### Soma Matricial
+
+Se
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix},
+\qquad
+\mathbf{B} =
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix},
+$$
+
+então
+
+$$
+\mathbf{A} + \mathbf{B}
+=
+\begin{bmatrix}
+a_{11}+b_{11} & a_{12}+b_{12} \\
+a_{21}+b_{21} & a_{22}+b_{22}
+\end{bmatrix}.
+$$
+
+A soma é definida elemento a elemento e exige dimensões idênticas. 
+
+### Produto Matricial
+
+Se
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix},
+\qquad
+\mathbf{B} =
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix},
+$$
+
+então
+
+$$
+\mathbf{A}\mathbf{B}
+=
+\begin{bmatrix}
+a_{11}b_{11}+a_{12}b_{21} & a_{11}b_{12}+a_{12}b_{22} \\
+a_{21}b_{11}+a_{22}b_{21} & a_{21}b_{12}+a_{22}b_{22}
+\end{bmatrix}.
+$$
+
+O produto matricial corresponde à composição de transformações lineares.\
+No modelo linear
+
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta},
+$$
+
+a matriz $\mathbf{X}$, de dimensão $n \times (p+1)$ transforma o vetor de parâmetros $\boldsymbol{\beta}$, de dimensão $(p+1) \times 1$ em um vetor no espaço das respostas. Assim, $\mathbf{X}$ pode ser interpretada como uma transformação que leva parâmetros em $\mathbb{R}^{p+1}$ para vetores ajustados em $\mathbb{R}^n$.
+
+### Produto Interno e Norma
+
+O produto interno entre vetores é dado por
+
+$$
+\mathbf{x}^\top \mathbf{y}
+=
+\sum_{i=1}^n x_i y_i.
+$$
+
+Quando $\mathbf{x} = \mathbf{y}$, obtemos
+
+$$
+\mathbf{x}^\top \mathbf{x}
+=
+\sum_{i=1}^n x_i^2,
+$$
+
+que define o quadrado da norma euclidiana:
+
+$$
+\|\mathbf{x}\|^2 = \mathbf{x}^\top \mathbf{x}.
+$$
+
+Essa noção de norma é central na regressão, pois a estimação por mínimos quadrados consiste em minimizar
+
+$$
+\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2.
+$$
+
+Portanto, o problema de estimação é um problema geométrico de minimizar distância no espaço $\mathbb{R}^n$. A formulação geométrica da regressão em termos de subespaços e projeções é desenvolvida em detalhe em @harville1997.
+
+### Forma Quadrática
+
+Uma expressão da forma
+
+$$
+\mathbf{x}^\top \mathbf{A}\mathbf{x}
+$$
+
+é chamada forma quadrática.
+
+Para visualizar, considere
+
+$$
+\mathbf{x} =
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix},
+\qquad
+\mathbf{A} =
+\begin{bmatrix}
+a & b \\
+b & c
+\end{bmatrix}.
+$$
+
+Então
+
+$$
+\mathbf{x}^\top \mathbf{A}\mathbf{x}
+=
+a x_1^2 + 2b x_1 x_2 + c x_2^2.
+$$
+
+Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor $\mathbf{Y}$ (ver @rencher2012).
+
+### Transposição
+
+A transposta de uma matriz é obtida trocando linhas por colunas:
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}
+\quad
+\Rightarrow
+\quad
+\mathbf{A}^\top =
+\begin{bmatrix}
+a_{11} & a_{21} \\
+a_{12} & a_{22}
+\end{bmatrix}.
+$$
+
+A transposição é essencial para definir produtos internos e garantir que expressões como $\mathbf{X}^\top\mathbf{X}$ sejam matrizes quadradas.
+
+### Inversão
+
+Uma matriz quadrada $\mathbf{A}$ é invertível se existe $\mathbf{A}^{-1}$ tal que
+
+$$
+\mathbf{A}^{-1}\mathbf{A} = \mathbf{A}\mathbf{A}^{-1} = \mathbf{I}.
+$$
+
+Por exemplo, para uma matriz $2 \times 2$,
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix},
+$$
+
+se $ad - bc \neq 0$, então
+
+$$
+\mathbf{A}^{-1}
+=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix}.
+$$
+
+Na regressão, a invertibilidade de $\mathbf{X}^\top \mathbf{X}$ é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas, ver @golub2013.
+
+### Propriedades Importantes
+
+Duas identidades frequentemente utilizadas são
+
+$$
+(\mathbf{A}\mathbf{B})^\top = \mathbf{B}^\top \mathbf{A}^\top,
+\qquad
+(\mathbf{A}^{-1})^\top = (\mathbf{A}^\top)^{-1}.
+$$
+
+Essas propriedades são fundamentais na dedução de resultados como:
+
+$$
+\mathrm{Var}(\hat{\boldsymbol{\beta}})
+=
+\sigma^2 (\mathbf{X}^\top \mathbf{X})^{-1},
+$$
+
+e na demonstração das propriedades das matrizes de projeção.
+
+Essas operações constituem o mecanismo estrutural que permitirá:
+
+-   interpretar o estimador como projeção ortogonal;
+-   escrever somas de quadrados como formas quadráticas;
+-   analisar variâncias e covariâncias de estimadores;
+-   compreender a geometria do ajuste e do diagnóstico.
+
+Nos itens seguintes, essas operações serão organizadas dentro da estrutura específica do modelo linear múltiplo.
+
+## Estruturas Matriciais Relevantes
+
+Determinados tipos de matrizes surgem de forma recorrente na teoria da regressão linear. Cada uma delas corresponde a uma propriedade geométrica ou estatística que será explorada na estimação, na inferência e na análise de diagnóstico.
+
+A tabela a seguir resume algumas dessas estruturas fundamentais.
+
+| Tipo                      | Definição                                                               | Relevância                                |
+|------------------|--------------------------|----------------------------|
+| Identidade $\mathbf{I}_n$ | Diagonal principal composta por 1's                                     | Elemento neutro da multiplicação          |
+| Simétrica                 | $\mathbf{A} = \mathbf{A}^\top$                                          | Autovalores reais                         |
+| Idempotente               | $\mathbf{A}^2 = \mathbf{A}$                                             | Projeções                                 |
+| Ortogonal                 | $\mathbf{A}^\top \mathbf{A} = \mathbf{I}$                               | Preserva norma                            |
+| Diagonal                  | Elementos fora da diagonal iguais a zero                                | Simplifica formas quadráticas             |
+| Definida positiva         | $\mathbf{x}^\top \mathbf{A}\mathbf{x} > 0$ para todo $\mathbf{x}\neq 0$ | Garantia de invertibilidade e convexidade |
+
+A seguir, detalham-se as propriedades e implicações dessas estruturas no contexto do modelo linear.
+
+### Matriz Identidade
+
+A matriz identidade de ordem $n$ é dada por
+
+$$
+\mathbf{I}_n =
+\begin{bmatrix}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 1
+\end{bmatrix}.
+$$
+
+Ela satisfaz
+
+$$
+\mathbf{I}_n \mathbf{x} = \mathbf{x}
+\quad
+\text{para todo } \mathbf{x} \in \mathbb{R}^n.
+$$
+
+No modelo linear, a identidade aparece, por exemplo, na matriz de covariância dos erros sob homocedasticidade:
+
+$$
+\mathrm{Cov}(\boldsymbol{\varepsilon}) = \sigma^2 \mathbf{I}_n.
+$$
+
+Sob normalidade, essa estrutura implica independência e variância constante dos erros.
+
+### Matrizes Simétricas
+
+Uma matriz é simétrica se
+
+$$
+\mathbf{A} = \mathbf{A}^\top.
+$$
+
+Por exemplo,
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+2 & -1 \\
+-1 & 3
+\end{bmatrix}
+$$
+
+é simétrica.
+
+Matrizes simétricas possuem autovalores reais e podem ser diagonalizadas por matrizes ortogonais. Essa propriedade é crucial para compreender a decomposição espectral de $\mathbf{X}^\top \mathbf{X}$ e analisar problemas como multicolinearidade (ver @harville1997).
+
+No modelo linear, as matrizes $\mathbf{X}^\top \mathbf{X}$, $\mathbf{H}$ e $\mathbf{M}$ são simétricas.
+
+### Matrizes Idempotentes
+
+Uma matriz é idempotente se
+
+$$
+\mathbf{A}^2 = \mathbf{A}.
+$$
+
+Isso implica que aplicar a transformação duas vezes produz o mesmo resultado que aplicá-la uma vez.
+
+Por exemplo, a matriz
+
+$$
+\mathbf{P} =
+\begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix}
+$$
+
+é idempotente.
+
+No modelo linear, a matriz de projeção
+
+$$
+\mathbf{H} = \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+$$
+
+satisfaz
+
+$$
+\mathbf{H}^2 = \mathbf{H}.
+$$
+
+Isso significa que $\mathbf{H}$ projeta vetores no subespaço $\mathrm{col}(\mathbf{X})$. Uma vez projetado, aplicar novamente a projeção não altera o vetor.
+
+Essa propriedade é fundamental para compreender:
+
+-   decomposição ortogonal;
+-   independência entre componentes projetadas sob normalidade;
+-   decomposição da soma de quadrados total.
+
+### Matrizes Ortogonais
+
+Uma matriz $\mathbf{Q}$ é ortogonal se
+
+$$
+\mathbf{Q}^\top \mathbf{Q} = \mathbf{I}.
+$$
+
+Isso implica que
+
+$$
+\|\mathbf{Q}\mathbf{x}\| = \|\mathbf{x}\|.
+$$
+
+Ou seja, matrizes ortogonais preservam comprimentos e ângulos.
+
+Essa propriedade é central na decomposição espectral de matrizes simétricas:
+
+$$
+\mathbf{A} = \mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\top,
+$$
+
+em que $\boldsymbol{\Lambda}$ é diagonal contendo os autovalores.A análise numérica dessas decomposições é tratada em profundidade em @golub2013.
+
+Na regressão, essa decomposição permite analisar:
+
+-   a estrutura de $\mathbf{X}^\top \mathbf{X}$;
+-   a estabilidade numérica da estimação;
+-   o efeito da multicolinearidade.
+
+### Matrizes Diagonais
+
+Uma matriz diagonal possui a forma
+
+$$
+\mathbf{D} =
+\begin{bmatrix}
+d_1 & 0 & \cdots & 0 \\
+0 & d_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & d_n
+\end{bmatrix}.
+$$
+
+Formas quadráticas envolvendo matrizes diagonais simplificam-se para
+
+$$
+\mathbf{x}^\top \mathbf{D}\mathbf{x}
+=
+\sum_{i=1}^n d_i x_i^2.
+$$
+
+Essa simplificação é útil na análise de variâncias e na interpretação de decomposições espectrais.
+
+### Matrizes Definidas Positivas
+
+Uma matriz simétrica $\mathbf{A}$ é definida positiva se
+
+$$
+\mathbf{x}^\top \mathbf{A}\mathbf{x} > 0
+\quad
+\text{para todo } \mathbf{x} \neq \mathbf{0}.
+$$
+
+Equivalentemente, todos os seus autovalores são positivos.
+
+Essa propriedade possui consequências fundamentais:
+
+1.  $\mathbf{A}$ é invertível;
+2.  a função $\mathbf{x}^\top \mathbf{A}\mathbf{x}$ é estritamente convexa;
+3.  problemas de minimização associados possuem solução única.
+
+No modelo de regressão linear, a matriz
+
+$$
+\mathbf{X}^\top \mathbf{X}
+$$
+
+é simétrica e definida positiva se, e somente se, as colunas de $\mathbf{X}$ forem linearmente independentes. Isso equivale à condição
+
+$$
+\operatorname{rank}(\mathbf{X}) = p+1.
+$$
+
+Quando essa condição é satisfeita, o estimador de mínimos quadrados
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top \mathbf{Y}
+$$
+
+existe e é único.
+
+Se $\mathbf{X}^\top \mathbf{X}$ não for definida positiva, o problema de estimação perde identificabilidade, caracterizando multicolinearidade perfeita.
+
+A compreensão dessas estruturas matriciais permite interpretar o modelo linear como:
+
+-   um problema geométrico de projeção em subespaços;
+-   um problema analítico de minimização convexa;
+-   um problema espectral envolvendo autovalores e autovetores.
+
+Essas perspectivas convergem na teoria de estimação, inferência e diagnóstico.
+
+## Estrutura Geométrica do Modelo Linear
+
+Considere o modelo linear múltiplo em notação matricial:
+
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+$$
+
+em que
+
+-   $\mathbf{Y} \in \mathbb{R}^n$ é o vetor de respostas observadas,
+-   $\mathbf{X} \in \mathbb{R}^{n \times (p+1)}$ é a matriz de planejamento,
+-   $\boldsymbol{\beta} \in \mathbb{R}^{p+1}$ é o vetor de parâmetros,
+-   $\boldsymbol{\varepsilon} \in \mathbb{R}^n$ é o vetor de erros.
+
+Explicitamente, pode-se escrever
+
+$$
+\mathbf{X}
+=
+\begin{bmatrix}
+1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix},
+\qquad
+\boldsymbol{\beta}
+=
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_p
+\end{bmatrix}.
+$$
+
+Cada coluna de $\mathbf{X}$ é um vetor em $\mathbb{R}^n$. Assim, $\mathbf{X}$ pode ser vista como um conjunto de $p+1$ vetores que geram um subespaço de $\mathbb{R}^n$.
+
+### Espaço Coluna e Identificabilidade
+
+O **espaço coluna** de $\mathbf{X}$ é definido como
+
+$$
+\mathrm{col}(\mathbf{X})
+=
+\left\{
+\mathbf{X}\boldsymbol{\beta}
+:
+\boldsymbol{\beta} \in \mathbb{R}^{p+1}
+\right\}.
+$$
+
+Esse conjunto é um subespaço vetorial de $\mathbb{R}^n$, cujo posto é
+
+$$
+\operatorname{rank}(\mathbf{X}) \leq p+1.
+$$
+
+Se as colunas de $\mathbf{X}$ forem linearmente independentes, então
+
+$$
+\operatorname{rank}(\mathbf{X}) = p+1,
+$$
+
+e o espaço coluna tem dimensão $p+1$.
+
+Essa condição é equivalente à positividade definida de $\mathbf{X}^\top \mathbf{X}$ e garante a identificabilidade única dos parâmetros.
+
+### O Problema de Mínimos Quadrados como Problema de Projeção
+
+O estimador de mínimos quadrados é definido como a solução do problema
+
+$$
+\min_{\boldsymbol{\beta}}
+\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2.
+$$
+
+Geometricamente, isso significa encontrar o vetor em $\mathrm{col}(\mathbf{X})$ que esteja mais próximo de $\mathbf{Y}$ na métrica euclidiana.
+
+Seja
+
+$$
+\hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}}.
+$$
+
+Então
+
+$$
+\hat{\mathbf{Y}} \in \mathrm{col}(\mathbf{X})
+$$
+
+e
+
+$$
+\mathbf{Y} - \hat{\mathbf{Y}}
+\perp
+\mathrm{col}(\mathbf{X}).
+$$
+
+Ou seja,
+
+$$
+\mathbf{X}^\top(\mathbf{Y} - \hat{\mathbf{Y}}) = \mathbf{0}.
+$$
+
+Essa condição é exatamente a forma matricial das equações normais.
+
+### Interpretação Ortogonal e Soma Direta
+
+Seja $V = \mathbb{R}^n$ equipado com o produto interno usual 
+$$
+\langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y}.
+$$
+
+Se $S$ é um subespaço de $\mathbb{R}^n$, define-se seu complemento ortogonal como
+
+$$
+S^\perp
+=
+\left\{
+\mathbf{z} \in \mathbb{R}^n :
+\mathbf{z}^\top \mathbf{s} = 0
+\ \text{para todo } \mathbf{s} \in S
+\right\}.
+$$
+
+Diz-se que $\mathbb{R}^n$ é a **soma direta ortogonal** de dois subespaços $S$ e $T$ se:
+
+1.  todo vetor de $\mathbb{R}^n$ pode ser escrito como soma de um vetor em $S$ e um vetor em $T$;
+2.  essa decomposição é única;
+3.  $S$ e $T$ são ortogonais, isto é, $\mathbf{s}^\top \mathbf{t} = 0$ para todo $\mathbf{s}\in S$ e $\mathbf{t}\in T$.
+
+Nessa situação escreve-se
+
+$$
+\mathbb{R}^n = S \oplus T,
+$$
+
+em que o símbolo $\oplus$ indica soma direta.
+
+No contexto do modelo linear, tomando
+
+$$
+S = \mathrm{col}(\mathbf{X}),
+\qquad
+T = \mathrm{col}(\mathbf{X})^\perp,
+$$
+
+obtém-se
+
+$$
+\mathbb{R}^n
+=
+\mathrm{col}(\mathbf{X})
+\oplus
+\mathrm{col}(\mathbf{X})^\perp.
+$$
+
+Isso significa que qualquer vetor $\mathbf{Y} \in \mathbb{R}^n$ pode ser decomposto de maneira única como
+
+$$
+\mathbf{Y}
+=
+\hat{\mathbf{Y}}
++
+\hat{\boldsymbol{\varepsilon}},
+$$
+
+onde
+
+-   $\hat{\mathbf{Y}} \in \mathrm{col}(\mathbf{X})$,
+-   $\hat{\boldsymbol{\varepsilon}} \in \mathrm{col}(\mathbf{X})^\perp$.
+
+A ortogonalidade implica
+
+$$
+\hat{\mathbf{Y}}^\top \hat{\boldsymbol{\varepsilon}} = 0,
+$$
+
+ou, equivalentemente,
+
+$$
+\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = \mathbf{0}.
+$$
+
+Essa decomposição é puramente geométrica e independe de qualquer hipótese probabilística sobre os erros. Ela constitui o núcleo estrutural do método de mínimos quadrados e fundamenta:
+
+-   a decomposição da soma de quadrados total;
+-   a contagem de graus de liberdade;
+-   a independência entre componentes projetadas sob normalidade.
+
+Assim, o modelo linear pode ser interpretado como a decomposição ortogonal do vetor de respostas em duas componentes pertencentes a subespaços complementares.
+
+### Relação com Posto e Dimensão
+
+Se $\operatorname{rank}(\mathbf{X}) = r$, então:
+
+-   $\dim(\mathrm{col}(\mathbf{X})) = r$,
+-   $\dim(\mathrm{col}(\mathbf{X})^\perp) = n - r$.
+
+No modelo linear completo com intercepto e colunas independentes,
+
+$$
+r = p+1,
+$$
+
+e, portanto, o espaço residual tem dimensão
+
+$$
+n - (p+1).
+$$
+
+Essa contagem de dimensões será reinterpretada mais adiante como graus de liberdade na decomposição das somas de quadrados.
+
+### Conexão com Diagnóstico
+
+A estrutura geométrica permite compreender diversos elementos de diagnóstico:
+
+-   Vetores de alta alavancagem correspondem a observações cuja projeção sobre $\mathrm{col}(\mathbf{X})$ é dominante.
+-   Resíduos grandes correspondem a componentes significativas no subespaço ortogonal.
+-   A decomposição da variabilidade total decorre da ortogonalidade entre componentes projetadas.
+
+O modelo linear é, portato, uma decomposição geométrica do vetor de respostas em dois componentes ortogonais.
+
+
+## Matrizes de Projeção e Decomposição Ortogonal
+
+A matriz de projeção associada ao modelo linear múltiplo é definida por
+
+$$
+\mathbf{H}
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top.
+$$
+
+Essa matriz desempenha papel relevante na teoria da regressão, pois formaliza algebricamente a projeção ortogonal sobre o subespaço $\mathrm{col}(\mathbf{X})$.
+
+#### Verificação das Propriedades Estruturais
+
+**Simetria**
+
+$$
+\mathbf{H}^\top
+=
+\left[
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+\right]^\top
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+=
+\mathbf{H}.
+$$
+
+Utilizou-se o fato de que $\mathbf{X}^\top \mathbf{X}$ é simétrica e que a transposta de um produto inverte a ordem dos fatores.
+
+**Idempotência**
+
+$$
+\mathbf{H}^2
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top.
+$$
+
+Como
+
+$$
+\mathbf{X}^\top \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}
+=
+\mathbf{I},
+$$
+
+segue que
+
+$$
+\mathbf{H}^2
+=
+\mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+=
+\mathbf{H}.
+$$
+
+A idempotência caracteriza transformações que, uma vez aplicadas, não alteram mais o vetor.
+
+#### Interpretação Geométrica
+
+Para qualquer vetor $\mathbf{y} \in \mathbb{R}^n$,
+
+$$
+\mathbf{H}\mathbf{y}
+\in
+\mathrm{col}(\mathbf{X}).
+$$
+
+Além disso,
+
+$$
+\mathbf{y} - \mathbf{H}\mathbf{y}
+\in
+\mathrm{col}(\mathbf{X})^\perp.
+$$
+
+Portanto,
+
+$$
+\mathbf{y}
+=
+\mathbf{H}\mathbf{y}
++
+(\mathbf{I}-\mathbf{H})\mathbf{y}.
+$$
+
+Definindo
+
+$$
+\mathbf{M} = \mathbf{I}_n - \mathbf{H},
+$$
+
+obtém-se a projeção complementar sobre o subespaço ortogonal.
+
+#### Propriedades da Matriz Residual
+
+A matriz
+
+$$
+\mathbf{M} = \mathbf{I}_n - \mathbf{H}
+$$
+
+satisfaz:
+
+-   $\mathbf{M}^\top = \mathbf{M}$,
+-   $\mathbf{M}^2 = \mathbf{M}$,
+-   $\mathbf{H}\mathbf{M} = \mathbf{0}$,
+-   $\mathbf{M}\mathbf{H} = \mathbf{0}$.
+
+Essas propriedades garantem que os subespaços são ortogonais e complementares.
+
+#### Decomposição do Vetor de Respostas
+
+Aplicando as matrizes ao vetor $\mathbf{Y}$:
+
+$$
+\mathbf{Y}
+=
+\mathbf{H}\mathbf{Y}
++
+\mathbf{M}\mathbf{Y}
+=
+\hat{\mathbf{Y}}
++
+\hat{\boldsymbol{\varepsilon}}.
+$$
+
+em que
+
+-   $\hat{\mathbf{Y}} = \mathbf{H}\mathbf{Y}$ pertence ao espaço coluna;
+-   $\hat{\boldsymbol{\varepsilon}} = \mathbf{M}\mathbf{Y}$ pertence ao complemento ortogonal.
+
+A ortogonalidade implica
+
+$$
+\hat{\mathbf{Y}}^\top \hat{\boldsymbol{\varepsilon}} = 0.
+$$
+
+Essa identidade é a base da decomposição da soma de quadrados total.
+
+#### Traço, Posto e Autovalores
+
+Para matrizes idempotentes e simétricas, os autovalores são apenas 0 ou 1.
+
+Se
+
+$$
+\operatorname{rank}(\mathbf{X}) = p+1,
+$$
+
+então:
+
+-   $\mathbf{H}$ possui $p+1$ autovalores iguais a 1,
+-   e $n-(p+1)$ autovalores iguais a 0.
+
+Assim,
+
+$$
+\mathrm{tr}(\mathbf{H}) = p+1.
+$$
+
+De forma análoga,
+
+$$
+\mathrm{tr}(\mathbf{M}) = n - p - 1.
+$$
+
+Como o traço de uma matriz idempotente simétrica coincide com seu posto, essas quantidades correspondem às dimensões dos subespaços projetados (ver @harville1997).
+
+#### Conexão com Somas de Quadrados
+
+A soma de quadrados ajustada pode ser escrita como
+
+$$
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}.
+$$
+
+A soma de quadrados residual é
+
+$$
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Como $\mathbf{H}$ e $\mathbf{M}$ projetam sobre subespaços ortogonais,
+
+$$
+\mathbf{Y}^\top \mathbf{Y}
+=
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}
++
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Essa identidade é puramente geométrica e antecede qualquer consideração probabilística.
+
+#### Relação com Diagnóstico
+
+A diagonal de $\mathbf{H}$ contém as alavancagens:
+
+$$
+h_{ii} = (\mathbf{H})_{ii}.
+$$
+
+Essas quantidades medem o grau de influência estrutural da $i$-ésima observação no ajuste, pois determinam o peso da projeção sobre o espaço coluna (ver @weisberg2005).
+
+Valores elevados de $h_{ii}$ indicam observações que ocupam posições extremas no espaço das covariáveis.
+
+A matriz de projeção sintetiza, portanto, três dimensões fundamentais do modelo linear:
+
+1.  Estrutura geométrica (projeção ortogonal);
+2.  Estrutura algébrica (idempotência e posto);
+3.  Estrutura estatística (somas de quadrados e graus de liberdade).
+
+
+## Diferenciação Matricial e Estimação por Mínimos Quadrados
+
+A estimação por mínimos quadrados consiste na minimização da soma de quadrados dos resíduos,
+
+$$
+S(\boldsymbol{\beta}) 
+=
+\|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2
+=
+(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}).
+$$
+
+Essa função é uma forma quadrática em $\boldsymbol{\beta}$. Para compreender sua estrutura, é útil expandi-la explicitamente:
+
+$$
+S(\boldsymbol{\beta})
+=
+\mathbf{Y}^\top \mathbf{Y}
+-
+2\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{Y}
++
+\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{X} \boldsymbol{\beta}.
+$$
+
+Observa-se que:
+
+-   $\mathbf{Y}^\top \mathbf{Y}$ é constante em relação a $\boldsymbol{\beta}$;
+-   $\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{Y}$ é termo linear;
+-   $\boldsymbol{\beta}^\top \mathbf{X}^\top \mathbf{X} \boldsymbol{\beta}$ é forma quadrática.
+
+A função objetivo é, portanto, um polinômio quadrático convexo sempre que $\mathbf{X}^\top \mathbf{X}$ for definida positiva.
+
+### Derivadas Matriciais Fundamentais
+
+As identidades de cálculo matricial utilizadas a seguir são sistematizadas em @abadir2005.
+
+1.  $$
+    \frac{\partial (\mathbf{a}^\top \mathbf{x})}{\partial \mathbf{x}}
+    =
+    \mathbf{a}
+    $$
+
+2.  $$
+    \frac{\partial (\mathbf{x}^\top \mathbf{A}\mathbf{x})}{\partial \mathbf{x}}
+    =
+    (\mathbf{A} + \mathbf{A}^\top)\mathbf{x}
+    $$
+
+Em particular, se $\mathbf{A}$ é simétrica,
+
+$$
+\frac{\partial (\mathbf{x}^\top \mathbf{A}\mathbf{x})}{\partial \mathbf{x}}
+=
+2\mathbf{A}\mathbf{x}.
+$$
+
+3.  $$
+    \frac{\partial (\mathbf{x}^\top \mathbf{A}\mathbf{b})}{\partial \mathbf{x}}
+    =
+    \mathbf{A}^\top \mathbf{b}
+    $$
+
+4.  $$
+    \frac{\partial \mathrm{tr}(\mathbf{A}\mathbf{X})}{\partial \mathbf{X}}
+    =
+    \mathbf{A}^\top
+    $$
+
+5.  $$
+    \frac{\partial
+    (\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^\top
+    (\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})
+    }
+    {\partial \boldsymbol{\beta}}
+    =
+    -2\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}).
+    $$
+
+### Derivação das Equações Normais
+
+Aplicando a derivada à função $S(\boldsymbol{\beta})$ (ver @abadir2005):
+
+$$
+\nabla_{\boldsymbol{\beta}} S(\boldsymbol{\beta})
+=
+-2\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}).
+$$
+
+Igualando o gradiente a zero:
+
+$$
+\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}) = 0.
+$$
+
+Reorganizando,
+
+$$
+\mathbf{X}^\top \mathbf{X}\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+Essas são as **equações normais**.
+
+Se $\mathbf{X}^\top \mathbf{X}$ é invertível, isto é, se as colunas de $\mathbf{X}$ são linearmente independentes, obtém-se a solução única:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{X}^\top \mathbf{Y}.
+$$
+
+### Interpretação Algébrica
+
+A condição
+
+$$
+\mathbf{X}^\top(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}})=0
+$$
+
+implica
+
+$$
+\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = 0,
+$$
+
+ou seja, o vetor residual é ortogonal a cada coluna de $\mathbf{X}$.
+
+### Interpretação Geométrica
+
+A minimização de $S(\boldsymbol{\beta})$ equivale a resolver
+
+$$
+\min_{\mathbf{v} \in \mathrm{col}(\mathbf{X})}
+\|\mathbf{Y} - \mathbf{v}\|^2.
+$$
+
+Portanto,
+
+$$
+\hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}}
+$$
+
+é a projeção ortogonal de $\mathbf{Y}$ sobre $\mathrm{col}(\mathbf{X})$. Essa caracterização independe de qualquer hipótese probabilística.
+
+## Estrutura Matricial para Diagnóstico e Inferência
+
+A formulação matricial do modelo linear não se limita à obtenção do estimador de mínimos quadrados. Ela estrutura integralmente os procedimentos de diagnóstico e prepara o terreno para a inferência estatística.
+
+Recordemos a decomposição fundamental:
+
+$$
+\mathbf{Y}
+=
+\mathbf{H}\mathbf{Y}
++
+\mathbf{M}\mathbf{Y}
+=
+\hat{\mathbf{Y}}
++
+\hat{\boldsymbol{\varepsilon}}.
+$$
+
+Essa identidade organiza o vetor de respostas em duas componentes ortogonais pertencentes a subespaços complementares.
+
+### Alavancagem e Estrutura da Matriz $\mathbf{H}$
+
+A diagonal da matriz de projeção
+
+$$
+h_{ii} = (\mathbf{H})_{ii}
+$$
+
+mensura o quanto a $i$-ésima observação contribui estruturalmente para sua própria projeção.
+
+Explicitamente,
+
+$$
+h_{ii}
+=
+\mathbf{x}_i^\top
+(\mathbf{X}^\top \mathbf{X})^{-1}
+\mathbf{x}_i,
+$$
+
+em que $\mathbf{x}_i^\top$ é a $i$-ésima linha da matriz $\mathbf{X}$.
+
+Propriedades fundamentais:
+
+-   $0 \le h_{ii} \le 1$;
+-   $\sum_{i=1}^n h_{ii} = p+1$;
+-   observações com valores elevados de $h_{ii}$ ocupam posições extremas no espaço das covariáveis.
+
+### Estrutura dos Resíduos
+
+Os resíduos podem ser escritos como
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{M}\mathbf{Y}.
+$$
+
+Como $\mathbf{M}$ é simétrica e idempotente,
+
+$$
+\mathbf{M}^2 = \mathbf{M},
+\qquad
+\mathbf{M}^\top = \mathbf{M}.
+$$
+
+Além disso,
+
+$$
+\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = \mathbf{0},
+$$
+
+o que garante que os resíduos são ortogonais às colunas de $\mathbf{X}$.
+
+Essa ortogonalidade fundamenta:
+
+-   a decomposição das somas de quadrados;
+-   a independência geométrica entre componentes ajustadas e residuais;
+-   a contagem de graus de liberdade.
+
+### Somas de Quadrados em Forma Matricial
+
+A soma de quadrados total pode ser escrita como
+
+$$
+\mathbf{Y}^\top \mathbf{Y}.
+$$
+
+A soma de quadrados explicada pelo modelo é
+
+$$
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}.
+$$
+
+A soma de quadrados residual é
+
+$$
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Como $\mathbf{H}$ e $\mathbf{M}$ projetam sobre subespaços ortogonais,
+
+$$
+\mathbf{Y}^\top \mathbf{Y}
+=
+\mathbf{Y}^\top \mathbf{H} \mathbf{Y}
++
+\mathbf{Y}^\top \mathbf{M} \mathbf{Y}.
+$$
+
+Essa identidade é puramente algébrica e independe de qualquer suposição probabilística.
+
+### Postos e Graus de Liberdade
+
+Como visto anteriormente,
+
+$$
+\mathrm{tr}(\mathbf{H}) = p+1,
+\qquad
+\mathrm{tr}(\mathbf{M}) = n - p - 1.
+$$
+
+Para matrizes simétricas idempotentes, o traço coincide com o posto. Portanto:
+
+-   o subespaço ajustado tem dimensão $p+1$;
+-   o subespaço residual tem dimensão $n-p-1$.
+
+Essas dimensões serão reinterpretadas, no contexto probabilístico, como graus de liberdade associados às somas de quadrados.

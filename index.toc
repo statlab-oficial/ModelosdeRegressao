@@ -1,0 +1,258 @@
+\babel@toc {brazilian}{}\relax 
+\contentsline {chapter}{Informações Legais e Declaração de Uso de Inteligência Artificial}{2}{chapter*.2}%
+\contentsline {section}{Direitos Autorais e Uso da Obra}{2}{chapter*.2}%
+\contentsline {section}{Declaração sobre o Uso de Ferramentas de Inteligência Artificial}{2}{chapter*.2}%
+\contentsline {chapter}{Prefácio}{3}{chapter*.3}%
+\contentsline {part}{\numberline {I}Parte I --- Modelagem}{4}{part.1}%
+\contentsline {chapter}{\numberline {1}Introdução e Panorama dos Modelos de Regressão}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}A centralidade da regressão}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Objetivos do livro}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Breve História da Regressão}{6}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Francis Galton (1822--1911)}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Karl Pearson (1857--1936)}{8}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Ronald A. Fisher (1890--1962)}{9}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Jerzy Neyman (1894--1981) \& Egon Pearson (1895--1980)}{10}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}John Tukey (1915--2000)}{11}{subsection.1.3.5}%
+\contentsline {subsection}{\numberline {1.3.6}Peter McCullagh (1952--) \& John Nelder (1934--2010)}{12}{subsection.1.3.6}%
+\contentsline {section}{\numberline {1.4}O contexto histórico: eugenia}{12}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Consolidação da regressão como pilar da Estatística moderna}{13}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Panorama dos Modelos de Regressão}{13}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Modelagem Estatística e Regressão}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introdução à Modelagem}{15}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Modelo matemático versus modelo estatístico}{15}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Classificações didáticas de modelos}{17}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}O ciclo da modelagem}{17}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Exemplos de modelagem}{18}{subsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.1}Exemplos de modelagem em diferentes áreas}{18}{subsubsection.2.1.4.1}%
+\contentsline {section}{\numberline {2.2}Introduçao à Regressão}{19}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Interpretação conceitual: sinal e ruído}{21}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Exemplo ilustrativo: Sinal + Ruído}{21}{subsubsection.2.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Exemplo ilustrativo: Sinal + Ruído (homoscedástico vs heteroscedástico)}{22}{subsubsection.2.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}Exemplo ilustrativo: Possíbildiades de relações ente X e Y}{23}{subsubsection.2.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.2.1.4}Exemplo ilustrativo: Relação não linear entre \(X\) e \(Y\)}{24}{subsubsection.2.2.1.4}%
+\contentsline {subsection}{\numberline {2.2.2}Objetivos e Estruturas do Modelo da Regressão}{26}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}Objetivos centrais}{26}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}Observações conceituais importantes}{26}{subsubsection.2.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.3}Duas características fundamentais do modelo de regressão}{27}{subsubsection.2.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.2.4}Estrutura conceitual da regressão}{28}{subsubsection.2.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.2.5}Alguns exemplos que mostram a importância prática}{29}{subsubsection.2.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.2.6}Potenciais e limites}{29}{subsubsection.2.2.2.6}%
+\contentsline {chapter}{\numberline {3}Exercícios e atividades}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Exercícios conceituais}{31}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Atividade de Simulação e Regressão}{34}{section.3.2}%
+\contentsline {part}{\numberline {II}Parte II --- Modelo de Regressão Linear Simples (MRLS)}{45}{part.2}%
+\contentsline {chapter}{\numberline {4}O MRLS como Modelo para a Média Condicional}{46}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Formulação Matemática do MRLS}{48}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Interpretação dos Parâmetros e Hipóteses do Modelo}{51}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Hipóteses do MRLS}{51}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Hipóteses adicionais para inferência}{53}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Representação Gráfica e Intuição Geométrica}{53}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Estimação por Mínimos Quadrados no MRLS}{55}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Paradigmas de Estimação no MRLS}{55}{section.5.1}%
+\contentsline {section}{\numberline {5.2}O Critério dos Mínimos Quadrados Ordinários}{57}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Solução Analítica: A Reta de Regressão por MQO}{60}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Interpretação dos Estimadores obtidos via MQO}{61}{subsection.5.3.1}%
+\contentsline {section}{\numberline {5.4}Propriedades Probabilísticas dos Estimadores de MQO}{61}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Não viés}{62}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Variâncias e covariância dos estimadores}{63}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Estimativa de \(\mitsigma ^2\) (graus de liberdade e não viés)}{64}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Teorema de Gauss--Markov}{65}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Inferência no MRLS com erros normais}{67}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Por que assumir normalidade?}{67}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Estrutura probabilística do MRLS com erros normais}{67}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Consequências conceituais da normalidade}{68}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Distribuições amostrais no MRLS com erros normais}{68}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Distribuição de \(\hat \mitbeta _0\), \(\hat \mitbeta _1\)}{69}{subsection.6.2.1}%
+\contentsline {section}{\numberline {6.3}Predição pontual da média condicional}{70}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Distribuição dos valores ajustados}{70}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Predição pontual}{71}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Limitação da predição pontual}{71}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Intervalos de confiança no MRLS}{72}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Intervalos para \(\mitbeta _0\), \(\mitbeta _1\)}{73}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Intervalo de confiança para a média condicional}{74}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Interpretação frequentista e significado dos intervalos}{76}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Intervalo de predição para nova observação}{77}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Testes de hipóteses e ANOVA}{81}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Testes marginais para \(\mitbeta _1\) e \(\mitbeta _0\)}{81}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Teste para a \(\mitbeta _1\)}{81}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Teste para a \(\mitbeta _0\)}{82}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}Análise de Variância no MRLS}{83}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Decomposição da soma de quadrados}{83}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Quadrados Médios e Estatística F}{84}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Tabela ANOVA do MRLS}{85}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Coeficiente de determinação \(R^2\)}{85}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Equivalência entre \(T^2\) e \(F\)}{86}{subsection.7.2.5}%
+\contentsline {chapter}{\numberline {8}Diagnóstico e Avaliação no MRLS}{88}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Por que analisar resíduos?}{88}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Tipos de resíduos e propriedades}{89}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Resíduos ordinários}{89}{subsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.1.1}Propriedades básicas dos resíduos ordinários}{89}{subsubsection.8.2.1.1}%
+\contentsline {subsubsection}{\numberline {8.2.1.2}Esperança, variância, covariância e distribuição dos resíduos ordinários}{90}{subsubsection.8.2.1.2}%
+\contentsline {subsubsection}{\numberline {8.2.1.3}Implicações para diagnóstico}{92}{subsubsection.8.2.1.3}%
+\contentsline {subsection}{\numberline {8.2.2}Resíduos padronizados}{92}{subsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.2.1}Propriedades fundamentais}{93}{subsubsection.8.2.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.2.2}Distribuição dos resíduos padronizados}{93}{subsubsection.8.2.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.2.3}Interpretação prática}{94}{subsubsection.8.2.2.3}%
+\contentsline {subsubsection}{\numberline {8.2.2.4}Limitações conceituais}{94}{subsubsection.8.2.2.4}%
+\contentsline {subsection}{\numberline {8.2.3}Resíduos estudentizados (externos)}{95}{subsection.8.2.3}%
+\contentsline {subsubsection}{\numberline {8.2.3.1}Motivação conceitual}{95}{subsubsection.8.2.3.1}%
+\contentsline {subsubsection}{\numberline {8.2.3.2}Distribuição exata}{96}{subsubsection.8.2.3.2}%
+\contentsline {subsubsection}{\numberline {8.2.3.3}Interpretação prática}{96}{subsubsection.8.2.3.3}%
+\contentsline {section}{\numberline {8.3}Influência, alavancagem e leitura conjunta dos resíduos}{97}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Relação entre discrepância, alavancagem e influência}{97}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Alavancagem no MRLS}{97}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}Conexão entre alavancagem e variância residual}{98}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}Síntese diagnóstica}{98}{subsection.8.3.4}%
+\contentsline {subsection}{\numberline {8.3.5}Resumo comparativo dos resíduos}{99}{subsection.8.3.5}%
+\contentsline {section}{\numberline {8.4}Testes formais dos resíduos}{99}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Teste para Assimetria (Skewness)}{100}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Teste para Curtose (Kurtosis)}{101}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}3. Omnibus Test (D'Agostino--Pearson)}{102}{subsection.8.4.3}%
+\contentsline {subsection}{\numberline {8.4.4}4. Jarque--Bera (JB)}{102}{subsection.8.4.4}%
+\contentsline {section}{\numberline {8.5}Diagnóstico gráfico do MRLS}{104}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Resíduos vs ajustados (linearidade e homoscedasticidade)}{104}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}Resíduos vs \(X\) (forma funcional)}{106}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}Resíduos estudentizados vs valores ajustados (outliers + estrutura)}{107}{subsection.8.5.3}%
+\contentsline {subsection}{\numberline {8.5.4}QQ-plot (normalidade)}{109}{subsection.8.5.4}%
+\contentsline {subsection}{\numberline {8.5.5}Histograma (assimetria e caudas)}{111}{subsection.8.5.5}%
+\contentsline {subsection}{\numberline {8.5.6}Resíduos estudentizados vs índice (pontos atípicos)}{112}{subsection.8.5.6}%
+\contentsline {subsection}{\numberline {8.5.7}Resíduos estudentizados ao quadrado vs valores ajustados (heteroscedasticidade / influência)}{114}{subsection.8.5.7}%
+\contentsline {subsection}{\numberline {8.5.8}Alavancagem vs resíduos estudentizados (influência / Cook)}{116}{subsection.8.5.8}%
+\contentsline {section}{\numberline {8.6}Aspectos computacionais para resíduos no R}{118}{section.8.6}%
+\contentsline {chapter}{\numberline {9}Transformações nas Variáveis}{122}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Motivação}{122}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Transformações na variável resposta (\(Y\))}{123}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Transformação e distribuição implícita}{124}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Logaritmo (\(Y^* = \log Y\))}{125}{subsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.2.1}Variância e estabilização}{126}{subsubsection.9.2.2.1}%
+\contentsline {subsection}{\numberline {9.2.3}Raiz quadrada (\(Y^* = \sqrt {Y}\))}{127}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Inverso (\(Y^* = 1/Y\))}{128}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Quadrado (\(Y^* = Y^2\))}{129}{subsection.9.2.5}%
+\contentsline {section}{\numberline {9.3}Transformações na variável explicativa (\(X\))}{129}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Motivação estatística}{130}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Logaritmo (\(X^* = \log X\))}{130}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Inverso (\(X^* = 1/X\))}{131}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Potências e termos polinomiais (\(X^2\), \(X^3\), \ldots )}{132}{subsection.9.3.4}%
+\contentsline {subsection}{\numberline {9.3.5}Transformar \(X\) ou adicionar polinômios?}{133}{subsection.9.3.5}%
+\contentsline {section}{\numberline {9.4}Guia prático: escolhendo a transformação}{133}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Exemplo ilustrativo: antes e depois da transformação}{135}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Cenário e especificação dos modelos}{135}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}Geração do conjunto de dados e análise descritiva}{136}{subsection.9.5.2}%
+\contentsline {subsection}{\numberline {9.5.3}Diagnóstico gráfico: antes e depois}{140}{subsection.9.5.3}%
+\contentsline {subsubsection}{\numberline {9.5.3.1}Dispersão da resposta vs.~explicativa}{140}{subsubsection.9.5.3.1}%
+\contentsline {subsubsection}{\numberline {9.5.3.2}Resíduos vs.~valores ajustados}{141}{subsubsection.9.5.3.2}%
+\contentsline {subsubsection}{\numberline {9.5.3.3}Resíduos estudentizados vs.~ajustados}{143}{subsubsection.9.5.3.3}%
+\contentsline {subsubsection}{\numberline {9.5.3.4}QQ-plot}{144}{subsubsection.9.5.3.4}%
+\contentsline {subsubsection}{\numberline {9.5.3.5}Histograma}{145}{subsubsection.9.5.3.5}%
+\contentsline {subsubsection}{\numberline {9.5.3.6}Resíduos vs.~\(X\)}{146}{subsubsection.9.5.3.6}%
+\contentsline {subsection}{\numberline {9.5.4}Comparação numérica e conclusão}{147}{subsection.9.5.4}%
+\contentsline {subsubsection}{\numberline {9.5.4.1}Interpretação}{147}{subsubsection.9.5.4.1}%
+\contentsline {chapter}{\numberline {10}Comparação de Modelos}{149}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Motivação e princípios de comparação}{149}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Finalidade da comparação: explicar ou prever}{150}{subsection.10.1.1}%
+\contentsline {section}{\numberline {10.2}Critérios clássicos de comparação}{150}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Coeficiente de determinação \(R^2\)}{150}{subsection.10.2.1}%
+\contentsline {subsubsection}{\numberline {10.2.1.1}Propriedades e limitações}{151}{subsubsection.10.2.1.1}%
+\contentsline {subsection}{\numberline {10.2.2}Coeficiente de determinação ajustado \(R^2_{aj}\)}{152}{subsection.10.2.2}%
+\contentsline {subsubsection}{\numberline {10.2.2.1}Vantagens e limitações}{152}{subsubsection.10.2.2.1}%
+\contentsline {subsection}{\numberline {10.2.3}Teste \(F\) para modelos aninhados}{152}{subsection.10.2.3}%
+\contentsline {subsubsection}{\numberline {10.2.3.1}Hipóteses e decisão}{153}{subsubsection.10.2.3.1}%
+\contentsline {section}{\numberline {10.3}Critérios de informação}{153}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Critério de Informação de Akaike (AIC)}{154}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Critério Bayesiano de Schwarz (BIC)}{155}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.3.3}Boas práticas e comparabilidade entre escalas}{155}{subsection.10.3.3}%
+\contentsline {subsection}{\numberline {10.3.4}Estratégia prática de comparação}{156}{subsection.10.3.4}%
+\contentsline {section}{\numberline {10.4}Exemplos ilustrativos de comparação de modelos}{156}{section.10.4}%
+\contentsline {subsection}{\numberline {10.4.1}Exemplo 1 --- Intercepto e transformação na resposta}{156}{subsection.10.4.1}%
+\contentsline {subsection}{\numberline {10.4.2}Exemplo 2 --- Escolhendo a melhor variável explicativa}{174}{subsection.10.4.2}%
+\contentsline {chapter}{\numberline {11}Exercícios e atividades}{193}{chapter.11}%
+\contentsline {part}{\numberline {III}Parte III --- Modelo de Regressão Linear Simples (MRLM)}{194}{part.3}%
+\contentsline {chapter}{\numberline {12}Exercícios e atividades}{195}{chapter.12}%
+\contentsline {part}{\numberline {IV}Parte IV --- Apêndices}{196}{part.4}%
+\contentsline {chapter}{\numberline {13}Lista de Siglas e Símbolos}{197}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Lista de Siglas}{197}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Lista de Símbolos}{198}{section.13.2}%
+\contentsline {chapter}{\numberline {14}Estrutura Matricial dos Modelos de Regressão Linear}{199}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Operações Fundamentais com Matrizes e Vetores}{199}{section.14.1}%
+\contentsline {subsection}{\numberline {14.1.1}Soma Matricial}{199}{subsection.14.1.1}%
+\contentsline {subsection}{\numberline {14.1.2}Produto Matricial}{200}{subsection.14.1.2}%
+\contentsline {subsection}{\numberline {14.1.3}Produto Interno e Norma}{200}{subsection.14.1.3}%
+\contentsline {subsection}{\numberline {14.1.4}Forma Quadrática}{201}{subsection.14.1.4}%
+\contentsline {subsection}{\numberline {14.1.5}Transposição}{202}{subsection.14.1.5}%
+\contentsline {subsection}{\numberline {14.1.6}Inversão}{202}{subsection.14.1.6}%
+\contentsline {subsection}{\numberline {14.1.7}Propriedades Importantes}{202}{subsection.14.1.7}%
+\contentsline {section}{\numberline {14.2}Estruturas Matriciais Relevantes}{203}{section.14.2}%
+\contentsline {subsection}{\numberline {14.2.1}Matriz Identidade}{203}{subsection.14.2.1}%
+\contentsline {subsection}{\numberline {14.2.2}Matrizes Simétricas}{204}{subsection.14.2.2}%
+\contentsline {subsection}{\numberline {14.2.3}Matrizes Idempotentes}{205}{subsection.14.2.3}%
+\contentsline {subsection}{\numberline {14.2.4}Matrizes Ortogonais}{206}{subsection.14.2.4}%
+\contentsline {subsection}{\numberline {14.2.5}Matrizes Diagonais}{206}{subsection.14.2.5}%
+\contentsline {subsection}{\numberline {14.2.6}Matrizes Definidas Positivas}{207}{subsection.14.2.6}%
+\contentsline {section}{\numberline {14.3}Estrutura Geométrica do Modelo Linear}{208}{section.14.3}%
+\contentsline {subsection}{\numberline {14.3.1}Espaço Coluna e Identificabilidade}{208}{subsection.14.3.1}%
+\contentsline {subsection}{\numberline {14.3.2}O Problema de Mínimos Quadrados como Problema de Projeção}{209}{subsection.14.3.2}%
+\contentsline {subsection}{\numberline {14.3.3}Interpretação Ortogonal e Soma Direta}{209}{subsection.14.3.3}%
+\contentsline {subsection}{\numberline {14.3.4}Relação com Posto e Dimensão}{211}{subsection.14.3.4}%
+\contentsline {subsection}{\numberline {14.3.5}Conexão com Diagnóstico}{211}{subsection.14.3.5}%
+\contentsline {section}{\numberline {14.4}Matrizes de Projeção e Decomposição Ortogonal}{212}{section.14.4}%
+\contentsline {subsubsection}{\numberline {14.4.0.1}Verificação das Propriedades Estruturais}{212}{subsubsection.14.4.0.1}%
+\contentsline {subsubsection}{\numberline {14.4.0.2}Interpretação Geométrica}{213}{subsubsection.14.4.0.2}%
+\contentsline {subsubsection}{\numberline {14.4.0.3}Propriedades da Matriz Residual}{213}{subsubsection.14.4.0.3}%
+\contentsline {subsubsection}{\numberline {14.4.0.4}Decomposição do Vetor de Respostas}{214}{subsubsection.14.4.0.4}%
+\contentsline {subsubsection}{\numberline {14.4.0.5}Traço, Posto e Autovalores}{214}{subsubsection.14.4.0.5}%
+\contentsline {subsubsection}{\numberline {14.4.0.6}Conexão com Somas de Quadrados}{215}{subsubsection.14.4.0.6}%
+\contentsline {subsubsection}{\numberline {14.4.0.7}Relação com Diagnóstico}{215}{subsubsection.14.4.0.7}%
+\contentsline {section}{\numberline {14.5}Diferenciação Matricial e Estimação por Mínimos Quadrados}{216}{section.14.5}%
+\contentsline {subsection}{\numberline {14.5.1}Derivadas Matriciais Fundamentais}{216}{subsection.14.5.1}%
+\contentsline {subsection}{\numberline {14.5.2}Derivação das Equações Normais}{217}{subsection.14.5.2}%
+\contentsline {subsection}{\numberline {14.5.3}Interpretação Algébrica}{217}{subsection.14.5.3}%
+\contentsline {subsection}{\numberline {14.5.4}Interpretação Geométrica}{218}{subsection.14.5.4}%
+\contentsline {section}{\numberline {14.6}Estrutura Matricial para Diagnóstico e Inferência}{218}{section.14.6}%
+\contentsline {subsection}{\numberline {14.6.1}Alavancagem e Estrutura da Matriz \(\mathbf {H}\)}{218}{subsection.14.6.1}%
+\contentsline {subsection}{\numberline {14.6.2}Estrutura dos Resíduos}{219}{subsection.14.6.2}%
+\contentsline {subsection}{\numberline {14.6.3}Somas de Quadrados em Forma Matricial}{219}{subsection.14.6.3}%
+\contentsline {subsection}{\numberline {14.6.4}Postos e Graus de Liberdade}{220}{subsection.14.6.4}%
+\contentsline {chapter}{\numberline {15}Distribuição Normal}{221}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Distribuição Normal Univariada}{221}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Distribuição Normal Bivariada}{223}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Distribuição Normal Multivariada}{225}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Partição da Normal Multivariada}{228}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Covariância zero implica independência}{229}{section.15.5}%
+\contentsline {subsection}{\numberline {15.5.1}Independência no caso bivariado}{230}{subsection.15.5.1}%
+\contentsline {subsection}{\numberline {15.5.2}Caso marginal}{230}{subsection.15.5.2}%
+\contentsline {subsection}{\numberline {15.5.3}Partições e Independência entre Blocos}{231}{subsection.15.5.3}%
+\contentsline {section}{\numberline {15.6}Papel da Distribuição Normal na fundamentação dos modelos de regressão}{232}{section.15.6}%
+\contentsline {chapter}{\numberline {16}Formas Lineares e Quadráticas na Normal Multivariada}{233}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Preliminares: Normal multivariada e transformações lineares}{233}{section.16.1}%
+\contentsline {section}{\numberline {16.2}Padronização multivariada e redução ao caso \(\mathbf {I}\)}{234}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Forma linear: distribuição, interpretação e conexão com regressão}{234}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Forma quadrática: definição e interpretação}{235}{section.16.4}%
+\contentsline {section}{\numberline {16.5}O caso central: \(\mathbf {Z}^\top \mathbf {Z}\) e a distribuição \(\mitchi ^2\)}{235}{section.16.5}%
+\contentsline {section}{\numberline {16.6}Projeções ortogonais e Qui-quadrado}{236}{section.16.6}%
+\contentsline {section}{\numberline {16.7}Independência via ortogonalidade}{236}{section.16.7}%
+\contentsline {section}{\numberline {16.8}MRLM Normal}{237}{section.16.8}%
+\contentsline {subsection}{\numberline {16.8.1}Estimador como forma linear em \(\mathbf {Y}\)}{237}{subsection.16.8.1}%
+\contentsline {subsection}{\numberline {16.8.2}Resíduos como transformação linear}{237}{subsection.16.8.2}%
+\contentsline {subsection}{\numberline {16.8.3}Soma de quadrados residual como forma quadrática}{238}{subsection.16.8.3}%
+\contentsline {subsection}{\numberline {16.8.4}Decomposição ortogonal da soma de quadrados total}{238}{subsection.16.8.4}%
+\contentsline {subsection}{\numberline {16.8.5}Surgimento das distribuições \(t\) e \(F\)}{239}{subsection.16.8.5}%
+\contentsline {chapter}{\numberline {17}Tratamento de dados para regressão (pré-modelagem)}{240}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Exemplos do dia a dia e Checklist rápido}{241}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Estrutura e tipagem das variáveis}{245}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Tratamento de dados faltantes (missing)}{246}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Detecção de valores extremos e inconsistências}{248}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Padronização e transformações numéricas}{249}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Codificação de variáveis categóricas (dummies)}{251}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Verificação de condições para modelagem linear}{252}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Sumários e visualizações exploratórias}{254}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Salvamento e documentação da base tratada}{255}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Checklist técnico: Condições mínimas para seguir à modelagem}{256}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Bases para prática}{257}{section.17.11}%
+\contentsline {subsection}{\numberline {17.11.1}House Prices: Advanced Regression Techniques (Kaggle)}{257}{subsection.17.11.1}%
+\contentsline {subsection}{\numberline {17.11.2}Ames Housing Dataset}{258}{subsection.17.11.2}%
+\contentsline {subsection}{\numberline {17.11.3}Online Shoppers Purchasing Intention (UCI)}{258}{subsection.17.11.3}%
+\contentsline {subsection}{\numberline {17.11.4}Student Failure (Messy) Dataset (Kaggle)}{259}{subsection.17.11.4}%
+\contentsline {subsection}{\numberline {17.11.5}Bike Sharing Dataset (UCI)}{259}{subsection.17.11.5}%
+\contentsline {section}{\numberline {17.12}Glossário}{260}{section.17.12}%
+\contentsline {chapter}{Referências}{263}{chapter*.40}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

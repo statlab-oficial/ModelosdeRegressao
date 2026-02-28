@@ -1,0 +1,746 @@
+# Tratamento de dados para regressão (pré-modelagem)
+
+Este apêndice organiza, em forma de roteiro estruturado, os procedimentos que devem ser realizados **antes** do ajuste de qualquer modelo de regressão. O objetivo é preparar bases de dados tabulares (em que linhas representam observações e colunas representam variáveis) para que estejam **coerentes, consistentes, completas e adequadas à modelagem estatística**.
+
+Os métodos de regressão (lineares, generalizados ou penalizados) **pressupõem** que a variabilidade observada nos dados represente o fenômeno real sob estudo, e não erros de registro, inconsistências de escala ou problemas de codificação. O tratamento pré-modelagem constitui, portanto, o **primeiro passo do raciocínio estatístico aplicado**: garantir que o modelo descreva o mundo observado e não artefatos do processo de coleta ou organização dos dados.
+
+**Princípios norteadores da preparação de dados**
+
+1.  **Parcimônia:** trate o necessário, não o possível. Cada transformação modifica o significado estatístico das variáveis e pode alterar a interpretação dos resultados.
+2.  **Transparência:** todo procedimento deve ser reprodutível e documentado (log de alterações + dicionário de variáveis).
+3.  **Consistência:** mantenha coerência entre bases, períodos e versões (nomes de variáveis, unidades de medida, tipos e categorias).
+4.  **Domínio do contexto:** conheça o fenômeno estudado antes de decidir se determinado valor é erro, exceção legítima ou padrão relevante.
+5.  **Validação cruzada:** confirme decisões de tratamento por mais de uma ótica --- estatística e substantiva. (@pointblank_pkg)
+
+**Ferramentas e escopo**
+
+-   Trabalharemos com **R** (por exemplo, utilizando `tidyverse` ou `data.table`) e com **dados estruturados em formato tabular**.
+-   **Não** abordaremos, neste apêndice, dados não estruturados ou semi-estruturados (texto livre, JSON heterogêneo, imagens, áudio ou bases documentais).
+-   Quando utilizarmos expressões como "detectar", "verificar" ou "avaliar", estaremos nos referindo a **operações descritivas e exploratórias**, sem ajuste formal de modelos nesta etapa.
+
+**Fluxo geral do processo analítico**
+
+coleta → organização → tratamento → **(entregável: base tratada + dicionário + log de decisões)** → modelagem → diagnóstico → interpretação
+
+O tratamento de dados é, portanto, uma etapa intermediária e estruturante, que conecta a coleta bruta à modelagem estatística.
+
+## Exemplos do dia a dia e Checklist rápido
+
+**Exemplos rápidos do dia a dia**
+
+-   **CSV que não abre "corretamente"**: o arquivo foi salvo com `;` em vez de `,` como separador, e o decimal usa `,` (ex.: `3,14`). Resultado: números são interpretados como texto.\
+    **Tratamento**: especificar corretamente o delimitador e o símbolo decimal na leitura; padronizar separadores.
+
+-   **Acentos e caracteres estranhos**: colunas aparecem como `ação`, `aÃ§Ã£o` ou nomes quebrados.\
+    **Tratamento**: ajustar o `encoding` (ex.: UTF-8 vs latin-1) e padronizar nomes de variáveis.
+
+-   **Tipos incorretos**: idades lidas como texto (`"21"`), datas como strings (`"2025-10-24"`) e variáveis 0/1 lidas como numéricas quando deveriam ser categóricas. **Tratamento**: converter explicitamente para os tipos adequados (numérico, data/hora, fator) e validar o resultado.
+
+-   **Códigos de "faltante" disfarçados**: valores como `999`, `-1`, `NA`, `""` representam ausência, mas estão misturados com dados válidos. (@tidyr_missing)\
+    **Tratamento**: recodificar para ausentes padronizados e decidir entre excluir, imputar ou manter com justificativa.
+
+-   **Duplicatas e chaves quebradas**: a mesma unidade amostral aparece repetida; totais e médias ficam incorretos.\
+    **Tratamento**: identificar chaves únicas, remover ou conciliar duplicatas e documentar a decisão.
+
+-   **Categorias inconsistentes**: `Masculino`, `M`, `masc` e `male` aparecem como níveis distintos.\
+    **Tratamento**: unificar rótulos, definir categoria de referência substantiva e gerar dummies adequadamente.
+
+-   **Datas em formatos mistos**: `31/12/2025` e `12-31-2025` na mesma coluna.\
+    **Tratamento**: normalizar formato, verificar timezone quando relevante e extrair componentes (ano/mês/dia) se necessário.
+
+-   **Valores impossíveis**: `altura = -5`, `proporção > 1`, `idade = 300`.\
+    **Tratamento**: definir faixas válidas segundo o domínio e corrigir ou descartar observações inconsistentes.
+
+-   **Escalas heterogêneas**: receita em reais e custo em milhares de reais; área em m² e km².\
+    **Tratamento**: padronizar unidades ou aplicar reescala/padronização (ex.: z-score).
+
+-   **Outliers evidentes**: uma observação muito superior às demais; zero estrutural inesperado.\
+    **Tratamento**: verificar plausibilidade no contexto, decidir entre correção, winsorização, transformação ou manutenção justificada.
+
+-   **Resposta incompatível com o objetivo**: deseja-se regressão linear contínua, mas a variável resposta é binária ou contagem.\
+    **Tratamento**: verificar se o tipo de resposta é compatível com o modelo pretendido (linear, logístico, Poisson etc.).
+
+Observe que, assim como a cozinha precisa estar organizada para a receita "dar certo", a base precisa estar **coerente, completa e padronizada** para que a modelagem produza resultados interpretáveis e estatisticamente válidos.
+
+**Checklist rápido: Faça antes de modelar**
+
+1.  **Defina o objetivo e o tipo de resposta**: contínua, binária ou contagem; confirme que a variável resposta é compatível com o modelo pretendido.
+2.  **Garanta leitura correta**: verifique separador, encoding e símbolo decimal; confirme que variáveis numéricas não foram importadas como texto.
+3.  **Acerte tipos e unidades**: converta datas, inteiros e reais; padronize unidades e nomes de variáveis.
+4.  **Mapeie e trate dados faltantes**: identifique `NA`, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. (@tidyr_missing)
+5.  **Elimine inconsistências**: remova ou una duplicatas, valide chaves, corrija valores impossíveis.
+6.  **Cuide de outliers**: identifique pontos extremos; corrija, transforme ou mantenha. Todas as ações com outliers devem ser realizadas com justificativa documentada.
+7.  **Codifique variáveis qualitativas**: unifique rótulos, defina categoria de referência e evite colinearidade perfeita na matriz de projeto.
+8.  **Cheque condições mínimas para regressão**:
+    -   Variabilidade das covariáveis;\
+    -   Ausência de colinearidade perfeita ($X^\top X$ não singular);\
+    -   Número de observações maior que o número de parâmetros ($n > p + 1$);\
+    -   Gere sumários e gráficos básicos;\
+    -   **Salve a versão tratada com dicionário de variáveis e log de decisões.**
+
+**Cartões de decisão**
+
+-   **Faltantes:**\
+    Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? (@little2019)\
+    → excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. (@recipes_impute; @mice_cran)
+
+-   **Outliers:**\
+    Erro de digitação ou unidade? Valor plausível no domínio?\
+    → corrigir / winsorizar / transformar / manter e justificar.
+
+-   **Categóricas:**\
+    Existem níveis raros (alta cardinalidade)?\
+    → agrupar em "outros"; escolher referência substantiva; padronizar rótulos.
+
+-   **Escalas:**\
+    Magnitudes muito diferentes entre covariáveis?\
+    → aplicar padronização (z-score) ou reescala; revisar unidades.
+
+-   **Reprodutibilidade:**\
+    Toda decisão foi registrada no **log de tratamento**?
+
+##Leitura e organização dos dados
+
+Ler corretamente um arquivo de dados (formato, delimitador, encoding, símbolo decimal) é a primeira barreira contra erros que podem comprometer toda a análise. Uma leitura incorreta pode fazer com que números sejam interpretados como texto, datas como caracteres ou colunas inteiras sejam deslocadas. Esses problemas, se não detectados no início, propagam-se até a modelagem e podem invalidar inferências.
+
+Em regressão, erros de tipagem e leitura afetam diretamente a construção da matriz de projeto $\mathbf{X}$ e da variável resposta $\mathbf{y}$. Portanto, esta etapa é estrutural, não meramente operacional.
+
+**Conexões com a literatura e boas práticas**
+
+Autores como @charnet2008 e @sheather2009 enfatizam que a qualidade dos dados influencia diretamente as estimativas, testes e intervalos de confiança. Essa etapa integra o que se denomina **análise exploratória de dados (AED)**: conhecer o material empírico antes de ajustar qualquer modelo.
+
+Explorar não é modelar, é compreender a estrutura do dado.
+
+**Funções úteis no R**
+
+Pacotes e funções frequentemente utilizados nessa etapa incluem:
+
+-   `readr`: `read_csv()`, `read_delim()`, `guess_encoding()`, `locale()`
+-   `readxl`: `read_excel()`
+-   `dplyr`: `glimpse()`, `summarise()`, `count()`
+-   `fs` e `here`: organização de diretórios e caminhos reproduzíveis
+-   `vroom`: leitura rápida de arquivos grandes
+-   `stringi`: diagnóstico e conversão de encoding
+
+O objetivo não é "usar funções", mas garantir que a base esteja corretamente interpretada pelo R antes de qualquer transformação.
+
+**O que fazer**
+
+-   Mapear a **origem dos dados** (site, repositório, disciplina, experimento) e sua **licença de uso**.
+-   Conferir o **formato do arquivo** (CSV, XLSX, SAV, DTA etc.) e o **delimitador** utilizado (`,`, `;`, tabulação).
+-   Ajustar corretamente o **encoding** (UTF-8, latin-1) e o **símbolo decimal** (`,` ou `.`).
+-   Definir um **esquema de pastas do projeto** (por exemplo: `dados_brutos/`, `dados_interinos/`, `dados_tratados/`) e convenções padronizadas de nomes.
+
+**Boas práticas**
+
+-   Manter a pasta `dados_brutos/` **imutável**. Nunca sobrescrever dados originais.
+-   Realizar todas as modificações em cópias armazenadas em `dados_tratados/`.
+-   Padronizar nomes de colunas: minúsculas, sem acento, em formato `snake_case`.
+-   Criar um arquivo `README_dados.md` com:
+    -   Fonte dos dados
+    -   Data de download
+    -   Responsável
+    -   Descrição geral das variáveis
+
+**Erros comuns (e como evitar)**
+
+-   Arquivo CSV com `;` como separador lido como se fosse `,` → verificar explicitamente o delimitador.
+-   Valores como `1,23` interpretados como texto → ajustar `locale(decimal_mark = ",")` ou converter adequadamente.
+-   Datas ambíguas (ex.: `01/02/2020`) → padronizar formato (preferencialmente ISO 8601: `2020-02-01`).
+-   Colunas numéricas importadas como `character` → converter explicitamente e validar.
+
+**Checklist rápido**
+
+Antes de seguir para qualquer transformação ou modelagem, verifique:
+
+-   [ ] Colunas numéricas estão realmente no tipo numérico?
+-   [ ] Datas foram reconhecidas como datas?
+-   [ ] Há duplicatas segundo a chave da base?
+-   [ ] Nomes de colunas estão padronizados?
+-   [ ] A leitura preservou o número esperado de linhas e colunas?
+
+Se qualquer resposta for negativa, o tratamento ainda não começou e a leitura ainda não terminou.
+
+## Estrutura e tipagem das variáveis
+
+A estrutura e o tipo das variáveis determinam como a matriz de projeto $\mathbf{X}$ será construída. Uma tipagem incorreta não é apenas um erro técnico: ela altera o significado estatístico do modelo, pode introduzir colinearidade artificial e comprometer estimativas, testes e interpretações.
+
+De acordo com @sheather2009, a correta identificação do tipo de cada variável é condição essencial para que o modelo represente adequadamente a relação entre preditores e resposta. Uma variável categórica tratada como numérica impõe uma estrutura inexistente; uma variável numérica tratada como categórica multiplica desnecessariamente parâmetros.
+
+Em regressão, a tipagem define como cada coluna entra em $\mathbf{X}$: como valor contínuo, como conjunto de dummies ou como transformação temporal.
+
+**Ferramentas R úteis**
+
+Funções base do R:
+
+-   `str()` --- inspeciona a estrutura da base\
+-   `class()` --- verifica o tipo de objeto\
+-   `as.numeric()`, `as.integer()` --- conversões numéricas\
+-   `as.Date()` --- conversão de datas
+
+Pacotes auxiliares:
+
+-   `lubridate`: `ymd()`, `dmy()`, `ymd_hms()`\
+-   `dplyr`: `mutate()`, `across()`\
+-   `forcats`: manipulação de fatores
+
+Para validação: - `is.na()` --- valores ausentes\
+- `is.finite()` --- valores numéricos válidos\
+- Verificações de faixa (ex.: idade ≥ 0)
+
+O objetivo não é apenas converter, mas **verificar se a conversão preserva o significado substantivo da variável**.
+
+**Classifique as variáveis**
+
+Antes de qualquer modelagem, identifique claramente:
+
+-   Numéricas **contínuas** (salário, temperatura, peso)\
+-   Numéricas **discretas** (número de visitas, contagem de eventos)\
+-   **Binárias** (0/1, sim/não)\
+-   **Categóricas nominais** (sexo, região)\
+-   **Categóricas ordinais** (baixo, médio, alto)\
+-   **Temporais** (datas, horários)\
+-   **Identificadores (IDs)** que não devem entrar como preditores numéricos
+
+Identificadores numéricos (ex.: matrícula, CPF, código do lote) **não são variáveis quantitativas** e não devem ser tratados como tal na regressão.
+
+**Ajustes típicos**
+
+-   Converter strings numéricas para número de forma explícita.
+-   Converter datas para classe apropriada e, quando necessário, extrair componentes (ano, mês).
+-   Transformar variáveis 0/1 em fator quando a interpretação for categórica.
+-   Definir fatores com níveis claros e ordenados quando houver estrutura ordinal.
+-   Padronizar rótulos inconsistentes (ex.: `M`, `Masculino`, `male` → um único padrão).
+
+Após os ajustes, reavalie a estrutura da base e confirme que cada coluna está no tipo esperado antes de avançar para o tratamento de faltantes ou criação de dummies.
+
+## Tratamento de dados faltantes (missing)
+
+Dados faltantes alteram o tamanho efetivo da amostra, modificam a estrutura da matriz de projeto $\mathbf{X}$ e podem introduzir viés nas estimativas quando o mecanismo de ausência não é completamente aleatório (MCAR). Em regressão, a presença de faltantes pode funcionar como um **mecanismo implícito de seleção amostral**, afetando tanto a estimação quanto a interpretação dos coeficientes.
+
+Excluir observações com valores ausentes equivale, muitas vezes, a analisar uma subamostra potencialmente não representativa.
+
+**Erros clássicos**
+
+-   Imputar zero indiscriminadamente (por exemplo, via `replace_na`) sem considerar o significado substantivo.
+-   Realizar junções (*joins*) entre tabelas sem validar chaves, criando duplicações artificiais.
+-   Remover colunas inteiras apenas por conterem `NA`, sem avaliar sua relevância analítica.
+-   Imputar a variável resposta sem justificativa metodológica.
+
+**Sugestões da literatura**
+
+Segundo @little2019, o tratamento adequado depende do mecanismo de ausência:
+
+-   **MCAR (Missing Completely At Random)**: ausência independente de variáveis observadas e não observadas.
+-   **MAR (Missing At Random)**: ausência depende apenas de variáveis observadas.
+-   **MNAR (Missing Not At Random)**: ausência depende de informação não observada.
+
+Em situações simples e com baixa proporção de faltantes, imputações por média ou mediana podem ser aceitáveis como aproximação. Em contextos mais complexos, recomenda-se imputação múltipla ou métodos baseados em modelos, preservando a incerteza associada ao processo.
+
+**Como minimizar problemas**
+
+-   Mapear sistematicamente os valores ausentes com `is.na()` e quantificar proporções por variável.
+-   Identificar códigos artificiais de ausência (`999`, `-1`, `""`) e recodificá-los para `NA`.
+-   Avaliar a importância substantiva da variável antes de decidir pela exclusão.
+-   Documentar cada remoção ou imputação realizada.
+-   Para duplicatas associadas a junções, utilizar verificações de chave e funções como `duplicated()` ou `distinct()`.
+
+A decisão deve ser estatística **e** substantiva.
+
+**Boas práticas**
+
+-   Manter um log explícito das decisões tomadas.
+-   Comparar estatísticas descritivas antes e depois da imputação.
+-   Evitar alterar a distribuição da variável de forma não justificada.
+-   Não imputar automaticamente a variável resposta nesta etapa, salvo sob estratégia metodológica claramente definida.
+
+**Procedimento recomendado**
+
+1.  Calcular a taxa de faltantes por coluna.
+2.  Identificar padrões estruturais de ausência.
+3.  Classificar o possível mecanismo (MCAR/MAR/MNAR).
+4.  Definir estratégia:
+    -   excluir observações,\
+    -   imputar (média, mediana, por grupo ou múltipla),\
+    -   manter e modelar posteriormente o mecanismo de ausência.
+5.  Registrar todas as decisões no log de tratamento.
+
+Tratamento de dados faltantes não é apenas limpeza --- é uma decisão inferencial que pode alterar os resultados do modelo.
+
+## Detecção de valores extremos e inconsistências
+
+Valores extremos (outliers) podem ser resultado de erro de digitação, inconsistência de unidade ou representar fenômenos reais raros. Em regressão, esses pontos podem influenciar de forma desproporcional os estimadores $\widehat{\boldsymbol{\beta}}$, os resíduos e os diagnósticos de ajuste.
+
+Nem todo valor extremo é um erro, mas todo valor extremo exige investigação.
+
+**Erros clássicos**
+
+-   Remover automaticamente qualquer ponto extremo sem verificar sua origem.
+-   Estabelecer cortes arbitrários sem registrar critérios e justificativas.
+-   Transformar a variável resposta sem considerar a nova interpretação dos coeficientes.
+-   Ignorar a possibilidade de que o ponto seja informativo para o fenômeno estudado.
+
+Segundo @charnet2008 e @sheather2009, valores extremos podem distorcer estimativas, ampliar variâncias e comprometer testes de hipóteses.
+
+@barnett1994 oferecem fundamentos formais para detecção de outliers em análises univariadas e multivariadas, distinguindo entre:
+
+-   Observações extremas na distribuição marginal;
+-   Pontos de alta alavancagem (leverage);
+-   Observações influentes (que alteram substancialmente o ajuste do modelo).
+
+Embora diagnósticos formais de influência sejam discutidos em outros capítulos, a identificação preliminar já deve ocorrer nesta etapa.
+
+**Ferramentas R**
+
+Para inspeção inicial:
+
+-   `quantile()` --- limites interquartílicos\
+-   `sd()` e `scale()` --- padronização e z-score\
+-   `summary()` --- inspeção geral
+
+Visualizações:
+
+-   `ggplot2::geom_boxplot()`\
+-   `ggplot2::geom_histogram()`\
+-   `ggplot2::geom_point()`
+
+A visualização frequentemente revela padrões que estatísticas isoladas não mostram.
+
+**Como resolver ou minimizar efeitos**
+
+-   Confirmar se o valor resulta de erro de digitação ou unidade (ex.: centímetros vs metros).
+-   Corrigir inconsistências quando verificadas documentalmente.
+-   Aplicar winsorização (`DescTools::Winsorize`) quando a estratégia for limitar extremos mantendo observações.
+-   Utilizar transformações (log, raiz quadrada) quando houver forte assimetria.
+-   Manter a observação quando for substantivamente plausível e documentar a decisão.
+
+A remoção deve ser exceção, não regra.
+
+**Observação importante**
+
+Eliminar valores extremos altera a distribuição da variável, o tamanho da amostra e potencialmente a matriz $\mathbf{X}$. Toda decisão deve ser registrada no log de tratamento.
+
+
+## Padronização e transformações numéricas
+
+Padronizar variáveis numéricas torna os preditores comparáveis em escala e pode melhorar a estabilidade numérica de procedimentos de estimação. Transformações adequadas, por sua vez, reduzem assimetria, estabilizam variância e facilitam interpretações coerentes com o fenômeno estudado.
+
+Em regressão linear clássica, a padronização não altera o ajuste global do modelo nem o $R^2$, mas modifica a escala dos coeficientes e sua interpretação. Já em métodos penalizados (Ridge e LASSO), a padronização é praticamente indispensável.
+
+@charnet2008 ressaltam que variáveis em escalas muito distintas podem gerar instabilidade numérica e dificultar a comparação entre efeitos.
+
+@sheather2009 destaca que reescalar variáveis pode facilitar a interpretação de coeficientes em regressões múltiplas, especialmente quando as unidades originais são muito grandes ou muito pequenas.
+
+@montgomery2021 enfatizam que diferenças extremas de magnitude entre covariáveis podem afetar diagnósticos e procedimentos computacionais.
+
+**Ferramentas R**
+
+-   `scale()` --- padronização pelo z-score (média zero e desvio padrão um).
+-   Reescala min--max --- pode ser feita manualmente via transformações aritméticas.
+-   `MASS::boxcox()` --- identificação de transformações do tipo Box--Cox.
+-   `log()` ou `log1p()` --- transformações logarítmicas (úteis para assimetria positiva).
+-   Transformações via `dplyr::mutate()` para aplicação sistemática.
+
+A escolha da transformação deve ser guiada pelo comportamento empírico da variável e pelo contexto substantivo.
+
+**Soluções recomendadas na literatura**
+
+-   Para variáveis altamente assimétricas, aplicar transformações logarítmicas pode aproximar a normalidade e reduzir heterocedasticidade.
+-   Para contagens moderadas, @paula2004 sugere transformação por raiz quadrada como alternativa simples.
+-   Para distribuições fortemente assimétricas, considerar Box--Cox quando apropriado.
+-   Evitar misturar variáveis em escalas radicalmente diferentes sem padronização prévia.
+
+**Quando padronizar**
+
+-   Para comparar magnitudes relativas entre preditores.
+-   Para métodos penalizados (Ridge, LASSO), em que a penalização depende da escala.
+-   Para algoritmos baseados em distância ou otimização numérica.
+-   Quando unidades originais dificultam interpretação direta.
+
+Padronizar não é obrigação universal; é uma decisão metodológica que deve preservar a interpretabilidade do modelo.
+
+## Codificação de variáveis categóricas (dummies)
+
+Uma variável categórica com $k$ níveis não pode entrar diretamente como coluna numérica em $\mathbf{X}$. É necessário convertê-la em variáveis indicadoras (dummies), usualmente em número $k-1$, para evitar colinearidade perfeita.
+
+A escolha da codificação determina a interpretação dos coeficientes estimados.
+
+**Erros comuns**
+
+-   Criar $k$ dummies para $k$ categorias (armadilha da variável dummy), gerando singularidade em $\mathbf{X}^\top \mathbf{X}$.
+-   Escolher categoria de referência sem critério substantivo.
+-   Manter níveis raros, produzindo colunas quase vazias e estimativas instáveis.
+-   Usar rótulos inconsistentes (acentos, abreviações, maiúsculas/minúsculas misturadas).
+-   Tratar variável ordinal como nominal sem refletir sobre a estrutura de ordem.
+
+**Conexão com a modelagem**
+
+Quando uma variável categórica é convertida corretamente em $k-1$ dummies, cada coeficiente estimado representa a diferença média entre aquela categoria e a categoria de referência, mantendo os demais preditores constantes.
+
+Se todas as $k$ dummies forem incluídas juntamente com o intercepto, ocorre dependência linear exata, tornando $\mathbf{X}^\top \mathbf{X}$ não invertível no caso clássico de MRLM.
+
+Portanto, a codificação correta não é apenas conveniência computacional, é condição para a existência do estimador de mínimos quadrados.
+
+**Fundamentação teórica**
+
+@charnet2008 destacam a importância da escolha da categoria de referência para interpretação dos coeficientes.
+
+@james2013 discutem como alta cardinalidade pode gerar modelos instáveis e sobreajustados.
+
+Para variáveis ordinais, a estrutura de ordenação pode ser incorporada explicitamente, evitando perda de informação.
+
+**Ferramentas R**
+
+-   `model.matrix()` --- gera automaticamente a matriz de projeto com codificação apropriada.
+-   `fastDummies` --- criação explícita de variáveis indicadoras.
+-   `recipes::step_dummy()` --- codificação sistemática em pipelines.
+-   `forcats` --- manipulação e reorganização de níveis.
+-   Fatores ordenados (`ordered`) para variáveis com hierarquia natural.
+
+O R, por padrão, utiliza codificação por tratamento (*treatment contrasts*), mas outras codificações podem ser especificadas conforme necessidade.
+
+**Boas práticas**
+
+-   Definir categoria de referência com base em critério substantivo (grupo controle, baseline, padrão).
+-   Agrupar níveis raros quando apropriado.
+-   Manter um dicionário de variáveis documentando níveis e significados.
+-   Padronizar rótulos antes da geração de dummies.
+-   Verificar o número final de parâmetros gerados após codificação.
+
+**Atenção à alta cardinalidade**
+
+Variáveis com muitos níveis distintos podem gerar dezenas ou centenas de colunas em $\mathbf{X}$, aumentando dimensionalidade e risco de sobreajuste.
+
+Nesses casos, considere:
+
+-   Agrupamento por regras de negócio;
+-   Seleção de variáveis;
+-   Métodos penalizados (quando apropriado na etapa seguinte).
+
+Codificar corretamente é garantir que a estrutura qualitativa do fenômeno seja traduzida adequadamente para o modelo quantitativo.
+
+## Verificação de condições para modelagem linear
+
+Cumprir condições mínimas como variabilidade das covariáveis, ausência de colinearidade perfeita e tamanho amostral adequado ($n > p + 1$) é o que permite aplicar os resultados teóricos da regressão linear e múltipla com segurança.
+
+No modelo linear clássico, a existência do estimador de mínimos quadrados depende de $\mathbf{X}^\top \mathbf{X}$ ser invertível, o que exige que a matriz de projeto $\mathbf{X}$ tenha posto completo. Assim, esta verificação não é opcional --- é estrutural. (@searle2016)
+
+Essas checagens antecedem os diagnósticos formais e reduzem problemas posteriores na estimação e interpretação.
+
+**Ferramentas R úteis**
+
+-   `cor()` ou pacote `corrr` --- inspeção de associações entre preditores.
+-   `qr()` ou `Matrix::rankMatrix()` --- verificação do posto da matriz de projeto.
+-   `car::vif()` --- cálculo do fator de inflação da variância (VIF). (@car_vif)
+-   `summary()` e inspeção de variância --- identificação de variáveis constantes.
+
+Essas ferramentas ajudam a identificar:
+
+-   Colinearidade perfeita ou quase perfeita;
+-   Variáveis constantes ou quase constantes;
+-   Relações lineares redundantes entre preditores.
+
+**Como mitigar problemas**
+
+-   Remover ou combinar variáveis altamente correlacionadas.
+-   Revisar a codificação de dummies para evitar dependência linear.
+-   Padronizar variáveis quando necessário.
+-   Eliminar duplicatas estruturais na base.
+-   Reduzir dimensionalidade quando $p$ se aproxima de $n$.
+
+Toda verificação deve ser documentada no relatório de tratamento.
+
+**Compatibilidade da variável resposta**
+
+Antes da modelagem, é essencial verificar se o tipo da variável resposta é compatível com o modelo pretendido:
+
+-   **Contínua**: variável em escala intervalar ou razão.
+-   **Binária**: 0/1 ou fator com dois níveis.
+-   **Contagem**: inteiros não negativos.
+-   **Proporção**: valores no intervalo $[0,1]$.
+
+Escolher modelo inadequado ao tipo de resposta gera inferências inválidas.
+
+**Tabela-guia: tipo de resposta e cuidados**
+
+| Tipo de resposta | Exemplo            | Tratamento pré-modelo                               | Modelo típico              |
+|------------------|------------------|------------------|------------------|
+| Contínua         | Preço, temperatura | Verificar outliers, padronização e unidades         | MRLS, MRLM                 |
+| Binária          | Sucesso/fracasso   | Conferir codificação 0/1, balanceamento e faltantes | Logístico, Probit          |
+| Contagem         | Nº de eventos      | Avaliar zeros estruturais e dispersão               | Poisson, Binomial Negativa |
+| Proporção        | Taxa, share        | Verificar limites 0/1 e denominadores               | Beta, Quasi-binomial       |
+
+Modelar sem verificar essas condições equivale a aplicar teoria sob premissas não verificadas. O tratamento adequado garante que a transição para a modelagem seja matemática e estatisticamente legítima.
+
+## Sumários e visualizações exploratórias
+
+Explorar os dados antes da modelagem permite identificar padrões, inconsistências e relações estruturais que orientam decisões de limpeza, transformação e especificação do modelo.
+
+A visualização não substitui a modelagem, ela antecipa problemas e revela estruturas que podem afetar a construção de $\mathbf{X}$ e a escolha do modelo. (@tufte2001)
+
+**Ferramentas R**
+
+Funções e pacotes úteis nesta etapa:
+
+-   `summary()` --- estatísticas descritivas básicas.
+-   `table()` ou `dplyr::count()` --- frequências de variáveis categóricas.
+-   `ggplot2` --- histogramas, boxplots, gráficos de dispersão.
+-   `GGally::ggpairs()` --- matriz gráfica de dispersão.
+-   `corrplot` ou `ggcorrplot` --- visualização de matrizes de correlação.
+-   `plotly` --- visualizações interativas (opcional).
+
+O objetivo é compreender estrutura, dispersão, assimetria e possíveis relações lineares preliminares.
+
+**Como resolver dificuldades comuns**
+
+-   Distribuições muito assimétricas → aplicar transformações (log, raiz quadrada) e reavaliar.
+-   Categorias vazias ou raras → reclassificar níveis ou agrupar.
+-   Escalas muito distintas → padronizar antes de comparar magnitudes.
+-   Correlações elevadas entre preditores → revisar especificação do modelo.
+
+Visualizar é diagnosticar antes do diagnóstico formal.
+
+**Produtos esperados**
+
+Ao final da etapa exploratória, espera-se:
+
+-   Tabela de estatísticas descritivas por variável numérica (média, desvio padrão, p5, p50, p95).
+-   Frequência absoluta e relativa por variável categórica.
+-   Histogramas e boxplots para avaliar distribuição.
+-   Gráficos de dispersão entre $Y$ e cada $X$.
+-   Matriz de correlação entre preditores numéricos.
+
+Esses produtos funcionam como evidência documental do entendimento da base antes da modelagem.
+
+**Perguntas-guia**
+
+-   Alguma variável apresenta assimetria extrema?
+-   Existem valores fora de faixa plausível?
+-   Há categorias quase vazias?
+-   Quais pares de $X$ apresentam correlação elevada?
+-   A relação entre $Y$ e $X$ parece aproximadamente linear?
+
+Responder a essas perguntas reduz erros na etapa seguinte.
+
+**Mapa de funções em R (resumo operacional)**
+
+-   **Leitura**: `read_csv`, `read_delim`, `read_excel`.
+-   **Inspeção**: `glimpse`, `summary`, `count`.
+-   **Transformação**: `mutate`, `across`, `scale`.
+-   **Tipagem**: `as.numeric`, `as.Date`, `factor`.
+-   **Correlação**: `cor`.
+-   **Matriz de projeto**: `model.matrix`.
+-   **Diagnóstico estrutural**: `qr`, `rankMatrix`, `vif`.
+
+A exploração sistemática consolida a transição entre tratamento de dados e modelagem estatística.
+
+## Salvamento e documentação da base tratada
+
+A documentação do tratamento (log + dicionário) e o versionamento adequado garantem reprodutibilidade, transparência metodológica e facilitam revisão por pares.
+
+Em regressão, a qualidade das inferências depende não apenas do modelo ajustado, mas da rastreabilidade das decisões tomadas antes da modelagem.
+
+**O que entregar ao final do tratamento**
+
+1.  Base final tratada (formato padrão, por exemplo: CSV).
+2.  Dicionário de variáveis contendo:
+    -   Nome da variável
+    -   Tipo
+    -   Unidade (quando aplicável)
+    -   Níveis (para categóricas)
+    -   Origem ou transformação realizada
+3.  Log de decisões documentando:
+    -   O que foi modificado
+    -   Por que foi modificado
+    -   Quando foi modificado
+4.  Script reproduzível contendo todas as etapas do tratamento (opcional, mas altamente recomendado).
+
+O objetivo é que qualquer outro pesquisador consiga reconstruir exatamente a base utilizada na modelagem.
+
+**Convenções úteis**
+
+-   Utilizar nome de arquivo com carimbo de data, por exemplo:\
+    `base_tratada_2025-10-26.csv`
+-   Manter script de preparo versionado e comentado.
+-   Utilizar estrutura organizada de pastas:
+    -   `dados_brutos/`
+    -   `dados_interinos/`
+    -   `dados_tratados/`
+
+Nunca sobrescrever dados brutos.
+
+**Pipelines modernos e reprodutibilidade**
+
+Em aplicações contemporâneas, o tratamento de dados é frequentemente organizado em **pipelines**: sequências estruturadas de leitura → transformação → validação → saída tratada → modelagem.
+
+Esse fluxo reduz erros humanos, aumenta consistência e fortalece a reprodutibilidade científica. No ecossistema R, essa abordagem é facilitada por ferramentas como `tidyverse`, `recipes` e estruturas de modelagem integradas.
+
+Mesmo quando não formalizado em código automatizado, o processo deve ser concebido como um fluxo explícito, sequencial e documentado.
+
+Modelar é o passo visível; documentar é o passo que garante credibilidade.
+
+## Checklist técnico: Condições mínimas para seguir à modelagem
+
+Este checklist consolida os critérios estruturais que devem ser verificados ao final do tratamento de dados, antes do ajuste de qualquer modelo de regressão.
+
+1.  **Variabilidade das covariáveis:** nenhuma variável explicativa deve ser constante ou quase constante.
+2.  **Ausência de colinearidade perfeita:** a matriz $\mathbf{X}$ deve ter posto completo; logo, $\mathbf{X}^\top \mathbf{X}$ deve ser não singular.
+3.  **Tamanho amostral adequado:** $n > p + 1$ no caso do modelo linear com intercepto; caso contrário, considere reduzir dimensionalidade ou ampliar a amostra.
+4.  **Escalas compatíveis:** quando necessário, variáveis reescaladas ou padronizadas para evitar instabilidade numérica.
+5.  **Tipos de dados conferidos:** variáveis numéricas, categóricas e temporais corretamente tipadas.
+6.  **Ausência de erros estruturais:** duplicatas removidas, chaves validadas e inconsistências corrigidas.
+7.  **Base salva e documentada:** versão final armazenada com data, autor e dicionário de variáveis.
+8.  **Pronta para modelagem:** a base pode ser utilizada diretamente em MRLS, MRLM, MLG ou métodos penalizados sem retrabalho estrutural.
+
+O não atendimento a qualquer desses critérios compromete a legitimidade estatística do modelo. A qualidade de toda inferência estatística depende dessa distinção, e ela começa antes do ajuste do primeiro modelo.
+
+## Bases para prática
+
+Ao finalizar o tratamento de uma base, tente **ajustar um modelo simples apenas para validar tipos e dummies** (sem discutir resultados). Se rodar sem erros e os sumários fizerem sentido, a base está pronta para a próxima unidade.
+
+**Escada de dificuldade das bases** - **Nível 1 (aquecimento):** Online Shoppers: tipagem + dummies + sumários.\
+- **Nível 2 (intermediário):** Ames/House Prices: faltantes moderados + reescala + dicionário.\
+- **Nível 3 (avançado):** Student Failure (messy): chaves/duplicatas + integração + plano de imputação.\
+- **Extra (discreta):** Bike Sharing: temporais + zeros estruturais + outliers climáticos.
+
+Esta seção apresenta **bases públicas e didáticas** para exercícios de tratamento pré‑modelagem. Cada item traz link de acesso, o que a base representa e **situações‑problema** que motivam o tratamento. Ao final de cada base há um bloco **Tarefas sugeridas** para orientar o estudo.
+
+### House Prices: Advanced Regression Techniques (Kaggle)
+
+-   **Tipo de resposta:** Contínua (`SalePrice`).
+-   **Link:** <https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques>
+-   **Sobre a base:** preços de casas em Ames (Iowa, EUA), com \~79 variáveis numéricas e categóricas.
+-   **Situação:**
+    -   Muitas colunas com valores ausentes (por ex.: `LotFrontage`, `Alley`, `PoolQC`).
+    -   Variáveis categóricas com codificação inconsistente e níveis raros.
+    -   Outliers em preço e área; unidades e escalas heterogêneas.
+-   Excelente caso para um **pipeline completo** de limpeza (missing, tipagem, codificação, reescala) antes da regressão contínua.
+-   **Tarefas sugeridas:**
+    1.  Mapear porcentagens de faltantes por coluna e decidir estratégia (excluir, imputar, manter).
+    2.  Padronizar nomes e unidades; verificar outliers em `SalePrice` e `GrLivArea`.
+    3.  Unificar níveis categóricos raros e definir dummies com categoria de referência.
+    4.  Salvar uma versão tratada e documentar as decisões.
+
+### Ames Housing Dataset
+
+-   **Tipo de resposta:** Contínua (`SalePrice`).
+-   **Link:** <https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques>
+-   **Sobre a base:** variação/derivação do problema de habitação de Ames, amplamente usada em cursos.
+-   **Situação:**
+    -   Mistura de tipos (numéricos + categóricos), com valores ausentes e níveis raros.
+    -   Recomendação frequente de transformação logarítmica da resposta.
+    -   Outliers estruturais (ex.: casas muito acima da média).
+-   Reforça o **contraste de estratégias** de tratamento em relação à 10.1.
+-   **Tarefas sugeridas:**
+    1.  Comparar duas abordagens de tratamento de faltantes (ex.: imputação por mediana vs. KNN) e registrar impactos em sumários.
+    2.  Testar padronização vs. não padronização nas variáveis contínuas.
+    3.  Produzir um dicionário de variáveis claro.
+
+### Online Shoppers Purchasing Intention (UCI)
+
+-   **Tipo de resposta:** Binária (`Revenue`: sim/não).
+-   **Link:** <https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset>
+-   **Sobre a base:** sessões de navegação em e‑commerce; objetivo é prever se a sessão termina em compra.
+-   **Situação:**
+    -   Variáveis categóricas e temporais misturadas às numéricas; necessidade de codificação.
+    -   Possível desbalanceamento da classe `Revenue`.
+    -   Datas/temporais como texto exigindo normalização e extração de componentes.
+-   Bom **caso de tratamento moderado**, contrastando com bases mais "sujas".
+-   **Tarefas sugeridas:**
+    1.  Verificar distribuição de `Revenue` (balanceamento).
+    2.  Definir dummies consistentes e padronizar escalas numéricas.
+    3.  Criar variáveis derivadas temporais (mês, dia da semana) de forma reproducível.
+
+### Student Failure (Messy) Dataset (Kaggle)
+
+-   **Tipo de resposta:** Binária (`fail` = 1 se o aluno reprova/sai; 0 caso contrário).
+-   **Link:** <https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset>
+-   **Sobre a base:** dados educacionais com múltiplas tabelas heterogêneas para prever reprovação.
+-   **Situação:**
+    -   Muitos valores ausentes; tabelas com chaves não padronizadas; duplicatas.
+    -   Categorias inconsistentes para o mesmo conceito (ex.: formas distintas de escrever "curso").
+    -   Necessidade de unificação/integração de fontes (join/merge) com validação.
+-   Ótimo para treinar **integração e saneamento** antes de qualquer modelagem binária.
+-   **Tarefas sugeridas:**
+    1.  Reconstruir uma chave única estável e eliminar duplicatas.
+    2.  Mapear e recodificar categorias equivalentes.
+    3.  Documentar um plano de imputação apropriado por variável.
+
+### Bike Sharing Dataset (UCI)
+
+-   **Tipo de resposta:** Discreta (contagem de bicicletas alugadas por hora/dia).
+-   **Link:** <https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset>
+-   **Sobre a base:** uso de bicicletas compartilhadas, com variáveis meteorológicas, feriados, sazonalidade e efeitos de hora do dia.
+-   **Situação:**
+    -   Contagens com muitos zeros em horários de baixa demanda e picos em horários de pico; necessidade de identificar **zeros estruturais**.
+    -   Variáveis temporais em formato de texto exigindo conversão e extração (hora, dia da semana, feriado).
+    -   Possíveis outliers (eventos climáticos extremos) e variabilidade alta da resposta.
+    -   Padronização de escalas e codificação consistente de feriados/sazonalidade.
+    -   Prepara para o tratamento de **resposta discreta (contagem)**, anterior à escolha de modelos como Poisson ou Binomial Negativa.
+-   **Tarefas sugeridas:**
+    1.  Normalizar as variáveis temporais e criar indicadores (feriado, fim de semana, hora do rush).
+    2.  Caracterizar zeros estruturais vs. esparsidade aleatória e discutir implicações para a modelagem.
+    3.  Detectar outliers climáticos e decidir estratégia (transformação, winsorização ou justificativa de manutenção).
+    4.  Entregar uma versão tratada com dicionário e log de decisões.
+
+## Glossário {#glossario}
+
+**Encoding (codificação de caracteres)**\
+Como o computador guarda letras com acentos e símbolos. Exemplos: **UTF‑8**, **latin‑1**. Se o encoding está errado, aparecem "�" ou letras quebradas.
+
+**Delimitador / Separador**\
+Símbolo que separa colunas em arquivos de texto. Exemplos: vírgula `,`, ponto e vírgula `;`, tab .
+
+**Decimal (símbolo decimal)**\
+O símbolo que separa parte inteira e fracionária. Em pt‑BR, vírgula (ex.: `3,14`); em en‑US, ponto (`3.14`).
+
+**CSV, XLSX, SAV, DTA**\
+Formatos de planilha/tabela. **CSV**: texto simples; **XLSX**: Excel; **SAV**: SPSS; **DTA**: Stata.
+
+**Licença (de uso dos dados)**\
+Condições legais de uso/compartilhamento do dataset (ex.: CC‑BY). Leia antes de usar.
+
+**Faltante / Dados faltantes**\
+Informação ausente em uma célula. Pode aparecer como **NA**, **NaN**, vazio `""` ou códigos como `999`.
+
+**MCAR, MAR, MNAR**\
+Tipos de mecanismo de ausência: **MCAR** (ausência completamente ao acaso), **MAR** (ao acaso condicional a outras variáveis), **MNAR** (não ao acaso; depende do próprio valor ausente).
+
+**Duplicatas e chaves**\
+**Duplicata**: linha repetida. **Chave**: coluna (ou combinação) que identifica exclusivamente cada linha (ex.: `id`).
+
+**Log de duplicatas / Log de tratamento**\
+Registro simples do que foi removido/alterado e por quê. Ajuda na reprodutibilidade.
+
+**Outlier**\
+Valor muito fora do padrão do conjunto. Pode ser erro, evento raro ou caso especial.
+
+**Winsorização (winsorize)**\
+Técnica que **limita** valores extremos a um limite (ex.: truncar no percentil 1% e 99%) para reduzir impacto de outliers.
+
+**Reescala / Padronização (z‑score)**\
+Colocar variáveis em escala comparável. **z‑score**: subtrai a média e divide pelo desvio‑padrão (fica média 0 e dp 1). **min--max**: leva para \[0,1\] pela fórmula `(x−min)/(max−min)`.
+
+**Cardinalidade (de categorias)**\
+Número de níveis distintos de uma variável categórica. Alta cardinalidade = muitos níveis.
+
+**Padronizar rótulos**\
+Escrever categorias de forma consistente (ex.: tudo minúsculo, sem acento, sem espaços extras), unificando sinônimos.
+
+**Dummies (one‑hot)**\
+Transformar uma variável categórica em colunas 0/1 (uma coluna a menos que o número de categorias, para evitar colinearidade perfeita).
+
+**Variável ordinal**\
+Categorias que **têm ordem** (ex.: fundamental \< médio \< superior).
+
+**Zeros estruturais**\
+Zeros esperados por construção (ex.: aluguel de bicicletas à 03h pode ser zero). Diferem de "zeros por acaso".
+
+**Regularização (Ridge, LASSO)**\
+Técnicas que penalizam coeficientes para lidar com muitas variáveis e reduzir sobreajuste; exigem atenção à **escala** dos preditores.
+
+**JSON**\
+Formato de texto para dados estruturados em pares chave:valor (não será foco aqui; usamos tabelas).
+
+**Pipeline**\
+Sequência organizada de passos de tratamento: leitura → limpeza → transformação → verificação → saída tratada.

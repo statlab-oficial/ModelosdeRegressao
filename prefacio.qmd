@@ -1,0 +1,11 @@
+# Prefácio {.unnumbered}
+
+Este livro resulta da experiência acumulada no ensino, na orientação de estudantes e no desenvolvimento de pesquisas em modelos de regressão. Somos docentes pesquisadores do Departamento de Estatística e Matemática Aplicada da Universidade Federal do Ceará (DEMA/UFC), com atuação contínua em regressão linear, modelagem estatística e inferência. Integramos o Laboratório de Inovação em Estatística — StatLab/UFC (<https://statlab.quarto.pub/>) e o Grupo de Pesquisa *Modelos de Regressão e Aplicações* do CNPq (<http://dgp.cnpq.br/dgp/espelhogrupo/6344659534806942>), espaços nos quais articulamos ensino, pesquisa e aplicação a problemas reais.
+
+O material tem como base as disciplinas Modelos de Regressão I (CC0290) e Modelagem Estatística (CC0452), momentos centrais na formação do estudante, em que probabilidade, inferência e álgebra matricial se integram em uma estrutura unificada de modelagem. Ao longo dos anos, consolidamos a convicção de que ensinar regressão exige equilíbrio entre rigor teórico e clareza interpretativa.
+
+O livro desenvolve o Modelo de Regressão Linear Simples e o Modelo de Regressão Linear Múltipla de forma progressiva, enfatizando interpretação, hipóteses, propriedades dos estimadores, inferência clássica e diagnóstico. A implementação é realizada integralmente no **R**, utilizado como ambiente de experimentação conceitual e não apenas como ferramenta computacional.
+
+Os fundamentos matemáticos mais densos são apresentados em apêndices específicos, preservando o fluxo didático do texto principal e permitindo diferentes níveis de aprofundamento. Acreditamos que a regressão deve ser ensinada como modelo estatístico, com atenção às suas suposições, limitações e implicações práticas.
+
+Esperamos que este livro contribua para a formação de profissionais capazes de utilizar modelos de regressão com rigor técnico, pensamento estatístico crítico e responsabilidade analítica.

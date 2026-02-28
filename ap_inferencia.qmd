@@ -1,0 +1,338 @@
+# Inferência Clássica no Modelo de Regressão Linear Múltipla Normal
+
+Este apêndice aplica sistematicamente os resultados do Apêndice E ao modelo de regressão linear múltipla sob normalidade e homocedasticidade:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}
+\sim
+N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+com $\operatorname{rank}(\mathbf{X})=p+1$.
+
+A estrutura matricial (Apêndice C) e os resultados sobre formas lineares e quadráticas (Apêndice E) permitem derivar:
+
+-   a distribuição exata de $\hat{\boldsymbol{\beta}}$;
+-   a distribuição da soma de quadrados residual;
+-   a independência entre estimadores e estimador da variância;
+-   as estatísticas $t$ e $F$;
+-   a decomposição ANOVA da regressão;
+-   testes gerais de hipóteses lineares.
+
+## Distribuição de $\hat{\boldsymbol{\beta}}$
+
+Recorde que
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}.
+$$
+
+Substituindo o modelo:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top
+(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})
+=
+\boldsymbol{\beta}
++
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top
+\boldsymbol{\varepsilon}.
+$$
+
+Portanto, $\hat{\boldsymbol{\beta}}$ é uma **transformação linear** de $\boldsymbol{\varepsilon}$.
+
+Como $\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n)$, segue que
+
+$$
+\hat{\boldsymbol{\beta}}
+\sim
+N_{p+1}
+\left(
+\boldsymbol{\beta},
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
+\right).
+$$
+
+Em particular, para cada componente:
+
+$$
+\hat{\beta}_j
+\sim
+N\!\left(
+\beta_j,
+\sigma^2 c_{jj}
+\right),
+$$
+
+em que $c_{jj}$ é o elemento diagonal correspondente de $(\mathbf{X}^\top\mathbf{X})^{-1}$.
+
+## Distribuição da Soma de Quadrados Residual
+
+Os resíduos são
+
+$$
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{M}\mathbf{Y},
+\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H}.
+$$
+
+A soma de quadrados residual é
+
+$$
+\mathrm{SQRes}
+=
+\hat{\boldsymbol{\varepsilon}}^\top
+\hat{\boldsymbol{\varepsilon}}
+=
+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Substituindo o modelo:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon}.
+$$
+
+Como $\mathbf{M}\mathbf{X}=\mathbf{0}$ (propriedade de projeção ortogonal),
+
+$$
+\mathbf{M}\mathbf{Y}
+=
+\mathbf{M}\boldsymbol{\varepsilon}.
+$$
+
+Logo,
+
+$$
+\mathrm{SQRes}
+=
+\boldsymbol{\varepsilon}^\top
+\mathbf{M}
+\boldsymbol{\varepsilon}.
+$$
+
+Agora, escreva
+
+$$
+\boldsymbol{\varepsilon}
+=
+\sigma\mathbf{Z},
+\qquad
+\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n).
+$$
+
+Então
+
+$$
+\frac{\mathrm{SQRes}}{\sigma^2}
+=
+\mathbf{Z}^\top
+\mathbf{M}
+\mathbf{Z}.
+$$
+
+Como $\mathbf{M}$ é simétrica, idempotente e tem posto $n-p-1$, pelo Apêndice E:
+
+$$
+\frac{\mathrm{SQRes}}{\sigma^2}
+\sim
+\chi^2_{n-p-1}.
+$$
+
+Consequentemente,
+
+$$
+\hat{\sigma}^2
+=
+\frac{\mathrm{SQRes}}{n-p-1}
+$$
+
+é um estimador não viesado de $\sigma^2$.
+
+## Independência entre $\hat{\boldsymbol{\beta}}$ e $\hat{\sigma}^2$
+
+Temos:
+
+-   $\hat{\boldsymbol{\beta}}$ é função linear de $\mathbf{Y}$;
+-   $\mathrm{SQRes}$ é forma quadrática via $\mathbf{M}$;
+-   $\mathbf{H}\mathbf{M}=\mathbf{0}$.
+
+A ortogonalidade entre os subespaços de projeção implica que:
+
+$$
+\hat{\boldsymbol{\beta}}
+\ \perp\
+\mathrm{SQRes}.
+$$
+
+Portanto,
+
+$$
+\hat{\boldsymbol{\beta}}
+\ \perp\
+\hat{\sigma}^2.
+$$
+
+Essa independência é fundamental para a validade exata das estatísticas $t$ e $F$ em amostras finitas.
+
+## Testes $t$ para Coeficientes Individuais
+
+Considere a hipótese:
+
+$$
+H_0:\ \beta_j=\beta_{j,0}.
+$$
+
+Sob $H_0$,
+
+$$
+\frac{\hat{\beta}_j-\beta_{j,0}}
+{\sigma\sqrt{c_{jj}}}
+\sim
+N(0,1).
+$$
+
+Como $\sigma^2$ é desconhecido, substitui-se por $\hat{\sigma}^2$.
+
+Defina:
+
+$$
+t_j
+=
+\frac{\hat{\beta}_j-\beta_{j,0}}
+{\hat{\sigma}\sqrt{c_{jj}}}.
+$$
+
+Como o numerador é Normal padrão e o denominador envolve uma Qui-quadrado independente, pelo Apêndice E:
+
+$$
+t_j
+\sim
+t_{n-p-1}.
+$$
+
+Essa é a base dos intervalos de confiança e testes individuais na regressão múltipla.
+
+## Teste $F$ Global e Decomposição ANOVA
+
+A decomposição fundamental é:
+
+$$
+\mathbf{Y}^\top\mathbf{Y}
+=
+\mathbf{Y}^\top\mathbf{H}\mathbf{Y}
++
+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Definindo:
+
+-   $\mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y}$,
+-   $\mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$.
+
+Sob $H_0:\boldsymbol{\beta}_{(1:p)}=\mathbf{0}$,
+
+$$
+\frac{\mathrm{SQReg}}{\sigma^2}
+\sim
+\chi^2_{p},
+\qquad
+\frac{\mathrm{SQRes}}{\sigma^2}
+\sim
+\chi^2_{n-p-1},
+$$
+
+e são independentes.
+
+A estatística
+
+$$
+F
+=
+\frac{(\mathrm{SQReg}/p)}
+{(\mathrm{SQRes}/(n-p-1))}
+$$
+
+segue:
+
+$$
+F\sim F_{p,n-p-1}.
+$$
+
+Essa é a base do teste global de significância do modelo.
+
+## Testes de Hipóteses Lineares Gerais
+
+Considere:
+
+$$
+H_0:\ \mathbf{C}\boldsymbol{\beta}=\mathbf{d},
+$$
+
+onde $\mathbf{C}$ é $q\times(p+1)$ com posto $q$.
+
+Define-se:
+
+$$
+F
+=
+\frac{
+(\mathbf{C}\hat{\boldsymbol{\beta}}-\mathbf{d})^\top
+\left[
+\mathbf{C}
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{C}^\top
+\right]^{-1}
+(\mathbf{C}\hat{\boldsymbol{\beta}}-\mathbf{d})
+/q
+}
+{\hat{\sigma}^2}.
+$$
+
+Sob $H_0$,
+
+$$
+F\sim F_{q,n-p-1}.
+$$
+
+Esse resultado generaliza:
+
+-   testes individuais ($q=1$);
+-   teste global;
+-   comparação de modelos aninhados.
+
+## Ponte para Diagnóstico
+
+A estrutura probabilística também informa o diagnóstico.
+
+Por exemplo:
+
+-   resíduos padronizados: $$
+    r_i
+    =
+    \frac{\hat{\varepsilon}_i}
+    {\hat{\sigma}\sqrt{1-h_{ii}}},
+    $$ onde $h_{ii}$ é a alavancagem (diagonal de $\mathbf{H}$);
+
+-   sob normalidade, resíduos studentizados têm distribuição aproximada $t$.
+
+Avaliação de outliers, influência e medidas como distância de Cook fazem uso dessa base probabilística.

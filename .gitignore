@@ -15,3 +15,6 @@ _book/
 *.toc
 *.tex
 *.pdf
+
+/.quarto/
+**/*.quarto_ipynb

@@ -1,0 +1,242 @@
+# Testes de hipóteses e ANOVA
+
+A construção de intervalos de confiança fornece uma forma de expressar a incerteza nos estimadores. Outra abordagem complementar é a dos **testes de hipóteses** e **análise de variância (ANOVA)**, que avaliam formalmente se os coeficientes do modelo diferem significativamente de determinados valores, em especial do zero. No Modelo de Regressão Linear Simples (MRLS) com erros normais, os testes se apoiam nas distribuições exatas dos estimadores discutidas anteriormente.
+
+Sob as hipóteses clássicas do MRLS normal: (a) linearidade na forma funcional, (b) independência dos erros, (b) homocedasticidade e (d) normalidade, os estimadores de mínimos quadrados coincidem com os estimadores de máxima verossimilhança, e possuem distribuições amostrais exatas baseadas na distribuição normal e na distribuição $t$ de Student (@hoffmann2016; @montgomery2021). Em particular, condicionalmente aos valores observados de $X$, temos
+
+$$
+\hat\beta_1 \sim N\!\left(\beta_1,\; \frac{\sigma^2}{S_{xx}}\right),
+$$
+
+e, como $\sigma^2$ é desconhecida e estimada por $s^2 = SQ_{Res}/(n-2)$, a padronização conduz à distribuição $t_{n-2}$, resultado central para a inferência clássica em regressão linear simples (@kutner2005; @casella2002).
+
+É importante enfatizar que os testes de hipóteses são construídos *dentro do modelo*. A validade exata da distribuição $t$ depende da normalidade dos erros; na ausência dessa hipótese, os resultados passam a ter caráter assintótico. Assim, significância estatística deve sempre ser interpretada à luz das suposições estruturais do modelo.
+
+## Testes marginais para $\beta_1$ e $\beta_0$
+
+### Teste para a $\beta_1$
+
+No caso da inclinação, o teste é:
+
+$$
+H_0: \beta_1 = \beta_{1,0} 
+\quad \text{vs} \quad 
+H_1: \beta_1 \neq \beta_{1,0},
+$$
+
+com estatística de teste dada por
+
+$$
+T = \frac{\hat\beta_1 - \beta_{1,0}}{s / \sqrt{S_{xx}}} \;\sim\; t_{n-2}.
+$$
+
+Esse teste é especialmente relevante quando $\beta_{1,0}=0$, situação em que verificamos se existe associação linear entre $X$ e $Y$. Em termos práticos, ele responde à pergunta: *vale a pena incluir* $X$ para explicar $Y$? Se $|T|$ ultrapassa o valor crítico da distribuição $t_{n-2}$, rejeitamos $H_0$ e concluímos que a inclinação é estatisticamente diferente de zero.
+
+Do ponto de vista conceitual, testar $\beta_1=0$ equivale a testar se a melhor reta ajustada possui inclinação nula, isto é, se o modelo reduz-se a $Y_i=\beta_0+\varepsilon_i$. Portanto, o teste compara dois modelos aninhados: o modelo completo (com inclinação livre) e o modelo restrito (com $\beta_1=0$). Essa interpretação como comparação entre modelos é fundamental para compreender a ligação posterior com a estatística $F$ (@draper1998; @kutner2005).
+
+Além disso, há equivalência formal entre o teste $t$ bilateral ao nível $\alpha$ e o intervalo de confiança $(1-\alpha)$ para $\beta_1$: rejeitar $H_0$ é equivalente a verificar que $\beta_{1,0}$ não pertence ao intervalo de confiança correspondente @casella2002. O $p$-valor, por sua vez, é definido como
+
+$$
+p = P\left(|T| \ge |t_{obs}| \mid H_0 \right),
+$$
+
+e quantifica evidência contra $H_0$ dentro da estrutura probabilística assumida.
+
+### Teste para a $\beta_0$
+
+De modo análogo, para o intercepto temos:
+
+$$
+H_0: \beta_0 = \beta_{0,0} 
+\quad \text{vs} \quad 
+H_1: \beta_0 \neq \beta_{0,0},
+$$
+
+com estatística de teste
+
+$$
+T = \frac{\hat\beta_0 - \beta_{0,0}}{s \sqrt{\tfrac{1}{n}+\tfrac{\bar X^2}{S_{xx}}}} \;\sim\; t_{n-2}.
+$$
+
+Esse teste é menos central do ponto de vista prático, mas pode ser importante quando se deseja avaliar se o valor médio de $Y$ para $X=0$ coincide com alguma referência teórica ou prática.
+
+Conceitualmente, $\beta_0 = E(Y\mid X=0)$ dentro do modelo linear. Assim, sua interpretação depende criticamente de $X=0$ ter significado no fenômeno estudado e estar dentro do intervalo de observação dos dados. Caso contrário, o intercepto pode representar apenas uma extrapolação matemática da reta ajustada, ainda que perfeitamente bem definido do ponto de vista estatístico (@montgomery2021; @weisberg2005).
+
+> **Apêndice de Demonstrações {#demo}:** as distribuições exatas das estatísticas $T$ decorrem da normalidade dos erros, da independência entre $\hat\beta_j$ e $SQ_{Res}$ e da relação entre variância residual e distribuição qui-quadrado, conforme desenvolvimento clássico da inferência em modelos lineares (@casella2002; @kutner2005).
+
+## Análise de Variância no MRLS
+
+### Decomposição da soma de quadrados
+
+O teste $F$ pode ser entendido a partir da decomposição da variabilidade total em $Y$:
+
+$$
+SQ_{Total} = SQ_{Reg} + SQ_{Res}.
+$$
+
+Aqui, $SQ_{Total} = \sum_{i=1}^n (Y_i - \bar Y)^2$ mede a variabilidade total das observações em torno da média. Essa variabilidade pode ser separada em duas partes: 
+
+-   **variabilidade explicada pela regressão**
+
+$$
+SQ_{Reg} = \sum_{i=1}^n (\hat Y_i - \bar Y)^2
+$$
+
+-   **Variabilidade não explicada**
+
+$$
+SQ_{Res} = \sum_{i=1}^n (Y_i - \hat Y_i)^2,
+$$ 
+
+associada aos resíduos. Em termos geométricos, a $SQ_{Reg}$ corresponde à projeção de $Y$ no espaço gerado por $X$, enquanto $SQ_{Res}$ corresponde ao componente ortogonal (erro).
+
+Formalmente, essa decomposição decorre da ortogonalidade entre resíduos e valores ajustados no método dos mínimos quadrados. No MRLS, tem-se
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i (\hat Y_i - \bar Y) = 0,
+$$
+
+o que implica que a variabilidade total pode ser particionada sem termo de cruzamento. Em notação matricial, essa propriedade está associada ao fato de que o vetor de resíduos é ortogonal ao espaço coluna da matriz de projeto $\mathbf{X}$, isto é, $\mathbf{X}^\top \hat{\boldsymbol{\varepsilon}} = \mathbf{0}$ (@harville2000; @searle2016).  
+
+> **Apêndice de Demonstrações {#demo}:** a identidade $SQ_{Total}=SQ_{Reg}+SQ_{Res}$ é obtida expandindo $\sum (Y_i-\bar Y)^2$ em termos de $(\hat Y_i-\bar Y)$ e $(Y_i-\hat Y_i)$ e utilizando a ortogonalidade dos resíduos.
+
+Essa decomposição mostra que o ajuste por regressão não apenas fornece estimativas pontuais, mas também permite quantificar de forma clara quanto da variabilidade total de $Y$ é capturada pela relação linear com $X$. Quanto maior $SQ_{Reg}$ em relação a $SQ_{Total}$, maior o poder explicativo do modelo.
+
+Do ponto de vista probabilístico, sob $H_0:\beta_1=0$ e normalidade dos erros, as somas de quadrados associadas à regressão e aos resíduos, quando devidamente padronizadas por $\sigma^2$, seguem distribuições qui-quadrado independentes com 1 e $n-2$ graus de liberdade, respectivamente (@kutner2005). Essa independência é a base formal da estatística $F$.
+
+### Quadrados Médios e Estatística F
+
+Para formalizar o teste global, cada soma de quadrados é dividida pelos graus de liberdade correspondentes:
+
+-   Quadrado médio da regressão:
+$$
+QM_{Reg} = \frac{SQ_{Reg}}{1}.
+$$
+
+-   Quadrado médio dos resíduos:
+$$
+QM_{Res} = \frac{SQ_{Res}}{n-2}.
+$$
+
+A razão entre eles define a estatística $F$:
+
+$$
+F = \frac{QM_{Reg}}{QM_{Res}} \;\sim\; F_{1,n-2} \quad \text{sob } H_0: \beta_1=0.
+$$
+
+Esse teste avalia, portanto, se a proporção de variabilidade explicada pela regressão é grande o suficiente em comparação com a variabilidade residual, justificando o uso do modelo.
+
+Interpretativamente, $QM_{Res}$ é um estimador não viesado de $\sigma^2$, enquanto $QM_{Reg}$ mede a variação explicada *por grau de liberdade associado ao efeito linear de $X$*. Assim, o teste $F$ compara um componente sistemático (sinal) com um componente aleatório (ruído). 
+
+Valores elevados de $F$ indicam que a redução em $SQ_{Res}$ ao incluir $X$ é grande demais para ser atribuída apenas ao acaso (@montgomery2021; @weisberg2005).
+
+### Tabela ANOVA do MRLS
+
+| Fonte de variação | SQ           | GL    | QM         | Estatística           |
+|-------------------|--------------|-------|------------|-----------------------|
+| Regressão         | $SQ_{Reg}$   | 1     | $QM_{Reg}$ | $F=QM_{Reg}/QM_{Res}$ |
+| Resíduo           | $SQ_{Res}$   | $n-2$ | $QM_{Res}$ |                       |
+| Total             | $SQ_{Total}$ | $n-1$ |            |                       |
+
+A tabela resume de maneira padronizada a decomposição da variabilidade e fornece a base para a aplicação do teste $F$. Note que os graus de liberdade totais satisfazem
+
+$$
+(n-1) = 1 + (n-2),
+$$
+
+refletindo que dois parâmetros foram estimados no modelo (intercepto e inclinação).
+
+### Coeficiente de determinação $R^2$
+
+Um desdobramento natural dessa análise é o **coeficiente de determinação**:
+
+$$
+R^2 = \frac{SQ_{Reg}}{SQ_{Total}} = 1 - \frac{SQ_{Res}}{SQ_{Total}}.
+$$
+
+Ele mede a proporção da variabilidade total de $Y$ explicada pela regressão e está limitado ao intervalo $0 \leq R^2 \leq 1$. Em termos práticos, $R^2 \times 100\%$ indica o percentual da variabilidade de $Y$ que é explicado linearmente por $X$. Quanto maior $R^2$, maior o poder explicativo do modelo.
+
+É importante compreender que $R^2$ é uma medida descritiva da qualidade de ajuste dentro da amostra observada. Ele **não implica causalidade, nem garante desempenho preditivo**. Além disso, em modelos com múltiplos preditores, $R^2$ tende a aumentar com a inclusão de variáveis, mesmo que irrelevantes, motivo pelo qual se introduz posteriormente o $R^2$ ajustado (@kutner2005; @montgomery2021).
+
+No caso do MRLS, há uma relação direta com a estatística descritiva da correlação linear:
+
+$$
+R^2 = r_{XY}^2, 
+\quad r_{XY} = \frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}},
+$$
+
+em que $r_{XY}$ é o coeficiente de correlação amostral entre $X$ e $Y$. Essa igualdade decorre das expressões algébricas do estimador $\hat\beta_1$ e das somas de quadrados no caso univariado (@charnet2008; @hoffmann2016).
+
+Assim, $R^2$ conecta três dimensões: é a proporção de variabilidade explicada (ANOVA), é equivalente ao quadrado da correlação linear (estatística descritiva) e fundamenta a estatística $F$ da ANOVA por meio da relação
+
+$$
+F = \frac{QM_{Reg}}{QM_{Res}} = \frac{R^2}{1-R^2}(n-2).
+$$
+
+> **Apêndice de Demonstrações {#demo}:** a relação entre $F$ e $R^2$ é obtida substituindo as definições de $SQ_{Reg}$ e $SQ_{Res}$ na razão $QM_{Reg}/QM_{Res}$ e utilizando a identidade $R^2 = SQ_{Reg}/SQ_{Total}$.
+
+Em resumo, os testes de hipóteses no MRLS permitem verificar tanto a significância individual dos coeficientes quanto o poder explicativo global do modelo. A equivalência entre os testes $t$ e $F$, a decomposição da soma de quadrados e a interpretação do $R^2$ reforçam a visão integrada da regressão como técnica que conecta **estimação, inferência e análise da variabilidade** em um único arcabouço teórico (@kutner2005; @montgomery2021).
+
+### Equivalência entre $T^2$ e $F$
+
+Um resultado fundamental é que, no MRLS normal, o teste $t$ para a inclinação e o teste $F$ global da regressão são equivalentes. Quando a hipótese nula é $\beta_1=0$, temos:
+
+$$
+F = T^2.
+$$
+
+Isso ocorre porque o modelo possui apenas um preditor. Em modelos múltiplos, a situação muda: o teste $t$ continua avaliando parâmetros individuais, enquanto o teste $F$ passa a ter papel central ao considerar hipóteses conjuntas sobre vários coeficientes.
+
+Para compreender essa equivalência com rigor, observe que, sob $H_0:\beta_1=0$, a estatística $t$ pode ser escrita como
+
+$$
+T = \frac{\hat\beta_1}{s/\sqrt{S_{xx}}},
+$$
+
+de modo que
+
+$$
+T^2 = \frac{\hat\beta_1^2 S_{xx}}{s^2}.
+$$
+
+Por outro lado, no MRLS, pode-se mostrar que
+
+$$
+SQ_{Reg} = \hat\beta_1^2 S_{xx},
+$$
+
+e que
+
+$$
+QM_{Res} = s^2.
+$$
+
+Logo,
+
+$$
+F = \frac{QM_{Reg}}{QM_{Res}}
+  = \frac{SQ_{Reg}/1}{s^2}
+  = \frac{\hat\beta_1^2 S_{xx}}{s^2}
+  = T^2.
+$$
+
+Portanto, a estatística $F$ nada mais é do que o quadrado da estatística $t$ quando há apenas um parâmetro de inclinação sendo testado.
+
+Do ponto de vista distribucional, se
+
+$$
+T \sim t_{n-2},
+$$
+
+então
+
+$$
+T^2 \sim F_{1,n-2},
+$$
+
+o que decorre da relação geral entre as distribuições $t$ e $F$ (@casella2002). Assim, a equivalência também se verifica ao nível das distribuições.
+
+Essa identidade tem uma consequência didática importante: no MRLS, o teste global da regressão e o teste individual da inclinação são exatamente o mesmo teste, apenas expressos em escalas diferentes. Em outras palavras, testar a significância global do modelo é o mesmo que testar se a inclinação é nula.
+
+> **Apêndice de Demonstrações {#demo}:** a identidade $SQ_{Reg}=\hat\beta_1^2 S_{xx}$ e a relação distribucional entre $t$ e $F$ podem ser demonstradas a partir das propriedades do MQO e da definição da distribuição $F$ como razão de qui-quadrados independentes @casella2002; @harville2000.
+

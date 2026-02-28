@@ -1,0 +1,297 @@
+# Inferências a partir do modelo escolhido
+
+Uma vez que um modelo de regressão linear simples (MRLS) foi selecionado e validado pelos diagnósticos de resíduos e pelos critérios de comparação, o passo seguinte é realizar **inferências estatísticas**.\
+Essas inferências permitem responder a perguntas como:
+
+-   Qual é a **força da associação** entre $X$ e $Y$?\
+-   Existe evidência de que $X$ **realmente explica** $Y$ (e não apenas ruído)?\
+-   Quais são as **incertezas associadas às estimativas**?\
+-   Como podemos **predizer novos valores de** $Y$, com margens de confiança?
+
+Nesta seção abordamos três aspectos centrais:\
+1. Inferência sobre os coeficientes da regressão.\
+2. Intervalos de confiança e testes de hipóteses.\
+3. Predições pontuais e intervalares.
+
+## Predição pontual da média condicional
+
+A predição pontual para a resposta média em um valor $X_0$ é dada por:
+
+$$
+\hat{Y}_0 = \hat{\beta}_0 + \hat{\beta}_1 X_0.
+$$
+
+-   **Interpretação:**\
+    $\hat{Y}_0$ representa a melhor estimativa da **média condicional de** $Y$ dado $X=X_0$.\
+-   **Importante:**\
+    Essa estimativa é determinística a partir do modelo ajustado, mas não revela sozinha a **incerteza** da predição.
+
+Portanto, sempre que apresentar uma predição pontual em relatórios ou aplicações, deve-se complementá-la com um **intervalo de confiança ou de predição**.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+
+set.seed(2025)
+
+# Dados simulados: horas de estudo (X) vs nota (Y)
+n <- 50
+X <- runif(n, 0, 10)
+Y <- 60 + 2.5*X + rnorm(n, 0, 3)
+
+df <- tibble(X = X, Y = Y)
+
+# Ajuste do modelo
+mod <- lm(Y ~ X, data = df)
+
+# Grade para desenho da reta
+xg <- seq(0, 10, length.out = 200)
+```
+
+**Predição pontual: reta ajustada e valor previsto para** $X_0=5$ horas.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, dpi=120}
+#| fig-cap: "Predição pontual: reta ajustada e valor previsto para X0=5 horas."
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+})
+
+# Predição em X0=5
+X0 <- 5
+Y0_hat <- predict(mod, newdata = data.frame(X = X0))
+
+reta <- data.frame(X = xg, Y = predict(mod, newdata = data.frame(X = xg)))
+
+ggplot(df, aes(x = X, y = Y)) +
+  geom_point(alpha = 0.7, size = 2) +
+  geom_line(data = reta, aes(x = X, y = Y), color = "red", linewidth = 1) +
+  geom_vline(xintercept = X0, linetype = "dashed", color = "gray50") +
+  geom_point(data = data.frame(X = X0, Y = Y0_hat), aes(x = X, y = Y),
+             color = "black", size = 3) +
+  labs(x = "Horas de estudo (X)", y = "Nota (Y)", title = "Predição pontual em X0=5") +
+  theme_minimal(base_size = 12)
+```
+
+O ponto destacado mostra a melhor estimativa da média condicional em $X_0=5$. Note que a reta ajustada fornece apenas um valor pontual, sem indicar a incerteza associada.
+
+### Intervalo de confiança para a média condicional
+
+Um intervalo de confiança para a média de $Y$ em $X_0$ é:
+
+$$
+IC(\mu(X_0)) = \hat{\mu}(X_0) \pm t_{n-2;\,1-\alpha/2}\; s \sqrt{\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}},
+$$
+
+onde:
+
+-   $s^2 = SQ_{Res}/(n-2)$ é a variância residual estimada;\
+-   $S_{xx} = \sum (X_i-\bar X)^2$;\
+-   O termo dentro da raiz reflete a **incerteza da estimação dos coeficientes**.
+
+Esse intervalo deriva da distribuição t-Student da combinação linear dos estimadores de $\beta_0$ e $\beta_1$. Este intervalo é **mais estreito** próximo à média ($\bar X$) e **mais largo** quanto mais distante $X_0$ estiver de $\bar X$.
+
+**Dicas de uso:** - Útil quando o interesse está na **tendência média** da resposta para uma dada condição.\
+- Não deve ser confundido com previsão individual.
+
+**Intervalo de confiança (95%) para a média condicional.**
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Intervalo de confiança (95%) para a média condicional."
+#| fig-width: 7
+#| fig-height: 5
+#| dpi: 120
+
+library(ggplot2)
+library(dplyr)
+
+pred_ic <- predict(
+  mod,
+  newdata = data.frame(X = xg),
+  interval = "confidence",
+  level = 0.95
+)
+
+band_ic <- tibble(
+  X   = xg,
+  fit = pred_ic[, "fit"],
+  lwr = pred_ic[, "lwr"],
+  upr = pred_ic[, "upr"]
+)
+
+ggplot(df, aes(x = X)) +
+  geom_point(aes(y = Y), alpha = 0.7, size = 2) +
+  geom_line(data = band_ic, aes(y = fit), color = "red", linewidth = 1) +
+  geom_ribbon(data = band_ic, aes(ymin = lwr, ymax = upr), alpha = 0.2, fill = "red") +
+  labs(x = "Horas de estudo (X)", y = "Nota (Y)", title = "Intervalo de confiança da média condicional") +
+  theme_minimal(base_size = 12)
+```
+
+A banda em torno da reta representa a incerteza sobre a média condicional de $Y$. Observe que ela é mais estreita perto da média de $X$ e se alarga nos extremos.
+
+## Intervalo de predição para nova observação
+
+O intervalo de predição incorpora, além da incerteza dos parâmetros, a variabilidade **intrínseca** de $Y$. Ele é dado por:
+
+$$
+IC(Y_{novo}(X_0)) = \hat{\mu}(X_0) \pm t_{n-2;\,1-\alpha/2}\; s \sqrt{1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}}.
+$$
+
+o termo "+1" na raiz incorpora a **variabilidade individual** de novas observações. Este intervalo é sempre mais largo que o intervalo de confiança da média e, torna-se especialmente amplo em valores extremos de $X$.
+
+**Dica prática:**\
+Use intervalos de predição sempre que o objetivo for prever um **novo indivíduo**, e não a média condicional.
+
+**Intervalo de confiança vs. intervalo de predição (95%).**
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Intervalo de confiança vs. intervalo de predição (95%)."
+#| fig-width: 7
+#| fig-height: 5
+#| dpi: 120
+
+library(ggplot2)
+library(dplyr)
+
+pred_conf <- predict(
+  mod,
+  newdata = data.frame(X = xg),
+  interval = "confidence",
+  level = 0.95
+)
+
+pred_pred <- predict(
+  mod,
+  newdata = data.frame(X = xg),
+  interval = "prediction",
+  level = 0.95
+)
+
+band <- tibble(
+  X = xg,
+  fit = pred_conf[, "fit"],
+  mean_lwr = pred_conf[, "lwr"],
+  mean_upr = pred_conf[, "upr"],
+  obs_lwr  = pred_pred[, "lwr"],
+  obs_upr  = pred_pred[, "upr"]
+)
+
+ggplot(df, aes(x = X)) +
+  geom_point(aes(y = Y), alpha = 0.7, size = 2) +
+  geom_line(data = band, aes(y = fit), color = "red", linewidth = 1) +
+  geom_ribbon(data = band, aes(ymin = mean_lwr, ymax = mean_upr),
+              alpha = 0.2, fill = "red") +
+  geom_ribbon(data = band, aes(ymin = obs_lwr, ymax = obs_upr),
+              alpha = 0.15, fill = "blue") +
+  labs(x = "Horas de estudo (X)", y = "Nota (Y)", title = "IC da média vs. IP de nova observação") +
+  theme_minimal(base_size = 12)
+```
+
+Comparando as bandas, perceba que o intervalo de predição é sempre mais largo que o de confiança. Isso ocorre porque ele incorpora a variabilidade individual das novas observações, além da incerteza da média.
+
+## Outras inferências possíveis
+
+1.  **Testes sobre os coeficientes**
+    -   Já discutidos em seções anteriores, mas aqui reforçamos:
+        -   Teste t de $\beta_1$ → verifica se há evidência de associação linear.\
+        -   Teste t de $\beta_0$ → avalia se o intercepto é relevante.
+2.  **Intervalos para parâmetros**
+    -   Fórmulas usuais para $\beta_0$ e $\beta_1$ com base na distribuição t.
+3.  **Transformações nas variáveis**
+    -   Quando o modelo foi ajustado com transformação (ex.: $Y^*=\log(Y)$), os intervalos são válidos **na escala transformada**.\
+    -   Previsões em escala original exigem **retransformação cuidadosa**:
+        -   Exemplo: se $\log(Y)\sim N(\mu,\sigma^2)$, então\
+            $$
+            E[Y] = \exp\!\left(\mu+\frac{\sigma^2}{2}\right).
+            $$\
+        -   Predições diretas via $\hat{Y^*}=\exp(\hat Y)$ podem ser **enviesadas**; correções podem ser aplicadas. Portanto, sempre destaque em qual escala está sendo feita a inferência: a transformada ou a original.
+
+## Exemplos ilustrativos
+
+**Exemplo 1 -- Predição da média condicional**\
+Com base no modelo $Y=\beta_0+\beta_1X+\varepsilon$ ajustado, obtemos para $X_0=5$ horas de estudo:
+
+-   **Predição pontual:** $\hat Y_0 \approx 72.4$.\
+-   **Intervalo de confiança (95%) para a média:** \[71.2, 73.6\].\
+-   **Interpretação:** a nota média esperada de estudantes que estudam 5 horas está entre **71,2 e 73,6 pontos**, com ponto central em torno de 72,4.
+
+**Exemplo 2 -- Predição de uma nova observação**\
+No mesmo cenário:
+
+-   **Intervalo de predição (95%) para um novo estudante com** $X_0=5$: \[66.1, 78.7\].\
+-   **Interpretação:** uma **nova nota individual** pode variar mais amplamente em torno da média, refletindo a variabilidade individual dos alunos.
+
+**Exemplo 3 -- Escala transformada**\
+Se ajustarmos $\log(Y)=\beta_0+\beta_1X+\varepsilon$, e para $X_0=5$ temos $\hat Y^* \approx 4.02$:
+
+-   **Predição pontual em escala original (ingênua):** $\exp(4.02) \approx 55.95$.\
+-   **Correção de viés (log-normal):** $\exp(4.02+\hat\sigma^2/2) \approx 58.13$.\
+-   **Interpretação:** o valor esperado de $Y$ é **ligeiramente maior do que a simples exponenciação** do ajuste, devido à assimetria log-normal.
+
+**Predição em escala log-transformada e retransformação para Y.**
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Predição em escala log-transformada e retransformação para Y."
+#| fig-width: 7
+#| fig-height: 5
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+})
+
+# Simular dados log-normais
+set.seed(2025)
+X_t <- seq(0, 10, length.out = 50)
+Y_t <- exp(3 + 0.2*X_t + rnorm(50, 0, 0.3))  # log(Y) ~ Normal
+df_t <- tibble(X = X_t, Y = Y_t, logY = log(Y_t))
+
+# Ajuste em log(Y)
+mod_log <- lm(logY ~ X, data = df_t)
+
+# Predição em X0=5
+X0 <- 5
+mu_hat <- predict(mod_log, newdata = data.frame(X = X0))
+sigma2_hat <- summary(mod_log)$sigma^2
+
+pred_naive <- exp(mu_hat)
+pred_corr  <- exp(mu_hat + sigma2_hat/2)
+
+# Grade e reta ajustada em log(Y)
+xg2 <- seq(0, 10, length.out = 200)
+reta_log <- tibble(X = xg2, logY_hat = predict(mod_log, newdata = data.frame(X = xg2)))
+
+ggplot(df_t, aes(x = X, y = logY)) +
+  geom_point(alpha = 0.7, size = 2) +
+  geom_line(data = reta_log, aes(x = X, y = logY_hat), color = "red", linewidth = 1) +
+  geom_vline(xintercept = X0, linetype = "dashed", color = "gray50") +
+  geom_point(data = data.frame(X = X0, logY = as.numeric(mu_hat)),
+             aes(x = X, y = logY), color = "black", size = 3) +
+  labs(x = "X", y = "log(Y)", title = "Predição em escala log-transformada") +
+  theme_minimal(base_size = 12)
+
+cat(sprintf("Predição ingênua em Y: %.2f\n", pred_naive))
+cat(sprintf("Predição corrigida em Y: %.2f\n", pred_corr))
+```
+
+O ajuste foi feito em $\log (Y)$. A transformação garante resíduos mais próximos da normalidade, mas a interpretação precisa de cuidado: a retransformação para $Y$ pode exigir correções para evitar viés.
+
+## Dicas e reflexão final
+
+-   **Cuidado com extrapolações:** predições são confiáveis apenas na faixa de valores de $X$ observada.\
+-   **Verifique resíduos antes de confiar nas inferências:** se hipóteses do MRLS não são atendidas, ICs e testes podem ser inválidos.\
+-   **Predições em escala transformada:** se o modelo foi ajustado em $\log(Y)$, as predições devem ser interpretadas nessa escala. Ao retransformar ($\exp(\hat Y)$), aplique correções para viés quando necessário.\
+-   **Predição e explicação são diferentes:** um modelo pode ser ótimo para prever, mas ruim para interpretar substantivamente, e vice-versa.
+
+A regressão linear simples vai além de ajustar uma reta: ela nos permite **testar hipóteses, construir intervalos, e prever valores futuros**.
+
+Essas inferências são a ponte natural entre a **teoria estatística** e a **aplicação prática**: ajudam a responder perguntas de pesquisa, apoiar tomadas de decisão e comunicar incertezas de forma transparente.

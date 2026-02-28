@@ -1,0 +1,794 @@
+# Aplicações Práticas do MRLM
+
+O poder do **Modelo de Regressão Linear Múltipla (MRLM)** se revela quando enfrentamos problemas reais nos quais **múltiplos fatores** explicam (ou confundem) um fenômeno.  
+Vamos trabalhar três estudos de caso complementares:
+
+1. **Simulado (marketing multicanais)** — revisar estimação, interpretação, **colinearidade**, intervalos de confiança e **teste conjunto**.  
+2. **Dados “toy” reais (Boston Housing)** — várias covariáveis e necessidade de **diagnóstico/transformação**; ótimo para **seleção de modelos**.  
+3. **Dados clássicos (Auto MPG)** — múltiplos preditores reais, **não linearidade** (peso × consumo), **dummies** e **comparação de modelos**.
+
+Em cada caso seguiremos: **formulação do modelo**, **estimação e interpretação**, **diagnóstico**, **decisões** (transformar? remover? selecionar?) e **conclusões práticas**.
+
+## Vendas multicanais (simulado) — estimação, colinearidade e inferência conjunta
+
+**Base:** `vendamix.csv` (pasta `base/`)
+
+**Contexto.**  
+Uma empresa investe em **TV**, **online** e **promoções**, acompanhando o gasto dos **concorrentes**. Queremos entender os **efeitos parciais** desses canais sobre **vendas mensais** (tudo em **mil reais**), detectar **multicolinearidade** e fazer **inferência conjunta**.
+
+**Modelo de interesse**
+
+$$
+\text{vendas} = \beta_0 + \beta_1\,\text{tv} + \beta_2\,\text{online} + \beta_3\,\text{promocao} + \beta_4\,\text{concorrentes} + \varepsilon.
+$$
+
+### Roteiro do que fazer
+
+- Estime o modelo e interprete $\hat{\beta}$ nas unidades originais.  
+
+```{r}
+#| label: chunk-1
+#| echo: true
+#| warning: false
+#| message: false
+# 3.9.1 — VENDAMIX: estimação e interpretação
+
+suppressPackageStartupMessages({
+  library(readr)
+  library(dplyr)
+})
+
+# Leitura da base (ajuste o caminho se necessário)
+vend <- readr::read_csv("bases/vendamix.csv", show_col_types = FALSE)
+
+# Ajuste do MRLM
+m1 <- lm(vendas ~ tv + online + promocao + concorrentes, data = vend)
+
+summary(m1)
+```
+
+- Examine o diagnóstico de resíduos e reporte $R^2$ / $R^2_{aj}$.   
+
+```{r}
+#| label: chunk-2
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-cap: "3.9.1 — VENDAMIX: diagnóstico (resíduos vs ajustados e QQ-plot dos resíduos)"
+#| fig-width: 10
+#| fig-height: 4
+#| dpi: 120
+# 3.9.1 — VENDAMIX: diagnóstico
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(patchwork)
+})
+
+# Resíduos vs Ajustados
+p_res <- tibble(fitted = fitted(m1), resid = resid(m1)) |>
+  ggplot(aes(x = fitted, y = resid)) +
+  geom_point(alpha = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Ajustados", y = "Resíduos", title = "Resíduos vs Ajustados") +
+  theme_minimal(base_size = 12)
+
+# QQ-plot
+p_qq <- ggplot(tibble(sample = resid(m1)), aes(sample = sample)) +
+  stat_qq(alpha = 0.7) +
+  stat_qq_line() +
+  labs(x = "Quantis teóricos", y = "Quantis amostrais", title = "QQ-plot dos resíduos") +
+  theme_minimal(base_size = 12)
+
+p_res + p_qq
+
+# R² e R² ajustado
+r2 <- summary(m1)$r.squared
+r2_adj <- summary(m1)$adj.r.squared
+list(R2 = r2, R2_adj = r2_adj)
+```
+
+- Avalie o **VIF** (colinearidade) e discuta impacto nos erros-padrão e testes.
+
+```{r}
+#| label: chunk-3
+#| echo: true
+#| warning: false
+#| message: false
+# 3.9.1 — VENDAMIX: VIF (colinearidade) + correlação
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(car)       # vif()
+})
+
+# --- 1) Matriz de correlação ---
+Xvars <- vend |> dplyr::select(tv, online, promocao, concorrentes)
+corr <- cor(Xvars, use = "complete.obs")
+
+# heatmap simples (sem depender de seaborn)
+corr_long <- as.data.frame(as.table(corr)) |>
+  rename(var1 = Var1, var2 = Var2, r = Freq)
+
+ggplot(corr_long, aes(x = var1, y = var2, fill = r)) +
+  geom_tile() +
+  geom_text(aes(label = sprintf("%.2f", r)), size = 3) +
+  coord_equal() +
+  labs(title = "Matriz de Correlação — VENDAMIX", x = NULL, y = NULL) +
+  theme_minimal(base_size = 12)
+
+# --- 2) VIF ---
+vif_vals <- car::vif(m1)
+vif_df <- tibble(variavel = names(vif_vals), VIF = as.numeric(vif_vals))
+vif_df
+```
+
+- Construa **intervalos de confiança de 95%** e realize **teste conjunto** para $(\beta_{\text{tv}}, \beta_{\text{online}})$. 
+
+```{r}
+#| label: chunk-4
+#| echo: true
+#| warning: false
+#| message: false
+# 3.9.1 — VENDAMIX: ICs e teste conjunto (tv, online)
+
+suppressPackageStartupMessages({
+  library(car)  # linearHypothesis()
+})
+
+# IC 95%
+confint(m1, level = 0.95)
+
+# Teste conjunto H0: beta_tv = 0 e beta_online = 0
+car::linearHypothesis(m1, c("tv = 0", "online = 0"))
+```
+
+- Alavancagem e Cook 
+```{r}
+#| label: chunk-11
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-cap: "3.9.1 — vendamix.csv: alavancagem e influência (Cook's D, DFFITS, DFBETAS)"
+#| fig-width: 10
+#| fig-height: 4
+#| dpi: 120
+# 3.9.1 — VENDAMIX: alavancagem e influência
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(patchwork)
+})
+
+n <- nobs(m1)
+p <- length(coef(m1))              # inclui intercepto
+
+hii   <- hatvalues(m1)
+cook  <- cooks.distance(m1)
+dff   <- dffits(m1)
+dfb   <- dfbetas(m1)
+dfb_m <- apply(abs(dfb), 1, max)
+
+cut_lev    <- 2 * p / n
+cut_cook   <- 4 / n
+cut_dffits <- 2 * sqrt(p / n)
+cut_dfb    <- 2 / sqrt(n)
+
+out <- tibble(
+  idx = 1:n,
+  h_ii = hii,
+  CookD = cook,
+  DFFITS = as.numeric(dff),
+  DFBETAS_max = dfb_m
+)
+
+# Top 8 por Cook
+out |> slice_max(order_by = CookD, n = 8)
+
+p1 <- ggplot(out, aes(x = idx, y = h_ii)) +
+  geom_col(alpha = 0.7) +
+  geom_hline(yintercept = cut_lev, linetype = "dashed") +
+  labs(title = "Alavancagem (h_ii)", x = "Índice", y = "h_ii") +
+  theme_minimal(base_size = 12)
+
+p2 <- ggplot(out, aes(x = idx, y = CookD)) +
+  geom_col(alpha = 0.7) +
+  geom_hline(yintercept = cut_cook, linetype = "dashed") +
+  labs(title = "Distância de Cook", x = "Índice", y = "Cook's D") +
+  theme_minimal(base_size = 12)
+
+p1 + p2
+```
+
+- Todas as regressões possíveis 
+```{r}
+#| label: chunk-stepwise-todas
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-cap: "Seleção de modelos: todas as regressões possíveis (vendamix.csv)"
+# 3.9.1 — Todas as regressões possíveis (all subsets)
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(leaps)   # regsubsets()
+})
+
+vars <- c("tv", "online", "promocao", "concorrentes")
+
+# all-subsets (exhaustive)
+regfit <- leaps::regsubsets(
+  x = as.matrix(vend |> dplyr::select(all_of(vars))),
+  y = vend$vendas,
+  nvmax = length(vars),
+  method = "exhaustive"
+)
+
+s <- summary(regfit)
+
+# tabela com os melhores por tamanho (regsubsets retorna um "best" por k)
+res <- tibble(
+  k      = 1:length(s$cp),
+  R2     = s$rsq,
+  R2_adj = s$adjr2,
+  Cp     = s$cp,
+  BIC    = s$bic
+)
+
+# Ordene por BIC (ou Cp, etc.)
+res |> arrange(BIC) |> slice_head(n = 10)
+```
+
+ 
+Este roteiro serve como uma análise incial, com códigos em python e alguns resultados de referência para realização de novas análises, as quais devem ser feitas até que as hipóteses do modelos estejam razoavelmente garantidas. 
+
+
+## Boston Housing (toy real) — diagnóstico, transformação e seleção
+
+Nesta seção, usamos um conjunto de dados “toy real” **disponível diretamente em R**, com múltiplas covariáveis e comportamento típico de bases imobiliárias/urbanas: o **BostonHousing2** (pacote `mlbench`).  
+
+**Fonte (R):** `mlbench::BostonHousing2`  
+- **Resposta:** `cmedv` (*corrected median value*), isto é, valor mediano das casas (escala monetária do dataset).  
+- **Preditoras (exemplos):** características socioeconômicas e urbanas (p.ex., `lstat`, `rm`, `ptratio`, `nox`, `tax`, `crim`, etc.).  
+- **Observação prática:** removemos a variável textual `town` do ajuste (não é numérica; poderia ser tratada como fator, mas aqui o foco é diagnóstico e seleção com variáveis numéricas).
+
+### Perguntas
+
+1. Um ajuste linear com a resposta na escala natural (**`cmedv`**) é **adequado** em termos de resíduos?  
+2. Uma transformação da resposta, como **$\log(1+cmedv)$**, melhora **normalidade** e **homoscedasticidade**?  
+3. Quais preditores permanecem após um procedimento simples de **seleção por AIC (stepwise)**?
+
+### Roteiro do que fazer
+
+- Ajuste um **modelo baseline** (escala natural) e inspecione resíduos (resíduos vs ajustados e QQ-plot).  
+- Ajuste um modelo com **$\log(1+\text{resposta})$** e compare **AIC/BIC**.  
+- Execute um **stepwise por AIC** para obter um modelo mais parcimonioso e compare com o baseline.
+
+#### 1) Baseline: `cmedv` na escala original + diagnóstico gráfico
+
+```{r}
+#| label: chunk-5
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-cap: "Diagnóstico inicial do modelo linear (BostonHousing2): resíduos vs ajustados e QQ-plot."
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(mlbench)
+  library(dplyr)
+  library(ggplot2)
+  library(patchwork)
+})
+
+data("BostonHousing2", package = "mlbench")
+bh <- BostonHousing2 |> as_tibble()
+
+# Baseline: resposta = cmedv (valor mediano)
+m2 <- lm(cmedv ~ ., data = bh |> dplyr::select(-town))
+
+p_res <- tibble(fitted = fitted(m2), resid = resid(m2)) |>
+  ggplot(aes(fitted, resid)) +
+  geom_point(alpha = 0.5, size = 1.2) +
+  geom_hline(yintercept = 0) +
+  labs(x = "Ajustados (ŷ)", y = "Resíduos", title = "Resíduos vs Ajustados") +
+  theme_minimal(base_size = 12)
+
+p_qq <- ggplot(tibble(sample = resid(m2)), aes(sample = sample)) +
+  stat_qq(alpha = 0.5) +
+  stat_qq_line() +
+  labs(x = "Quantis teóricos", y = "Quantis amostrais", title = "QQ-plot dos resíduos") +
+  theme_minimal(base_size = 12)
+
+p_res + p_qq
+
+summary(m2)
+```
+
+**Leitura esperada.**
+
+Resíduos vs ajustados: buscamos uma nuvem aproximadamente aleatória em torno de 0; padrões em “funil” sugerem heterocedasticidade; curvatura sugere não linearidade/termos omitidos.
+
+QQ-plot: desvios sistemáticos nas pontas indicam caudas pesadas; curvaturas amplas sugerem assimetria/não normalidade.
+
+#### 2) Transformação da resposta: $\log(1+cmedv)$ + comparação AIC/BIC
+
+```{r}
+#| label: chunk-6
+#| echo: true
+#| warning: false
+#| message: false
+# 3.9.2 — BostonHousing2: transformação log(1+resposta) e comparação AIC/BIC
+
+bh2 <- bh |> mutate(log_cmedv = log1p(cmedv))
+
+m3 <- lm(log_cmedv ~ .,
+         data = bh2 |> dplyr::select(-town, -cmedv))
+
+list(
+  AIC_baseline = AIC(m2),
+  BIC_baseline = BIC(m2),
+  AIC_log      = AIC(m3),
+  BIC_log      = BIC(m3)
+)
+
+summary(m3)
+```
+**Interpretação.**
+
+Se AIC/BIC diminuírem com a transformação, há evidência (por esses critérios) de melhor compromisso ajuste–parcimônia.
+
+A transformação log costuma ajudar quando a variância cresce com o nível da resposta (heterocedasticidade multiplicativa) e quando a resposta é assimétrica.
+
+#### 3) Seleção por AIC (stepwise) para modelo parcimonioso
+
+```{r}
+#| label: chunk-7
+#| echo: true
+#| warning: false
+#| message: false
+#| wrap: true
+# 3.9.2 — Stepwise (AIC) em R (forward+backward) usando MASS::stepAIC
+
+suppressPackageStartupMessages({
+  library(MASS)   # stepAIC
+})
+
+# modelo nulo e completo (sobre log_cmedv)
+m_null <- lm(log_cmedv ~ 1, data = bh2 |> dplyr::select(-town, -cmedv))
+m_full <- lm(log_cmedv ~ ., data = bh2 |> dplyr::select(-town, -cmedv))
+
+m_step <- MASS::stepAIC(m_null,
+                        scope = list(lower = m_null, upper = m_full),
+                        direction = "both",
+                        trace = TRUE)
+
+summary(m_step)
+AIC(m_step); BIC(m_step)
+```
+
+
+Verifique se a transformação na resposta reduziu a assimetrias e estabilizou variância. Em bases com muitas covariáveis, **seleção** reduz complexidade e melhora generalização. Atenção a **colinearidades locais**, que podem inflar erros-padrão.
+
+**Comentários práticos**
+
+- Se a transformação $\log(1+cmedv)$ reduzir padrões de funil e aproximar o QQ-plot da reta, isso é um sinal de melhora das suposições (especialmente homoscedasticidade e normalidade aproximada).
+
+- Em bases com muitas covariáveis, seleção por AIC pode reduzir complexidade e facilitar interpretação, mas:
+
+    - pode ser sensível a colinearidade e “instabilidade” de inclusão/remoção;
+
+    - deve ser usada como ferramenta exploratória e acompanhada de diagnóstico e plausibilidade substantiva;
+
+    - pequenas diferenças de AIC entre modelos indicam que múltiplas especificações podem ser competitivas.
+
+Em resumo: nesta base “toy real” do R, o objetivo é treinar o ciclo ajustar → diagnosticar → transformar → selecionar → reavaliar, com uma base realista e prontamente reprodutível no ecossistema R
+
+## Auto MPG (real aplicado) — dummies, não linearidade e comparação de modelos
+
+Nesta seção utilizamos a base **Auto** (pacote `ISLR`), um conjunto clássico de dados sobre eficiência de combustível de automóveis produzidos nas décadas de 1970 e 1980.
+
+- **Resposta:** `mpg` (milhas por galão)  
+- **Preditores principais:** `weight`, `horsepower`, `displacement`, `acceleration`, `year` e `origin`  
+
+Essa base é particularmente adequada para fins didáticos porque reúne, em um mesmo problema, três aspectos centrais do MRLM aplicado:
+
+1. **Não linearidade potencial** entre `mpg` e variáveis como `weight` e `displacement`;  
+2. **Colinearidade** entre características do motor (peso, cilindrada, potência);  
+3. Inclusão de variável **categórica** (`origin`), exigindo uso de **dummies**.
+
+
+### Estrutura do problema
+
+O objetivo é modelar o consumo (`mpg`) em função de características mecânicas e tecnológicas do veículo, bem como de seu país de origem. Em termos gerais, consideramos um modelo da forma:
+
+\[
+\text{mpg} 
+= \beta_0 
++ \beta_1\,\text{weight}
++ \beta_2\,\text{horsepower}
++ \beta_3\,\text{displacement}
++ \beta_4\,\text{acceleration}
++ \beta_5\,\text{year}
++ \boldsymbol{\gamma}^\top \text{origin}
++ \varepsilon.
+\]
+
+A variável `origin` é tratada como fator, sendo fixada uma categoria de referência (por exemplo, **USA**). Os coeficientes associados às demais categorias representam diferenças médias de consumo em relação a essa referência, mantendo as demais variáveis constantes.
+
+
+### Questões analíticas
+
+A análise é guiada por quatro perguntas principais:
+
+1. **O modelo linear na escala original é adequado?**  
+   A relação entre `mpg` e `weight` parece aproximadamente linear ou sugere curvatura?
+
+2. **Uma transformação melhora o ajuste?**  
+   Transformações como \(1/\text{weight}\) ou \(\log(\text{weight})\) podem capturar melhor a relação física entre massa e consumo.
+
+3. **Há colinearidade relevante entre preditores do motor?**  
+   Peso, cilindrada e potência estão fortemente correlacionados, o que pode inflar erros-padrão e dificultar a interpretação individual dos coeficientes.
+
+4. **Qual modelo equilibra melhor ajuste e parcimônia?**  
+   A comparação por critérios como AIC, BIC e \(R^2_{aj}\) auxilia na decisão entre modelo básico e modelo transformado.
+
+
+### Interpretação esperada
+
+- O coeficiente de `weight` tende a ser negativo: veículos mais pesados consomem mais combustível (menor `mpg`).  
+- A inclusão de \(1/\text{weight}\) frequentemente melhora a captura da relação não linear, reduzindo padrões sistemáticos nos resíduos.  
+- As dummies de `origin` capturam diferenças tecnológicas e de projeto entre fabricantes norte-americanos, europeus e japoneses.  
+- Mesmo quando o \(R^2\) é elevado, o diagnóstico de resíduos e a análise de pontos influentes continuam sendo fundamentais.
+
+### Enfoque conceitual
+
+Este exemplo sintetiza vários elementos centrais do MRLM:
+
+- Tratamento conjunto de variáveis contínuas e categóricas;  
+- Necessidade de avaliar pressupostos além da significância estatística;  
+- Importância de transformações guiadas por interpretação substantiva;  
+- Uso de critérios de informação para comparação entre modelos.
+
+Assim, a base Auto não é apenas um exercício computacional, mas um estudo completo de modelagem, diagnóstico e tomada de decisão no contexto da regressão linear múltipla aplicada.
+
+### Roteiro do que fazer
+
+- Carregue e limpe a base, criando **dummies de `origin`** (com referência fixa).  
+```{r}
+#| label: chunk-8
+#| echo: true
+#| warning: false
+#| message: false
+# 3.9.3 — Auto MPG: carregar, limpar e criar dummies
+
+suppressPackageStartupMessages({
+  library(ISLR)      # base Auto
+  library(dplyr)
+})
+
+# 1. Carregar base
+data("Auto", package = "ISLR")
+mpg <- as_tibble(Auto)
+
+# 2. Remover observações com NA nas variáveis principais
+vars_needed <- c("mpg","horsepower","weight",
+                 "displacement","acceleration",
+                 "year","origin")
+
+mpg <- mpg |> 
+  dplyr::select(all_of(vars_needed)) |>
+  na.omit()
+
+# 3. Transformar origin em fator com referência fixa (USA = 1)
+mpg <- mpg |>
+  mutate(origin = factor(origin,
+                         levels = c(1,2,3),
+                         labels = c("USA","Europe","Japan")))
+
+mpg$origin <- relevel(mpg$origin, ref = "USA")
+
+# 4. Visualização inicial
+head(mpg, 3)
+```
+
+- Compare um **modelo básico** com outro que inclua **transformação** (ex.: $1/\text{weight}$) e avalie melhoria. 
+```{r}
+#| label: chunk-9
+#| echo: true
+#| warning: false
+#| message: false
+# 3.9.3 — Auto MPG: comparação entre modelo básico e transformação
+
+# 1. Modelo básico
+m_basico <- lm(
+  mpg ~ weight + horsepower + displacement +
+        acceleration + year + origin,
+  data = mpg
+)
+
+# 2. Modelo com transformação
+mpg <- mpg |>
+  mutate(inv_weight = 1 / weight)
+
+m_transf <- lm(
+  mpg ~ inv_weight + horsepower + displacement +
+        acceleration + year + origin,
+  data = mpg
+)
+
+# 3. Comparação de critérios
+resumo <- tibble(
+  Modelo = c("Básico", "Transformado (1/weight)"),
+  AIC = c(AIC(m_basico), AIC(m_transf)),
+  BIC = c(BIC(m_basico), BIC(m_transf)),
+  R2_ajustado = c(summary(m_basico)$adj.r.squared,
+                  summary(m_transf)$adj.r.squared)
+)
+
+resumo
+```
+
+- Verifique se a transformação ajudou através de gráficos de resíduos  
+```{r}
+#| label: chunk-9.5
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Figura – Resíduos vs Ajustados: modelo básico (esq.) e com 1/weight (dir.)"
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(patchwork)
+  library(dplyr)
+})
+
+df_plot <- tibble(
+  fitted_basico = fitted(m_basico),
+  resid_basico  = resid(m_basico),
+  fitted_transf = fitted(m_transf),
+  resid_transf  = resid(m_transf)
+)
+
+p1 <- ggplot(df_plot, aes(fitted_basico, resid_basico)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  labs(title = "Modelo básico",
+       x = "Ajustados (ŷ)",
+       y = "Resíduos") +
+  theme_minimal(base_size = 12)
+
+p2 <- ggplot(df_plot, aes(fitted_transf, resid_transf)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  labs(title = "Com transformação (1/weight)",
+       x = "Ajustados (ŷ)",
+       y = NULL) +
+  theme_minimal(base_size = 12)
+
+p1 + p2
+```
+
+- Construa uma **tabela comparativa** (AIC, BIC, $R^2_{aj}$) e comente. 
+```{r}
+#| label: chunk-10
+#| echo: true
+#| warning: false
+#| message: false
+
+res_tab <- data.frame(
+  Modelo = c("Básico", "Transformado (1/weight)"),
+  AIC = c(AIC(m_basico), AIC(m_transf)),
+  BIC = c(BIC(m_basico), BIC(m_transf)),
+  R2_ajustado = c(summary(m_basico)$adj.r.squared,
+                  summary(m_transf)$adj.r.squared),
+  check.names = FALSE
+)
+
+cat("=== Comparação de Modelos ===\n")
+res_tab_print <- res_tab
+num_cols <- sapply(res_tab_print, is.numeric)
+res_tab_print[num_cols] <- lapply(res_tab_print[num_cols], round, 4)
+print(res_tab_print, row.names = FALSE)
+
+if (AIC(m_transf) < AIC(m_basico)) {
+  best <- m_transf
+  best_name <- "Com 1/weight"
+} else {
+  best <- m_basico
+  best_name <- "Básico"
+}
+
+cat(sprintf(
+  "\nMelhor modelo: %s\nAIC = %.2f | BIC = %.2f | R²_aj = %.4f\n\n",
+  best_name,
+  AIC(best),
+  BIC(best),
+  summary(best)$adj.r.squared
+))
+
+cat("Resumo do modelo escolhido:\n")
+summary(best)
+```
+
+- Alavancagem, Cook's D, DFFITS e DFBETAS
+```{r}
+#| label: chunk-12
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-cap: "3.9.3 — Auto MPG: alavancagem e influência (Cook's D, DFFITS e DFBETAS)"
+#| fig-width: 12
+#| fig-height: 4
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(patchwork)
+  library(dplyr)
+})
+
+# Métricas
+h        <- hatvalues(m_transf)
+cooksD   <- cooks.distance(m_transf)
+dff      <- dffits(m_transf)
+dfb      <- dfbetas(m_transf)
+
+n <- nobs(m_transf)
+p <- length(coef(m_transf))
+
+# Cortes
+lev_cut    <- 2 * p / n
+cook_cut   <- 4 / n
+dffits_cut <- 2 * sqrt(p / n)
+dfbetas_cut <- 2 / sqrt(n)
+
+df_infl <- tibble(
+  index = seq_len(n),
+  leverage = as.numeric(h),
+  cooksD = as.numeric(cooksD),
+  dffits = as.numeric(dff),
+  dfbetas_max = apply(abs(dfb), 1, max)
+)
+
+cat("=== Auto MPG — Top 6 por Cook's D ===\n")
+print(
+  df_infl |>
+    arrange(desc(cooksD)) |>
+    slice_head(n = 6) |>
+    mutate(across(where(is.numeric), round, 4))
+)
+
+cat(sprintf(
+  "\nCortes usados → h_ii > %.3f | D > %.3f | |DFFITS| > %.3f | |DFBETAS|max > %.3f\n",
+  lev_cut, cook_cut, dffits_cut, dfbetas_cut
+))
+
+# Gráficos
+p_lev <- ggplot(df_infl, aes(index, leverage)) +
+  geom_col(alpha = 0.75) +
+  geom_hline(yintercept = lev_cut, linetype = "dashed") +
+  labs(title = "Alavancagem (h_ii)",
+       x = "Índice",
+       y = "h_ii") +
+  theme_minimal(base_size = 12)
+
+p_cook <- ggplot(df_infl, aes(index, cooksD)) +
+  geom_col(alpha = 0.75) +
+  geom_hline(yintercept = cook_cut, linetype = "dashed") +
+  labs(title = "Distância de Cook (D_i)",
+       x = "Índice",
+       y = "Cook's D") +
+  theme_minimal(base_size = 12)
+
+p_lev + p_cook
+```
+
+
+Lembre-se que transformações em `weight` (p.ex. $1/\text{weight}$ ou $\log$) geralmente melhoram ajuste e diagnóstico.  Adicionalmente, Dummies de `origin` capturam diferenças de projeto e tecnologia.  E, por fim, mesmo quando $R^2$ é alto, é essencial avaliar **resíduos** e **pontos influentes**.
+
+
+
+## Comentários finais dessa seção
+
+- **Equilíbrio entre ajuste e parcimônia** é essencial: evite **subajuste** (viés) e **sobreajuste** (variância).  
+- **Diagnóstico** (resíduos, QQ-plot, alavancagem) e **colinearidade** (VIF) orientam decisões sobre transformação, remoção e seleção de variáveis.  
+- **Inferências conjuntas** são mais robustas quando há preditores correlacionados.  
+- **Transformações** (log, $1/x$) ajudam a alinhar os pressupostos do MRLM normal sem “forçar” o fenômeno.
+
+
+#### Discussão Crítica  
+
+O **Modelo de Regressão Linear Múltipla (MRLM)** constitui um dos pilares da modelagem estatística moderna.   Ele estende a regressão simples para lidar com **múltiplos fatores simultaneamente**, permitindo decompor e quantificar a contribuição de cada variável explicativa sobre um fenômeno de interesse. Mais do que um modelo, o MRLM representa um **paradigma analítico**, no qual a relação entre variáveis é descrita em termos de dependência condicional e inferência baseada em variância.
+
+#### Potencialidades do MRLM  
+
+O MRLM combina **flexibilidade**, **interpretação direta** e **fundamentação teórica sólida**, sendo amplamente aplicável em diferentes áreas do conhecimento.  Entre suas principais virtudes, destacam-se:
+
+- **Integração entre variáveis quantitativas e qualitativas:**  
+  Fatores categóricos podem ser incorporados por meio de variáveis dummies, ampliando a abrangência do modelo.  
+
+- **Interpretação clara dos efeitos marginais condicionais:**  
+  Cada coeficiente expressa o impacto médio de uma variável, mantendo as demais constantes.  Uma noção poderosa em contextos experimentais e observacionais.  
+
+- **Base inferencial consolidada:**  
+  Testes $t$ e $F$, decomposição ANOVA e intervalos de confiança fornecem ferramentas rigorosas para avaliar significância e precisão.  
+
+- **Critérios formais de comparação entre modelos:**  
+  Medidas como $AIC$, $BIC$, $R^2$ e $\bar{R}^2$ ajudam a equilibrar qualidade de ajuste e parcimônia.  
+
+- **Ponto de partida para modelos mais gerais:**  
+  O MRLM é a base conceitual de abordagens como os **Modelos Lineares Generalizados (GLM)**, **Modelos Aditivos (GAM)** e **Modelos GAMLSS**, entre outros.  
+
+Essas características explicam por que o MRLM continua sendo um **modelo de referência** mesmo diante de métodos mais modernos: ele oferece clareza interpretativa, estrutura matemática transparente e utilidade prática.
+
+
+#### Limitações do MRLM  
+
+Apesar de sua importância, o MRLM possui limitações que devem ser reconhecidas e avaliadas criticamente:
+
+- **Suposições fortes:**  
+  Linearidade, homoscedasticidade, independência e normalidade dos erros são hipóteses que raramente se verificam de forma exata no mundo real.  
+
+- **Sensibilidade a valores extremos:**  
+  Outliers e observações de alta alavancagem podem distorcer fortemente os resultados, alterando coeficientes e conclusões inferenciais.  
+
+- **Multicolinearidade:**  
+  Correlações elevadas entre variáveis explicativas comprometem a estabilidade das estimativas e dificultam a interpretação dos efeitos individuais.  
+
+- **Limitação estrutural:**  
+  O modelo captura apenas relações lineares; fenômenos não lineares exigem transformações ou extensões (como polinômios, splines ou funções de ligação).  
+
+- **Dependência da seleção de variáveis:**  
+  A omissão de variáveis relevantes ou a inclusão de variáveis irrelevantes altera a validade da inferência. Uma questão tanto estatística quanto substantiva.  
+
+Essas limitações não invalidam o modelo, mas impõem uma **responsabilidade analítica**: o pesquisador deve verificar as suposições, avaliar a robustez das conclusões e interpretar resultados à luz do contexto.
+
+
+#### Boas práticas na utilização do MRLM  
+
+A aplicação criteriosa do MRLM envolve tanto **habilidade técnica** quanto **juízo científico**. Algumas recomendações essenciais incluem:
+
+- **Analisar os resíduos cuidadosamente:**  
+  Os resíduos são a principal fonte de diagnóstico, pois auxiliam na verificação de linearidade, homocedasticidade, normalidade e presença de outliers.  
+
+- **Combinar critérios estatísticos e conhecimento substantivo:**  
+  Medidas como $AIC$, $BIC$ e $\bar{R}^2$ auxiliam na escolha de modelos, mas não substituem a compreensão teórica do fenômeno.  
+
+- **Tratar heterocedasticidade e outliers de forma apropriada:**  
+  Quando as suposições são violadas, alternativas como **regressão ponderada**, **regressão robusta** ou **transformações de variáveis** devem ser consideradas.  
+
+- **Evitar sobreajuste:**  
+  Modelos muito complexos podem ajustar o ruído dos dados, comprometendo a capacidade de generalização.  
+
+- **Reportar magnitude e relevância, não apenas significância:**  
+  A interpretação deve incluir medidas de efeito ($R^2$ parcial, $f^2$, $\eta^2$) e não se limitar ao valor-$p$.  
+
+Essas boas práticas reforçam que o MRLM é, antes de tudo, um **modelo interpretativo** e não apenas um exercício computacional.
+
+
+#### Transição natural para modelos mais gerais  
+
+O estudo do MRLM serve de alicerce para compreender uma ampla classe de modelos estatísticos contemporâneos:
+
+- **Modelos Lineares Generalizados (GLM):**  
+  Mantêm a estrutura linear, mas permitem respostas não normais (como contagens, proporções e tempos).  
+
+- **Modelos Aditivos (GAM):**  
+  Substituem a linearidade estrita por funções suaves, capturando relações não lineares entre variáveis.  
+
+- **Modelos de Efeitos Mistos:**  
+  Incorporam hierarquias e dependências entre observações (como dados longitudinais ou de painel).  
+
+- **Modelos GAMLSS:**  
+  Generalizam completamente o MRLM, permitindo modelar não apenas a média, mas também a variância, assimetria e curtose da distribuição da resposta.
+
+Cada um desses modelos herda a estrutura matricial e o raciocínio do MRLM, motivo pelo qual este capítulo é **fundamental na formação de base** para análises estatísticas avançadas.
+

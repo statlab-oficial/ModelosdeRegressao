@@ -1,0 +1,332 @@
+# Regressão Múltipla
+
+O **Modelo de Regressão Linear Múltipla (MRLM)** é a generalização natural do **Modelo de Regressão Linear Simples (MRLS)**. Enquanto no MRLS investigamos a relação entre uma única variável explicativa $X$ e a resposta $Y$, no MRLM é possível incluir **duas ou mais variáveis explicativas simultaneamente**, ampliando a capacidade de capturar relações complexas entre fatores que influenciam a variável de interesse.
+
+Na prática, raramente um único fator explica um fenômeno. Considere os seguintes exemplos ilustrativos:
+
+- **Saúde pública:** o risco de desenvolver diabetes pode depender simultaneamente da idade, do índice de massa corporal (IMC), dos hábitos alimentares e da prática de atividade física.  
+- **Educação:** o desempenho escolar pode estar relacionado não apenas às horas de estudo, mas também ao nível de escolaridade dos pais e ao acesso a recursos digitais.  
+- **Economia doméstica:** os gastos de uma família podem ser explicados pela renda disponível, pelo número de integrantes do domicílio e pelo nível de endividamento.  
+- **Comércio eletrônico:** o valor médio gasto por cliente pode ser influenciado por preço, tempo de entrega e avaliações de outros consumidores.  
+- **Ciências ambientais:** a qualidade do ar em uma cidade pode ser afetada pelo tráfego de veículos, pela direção e intensidade do vento e pelas condições de umidade.  
+
+Esses exemplos mostram que considerar apenas uma variável explicativa pode levar a interpretações incompletas. O MRLM permite **isolar o efeito marginal** de cada fator **mantendo os demais constantes**, o que é fundamental para análises mais realistas.
+
+Além disso, o MRLM fornece uma estrutura estatística que possibilita:
+
+- **Predição mais precisa**, quando múltiplos fatores influenciam a variável de interesse.  
+- **Controle de confundidores**, separando efeitos principais de fatores associados.  
+- **Testes de hipóteses conjuntos e individuais** sobre os parâmetros do modelo.  
+- **Comparação entre modelos alternativos**, avaliando qual conjunto de variáveis explica melhor a resposta.  
+
+Assim, o estudo do MRLM constitui o próximo passo na formação em modelos lineares, servindo também como base para métodos mais gerais, como os Modelos Lineares Generalizados (**GLM** - Generalized Linear Model), os Modelos Aditivos Generalizados (**GAM** - Generalized Additive Model) e os Modelos Aditivos Generalizados para Localização, Escala e Forma (**GAMLSS** - Generalized Additive Model for Location, Scale and Shape).
+
+
+**Estrutura do Capítulo**
+
+Ao longo deste capítulo, serão discutidos os seguintes tópicos:
+
+1. **Introdução e exemplos motivadores** – apresentação do MRLM como extensão natural do MRLS, com exemplos práticos em saúde, educação, economia, comércio e ciências ambientais.
+
+2. **Formulação do MRLM** – descrição do modelo em sua forma algébrica e matricial, destacando a interpretação dos parâmetros.
+
+3. **Estimador de MQO e suas propriedades** – dedução do estimadores de MQO, suas propriedades estatísticas e o Teorema de Gauss–Markov.
+
+4. **Inferência estatística** – construção dos testes $t$ e $F$, decomposição ANOVA e intervalos de confiança para coeficientes, médias e predições.
+
+5. **Variáveis fictícias (_dummies_) e interações** – apresentação da codificação de variáveis categóricas, interpretação de coeficientes e análise de efeitos marginais condicionais.
+
+6. **Análise de Covariância (ANCOVA)** – integração de fatores qualitativos e variáveis contínuas em um mesmo modelo, com interpretação prática das comparações ajustadas.
+
+7. **Qualidade de ajuste e seleção de modelos** – discussão de medidas de ajuste ($R^2$, $\bar{R}^2$), critérios de informação (AIC, BIC, $AIC_c$) e métodos de seleção de variáveis (forward, backward, stepwise), incluindo considerações sobre multicolinearidade.
+
+8. **Análise de resíduos e diagnóstico** – estudo detalhado das propriedades dos resíduos, resíduos padronizados e studentizados, medidas de alavancagem e influência, bem como verificação das suposições clássicas.
+
+9. **Regressão ponderada e generalizada (WLS/GLS)** – apresentação dos casos em que a variância dos erros não é constante ou há correlação entre observações, destacando a transformação de *whitening*, a estimação por GLS e o uso de variâncias robustas.
+
+10. **Aplicações práticas** – exemplos integrados com dados simulados e reais de diferentes áreas do conhecimento, enfatizando a interpretação dos coeficientes e a utilidade prática do MRLM.
+
+11. **Discussão crítica** – análise das potencialidades e limitações do MRLM, apontando a transição para modelos mais gerais, como os Modelos Lineares Generalizados (GLM), Modelos Aditivos (GAM, GAMLSS) e Modelos Mistos.
+
+12. **Demonstrações matemáticas** – seção dedicada à apresentação formal e detalhada das principais demonstrações utilizadas ao longo do capítulo, organizada em blocos temáticos e acompanhada de explicações didáticas que facilitam o entendimento.
+
+13. **Referências** – lista de obras e artigos essenciais para fundamentar os conceitos e métodos apresentados, organizada de forma consolidada e sem repetições.
+
+
+
+## Forma Matricial do MRLM  
+
+O **Modelo de Regressão Linear Múltipla (MRLM)** é uma extensão natural do modelo simples, concebida para situações em que a variação de uma variável resposta depende simultaneamente de vários fatores explicativos. 
+
+No caso do MRLS, trabalhávamos com apenas uma variável explicativa, o que servia como porta de entrada para compreender a lógica de sinal + ruído, a estimação por mínimos quadrados e a interpretação de uma reta ajustada. Contudo, na prática, a realidade raramente se resume a uma única dimensão: quase sempre há múltiplas variáveis que, combinadas, ajudam a explicar e/ou prever o comportamento da variável de interesse.  
+
+Suponha que tenhamos $n$ observações de um fenômeno. Para cada observação $i$ (com $i \in \{1,2,\dots,n\}$) dispomos de um valor $y_i$ da variável resposta, de um conjunto de $p$ variáveis explicativas $\{x_{i1}, x_{i2}, \dots, x_{i,p}\}$, e de um termo de erro $\varepsilon_i$ que representa a parte da variação não captada pelo modelo.
+
+A formulação algébrica do modelo populacional é então:
+$$
+y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p} x_{i,p} + \varepsilon_i.
+$$
+
+Nessa equação, $\beta_0$ é o intercepto, ou seja, o valor médio esperado da resposta quando todas as variáveis explicativas são iguais a zero. Os parâmetros $\beta_j$ ($j\in \{1,2,\dots,p\}$) são os coeficientes da regressão que mensuram a contribuição de cada variável explicativa, e o termo $\varepsilon_i$ agrega os efeitos aleatórios, fatores omitidos e ruído inerente ao processo.
+
+De forma equivalente, podemos escrever o modelo em termos da **média condicional**:
+$$
+\mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p} x_{ip},
+\qquad
+\text{em que}\quad
+\mu_i = E\!\big(Y_i \mid \mathbf{x}_i\big),
+$$
+sendo $\mathbf{X}_i = (x_{i1}, x_{i2}, \ldots, x_{ip})$ o vetor de covariáveis da $i$-ésima observação.
+
+A formulação em termos da média condicional é importante porque explicita a relação entre a resposta esperada e o conjunto de variáveis explicativas. Essa forma de escrever o modelo será retomada em outros contextos mais gerais, como nos Modelos Lineares Generalizados (MLG), em que a ideia de média condicional permanece central, mas a ligação entre a média e os preditores pode assumir formas mais flexíveis do que a linearidade direta. Neste capítulo, entretanto, manteremos a notação clássica de “sinal + ruído”, que é a mais intuitiva para introduzir os conceitos fundamentais do modelo de regressão linear múltipla.
+
+Embora a formulação escalar seja transparente quando há poucos preditores, ela rapidamente se torna pouco prática à medida que o número de variáveis cresce. Para ganhar clareza e concisão — e, sobretudo, para evidenciar a estrutura geométrica do problema — adotamos a notação matricial. Nessa linguagem, o modelo passa a ser escrito como
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}.
+$$
+
+em que cada objeto tem interpretação específica:  
+
+- $\mathbf{Y}$ é o vetor coluna de dimensão $n \times 1$, contendo as observações da variável resposta:  
+
+$$
+\mathbf{Y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix};
+$$  
+
+- $\mathbf{X}$ é a matriz de planejamento ou matriz de desenho experimental (ou simplemente matriz de covariáveis), de dimensão $n \times (p+1)$, cujas colunas correspondem às variáveis explicativas. A primeira coluna é composta por valores iguais a 1, representando o intercepto:  
+
+$$
+\mathbf{X} =
+\begin{bmatrix}
+1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}=
+\begin{bmatrix}
+1 & \mathbf{x}_{1}^\top \\
+1 & \mathbf{x}_{2}^\top \\
+\vdots & \vdots  \\
+1 & \mathbf{x}_{n}^\top
+\end{bmatrix};
+$$  
+
+- $\boldsymbol{\beta}$ é o vetor de parâmetros, de dimensão $(p+1) \times 1$, reunindo o intercepto e os coeficientes de regressão:  
+
+$$
+\boldsymbol{\beta} =
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_{p}
+\end{bmatrix};
+$$  
+
+- $\boldsymbol{\varepsilon}$ é o vetor de erros aleatórios, de dimensão $n \times 1$:  
+
+$$
+\boldsymbol{\varepsilon} =
+\begin{bmatrix}
+\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots \\
+\varepsilon_n
+\end{bmatrix}.
+$$  
+
+Essa notação matricial não apenas simplifica a escrita, mas também evidencia a natureza geométrica do problema: $\mathbf{Y}$ é representado como a soma de uma componente sistemática, $\mathbf{X}\boldsymbol{\beta}$, que pertence ao espaço coluna de $\mathbf{X}$, e uma componente aleatória $\boldsymbol{\varepsilon}$, que representa o desvio da resposta em relação ao subespaço gerado pelas variáveis explicativas.  
+
+
+### Hipóteses usuais para MRLM  
+
+Para desenvolver a inferência clássica, é comum impor condições sobre o vetor de erros $\boldsymbol{\varepsilon}$:
+
+1. $E(\boldsymbol{\varepsilon})=\mathbf{0}$:  os erros têm esperança nula, de modo que, em média, o componente aleatório não desloca sistematicamente a resposta.  
+2. $\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n$:  os erros possuem variância constante (homocedasticidade) e são não correlacionados entre si. (Com normalidade, “não correlacionados” equivale a “independentes”.)  
+3. $\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2 I_n)$:  hipótese de normalidade, utilizada quando se deseja validade **exata** das distribuições de teste e dos intervalos de confiança no tamanho amostral finito.
+
+Sob essas condições, a variável resposta admite a representação **(MRLM Normal)**
+$$
+\mathbf{Y}\sim N_n(\mathbf{X}\boldsymbol{\beta},\,\sigma^2 I_n),
+$$
+o que fornece a base probabilística para os resultados de inferência que apresentaremos ao longo do capítulo. Esta representação é denominada *Modelo de Regressão Linear Múltipla Normal (MRLM Normal)*
+
+Adicionalmente, assim como no MRLS, a suposição de normalidade não é requisito para obter o estimador de mínimos quadrados (EMQ/OLS) no MRLM, nem para assegurar várias de suas propriedades. A normalidade passa a ser conveniente quando se desejam resultados exatos em amostras finitas (distribuições $t$ e $F$, construção precisa de testes e intervalos); sem ela, esses procedimentos permanecem válidos em sentido assintótico, mas deixam de ser exatos no nível finito.
+
+Temos, portanto, sob as condições usuais de média zero dos erros, variância constante e matriz de regressoras de posto completo, que o EMQ é não viesado e, pelo Teorema de Gauss–Markov, é BLUE (melhor estimador linear não viesado). 
+
+
+
+
+### Interpretação dos coeficientes  
+
+O ponto central na interpretação do MRLM é o conceito de **efeito marginal**. Cada coeficiente $\beta_j$ ($j=1,\dots,p$) mede a variação média esperada em $Y$ quando $x_j$ aumenta uma unidade, **mantendo as demais variáveis constantes** (fixas). Diferentemente do caso simples, aqui a análise considera o contexto conjunto das variáveis, isolando o papel de cada uma. 
+
+O intercepto $\beta_0$, por sua vez, corresponde ao valor esperado da resposta quando todas as variáveis explicativas assumem valor zero, ainda que, em certas aplicações, esse valor não tenha interpretação prática direta.  
+
+
+## Caso particular: duas variáveis explicativas 
+
+Um caso especialmente instrutivo ocorre quando o modelo contém apenas duas variáveis explicativas. Nesse cenário, a equação do modelo é dada por  
+$$
+y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i.
+$$  
+Aqui, a relação entre a variável resposta e os preditores pode ser visualizada como uma **superfície em três dimensões**. O eixo vertical corresponde ao valor da variável resposta $y$, enquanto os dois eixos horizontais representam as variáveis explicativas $x_1$ e $x_2$. O intercepto $\beta_0$ desloca a superfície verticalmente, e os coeficientes $\beta_1$ e $\beta_2$ definem a inclinação dessa superfície em relação a cada uma das variáveis.  
+
+De maneira intuitiva, $\beta_1$ mede a variação média em $y$ associada a um aumento unitário em $x_1$, mantendo $x_2$ constante, e $\beta_2$ mensura o efeito de $x_2$ quando $x_1$ é mantido fixo. Essa noção de **efeito marginal** é um dos pilares interpretativos do MRLM.  
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+})
+
+set.seed(42)
+
+n  <- 100
+x1 <- runif(n, 0, 10)
+x2 <- runif(n, 0, 10)
+y  <- 5 + 2*x1 - 1*x2 + rnorm(n, 0, 2)
+
+df <- tibble(x1 = x1, x2 = x2, y = y)
+
+mod <- lm(y ~ x1 + x2, data = df)
+```
+
+
+Na Figura 3.1, vemos o **plano de regressão ajustado** em 3D sobre os pontos observados. Esse gráfico é útil para perceber como a combinação linear dos preditores busca aproximar, em média, os valores de $y$ no espaço tridimensional.  
+
+
+Na Figura 3.2, apresentamos **cortes seccionais** da superfície: fixamos valores de $x_2$ e representamos as retas ajustadas de $y$ em função de $x_1$ (e, em gráfico análogo, fixamos $x_1$ e variamos $x_2$). Esse recurso evidencia como cada preditor influencia a resposta quando o outro permanece constante.  
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Figura 3.1 – Plano de regressão em 3D."
+#| fig-width: 8
+#| fig-height: 6
+#| dpi: 120
+
+x1g <- seq(min(df$x1), max(df$x1), length.out = 25)
+x2g <- seq(min(df$x2), max(df$x2), length.out = 25)
+
+grid <- expand.grid(x1 = x1g, x2 = x2g)
+zg <- matrix(
+  predict(mod, newdata = grid),
+  nrow = length(x1g),
+  byrow = FALSE
+)
+
+p <- persp(
+  x1g, x2g, zg,
+  theta = 35, phi = 20, expand = 0.6,
+  xlab = "x1", ylab = "x2", zlab = "y",
+  col = grDevices::adjustcolor("red", alpha.f = 0.30),
+  border = NA,
+  ticktype = "detailed"
+)
+
+xy <- trans3d(df$x1, df$x2, df$y, p)
+points(
+  xy,
+  col = grDevices::adjustcolor("blue", alpha.f = 0.60),
+  pch = 16
+)
+```
+
+Na Figura 3.3 apresentamos os **gráficos de dispersão usuais**: um mostrando $y$ em função de $x_1$ e outro mostrando $y$ em função de $x_2$. Esses gráficos permitem observar a associação bruta entre a variável resposta e cada preditor separadamente, sem levar em conta a influência da outra variável explicativa.  
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Figura 3.2 – Cortes seccionais: retas ajustadas de y em função de x1 para diferentes valores fixos de x2."
+#| fig-width: 8.5
+#| fig-height: 5.2
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+})
+
+vals_x2 <- c(2, 5, 8)
+
+linhas <- lapply(vals_x2, function(v){
+  df_line <- tibble(
+    x1 = seq(min(df$x1), max(df$x1), length.out = 200),
+    x2 = v
+  )
+  df_line$y_hat <- predict(mod, newdata = df_line)
+  df_line$x2_fix <- factor(v)
+  df_line
+}) %>% bind_rows()
+
+ggplot(df, aes(x = x1, y = y)) +
+  geom_point(color = "blue", alpha = 0.50, size = 2) +
+  geom_line(
+    data = linhas,
+    aes(y = y_hat, linetype = x2_fix),
+    color = "red",
+    linewidth = 1
+  ) +
+  labs(
+    x = "x1",
+    y = "y",
+    linetype = "x2 fixo"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Figura 3.3 – Dispersões brutas: (a) y vs x1 e (b) y vs x2, cada uma com sua reta de regressão simples."
+#| fig-width: 9
+#| fig-height: 4.6
+#| dpi: 120
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(patchwork)
+})
+
+p1 <- ggplot(df, aes(x = x1, y = y)) +
+  geom_point(color = "blue", alpha = 0.70, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 1) +
+  labs(title = "(a) y vs x1", x = "x1", y = "y") +
+  theme_minimal(base_size = 12)
+
+p2 <- ggplot(df, aes(x = x2, y = y)) +
+  geom_point(color = "blue", alpha = 0.70, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 1) +
+  labs(title = "(b) y vs x2", x = "x2", y = "y") +
+  theme_minimal(base_size = 12)
+
+p1 + p2
+```
+
+É importante notar que, nesses gráficos, a inclinação da reta de regressão simples reflete apenas a relação direta entre duas variáveis, podendo estar inflada ou atenuada pela correlação existente com a outra explicativa. Esse ponto reforça a motivação para o MRLM: somente ao considerar os dois preditores em conjunto conseguimos estimar os **efeitos marginais**, isolando a contribuição de cada um.  
+
+No momento, o objetivo é apenas visualizar como cada variável explicativa, individualmente, se relaciona com a resposta. Ferramentas gráficas mais sofisticadas, capazes de mostrar os efeitos isolados após controlar as demais variáveis, serão apresentadas em seções posteriores.
+
+Essas representações visuais desempenham papel fundamental na aprendizagem: não apenas ilustram a formulação matemática, mas também reforçam a interpretação prática dos coeficientes. Ao trabalhar com dados reais, recomenda-se sempre produzir tais visualizações como complemento à análise numérica. 
+
+Portanto, com essa formulação algébrica e matricial, temos a base necessária para avançar às propriedades do estimador de mínimos quadrados ordinários, tema da próxima seção.
+ 

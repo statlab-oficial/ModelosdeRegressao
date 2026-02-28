@@ -1,0 +1,1969 @@
+# Demonstrações {#demo}
+
+## Modelos de Regressão Linear Simples
+
+### Demonstração de que $\hat \beta_0$ e $\hat \beta_1$ são os estimadores de MQO em MRLS
+
+#### Demonstração do Teorema do MQO (Parte I -- Obtenção dos estimadores)
+
+O objetivo do método dos mínimos quadrados ordinários (MQO) é encontrar os parâmetros $\beta_0$ e $\beta_1$ que minimizam a soma dos quadrados dos resíduos:
+
+$$
+S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2.
+$$
+
+Como $\beta_0$ e$\beta_1$ podem assumir qualquer valor na reta real, a minimização pode ser feita via técnicas de derivação.
+
+1.  **Condições de primeira ordem**
+
+Para identificar os pontos críticos, calculamos as derivadas parciais de $S=S(\beta_0,\beta_1)$:
+
+$$
+\frac{\partial S}{\partial \beta_0} = -2\sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i),
+$$
+
+$$
+\frac{\partial S}{\partial \beta_1} = -2\sum_{i=1}^n X_i (Y_i - \beta_0 - \beta_1 X_i).
+$$
+
+2.  **Equações normais**
+
+Impondo as condições de primeira ordem $\frac{\partial S}{\partial \beta_0} = 0$ e $\frac{\partial S}{\partial \beta_1} = 0$, obtemos o sistema de equações conhecido como **equações normais**:
+
+$$
+\sum_{i=1}^n Y_i = n\hat{\beta}_0 + \hat{\beta}_1 \sum_{i=1}^n X_i,
+$$
+
+$$
+\sum_{i=1}^n X_i Y_i = \hat{\beta}_0 \sum_{i=1}^n X_i + \hat{\beta}_1 \sum_{i=1}^n X_i^2.
+$$
+
+Dividindo por $n$ e escrevendo em função de $\hat{\beta}_0$, a primeira equação pode ser reescrita como:
+
+$$
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X},
+$$
+
+onde $\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$ e $\bar{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$ são as médias amostrais.
+
+A obtenção de $\hat{\beta}_1$ é feita substituindo $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}$ na segunda equação normal:
+
+$$
+\sum_{i=1}^n X_i Y_i = (\bar{Y} - \hat{\beta}_1 \bar{X}) \sum_{i=1}^n X_i + \hat{\beta}_1 \sum_{i=1}^n X_i^2,
+$$
+
+E rearranjando os termos:
+
+$$
+\sum_{i=1}^n X_i Y_i - \bar{Y}\sum_{i=1}^n X_i
+= \hat{\beta}_1 \left( \sum_{i=1}^n X_i^2 - \bar{X} \sum_{i=1}^n X_i \right).
+$$
+
+Como $\sum_{i=1}^n X_i = n\bar{X}$, a expressão se simplifica para:
+
+$$
+\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}.
+$$ Uma vez encontrada a inclinação ($\hat{\beta}_1$), o intercepto $\hat{\beta}_0$ vem de:
+
+$$
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}.
+$$
+
+3.  **Forma final dos estimadores**
+
+Assim, os estimadores de MQO para o modelo de regressão linear simples são:
+
+$$
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}}, 
+\qquad 
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X},
+$$
+
+em que
+
+$$
+S_{xx} = \sum_{i=1}^n (X_i - \bar{X})^2, 
+\qquad 
+S_{xy} = \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}).
+$$
+
+#### Demonstração do Teorema do MQO (Parte II -- Verificação de que são mínimos)
+
+A função objetivo do MQO é
+
+$$
+S(\beta_0,\beta_1) = \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i)^2.
+$$
+
+Note que esta função é **quadrática** em relação aos parâmetros $(\beta_0,\beta_1)$ e, portanto, para verificar se o ponto crítico $(\hat{\beta}_0, \hat{\beta}_1)$ corresponde a um **mínimo global**, é suficiente usamos a teoria da convexidade de funções quadráticas e o critério da positividade do **Hessiano**.
+
+O Hessiano de $S(\beta_0,\beta_1)$ é a matriz das segundas derivadas parciais:
+
+$$
+H =
+\begin{bmatrix}
+\frac{\partial^2 S}{\partial \beta_0^2} & \frac{\partial^2 S}{\partial \beta_0 \partial \beta_1} \\
+\frac{\partial^2 S}{\partial \beta_1 \partial \beta_0} & \frac{\partial^2 S}{\partial \beta_1^2}
+\end{bmatrix}.
+$$
+
+Calculando as derivadas:
+
+-   $\frac{\partial^2 S}{\partial \beta_0^2} = 2n$\
+-   $\frac{\partial^2 S}{\partial \beta_0 \partial \beta_1} = \frac{\partial^2 S}{\partial \beta_1 \partial \beta_0} = 2\sum_{i=1}^n X_i$\
+-   $\frac{\partial^2 S}{\partial \beta_1^2} = 2\sum_{i=1}^n X_i^2$
+
+Logo,
+
+$$
+H =
+\begin{bmatrix}
+2n & 2\sum_{i=1}^n X_i \\
+2\sum_{i=1}^n X_i & 2\sum_{i=1}^n X_i^2
+\end{bmatrix}.
+$$
+
+Um ponto crítico de uma função quadrática é mínimo se a matriz Hessiana é **definida positiva**. Pela definição, $H$ é definida positiva se, para todo vetor não nulo $(a,b)$, temos que:
+
+$$
+(a,b) H (a,b)^\top > 0.
+$$
+
+Para verificar, considere $(a,b) \in \mathbb{R}^2$, com $(a,b) \neq (0,0)$. Então:
+
+$$
+(a,b) H (a,b)^\top =
+2n a^2 + 4a b \sum_{i=1}^n X_i + 2b^2 \sum_{i=1}^n X_i^2.
+$$
+
+Este resultado pode ser reorganizado como:
+
+$$
+(a,b) H (a,b)^\top = 2\sum_{i=1}^n (a + b X_i)^2.
+$$
+
+Note que cada termo $(a+bX_i)^2 \geq 0$, e a soma só será nula se $a+bX_i=0$ para todos os $i$. Isso só ocorre quando todos os $X_i$ são iguais (situação degenerada).
+
+Portanto, se existir **variabilidade em** $X$ (ou seja, $S_{xx} = \sum_{i=1}^n (X_i - \bar{X})^2 > 0$), temos:
+
+$$
+(a,b) H (a,b)^\top > 0, \quad \forall (a,b) \neq (0,0).
+$$
+
+Ou seja, $H$ é **definida positiva**.
+
+Portanto, pelo **critério da positividade definida do Hessiano**, o ponto crítico $(\hat{\beta}_0, \hat{\beta}_1)$ encontrado pelas equações normais é de fato um **mínimo global** da função $S(\beta_0,\beta_1)$ e, consequentemente, os estimadores obtidos via MQO resultam de um problema de otimização convexa, com solução única sempre que houver variabilidade em $X$.
+
+### Demonstração das propriedades dos estimadores de MQO
+
+Assumiremos, como na seção anterior, o MRLS $$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$ com $E[\varepsilon_i\mid X_i]=0$, $Var(\varepsilon_i\mid X_i)=\sigma^2$ e $Cov(\varepsilon_i,\varepsilon_j\mid X)=0$ para $i\neq j$.
+
+Denote também $\bar X=\frac{1}{n}\sum_i X_i$, $\bar Y=\frac{1}{n}\sum_i Y_i$, $S_{xx}=\sum_ix_i^2$ e $S_{xy}=\sum_ix_i(Y_i-\bar Y)$.
+
+Recorde ainda as formas fechadas: $$
+\hat\beta_1=\frac{S_{xy}}{S_{xx}}
+\qquad\text{e}\qquad
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+$$
+
+**1) Esperança de** $\hat\beta_1$.\
+Partimos de $$
+\hat\beta_1=\frac{\sum_i (X_i-\bar X) Y_i}{\sum_i (X_i-\bar X)^2}=\frac{1}{S_{xx}}\sum_i (X_i-\bar X)(\beta_0+\beta_1X_i+\varepsilon_i).
+$$ Como $\sum_i (X_i-\bar X)=0$ e $X_i=\bar X + (X_i-\bar X)$, $$
+\hat\beta_1=\frac{1}{S_{xx}}\left[\beta_0\underbrace{\sum_i (X_i-\bar X)}_{0}+\beta_1\sum_i (X_i-\bar X)(\bar X+x_i)+\sum_i (X_i-\bar X)\varepsilon_i\right]
+=\beta_1+\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i.
+$$ Tomando esperança condicional em $X$, $$
+E[\hat\beta_1\mid X]=\beta_1+\frac{1}{S_{xx}}\sum_i (X_i-\bar X)E[\varepsilon_i\mid X]=\beta_1,
+$$ logo $E[\hat\beta_1]=\beta_1$.
+
+**2) Esperança de** $\hat\beta_0$.\
+De $\hat\beta_0=\bar Y-\hat\beta_1\bar X$, $$
+E[\hat\beta_0\mid X]=E[\bar Y\mid X]-\bar X\,E[\hat\beta_1\mid X]
+=(\beta_0+\beta_1\bar X)-\bar X\,\beta_1=\beta_0,
+$$ portanto $E[\hat\beta_0]=\beta_0$.
+
+**3) Variância de** $\hat\beta_1$.\
+Da decomposição acima, temos $$
+\hat\beta_1-\beta_1=\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i.
+$$ Como os erros são homoscedásticos e não correlacionados (condicionalmente a $X$), $$
+Var(\hat\beta_1\mid X)=Var\left(\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i\mid X\right)=\frac{1}{S_{xx}^2}\sum_i (X_i-\bar X)^2Var(\varepsilon_i\mid X)=\frac{S_{xx}\sigma^2}{S_{xx}^2}=\frac{\sigma^2}{S_{xx}},
+$$ logo $$Var(\hat\beta_1)=\frac{1}{S_{xx}}\sigma^2.$$
+
+**4) Variância de** $\hat\beta_0$.\
+Escreva $$
+\hat\beta_0-\beta_0=(\bar Y-\beta_0-\beta_1\bar X)-\bar X(\hat\beta_1-\beta_1)
+=\bar\varepsilon-\bar X\left(\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i\right),
+$$ onde $\bar\varepsilon=\tfrac{1}{n}\sum_i\varepsilon_i$. Assim, $$
+Var(\hat\beta_0\mid X)=Var(\bar\varepsilon\mid X)+\bar X^2 Var\!\left(\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i\mid X\right)-2\bar X\,Cov\!\left(\bar\varepsilon,\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i\mid X\right).
+$$ Como $Var(\bar\varepsilon\mid X)=\sigma^2/n$, $Var\!\left(\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i\mid X\right)=\sigma^2/S_{xx}$ e $Cov(\bar\varepsilon,\sum_ix_i\varepsilon_i\mid X)=\tfrac{1}{n}\sum_i (X_i-\bar X)\sigma^2=0$, obtemos $$
+Var(\hat\beta_0\mid X)=\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)\sigma^2,
+$$ portanto $Var(\hat\beta_0)=\sigma^2\!\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)$.
+
+**5) Covariância** $Cov(\hat\beta_0,\hat\beta_1)$.\
+Usando $\hat\beta_0=\bar Y-\hat\beta_1\bar X$, temos $$
+Cov(\hat\beta_0,\hat\beta_1\mid X)=Cov(\bar Y,\hat\beta_1\mid X)-\bar X\,Var(\hat\beta_1\mid X).
+$$ e, como $\bar Y=\beta_0+\beta_1\bar X+\bar\varepsilon$ e $\hat\beta_1-\beta_1=\tfrac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i$, a $Cov(\bar Y,\hat\beta_1\mid X)$ é dada por $$
+Cov(\bar Y,\hat\beta_1\mid X)=Cov\!\left(\bar\varepsilon,\frac{1}{S_{xx}}\sum_i (X_i-\bar X)\varepsilon_i\mid X\right)
+=\frac{1}{nS_{xx}}\sum_i (X_i-\bar X)\,Cov(\bar\varepsilon,\varepsilon_i\mid X).
+$$ com $$
+Cov(\bar\varepsilon,\varepsilon_i\mid X) = Cov\left(\sum_j\varepsilon_j,\varepsilon_j\mid X\right) = \sum_i Cov(\varepsilon_j,\varepsilon_i\mid X) = Var(\varepsilon_i\mid X)
+$$ pois $Cov(\varepsilon_i,\varepsilon_j\mid X)=0$ para $i\neq j$ e $Cov(\varepsilon_i,\varepsilon_i\mid X)=Var(\varepsilon_i\mid X)\sigma^2$. $$
+Cov(\bar Y,\hat\beta_1\mid X)=\frac{1}{nS_{xx}}\sum_i (X_i-\bar X)\,Var(\varepsilon_i\mid X)=\frac{\sigma^2}{nS_{xx}}\underbrace{\sum_i (X_i-\bar X)}_{0}=0.
+$$ Logo, como temos $$
+Cov(\hat\beta_0,\hat\beta_1\mid X)=-\frac{\bar X}{S_{xx}}\sigma^2.
+$$
+
+**6) Estimador de** $\sigma^2$ e graus de liberdade.\
+A soma dos quadrados dos resíduos é $$
+SQRes=\sum_{i=1}^n\hat\varepsilon_i^{\,2}=\sum_{i=1}^n\bigl(Y_i-\hat Y_i\bigr)^2.
+$$ Propriedades geométricas do MQO (projeção ortogonal do vetor $Y$ no subespaço gerado por $1$ e $X$) implicam $$
+E[SQRes\mid X]=(n-2)\sigma^2.
+$$ Assim, $$
+s^2=\frac{SQRes}{n-2}
+$$ é **não viesado** para $\sigma^2$. Os dois graus de liberdade "consumidos" refletem a estimação de $\beta_0$ e $\beta_1$. Substituir $\sigma^2$ por $s^2$ nas expressões de variâncias/covariâncias fornece os erros-padrão empíricos; com hipóteses adicionais (e.g., normalidade dos erros) obtêm-se distribuições exatas para testes e intervalos.
+
+### Demonstração do Teorema de Gauss--Markov para o MRLS
+
+Aqui o objetivo é mostrar que os estimadores de mínimos quadrados ordinários (MQO), $\hat\beta_0$ e $\hat\beta_1$, sob as condições $E[\varepsilon\mid X]=0$, $Var(\varepsilon\mid X)=\sigma^2I$ e $Cov(\varepsilon_i,\varepsilon_j\mid X)=0$ para $i\neq j$, são os **melhores estimadores lineares não viesados (BLUE)**, ou seja, possuem a menor variância possível entre todos os estimadores lineares e não viesados.
+
+**1) Parte A --- A inclinação** $\beta_1$
+
+**Passo 1: Forma geral de um estimador linear.**\
+Um estimador linear de $\beta_1$ pode ser escrito como
+
+$$
+\tilde\beta_1 = \sum_{i=1}^n c_i Y_i,
+$$
+
+onde os pesos $c_i$ dependem apenas dos valores fixos de $X_i$, mas não de $Y_i$.
+
+Noote que essa escrita é bastante geral, pois qualquer estimador linear de $\beta_1$ pode ser visto como uma combinação linear das observações $Y_i$. O desafio é escolher os pesos $c_i$ de modo que o estimador seja não viesado e eficiente.
+
+**Passo 2: Condição de não viés.**\
+Tomando a esperança:
+
+$$
+E[\tilde\beta_1] = \sum_{i=1}^n c_i E[Y_i] = \sum_{i=1}^n c_i (\beta_0 + \beta_1 X_i).
+$$
+
+Logo,
+
+$$
+E[\tilde\beta_1] = \beta_0 \sum_{i=1}^n c_i + \beta_1 \sum_{i=1}^n c_i X_i.
+$$
+
+Para que $E[\tilde\beta_1]=\beta_1$ **para todo** $\beta_0$ e $\beta_1$, devemos impor:
+
+$$
+\sum_{i=1}^n c_i = 0,
+\qquad
+\sum_{i=1}^n c_i X_i = 1.
+$$
+
+Observe que a primeira condição ($\sum c_i=0$) elimina a dependência de $\beta_0$, e a segunda ($\sum c_i X_i=1$) garante que o coeficiente angular verdadeiro seja preservado.
+
+**Passo 3: Variância.**\
+Como $Var(Y_i)=\sigma^2$ e os erros são independentes:
+
+$$
+Var(\tilde\beta_1) = \sigma^2 \sum_{i=1}^n c_i^2.
+$$
+
+Aqui vemos que a variância do estimador linear depende diretamente da soma dos quadrados dos pesos. Para ser eficiente, devemos minimizar $\sum c_i^2$ sujeito às condições de não viés.
+
+**Passo 4: O estimador de MQO como referência.**\
+Do MQO, sabemos que
+
+$$
+\hat\beta_1 = \frac{\sum_{i=1}^n (X_i - \bar X) Y_i}{S_{xx}},
+\qquad S_{xx} = \sum_{i=1}^n (X_i - \bar X)^2.
+$$
+
+Assim,
+
+$$
+\hat\beta_1 = \sum_{i=1}^n \frac{x_i}{S_{xx}} Y_i,
+$$
+
+isto é, os pesos são $c_i^\star = \frac{(X_i - \bar X)}{S_{xx}}$.
+
+**Verificação das condições:**
+
+-   $\sum c_i^\star = \frac{1}{S_{xx}}\sum_i (X_i - \bar X) = 0$\
+-   $\sum c_i^\star X_i = \frac{1}{S_{xx}}\sum_i (X_i - \bar X)[\bar X+(X_i - \bar X)] = \frac{S_{xx}}{S_{xx}}=1$
+
+Logo, $\hat\beta_1$ é linear e não viesado. Portanto, o MQO fornece exatamente os pesos que satisfazem as condições de não viés. Isso mostra que a solução de MQO está dentro da classe de estimadores admissíveis.
+
+**Passo 5: Otimalidade via Cauchy--Schwarz.**\
+Das restrições:
+
+$$
+1 = \sum_{i=1}^n c_i X_i = \sum_{i=1}^n c_i (X_i - \bar X),
+$$
+
+pois $\sum_i c_i=0$.
+
+Aplicando a desigualdade de Cauchy--Schwarz:
+
+$$
+\left(\sum_{i=1}^n c_i (X_i - \bar X)\right)^2 \leq \left(\sum_{i=1}^n c_i^2\right)\left(\sum_{i=1}^n (X_i - \bar X)^2\right).
+$$
+
+Portanto,
+
+$$
+1^2 \leq \left(\sum c_i^2\right) S_{xx}
+\quad \Rightarrow \quad 
+\sum c_i^2 \geq \frac{1}{S_{xx}}.
+$$
+
+A igualdade ocorre se, e somente se, $c_i$ é proporcional a $(X_i - \bar X)$, isto é, $c_i = \lambda (X_i - \bar X)$. Logo, impondo $\sum c_i X_i=1$, obtemos $\lambda = 1/S_{xx}$, exatamente $c_i^\star$.
+
+Note que a desigualdade de Cauchy--Schwarz é o coração da prova. Ela garante que nenhum outro conjunto de pesos pode produzir uma variância menor do que a obtida pelo MQO.
+
+**Conclusão da Parte A:**\
+$\hat\beta_1$ é o único estimador linear não viesado com variância mínima.
+
+**2) Parte B --- O intercepto** $\beta_0$
+
+**Passo 1: Forma geral de um estimador linear.**\
+Um estimador linear de $\beta_0$ pode ser escrito como
+
+$$
+\tilde\beta_0 = \sum_{i=1}^n a_i Y_i.
+$$
+
+Novamente, qualquer estimador linear pode ser visto como combinação linear das observações, mas agora queremos capturar o intercepto.
+
+**Passo 2: Condição de não viés.**\
+Temos
+
+$$
+E[\tilde\beta_0] = \sum_{i=1}^n a_i(\beta_0+\beta_1 X_i) 
+= \beta_0 \sum_{i=1}^n a_i + \beta_1 \sum_{i=1}^n a_i X_i.
+$$
+
+Para que $E[\tilde\beta_0]=\beta_0$, precisamos que
+
+$$
+\sum_{i=1}^n a_i = 1, 
+\qquad 
+\sum_{i=1}^n a_i X_i = 0.
+$$
+
+Essas condições eliminam a influência de $\beta_1$ e garantem que o intercepto seja estimado corretamente em média.
+
+**Passo 3: Variância.**\
+Com erros independentes:
+
+$$
+Var(\tilde\beta_0) = \sigma^2 \sum_{i=1}^n a_i^2.
+$$
+
+**Passo 4: O estimador de MQO como referência.**\
+Do MQO, temos
+
+$$
+\hat\beta_0 = \bar Y - \hat\beta_1 \bar X 
+= \sum_{i=1}^n \left(\frac{1}{n} - \frac{\bar X\, (X_i - \bar X)}{S_{xx}}\right) Y_i.
+$$
+
+Logo, os pesos são
+
+$$
+a_i^\star = \frac{1}{n} - \frac{\bar X\, (X_i - \bar X)}{S_{xx}}.
+$$
+
+**Verificação das condições:**
+
+-   $\sum a_i^\star = 1$\
+-   $\sum a_i^\star X_i = 0$
+
+Assim, $\hat\beta_0$ também é linear e não viesado.
+
+**Passo 5: Variância mínima atingida.**\
+Pode-se demonstrar (via álgebra quadrática) que $\sum a_i^2$ é minimizado por $a_i^\star$.
+
+Portanto,
+
+$$
+Var(\hat\beta_0) = \sigma^2 \left(\frac{1}{n} + \frac{\bar X^2}{S_{xx}}\right).
+$$
+
+O raciocínio aqui é paralelo ao da inclinação. O MQO fornece exatamente os pesos que garantem variância mínima para o intercepto.
+
+**3) Conclusões e observações**
+
+-   Sob as hipóteses de Gauss--Markov, os estimadores de MQO são **BLUE**:
+
+$$
+Var(\hat\beta_1) = \frac{\sigma^2}{S_{xx}}, 
+\qquad 
+Var(\hat\beta_0) = \sigma^2\left(\frac{1}{n} + \frac{\bar X^2}{S_{xx}}\right).
+$$
+
+-   A hipótese de normalidade dos erros **não é necessária** para a validade do Teorema de Gauss--Markov. Ela só é usada quando buscamos distribuições exatas para estatísticas de teste e intervalos de confiança.\
+-   Se houver heteroscedasticidade ou autocorrelação, os estimadores de MQO deixam de ser BLUE, sendo preferíveis métodos alternativos como MQO ponderado (WLS) ou mínimos quadrados generalizados (GLS).
+
+O Teorema de Gauss--Markov justifica teoricamente o uso do MQO. Ele garante que, dentro da ampla classe dos estimadores lineares não viesados, não existe alternativa mais precisa (isto é, com menor variância). Esse é um dos pilares da estatística aplicada, pois fornece eficiência e robustez teórica ao procedimento de regressão.
+
+\clearpage
+
+## Modelos de Regressão Linear Múltipla
+
+Para o MRLS, consedere as seguinte convenções:\
+- $p$ = número de **variáveis explicativas** (sem contar o intercepto).\
+- O **intercepto** é a primeira coluna de 1's em $\mathbf{X}$.\
+- $\mathbf{X}\in\mathbb{R}^{n\times (p+1)}$, $\boldsymbol{\beta}\in\mathbb{R}^{p+1}$, $\mathbf{Y}\in\mathbb{R}^{n}$.\
+- Hipóteses básicas: $E(\boldsymbol{\varepsilon}\mid \mathbf{X})=\mathbf{0}$ e $\operatorname{Var}(\boldsymbol{\varepsilon}\mid \mathbf{X})=\sigma^2\mathbf{I}_n$.\
+- Quando explicitado, assumimos **normalidade**: $\boldsymbol{\varepsilon}\sim \mathcal{N}_n(\mathbf{0},\sigma^2\mathbf{I}_n)$.
+
+### Modelo, função objetivo, equações normais e solução
+
+**Modelo populacional:** $$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}, 
+\qquad E(\boldsymbol{\varepsilon}\mid\mathbf{X})=\mathbf{0},\quad 
+\operatorname{Var}(\boldsymbol{\varepsilon}\mid\mathbf{X})=\sigma^2\mathbf{I}_n.
+$$
+
+(a) Mínimos quadrados
+
+O estimador de **mínimos quadrados ordinários (MQO/OLS)** é definido como a solução do problema de otimização quadrática
+
+$$
+\hat{\boldsymbol{\beta}}
+=\arg\min_{\boldsymbol{\beta}\in\mathbb{R}^{p+1}}
+S(\boldsymbol{\beta})
+\quad\text{com}\quad
+S(\boldsymbol{\beta})
+=\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2
+=(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Expandindo $S(\boldsymbol{\beta})$: $$
+S(\boldsymbol{\beta})
+=\mathbf{Y}^\top\mathbf{Y}
+-2\,\mathbf{Y}^\top\mathbf{X}\boldsymbol{\beta}
++\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta}.
+$$
+
+(b) Derivação
+
+Usando regras de cálculo matricial (derivadas de formas bilineares e quadráticas):
+
+-   $\dfrac{\partial}{\partial \boldsymbol{\beta}}\left(-2\,\mathbf{Y}^\top\mathbf{X}\boldsymbol{\beta}\right)=-2\,\mathbf{X}^\top\mathbf{Y}$,
+-   $\dfrac{\partial}{\partial \boldsymbol{\beta}}\left(\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta}\right)=2\,\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta}$.
+
+Logo, o **gradiente** é $$
+\nabla S(\boldsymbol{\beta})
+=-2\,\mathbf{X}^\top\mathbf{Y}+2\,\mathbf{X}^\top\mathbf{X}\,\boldsymbol{\beta}.
+$$
+
+Impondo a condição de 1ª ordem $\nabla S(\hat{\boldsymbol{\beta}})=\mathbf{0}$, obtemos as **equações normais**: $$
+\boxed{\ \mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y}\ }.
+$$
+
+Aas equações normais equivalem a exigir **ortogonalidade** dos resíduos ao espaço gerado pelas colunas de $\mathbf{X}$: $$
+\mathbf{X}^\top(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})=\mathbf{0}.
+$$
+
+(c) Condições de mínimo global e unicidade
+
+A matriz **Hessiana** de $S$ é $$
+\nabla^2 S(\boldsymbol{\beta})=2\,\mathbf{X}^\top\mathbf{X}.
+$$ Se $\operatorname{rank}(\mathbf{X})=p+1$ (posto **coluna completo**), então, para todo vetor não nulo $\mathbf{u}\in\mathbb{R}^{p+1}$, $$
+\mathbf{u}^\top(\mathbf{X}^\top\mathbf{X})\mathbf{u}=\|\mathbf{X}\mathbf{u}\|^2>0,
+$$ logo $\mathbf{X}^\top\mathbf{X}\succ 0$ (definida positiva). Portanto, $S$ é **estritamente convexa** e a solução das equações normais é o **mínimo global único**: $$
+\boxed{\ \hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}\ }.
+$$
+
+(d) Forma de projeção e ortogonalidade
+
+Substituindo a solução no ajuste: $$
+\hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}}
+=\underbrace{\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top}_{\displaystyle \mathbf{H}}\mathbf{Y}
+\equiv \mathbf{H}\mathbf{Y},
+\qquad
+\hat{\boldsymbol{\varepsilon}}=\mathbf{Y}-\hat{\mathbf{Y}}
+=(\mathbf{I}_n-\mathbf{H})\mathbf{Y}\equiv \mathbf{M}\mathbf{Y}.
+$$ A matriz $\mathbf{H}$ é **simétrica e idempotente** ($\mathbf{H}=\mathbf{H}^\top=\mathbf{H}^2$), logo é a **projeção ortogonal** sobre $\operatorname{col}(\mathbf{X})$; $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$ projeta sobre o complemento ortogonal. As condições normais equivalem a $$
+\mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0},
+$$ isto é, os resíduos são ortogonais a **cada** coluna de $\mathbf{X}$ (incluindo a coluna do intercepto).
+
+### Projeções ortogonais: $\mathbf{H}$ e $\mathbf{M}$; traços, g.l. e consequências
+
+Defina $$
+\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top,\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H},\qquad
+\hat{\mathbf{Y}}=\mathbf{H}\mathbf{Y},\quad
+\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}.
+$$
+
+**(a)** $\mathbf{H}$ e $\mathbf{M}$ são projeções ortogonais
+
+**Passo 1** --- Simetria e idempotência de $\mathbf{H}$.\
+$\mathbf{H}^\top=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top=\mathbf{H}$, logo é **simétrica**.\
+Além disso, $$
+\mathbf{H}^2
+=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\underbrace{\mathbf{X}^\top\mathbf{X}}_{\mathbf{I}}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top
+=\mathbf{H},
+$$ então é **idempotente**.
+
+**Passo 2** --- Imagem e fixação do subespaço.\
+Para qualquer $\mathbf{v}$, $\mathbf{H}\mathbf{v}\in\operatorname{col}(\mathbf{X})$.\
+Se $\mathbf{v}\in\operatorname{col}(\mathbf{X})$ (isto é, $\mathbf{v}=\mathbf{X}\mathbf{b}$), então $$
+\mathbf{H}\mathbf{v}
+=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}\mathbf{b}
+=\mathbf{X}\mathbf{b}=\mathbf{v}.
+$$
+
+A matriz $\mathbf{H}$ é a projeção em $\operatorname{col}(\mathbf{X})$ e $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$ projeta ortogonalmente em $\operatorname{col}(\mathbf{X})^\perp$. Como projeções em subespaços ortogonais, $\mathbf{HM}=\mathbf{0}$, $\mathbf{MH}=\mathbf{0}$.
+
+**(b) Ortogonalidade e equações normais**
+
+Das equações normais (F.2.1), $\mathbf{X}^\top(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})=\mathbf{0}$, isto é, $$
+\boxed{\ \mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0}\ }.
+$$ Como $\operatorname{col}(\mathbf{X})=\operatorname{col}(\mathbf{H})$, temos também $$
+\hat{\mathbf{Y}}=\mathbf{H}\mathbf{Y}\ \perp\ \hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}.
+$$
+
+Temos que $\mathbf{Y}$ é decomposto em duas componentes **ortogonais**: $$
+\mathbf{Y}=\underbrace{\hat{\mathbf{Y}}}_{\in \operatorname{col}(\mathbf{X})}
+\ +\ 
+\underbrace{\hat{\boldsymbol{\varepsilon}}}_{\in \operatorname{col}(\mathbf{X})^\perp}\!.
+$$
+
+**(c) Traços, postos e graus de liberdade**
+
+Para projeções ortogonais, o espectro é binário: se $\mathbf{A}=\mathbf{A}^\top=\mathbf{A}^2$, então seus autovalores são $0$ ou $1$. Consequentemente, $$
+\operatorname{rank}(\mathbf{H})=\mathrm{tr}(\mathbf{H})=\#\{\lambda_i(\mathbf{H})=1\}.
+$$ Como $\operatorname{col}(\mathbf{H})=\operatorname{col}(\mathbf{X})$ tem dimensão $p+1$, $$
+\boxed{\ \mathrm{tr}(\mathbf{H})=\operatorname{rank}(\mathbf{H})=p+1\ }.
+$$ Além disso, $$
+\boxed{\ \mathrm{tr}(\mathbf{M})=\operatorname{rank}(\mathbf{M})=n-(p+1)\ },
+$$ que identificam os **graus de liberdade residuais**.
+
+**(d) Leverage (alavancas) e suas propriedades**
+
+Seja $\mathbf{x}_i^\top$ a $i$-ésima linha de $\mathbf{X}$. A diagonal de $\mathbf{H}$ é $$
+h_{ii}=(\mathbf{H})_{ii}=\mathbf{x}_i^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i.
+$$ Propriedades:
+
+1.  $\sum_{i=1}^n h_{ii}=\mathrm{tr}(\mathbf{H})=p+1\ \Rightarrow\ \bar h=(p+1)/n$.
+
+2.  Como $\mathbf{H}$ é projeção ortogonal, $0\preceq \mathbf{H}\preceq \mathbf{I}$, logo $0\le h_{ii}\le 1$.
+
+3.  $h_{ii}$ mede quão "extremo" $\mathbf{x}_i$ é no espaço das regressoras: quanto maior $h_{ii}$, maior a contribuição da observação $i$ no próprio ajuste $\hat{y}_i$ (alto **leverage**).
+
+**(e) Soma de quadrados residual e sua forma matricial**
+
+Pela definição de resíduos, $$
+\boxed{\ SQ_{Res}=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}
+=\mathbf{Y}^\top\mathbf{M}\mathbf{Y} }.
+$$ Este resultado será a base para mostrar o **não-viesamento** de $\hat{\sigma}^2=SQ_{Res}/(n-p-1)$ (F.2.3) e obter, sob normalidade, a distribuição **qui-quadrado** de $SQ_{Res}/\sigma^2$ (F.2.4).
+
+## Não-viesamento e variância de $\hat{\boldsymbol{\beta}}$
+
+Recorde que o estimador de MQO é $$
+\hat{\boldsymbol{\beta}}
+=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y},
+\qquad
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},
+\qquad
+E(\boldsymbol{\varepsilon}\mid\mathbf{X})=\mathbf{0},\ 
+\operatorname{Var}(\boldsymbol{\varepsilon}\mid\mathbf{X})=\sigma^2\mathbf{I}_n.
+$$
+
+**(a) Decomposição básica de** $\hat{\boldsymbol{\beta}}$
+
+Substituindo o modelo em $\hat{\boldsymbol{\beta}}$: $$
+\begin{aligned}
+\hat{\boldsymbol{\beta}}
+&=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})
+\\[2pt]
+&=\underbrace{(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}}_{=\ \mathbf{I}_{p+1}}\boldsymbol{\beta}
++(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon}
+\\[2pt]
+&=\boldsymbol{\beta}\;+\;(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon}.
+\end{aligned}
+$$ Esta identidade é a chave para as propriedades de média e variância.
+
+**(b) Não-viesamento**
+
+Usando a linearidade da esperança condicional: $$
+E(\hat{\boldsymbol{\beta}}\mid\mathbf{X})
+=\boldsymbol{\beta}
++(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\,E(\boldsymbol{\varepsilon}\mid\mathbf{X})
+=\boldsymbol{\beta}.
+$$
+
+Portanto, $\boxed{\,E(\hat{\boldsymbol{\beta}}\mid\mathbf{X})=\boldsymbol{\beta}\,}$, isto é, $\hat{\boldsymbol{\beta}}$ é **não-viesado** (para cada componente e para quaisquer combinações lineares $a^\top\hat{\boldsymbol{\beta}}$).
+
+**(c) Variância-covariância**
+
+Pela propriedade $\operatorname{Var}(A\mathbf{Y}\mid\mathbf{X})=A\,\operatorname{Var}(\mathbf{Y}\mid\mathbf{X})\,A^\top$, temos $$
+\begin{aligned}
+\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid\mathbf{X})
+&=\operatorname{Var}\!\big((\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon}\ \bigm|\ \mathbf{X}\big)
+\\
+&=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\,
+\operatorname{Var}(\boldsymbol{\varepsilon}\mid\mathbf{X})\,
+\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}
+\\
+&=\sigma^2\,(\mathbf{X}^\top\mathbf{X})^{-1}.
+\end{aligned}
+$$
+
+**Portanto.** $$
+\boxed{\ \operatorname{Var}(\hat{\boldsymbol{\beta}}\mid\mathbf{X})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\ }.
+$$
+
+Em particular, para qualquer vetor $a\in\mathbb{R}^{p+1}$, $$
+\boxed{\ \operatorname{Var}\!\big(a^\top\hat{\boldsymbol{\beta}}\mid\mathbf{X}\big)
+=\sigma^2\,a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a\ }.
+$$
+
+**(d) Componentes, covariâncias e correlações**
+
+Denote $\mathbf{C}=(\mathbf{X}^\top\mathbf{X})^{-1}=(c_{jk})_{0\le j,k\le p}$. Então $$
+\operatorname{Var}(\hat{\beta}_j\mid\mathbf{X})=\sigma^2\,c_{jj},
+\qquad
+\operatorname{Cov}(\hat{\beta}_j,\hat{\beta}_k\mid\mathbf{X})=\sigma^2\,c_{jk}.
+$$ Logo, a **correlação** entre $\hat{\beta}_j$ e $\hat{\beta}_k$ é $$
+\operatorname{Corr}(\hat{\beta}_j,\hat{\beta}_k\mid\mathbf{X})
+=\frac{c_{jk}}{\sqrt{c_{jj}\,c_{kk}}}.
+$$
+
+Note que se as colunas de $\mathbf{X}$ forem (quase) ortogonais, $\mathbf{X}^\top\mathbf{X}$ é (quase) diagonal e as estimativas são (quase) não-correlacionadas; colinearidade entre colunas aumenta elementos fora da diagonal de $\mathbf{C}$ e **infla variâncias** (vide VIF em diagnóstico).
+
+\*\* (e) Particionamento: intercepto vs. coeficientes de inclinação\*\*
+
+Escreva $\mathbf{X}=[\,\mathbf{1}_n\ \ \mathbf{Z}\,]$ com $\mathbf{Z}\in\mathbb{R}^{n\times p}$, e particione $$
+\boldsymbol{\beta}=\begin{bmatrix}\beta_0\\ \boldsymbol{\beta}_Z\end{bmatrix},\qquad
+\mathbf{X}^\top\mathbf{X}=
+\begin{bmatrix}
+n & \mathbf{1}^\top\mathbf{Z}\\
+\mathbf{Z}^\top\mathbf{1} & \mathbf{Z}^\top\mathbf{Z}
+\end{bmatrix}.
+$$ Defina a matriz de **centragem** $\,\mathbf{M}=\mathbf{I}_n-\frac{1}{n}\mathbf{1}\mathbf{1}^\top$ (logo $\mathbf{M}\mathbf{1}=\mathbf{0}$). Pelo complemento de Schur, $$
+\big(\mathbf{X}^\top\mathbf{X}\big)^{-1}=
+\begin{bmatrix}
+\ \frac{1}{n} + \frac{1}{n^2}\mathbf{1}^\top\mathbf{Z}\,(\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}\mathbf{Z}^\top\mathbf{1}\ &\ -\frac{1}{n}\,\mathbf{1}^\top\mathbf{Z}\,(\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}
+\\[6pt]
+-\frac{1}{n}\,(\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}\mathbf{Z}^\top\mathbf{1} \ &\ (\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}
+\end{bmatrix}.
+$$
+
+Destas expressões seguem, imediatamente, $$
+\boxed{\ \operatorname{Var}(\hat{\boldsymbol{\beta}}_Z\mid\mathbf{X})
+=\sigma^2\,(\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}\ },
+$$ $$
+\boxed{\ \operatorname{Cov}(\hat{\beta}_0,\hat{\boldsymbol{\beta}}_Z\mid\mathbf{X})
+=-\,\sigma^2\,\frac{1}{n}\,\mathbf{1}^\top\mathbf{Z}\,(\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}\ }.
+$$ Para a variância do intercepto, $$
+\boxed{\ \operatorname{Var}(\hat{\beta}_0\mid\mathbf{X})
+=\sigma^2\left(\frac{1}{n}+\frac{1}{n^2}\mathbf{1}^\top\mathbf{Z}\,(\mathbf{Z}^\top\mathbf{M}\mathbf{Z})^{-1}\mathbf{Z}^\top\mathbf{1}\right)\ }.
+$$
+
+**Casos importantes.**
+
+-   Se as colunas de $\mathbf{Z}$ estão **centradas** ($\mathbf{1}^\top\mathbf{Z}=\mathbf{0}$), então $$
+    \operatorname{Var}(\hat{\beta}_0\mid\mathbf{X})=\frac{\sigma^2}{n},
+    \qquad
+    \operatorname{Cov}(\hat{\beta}_0,\hat{\boldsymbol{\beta}}_Z\mid\mathbf{X})=\mathbf{0}.
+    $$
+-   SE $p=1$ (MRLS), recuperamos as fórmulas conhecidas: $$
+    \operatorname{Var}(\hat{\beta}_1\mid\mathbf{X})=\frac{\sigma^2}{S_{xx}},\qquad
+    \operatorname{Var}(\hat{\beta}_0\mid\mathbf{X})=\sigma^2\!\left(\frac{1}{n}+\frac{\bar{X}^2}{S_{xx}}\right).
+    $$
+
+**(f) Erros-padrão e estimativa de** $\sigma^2$
+
+Na prática, $\sigma^2$ é desconhecido e é estimado por $$
+\hat{\sigma}^2=\frac{SQ_{Res}}{n-(p+1)}=\frac{\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}}{n-(p+1)}
+\quad\text{(ver F.2.5 para a prova do não-viesamento).}
+$$ Os **erros-padrão** dos coeficientes são $$
+\operatorname{EP}(\hat{\beta}_j)=\hat{\sigma}\,\sqrt{c_{jj}},
+\qquad
+\operatorname{EP}(a^\top\hat{\boldsymbol{\beta}})=\hat{\sigma}\,\sqrt{a^\top\mathbf{C}a},
+\quad \mathbf{C}=(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+## Esperança de $SQ_{Res}$ e estimador não viesado de $\sigma^2$
+
+Recorde (F.2.2) que $$
+\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y},\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H},\qquad
+\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top,
+$$ como $\mathbf{M}$ é **simétrica**, **idempotente** e de **posto** $\mathrm{tr}(\mathbf{M})=n-(p+1)$. A soma de quadrados residual é $$
+SQ_{Res}=\|\hat{\boldsymbol{\varepsilon}}\|^2
+=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}
+=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+**(a) via identidade para** $E(\mathbf{Y}^\top\mathbf{A}\mathbf{Y})$
+
+Para qualquer matriz simétrica $\mathbf{A}$, $$
+E(\mathbf{Y}^\top\mathbf{A}\mathbf{Y})
+=\operatorname{tr}\!\big(\mathbf{A}\operatorname{Var}(\mathbf{Y})\big)
++E(\mathbf{Y})^\top \mathbf{A}\,E(\mathbf{Y}).
+$$ No MRLM, $E(\mathbf{Y}\mid\mathbf{X})=\mathbf{X}\boldsymbol{\beta}$ e $\operatorname{Var}(\mathbf{Y}\mid\mathbf{X})=\sigma^2\mathbf{I}_n$. Tomando $\mathbf{A}=\mathbf{M}$ e **condicionando em** $\mathbf{X}$: $$
+\begin{aligned}
+E(SQ_{Res}\mid \mathbf{X})
+&= \operatorname{tr}\!\big(\mathbf{M}\,\sigma^2\mathbf{I}_n\big)
++ (\mathbf{X}\boldsymbol{\beta})^\top \mathbf{M}\,(\mathbf{X}\boldsymbol{\beta}) \\
+&= \sigma^2\,\mathrm{tr}(\mathbf{M})
++ \boldsymbol{\beta}^\top \underbrace{\mathbf{X}^\top \mathbf{M}\mathbf{X}}_{=\ \mathbf{0}}\boldsymbol{\beta}.
+\end{aligned}
+$$ A igualdade $\mathbf{X}^\top\mathbf{M}\mathbf{X}=\mathbf{0}$ decorre de $\mathbf{M}(\operatorname{col}\mathbf{X})=\{\mathbf{0}\}$ (projeções ortogonais). Como $\mathrm{tr}(\mathbf{M})=n-(p+1)$, $$
+\boxed{\ E(SQ_{Res}\mid \mathbf{X})=(n-p-1)\,\sigma^2\ }.
+$$
+
+**(b) Estimador** não viesado\*\* de $\sigma^2$ e graus de liberdade\*\*
+
+Defina $$
+\boxed{\ \hat{\sigma}^2 \;\equiv\; \frac{SQ_{Res}}{\,n-(p+1)\,}\ }.
+$$ Pelas provas acima, $$
+E(\hat{\sigma}^2\mid \mathbf{X})=\frac{E(SQ_{Res}\mid \mathbf{X})}{n-(p+1)}
+=\sigma^2,
+$$ isto é, $\hat{\sigma}^2$ é **não viesado** para $\sigma^2$ e usa corretamente os $n-(p+1)$ **graus de liberdade residuais** (pois foram estimados $p+1$ parâmetros: $p$ inclinações + intercepto).
+
+## Decomposição $SQ_T=SQ_{Reg}+SQ_{Res}$
+
+**Hipóteses e notação.**\
+Assuma que a primeira coluna de $\mathbf{X}$ é o **intercepto** $\mathbf{1}_n$ e defina a matriz de centralização $J=\tfrac{1}{n}\mathbf{1}\mathbf{1}^\top$, e a projeção $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$.
+
+As somas de quadrados são: $$
+SQ_T=\mathbf{Y}^\top(\mathbf{I}-J)\mathbf{Y},\qquad
+SQ_{Reg}=\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y},\qquad
+SQ_{Res}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+**(a) Fatos de projeção com intercepto**
+
+1.  $\mathbf{H}$ é projeção ortogonal em $\operatorname{col}(\mathbf{X})$.\
+    $\mathbf{H}=\mathbf{H}^\top$, $\mathbf{H}^2=\mathbf{H}$, $\operatorname{col}(\mathbf{H})=\operatorname{col}(\mathbf{X})$.
+
+2.  **Como** $\mathbf{1}\in\operatorname{col}(\mathbf{X})$, temos $\mathbf{H}\mathbf{1}=\mathbf{1}$.\
+    Disso seguem as identidades cruciais $$
+    \boxed{\ \mathbf{H}J=J\quad\text{e}\quad J\mathbf{H}=J\ }.
+    $$ *Prova (ex.):* $J\mathbf{H}=\tfrac{1}{n}\mathbf{1}\mathbf{1}^\top\mathbf{H} =\tfrac{1}{n}\mathbf{1}(\mathbf{H}^\top\mathbf{1})^\top =\tfrac{1}{n}\mathbf{1}(\mathbf{H}\mathbf{1})^\top =\tfrac{1}{n}\mathbf{1}\mathbf{1}^\top=J$.
+
+3.  $\mathbf{M}$ projeta em $\operatorname{col}(\mathbf{X})^\perp$.\
+    Em particular, $\mathbf{M}\mathbf{1}=\mathbf{0}$ (pois $\mathbf{1}\in\operatorname{col}(\mathbf{X})$) e $\mathbf{H}\mathbf{M}=\mathbf{0}$.
+
+**(b)** $(\mathbf{H}-J)$ é projeção e é ortogonal a $\mathbf{M}$
+
+1.  **Idempotência e simetria de** $(\mathbf{H}-J)$.\
+    Usando $J^2=J$, $\mathbf{H}^2=\mathbf{H}$ e $J\mathbf{H}=\mathbf{H}J=J$, $$
+    (\mathbf{H}-J)^2
+    =\mathbf{H}^2-\mathbf{H}J-J\mathbf{H}+J^2
+    =\mathbf{H}-J-J+J \;=\; \mathbf{H}-J,
+    $$ e $(\mathbf{H}-J)^\top=\mathbf{H}-J$.\
+    Logo, $\boxed{\ \mathbf{H}-J\ \text{é projeção ortogonal}\ }$ --- precisamente a projeção sobre o subespaço de $\operatorname{col}(\mathbf{X})$ **centrado** (isto é, removido o componente junto a $\mathbf{1}$).
+
+2.  **Ortogonalidade com** $\mathbf{M}$.\
+    $$
+    (\mathbf{H}-J)\mathbf{M}=\mathbf{H}\mathbf{M}-J\mathbf{M}=\mathbf{0}-J(\mathbf{I}-\mathbf{H})
+    =-J+J\mathbf{H}=-J+J=\mathbf{0}.
+    $$ Analogamente, $\mathbf{M}(\mathbf{H}-J)=\mathbf{0}$.\
+    Logo, $\boxed{\ (\mathbf{H}-J)\mathbf{M}=\mathbf{M}(\mathbf{H}-J)=\mathbf{0}\ }$: são projeções **ortogonais**.
+
+**(c) Decomposição matricial e soma de quadrados**
+
+Como $(\mathbf{I}-J)=(\mathbf{H}-J)+\mathbf{M}$ e os termos são projeções ortogonais, $$
+\boxed{\ SQ_T
+=\mathbf{Y}^\top(\mathbf{I}-J)\mathbf{Y}
+=\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y}
++\mathbf{Y}^\top\mathbf{M}\mathbf{Y}
+=SQ_{Reg}+SQ_{Res}\ }.
+$$
+
+Decompondo $\mathbf{Y}$ em torno da média $\bar{Y}\mathbf{1}$: $$
+\mathbf{Y}-\bar{Y}\mathbf{1}
+=(\hat{\mathbf{Y}}-\bar{Y}\mathbf{1})+\hat{\boldsymbol{\varepsilon}},
+\quad
+(\hat{\mathbf{Y}}-\bar{Y}\mathbf{1})\ \perp\ \hat{\boldsymbol{\varepsilon}},
+$$ resulta $$
+\sum_{i=1}^n (y_i-\bar{y})^2
+=\sum_{i=1}^n (\hat{y}_i-\bar{y})^2
++\sum_{i=1}^n (y_i-\hat{y}_i)^2.
+$$
+
+**(d) Graus de liberdade (g.l.)**
+
+Como projeções ortogonais: $$
+\operatorname{rank}(\mathbf{I}-J)=\mathrm{tr}(\mathbf{I}-J)=n-1,
+$$ $$
+\operatorname{rank}(\mathbf{H}-J)=\mathrm{tr}(\mathbf{H}-J)
+=\mathrm{tr}(\mathbf{H})-\mathrm{tr}(J)
+=(p+1)-1=p,
+$$ $$
+\operatorname{rank}(\mathbf{M})=\mathrm{tr}(\mathbf{M})=n-(p+1).
+$$ Logo, $$
+\boxed{\ (n-1) = p + \big(n-p-1\big) \ }
+$$ --- exatamente os g.l. do **total**, da **regressão** (excluindo o intercepto) e dos **resíduos**.
+
+## Distribuição de $\hat{\boldsymbol{\beta}}$, de $\hat{\mathbf{Y}}$ e dos resíduos
+
+**(a) Distribuição de** $\hat{\boldsymbol{\beta}}$
+
+Como $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$ é transformação linear de $\mathbf{Y}$ normal multivariada, $$
+\begin{aligned}
+E(\hat{\boldsymbol{\beta}}\mid\mathbf{X})
+&=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top E(\mathbf{Y}\mid\mathbf{X})
+=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta}
+=\boldsymbol{\beta},\\[4pt]
+\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid\mathbf{X})
+&=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\sigma^2\mathbf{I})
+\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}
+=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+\end{aligned}
+$$ Logo $$
+\boxed{\ \hat{\boldsymbol{\beta}}\mid \mathbf{X}\ \sim\ 
+\mathcal{N}_{p+1}\!\big(\boldsymbol{\beta},\ \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\big)\ }.
+$$
+
+Temos, para qualquer $a\in\mathbb{R}^{p+1}$, que $$
+a^\top\hat{\boldsymbol{\beta}}\mid\mathbf{X}\ \sim\ 
+\mathcal{N}\!\big(a^\top\boldsymbol{\beta},\ \sigma^2\,a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a\big).
+$$
+
+**(b) Distribuição dos Valores ajustados (**$\hat{\mathbf{Y}}$) e dos resíduos
+
+Ambos são transformações lineares de $\mathbf{Y}$: $$
+\hat{\mathbf{Y}}=\mathbf{H}\mathbf{Y},\qquad
+\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}.
+$$ Como $\mathbf{H}$ e $\mathbf{M}$ são simétricas e idempotentes: $$
+\begin{aligned}
+E(\hat{\mathbf{Y}}\mid\mathbf{X})&=\mathbf{H}\,\mathbf{X}\boldsymbol{\beta}
+=\mathbf{X}\boldsymbol{\beta},&
+\operatorname{Var}(\hat{\mathbf{Y}}\mid\mathbf{X})&=\sigma^2\mathbf{H}^2=\sigma^2\mathbf{H},\\[2pt]
+E(\hat{\boldsymbol{\varepsilon}}\mid\mathbf{X})&=\mathbf{M}\,\mathbf{X}\boldsymbol{\beta}=\mathbf{0},&
+\operatorname{Var}(\hat{\boldsymbol{\varepsilon}}\mid\mathbf{X})&=\sigma^2\mathbf{M}^2=\sigma^2\mathbf{M}.
+\end{aligned}
+$$ Portanto, $$
+\boxed{\ \hat{\mathbf{Y}}\mid \mathbf{X}\sim \mathcal{N}_n\!\big(\mathbf{X}\boldsymbol{\beta},\ \sigma^2\mathbf{H}\big),\qquad
+\hat{\boldsymbol{\varepsilon}}\mid \mathbf{X}\sim \mathcal{N}_n\!\big(\mathbf{0},\ \sigma^2\mathbf{M}\big)\ }.
+$$
+
+**Marginais (componentes):** se $h_{ii}=(\mathbf{H})_{ii}$, então $$
+\hat{y}_i\mid\mathbf{X}\sim \mathcal{N}\!\big(\mu_i,\ \sigma^2 h_{ii}\big),
+\qquad
+\hat{\varepsilon}_i\mid\mathbf{X}\sim \mathcal{N}\!\big(0,\ \sigma^2(1-h_{ii})\big).
+$$
+
+**(c) Independências fundamentais sob normalidade**
+
+1)  $\hat{\boldsymbol{\beta}}$ e resíduos.\
+    Escreva $\hat{\boldsymbol{\beta}}=A\mathbf{Y}$ com $A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$. Então $$
+    \operatorname{Cov}(\hat{\boldsymbol{\beta}},\hat{\boldsymbol{\varepsilon}}\mid\mathbf{X})
+    =A\,\operatorname{Var}(\mathbf{Y}\mid\mathbf{X})\,\mathbf{M}^\top
+    =\sigma^2 A\mathbf{M}
+    =\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{I}-\mathbf{H})
+    =\mathbf{0}.
+    $$ Como o par $(\hat{\boldsymbol{\beta}},\hat{\boldsymbol{\varepsilon}})$ é segue uma distribuição norma multivariada, correlação zero implica **independência**: $$
+    \boxed{\ \hat{\boldsymbol{\beta}}\ \perp\!\!\!\perp\ \hat{\boldsymbol{\varepsilon}}\ \bigm|\ \mathbf{X}\ }.
+    $$
+
+2)  **Valores ajustados e resíduos.**\
+    $\operatorname{Cov}(\hat{\mathbf{Y}},\hat{\boldsymbol{\varepsilon}}\mid\mathbf{X}) =\mathbf{H}\,(\sigma^2\mathbf{I})\,\mathbf{M}^\top =\sigma^2\mathbf{H}\mathbf{M}=\mathbf{0}$ e, portanto, $$
+    \boxed{\ \hat{\mathbf{Y}}\ \perp\!\!\!\perp\ \hat{\boldsymbol{\varepsilon}}\ \bigm|\ \mathbf{X}\ }.
+    $$
+
+**(d) Qui-quadrados centrais (Cochran) e formas equivalentes**
+
+Como $\mathbf{M}\mathbf{X}=\mathbf{0}$ e $\boldsymbol{\varepsilon}\sim\mathcal{N}_n(\mathbf{0},\sigma^2\mathbf{I})$, $$
+SQ_{Res}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}
+=(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})^\top\mathbf{M}(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})
+=\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}.
+$$ Como $\mathbf{M}$ é projeção de posto $n-(p+1)$, pelo Teorema de Cochran: $$
+\boxed{\ \frac{SQ_{Res}}{\sigma^2}
+=\frac{\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}}{\sigma^2}
+\ \sim\ \chi^2_{\,n-p-1}\ }.
+$$
+
+Além disso, note que $$
+\hat{\boldsymbol{\beta}}-\boldsymbol{\beta}
+=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\varepsilon}
+\ \Rightarrow\
+(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^\top(\mathbf{X}^\top\mathbf{X})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})
+=\boldsymbol{\varepsilon}^\top\mathbf{H}\,\boldsymbol{\varepsilon}.
+$$ Como $\mathbf{H}$ é projeção de posto $p+1$, $$
+\boxed{\ \frac{(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^\top(\mathbf{X}^\top\mathbf{X})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})}{\sigma^2}
+=\frac{\boldsymbol{\varepsilon}^\top\mathbf{H}\boldsymbol{\varepsilon}}{\sigma^2}
+\ \sim\ \chi^2_{\,p+1}\ }.
+$$
+
+Finalmente, como $\mathbf{H}$ e $\mathbf{M}$ são projeções **ortogonais** ($\mathbf{H}\mathbf{M}=\mathbf{0}$) e $\mathbf{H}+\mathbf{M}=\mathbf{I}$, as duas formas qui-quadrado acima são **independentes** e somam $n$ graus de liberdade: $$
+\frac{\boldsymbol{\varepsilon}^\top\mathbf{H}\boldsymbol{\varepsilon}}{\sigma^2}
+\ \perp\ 
+\frac{\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}}{\sigma^2},
+\qquad
+(p+1)+(n-p-1)=n.
+$$
+
+**(e) Preparando os testes** $t$ e $F$
+
+-   Para qualquer contraste linear $a^\top\boldsymbol{\beta}$, $$
+    \frac{a^\top\hat{\boldsymbol{\beta}}-a^\top\boldsymbol{\beta}}
+         {\sigma\sqrt{a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a}}
+    \ \sim\ \mathcal{N}(0,1),
+    \qquad
+    \hat{\sigma}^2=\frac{SQ_{Res}}{n-p-1}\ \ \text{indep. de }a^\top\hat{\boldsymbol{\beta}}.
+    $$ Assim, substituindo $\sigma$ por $\hat{\sigma}$: $$
+    \boxed{\ t(a)=
+    \frac{a^\top\hat{\boldsymbol{\beta}}-a^\top\boldsymbol{\beta}}
+         {\hat{\sigma}\sqrt{a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a}}
+    \ \sim\ t_{\,n-p-1}\ }.
+    $$ Casos particulares: teste individual $H_0:\beta_j=0$ (tomando $a=e_j$); ICs e bandas para médias/predições seguem diretamente.
+
+-   Para hipóteses lineares múltiplas $\mathbf{R}\boldsymbol{\beta}=\mathbf{r}$ (posto $q$), a estatística de Wald/razão de quadráticas leva ao $F_{q,\;n-p-1}$: $$
+    \boxed{\ F=
+    \frac{1}{q}\,
+    (\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+    \Big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\Big]^{-1}
+    (\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})
+    \ \Big/\
+    \frac{SQ_{Res}}{n-p-1}
+    \ \sim\ F_{\,q,\,n-p-1}\ }.
+    $$
+
+Portano, sob normalidade, $\hat{\boldsymbol{\beta}}$, $\hat{\mathbf{Y}}$ e $\hat{\boldsymbol{\varepsilon}}$ são normais; $SQ_{Res}/\sigma^2\sim\chi^2_{n-p-1}$; $(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^\top(\mathbf{X}^\top\mathbf{X})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})/\sigma^2\sim\chi^2_{p+1}$; e (crucialmente) $\hat{\boldsymbol{\beta}}$ é independente de $SQ_{Res}$. Esses fatos fundamentam as estatísticas exatas $t$ e $F$ usadas em inferência no MRLM.
+
+## Teorema de Cochran e independência
+
+**Enunciado (Cochran, 1934).**\
+Se $\mathbf{Z}\sim\mathcal{N}_n(\mathbf{0},\sigma^2\mathbf{I}_n)$ e $A_1,\dots,A_k$ são **simétricas**, **idempotentes** ($A_i^2=A_i$), com **postos** $r_i=\operatorname{rank}(A_i)$ e **ortogonais duas a duas** ($A_iA_j=\mathbf{0}$ para $i\ne j$), então:
+
+1.  $\ \mathbf{Z}^\top A_i \mathbf{Z}/\sigma^2 \sim \chi^2_{\,r_i}$ (qui-quadrado **central**),\
+2.  as formas $\{\mathbf{Z}^\top A_i \mathbf{Z}\}$ são **independentes**,\
+3.  se $\sum_i A_i$ também é projeção, então $\sum_i r_i=\operatorname{rank}(\sum_i A_i)$.
+
+**(a) Aplicação a** $SQ_{Res}$
+
+Lembre que $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$ é projeção ortogonal, simétrica e idempotente, com $$
+\operatorname{rank}(\mathbf{M})=\mathrm{tr}(\mathbf{M})=n-(p+1),\qquad
+\mathbf{M}\mathbf{X}=\mathbf{0}.
+$$ Como $\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}$ e $\mathbf{M}\mathbf{X}=\mathbf{0}$, temos que $$
+SQ_{Res}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}
+=(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})^\top\mathbf{M}(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})
+=\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}.
+$$ Definindo $\mathbf{Z}\equiv \boldsymbol{\varepsilon}\sim\mathcal{N}_n(\mathbf{0},\sigma^2\mathbf{I}_n)$, tmeos, pelo Teorema de Cochran, que $$
+\boxed{\ \frac{SQ_{Res}}{\sigma^2}=\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}
+=\frac{\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}}{\sigma^2}
+\ \sim\ \chi^2_{\,n-p-1}\ }.
+$$
+
+**(b) Aplicação a** $SQ_{Reg}$ com intercepto
+
+Quando há intercepto, $J=\tfrac{1}{n}\mathbf{1}\mathbf{1}^\top$ e $(\mathbf{H}-J)$ é **projeção ortogonal** no subespaço de dimensão $p$ obtido ao **centralizar** $\operatorname{col}(\mathbf{X})$ (F.2.5). Além disso, $(\mathbf{H}-J)$ e $\mathbf{M}$ são **ortogonais**, temos: $$
+(\mathbf{H}-J)\mathbf{M}=\mathbf{0},\qquad \mathbf{M}(\mathbf{H}-J)=\mathbf{0}.
+$$ Para $\mathbf{Z}=\boldsymbol{\varepsilon}$, $$
+\frac{\boldsymbol{\varepsilon}^\top(\mathbf{H}-J)\boldsymbol{\varepsilon}}{\sigma^2}\ \sim\ \chi^2_{\,p},
+\qquad
+\text{independente de }\ \frac{\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}}{\sigma^2}.
+$$
+
+**Atenção (central vs. não central).**\
+Para a **quantidade com** $\mathbf{Y}$, $$
+\frac{\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y}}{\sigma^2}
+=\frac{(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})^\top(\mathbf{H}-J)(\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon})}{\sigma^2}
+\ \sim\ \chi^2_{\,p}(\lambda),
+$$ isto é, **qui-quadrado não central** com parâmetro $$
+\lambda=\frac{\boldsymbol{\beta}^\top\mathbf{X}^\top(\mathbf{H}-J)\mathbf{X}\boldsymbol{\beta}}{\sigma^2}
+=\frac{\|(\mathbf{H}-J)\,\mathbf{X}\boldsymbol{\beta}\|^2}{\sigma^2}.
+$$ Sob a hipótese nula "**sem regressão além do intercepto**" ($\boldsymbol{\beta}$ com apenas o intercepto diferente de zero), tem-se $(\mathbf{H}-J)\mathbf{X}\boldsymbol{\beta}=\mathbf{0}$, então $\lambda=0$ e $$
+\boxed{\ \frac{\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y}}{\sigma^2}\ \sim\ \chi^2_{\,p}\quad \text{(sob }H_0)\ }.
+$$
+
+**(c) Independência entre** $SQ_{Reg}$ e $SQ_{Res}$
+
+Como $(\mathbf{H}-J)$ e $\mathbf{M}$ são projeções ortogonais, as formas $$
+\frac{\boldsymbol{\varepsilon}^\top(\mathbf{H}-J)\boldsymbol{\varepsilon}}{\sigma^2}
+\quad\text{e}\quad
+\frac{\boldsymbol{\varepsilon}^\top\mathbf{M}\boldsymbol{\varepsilon}}{\sigma^2}
+$$ são **independentes** (Cochran). Consequentemente, as versões com $\mathbf{Y}$ também são independentes; apenas a primeira pode ser **não central** quando $H_0$ não vale.
+
+**(d) Independência entre** $\hat{\boldsymbol{\beta}}$ e os resíduos
+
+Escreva $\hat{\boldsymbol{\beta}}=A\mathbf{Y}$ com $A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e $\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}$. Então $$
+\operatorname{Cov}(\hat{\boldsymbol{\beta}},\hat{\boldsymbol{\varepsilon}}\mid\mathbf{X})
+=A\,\operatorname{Var}(\mathbf{Y}\mid\mathbf{X})\,\mathbf{M}^\top
+=\sigma^2 A\mathbf{M}
+=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{I}-\mathbf{H})
+=\mathbf{0}.
+$$ Como o par $(\hat{\boldsymbol{\beta}},\hat{\boldsymbol{\varepsilon}})$ segue uma distribuição normal multivaridada (transformações lineares de $\mathbf{Y}$ normal), correlação zero implica $$
+\boxed{\ \hat{\boldsymbol{\beta}}\ \perp\!\!\!\perp\ \hat{\boldsymbol{\varepsilon}}\ \bigm|\ \mathbf{X}\ }.
+$$
+
+**(e) Corolários para testes** $t$ e $F$
+
+-   **Global (com intercepto).**\
+    Sob $H_0$ "sem regressão além do intercepto", $$
+    F=\frac{\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y}/p}{\ \mathbf{Y}^\top\mathbf{M}\mathbf{Y}/(n-p-1)}\ \sim\ F_{\,p,\,n-p-1}.
+    $$
+-   **Hipóteses lineares gerais.** Para $\mathbf{R}\boldsymbol{\beta}=\mathbf{r}$ (posto $q$), $$
+    F=\frac{1}{q}\,
+    (\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+    \Big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\Big]^{-1}
+    (\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})
+    \Big/ \frac{SQ_{Res}}{n-p-1}
+    \ \sim\ F_{\,q,\,n-p-1}.
+    $$
+-   **Testes** $t$ individuais / contrastes $a^\top\boldsymbol{\beta}$.\
+    Usando a independência de $SQ_{Res}$ e $\hat{\boldsymbol{\beta}}$, $$
+    t(a)=\frac{a^\top\hat{\boldsymbol{\beta}}-a^\top\boldsymbol{\beta}}{\hat{\sigma}\sqrt{a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a}}
+    \ \sim\ t_{\,n-p-1}.
+    $$
+
+## Estatística $t$ para coeficientes individuais e ICs
+
+Recorde (F.2.6) que, sob normalidade, $$
+\hat{\boldsymbol{\beta}}\mid\mathbf{X}\ \sim\ 
+\mathcal{N}_{p+1}\!\big(\boldsymbol{\beta},\ \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\big),
+\qquad
+\frac{SQ_{Res}}{\sigma^2}\ \sim\ \chi^2_{\,n-p-1},
+$$ e que $\hat{\boldsymbol{\beta}}$ é **independente** de $SQ_{Res}$ (F.2.7).
+
+Seja $c_{jj}$ o elemento $(j,j)$ de $\mathbf{C}=(\mathbf{X}^\top\mathbf{X})^{-1}$. Então, para cada $j$, $$
+\hat{\beta}_j\mid\mathbf{X}\ \sim\ \mathcal{N}\!\big(\beta_j,\ \sigma^2 c_{jj}\big)
+\quad\Longrightarrow\quad
+\frac{\hat{\beta}_j-\beta_{j}}{\sigma\sqrt{c_{jj}}}\ \sim\ \mathcal{N}(0,1),
+$$ e $$
+\frac{SQ_{Res}}{\sigma^2}\ \perp\ \hat{\beta}_j\quad\text{com}\quad SQ_{Res}=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}},\ 
+\hat{\sigma}^2=\frac{SQ_{Res}}{n-p-1}.
+$$
+
+**(a) Estatística** $t$
+
+Pela independência e pela definição de $\hat{\sigma}$, $$
+\boxed{\ 
+t_j\ \equiv\ \frac{\hat{\beta}_j-\beta_j}{\hat{\sigma}\sqrt{c_{jj}}}\ \sim\ t_{\,n-p-1}\ }.
+$$
+
+**(b) Erro-padrão e forma prática**
+
+Define-se o **erro-padrão** de $\hat{\beta}_j$ por $$
+\operatorname{EP}(\hat{\beta}_j)=\hat{\sigma}\sqrt{c_{jj}},
+$$ de modo que $t_j=(\hat{\beta}_j-\beta_j)/\operatorname{EP}(\hat{\beta}_j)$.
+
+**(c) Teste individual** $H_0:\beta_j=0$
+
+-   Estatística: $t_j=\hat{\beta}_j/\operatorname{EP}(\hat{\beta}_j)$.
+
+-   Regra de decisão (bicaudal, nível $\alpha$): rejeite $H_0$ se $|t_j|>t_{\alpha/2,\,n-p-1}$.
+
+-   Valor-$p$: $p=2\,[1-F_{t_{n-p-1}}(|t_j|)]$.
+
+**(d) Intervalo de confiança (bicaudal) para** $\beta_j$
+
+Para confiança $100(1-\alpha)\%$, $$
+\boxed{\ \hat{\beta}_j \ \pm\ t_{\alpha/2,\,n-p-1}\ \hat{\sigma}\sqrt{c_{jj}}\ }.
+$$ Para **uni-caudal**, substitua $t_{\alpha/2,\cdot}$ por $t_{\alpha,\cdot}$ conforme o lado.
+
+**(e) Extensão: contraste linear** $a^\top\boldsymbol{\beta}$
+
+Para qualquer vetor $a\in\mathbb{R}^{p+1}$, $$
+\frac{a^\top\hat{\boldsymbol{\beta}}-a^\top\boldsymbol{\beta}}
+     {\hat{\sigma}\sqrt{\,a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a\,}}
+\ \sim\ t_{\,n-p-1},
+$$ logo o IC $100(1-\alpha)\%$ para $a^\top\boldsymbol{\beta}$ é $$
+a^\top\hat{\boldsymbol{\beta}}
+\ \pm\
+t_{\alpha/2,\,n-p-1}\ \hat{\sigma}\sqrt{\,a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a\,}.
+$$
+
+**Casos importantes.**
+
+-   **Média condicional em** $\mathbf{x}_0$: $a=\mathbf{x}_0$ (inclui 1 no intercepto) fornece IC para $\mu_0=\mathbf{x}_0^\top\boldsymbol{\beta}$.\
+-   **Predição de** $Y_0$ em $\mathbf{x}_0$: a variância adiciona o ruído $\sigma^2$, $$
+    \operatorname{Var}(\hat{Y}_0-Y_0\mid\mathbf{X})=\sigma^2\!\left[1+\mathbf{x}_0^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_0\right],
+    $$ dando o **intervalo de predição** (substitua $\sigma$ por $\hat{\sigma}$ e use $t_{n-p-1}$).
+
+## Teste $F$ global e geral por contrastes
+
+Assuma $\boldsymbol{\varepsilon}\sim\mathcal{N}_n(\mathbf{0},\sigma^2\mathbf{I}_n)$, $\mathbf{X}\in\mathbb{R}^{n\times(p+1)}$, $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$, $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$, $J=\tfrac{1}{n}\mathbf{1}\mathbf{1}^\top$.
+
+**(a) Teste global** $H_0:\beta_1=\cdots=\beta_p=0$ (com intercepto)
+
+Sob $H_0$ (apenas intercepto), $(\mathbf{H}-J)$ é projeção ortogonal de **posto** $p$ (F.2.5) e é **ortogonal** a $\mathbf{M}$; logo, por **Cochran** (F.2.7), $$
+\frac{\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y}}{\sigma^2}\ \sim\ \chi^2_{\,p},
+\qquad
+\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}=\frac{SQ_{Res}}{\sigma^2}\ \sim\ \chi^2_{\,n-p-1},
+$$ e são **independentes**. Portanto, $$
+\boxed{\ 
+F_{\text{global}}
+=\frac{\big[\mathbf{Y}^\top(\mathbf{H}-J)\mathbf{Y}\big]/p}{\big[\mathbf{Y}^\top\mathbf{M}\mathbf{Y}\big]/(n-p-1)}
+=\frac{SQ_{Reg}/p}{SQ_{Res}/(n-p-1)}
+\ \sim\ F_{\,p,\,n-p-1}\ }.
+$$
+
+**Forma em termos de** $R^2$. Como $SQ_{Reg}=SQ_T-SQ_{Res}$ e $R^2=1-\tfrac{SQ_{Res}}{SQ_T}$, $$
+F_{\text{global}}=\frac{(R^2/p)}{[(1-R^2)/(n-p-1)]}.
+$$
+
+**(b) Teste geral** por contrastes $H_0:\ \mathbf{R}\boldsymbol{\beta}=\mathbf{r}$\*\*
+
+Seja $\mathbf{R}\in\mathbb{R}^{q\times(p+1)}$ com $\operatorname{rank}(\mathbf{R})=q\le p+1$.
+
+**(b1) Derivação via** Wald\*\* (quadrática de $\hat{\boldsymbol{\beta}}$)\*\*
+
+De F.2.6, $$
+\hat{\boldsymbol{\beta}}\mid\mathbf{X}\sim\mathcal{N}_{p+1}\!\big(\boldsymbol{\beta},\ \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\big).
+$$ Então, sob $H_0:\mathbf{R}\boldsymbol{\beta}=\mathbf{r}$, $$
+\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r}
+\ \sim\ 
+\mathcal{N}_q\!\Big(\mathbf{0},\ \sigma^2\,\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\Big).
+$$ Logo, a estatística de **Wald** $$
+Q=(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+\Big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\Big]^{-1}
+(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})
+$$ satisfaz $$
+\boxed{\ \frac{Q}{\sigma^2}\ \sim\ \chi^2_{\,q}\ }.
+$$ Além disso, $\hat{\boldsymbol{\beta}}=A\mathbf{Y}$, $A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$, e $$
+\operatorname{Cov}\big(\mathbf{R}\hat{\boldsymbol{\beta}},\,\hat{\boldsymbol{\varepsilon}}\big)
+=\mathbf{R}A\,\operatorname{Var}(\mathbf{Y})\,\mathbf{M}^\top
+=\sigma^2\mathbf{R}A\mathbf{M}
+=\sigma^2\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{I}-\mathbf{H})
+=\mathbf{0},
+$$ de modo que $Q$ é **independente** de $SQ_{Res}$. Trocando $\sigma^2$ por $\hat{\sigma}^2=SQ_{Res}/(n-p-1)$, $$
+\boxed{\ 
+F=\frac{(Q/q)}{\hat{\sigma}^2}
+\ \sim\ F_{\,q,\,n-p-1}\ }.
+$$
+
+**(b2) Equivalência com modelos aninhados (diferença de somas de quadrados)**
+
+Considere o **modelo completo** $\mathcal{M}_c$ (com $\mathbf{X}$) e o **reduzido** $\mathcal{M}_r$ que impõe $H_0$ (equivale a substituir $\mathbf{X}$ por uma matriz $\mathbf{X}_r$ cujo espaço coluna é $\{\mathbf{x}: \mathbf{R}^\perp \mathbf{x}=0\}$). Denote as projeções $$
+\mathbf{H}_c=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top,\qquad
+\mathbf{H}_r=\mathbf{X}_r(\mathbf{X}_r^\top\mathbf{X}_r)^{-1}\mathbf{X}_r^\top,
+$$ com $\operatorname{col}(\mathbf{X}_r)\subset \operatorname{col}(\mathbf{X})$ e $\operatorname{rank}(\mathbf{H}_c-\mathbf{H}_r)=q$. Então $\mathbf{H}_c-\mathbf{H}_r$ é **projeção ortogonal** sobre o subespaço adicional do modelo completo e $$
+SQ_{Res}^{(r)}-SQ_{Res}^{(c)}
+=\mathbf{Y}^\top(\mathbf{I}-\mathbf{H}_r)\mathbf{Y}-\mathbf{Y}^\top(\mathbf{I}-\mathbf{H}_c)\mathbf{Y}
+=\mathbf{Y}^\top(\mathbf{H}_c-\mathbf{H}_r)\mathbf{Y}.
+$$ Sob $H_0$, por **Cochran**, $$
+\frac{\mathbf{Y}^\top(\mathbf{H}_c-\mathbf{H}_r)\mathbf{Y}}{\sigma^2}\ \sim\ \chi^2_{\,q},
+\qquad
+\frac{SQ_{Res}^{(c)}}{\sigma^2}\ \sim\ \chi^2_{\,n-p-1},
+$$ e são **independentes**. Portanto, $$
+\boxed{\ 
+F=\frac{\big(SQ_{Res}^{(r)}-SQ_{Res}^{(c)}\big)/q}{SQ_{Res}^{(c)}/(n-p-1)}
+\ \sim\ F_{\,q,\,n-p-1}\ }.
+$$
+
+**Identidade de Wald.**
+
+Mostra-se que $$
+Q=(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})
+\ =\ \mathbf{Y}^\top(\mathbf{H}_c-\mathbf{H}_r)\mathbf{Y},
+$$ usando as equações normais e propriedades de projeções (a prova padrão usa álgebra de partição e o fato de que $\mathbf{H}_c-\mathbf{H}_r$ é a projeção no espaço adicional induzido por $H_0$).
+
+**(c) Casos e consequências importantes**
+
+1.  **Global com intercepto.**\
+    Tome $\mathbf{R}=[\,\mathbf{0}_{p\times 1}\ \ I_p\,]$ e $\mathbf{r}=\mathbf{0}$ $\Rightarrow$ $q=p$. O $F$ acima coincide com $$
+    F=\frac{SQ_{Reg}/p}{SQ_{Res}/(n-p-1)}.
+    $$
+
+2.  **Um único coeficiente (**$q=1$): equivalência $F=t^2$.\
+    Para $H_0:\beta_j=\beta_j^{(0)}$, $$
+    Q=\frac{(\hat{\beta}_j-\beta_j^{(0)})^2}{c_{jj}},\qquad
+    F=\frac{Q/1}{\hat{\sigma}^2}=\left(\frac{\hat{\beta}_j-\beta_j^{(0)}}{\hat{\sigma}\sqrt{c_{jj}}}\right)^{\!2}
+    =t_j^2,
+    $$ com $t_j\sim t_{\,n-p-1}$ (F.2.8).
+
+3.  **Parcial** $F$ (adição de um bloco de variáveis).\
+    Se $\mathcal{M}_c$ adiciona $q$ colunas a $\mathcal{M}_r$, então $$
+    F_{\text{parcial}}=\frac{\big(SQ_{Res}^{(r)}-SQ_{Res}^{(c)}\big)/q}{SQ_{Res}^{(c)}/(n-p-1)}
+    \ \sim\ F_{\,q,\,n-p-1}.
+    $$ Este teste avalia a **contribuição marginal** do bloco adicional, condicionada às variáveis já presentes.
+
+4.  **Não centralidade sob** $H_1$.\
+    Em geral, o numerador (tanto como $Q$ quanto como $\mathbf{Y}^\top(\mathbf{H}_c-\mathbf{H}_r)\mathbf{Y}$) tem distribuição **qui-quadrado não central** $\chi^2_q(\lambda)$, com $$
+    \lambda=\frac{\boldsymbol{\beta}^\top\mathbf{X}^\top(\mathbf{H}_c-\mathbf{H}_r)\mathbf{X}\boldsymbol{\beta}}{\sigma^2},
+    $$ o que determina **potência** do teste.
+
+5.  **Sem intercepto.**\
+    Troca-se $(\mathbf{H}-J)$ por $\mathbf{H}$ e $SQ_T$ por $\mathbf{Y}^\top\mathbf{Y}$; os g.l. do numerador global passam a $p+1$ (pois o intercepto é hipótese a testar).
+
+## Teorema de Gauss--Markov (MQO é BLUE)
+
+**Convenções e hipóteses.**\
+- $p$ = número de **variáveis explicativas** (sem contar o intercepto).\
+- $\mathbf{X}\in\mathbb{R}^{n\times(p+1)}$ tem **posto coluna completo**: $\operatorname{rank}(\mathbf{X})=p+1$ (primeira coluna = $\mathbf{1}_n$).\
+- Modelo: $\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}$.\
+- **Gauss--Markov:** $E(\boldsymbol{\varepsilon}\mid \mathbf{X})=\mathbf{0}$ e $\operatorname{Var}(\boldsymbol{\varepsilon}\mid \mathbf{X})=\sigma^2\mathbf{I}_n$ (homocedasticidade e ausência de correlação).\
+- Não assumimos normalidade nesta seção.
+
+**(a) A classe dos estimadores lineares não-viesados (Linear Unbiased Estimators)**
+
+Chamaremos de **estimador linear** de $\boldsymbol{\beta}$ qualquer estatística da forma $$
+\tilde{\boldsymbol{\beta}}=\mathbf{A}\mathbf{Y},\qquad \mathbf{A}\in\mathbb{R}^{(p+1)\times n}.
+$$
+
+**Condição de não-viesamento.** $$
+E(\tilde{\boldsymbol{\beta}}\mid \mathbf{X})
+=\mathbf{A}E(\mathbf{Y}\mid \mathbf{X})
+=\mathbf{A}\mathbf{X}\boldsymbol{\beta}
+\stackrel{!}{=}\boldsymbol{\beta}\quad \forall\,\boldsymbol{\beta}
+\ \Longleftrightarrow\
+\boxed{\ \mathbf{A}\mathbf{X}=\mathbf{I}_{p+1}\ }.
+$$ A classe dos **LUEs** (Linear Unbiased Estimators) é, portanto, $$
+\mathcal{U}=\{\ \mathbf{A}\mathbf{Y}:\ \mathbf{A}\mathbf{X}=\mathbf{I}_{p+1}\ \}.
+$$
+
+O estimador de **MQO** (OLS) é $$
+\hat{\boldsymbol{\beta}}
+=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}
+\equiv \mathbf{A}_0\,\mathbf{Y},
+\qquad
+\mathbf{A}_0\mathbf{X}
+=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}
+=\mathbf{I}_{p+1},
+$$ logo $\hat{\boldsymbol{\beta}}\in\mathcal{U}$ e é **não-viesado**.
+
+**(b) Lema de decomposição canônica**
+
+> **Lema.** Se $\mathbf{A}\mathbf{X}=\mathbf{I}_{p+1}$, então existe $\mathbf{K}$ tal que $$
+> \boxed{\ \mathbf{A}=\mathbf{A}_0+\mathbf{K}\ },\qquad \mathbf{K}\mathbf{X}=\mathbf{0},
+> $$ onde $\mathbf{A}_0=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$.
+
+**Prova.** Defina $\mathbf{K}\equiv \mathbf{A}-\mathbf{A}_0$. Então $$
+\mathbf{K}\mathbf{X}
+=\mathbf{A}\mathbf{X}-\mathbf{A}_0\mathbf{X}
+=\mathbf{I}_{p+1}-\mathbf{I}_{p+1}=\mathbf{0}.
+\qquad\square
+$$
+
+**(c) Variância na classe linear e ordem de Loewner**
+
+Para qualquer $\tilde{\boldsymbol{\beta}}=\mathbf{A}\mathbf{Y}\in\mathcal{U}$, $$
+\operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X})
+=\mathbf{A}\,\operatorname{Var}(\mathbf{Y}\mid \mathbf{X})\,\mathbf{A}^\top
+=\sigma^2\mathbf{A}\mathbf{A}^\top.
+$$ Usando o lema, $\mathbf{A}=\mathbf{A}_0+\mathbf{K}$ com $\mathbf{K}\mathbf{X}=\mathbf{0}$. Então $$
+\begin{aligned}
+\mathbf{A}\mathbf{A}^\top
+&=(\mathbf{A}_0+\mathbf{K})(\mathbf{A}_0+\mathbf{K})^\top
+= \mathbf{A}_0\mathbf{A}_0^\top
++\mathbf{A}_0\mathbf{K}^\top+\mathbf{K}\mathbf{A}_0^\top
++\mathbf{K}\mathbf{K}^\top. 
+\end{aligned}
+$$ Note que $$
+\mathbf{A}_0\mathbf{K}^\top
+=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{K}^\top
+=\big(\mathbf{K}\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\big)^\top
+=\mathbf{0},
+$$ pois $\mathbf{K}\mathbf{X}=\mathbf{0}$; idem para $\mathbf{K}\mathbf{A}_0^\top$. Logo, $$
+\mathbf{A}\mathbf{A}^\top
+=\mathbf{A}_0\mathbf{A}_0^\top+\mathbf{K}\mathbf{K}^\top.
+$$ Multiplicando por $\sigma^2$, $$
+\boxed{\ \operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X})
+=\sigma^2\big(\mathbf{A}_0\mathbf{A}_0^\top+\mathbf{K}\mathbf{K}^\top\big)\ }.
+$$ Como $\mathbf{A}_0\mathbf{A}_0^\top =(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1} =(\mathbf{X}^\top\mathbf{X})^{-1}$, obtemos $$
+\boxed{\ \operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X})
+=\sigma^2\Big[(\mathbf{X}^\top\mathbf{X})^{-1}+\mathbf{K}\mathbf{K}^\top\Big]\ }.
+$$
+
+Como $\mathbf{K}\mathbf{K}^\top$ é **semi-definida positiva** (s.d.p.), segue a **ordem de Loewner** $$
+\boxed{\ \operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X})
+\succeq \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
+=\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X})\ }.
+$$ A **igualdade** ocorre sse $\mathbf{K}=\mathbf{0}$, isto é, sse $\mathbf{A}=\mathbf{A}_0$ (o MQO).
+
+Portanto, na classe dos **estimadores lineares não-viesados**, o MQO $\hat{\boldsymbol{\beta}}$ tem **mínima variância-covariância** (no sentido de Loewner). Portanto, $\hat{\boldsymbol{\beta}}$ é **BLUE** (*Best Linear Unbiased Estimator*).
+
+**(d) Versão escalar (para qualquer contraste linear)**
+
+Seja $a\in\mathbb{R}^{p+1}$ e considere o contraste linear $a^\top\boldsymbol{\beta}$, estimado por $a^\top\tilde{\boldsymbol{\beta}}$. Então $$
+\operatorname{Var}\!\big(a^\top\tilde{\boldsymbol{\beta}}\mid \mathbf{X}\big)
+=\sigma^2\,a^\top\Big[(\mathbf{X}^\top\mathbf{X})^{-1}+\mathbf{K}\mathbf{K}^\top\Big]a
+=\sigma^2\Big(a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a+\|\,\mathbf{K}^\top a\,\|^2\Big)
+$$ $\Rightarrow$ $$
+\boxed{\ \operatorname{Var}\!\big(a^\top\tilde{\boldsymbol{\beta}}\mid \mathbf{X}\big)
+\ \ge\ \sigma^2\,a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a
+=\operatorname{Var}\!\big(a^\top\hat{\boldsymbol{\beta}}\mid \mathbf{X}\big)\ }.
+$$ A igualdade vale sse $\mathbf{K}^\top a=\mathbf{0}$ **para todo** $a$ (logo $\mathbf{K}=\mathbf{0}$). Em particular, cada componente $\hat{\beta}_j$ tem variância mínima dentro da classe linear não-viesada.
+
+**(e) Prova alternativa (idéia de Cauchy--Schwarz)**
+
+A prova acima é matricial e global. Para uma **visão escalar**, fixe $a$ e escreva a classe de estimadores lineares não-viesados de $a^\top\boldsymbol{\beta}$ como $$
+\tilde\theta=a^\top\tilde{\boldsymbol{\beta}}=c^\top\mathbf{Y},\qquad
+\text{com } c^\top\mathbf{X}=a^\top.
+$$ A variância é $\operatorname{Var}(\tilde\theta\mid\mathbf{X})=\sigma^2\,\|c\|^2$. Entre todos os $c$ tais que $c^\top\mathbf{X}=a^\top$, o problema é minimizar $\|c\|^2$ sujeito a vínculos lineares. O Lagrangiano dá a solução $$
+c^\star=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}a,
+$$ a qual leva a $\tilde\theta^\star=a^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}=a^\top\hat{\boldsymbol{\beta}}$ com variância $\sigma^2\,a^\top(\mathbf{X}^\top\mathbf{X})^{-1}a$, **mínima**. (Uma derivação equivalente usa Cauchy--Schwarz projetando $c$ no espaço coluna de $\mathbf{X}$.)
+
+**(f) Observações e extensões**
+
+1.  **Normalidade não é necessária.** O Teorema de Gauss--Markov requer apenas as hipóteses de primeira e segunda ordem (média zero, covariância esférica).\
+2.  **Igualdade de variâncias** $\Rightarrow$ unicidade. A única maneira de igualar a variância do MQO na classe linear não-viesada é escolher $\mathbf{K}=\mathbf{0}$, isto é, o próprio MQO.\
+3.  **Generalização (Aitken/GLS).** Se $\operatorname{Var}(\boldsymbol{\varepsilon}\mid\mathbf{X})=\sigma^2\boldsymbol{\Sigma}$ com $\boldsymbol{\Sigma}\succ 0$ conhecida, o **GLS** $$
+    \hat{\boldsymbol{\beta}}_{GLS}
+    =(\mathbf{X}^\top\boldsymbol{\Sigma}^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\Sigma}^{-1}\mathbf{Y}
+    $$ é **BLUE** na classe linear não-viesada sob o produto interno $\langle u,v\rangle_{\boldsymbol{\Sigma}^{-1}}=u^\top\boldsymbol{\Sigma}^{-1}v$.\
+4.  **Eficiência vs. viés (comentário).** Fora da classe **não-viesada**, estimadores **enviesados** (p.ex., *ridge*) podem ter **menor MSE** em presença de colinearidade --- isso **não contradiz** Gauss--Markov, pois o teorema restringe-se à classe **linear e não-viesada**.\
+5.  **Intercepto:** a prova não depende de termos específicos do intercepto, apenas de $\operatorname{rank}(\mathbf{X})=p+1$; os resultados valem com ou **sem** intercepto, ajustando-se dimensões e g.l.
+
+## Partição por intercepto; centragem e complemento de Schur
+
+Escreva a matriz de regressoras como $$
+\mathbf{X}=\big[\ \mathbf{1}_n\ \ \mathbf{Z}\ \big],\qquad
+\boldsymbol{\beta}=\begin{bmatrix}\beta_0\\ \boldsymbol{\beta}_Z\end{bmatrix},\qquad
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}.
+$$ As **equações normais** ficam $$
+\begin{bmatrix}
+n & \mathbf{1}^\top\mathbf{Z}\\[2pt]
+\mathbf{Z}^\top\mathbf{1} & \mathbf{Z}^\top\mathbf{Z}
+\end{bmatrix}
+\begin{bmatrix}\hat{\beta}_0\\ \hat{\boldsymbol{\beta}}_Z\end{bmatrix}
+=\begin{bmatrix}
+\mathbf{1}^\top\mathbf{Y}\\ \mathbf{Z}^\top\mathbf{Y}
+\end{bmatrix}.
+\tag{F2.11-NE}
+$$
+
+**(a) Caso centrado (colunas de** $\mathbf{Z}$ com média zero)
+
+Se $\mathbf{1}^\top\mathbf{Z}=\mathbf{0}$ (i.e., cada coluna de $\mathbf{Z}$ é centrada), $$
+\hat{\beta}_0=\bar{Y},\qquad
+\hat{\boldsymbol{\beta}}_Z=(\mathbf{Z}^\top\mathbf{Z})^{-1}\mathbf{Z}^\top(\mathbf{Y}-\bar{Y}\mathbf{1}).
+$$ Logo, **a centragem não altera** os coeficientes de inclinação $\hat{\boldsymbol{\beta}}_Z$; ela apenas torna o **intercepto** igual à média $\bar{Y}$.
+
+**(b) Caso geral: centragem implícita via complemento de Schur**
+
+Defina as médias das regressoras $\ \bar{\mathbf{z}}=\tfrac{1}{n}\mathbf{Z}^\top\mathbf{1}\in\mathbb{R}^{p}$ e a matriz de **centralização** $J=\tfrac{1}{n}\mathbf{1}\mathbf{1}^\top$, $M_J=I_n-J$. Da primeira linha de (F2.11-NE): $$
+n\hat{\beta}_0+\mathbf{1}^\top\mathbf{Z}\,\hat{\boldsymbol{\beta}}_Z=\mathbf{1}^\top\mathbf{Y}
+\ \Longrightarrow\
+\boxed{\ \hat{\beta}_0=\bar{Y}-\bar{\mathbf{z}}^\top\hat{\boldsymbol{\beta}}_Z\ }.
+\tag{F2.11-b0}
+$$ Substituindo (F2.11-b0) na segunda linha de (F2.11-NE) e usando $\mathbf{Z}^\top\mathbf{1}=n\bar{\mathbf{z}}$, $$
+\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)\,\hat{\boldsymbol{\beta}}_Z=\mathbf{Z}^\top M_J \mathbf{Y},
+$$ ou seja, $$
+\boxed{\ \hat{\boldsymbol{\beta}}_Z=\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}\mathbf{Z}^\top M_J \mathbf{Y}\ }
+=\big(\mathbf{Z}_c^\top \mathbf{Z}_c\big)^{-1}\mathbf{Z}_c^\top \mathbf{Y}_c,
+$$ onde $\mathbf{Z}_c=M_J\mathbf{Z}$ e $\mathbf{Y}_c=M_J\mathbf{Y}$ são as versões **centradas**. Conclusão: **sempre** podemos obter $\hat{\boldsymbol{\beta}}_Z$ regressando $\mathbf{Y}$ nas colunas de $\mathbf{Z}$ **depois de remover o intercepto** (centrar).
+
+**(c) Complemento de Schur e** $(\mathbf{X}^\top\mathbf{X})^{-1}$ em blocos
+
+A matriz de informação é $$
+\mathbf{X}^\top\mathbf{X}=
+\begin{bmatrix}
+n & \mathbf{1}^\top\mathbf{Z}\\
+\mathbf{Z}^\top\mathbf{1} & \mathbf{Z}^\top\mathbf{Z}
+\end{bmatrix}
+\equiv
+\begin{bmatrix}
+A & B\\ C & D
+\end{bmatrix},
+\quad A=n,\ B=\mathbf{1}^\top\mathbf{Z},\ C=\mathbf{Z}^\top\mathbf{1},\ D=\mathbf{Z}^\top\mathbf{Z}.
+$$ O **complemento de Schur** de $A$ é $$
+S\equiv D-C A^{-1}B
+= \mathbf{Z}^\top\mathbf{Z}-\mathbf{Z}^\top\mathbf{1}\,\frac{1}{n}\,\mathbf{1}^\top\mathbf{Z}
+= \mathbf{Z}^\top (I_n-J)\mathbf{Z}
+= \mathbf{Z}^\top M_J \mathbf{Z}.
+$$ Pela fórmula de inversa em blocos, $$
+(\mathbf{X}^\top\mathbf{X})^{-1}
+=
+\begin{bmatrix}
+A^{-1}+A^{-1}BS^{-1}CA^{-1} & -A^{-1}BS^{-1}\\[2pt]
+-\,S^{-1}CA^{-1} & \ \ S^{-1}
+\end{bmatrix}
+$$ e, portanto, $$
+\boxed{\ 
+\big[(\mathbf{X}^\top\mathbf{X})^{-1}\big]_{22}
+= \big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}\ },
+\quad
+\big[(\mathbf{X}^\top\mathbf{X})^{-1}\big]_{12}
+= -\frac{1}{n}\,\mathbf{1}^\top\mathbf{Z}\,\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}.
+$$ Com $\operatorname{Var}(\hat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}$, extraímos identidades úteis:
+
+-   $\displaystyle \boxed{\ \operatorname{Var}(\hat{\boldsymbol{\beta}}_Z)= \sigma^2\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}\ }$ (variância das inclinações).
+-   $\displaystyle \boxed{\ \operatorname{Cov}(\hat{\beta}_0,\hat{\boldsymbol{\beta}}_Z) = -\,\sigma^2\,\bar{\mathbf{z}}^\top\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}\ }$.
+-   $\displaystyle \boxed{\ \operatorname{Var}(\hat{\beta}_0)= \sigma^2\!\left(\frac{1}{n}+\bar{\mathbf{z}}^\top\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}\bar{\mathbf{z}}\right)\ }$.
+
+Portanto, a centragem (ou, mais geralmente, a projeção por $M_J$) **isola** o papel do intercepto e revela que toda a inferência sobre $\boldsymbol{\beta}_Z$ depende apenas de $\mathbf{Z}^\top M_J \mathbf{Z}$ e de $\mathbf{Z}^\top M_J \mathbf{Y}$.
+
+## Teorema de Frisch--Waugh--Lovell (FWL)
+
+Considere a partição $\mathbf{X}=[\ \mathbf{W}\ \ \mathbf{Z}\ ]$, onde $\mathbf{W}$ inclui o **intercepto** (e possivelmente outras covariáveis de controle). Defina $$
+\mathbf{P}_W=\mathbf{W}(\mathbf{W}^\top\mathbf{W})^{-1}\mathbf{W}^\top,\qquad
+\mathbf{M}_W=I_n-\mathbf{P}_W,
+$$ e as versões **residualizadas** (ortogonais a $\operatorname{col}(\mathbf{W})$): $$
+\tilde{\mathbf{Y}}=\mathbf{M}_W\mathbf{Y},\qquad
+\tilde{\mathbf{Z}}=\mathbf{M}_W\mathbf{Z}.
+$$
+
+**(a) Prova via equações normais em bloco (algebra linear)**
+
+As equações normais para o modelo completo são $$
+\begin{bmatrix}
+\mathbf{W}^\top\mathbf{W} & \mathbf{W}^\top\mathbf{Z}\\
+\mathbf{Z}^\top\mathbf{W} & \mathbf{Z}^\top\mathbf{Z}
+\end{bmatrix}
+\begin{bmatrix}\hat{\boldsymbol{\beta}}_W\\ \hat{\boldsymbol{\beta}}_Z\end{bmatrix}
+=
+\begin{bmatrix}\mathbf{W}^\top\mathbf{Y}\\ \mathbf{Z}^\top\mathbf{Y}\end{bmatrix}.
+\tag{FWL-NE}
+$$ Multiplique a **segunda** linha por $I-\mathbf{W}(\mathbf{W}^\top\mathbf{W})^{-1}\mathbf{W}^\top=\mathbf{M}_W$ à direita: $$
+\mathbf{Z}^\top\mathbf{M}_W\mathbf{Z}\ \hat{\boldsymbol{\beta}}_Z
+=\mathbf{Z}^\top\mathbf{M}_W\mathbf{Y}
+\quad\Longrightarrow\quad
+\boxed{\ \hat{\boldsymbol{\beta}}_Z=(\tilde{\mathbf{Z}}^\top\tilde{\mathbf{Z}})^{-1}\tilde{\mathbf{Z}}^\top\tilde{\mathbf{Y}}\ }.
+$$ Isto é, os coeficientes de $\mathbf{Z}$ no ajuste **completo** coincidem com os coeficientes da regressão **parcial** de $\tilde{\mathbf{Y}}$ em $\tilde{\mathbf{Z}}$ (após "controlar" $\mathbf{W}$).
+
+**(b) Prova geométrica (projeções ortogonais)**
+
+Seja $\hat{\mathbf{Y}}_W=\mathbf{P}_W\mathbf{Y}$ o ajuste do modelo **só com** $\mathbf{W}$ e $\mathbf{r}_W=\mathbf{Y}-\hat{\mathbf{Y}}_W=\mathbf{M}_W\mathbf{Y}$ seus resíduos. O ajuste total pode ser decomposto como $$
+\hat{\mathbf{Y}}=\underbrace{\mathbf{P}_W\mathbf{Y}}_{\text{parte em }\operatorname{col}(\mathbf{W})}
++\underbrace{\mathbf{P}_{\tilde Z}\,\mathbf{M}_W\mathbf{Y}}_{\text{parte em }\operatorname{col}(\tilde{\mathbf{Z}})},
+\qquad
+\mathbf{P}_{\tilde Z}=\tilde{\mathbf{Z}}(\tilde{\mathbf{Z}}^\top\tilde{\mathbf{Z}})^{-1}\tilde{\mathbf{Z}}^\top.
+$$ Logo, a **contribuição marginal** de $\mathbf{Z}$ é a projeção de $\mathbf{r}_W$ no subespaço gerado por $\tilde{\mathbf{Z}}$, o que produz exatamente a solução em (a).
+
+**(c) Consequências imediatas**
+
+1.  **Somas de quadrados parciais.**\
+    A variação explicada **marginalmente** por $\mathbf{Z}$ (dado $\mathbf{W}$) é $$
+    SQ_{Reg\mid W}=\mathbf{Y}^\top\big(\mathbf{P}_{[W,Z]}-\mathbf{P}_W\big)\mathbf{Y}
+    =\tilde{\mathbf{Y}}^\top\,\mathbf{P}_{\tilde Z}\,\tilde{\mathbf{Y}}
+    =\tilde{\mathbf{Y}}^\top\tilde{\mathbf{Z}}(\tilde{\mathbf{Z}}^\top\tilde{\mathbf{Z}})^{-1}\tilde{\mathbf{Z}}^\top\tilde{\mathbf{Y}}.
+    $$ Essa identidade fundamenta o **teste** $F$ parcial para um bloco $\mathbf{Z}$ com $q$ colunas: é o teste global aplicado à regressão de $\tilde{\mathbf{Y}}$ em $\tilde{\mathbf{Z}}$, com g.l. do resíduo $n-\operatorname{rank}(\mathbf{W})-q$.
+
+2.  **Interpretação com intercepto.**\
+    Se $\mathbf{W}=\mathbf{1}_n$ (apenas intercepto), então $\mathbf{M}_W=M_J=I-J$. O FWL reduz-se ao resultado de **centragem** da Seção F.2.11: $$
+    \hat{\boldsymbol{\beta}}_Z=\big(\mathbf{Z}^\top M_J \mathbf{Z}\big)^{-1}\mathbf{Z}^\top M_J \mathbf{Y}.
+    $$
+
+3.  **Erros-padrão e variâncias.**\
+    Como $\operatorname{Var}(\hat{\boldsymbol{\beta}}_Z\mid\mathbf{X})=\sigma^2\big(\mathbf{Z}^\top\mathbf{M}_W\mathbf{Z}\big)^{-1}$, a inferência (estatísticas $t$/$F$) para $\boldsymbol{\beta}_Z$ pode ser feita **equivalentemente** na regressão residualizada.
+
+Logo, para medir o efeito de $\mathbf{Z}$, primeiro **tire** de $\mathbf{Y}$ e de $\mathbf{Z}$ tudo o que $\mathbf{W}$ explica; depois, regresse um no outro.
+
+## Alavancas e variância dos resíduos
+
+Recorde: $\ \hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}$, com $\ \mathbf{M}=I_n-\mathbf{H}$, $\ \mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$.
+
+**Prova de** $\operatorname{Var}(\hat{\boldsymbol{\varepsilon}})=\sigma^2\mathbf{M}$.\
+Sob $E(\boldsymbol{\varepsilon}\mid\mathbf{X})=\mathbf{0}$ e $\operatorname{Var}(\boldsymbol{\varepsilon}\mid\mathbf{X})=\sigma^2 I_n$, $$
+\operatorname{Var}(\hat{\boldsymbol{\varepsilon}}\mid\mathbf{X})
+=\operatorname{Var}(\mathbf{M}\mathbf{Y}\mid\mathbf{X})
+=\mathbf{M}\operatorname{Var}(\mathbf{Y}\mid\mathbf{X})\mathbf{M}^\top
+=\sigma^2\mathbf{M}\mathbf{M}^\top
+=\sigma^2\mathbf{M},
+$$ pois $\mathbf{M}$ é simétrica idempotente.
+
+Logo, para cada $i$, $$
+\boxed{\ \operatorname{Var}(\hat{\varepsilon}_i)=\sigma^2\,m_{ii}=\sigma^2(1-h_{ii})\ },\qquad
+h_{ii}=(\mathbf{H})_{ii}=\mathbf{x}_i^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i.
+$$
+
+**Covariâncias dos resíduos.** Para $i\neq j$, $\ \operatorname{Cov}(\hat{\varepsilon}_i,\hat{\varepsilon}_j)=\sigma^2\,m_{ij}=-\sigma^2\,h_{ij}$.
+
+**Soma das alavancas.**\
+Como $\mathbf{H}$ é projeção ortogonal no subespaço coluna de $\mathbf{X}$ (dimensão $p+1$), $$
+\sum_{i=1}^n h_{ii}=\mathrm{tr}(\mathbf{H})=\operatorname{rank}(\mathbf{H})=p+1,
+$$ logo a **alavanca média** é $(p+1)/n$.
+
+**Resíduo studentizado interno.**\
+Defina $\ \hat{\sigma}^2=SQ_{Res}/(n-p-1)$, $\ SQ_{Res}=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}$. Então $$
+r_i=\frac{\hat{\varepsilon}_i}{\hat{\sigma}\sqrt{1-h_{ii}}}
+\ \approx\ t_{\,n-p-1}\quad(\text{aproximação: o numerador e } \hat{\sigma} \text{ não são independentes}).
+$$
+
+Para decisão formal, prefira o **studentizado externo** (abaixo), cuja distribuição é **exata** sob normalidade.
+
+## Deleção 1-a-1 --- dedução via Sherman--Morrison
+
+Considere remover a observação $i$-ésima. Denote por $\mathbf{X}_{(i)}$ e $\mathbf{Y}_{(i)}$ as matrizes/vetores sem a linha $i$, e por $\hat{\boldsymbol{\beta}}_{(i)}$ os MQOs nesse conjunto reduzido.
+
+**Identidades preliminares.**
+
+$$
+\mathbf{X}^\top\mathbf{X}
+=\mathbf{X}_{(i)}^\top\mathbf{X}_{(i)}+\mathbf{x}_i\mathbf{x}_i^\top,
+\qquad
+\mathbf{X}^\top\mathbf{Y}
+=\mathbf{X}_{(i)}^\top\mathbf{Y}_{(i)}+\mathbf{x}_i y_i,
+$$ $$
+h_{ii}=\mathbf{x}_i^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i,\qquad
+\hat{\varepsilon}_i=y_i-\hat{y}_i,\ \ \hat{y}_i=\mathbf{x}_i^\top\hat{\boldsymbol{\beta}}.
+$$
+
+**(b) Atualização de** $\hat{\boldsymbol{\beta}}$ sem a observação $i$
+
+Partindo de $$
+\hat{\boldsymbol{\beta}}_{(i)}
+=(\mathbf{X}_{(i)}^\top\mathbf{X}_{(i)})^{-1}\mathbf{X}_{(i)}^\top\mathbf{Y}_{(i)}
+=(\mathbf{X}_{(i)}^\top\mathbf{X}_{(i)})^{-1}\big(\mathbf{X}^\top\mathbf{Y}-\mathbf{x}_i y_i\big),
+$$ e substituindo (SM) e $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$, após álgebra (agrupar termos em $y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}}=\hat{\varepsilon}_i$) chega-se a $$
+\boxed{\ \hat{\boldsymbol{\beta}}_{(i)}
+=\hat{\boldsymbol{\beta}}-\frac{(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i\,\hat{\varepsilon}_i}{\,1-h_{ii}\,}\ }.
+$$
+
+**(c) Predição em** $i$ sem a observação $i$ e resíduo deletado
+
+Multiplicando por $\mathbf{x}_i^\top$: $$
+\hat{y}_{i(i)}=\mathbf{x}_i^\top\hat{\boldsymbol{\beta}}_{(i)}
+=\hat{y}_i-\frac{h_{ii}}{1-h_{ii}}\hat{\varepsilon}_i,
+\quad\Longrightarrow\quad
+\boxed{\ \hat{\varepsilon}_{(i)}
+=y_i-\hat{y}_{i(i)}=\frac{\hat{\varepsilon}_i}{\,1-h_{ii}\,}\ }.
+$$
+
+**(d) Atualização da soma de quadrados residual (PRESS)**
+
+Como $\hat{\boldsymbol{\varepsilon}}_{(i)}=\mathbf{M}_{(i)}\mathbf{Y}_{(i)}$ e pela identidade acima, $$
+\boxed{\ SQ_{Res,(i)}=SQ_{Res}-\frac{\hat{\varepsilon}_i^2}{\,1-h_{ii}\,}\ }.
+$$ Daí a estatística **PRESS**: $$
+PRESS=\sum_{i=1}^n \hat{\varepsilon}_{(i)}^{\,2}
+=\sum_{i=1}^n\left(\frac{\hat{\varepsilon}_i}{\,1-h_{ii}\,}\right)^{\!2}.
+$$
+
+**(e) Resíduo studentizado externo (distribuição exata)** Defina $\ \hat{\sigma}_{(i)}^2=SQ_{Res,(i)}/(n-p-2)$ (g.l. com a amostra sem $i$). Então, sob normalidade, $$
+\boxed{\ t_i=\frac{\hat{\varepsilon}_i}{\hat{\sigma}_{(i)}\sqrt{\,1-h_{ii}\,}}
+\ \ \sim\ \ t_{\,n-p-2}\quad\text{(exato)}\ }.
+$$
+
+Difere do **interno** $r_i$ porque $\hat{\sigma}_{(i)}$ é **independente** de $\hat{\varepsilon}_i$ (a obs. $i$ não entra no cálculo), o que garante a lei $t$ exata.
+
+**Corolários úteis.**
+
+-   **DFFITS:** $$ \displaystyle \operatorname{DFFITS}_i
+    =\frac{\hat{y}_i-\hat{y}_{i(i)}}{\hat{\sigma}_{(i)}\sqrt{h_{ii}}}
+    =t_i\,\sqrt{\frac{h_{ii}}{\,1-h_{ii}\,}}.$$
+
+-   **Distância de Cook:** $$ 
+    \displaystyle
+    D_i=\frac{(\hat{\boldsymbol{\beta}}-\hat{\boldsymbol{\beta}}_{(i)})^\top(\mathbf{X}^\top\mathbf{X})(\hat{\boldsymbol{\beta}}-\hat{\boldsymbol{\beta}}_{(i)})}{(p+1)\hat{\sigma}^2}
+    =\frac{\hat{\varepsilon}_i^{\,2}}{(p+1)\hat{\sigma}^2}\cdot \frac{h_{ii}}{(1-h_{ii})^2}.
+    $$
+
+Portanto, as fórmulas de deleção 1-a-1 mostram que **tudo** que precisamos para avaliar a influência da observação $i$ são $\hat{\varepsilon}_i$, $h_{ii}$ e $\hat{\sigma}^2$ (ou $\hat{\sigma}_{(i)}^2$). Isso permite diagnósticos eficientes **sem** reestimar $n$ vezes o modelo.
+
+## Distância de Cook e DFFITS
+
+Partimos da identidade de deleção (F.2.14): $$
+\hat{\boldsymbol{\beta}}_{(i)}-\hat{\boldsymbol{\beta}}
+=-\frac{(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i\,\hat{\varepsilon}_i}{\,1-h_{ii}\,}.
+\tag{1}
+$$
+
+**(a) Distância de Cook --- dedução e formas equivalentes**
+
+**Definição (no espaço dos parâmetros).** $$
+\boxed{\ 
+D_i\ \equiv\ 
+\frac{(\hat{\boldsymbol{\beta}}_{(i)}-\hat{\boldsymbol{\beta}})^\top
+(\mathbf{X}^\top\mathbf{X})
+(\hat{\boldsymbol{\beta}}_{(i)}-\hat{\boldsymbol{\beta}})}{(p+1)\,\hat{\sigma}^2}\ }.
+\tag{2}
+$$
+
+**Substituindo (1):** $$
+\begin{aligned}
+D_i
+&=\frac{1}{(p+1)\hat{\sigma}^2}\,
+\frac{\hat{\varepsilon}_i^2}{(1-h_{ii})^2}\,
+\mathbf{x}_i^\top(\mathbf{X}^\top\mathbf{X})^{-1}\,\underbrace{\mathbf{X}^\top\mathbf{X}}_{I}\,(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i\\
+&=\frac{\hat{\varepsilon}_i^2}{(p+1)\hat{\sigma}^2}\cdot\frac{h_{ii}}{(1-h_{ii})^{2}}.
+\end{aligned}
+\tag{3}
+$$
+
+**Em função do resíduo padronizado interno** $r_i=\hat{\varepsilon}_i/(\hat{\sigma}\sqrt{1-h_{ii}})$: $$
+\boxed{\ 
+D_i=\frac{r_i^{\,2}}{p+1}\cdot\frac{h_{ii}}{\,1-h_{ii}\,}\ }.
+\tag{4}
+$$
+
+**Em função da variação na predição do próprio ponto.**\
+De (F.2.14), $\ \hat{y}_{i(i)}=\hat{y}_i-\frac{h_{ii}}{1-h_{ii}}\hat{\varepsilon}_i\ \Rightarrow\  \hat{y}_i-\hat{y}_{i(i)}=\dfrac{h_{ii}}{1-h_{ii}}\hat{\varepsilon}_i$. Logo, $$
+\boxed{\ 
+D_i=\frac{(\hat{y}_i-\hat{y}_{i(i)})^2}{(p+1)\,\hat{\sigma}^2\,h_{ii}}\ }.
+\tag{5}
+$$
+
+Note que $D_i$ mede o **impacto global** da observação $i$ sobre **todos** os ajustes (via espaço dos parâmetros ou via mudança no próprio ajuste). Quanto maiores $|r_i|$ e $h_{ii}$, maior a influência.
+
+**(b) DFFITS --- dedução e relação com** $t_i$
+
+**Definição (com variância "externa"):** $$
+\operatorname{DFFITS}_i
+\ \equiv\ 
+\frac{\hat{y}_i-\hat{y}_{i(i)}}{\hat{\sigma}_{(i)}\sqrt{h_{ii}}}.
+\tag{6}
+$$ Usando $\hat{y}_i-\hat{y}_{i(i)}=\dfrac{h_{ii}}{1-h_{ii}}\hat{\varepsilon}_i$ e $t_i=\dfrac{\hat{\varepsilon}_i}{\hat{\sigma}_{(i)}\sqrt{\,1-h_{ii}\,}}$ (studentizado **externo**), $$
+\boxed{\ 
+\operatorname{DFFITS}_i
+=t_i\,\sqrt{\frac{h_{ii}}{\,1-h_{ii}\,}}\ }.
+\tag{7}
+$$
+
+Se, por aproximação, substituíssemos $\hat{\sigma}_{(i)}$ por $\hat{\sigma}$, então $\operatorname{DFFITS}_i\approx r_i\sqrt{\tfrac{h_{ii}}{1-h_{ii}}}$.
+
+**(c) Regras práticas e diagnóstico**
+
+-   **Cook**: marque para investigação quando $$
+    D_i>1\quad\text{(regra clássica)}\qquad\text{ou}\qquad D_i>\frac{4}{n}\ \text{(amostras grandes)}.
+    $$
+-   **DFFITS**: investigar se $$
+    |\operatorname{DFFITS}_i|\ >\ 2\sqrt{\frac{p+1}{n}}\quad(\text{regra de bolso}).
+    $$
+-   **Interpretação conjunta:** valores grandes de $|r_i|$ (discrepância) **e** de $h_{ii}$ (alavanca) são os que produzem $D_i$ e $|\operatorname{DFFITS}_i|$ altos. Use-os **juntos** com gráficos de resíduos e de alavancas.
+
+Deve-se ter atenção ao limiares, pois são **heurísticos**; contexto substantivo e inspeção do dado bruto são essenciais. A remoção cega de pontos pode introduzir viés.
+
+**(d) Ligação com testes** $F$ parciais
+
+Há equivalência (exata, sob normalidade) entre deletar $i$ e testar a "influência" dessa observação via um $F$ parcial: $t_i\sim t_{n-p-2}$ e (7) mostra que $|\operatorname{DFFITS}_i|$ cresce monotonicamente com $|t_i|$; além disso, (4) liga $D_i$ a $r_i^2$ e $h_{ii}$. Assim, $D_i$ grande sugere que a exclusão de $i$ mudaria substancialmente o ajuste e/ou inferências.
+
+## Estimador restrito por Lagrange ($\mathbf{R}\boldsymbol{\beta}=\mathbf{r}$)
+
+Considere o seuinte modelo com intercepto: $\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}$, $E(\boldsymbol{\varepsilon}\mid\mathbf{X})=\mathbf{0}$, $\operatorname{Var}(\boldsymbol{\varepsilon}\mid\mathbf{X})=\sigma^2\mathbf{I}_n$, $\mathbf{X}\in\mathbb{R}^{n\times(p+1)}$ de posto $p+1$.
+
+O interesse é minimizar $S(\boldsymbol{\beta})=\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2$ **s.a.** $\ \mathbf{R}\boldsymbol{\beta}=\mathbf{r}$, com $\mathbf{R}\in\mathbb{R}^{q\times(p+1)}$ de posto $q$.
+
+**(a) Derivação via multiplicadores de Lagrange (KKT)**
+
+Lagrangiano: $$
+\mathcal{L}(\boldsymbol{\beta},\boldsymbol{\lambda})
+=(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
++2\boldsymbol{\lambda}^\top(\mathbf{R}\boldsymbol{\beta}-\mathbf{r}).
+$$
+
+Condições de 1ª ordem: $$
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{\beta}}=-2\mathbf{X}^\top\mathbf{Y}+2\mathbf{X}^\top\mathbf{X}\boldsymbol{\beta}+2\mathbf{R}^\top\boldsymbol{\lambda}=\mathbf{0},
+\qquad
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{\lambda}}=\mathbf{R}\boldsymbol{\beta}-\mathbf{r}=\mathbf{0}.
+$$
+
+Sistema KKT: $$
+\begin{bmatrix}
+\mathbf{X}^\top\mathbf{X} & \mathbf{R}^\top\\
+\mathbf{R} & \mathbf{0}
+\end{bmatrix}
+\begin{bmatrix}\boldsymbol{\beta}\\ \boldsymbol{\lambda}\end{bmatrix}
+=
+\begin{bmatrix}\mathbf{X}^\top\mathbf{Y}\\ \mathbf{r}\end{bmatrix}.
+\tag{KKT}
+$$
+
+Resolva eliminando $\boldsymbol{\lambda}$. Da 1ª equação: $$
+\boldsymbol{\beta}=\hat{\boldsymbol{\beta}}-(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\boldsymbol{\lambda},\qquad
+\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
+$$ Impondo a restrição: $$
+\mathbf{R}\boldsymbol{\beta}=\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\boldsymbol{\lambda}=\mathbf{r}
+\ \Longrightarrow\
+\boldsymbol{\lambda}=\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+\big(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r}\big).
+$$ Substituindo em $\boldsymbol{\beta}$: $$
+\boxed{\ 
+\hat{\boldsymbol{\beta}}_{\,R}
+=\hat{\boldsymbol{\beta}}-(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+\big(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r}\big)\ }.
+$$
+
+**(b) Propriedades: viés, variância e distribuição**
+
+-   **Viés (condicional em** $\mathbf{X}$).\
+    $$
+    E(\hat{\boldsymbol{\beta}}_{\,R}\mid\mathbf{X})
+    =\boldsymbol{\beta}-(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top
+    \big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+    \underbrace{(\mathbf{R}\boldsymbol{\beta}-\mathbf{r})}_{\text{“erro” da restrição}}.
+    $$ Logo, **se a restrição é verdadeira** ($\mathbf{R}\boldsymbol{\beta}=\mathbf{r}$), então $\hat{\boldsymbol{\beta}}_{\,R}$ é **não-viesado**.
+
+-   **Variância-covariância.** Escreva $$
+    \hat{\boldsymbol{\beta}}_{\,R}=\big[\mathbf{I}-(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top L^{-1}\mathbf{R}\big]\hat{\boldsymbol{\beta}}+\text{const},
+    \quad L\equiv \mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top.
+    $$ Como $\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid\mathbf{X})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}$, obtém-se (álgebra matricial direta): $$
+    \boxed{\ 
+    \operatorname{Var}(\hat{\boldsymbol{\beta}}_{\,R}\mid\mathbf{X})
+    =\sigma^2\Big[(\mathbf{X}^\top\mathbf{X})^{-1}
+    -(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top
+    L^{-1}\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\Big]\ }.
+    $$ **Se a restrição é verdadeira**, essa matriz é $\preceq$ a variância do OLS (diferença s.d.p.), isto é, o estimador restrito é **mais preciso** (no sentido de Loewner) dentro da classe que satisfaz a restrição.
+
+-   **Distribuição (sob normalidade).** Se $\boldsymbol{\varepsilon}\sim\mathcal{N}_n(\mathbf{0},\sigma^2\mathbf{I})$, então $$
+    \hat{\boldsymbol{\beta}}_{\,R}\mid\mathbf{X}
+    \sim \mathcal{N}_{p+1}\!\Big(
+    E(\hat{\boldsymbol{\beta}}_{\,R}\mid\mathbf{X}),\ 
+    \operatorname{Var}(\hat{\boldsymbol{\beta}}_{\,R}\mid\mathbf{X})
+    \Big).
+    $$
+
+**(c) Aumento mínimo da soma de quadrados sob a restrição**
+
+Identidade quadrática fundamental (usar que $\hat{\boldsymbol{\beta}}$ minimiza $S$ sem restrição): $$
+S(\boldsymbol{\beta})=S(\hat{\boldsymbol{\beta}})+(\boldsymbol{\beta}-\hat{\boldsymbol{\beta}})^\top(\mathbf{X}^\top\mathbf{X})(\boldsymbol{\beta}-\hat{\boldsymbol{\beta}}).
+$$ Tomando $\boldsymbol{\beta}=\hat{\boldsymbol{\beta}}_{\,R}$ e a forma de (a), $$
+\boxed{\ 
+S(\hat{\boldsymbol{\beta}}_{\,R})-S(\hat{\boldsymbol{\beta}})
+= (\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})\ }.
+$$ Sob normalidade, o numerador acima dividido por $\sigma^2$ tem distribuição $\chi^2_q$ e é **independente** de $SQ_{Res}$ (Cochran), levando exatamente ao **teste** $F$ geral de F.2.9: $$
+F=\frac{\big(S(\hat{\boldsymbol{\beta}}_{\,R})-S(\hat{\boldsymbol{\beta}})\big)/q}{S(\hat{\boldsymbol{\beta}})/(n-p-1)}
+=\frac{(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})/q}{\hat{\sigma}^2}
+\ \sim\ F_{\,q,\,n-p-1}.
+$$
+
+**(d) Reparametrização (FWL para restrições) e "modelo reduzido"**
+
+Escolha uma **solução particular** $\boldsymbol{\beta}_\star$ com $\mathbf{R}\boldsymbol{\beta}_\star=\mathbf{r}$ e uma base $\mathbf{N}\in\mathbb{R}^{(p+1)\times(p+1-q)}$ do **núcleo** de $\mathbf{R}$ ($\mathbf{R}\mathbf{N}=\mathbf{0}$). Então $$
+\{\boldsymbol{\beta}:\mathbf{R}\boldsymbol{\beta}=\mathbf{r}\}
+=\{\ \boldsymbol{\beta}_\star+\mathbf{N}\boldsymbol{\theta}\ :\ \boldsymbol{\theta}\in\mathbb{R}^{p+1-q}\ \}.
+$$ Substitua no modelo: $$
+\mathbf{Y}=\underbrace{\mathbf{X}\boldsymbol{\beta}_\star}_{\text{constante}}+\ \underbrace{\mathbf{X}\mathbf{N}}_{\mathbf{X}_r}\ \boldsymbol{\theta}+\boldsymbol{\varepsilon}.
+$$ Logo, **estimar com restrição** equivale a estimar **OLS** no **modelo reduzido** com matriz de desenho $\mathbf{X}_r=\mathbf{X}\mathbf{N}$ (e resposta "deslocada" $\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}_\star$).
+
+Dessa representação saem diretamente:
+
+-   $\hat{\boldsymbol{\theta}}=(\mathbf{X}_r^\top\mathbf{X}_r)^{-1}\mathbf{X}_r^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}_\star)$,
+-   $\hat{\boldsymbol{\beta}}_{\,R}=\boldsymbol{\beta}_\star+\mathbf{N}\hat{\boldsymbol{\theta}}$,
+-   $SQ_{Res}^{(r)}=S(\hat{\boldsymbol{\beta}}_{\,R})$, e a identificação "aninhado" $\ \mathbf{H}_c-\mathbf{H}_r$ usada em F.2.9.
+
+**(e) Observações práticas**
+
+1.  **Quando impor restrições?**
+
+    (i) Conhecimento substantivo (identidades, somas que devem dar zero etc.);\
+    (ii) Testes de hipóteses lineares (usa-se a forma de $F$ acima).
+
+2.  **Eficiência vs. robustez.**\
+    Se a restrição for **verdadeira**, $\hat{\boldsymbol{\beta}}_{\,R}$ é mais **eficiente**; se **falsa**, introduz **viés** (ver termo $E[\hat{\boldsymbol{\beta}}_{\,R}]-\boldsymbol{\beta}$).
+
+3.  **GLS/WLS.**\
+    Com $\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2\boldsymbol{\Sigma}$ conhecida, basta substituir $(\mathbf{X}^\top\mathbf{X})^{-1}$ por $(\mathbf{X}^\top\boldsymbol{\Sigma}^{-1}\mathbf{X})^{-1}$ em todas as fórmulas.
+
+**(f) Diferença de perdas e estatística** $F$
+
+Escrevendo $$
+SQ_{Res}^{(c)}=\|\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}}\|^2,\qquad 
+SQ_{Res}^{(r)}=\|\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}}_{\,R}\|^2,
+$$ temos a identidade quadrática (válida porque $\hat{\boldsymbol{\beta}}$ é o minimizador não restrito): $$
+S(\boldsymbol{\beta})=S(\hat{\boldsymbol{\beta}})+(\boldsymbol{\beta}-\hat{\boldsymbol{\beta}})^\top(\mathbf{X}^\top\mathbf{X})(\boldsymbol{\beta}-\hat{\boldsymbol{\beta}}).
+$$ Aplicando-a em $\boldsymbol{\beta}=\hat{\boldsymbol{\beta}}_{\,R}$ e usando a forma fechada do estimador restrito (Seção F.2.16), $$
+\hat{\boldsymbol{\beta}}_{\,R}-\hat{\boldsymbol{\beta}}
+=-(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+\big(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r}\big),
+$$ obtemos $$
+\boxed{\ 
+SQ_{Res}^{(r)}-SQ_{Res}^{(c)}=(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})^\top
+\big[\mathbf{R}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{R}^\top\big]^{-1}
+(\mathbf{R}\hat{\boldsymbol{\beta}}-\mathbf{r})\ }.
+$$
+
+Denotando por $\mathbf{H}_c$ e $\mathbf{H}_r$ as matrizes "chapéu" do modelo completo e do reduzido, vale $$
+SQ_{Res}^{(r)}-SQ_{Res}^{(c)}=\mathbf{Y}^\top(\mathbf{H}_c-\mathbf{H}_r)\mathbf{Y},\qquad
+\operatorname{rank}(\mathbf{H}_c-\mathbf{H}_r)=q.
+$$ Assim, a diferença de perdas é uma **forma quadrática projetada** de posto $q$.
+
+Sob normalidade e usando o Teorema de Cochran (Seções F.2.6--F.2.9), a razão $$
+\boxed{\ 
+F=\frac{(SQ_{Res}^{(r)}-SQ_{Res}^{(c)})/q}{SQ_{Res}^{(c)}/(n-p-1)}
+\ \sim\ F_{\,q,\,n-p-1}\ }
+$$ fornece o **teste** $F$ clássico para $H_0:\ \mathbf{R}\boldsymbol{\beta}=\mathbf{r}$.
+
+Observe que o numerador acima é exatamente a estatística de Wald $Q$ (F.2.9) e $SQ_{Res}^{(c)}$ é independente de $Q$ sob normalidade, garantindo a lei $F$ com $q$ e $n-p-1$ graus de liberdade.
+
+## GLS/WLS
+
+**Convenções:**
+
+-   Há $p$ **covariáveis explicativas** e **intercepto**: $\mathbf{X}\in\mathbb{R}^{n\times(p+1)}$, $\boldsymbol{\beta}\in\mathbb{R}^{p+1}$, $\mathbf{Y}\in\mathbb{R}^n$.
+
+-   Posto completo: $\operatorname{rank}(\mathbf{X})=p+1$.
+
+-   Modelo: $\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}$, com $$
+    E(\boldsymbol{\varepsilon}\mid \mathbf{X})=\mathbf{0},\qquad
+    \operatorname{Var}(\boldsymbol{\varepsilon}\mid \mathbf{X})=\sigma^2\boldsymbol{\Sigma},\qquad
+    \boldsymbol{\Sigma}\succ 0.
+    $$
+
+-   Quando explicitado, assumimos **normalidade**: $\boldsymbol{\varepsilon}\sim\mathcal{N}_n(\mathbf{0},\sigma^2\boldsymbol{\Sigma})$.
+
+**(a) Esferização (whitening) e estimador GLS**
+
+Seja $\boldsymbol{\Sigma}^{-1/2}$ a **raiz simétrica** de $\boldsymbol{\Sigma}^{-1}$ ($\boldsymbol{\Sigma}^{-1/2}\boldsymbol{\Sigma}\,\boldsymbol{\Sigma}^{-1/2}=I$). Defina as quantidades "esferizadas": $$
+\mathbf{Y}^\ast=\boldsymbol{\Sigma}^{-1/2}\mathbf{Y},\quad
+\mathbf{X}^\ast=\boldsymbol{\Sigma}^{-1/2}\mathbf{X},\quad
+\boldsymbol{\varepsilon}^\ast=\boldsymbol{\Sigma}^{-1/2}\boldsymbol{\varepsilon}.
+$$ Então $$
+\mathbf{Y}^\ast=\mathbf{X}^\ast\boldsymbol{\beta}+\boldsymbol{\varepsilon}^\ast,\qquad
+E(\boldsymbol{\varepsilon}^\ast)=\mathbf{0},\quad
+\operatorname{Var}(\boldsymbol{\varepsilon}^\ast)=\sigma^2 I_n.
+$$ Aplicando **MQO** ao sistema "$\ast$": $$
+\hat{\boldsymbol{\beta}}_{GLS}
+=(\mathbf{X}^{\ast\top}\mathbf{X}^\ast)^{-1}\mathbf{X}^{\ast\top}\mathbf{Y}^\ast
+=\boxed{\,(\mathbf{X}^\top\boldsymbol{\Sigma}^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\Sigma}^{-1}\mathbf{Y}\,}.
+$$ Como $\hat{\boldsymbol{\beta}}_{GLS}$ é **linear** em $\mathbf{Y}$ e $E(\mathbf{Y}\mid\mathbf{X})=\mathbf{X}\boldsymbol{\beta}$, $$
+E(\hat{\boldsymbol{\beta}}_{GLS}\mid\mathbf{X})=\boldsymbol{\beta},\qquad
+\boxed{\,\operatorname{Var}(\hat{\boldsymbol{\beta}}_{GLS}\mid\mathbf{X})=\sigma^2(\mathbf{X}^\top\boldsymbol{\Sigma}^{-1}\mathbf{X})^{-1}\,}.
+$$
+
+**(b) Matrizes "chapéu" e resíduos: projeção no produto interno** $\langle u,v\rangle_{\Sigma^{-1}}=u^\top\Sigma^{-1}v$
+
+No espaço "$\ast$" (euclidiano), a matriz chapéu é $$
+\mathbf{H}^\ast=\mathbf{X}^\ast(\mathbf{X}^{\ast\top}\mathbf{X}^\ast)^{-1}\mathbf{X}^{\ast\top},\qquad
+\mathbf{M}^\ast=I_n-\mathbf{H}^\ast,
+$$ com $\mathbf{H}^\ast=\mathbf{H}^{\ast\top}$, $(\mathbf{H}^\ast)^2=\mathbf{H}^\ast$, $\operatorname{rank}(\mathbf{H}^\ast)=p+1$.
+
+Voltando à escala original: $$
+\hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}}_{GLS}=\underbrace{\mathbf{X}(\mathbf{X}^\top\Sigma^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\Sigma^{-1}}_{\,\mathbf{H}_\Sigma\,}\mathbf{Y},\qquad
+\hat{\boldsymbol{\varepsilon}}=\mathbf{Y}-\hat{\mathbf{Y}}=(I_n-\mathbf{H}_\Sigma)\mathbf{Y}\equiv \mathbf{M}_\Sigma\mathbf{Y}.
+$$ Propriedades:
+
+-   $\mathbf{H}_\Sigma$ e $\mathbf{M}_\Sigma$ são **idempotentes**: $\mathbf{H}_\Sigma^2=\mathbf{H}_\Sigma$, $\mathbf{M}_\Sigma^2=\mathbf{M}_\Sigma$.
+
+-   **Simetria ponderada:** $\mathbf{H}_\Sigma^\top\Sigma^{-1}=\Sigma^{-1}\mathbf{H}_\Sigma$ e $\mathbf{M}_\Sigma^\top\Sigma^{-1}=\Sigma^{-1}\mathbf{M}_\Sigma$.
+
+-   **Ortogonalidade ponderada:** $\mathbf{H}_\Sigma^\top\Sigma^{-1}\mathbf{M}_\Sigma=\mathbf{0}$ (projeções **ortogonais** no produto interno $\Sigma^{-1}$).
+
+-   $\operatorname{rank}(\mathbf{H}_\Sigma)=p+1$, $\operatorname{rank}(\mathbf{M}_\Sigma)=n-(p+1)$.
+
+**(C) Soma de quadrados ponderada, independência e qui-quadrado**
+
+A **soma de quadrados ponderada** dos resíduos é $$
+SQ_{Res}^{(GLS)}\equiv \hat{\boldsymbol{\varepsilon}}^\top\Sigma^{-1}\hat{\boldsymbol{\varepsilon}}
+=(\mathbf{Y}^\ast)^\top\mathbf{M}^\ast\mathbf{Y}^\ast.
+$$ Pela identidade $E(\mathbf{Z}^\top A\mathbf{Z})=\operatorname{tr}(A\operatorname{Var}\mathbf{Z})+E(\mathbf{Z})^\top A E(\mathbf{Z})$ e $E(\mathbf{Y}^\ast)=\mathbf{X}^\ast\boldsymbol{\beta}$, $\mathbf{M}^\ast\mathbf{X}^\ast=\mathbf{0}$, $$
+E(SQ_{Res}^{(GLS)}\mid\mathbf{X})=\sigma^2\operatorname{tr}(\mathbf{M}^\ast)=\sigma^2\big(n-(p+1)\big).
+$$ Sob normalidade: $$
+\boxed{\,\frac{SQ_{Res}^{(GLS)}}{\sigma^2}=\frac{(\mathbf{Y}^\ast)^\top\mathbf{M}^\ast\mathbf{Y}^\ast}{\sigma^2}\ \sim\ \chi^2_{\,n-p-1}\,}.
+$$ Além disso, como $\hat{\boldsymbol{\beta}}_{GLS}=A\mathbf{Y}^\ast$ e $\hat{\boldsymbol{\varepsilon}}^\ast=\mathbf{M}^\ast\mathbf{Y}^\ast$ com $A\mathbf{M}^\ast=\mathbf{0}$, $$
+\operatorname{Cov}(\hat{\boldsymbol{\beta}}_{GLS},\hat{\boldsymbol{\varepsilon}}^\ast\mid\mathbf{X})=\mathbf{0}
+\ \Rightarrow\
+\boxed{\,\hat{\boldsymbol{\beta}}_{GLS}\ \perp\!\!\!\perp\ SQ_{Res}^{(GLS)}\ \ (\text{sob normalidade})\,}.
+$$
+
+**(D) Testes** $t/F$ e ICs (com $n-(p+1)$ g.l.)
+
+Seja $C=(\mathbf{X}^\top\Sigma^{-1}\mathbf{X})^{-1}$. Para o componente $j$, $$
+\hat{\beta}_{j,GLS}\mid\mathbf{X}\sim\mathcal{N}\!\big(\beta_j,\ \sigma^2\,c_{jj}\big),\qquad
+t_j=\frac{\hat{\beta}_{j,GLS}-\beta_j}{\hat{\sigma}_{GLS}\sqrt{c_{jj}}}\ \sim\ t_{\,n-p-1},
+$$ onde $\ \hat{\sigma}_{GLS}^2=SQ_{Res}^{(GLS)}/(n-p-1)$.
+
+Para hipóteses lineares $\ \mathbf{R}\boldsymbol{\beta}=\mathbf{r}$ ($\operatorname{rank}(\mathbf{R})=q$): $$
+F=\frac{1}{q}\,\frac{(\mathbf{R}\hat{\boldsymbol{\beta}}_{GLS}-\mathbf{r})^\top\big[\mathbf{R}C\mathbf{R}^\top\big]^{-1}(\mathbf{R}\hat{\boldsymbol{\beta}}_{GLS}-\mathbf{r})}{\hat{\sigma}_{GLS}^2}
+\ \sim\ F_{\,q,\,n-p-1}.
+$$ O IC $100(1-\alpha)\%$ para $\beta_j$ é $$
+\hat{\beta}_{j,GLS}\ \pm\ t_{\alpha/2,\,n-p-1}\,\hat{\sigma}_{GLS}\sqrt{c_{jj}}.
+$$
+
+**(e) WLS como caso particular (**$\Sigma=\operatorname{diag}(v_1,\dots,v_n)$)
+
+Defina **pesos** $w_i=1/v_i$, $W=\operatorname{diag}(w_i)=\Sigma^{-1}$. Então $$
+\mathbf{Y}^\ast=W^{1/2}\mathbf{Y},\quad \mathbf{X}^\ast=W^{1/2}\mathbf{X},
+$$ $$
+\boxed{\,\hat{\boldsymbol{\beta}}_{WLS}=(\mathbf{X}^\top W\mathbf{X})^{-1}\mathbf{X}^\top W\mathbf{Y}\,},\qquad
+\boxed{\,\operatorname{Var}(\hat{\boldsymbol{\beta}}_{WLS})=\sigma^2(\mathbf{X}^\top W\mathbf{X})^{-1}\,}.
+$$ Matriz chapéu **ponderada** (no espaço original): $$
+\mathbf{H}_W=\mathbf{X}(\mathbf{X}^\top W\mathbf{X})^{-1}\mathbf{X}^\top W,\qquad
+\hat{\mathbf{Y}}=\mathbf{H}_W\mathbf{Y},\quad \hat{\boldsymbol{\varepsilon}}=(I-\mathbf{H}_W)\mathbf{Y}.
+$$ Leverages "naturais" no WLS são os **leverage esferizados** $\ h_{ii}^\ast=(\mathbf{H}^\ast)_{ii}$ com $\mathbf{H}^\ast=\mathbf{X}^\ast(\mathbf{X}^{\ast\top}\mathbf{X}^\ast)^{-1}\mathbf{X}^{\ast\top}$.\
+Propriedades: $$
+0\le h_{ii}^\ast\le 1,\qquad \sum_{i=1}^n h_{ii}^\ast=\operatorname{tr}(\mathbf{H}^\ast)=p+1.
+$$ Variância dos **resíduos** (na escala original): $$
+\hat{\boldsymbol{\varepsilon}}=\Sigma^{1/2}\hat{\boldsymbol{\varepsilon}}^\ast\ \Rightarrow\
+\boxed{\,\operatorname{Var}(\hat{\varepsilon}_i\mid\mathbf{X})=\sigma^2\,v_i\,(1-h_{ii}^\ast)\,}.
+$$ Resíduo **padronizado ponderado** (interno): $$
+r_i^{(W)}=\frac{\hat{\varepsilon}_i}{\hat{\sigma}_{WLS}\sqrt{\,v_i(1-h_{ii}^\ast)\,}}
+\ \approx\ t_{\,n-p-1},
+$$ e o **studentizado externo** (exato sob normalidade) usa $\hat{\sigma}_{(i)}$ do ajuste sem $i$: $$
+t_i^{(W)}=\frac{\hat{\varepsilon}_i}{\hat{\sigma}_{(i)}\sqrt{\,v_i(1-h_{ii}^\ast)\,}}
+\ \sim\ t_{\,n-p-2}.
+$$
+
+**Intercepto e centragem ponderada.**
+
+Escreva $\mathbf{X}=[\,\mathbf{1}_n\ \mathbf{Z}\,]$.Com médias **ponderadas** $\ \bar{y}_W=\frac{\sum w_i y_i}{\sum w_i}$ e $\ \bar{\mathbf{z}}_W=\frac{\sum w_i \mathbf{z}_i}{\sum w_i}$, vale $$
+\boxed{\,\hat{\beta}_0=\bar{y}_W-\bar{\mathbf{z}}_W^\top\hat{\boldsymbol{\beta}}_Z\,},\qquad
+\hat{\boldsymbol{\beta}}_Z=(\mathbf{Z}^\top M_W \mathbf{Z})^{-1}\mathbf{Z}^\top M_W \mathbf{Y},
+$$ onde $M_W=I-\mathbf{1}_n(\mathbf{1}_n^\top W \mathbf{1}_n)^{-1}\mathbf{1}_n^\top W$ é o **centrador ponderado** (projeção ortogonal em $\langle\cdot,\cdot\rangle_W$).
+
+**(f) Frisch--Waugh--Lovell em GLS/WLS**
+
+Particione $\mathbf{X}=[\,\mathbf{W}\ \mathbf{Z}\,]$, com $\mathbf{W}$ incluindo o **intercepto**. No espaço "$\ast$": $$
+\tilde{\mathbf{Y}}^\ast=(I-\mathbf{P}_W^\ast)\mathbf{Y}^\ast,\qquad
+\tilde{\mathbf{Z}}^\ast=(I-\mathbf{P}_W^\ast)\mathbf{Z}^\ast,
+$$ $$
+\mathbf{P}_W^\ast=\mathbf{W}^\ast\big(\mathbf{W}^{\ast\top}\mathbf{W}^\ast\big)^{-1}\mathbf{W}^{\ast\top}.
+$$ Então $$
+\boxed{\,\hat{\boldsymbol{\beta}}_{Z,GLS}
+=\big(\tilde{\mathbf{Z}}^{\ast\top}\tilde{\mathbf{Z}}^\ast\big)^{-1}\tilde{\mathbf{Z}}^{\ast\top}\tilde{\mathbf{Y}}^\ast
+=\big(\mathbf{Z}^\top\Sigma^{-1}\mathbf{M}_W\,\mathbf{Z}\big)^{-1}\mathbf{Z}^\top\Sigma^{-1}\mathbf{M}_W\,\mathbf{Y}\,},
+$$ com $\mathbf{M}_W=I-\mathbf{W}(\mathbf{W}^\top\Sigma^{-1}\mathbf{W})^{-1}\mathbf{W}^\top\Sigma^{-1}$. Assim, a inferência para $\boldsymbol{\beta}_Z$ pode ser feita **equivalentemente** na regressão **residualizada** (ponderada).
+
+**(G) Gauss--Markov generalizado (Aitken): GLS é BLUE**
+
+Na classe dos estimadores **lineares não-viesados** $\tilde{\boldsymbol{\beta}}=\mathbf{A}\mathbf{Y}$ com $\mathbf{A}\mathbf{X}=I_{p+1}$, $$
+\mathbf{A}=(\mathbf{X}^\top\Sigma^{-1}\mathbf{X})^{-1}\mathbf{X}^\top\Sigma^{-1}+\mathbf{K},\qquad \mathbf{K}\mathbf{X}=\mathbf{0}.
+$$ Logo, $$
+\operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid\mathbf{X})
+=\sigma^2\big[\ (\mathbf{X}^\top\Sigma^{-1}\mathbf{X})^{-1}\ +\ \mathbf{K}\,\Sigma\,\mathbf{K}^\top\ \big]
+\succeq \sigma^2(\mathbf{X}^\top\Sigma^{-1}\mathbf{X})^{-1}
+=\operatorname{Var}(\hat{\boldsymbol{\beta}}_{GLS}\mid\mathbf{X}),
+$$ com igualdade sse $\mathbf{K}=\mathbf{0}$. Portanto, **GLS é BLUE** no produto interno $\Sigma^{-1}$ (Teorema de Aitken).
+
+**(h) Observações práticas**
+
+1.  **Quando usar WLS/GLS?**\
+    Heterocedasticidade conhecida (WLS), correlação conhecida (GLS), p.ex., **AR(1)** em séries temporais. Se $\Sigma$ é **desconhecida**, usar **FGLS** (estimando $\Sigma(\theta)$) ou OLS com **erros-padrão robustos**.
+
+2.  **Graus de liberdade:** continuam sendo $n-(p+1)$ (há $p+1$ parâmetros incluindo o intercepto).
+
+3.  **Leverage e diagnósticos:** em WLS use $h_{ii}^\ast=\operatorname{diag}(\mathbf{H}^\ast)$; regras de triagem (e.g., $h_{ii}^\ast>2(p+1)/n$) e medidas de influência (Cook, DFFITS) se transmitem para o sistema "$\ast$".
+
+4.  **Interpretação do intercepto em WLS:** $\hat{\beta}_0$ é o **valor médio ponderado** de $Y$ após ajustar a contribuição ponderada de $\mathbf{Z}$: $\hat{\beta}_0=\bar{y}_W-\bar{\mathbf{z}}_W^\top\hat{\boldsymbol{\beta}}_Z$.
+
+## Identidades usadas nas provas
+
+1)  **Esperança de forma quadrática:** $E(\mathbf{Y}^\top\mathbf{A}\mathbf{Y})=\mathrm{tr}(\mathbf{A}\operatorname{Var}\mathbf{Y})+E(\mathbf{Y})^\top\mathbf{A}E(\mathbf{Y})$.\
+2)  **Cochran (normal):** se $A_i$ são projeções ortogonais, então $\mathbf{Z}^\top A_i\mathbf{Z}/\sigma^2\sim \chi^2_{\operatorname{rank}(A_i)}$ e são independentes.\
+3)  **Sherman--Morrison:** $(\mathbf{A}+uv^\top)^{-1}=\mathbf{A}^{-1}-\dfrac{\mathbf{A}^{-1}uv^\top \mathbf{A}^{-1}}{1+v^\top \mathbf{A}^{-1}u}$.\
+4)  **Posto/traço de projeção:** $\mathrm{tr}(\mathbf{H})=\operatorname{rank}(\mathbf{H})=\dim\operatorname{col}(\mathbf{X})=p+1$.\
+5)  **FWL:** $\hat{\boldsymbol{\beta}}_Z$ no modelo completo coincide com MQO de $\tilde{\mathbf{Y}}$ em $\tilde{\mathbf{Z}}$ após remover o efeito de $\mathbf{W}$ (inclui intercepto).
+
+### Resumo de graus de liberdade (com $p$ covariáveis + intercepto)
+
+-   Parâmetros estimados: $p+1=\mathrm{tr}(\mathbf{H})$.\
+-   g.l. residuais: $\boxed{\,n-(p+1)\,}$.\
+-   $t$ individual: $t_{\,n-p-1}$.\
+-   $F$ global (exclui apenas intercepto): $F_{\,p,\,n-p-1}$.\
+-   $F$ geral ($q$ restrições): $F_{\,q,\,n-p-1}$.\
+-   Resíduo **externamente** studentizado: $t_{\,n-p-2}$ (modelo ajustado em $n-1$ pontos).
+
+### Referências
+
+-   Aitken, A. C. (1935). On least squares and linear combinations of observations. *Proceedings of the Royal Society of Edinburgh*.\
+-   Akaike, H. (1973). Information theory and an extension of the maximum likelihood principle.\
+-   Ben-Israel, A. & Greville, T. N. E. (2003). *Generalized Inverses: Theory and Applications*. Springer.
+-   Belsley, D. A.; Kuh, E.; Welsch, R. E. (1980). *Regression Diagnostics: Identifying Influential Data and Sources of Collinearity*. Wiley.
+-   Burnham, K. P. & Anderson, D. R. (2002). *Model Selection and Multimodel Inference*. Springer.\
+-   Claeskens, G. & Hjort, N. L. (2008). *Model Selection and Model Averaging*. Cambridge University Press.\
+-   Cochran, W. G. (1934). The distribution of quadratic forms in a normal system. *Annals of Mathematical Statistics*.\
+-   Craig, C. C. (1943). On the Tchebycheff Inequalities in Statistics. *Annals of Mathematical Statistics*.\
+-   Greene, W. H. (2012). *Econometric Analysis*. Pearson.\
+-   Draper, N. R.; Smith, H. (1998). *Applied Regression Analysis*, 3rd ed., Wiley.
+-   Hurvich, C. M. & Tsai, C.-L. (1989). Regression and time series model selection in small samples. *Biometrika*.\
+-   Magnus, J. R. & Neudecker, H. (1999). *Matrix Differential Calculus with Applications in Statistics and Econometrics*. Wiley.\
+-   Montgomery, D. C., Peck, E. A., & Vining, G. G. (2012). *Introduction to Linear Regression Analysis*. Wiley.\
+-   Newey, W. K. & West, K. D. (1987). A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance matrix. *Econometrica*.
+-   Kutner, M. H.; Nachtsheim, C. J.; Neter, J. (2005). *Applied Linear Regression Models*, 4th ed., McGraw-Hill.\
+-   Petersen, K. B. & Pedersen, M. S. (2012). *The Matrix Cookbook*.\
+-   Sakamoto, Y., Ishiguro, M., & Kitagawa, G. (1986). *Akaike Information Criterion Statistics*. Reidel.\
+-   Schwarz, G. (1978). Estimating the dimension of a model. *Annals of Statistics*.\
+-   Searle, S. R. (1971). *Linear Models*. Wiley.\
+-   Searle, S. R. (1982). *Matrix Algebra Useful for Statistics*. Wiley.\
+-   Seber, G. A. F. & Lee, A. J. (2003). *Linear Regression Analysis*. Wiley.\
+-   Weisberg, S. (2005). *Applied Linear Regression*. Wiley.\
+-   White, H. (1980). A heteroskedasticity-consistent covariance matrix estimator and a direct test for heteroskedasticity. *Econometrica*.
