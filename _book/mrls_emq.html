@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Estimação por Mínimos Quadrados no MRLS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mrls_inferencia.html" rel="next">
+<link href="./mrls.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrls.html">Parte II — Modelo de Regressão Linear Simples (MRLS)</a></li><li class="breadcrumb-item"><a href="./mrls_emq.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Modelagem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução e Panorama dos Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelagem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelagem Estatística e Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Modelo de Regressão Linear Simples (MRLS)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">O MRLS como Modelo para a Média Condicional</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_emq.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Inferência no MRLS com erros normais</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_testes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses e ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_diagnostico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_transf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Transformações nas Variáveis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_compara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Comparação de Modelos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Modelo de Regressão Linear Simples (MRLM)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Apêndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_matrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#paradigmas-de-estimação-no-mrls" id="toc-paradigmas-de-estimação-no-mrls" class="nav-link active" data-scroll-target="#paradigmas-de-estimação-no-mrls"><span class="header-section-number">5.1</span> Paradigmas de Estimação no MRLS</a></li>
+  <li><a href="#o-critério-dos-mínimos-quadrados-ordinários" id="toc-o-critério-dos-mínimos-quadrados-ordinários" class="nav-link" data-scroll-target="#o-critério-dos-mínimos-quadrados-ordinários"><span class="header-section-number">5.2</span> O Critério dos Mínimos Quadrados Ordinários</a></li>
+  <li><a href="#solução-analítica-a-reta-de-regressão-por-mqo" id="toc-solução-analítica-a-reta-de-regressão-por-mqo" class="nav-link" data-scroll-target="#solução-analítica-a-reta-de-regressão-por-mqo"><span class="header-section-number">5.3</span> Solução Analítica: A Reta de Regressão por MQO</a>
+  <ul class="collapse">
+  <li><a href="#interpretação-dos-estimadores-obtidos-via-mqo" id="toc-interpretação-dos-estimadores-obtidos-via-mqo" class="nav-link" data-scroll-target="#interpretação-dos-estimadores-obtidos-via-mqo"><span class="header-section-number">5.3.1</span> Interpretação dos Estimadores obtidos via MQO</a></li>
+  </ul></li>
+  <li><a href="#propriedades-probabilísticas-dos-estimadores-de-mqo" id="toc-propriedades-probabilísticas-dos-estimadores-de-mqo" class="nav-link" data-scroll-target="#propriedades-probabilísticas-dos-estimadores-de-mqo"><span class="header-section-number">5.4</span> Propriedades Probabilísticas dos Estimadores de MQO</a>
+  <ul class="collapse">
+  <li><a href="#não-viés" id="toc-não-viés" class="nav-link" data-scroll-target="#não-viés"><span class="header-section-number">5.4.1</span> Não viés</a></li>
+  <li><a href="#variâncias-e-covariância-dos-estimadores" id="toc-variâncias-e-covariância-dos-estimadores" class="nav-link" data-scroll-target="#variâncias-e-covariância-dos-estimadores"><span class="header-section-number">5.4.2</span> Variâncias e covariância dos estimadores</a></li>
+  <li><a href="#estimativa-de-sigma2-graus-de-liberdade-e-não-viés" id="toc-estimativa-de-sigma2-graus-de-liberdade-e-não-viés" class="nav-link" data-scroll-target="#estimativa-de-sigma2-graus-de-liberdade-e-não-viés"><span class="header-section-number">5.4.3</span> Estimativa de <span class="math inline">\(\sigma^2\)</span> (graus de liberdade e não viés)</a></li>
+  </ul></li>
+  <li><a href="#teorema-de-gaussmarkov" id="toc-teorema-de-gaussmarkov" class="nav-link" data-scroll-target="#teorema-de-gaussmarkov"><span class="header-section-number">5.5</span> Teorema de Gauss–Markov</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrls.html">Parte II — Modelo de Regressão Linear Simples (MRLS)</a></li><li class="breadcrumb-item"><a href="./mrls_emq.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="paradigmas-de-estimação-no-mrls" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="paradigmas-de-estimação-no-mrls"><span class="header-section-number">5.1</span> Paradigmas de Estimação no MRLS</h2>
+<p>A formulação do <strong>Modelo de Regressão Linear Simples (MRLS)</strong>, discutida anteriormente, descreve a estrutura da média condicional de <span class="math inline">\(Y\)</span> em função de <span class="math inline">\(X\)</span>, isto é,</p>
+<p><span class="math display">\[
+E(Y_i \mid X_i) = \beta_0 + \beta_1 X_i.
+\]</span></p>
+<p>O desafio agora é <strong>estimar os parâmetros desconhecidos</strong> <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> a partir de dados observados <span class="math inline">\(\{(X_i,Y_i)\}_{i=1}^n\)</span>. Esse processo de estimação pode ser realizado via diferentes métodos, cada um apoiado em princípios e hipóteses próprias.</p>
+<p>A estimação pode ser conduzida sob diferentes <strong>paradigmas</strong>, isto é, diferentes princípios fundamentais que definem o que significa “estimar bem” um parâmetro. Esses paradigmas não diferem apenas em técnica, mas em filosofia estatística e nas hipóteses assumidas sobre o modelo.</p>
+<p>O <strong>Método dos Mínimos Quadrados Ordinários (MQO)</strong> é a abordagem clássica no contexto da regressão linear. Seu princípio é puramente geométrico e algébrico: escolher <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> de modo a minimizar a soma dos quadrados dos resíduos,</p>
+<p><span class="math display">\[
+S(\beta_0,\beta_1) = \sum_{i=1}^n \left[Y_i - (\beta_0 + \beta_1 X_i)\right]^2.
+\]</span></p>
+<p>Esse critério não exige, para a obtenção dos estimadores, a especificação de uma distribuição para os erros. A minimização conduz a um sistema de equações conhecido como <strong>equações normais</strong>, que caracteriza a solução de mínimos quadrados (ver <span class="citation" data-cites="draper1998">Draper e Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). A ausência de suposição distributiva mostra que o MQO é, antes de tudo, um procedimento de ajuste determinístico baseado na estrutura linear do modelo.</p>
+<p>Do ponto de vista estatístico, sob as hipóteses já apresentadas, a saber, linearidade nos parâmetros, <span class="math inline">\(E(\varepsilon_i\mid X_i)=0\)</span>, homoscedasticidade e ausência de correlação entre erros os estimadores de MQO possuem propriedades fundamentais como não viés e variâncias com forma explícita. Essas propriedades não dependem da normalidade dos erros; a normalidade é necessária apenas quando se desejam distribuições exatas em amostras finitas para testes e intervalos de confiança (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>). Assim, o MQO é um método de estimação que se apoia primariamente na estrutura do modelo médio e nas condições de regularidade, e não em hipóteses distributivas fortes.</p>
+<p>Outro caminho é o <strong>Método da Máxima Verossimilhança (MV)</strong>. Nesse paradigma, parte-se da especificação completa da distribuição condicional de <span class="math inline">\(Y_i\mid X_i\)</span>, frequentemente assumindo</p>
+<p><span class="math display">\[
+\varepsilon_i \sim \mathcal{N}(0,\sigma^2),
+\]</span></p>
+<p>o que implica que <span class="math inline">\(Y_i\mid X_i\)</span> também segue distribuição normal com média <span class="math inline">\(\mu_i=\beta_0+\beta_1X_i\)</span> e variância <span class="math inline">\(\sigma^2\)</span>. Os estimadores são então definidos como aqueles que maximizam a função de verossimilhança, isto é, a probabilidade conjunta dos dados observados vista como função dos parâmetros. Quando o modelo probabilístico está corretamente especificado, a MV produz estimadores consistentes, assintoticamente normais e eficientes sob condições regulares (ver <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>No caso particular do modelo linear com erros normais homoscedásticos e não correlacionados, os estimadores de máxima verossimilhança coincidem com os estimadores de mínimos quadrados. Essa coincidência não é acidental: a minimização da soma de quadrados é equivalente à maximização da verossimilhança normal. Contudo, conceitualmente, os dois métodos partem de princípios distintos, um geométrico/algebraico e outro probabilístico.</p>
+<p>Uma terceira alternativa são os <strong>métodos bayesianos</strong>, nos quais os parâmetros <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> são tratados como variáveis aleatórias. Nesse caso, especifica-se uma distribuição a priori conjunta para <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> e combina-se essa informação com a verossimilhança dos dados por meio do Teorema de Bayes, obtendo-se a distribuição a posteriori</p>
+<p><span class="math display">\[
+p(\beta_1,\beta_2 \mid y,X) \propto p(y,X \mid \beta_1,\beta_2)\, p(\beta_1,\beta_2).
+\]</span></p>
+<p>A estimação passa então a ser baseada em características dessa distribuição a posteriori (como média, mediana ou moda). Esse paradigma explicita a incerteza sobre os parâmetros e permite incorporar informação prévia de forma formal (ver <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="gelman2014">Gelman et al. (<a href="references.html#ref-gelman2014" role="doc-biblioref">2014</a>)</span>).</p>
+<p>Portanto, a estimação no MRLS pode ser conduzida sob diferentes paradigmas: minimização de resíduos (MQO), maximização da verossimilhança (MV) ou atualização bayesiana de crenças. Cada abordagem parte de fundamentos conceituais distintos, tais quais, geométrico-algébrico, probabilístico ou epistemológico, e conduz a interpretações próprias dos parâmetros e da incerteza associada.</p>
+<p>Neste livro, a <strong>estimação por mínimos quadrados ordinários (MQO)</strong> receberá tratamento mais detalhado e sistemático. A razão é dupla: em primeiro lugar, o MQO não exige a especificação de uma distribuição para os erros para a obtenção dos estimadores, apoiando-se apenas na estrutura do modelo médio e nas hipóteses clássicas de exogeneidade e regularidade; em segundo lugar, ele constitui a base do Teorema de Gauss–Markov e de grande parte da teoria dos modelos lineares, servindo como alicerce conceitual para extensões posteriores.</p>
+<p>A <strong>máxima verossimilhança (MV)</strong> também será contemplada, sobretudo quando discutirmos aspectos inferenciais e conexões entre estrutura probabilística e eficiência assintótica. No caso do modelo linear com erros normais, veremos inclusive a coincidência formal entre MQO e MV, o que reforça a unidade conceitual entre os métodos sob hipóteses adicionais.</p>
+<p>Por outro lado, embora o paradigma <strong>bayesiano</strong> seja conceitualmente relevante e metodologicamente poderoso, sua abordagem completa exigiria o desenvolvimento de ferramentas próprias, como escolha de distribuições a priori, análise da posteriori e métodos computacionais, que extrapolam os objetivos centrais deste texto. Assim, ele será mencionado para fins de contextualização, mas não será desenvolvido formalmente neste livro.</p>
+</section>
+<section id="o-critério-dos-mínimos-quadrados-ordinários" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="o-critério-dos-mínimos-quadrados-ordinários"><span class="header-section-number">5.2</span> O Critério dos Mínimos Quadrados Ordinários</h2>
+<p>O Método dos Mínimos Quadrados Ordinários (MQO) é a abordagem clássica para a estimação em regressão linear. Seu objetivo é encontrar a reta que melhor descreve a relação média entre a variável resposta <span class="math inline">\(Y\)</span> e a variável explicativa <span class="math inline">\(X\)</span>. Essa “melhor” reta é definida como aquela que minimiza a soma dos quadrados dos <strong>resíduos</strong>, isto é, das diferenças entre os valores observados e os valores ajustados pelo modelo (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Se denotarmos por <span class="math inline">\(\hat{Y}_i\)</span> o valor ajustado para a observação <span class="math inline">\(i\)</span>, temos:</p>
+<p><span class="math display">\[
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i,
+\]</span></p>
+<p>e o resíduo correspondente é</p>
+<p><span class="math display">\[
+e_i = Y_i - \hat{Y}_i.
+\]</span> O critério de mínimos quadrados escolhe os parâmetros que minimizam a função de perda quadrática</p>
+<p><span class="math display">\[
+S(\beta_0, \beta_1) = \sum_{i=1}^n \left[ Y_i - (\beta_0 + \beta_1 X_i) \right]^2.
+\]</span></p>
+<p>Do ponto de vista matemático, trata-se de um problema clássico de otimização: encontrar <span class="math inline">\((\hat\beta_0,\hat\beta_1)\)</span> que minimizam <span class="math inline">\(S(\beta_0,\beta_1)\)</span> sobre <span class="math inline">\(\mathbb{R}^2\)</span>. A condição de primeira ordem leva a um sistema de duas equações lineares nas incógnitas <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>, conhecido como <strong>equações normais</strong>. Essas equações caracterizam completamente a solução de mínimos quadrados no modelo linear simples (ver <span class="citation" data-cites="draper1998">Draper e Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>).</p>
+<p>Esse procedimento garante que, entre todas as retas possíveis, a escolhida é aquela que deixa os resíduos, em conjunto, “o mais curtos possível” no sentido quadrático. A escolha da penalização quadrática não é arbitrária: a função objetivo é uma função polinomial de segundo grau nos parâmetros, contínua e diferenciável, e admite solução única sempre que os valores de <span class="math inline">\(X\)</span> não forem todos iguais, isto é, sempre que houver variabilidade na variável explicativa. Essa condição assegura a existência e a unicidade da reta de mínimos quadrados.</p>
+<p>Além disso, a penalização pelo quadrado dos desvios atribui maior peso a observações mais afastadas, o que explica tanto a eficiência do método sob hipóteses clássicas quanto sua sensibilidade a valores discrepantes (ver <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_emq_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="840"></p>
+<figcaption>MQO: reta ajustada e resíduos destacados.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A figura acima ilustra essa lógica. Os pontos azuis representam as observações <span class="math inline">\((X_i,Y_i)\)</span>, a reta vermelha mostra a reta ajustada pelo MQO, e as linhas tracejadas cinzas indicam os resíduos associados a cada ponto. Visualmente, o MQO busca a reta que minimiza a soma dos quadrados dessas distâncias verticais. Essa interpretação geométrica ajuda a compreender que a regressão não elimina o erro, mas organiza o ruído de forma a recuperar a estrutura média do fenômeno.</p>
+<p>Essa formulação admite duas interpretações complementares.</p>
+<ul>
+<li><strong>Geométrica</strong>: o MQO pode ser visto como a projeção ortogonal do vetor de respostas <span class="math inline">\(\mathbf{Y}=(Y_1,\ldots,Y_n)'\)</span> no subespaço gerado pelos vetores <span class="math inline">\(\mathbf{1}=(1,\ldots,1)'\)</span> e <span class="math inline">\(\mathbf{X}=(X_1,\ldots,X_n)'\)</span>. A condição de minimização implica que o vetor de resíduos <span class="math inline">\(\hat\varepsilon = Y-\hat Y\)</span> é ortogonal ao espaço gerado pelos regressores, isto é,</li>
+</ul>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i = 0
+\quad \text{e} \quad
+\sum_{i=1}^n X_i \hat\varepsilon_i = 0.
+\]</span></p>
+<p>Essas duas condições são precisamente as equações normais no caso simples.</p>
+<ul>
+<li><strong>Estatística</strong>: a ortogonalidade amostral dos resíduos aos regressores é o análogo empírico da hipótese populacional</li>
+</ul>
+<p><span class="math display">\[
+E(\varepsilon_i \mid X_i)=0.
+\]</span> Em outras palavras, após o ajuste, não resta componente linear em <span class="math inline">\(X\)</span> capaz de explicar sistematicamente os resíduos. A condição populacional de exogeneidade é refletida, no nível amostral, pela ortogonalidade dos resíduos estimados (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Um aspecto central é que o MQO não exige, para a obtenção dos estimadores, a especificação de uma distribuição para os erros. Sob as hipóteses de média condicional corretamente especificada, homoscedasticidade e ausência de correlação entre erros, os estimadores resultantes são não viesados e apresentam variâncias com forma explícita, propriedades que independem da normalidade (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>A normalidade é introduzida apenas quando se desejam distribuições exatas em amostras finitas para estatísticas de teste e construção de intervalos de confiança. Em contextos práticos com caudas pesadas ou observações discrepantes, podem ser considerados métodos robustos ou funções de perda alternativas. Essa generalidade explica por que o MQO constitui o ponto de partida natural e o método mais amplamente ensinado e utilizado na análise de regressão linear.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="solução-analítica-a-reta-de-regressão-por-mqo" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="solução-analítica-a-reta-de-regressão-por-mqo"><span class="header-section-number">5.3</span> Solução Analítica: A Reta de Regressão por MQO</h2>
+<div class="callout callout-style-default callout-important callout-titled" title="Teorema — Reta de Regressão por MQO">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Teorema — Reta de Regressão por MQO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No modelo de regressão linear simples</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \quad i = 1,2,\dots,n,
+\]</span></p>
+<p>os estimadores de mínimos quadrados ordinários (MQO) de <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> são obtidos como aqueles que <strong>minimizam a soma dos quadrados dos resíduos</strong>. A solução do problema de minimização leva às formas fechadas:</p>
+<p><span class="math display">\[
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}},
+\qquad
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X},
+\]</span></p>
+<p>onde</p>
+<p><span class="math display">\[
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+\qquad
+S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y).
+\]</span></p>
+</div>
+</div>
+<p>A demonstração resulta da minimização da função <span class="math display">\[
+S(\beta_0,\beta_1)=\sum_{i=1}^n \left[Y_i-(\beta_0+\beta_1X_i)\right]^2,
+\]</span></p>
+<p>por meio do cálculo das derivadas parciais em relação a <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> e da resolução do sistema de equações normais correspondente. A dedução algébrica completa pode ser consultada no Apêndice de Demonstrações {#demo}.</p>
+<p>Esse resultado estabelece a <strong>reta de regressão por MQO</strong> como a linha que, ao mesmo tempo, minimiza a soma dos quadrados dos resíduos e traduz o padrão médio de associação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>. A estrutura explícita das soluções mostra que a existência e a unicidade dependem apenas de <span class="math inline">\(S_{xx}&gt;0\)</span>, isto é, da presença de variabilidade em <span class="math inline">\(X\)</span>, condição necessária para que a informação sobre a inclinação seja identificável (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Do ponto de vista matemático, a minimização de <span class="math inline">\(S(\beta_0,\beta_1)\)</span> conduz a uma função quadrática estritamente convexa nos parâmetros quando <span class="math inline">\(S_{xx}&gt;0\)</span>, assegurando que a solução encontrada pelas equações normais seja única. A demonstração detalhada dessa propriedade pode ser consultada no Apêndice de Demonstrações {#demo}.</p>
+<p>No entanto, conhecer a forma explícita da reta ajustada é apenas o primeiro passo. A expressão fechada dos estimadores revela como eles dependem das quantidades amostrais, mas não informa, por si só, se tais estimadores são centrados nos verdadeiros parâmetros, quão precisos são ou como se comportam sob repetição amostral. Para que possamos confiar nesses estimadores e utilizá-los em inferência estatística, precisamos examinar suas <strong>propriedades probabilísticas</strong>: não viés, variâncias, covariância entre <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> e qualidade das predições produzidas. É justamente esse o foco da próxima seção (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<section id="interpretação-dos-estimadores-obtidos-via-mqo" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="interpretação-dos-estimadores-obtidos-via-mqo"><span class="header-section-number">5.3.1</span> Interpretação dos Estimadores obtidos via MQO</h3>
+<ul>
+<li>O estimador da inclinação pode ser reescrito como</li>
+</ul>
+<p><span class="math display">\[
+\hat\beta_1 = \frac{\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y)}
+{\sum_{i=1}^n (X_i-\bar X)^2},
+\]</span></p>
+<p>o que evidencia que ele corresponde à <strong>covariância amostral entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dividida pela variância amostral de <span class="math inline">\(X\)</span></strong>. Essa forma deixa claro que <span class="math inline">\(\hat\beta_1\)</span> mede a variação média de <span class="math inline">\(Y\)</span> associada a um aumento unitário em <span class="math inline">\(X\)</span>, sendo proporcional ao grau de associação linear entre as duas variáveis (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<ul>
+<li>O estimador do intercepto,</li>
+</ul>
+<p><span class="math display">\[
+\hat\beta_0 = \bar Y - \hat\beta_1 \bar X,
+\]</span></p>
+<p>implica que a reta ajustada satisfaz</p>
+<p><span class="math display">\[
+\hat Y(\bar X)=\bar Y,
+\]</span></p>
+<p>ou seja, a reta de regressão <strong>passa necessariamente pelo ponto médio amostral</strong> <span class="math inline">\((\bar X,\bar Y)\)</span>. Essa propriedade decorre diretamente das equações normais e da ortogonalidade dos resíduos aos regressores (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+</section>
+</section>
+<section id="propriedades-probabilísticas-dos-estimadores-de-mqo" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="propriedades-probabilísticas-dos-estimadores-de-mqo"><span class="header-section-number">5.4</span> Propriedades Probabilísticas dos Estimadores de MQO</h2>
+<p>Nesta seção reunimos as propriedades essenciais dos estimadores de mínimos quadrados no modelo</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \quad i = 1,2,\dots,n,
+\]</span> sob as hipóteses usuais de exogeneidade fraca e regularidade: <span class="math display">\[
+E[\varepsilon_i \mid X_i]=0,
+\qquad
+Var(\varepsilon_i\mid X_i)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X_i,X_j)=0 \ \forall(i \neq j),
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2&gt;0.
+\]</span></p>
+<p>Essas condições são suficientes para estabelecer as principais propriedades dos estimadores de MQO, sem necessidade de assumir normalidade dos erros. Trata-se exatamente do conjunto de hipóteses sob o qual se desenvolve a teoria clássica do modelo linear (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Os estimadores de mínimos quadrados ordinários (MQO)</p>
+<p><span class="math display">\[
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}},
+\qquad
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y),
+\qquad
+\bar{Y} = \frac{1}{n}\sum_{i=1}^n Y_i,
+\qquad
+\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i,
+\]</span> possuem propriedades importantes, que garantem sua validade para inferência estatística.</p>
+<section id="não-viés" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="não-viés"><span class="header-section-number">5.4.1</span> Não viés</h3>
+<p>Ambos os estimadores são não viesados:</p>
+<p><span class="math display">\[
+E[\hat{\beta}_0] = \beta_0
+\qquad \text{e} \qquad
+E[\hat{\beta}_1] = \beta_1.
+\]</span> Um estimador é dito <strong>não viesado</strong> quando sua esperança coincide com o parâmetro verdadeiro. No presente caso, os estimadores <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são <strong>centrados</strong> em <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>, respectivamente. Em termos frequentistas, isso significa que, sob repetição hipotética do processo amostral nas mesmas condições, a média das estimativas convergiria para os valores verdadeiros.</p>
+<p>A demonstração formal desse resultado baseia-se na linearidade do operador esperança e na hipótese de exogeneidade fraca <span class="math inline">\(E[\varepsilon_i\mid X_i]=0\)</span>, e pode ser consultada no Apêndice de Demonstrações {#demo}. Conceitualmente, o ponto central é que, ao condicionar em <span class="math inline">\(X\)</span>, o erro não contém componente sistemática capaz de deslocar, em média, os estimadores.</p>
+</section>
+<section id="variâncias-e-covariância-dos-estimadores" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="variâncias-e-covariância-dos-estimadores"><span class="header-section-number">5.4.2</span> Variâncias e covariância dos estimadores</h3>
+<p>As variâncias dos estimadores são dadas por</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_0) =  \left(\frac{1}{n} + \frac{\bar{X}^2}{S_{xx}}\right)\sigma^2,
+\qquad
+Var(\hat{\beta}_1) = \frac{1}{S_{xx}}\sigma^2,
+\]</span></p>
+<p>e a covariância entre eles é</p>
+<p><span class="math display">\[
+Cov(\hat{\beta}_0,\hat{\beta}_1) = - \frac{\bar{X}}{S_{xx}}\sigma^2.
+\]</span></p>
+<p>Essas expressões decorrem diretamente da representação linear dos estimadores em função dos <span class="math inline">\(Y_i\)</span> e das hipóteses sobre a estrutura de variância-covariância dos erros. A demonstração detalhada também pode ser vista no Apêndice de Demonstrações {#demo} (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Algumas interpretações conceituais importantes emergem dessas fórmulas:</p>
+<ol type="1">
+<li><p><strong>Influência da dispersão de <span class="math inline">\(X\)</span></strong>: quanto maior <span class="math inline">\(S_{xx}\)</span>, menor <span class="math inline">\(Var(\hat{\beta}_1)\)</span>. Portanto, amostras com maior variabilidade em <span class="math inline">\(X\)</span> contêm mais informação sobre a inclinação da reta. Se os valores de <span class="math inline">\(X\)</span> estiverem muito concentrados, a estimativa da inclinação torna-se imprecisa.</p></li>
+<li><p><strong>Dependência do intercepto em relação à origem</strong>: a variância de <span class="math inline">\(\hat{\beta}_0\)</span> depende de <span class="math inline">\(\bar X\)</span>. Quanto mais distante a média de <span class="math inline">\(X\)</span> estiver da origem, maior será a variância do intercepto, refletindo o fato de que <span class="math inline">\(\hat\beta_0\)</span> é obtido por extrapolação da reta até <span class="math inline">\(X=0\)</span>.</p></li>
+<li><p><strong>Covariância negativa</strong>: quando <span class="math inline">\(\bar X&gt;0\)</span>, a covariância entre <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> é negativa. Isso indica que uma estimativa maior da inclinação tende a ser compensada por uma estimativa menor do intercepto, preservando a propriedade geométrica de que a reta ajustada passa por <span class="math inline">\((\bar X,\bar Y)\)</span>.</p></li>
+</ol>
+<p>Do ponto de vista geométrico, essas propriedades decorrem da ortogonalidade dos resíduos aos regressores, isto é,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i = 0
+\qquad \text{e} \qquad
+\sum_{i=1}^n X_i \hat\varepsilon_i = 0.
+\]</span></p>
+<p>Essas condições são equivalentes às equações normais e garantem que a projeção de <span class="math inline">\(Y\)</span> sobre o subespaço gerado por <span class="math inline">\(1\)</span> e <span class="math inline">\(X\)</span> seja ortogonal ao vetor de resíduos. A conexão entre ortogonalidade e estrutura de variâncias é discutida em textos clássicos de regressão linear (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+</section>
+<section id="estimativa-de-sigma2-graus-de-liberdade-e-não-viés" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="estimativa-de-sigma2-graus-de-liberdade-e-não-viés"><span class="header-section-number">5.4.3</span> Estimativa de <span class="math inline">\(\sigma^2\)</span> (graus de liberdade e não viés)</h3>
+<p>Definindo a <strong>soma dos quadrados dos resíduos</strong> como</p>
+<p><span class="math display">\[
+SQRes = \sum_{i=1}^n (Y_i - \hat{Y}_i)^2,
+\]</span></p>
+<p>temos que</p>
+<p><span class="math display">\[
+E[SQRes] = (n-2)\sigma^2.
+\]</span> A demonstração desse resultado utiliza a decomposição ortogonal do vetor <span class="math inline">\(Y\)</span> em componente ajustada e componente residual, podendo ser consultada no Apêndice de Demonstrações {#demo}.</p>
+<p>Assim, o estimador</p>
+<p><span class="math display">\[
+s^2 = \frac{SQRes}{n-2}
+\]</span></p>
+<p>é <strong>não viesado</strong> para a variância dos erros:</p>
+<p><span class="math display">\[
+E[s^2] = \sigma^2.
+\]</span> Os dois graus de liberdade subtraídos refletem a estimação dos dois parâmetros do modelo <span class="math inline">\((\beta_0, \beta_1)\)</span>. Essa correção garante que a variabilidade residual não seja subestimada pelo fato de termos ajustado uma reta aos dados.</p>
+<p>Na prática, substitui-se <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(s^2\)</span> nas expressões de <span class="math inline">\(Var(\hat\beta_0)\)</span> e <span class="math inline">\(Var(\hat\beta_1)\)</span>, obtendo-se estimativas dos erros-padrão. Observe que até aqui <strong>não foi necessária a suposição de normalidade</strong>: as propriedades de não viés e as fórmulas de variância decorrem apenas das hipóteses de média zero, homoscedasticidade e ausência de correlação entre erros (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Portanto, os estimadores de MQO no MRLS apresentam um conjunto de propriedades fundamentais: são <strong>não viesados</strong>, possuem <strong>variâncias explicitamente caracterizadas</strong>, exibem <strong>covariância estrutural negativa</strong> entre intercepto e inclinação e permitem a construção de um <strong>estimador não viesado de <span class="math inline">\(\sigma^2\)</span></strong> a partir dos resíduos.</p>
+<p>Essas características asseguram a solidez probabilística do método sob hipóteses relativamente gerais e preparam o terreno para a próxima questão natural: dentro da classe dos estimadores lineares não viesados, seria possível obter variâncias menores? O <strong>Teorema de Gauss–Markov</strong> responde negativamente a essa pergunta, estabelecendo a eficiência relativa do MQO.</p>
+</section>
+</section>
+<section id="teorema-de-gaussmarkov" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="teorema-de-gaussmarkov"><span class="header-section-number">5.5</span> Teorema de Gauss–Markov</h2>
+<div class="callout callout-style-default callout-important callout-titled" title="Teorema (Gauss--Markov)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Teorema (Gauss–Markov)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No modelo de regressão linear simples</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \quad i=1,2,\dots,n,
+\]</span> sob as hipóteses</p>
+<p><span class="math display">\[
+E[\varepsilon_i\mid X_i]=0,
+\qquad
+Var(\varepsilon_i\mid X_i)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X_i,X_j)=0 \ (\forall i\neq j),
+\]</span></p>
+<p>os estimadores de mínimos quadrados ordinários são <strong>lineares em <span class="math inline">\(Y\)</span></strong>, <strong>não viesados</strong> e possuem <strong>variância mínima</strong> dentro da classe de todos os estimadores lineares não viesados dos parâmetros <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+</div>
+<p>Em outras palavras, se restringirmos nossa atenção a estimadores que sejam combinações lineares das observações <span class="math inline">\(Y_i\)</span> e que sejam não viesados para os parâmetros verdadeiros, então nenhum outro estimador dessa classe terá variância menor que a dos estimadores de MQO. Essa é a essência do qualificativo <em>best</em>: não significa “melhor entre todos os estimadores possíveis”, mas “melhor dentro da classe dos estimadores lineares não viesados”.</p>
+<p>Este teorema organiza três ideias fundamentais:</p>
+<ol type="1">
+<li><strong>Linearidade do estimador</strong>: o estimador pode ser escrito como combinação linear das respostas observadas.<br>
+</li>
+<li><strong>Não viés</strong>: sua esperança coincide com o parâmetro verdadeiro.<br>
+</li>
+<li><strong>Eficiência relativa</strong>: entre todos os estimadores que satisfazem (1) e (2), o MQO apresenta a menor variância.</li>
+</ol>
+<p>O resultado não depende da normalidade dos erros. Essa é uma distinção crucial: a normalidade é necessária apenas quando se deseja obter distribuições exatas finitas para estatísticas. A propriedade BLUE decorre exclusivamente da estrutura de média e variância do modelo linear clássico (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Geometricamente, o teorema está intimamente ligado à interpretação do MQO como projeção ortogonal do vetor <span class="math inline">\(Y\)</span> no subespaço gerado pelos regressores. A projeção ortogonal é, por construção, o vetor ajustado que minimiza a distância quadrática a <span class="math inline">\(Y\)</span>. A minimização da distância quadrática no espaço amostral se traduz, no plano probabilístico, em minimização da variância entre estimadores lineares não viesados. Essa ponte entre geometria e probabilidade é um dos aspectos mais profundos do modelo linear.</p>
+<p>É importante enfatizar também o alcance do resultado. O teorema não afirma que o MQO é o estimador de menor variância entre todos os estimadores imagináveis. Métodos não lineares ou estimadores viesados podem, em certos contextos, apresentar menor erro quadrático médio. O que o Teorema de Gauss–Markov garante é a <strong>otimalidade dentro da classe linear não viesada</strong>, uma classe ampla e natural no contexto da regressão.</p>
+<p>A demonstração formal do teorema, baseada em argumentos de decomposição de variância e ortogonalidade, pode ser consultada no Apêndice de Demonstrações {#demo}.</p>
+<p>Em termos práticos, o teorema fornece a base teórica que sustenta o uso do MQO como método padrão de estimação em regressão linear. Ele mostra que, sob hipóteses relativamente fracas e sem necessidade de normalidade, o procedimento adotado é eficiente dentro de uma classe ampla de estimadores. Essa combinação de simplicidade algébrica, interpretação geométrica clara e fundamentação probabilística sólida explica por que o MQO ocupa posição central na estatística aplicada e na econometria.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-casella2002" class="csl-entry" role="listitem">
+Casella, George, e Roger L. Berger. 2002. <em>Statistical Inference</em>. 2º ed. Pacific Grove: Duxbury.
+</div>
+<div id="ref-draper1998" class="csl-entry" role="listitem">
+Draper, Norman R., e Harry Smith. 1998. <em>Applied Regression Analysis</em>. 3º ed. New York: John Wiley &amp; Sons.
+</div>
+<div id="ref-gelman2014" class="csl-entry" role="listitem">
+Gelman, Andrew, John B. Carlin, Hal S. Stern, David B. Dunson, Aki Vehtari, e Donald B. Rubin. 2014. <em>Bayesian Data Analysis</em>. 3º ed. CRC Press.
+</div>
+<div id="ref-kutner2005" class="csl-entry" role="listitem">
+Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+</div>
+<div id="ref-montgomery2021" class="csl-entry" role="listitem">
+Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+</div>
+<div id="ref-weisberg2005" class="csl-entry" role="listitem">
+Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. New York: Wiley.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./mrls.html" class="pagination-link" aria-label="O MRLS como Modelo para a Média Condicional">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">O MRLS como Modelo para a Média Condicional</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./mrls_inferencia.html" class="pagination-link" aria-label="Inferência no MRLS com erros normais">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Inferência no MRLS com erros normais</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

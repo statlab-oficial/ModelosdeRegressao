@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Diagnóstico e Avaliação no MRLS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mrls_transf.html" rel="next">
+<link href="./mrls_testes.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrls.html">Parte II — Modelo de Regressão Linear Simples (MRLS)</a></li><li class="breadcrumb-item"><a href="./mrls_diagnostico.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Modelagem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução e Panorama dos Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelagem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelagem Estatística e Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Modelo de Regressão Linear Simples (MRLS)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">O MRLS como Modelo para a Média Condicional</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Inferência no MRLS com erros normais</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_testes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses e ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_diagnostico.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_transf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Transformações nas Variáveis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_compara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Comparação de Modelos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Modelo de Regressão Linear Simples (MRLM)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Apêndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_matrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#por-que-analisar-resíduos" id="toc-por-que-analisar-resíduos" class="nav-link active" data-scroll-target="#por-que-analisar-resíduos"><span class="header-section-number">8.1</span> Por que analisar resíduos?</a></li>
+  <li><a href="#tipos-de-resíduos-e-propriedades" id="toc-tipos-de-resíduos-e-propriedades" class="nav-link" data-scroll-target="#tipos-de-resíduos-e-propriedades"><span class="header-section-number">8.2</span> Tipos de resíduos e propriedades</a>
+  <ul class="collapse">
+  <li><a href="#resíduos-ordinários" id="toc-resíduos-ordinários" class="nav-link" data-scroll-target="#resíduos-ordinários"><span class="header-section-number">8.2.1</span> Resíduos ordinários</a></li>
+  <li><a href="#resíduos-padronizados" id="toc-resíduos-padronizados" class="nav-link" data-scroll-target="#resíduos-padronizados"><span class="header-section-number">8.2.2</span> Resíduos padronizados</a></li>
+  <li><a href="#resíduos-estudentizados-externos" id="toc-resíduos-estudentizados-externos" class="nav-link" data-scroll-target="#resíduos-estudentizados-externos"><span class="header-section-number">8.2.3</span> Resíduos estudentizados (externos)</a></li>
+  </ul></li>
+  <li><a href="#influência-alavancagem-e-leitura-conjunta-dos-resíduos" id="toc-influência-alavancagem-e-leitura-conjunta-dos-resíduos" class="nav-link" data-scroll-target="#influência-alavancagem-e-leitura-conjunta-dos-resíduos"><span class="header-section-number">8.3</span> Influência, alavancagem e leitura conjunta dos resíduos</a>
+  <ul class="collapse">
+  <li><a href="#relação-entre-discrepância-alavancagem-e-influência" id="toc-relação-entre-discrepância-alavancagem-e-influência" class="nav-link" data-scroll-target="#relação-entre-discrepância-alavancagem-e-influência"><span class="header-section-number">8.3.1</span> Relação entre discrepância, alavancagem e influência</a></li>
+  <li><a href="#alavancagem-no-mrls" id="toc-alavancagem-no-mrls" class="nav-link" data-scroll-target="#alavancagem-no-mrls"><span class="header-section-number">8.3.2</span> Alavancagem no MRLS</a></li>
+  <li><a href="#conexão-entre-alavancagem-e-variância-residual" id="toc-conexão-entre-alavancagem-e-variância-residual" class="nav-link" data-scroll-target="#conexão-entre-alavancagem-e-variância-residual"><span class="header-section-number">8.3.3</span> Conexão entre alavancagem e variância residual</a></li>
+  <li><a href="#síntese-diagnóstica" id="toc-síntese-diagnóstica" class="nav-link" data-scroll-target="#síntese-diagnóstica"><span class="header-section-number">8.3.4</span> Síntese diagnóstica</a></li>
+  <li><a href="#resumo-comparativo-dos-resíduos" id="toc-resumo-comparativo-dos-resíduos" class="nav-link" data-scroll-target="#resumo-comparativo-dos-resíduos"><span class="header-section-number">8.3.5</span> Resumo comparativo dos resíduos</a></li>
+  </ul></li>
+  <li><a href="#testes-formais-dos-resíduos" id="toc-testes-formais-dos-resíduos" class="nav-link" data-scroll-target="#testes-formais-dos-resíduos"><span class="header-section-number">8.4</span> Testes formais dos resíduos</a>
+  <ul class="collapse">
+  <li><a href="#teste-para-assimetria-skewness" id="toc-teste-para-assimetria-skewness" class="nav-link" data-scroll-target="#teste-para-assimetria-skewness"><span class="header-section-number">8.4.1</span> Teste para Assimetria (Skewness)</a></li>
+  <li><a href="#teste-para-curtose-kurtosis" id="toc-teste-para-curtose-kurtosis" class="nav-link" data-scroll-target="#teste-para-curtose-kurtosis"><span class="header-section-number">8.4.2</span> Teste para Curtose (Kurtosis)</a></li>
+  <li><a href="#omnibus-test-dagostinopearson" id="toc-omnibus-test-dagostinopearson" class="nav-link" data-scroll-target="#omnibus-test-dagostinopearson"><span class="header-section-number">8.4.3</span> 3. Omnibus Test (D’Agostino–Pearson)</a></li>
+  <li><a href="#jarquebera-jb" id="toc-jarquebera-jb" class="nav-link" data-scroll-target="#jarquebera-jb"><span class="header-section-number">8.4.4</span> 4. Jarque–Bera (JB)</a></li>
+  </ul></li>
+  <li><a href="#diagnóstico-gráfico-do-mrls" id="toc-diagnóstico-gráfico-do-mrls" class="nav-link" data-scroll-target="#diagnóstico-gráfico-do-mrls"><span class="header-section-number">8.5</span> Diagnóstico gráfico do MRLS</a>
+  <ul class="collapse">
+  <li><a href="#resíduos-vs-ajustados-linearidade-e-homoscedasticidade" id="toc-resíduos-vs-ajustados-linearidade-e-homoscedasticidade" class="nav-link" data-scroll-target="#resíduos-vs-ajustados-linearidade-e-homoscedasticidade"><span class="header-section-number">8.5.1</span> Resíduos vs ajustados (linearidade e homoscedasticidade)</a></li>
+  <li><a href="#resíduos-vs-x-forma-funcional" id="toc-resíduos-vs-x-forma-funcional" class="nav-link" data-scroll-target="#resíduos-vs-x-forma-funcional"><span class="header-section-number">8.5.2</span> Resíduos vs <span class="math inline">\(X\)</span> (forma funcional)</a></li>
+  <li><a href="#resíduos-estudentizados-vs-valores-ajustados-outliers-estrutura" id="toc-resíduos-estudentizados-vs-valores-ajustados-outliers-estrutura" class="nav-link" data-scroll-target="#resíduos-estudentizados-vs-valores-ajustados-outliers-estrutura"><span class="header-section-number">8.5.3</span> Resíduos estudentizados vs valores ajustados (outliers + estrutura)</a></li>
+  <li><a href="#qq-plot-normalidade" id="toc-qq-plot-normalidade" class="nav-link" data-scroll-target="#qq-plot-normalidade"><span class="header-section-number">8.5.4</span> QQ-plot (normalidade)</a></li>
+  <li><a href="#histograma-assimetria-e-caudas" id="toc-histograma-assimetria-e-caudas" class="nav-link" data-scroll-target="#histograma-assimetria-e-caudas"><span class="header-section-number">8.5.5</span> Histograma (assimetria e caudas)</a></li>
+  <li><a href="#resíduos-estudentizados-vs-índice-pontos-atípicos" id="toc-resíduos-estudentizados-vs-índice-pontos-atípicos" class="nav-link" data-scroll-target="#resíduos-estudentizados-vs-índice-pontos-atípicos"><span class="header-section-number">8.5.6</span> Resíduos estudentizados vs índice (pontos atípicos)</a></li>
+  <li><a href="#resíduos-estudentizados-ao-quadrado-vs-valores-ajustados-heteroscedasticidade-influência" id="toc-resíduos-estudentizados-ao-quadrado-vs-valores-ajustados-heteroscedasticidade-influência" class="nav-link" data-scroll-target="#resíduos-estudentizados-ao-quadrado-vs-valores-ajustados-heteroscedasticidade-influência"><span class="header-section-number">8.5.7</span> Resíduos estudentizados ao quadrado vs valores ajustados (heteroscedasticidade / influência)</a></li>
+  <li><a href="#alavancagem-vs-resíduos-estudentizados-influência-cook" id="toc-alavancagem-vs-resíduos-estudentizados-influência-cook" class="nav-link" data-scroll-target="#alavancagem-vs-resíduos-estudentizados-influência-cook"><span class="header-section-number">8.5.8</span> Alavancagem vs resíduos estudentizados (influência / Cook)</a></li>
+  </ul></li>
+  <li><a href="#aspectos-computacionais-para-resíduos-no-r" id="toc-aspectos-computacionais-para-resíduos-no-r" class="nav-link" data-scroll-target="#aspectos-computacionais-para-resíduos-no-r"><span class="header-section-number">8.6</span> Aspectos computacionais para resíduos no R</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrls.html">Parte II — Modelo de Regressão Linear Simples (MRLS)</a></li><li class="breadcrumb-item"><a href="./mrls_diagnostico.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="por-que-analisar-resíduos" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="por-que-analisar-resíduos"><span class="header-section-number">8.1</span> Por que analisar resíduos?</h2>
+<p>Após o ajuste de um modelo de regressão, é essencial verificar se as <strong>hipóteses do MRLS</strong> do modelos para os erros aleatórios foram atendidas. Essa verificação se dá por diversos meios, sendo algumas dela via a análise dos <strong>resíduos</strong>.</p>
+<p>Os resíduos mais intuitivos são definidos como:</p>
+<p><span class="math display">\[
+e_i = Y_i - \hat{Y}_i, \quad i=1,2,\dots,n.
+\]</span></p>
+<p>Estes resíduos representam a parte de <span class="math inline">\(Y\)</span> que <strong>não foi explicada pelo modelo</strong>. Enquanto os erros verdadeiros <span class="math inline">\(\varepsilon_i\)</span> são inobserváveis, os resíduos são acessíveis e servem como suas aproximações.</p>
+<p>Um ponto conceitual importante é distinguir “hipóteses sobre os erros” de “propriedades dos resíduos”. As hipóteses clássicas do MRLS são formuladas para os <strong>erros aleatórios</strong> <span class="math inline">\(\varepsilon_i\)</span> (componentes não observáveis do mecanismo gerador de dados). Já os resíduos <span class="math inline">\(e_i\)</span> são funções dos dados e dos estimadores, logo carregam restrições algébricas impostas pelo MQO. Assim, mesmo que o MRLS seja verdadeiro (isto é, as hipóteses sobre <span class="math inline">\(\varepsilon_i\)</span> sejam satisfeitas), os resíduos <strong>não</strong> se comportam como uma amostra i.i.d. de uma mesma distribuição; em particular, eles são correlacionados e apresentam variâncias diferentes ao longo de <span class="math inline">\(i\)</span> a dependendo da alavancagem (<span class="citation" data-cites="searle2016">Searle (<a href="references.html#ref-searle2016" role="doc-biblioref">2016</a>)</span>; <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>).</p>
+<p>As principais hipóteses do modelo para os erros (<span class="math inline">\(\varepsilon\)</span>) do MRLS são:</p>
+<ul>
+<li><p>Média zero <span class="math inline">\((E[\varepsilon_i] = 0)\)</span></p></li>
+<li><p>Variância constante <span class="math inline">\((Var[\varepsilon_i] = \sigma^2)\)</span></p></li>
+<li><p>Não correlação entre os erros <span class="math inline">\((cov[\varepsilon_i,\varepsilon_j] = 0, \forall i \neq j)\)</span></p></li>
+</ul>
+<p>Podem ser feitas hipóteses adicionais sobre a forma da distribuição dos erros, como assumir certa assimetria, curtose específica ou até uma distribuição conhecida.</p>
+<p>A suposição (hipótese) distribuição mais considerada para a distribuição dos erros é:</p>
+<ul>
+<li>Normalidade <span class="math inline">\((\varepsilon_i \sim N(0,\sigma^2))\)</span>.</li>
+</ul>
+<p>Um modelo só pode ser considerado adequado se os resíduos se comportarem como erros aleatórios: sem tendência sistemática, com variância aproximadamente constante, não correlacionaos e, em muitos contextos, aproximadamente normais. Em prática aplicada, é útil interpretar isso como: <strong>(i)</strong> a média condicional foi bem especificada (linearidade na forma funcional), <strong>(ii)</strong> a variância condicional não muda de forma sistemática (homocedasticidade) e <strong>(iii)</strong> não há estrutura temporal/espacial remanescente (independência), além de <strong>(iv)</strong> normalidade como hipótese adicional que viabiliza inferência exata e diagnósticos probabilísticos baseados em caudas (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+</section>
+<section id="tipos-de-resíduos-e-propriedades" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="tipos-de-resíduos-e-propriedades"><span class="header-section-number">8.2</span> Tipos de resíduos e propriedades</h2>
+<section id="resíduos-ordinários" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="resíduos-ordinários"><span class="header-section-number">8.2.1</span> Resíduos ordinários</h3>
+<p>O ponto de partida são os <strong>resíduos ordinários</strong>:</p>
+<p><span class="math display">\[
+e_i = Y_i - \hat{Y}_i.
+\]</span></p>
+<p>Eles indicam o desvio direto entre a observação e a reta ajustada. Por exemplo, <span class="math inline">\(e_i &gt; 0\)</span> mostra que o modelo <strong>subestimou</strong> <span class="math inline">\(Y_i\)</span>, enquanto <span class="math inline">\(e_i &lt; 0\)</span> mostra que o modelo <strong>superestimou</strong>.</p>
+<p>Do ponto de vista conceitual, o resíduo é uma <em>estimativa observável</em> do erro aleatório <span class="math inline">\(\varepsilon_i\)</span>. Como <span class="math inline">\(\varepsilon_i\)</span> não é observável, toda a etapa de diagnóstico repousa sobre a análise do comportamento dos <span class="math inline">\(e_i\)</span>. Entretanto, é fundamental compreender que resíduos <strong>não são</strong> os erros verdadeiros: eles dependem dos parâmetros estimados e, portanto, carregam estrutura imposta pelo método de mínimos quadrados <span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="references.html#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>.</p>
+<section id="propriedades-básicas-dos-resíduos-ordinários" class="level4" data-number="8.2.1.1">
+<h4 data-number="8.2.1.1" class="anchored" data-anchor-id="propriedades-básicas-dos-resíduos-ordinários"><span class="header-section-number">8.2.1.1</span> Propriedades básicas dos resíduos ordinários</h4>
+<p>O método dos mínimos quadrados impõe três propriedades estruturais:</p>
+<ol type="1">
+<li><p><strong>Soma nula</strong> <span class="math display">\[
+\sum_{i=1}^n e_i = 0.
+\]</span> A reta ajustada sempre passa pelo ponto médio amostral <span class="math inline">\((\bar X, \bar Y)\)</span>.</p></li>
+<li><p><strong>Ortogonalidade com o preditor</strong> <span class="math display">\[
+\sum_{i=1}^n e_i X_i = 0.
+\]</span> Não há associação linear entre os resíduos e a variável explicativa. Caso existisse, o modelo poderia ser melhorado ajustando novamente a inclinação.</p></li>
+<li><p><strong>Soma de quadrados dos resíduos</strong> <span class="math display">\[
+\sum_{i=1}^n e_i^2 = SQ_{Res},
+\]</span> isto é, os resíduos concentram exatamente a variabilidade não explicada pelo modelo.</p></li>
+</ol>
+<p>Essas propriedades decorrem diretamente das <strong>equações normais do método dos mínimos quadrados</strong> no caso univariado, obtidas pela minimização de <span class="math inline">\(\sum (Y_i - \beta_0 - \beta_1 X_i)^2\)</span> em relação a <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> (<span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<blockquote class="blockquote">
+<p><strong>Apêndice de Demonstrações {#demo}:</strong> as propriedades acima são obtidas substituindo <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> nas expressões dos resíduos e manipulando os somatórios resultantes das equações normais.</p>
+</blockquote>
+<p>Essas três propriedades têm implicações importantes: mesmo que os erros verdadeiros sejam independentes e homocedásticos, os resíduos não são independentes entre si e tampouco possuem variância constante.</p>
+</section>
+<section id="esperança-variância-covariância-e-distribuição-dos-resíduos-ordinários" class="level4" data-number="8.2.1.2">
+<h4 data-number="8.2.1.2" class="anchored" data-anchor-id="esperança-variância-covariância-e-distribuição-dos-resíduos-ordinários"><span class="header-section-number">8.2.1.2</span> Esperança, variância, covariância e distribuição dos resíduos ordinários</h4>
+<ol type="1">
+<li><strong>Esperança</strong></li>
+</ol>
+<p><span class="math display">\[
+E[e_i] = 0.
+\]</span></p>
+<p>Sob as hipóteses do MRLS, cada resíduo tem média zero. Isso significa que, em termos probabilísticos, o modelo não superestima nem subestima sistematicamente a resposta.</p>
+<ol start="2" type="1">
+<li><strong>Variância</strong></li>
+</ol>
+<p><span class="math display">\[
+Var(e_i) = \sigma^2 (1 - h_{ii}),
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+h_{ii} = \frac{1}{n} + \frac{(x_i - \bar X)^2}{S_{xx}}.
+\]</span></p>
+<p>A quantidade <span class="math inline">\(h_{ii}\)</span> é chamada de <strong>alavancagem</strong> da observação <span class="math inline">\(i\)</span>. Ela mede o quanto o valor de <span class="math inline">\(X_i\)</span> influencia o próprio ajuste <span class="math inline">\(\hat Y_i\)</span>.</p>
+<p>Observações com valores de <span class="math inline">\(X_i\)</span> muito afastados da média <span class="math inline">\(\bar X\)</span> apresentam maior alavancagem. Como consequência, possuem menor variância residual, pois “ancoram” a reta ajustada com maior intensidade (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<ol start="3" type="1">
+<li><strong>Covariância</strong></li>
+</ol>
+<p><span class="math display">\[
+Cov(e_i, e_j) = -\sigma^2 h_{ij}, \quad i \neq j,
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+h_{ij} = \frac{1}{n} + \frac{(x_i - \bar X)(x_j - \bar X)}{S_{xx}}.
+\]</span></p>
+<p>Portanto, os resíduos são <strong>correlacionados entre si</strong>. Isso é consequência direta do fato de que todos os resíduos dependem dos mesmos estimadores <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> e, consequentemente, os resíduos não podem ser tratados como uma nova amostra independente de erros aleatórios (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<ol start="4" type="1">
+<li><strong>Distribuição</strong></li>
+</ol>
+<p>Se assumimos normalidade para os erros aleatórios,</p>
+<p><span class="math display">\[
+\varepsilon_i \sim N(0,\sigma^2),
+\]</span></p>
+<p>então os resíduos ordinários também seguem distribuição normal, pois são combinações lineares das variáveis <span class="math inline">\(\varepsilon_i\)</span>:</p>
+<p><span class="math display">\[
+e_i \sim N\!\big(0,\sigma^2(1-h_{ii})\big).
+\]</span></p>
+<p>Essa normalidade é exata sob a hipótese de erros normais. Caso a normalidade não seja assumida, a distribuição dos resíduos pode ser aproximada por resultados assintóticos.</p>
+<blockquote class="blockquote">
+<p><strong>Apêndice de Demonstrações {#demo}:</strong> as expressões de variância e covariância dos resíduos são obtidas substituindo <span class="math inline">\(e_i = Y_i - \hat Y_i\)</span> e utilizando as propriedades das variâncias de combinações lineares, juntamente com as expressões explícitas de <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>.</p>
+</blockquote>
+</section>
+<section id="implicações-para-diagnóstico" class="level4" data-number="8.2.1.3">
+<h4 data-number="8.2.1.3" class="anchored" data-anchor-id="implicações-para-diagnóstico"><span class="header-section-number">8.2.1.3</span> Implicações para diagnóstico</h4>
+<p>Esses resultados mostram que, mesmo quando as hipóteses usuais de média zero, variância constante, não correlação e normalidade para os erros aleatórios são satisfeitas, os resíduos ordinários apresentam:</p>
+<ul>
+<li>variância não constante (dependente de <span class="math inline">\(h_{ii}\)</span>),</li>
+<li>correlação entre si,</li>
+<li>dependência dos parâmetros estimados.</li>
+</ul>
+<p>Portanto, embora úteis para visualização inicial e interpretação direta do ajuste, os resíduos ordinários não são ideais para comparações diretas entre observações com diferentes níveis de alavancagem.</p>
+<p>Essa limitação motiva a construção de resíduos transformados, como os <strong>resíduos padronizados</strong> e os <strong>resíduos estudentizados</strong>, que ajustam explicitamente a variabilidade individual e permitem diagnósticos mais adequados de pontos discrepantes e violações das hipóteses do modelo (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+</section>
+</section>
+<section id="resíduos-padronizados" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="resíduos-padronizados"><span class="header-section-number">8.2.2</span> Resíduos padronizados</h3>
+<p>Com o objetivo de tornar os resíduos <strong>comparáveis entre si</strong>, ajustando a diferença de variâncias individuais, definem-se os <strong>resíduos padronizados</strong> como</p>
+<p><span class="math display">\[
+r_i = \frac{e_i}{s \sqrt{1 - h_{ii}}},
+\quad \text{com} \quad
+s^2 = \frac{SQ_{Res}}{n-2}.
+\]</span></p>
+<p>Aqui, <span class="math inline">\(e_i\)</span> é o resíduo ordinário, <span class="math inline">\(h_{ii}\)</span> é a alavancagem da observação <span class="math inline">\(i\)</span> e <span class="math inline">\(s^2\)</span> é o estimador não viesado de <span class="math inline">\(\sigma^2\)</span>. A ideia central é simples: como</p>
+<p><span class="math display">\[
+Var(e_i) = \sigma^2 (1 - h_{ii}),
+\]</span></p>
+<p>dividir <span class="math inline">\(e_i\)</span> por uma estimativa de seu desvio-padrão elimina a heterogeneidade de variâncias e produz uma quantidade adimensional.</p>
+<p>Do ponto de vista conceitual, essa padronização desempenha papel análogo ao de uma estatística <span class="math inline">\(z\)</span>: ela mede o “tamanho” do desvio em unidades de desvio-padrão estimado.</p>
+<section id="propriedades-fundamentais" class="level4" data-number="8.2.2.1">
+<h4 data-number="8.2.2.1" class="anchored" data-anchor-id="propriedades-fundamentais"><span class="header-section-number">8.2.2.1</span> Propriedades fundamentais</h4>
+<p>Sob as hipóteses do MRLS:</p>
+<ol type="1">
+<li><p><strong>Esperança aproximada</strong> <span class="math display">\[
+E[r_i] \approx 0.
+\]</span></p></li>
+<li><p><strong>Variância aproximada</strong> <span class="math display">\[
+Var(r_i) \approx 1.
+\]</span></p></li>
+</ol>
+<p>A aproximação decorre do fato de que <span class="math inline">\(s^2\)</span> é uma estimativa de <span class="math inline">\(\sigma^2\)</span>. Se <span class="math inline">\(\sigma^2\)</span> fosse conhecido, teríamos exatamente</p>
+<p><span class="math display">\[
+\frac{e_i}{\sigma \sqrt{1-h_{ii}}} \sim N(0,1),
+\]</span></p>
+<p>sob normalidade dos erros.</p>
+<p>Entretanto, como <span class="math inline">\(\sigma^2\)</span> é substituído por <span class="math inline">\(s^2\)</span>, a estatística passa a envolver uma razão entre variáveis aleatórias dependentes.</p>
+</section>
+<section id="distribuição-dos-resíduos-padronizados" class="level4" data-number="8.2.2.2">
+<h4 data-number="8.2.2.2" class="anchored" data-anchor-id="distribuição-dos-resíduos-padronizados"><span class="header-section-number">8.2.2.2</span> Distribuição dos resíduos padronizados</h4>
+<p>Se os erros seguem</p>
+<p><span class="math display">\[
+\varepsilon_i \sim N(0,\sigma^2),
+\]</span></p>
+<p>então, para amostras moderadas ou grandes, vale a aproximação:</p>
+<p><span class="math display">\[
+r_i \approx t_{n-2}.
+\]</span></p>
+<p>A aproximação não é exata porque <span class="math inline">\(e_i\)</span> e <span class="math inline">\(s^2\)</span> não são independentes: ambos dependem das mesmas observações e dos mesmos estimadores <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> (<span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Em amostras grandes, pela consistência de <span class="math inline">\(s^2\)</span> para <span class="math inline">\(\sigma^2\)</span>, a distribuição de <span class="math inline">\(r_i\)</span> aproxima-se da normal padrão:</p>
+<p><span class="math display">\[
+r_i \overset{aprox}{\sim} N(0,1).
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong>Apêndice de Demonstrações {#demo}:</strong> a aproximação <span class="math inline">\(r_i \approx t_{n-2}\)</span> decorre da substituição de <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(s^2\)</span> na padronização e do fato de que <span class="math inline">\((n-2)s^2/\sigma^2 \sim \chi^2_{n-2}\)</span> sob normalidade dos erros.</p>
+</blockquote>
+</section>
+<section id="interpretação-prática" class="level4" data-number="8.2.2.3">
+<h4 data-number="8.2.2.3" class="anchored" data-anchor-id="interpretação-prática"><span class="header-section-number">8.2.2.3</span> Interpretação prática</h4>
+<p>Os resíduos padronizados permitem comparar observações com diferentes alavancagens. Um mesmo valor absoluto de resíduo ordinário pode ser pequeno ou grande dependendo de <span class="math inline">\(h_{ii}\)</span>. A padronização corrige esse efeito.</p>
+<p>Uma regra prática frequentemente utilizada é:</p>
+<ul>
+<li><span class="math inline">\(|r_i| &gt; 2\)</span> → possível observação discrepante.</li>
+<li><span class="math inline">\(|r_i| &gt; 3\)</span> → forte indício de discrepância.</li>
+</ul>
+<p>Esses limiares baseiam-se na probabilidade de observar valores extremos sob uma distribuição aproximadamente normal ou <span class="math inline">\(t\)</span>. Por exemplo, sob normalidade, a probabilidade de <span class="math inline">\(|Z|&gt;2\)</span> é aproximadamente 5%.</p>
+<p>Contudo, essa interpretação deve ser feita com cautela:</p>
+<ul>
+<li>Em amostras grandes, é esperado que alguns valores ultrapassem 2 apenas por variabilidade natural.</li>
+<li>Em amostras pequenas, a aproximação pode ser imprecisa.</li>
+<li>A presença de múltiplos testes simultâneos pode inflar a taxa de falsos positivos.</li>
+</ul>
+</section>
+<section id="limitações-conceituais" class="level4" data-number="8.2.2.4">
+<h4 data-number="8.2.2.4" class="anchored" data-anchor-id="limitações-conceituais"><span class="header-section-number">8.2.2.4</span> Limitações conceituais</h4>
+<p>Apesar de mais informativos que os resíduos ordinários, os resíduos padronizados ainda apresentam uma limitação importante: o denominador <span class="math inline">\(s\)</span> é calculado utilizando <strong>todas as observações</strong>, inclusive a própria observação <span class="math inline">\(i\)</span>.</p>
+<p>Assim, um ponto extremo pode inflar <span class="math inline">\(s\)</span>, reduzindo artificialmente seu próprio resíduo padronizado, fenômeno conhecido como <em>masking</em> (mascaramento) (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>).</p>
+<p>Essa limitação motiva a definição dos <strong>resíduos estudentizados externos</strong>, nos quais a variância é estimada excluindo-se a própria observação sob análise.</p>
+<p>Em síntese:</p>
+<ul>
+<li><strong>Resíduos ordinários</strong> medem o erro bruto.</li>
+<li><strong>Resíduos padronizados</strong> tornam os erros comparáveis.</li>
+<li>A padronização é essencial para diagnóstico formal de outliers e para construção de gráficos de resíduos mais informativos.</li>
+</ul>
+<p>Nos próximos tópicos, veremos como a estudentização externa corrige a dependência entre numerador e denominador e fornece uma estatística com distribuição <span class="math inline">\(t\)</span> exata sob as hipóteses do modelo.</p>
+</section>
+</section>
+<section id="resíduos-estudentizados-externos" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="resíduos-estudentizados-externos"><span class="header-section-number">8.2.3</span> Resíduos estudentizados (externos)</h3>
+<p>Os <strong>resíduos estudentizados externos</strong> (também chamados de <em>externally studentized residuals</em> ou <em>deleted residuals</em>) foram propostos no contexto de diagnóstico de regressão para contornar a dependência entre numerador e denominador presente nos resíduos padronizados (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Eles são definidos por</p>
+<p><span class="math display">\[
+t_i^* = \frac{e_i}{s_{(i)} \sqrt{1 - h_{ii}}},
+\]</span></p>
+<p>em que:</p>
+<ul>
+<li><span class="math inline">\(e_i\)</span> é o resíduo ordinário da observação <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(h_{ii}\)</span> é a alavancagem da observação <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(s_{(i)}^2\)</span> é o estimador da variância do erro calculado <strong>excluindo a i-ésima observação</strong>.</li>
+</ul>
+<p>Isto é, <span class="math inline">\(s_{(i)}^2\)</span> é obtido ajustando o modelo com <span class="math inline">\(n-1\)</span> observações, removendo o ponto <span class="math inline">\(i\)</span>. Assim, o denominador não sofre influência direta da própria observação cujo resíduo está sendo avaliado.</p>
+<section id="motivação-conceitual" class="level4" data-number="8.2.3.1">
+<h4 data-number="8.2.3.1" class="anchored" data-anchor-id="motivação-conceitual"><span class="header-section-number">8.2.3.1</span> Motivação conceitual</h4>
+<p>Nos resíduos padronizados,</p>
+<p><span class="math display">\[
+r_i = \frac{e_i}{s \sqrt{1-h_{ii}}},
+\]</span></p>
+<p>Como apresentado anteriormente, o estimador <span class="math inline">\(s^2\)</span> é calculado usando todas as observações. Se a observação <span class="math inline">\(i\)</span> for discrepante, ela pode inflar <span class="math inline">\(s^2\)</span>, reduzindo artificialmente <span class="math inline">\(|r_i|\)</span> e dificultando sua própria detecção.</p>
+<p>Ao substituir <span class="math inline">\(s\)</span> por <span class="math inline">\(s_{(i)}\)</span>, eliminamos essa retroalimentação. O resíduo passa a ser avaliado em relação a um modelo que não foi influenciado por ele mesmo.</p>
+</section>
+<section id="distribuição-exata" class="level4" data-number="8.2.3.2">
+<h4 data-number="8.2.3.2" class="anchored" data-anchor-id="distribuição-exata"><span class="header-section-number">8.2.3.2</span> Distribuição exata</h4>
+<p>Sob as hipóteses do MRLS com erros normais,</p>
+<p><span class="math display">\[
+\varepsilon_i \sim N(0,\sigma^2),
+\]</span></p>
+<p>temos que</p>
+<p><span class="math display">\[
+t_i^* \sim t_{n-3}.
+\]</span></p>
+<p>A perda de um grau de liberdade adicional (em comparação com <span class="math inline">\(t_{n-2}\)</span>) decorre do fato de que a variância foi estimada com <span class="math inline">\(n-3\)</span> graus de liberdade no modelo ajustado sem a observação <span class="math inline">\(i\)</span> (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Essa é uma propriedade importante: diferentemente dos resíduos padronizados, aqui a distribuição <span class="math inline">\(t\)</span> é <strong>exata</strong> sob normalidade dos erros.</p>
+<blockquote class="blockquote">
+<p><strong>Apêndice de Demonstrações {#demo}:</strong> a distribuição exata de <span class="math inline">\(t_i^*\)</span> é obtida mostrando que, sob <span class="math inline">\(H_0\)</span>, o numerador é normal e independente do estimador <span class="math inline">\(s_{(i)}^2\)</span>, o qual é proporcional a uma variável qui-quadrado com <span class="math inline">\(n-3\)</span> graus de liberdade.</p>
+</blockquote>
+</section>
+<section id="interpretação-prática-1" class="level4" data-number="8.2.3.3">
+<h4 data-number="8.2.3.3" class="anchored" data-anchor-id="interpretação-prática-1"><span class="header-section-number">8.2.3.3</span> Interpretação prática</h4>
+<p>Como <span class="math inline">\(t_i^*\)</span> segue exatamente uma distribuição <span class="math inline">\(t\)</span>, podemos utilizar pontos críticos formais para avaliar discrepância individual:</p>
+<ul>
+<li><span class="math inline">\(|t_i^*| &gt; t_{1-\alpha/2,\, n-3}\)</span> → evidência de que a observação <span class="math inline">\(i\)</span> é discrepante ao nível <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+<p>Na prática:</p>
+<ul>
+<li><span class="math inline">\(|t_i^*| &gt; 2\)</span> sugere possível discrepância;</li>
+<li><span class="math inline">\(|t_i^*| &gt; 3\)</span> indica forte indício de outlier, especialmente em amostras moderadas.</li>
+</ul>
+<p>Elevando ao quadrado:</p>
+<p><span class="math display">\[
+t_i^{*2} \sim F_{1,n-3},
+\]</span></p>
+<p>pois o quadrado de uma variável com distribuição <span class="math inline">\(t_k\)</span> segue distribuição <span class="math inline">\(F_{1,k}\)</span> (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Essa relação conecta o diagnóstico individual de observações com a lógica dos testes <span class="math inline">\(F\)</span> discutidos anteriormente.</p>
+</section>
+</section>
+</section>
+<section id="influência-alavancagem-e-leitura-conjunta-dos-resíduos" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="influência-alavancagem-e-leitura-conjunta-dos-resíduos"><span class="header-section-number">8.3</span> Influência, alavancagem e leitura conjunta dos resíduos</h2>
+<p>A etapa mais importante do diagnóstico no MRLS consiste em integrar três dimensões distintas, mas complementares:</p>
+<ul>
+<li>discrepância na variável resposta (<span class="math inline">\(Y\)</span>);</li>
+<li>posição extrema na variável explicativa (<span class="math inline">\(X\)</span>);</li>
+<li>impacto global sobre os estimadores do modelo.</li>
+</ul>
+<p>Essa integração é fundamental para evitar conclusões equivocadas baseadas apenas no tamanho do resíduo.</p>
+<section id="relação-entre-discrepância-alavancagem-e-influência" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="relação-entre-discrepância-alavancagem-e-influência"><span class="header-section-number">8.3.1</span> Relação entre discrepância, alavancagem e influência</h3>
+<p>É importante distinguir conceitualmente:</p>
+<ul>
+<li><strong>Possível outlier em</strong> <span class="math inline">\(Y\)</span>: grande <span class="math inline">\(|t_i^*|\)</span>;</li>
+<li><strong>Alta alavancagem:</strong> grande <span class="math inline">\(h_{ii}\)</span>;</li>
+<li><strong>Observação influente:</strong> combinação de grande <span class="math inline">\(|t_i^*|\)</span> e grande <span class="math inline">\(h_{ii}\)</span>.</li>
+</ul>
+<p>Um ponto pode apresentar alto resíduo, mas baixa alavancagem, afetando pouco a inclinação da reta. Nesse caso, ele é discrepante na resposta, mas não necessariamente influente.</p>
+<p>Por outro lado, uma observação pode ter pequena discrepância em <span class="math inline">\(Y\)</span>, mas alta alavancagem em <span class="math inline">\(X\)</span>, alterando significativamente a inclinação estimada <span class="math inline">\(\hat\beta_1\)</span>. Nesse caso, mesmo com resíduo pequeno, o ponto pode ser estruturalmente influente.</p>
+</section>
+<section id="alavancagem-no-mrls" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="alavancagem-no-mrls"><span class="header-section-number">8.3.2</span> Alavancagem no MRLS</h3>
+<p>A <strong>alavancagem</strong> da observação <span class="math inline">\(i\)</span> é dada por</p>
+<p><span class="math display">\[
+h_{ii} = \frac{1}{n} + \frac{(X_i - \bar X)^2}{S_{xx}},
+\quad \text{com} \quad
+S_{xx} = \sum_{j=1}^n (X_j - \bar X)^2.
+\]</span></p>
+<p>Ela mede o quanto o valor de <span class="math inline">\(X_i\)</span> influencia o próprio ajuste <span class="math inline">\(\hat{Y}_i\)</span>.</p>
+<p>Propriedades importantes no MRLS:</p>
+<ul>
+<li><span class="math inline">\(0 &lt; h_{ii} &lt; 1\)</span>;</li>
+<li><span class="math display">\[
+\sum_{i=1}^n h_{ii} = 2,
+\]</span> pois dois parâmetros são estimados (<span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>);</li>
+<li>a média das alavancagens é <span class="math inline">\(2/n\)</span>.</li>
+</ul>
+<p>Observações com <span class="math inline">\(X_i\)</span> muito afastado da média <span class="math inline">\(\bar X\)</span> possuem maior alavancagem e exercem maior influência geométrica sobre a reta ajustada (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Uma regra prática comum é considerar como potencialmente alta alavancagem valores tais que</p>
+<p><span class="math display">\[
+h_{ii} &gt; \frac{2p}{n},
+\]</span></p>
+<p>em que <span class="math inline">\(p\)</span> é o número de parâmetros do modelo (no MRLS, <span class="math inline">\(p=2\)</span>). Assim, valores acima de <span class="math inline">\(4/n\)</span> merecem atenção especial (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>).</p>
+</section>
+<section id="conexão-entre-alavancagem-e-variância-residual" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="conexão-entre-alavancagem-e-variância-residual"><span class="header-section-number">8.3.3</span> Conexão entre alavancagem e variância residual</h3>
+<p>Recordando que</p>
+<p><span class="math display">\[
+Var(e_i) = \sigma^2 (1 - h_{ii}),
+\]</span></p>
+<p>vemos que observações com maior alavancagem apresentam menor variância residual. Isso ocorre porque esses pontos “puxam” a reta para mais perto de si.</p>
+<p>Portanto, um ponto com alto <span class="math inline">\(h_{ii}\)</span> pode ter resíduo pequeno não porque esteja bem ajustado, mas porque influenciou fortemente o ajuste.</p>
+<p>Essa distinção é conceitualmente importante:</p>
+<ul>
+<li><strong>Resíduo</strong> mede discrepância vertical.</li>
+<li><strong>Alavancagem</strong> mede posição extrema em <span class="math inline">\(X\)</span>.</li>
+<li><strong>Influência</strong> mede alteração no modelo quando a observação é removida.</li>
+</ul>
+</section>
+<section id="síntese-diagnóstica" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="síntese-diagnóstica"><span class="header-section-number">8.3.4</span> Síntese diagnóstica</h3>
+<p>A leitura conjunta pode ser organizada da seguinte forma:</p>
+<ul>
+<li><p><strong>Resíduos grandes + baixa alavancagem</strong><br>
+→ outliers na resposta (<span class="math inline">\(Y\)</span>), com impacto limitado na inclinação.</p></li>
+<li><p><strong>Resíduos pequenos + alta alavancagem</strong><br>
+→ observações potencialmente influentes, mesmo sem grande discrepância aparente.</p></li>
+<li><p><strong>Resíduos grandes + alta alavancagem</strong><br>
+→ casos críticos, com forte potencial de distorcer significativamente o ajuste.</p></li>
+</ul>
+<p>Medidas integradas, como a distância de Cook,</p>
+<p><span class="math display">\[
+D_i = \frac{t_i^{*2}}{2} \cdot \frac{h_{ii}}{1 - h_{ii}},
+\]</span></p>
+<p>quantificam diretamente o quanto os estimadores <span class="math inline">\((\hat\beta_0,\hat\beta_1)\)</span> se alterariam caso a observação <span class="math inline">\(i\)</span> fosse removida (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+</section>
+<section id="resumo-comparativo-dos-resíduos" class="level3" data-number="8.3.5">
+<h3 data-number="8.3.5" class="anchored" data-anchor-id="resumo-comparativo-dos-resíduos"><span class="header-section-number">8.3.5</span> Resumo comparativo dos resíduos</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo de resíduo</th>
+<th>Fórmula</th>
+<th><span class="math inline">\(E(.)\)</span></th>
+<th><span class="math inline">\(Var(.)\)</span></th>
+<th>Distribuição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ordinário <span class="math inline">\(e_i\)</span></td>
+<td><span class="math inline">\(Y_i - \hat Y_i\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(\sigma^2 (1 - h_{ii})\)</span></td>
+<td><span class="math inline">\(N(0, \sigma^2 (1 - h_{ii}))\)</span></td>
+</tr>
+<tr class="even">
+<td>Padronizado <span class="math inline">\(r_i\)</span></td>
+<td><span class="math inline">\(\dfrac{e_i}{s \sqrt{1-h_{ii}}}\)</span></td>
+<td><span class="math inline">\(\approx 0\)</span></td>
+<td><span class="math inline">\(\approx 1\)</span></td>
+<td>Aprox. <span class="math inline">\(t_{n-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Estudentizado <span class="math inline">\(t_i^*\)</span></td>
+<td><span class="math inline">\(\dfrac{e_i}{s_{(i)} \sqrt{1-h_{ii}}}\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(t_{n-3}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Em síntese:</p>
+<ul>
+<li><strong>Resíduos ordinários</strong> fornecem a discrepância bruta.</li>
+<li><strong>Resíduos padronizados</strong> tornam as observações comparáveis.</li>
+<li><strong>Resíduos estudentizados externos</strong> permitem inferência formal com distribuição <span class="math inline">\(t\)</span> exata sob normalidade.</li>
+<li><strong>Alavancagem</strong> identifica observações estruturalmente extremas.</li>
+<li><strong>Medidas de influência</strong> integram discrepância e posição.</li>
+</ul>
+<p>Somente essa leitura integrada permite avaliar adequadamente a robustez do ajuste no MRLS e identificar observações com potencial de comprometer a inferência estatística.</p>
+</section>
+</section>
+<section id="testes-formais-dos-resíduos" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="testes-formais-dos-resíduos"><span class="header-section-number">8.4</span> Testes formais dos resíduos</h2>
+<p>Antes da inspeção gráfica, é possível realizar <strong>testes estatísticos formais</strong> aplicados aos resíduos do MRLS. Esses testes não substituem a análise gráfica, mas fornecem evidência quantitativa sobre possíveis violações das hipóteses clássicas, especialmente <strong>normalidade</strong> e <strong>independência</strong> dos erros.</p>
+<p>É fundamental compreender que tais testes avaliam hipóteses específicas do modelo (por exemplo, normalidade dos erros), e não a “qualidade geral” da regressão. A interpretação correta exige articulação entre teoria, estatística e contexto (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<section id="teste-para-assimetria-skewness" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="teste-para-assimetria-skewness"><span class="header-section-number">8.4.1</span> Teste para Assimetria (Skewness)</h3>
+<p>A estatística de assimetria é definida por</p>
+<p><span class="math display">\[
+S = \frac{\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^3}
+{\left(\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^2\right)^{3/2}},
+\]</span></p>
+<p>cujo valores de referência são:</p>
+<ul>
+<li><span class="math inline">\(S=0\)</span> → simetria;</li>
+<li><span class="math inline">\(S&gt;0\)</span> → cauda longa à direita;</li>
+<li><span class="math inline">\(S&lt;0\)</span> → cauda longa à esquerda.</li>
+</ul>
+<p>Sob a hipótese de normalidade dos resíduos, podemos formular as seguintes hipóteses:</p>
+<p><span class="math display">\[
+H_0: \text{Distribuição simétrica (} S = 0\text{)}
+\]</span></p>
+<p><span class="math display">\[
+H_1: \text{Distribuição assimétrica (} S \neq 0\text{)}
+\]</span></p>
+<p>Para amostras grandes, vale a aproximação assintótica:</p>
+<p><span class="math display">\[
+Z_S = \sqrt{\frac{n}{6}}\, S \sim N(0,1).
+\]</span> Esse teste verifica se há evidência estatística de assimetria na distribuição residual. Valores positivos indicam cauda longa à direita; valores negativos indicam cauda longa à esquerda.</p>
+<p>Assimetria residual pode indicar: - variável resposta naturalmente assimétrica (ex.: tempos, rendas); - necessidade de transformação; - presença de outliers em apenas um lado da distribuição.</p>
+<p>A assimetria detectada estatisticamente pode ser irrelevante do ponto de vista prático se o impacto sobre estimativas e previsões for pequeno. Por isso, a análise gráfica (histograma e QQ-plot) é complementar e essencial (<span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+</section>
+<section id="teste-para-curtose-kurtosis" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="teste-para-curtose-kurtosis"><span class="header-section-number">8.4.2</span> Teste para Curtose (Kurtosis)</h3>
+<p>A curtose é definida por</p>
+<p><span class="math display">\[
+K = \frac{\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^4}
+{\left(\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^2\right)^2},
+\]</span></p>
+<p>com os seguinte valores de referência:</p>
+<ul>
+<li><span class="math inline">\(K=3\)</span> → normal (mesocúrtica);</li>
+<li><span class="math inline">\(K&gt;3\)</span> → caudas pesadas (leptocúrtica);</li>
+<li><span class="math inline">\(K&lt;3\)</span> → caudas leves (platicúrtica).</li>
+</ul>
+<p>Sob a hipótese de normalidade dos resíduos, podemos formular as seguintes hipóteses:</p>
+<p><span class="math display">\[
+H_0: K = 3
+\]</span></p>
+<p><span class="math display">\[
+H_1: K \neq 3
+\]</span></p>
+<p>Para amostras grandes:</p>
+<p><span class="math display">\[
+Z_K = \sqrt{\frac{n}{24}} (K - 3) \sim N(0,1).
+\]</span></p>
+<p>Curtose elevada frequentemente sinaliza presença de outliers ou heterogeneidade de variância. Caudas pesadas significam maior probabilidade de valores extremos, o que pode afetar inferência e previsão.</p>
+<p>Assim como a assimetria, a curtose deve ser interpretada junto com resíduos estudentizados e medidas de influência. Muitas vezes, poucos pontos extremos explicam grande parte da rejeição da normalidade (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+</section>
+<section id="omnibus-test-dagostinopearson" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="omnibus-test-dagostinopearson"><span class="header-section-number">8.4.3</span> 3. Omnibus Test (D’Agostino–Pearson)</h3>
+<p>O teste Omnibus combina os dois testes anteriores (assimetria e curtose) em uma única estatística.</p>
+<p>Sejam:</p>
+<p><span class="math display">\[
+Z_1 = Z_S
+\quad \text{e} \quad
+Z_2 = Z_K.
+\]</span></p>
+<p>A estatística do teste é:</p>
+<p><span class="math display">\[
+OM = Z_1^2 + Z_2^2.
+\]</span></p>
+<p>Ou seja, <span class="math inline">\(Z_1\)</span> é a estatística padronizada da assimetria e <span class="math inline">\(Z_2\)</span> a da curtose. Sob <span class="math inline">\(H_0\)</span> (normalidade), vale assintoticamente:</p>
+<p>Para o teste Omnibus, formulmos as seguintes hipóteses: <span class="math display">\[
+H_0: \text{Resíduos seguem distribuição normal}
+\]</span></p>
+<p><span class="math display">\[
+H_1: \text{Resíduos não seguem distribuição normal}
+\]</span> Sob <span class="math inline">\(H_0\)</span>,</p>
+<p><span class="math display">\[
+OM \sim \chi^2_{(2)}.
+\]</span></p>
+<p>O Omnibus é um teste conjunto: ele detecta qualquer violação que afete simetria ou curtose. Em vez de avaliar dois testes separados, consolida evidência em uma única estatística. Adicionalmente, como a distribuição é assintótica, sua confiabilidade aumenta com o tamanho amostral. Em amostras pequenas, o teste pode apresentar distorções no nível de significância.</p>
+</section>
+<section id="jarquebera-jb" class="level3" data-number="8.4.4">
+<h3 data-number="8.4.4" class="anchored" data-anchor-id="jarquebera-jb"><span class="header-section-number">8.4.4</span> 4. Jarque–Bera (JB)</h3>
+<p>O teste de Jarque–Bera também combina assimetria e curtose, mas diretamente em termos de seus estimadores:</p>
+<p><span class="math display">\[
+JB = \frac{n}{6}\left(S^2 + \frac{(K-3)^2}{4}\right).
+\]</span></p>
+<p>Hipóteses do teste são:</p>
+<p><span class="math display">\[
+H_0: \text{Resíduos seguem distribuição normal}
+\]</span></p>
+<p><span class="math display">\[
+H_1: \text{Resíduos não seguem distribuição normal}
+\]</span></p>
+<p>Sob <span class="math inline">\(H_0\)</span>,</p>
+<p><span class="math display">\[
+JB \sim \chi^2_{(2)}.
+\]</span></p>
+<p>Observe que o JB é equivalente, do ponto de vista assintótico, à soma dos quadrados das versões padronizadas de <span class="math inline">\(S\)</span> e <span class="math inline">\(K-3\)</span>.</p>
+<p>O JB mede a distância conjunta entre a distribuição empírica dos resíduos e a normal, considerando forma (assimetria) e peso de caudas (curtose).</p>
+<p>Note que rejeitar normalidade não implica que o modelo linear esteja incorreto, isso pode indicar apenas que os erros não são gaussianos. A relevância prática depende do objetivo (estimação, teste, previsão) e do tamanho da amostra (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>). ### 5. Durbin–Watson (DW)</p>
+<p>O teste de Durbin–Watson verifica autocorrelação serial:</p>
+<p><span class="math display">\[
+DW = \frac{\sum_{t=2}^n (e_t - e_{t-1})^2}
+{\sum_{t=1}^n e_t^2}.
+\]</span></p>
+<p>As hipóteses clássicas são:</p>
+<p><span class="math display">\[
+H_0: \rho = 0 \quad (\text{ausência de autocorrelação})
+\]</span></p>
+<p><span class="math display">\[
+H_1: \rho \neq 0 \quad (\text{autocorrelação})
+\]</span></p>
+<p>A interpretação usual é:</p>
+<ul>
+<li><span class="math inline">\(DW \approx 2\)</span> → ausência de autocorrelação;</li>
+<li><span class="math inline">\(DW &lt; 2\)</span> → autocorrelação positiva;</li>
+<li><span class="math inline">\(DW &gt; 2\)</span> → autocorrelação negativa.</li>
+</ul>
+<p>O DW mede o quanto os resíduos consecutivos diferem entre si. Se <span class="math inline">\(e_t\)</span> e <span class="math inline">\(e_{t-1}\)</span> forem semelhantes (dependência positiva), o numerador será pequeno e <span class="math inline">\(DW\)</span> ficará abaixo de 2.</p>
+<p>Este teste é especialmente relevante em dados ordenados temporalmente (econometria, séries temporais). Em dados sem ordem natural, sua aplicação é menos informativa (<span class="citation" data-cites="gujarati2006">Gujarati (<a href="references.html#ref-gujarati2006" role="doc-biblioref">2006</a>)</span>).</p>
+<p>Autocorrelação residual pode indicar: - tendência não modelada; - variáveis omitidas; - estrutura dinâmica inerente ao fenômeno.</p>
+<p>Detectar autocorrelação é apenas o início do diagnóstico.</p>
+</section>
+</section>
+<section id="diagnóstico-gráfico-do-mrls" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="diagnóstico-gráfico-do-mrls"><span class="header-section-number">8.5</span> Diagnóstico gráfico do MRLS</h2>
+<p>A análise gráfica dos resíduos é uma das etapas mais importantes na verificação das hipóteses do MRLS. Os gráficos funcionam como ferramentas de diagnóstico visual, permitindo identificar padrões que revelem problemas estruturais no modelo <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>.</p>
+<p>Em um <strong>modelo bem especificado</strong>, os resíduos devem se comportar como <strong>ruído puro</strong>: dispersão aleatória em torno de zero, variância aproximadamente constante e sem estrutura aparente. Em termos práticos, isso significa que, <strong>condicionado aos valores de</strong> <span class="math inline">\(X\)</span>, não deve existir informação sistemática remanescente nos resíduos que pudesse ser capturada por uma reespecificação simples do modelo (por exemplo, inclusão de termos não lineares ou transformação da resposta) <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>.</p>
+<p>A seguir, são descritos os principais gráficos e o que se esperar de cada um.</p>
+<section id="resíduos-vs-ajustados-linearidade-e-homoscedasticidade" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="resíduos-vs-ajustados-linearidade-e-homoscedasticidade"><span class="header-section-number">8.5.1</span> Resíduos vs ajustados (linearidade e homoscedasticidade)</h3>
+<p>Este é o gráfico diagnóstico mais usado na prática, pois confronta diretamente o “erro” estimado (resíduo) com o nível de resposta previsto pelo modelo.</p>
+<ul>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>pontos dispersos aleatoriamente em torno da linha horizontal <span class="math inline">\(0\)</span>, sem padrão definido.<br>
+</li>
+<li>amplitude (dispersão vertical) aproximadamente constante ao longo de toda a faixa de <span class="math inline">\(\hat Y_i\)</span>.<br>
+</li>
+<li>poucos pontos ultrapassando as faixas de referência usuais (por exemplo, <span class="math inline">\(|r_i| \approx 2\)</span> ou <span class="math inline">\(|t_i^*| \approx 2\)</span>, dependendo do resíduo adotado).</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>padrão em curva</strong> → sugere que a relação média <span class="math inline">\(E(Y\mid X)\)</span> não está bem representada por uma função linear; pode indicar necessidade de termos como <span class="math inline">\(X^2\)</span> ou outra reespecificação funcional.<br>
+</li>
+<li><strong>forma de funil</strong> (variância aumenta ou diminui com <span class="math inline">\(\hat Y_i\)</span>) → indício de heteroscedasticidade (variância não constante).<br>
+</li>
+<li><strong>concentração de resíduos positivos (negativos)</strong> em certas regiões → modelo subestima (superestima) sistematicamente nessas regiões, sugerindo viés local de especificação.<br>
+</li>
+<li><strong>pontos isolados muito afastados</strong> do conjunto principal → possível outlier/influência; a confirmação deve ser feita em leitura conjunta com resíduos estudentizados <span class="math inline">\(t_i^*\)</span>, alavancagem <span class="math inline">\(h_{ii}\)</span> e medidas de influência como a distância de Cook <span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>.</li>
+</ul></li>
+</ul>
+<p>Para diagnóstico visual, é recomendável utilizar resíduos que sejam comparáveis entre observações. Assim, em muitos contextos prefere-se plotar resíduos padronizados (<span class="math inline">\(r_i\)</span>) ou estudentizados externos (<span class="math inline">\(t_i^*\)</span>), em vez de resíduos ordinários (<span class="math inline">\(e_i\)</span>), pois estes últimos têm variância dependente da alavancagem <span class="math inline">\((1-h_{ii})\)</span> (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Resíduos vs Ajustados — Esquerda: Ajuste bom (homocedástico); Direita: Ajuste ruim (funil/heterocedasticidade). Linhas em 0 e ±2.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="resíduos-vs-x-forma-funcional" class="level3" data-number="8.5.2">
+<h3 data-number="8.5.2" class="anchored" data-anchor-id="resíduos-vs-x-forma-funcional"><span class="header-section-number">8.5.2</span> Resíduos vs <span class="math inline">\(X\)</span> (forma funcional)</h3>
+<p>Este gráfico é conceitualmente muito próximo ao anterior, mas desloca o foco: em vez de relacionar os resíduos com os valores ajustados <span class="math inline">\(\hat Y_i\)</span>, relaciona-os diretamente com a variável explicativa <span class="math inline">\(X_i\)</span>.</p>
+<ul>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>aleatoriedade semelhante ao gráfico anterior, mas agora em função de <span class="math inline">\(X\)</span>.<br>
+</li>
+<li>dispersão aproximadamente constante ao longo de toda a faixa de <span class="math inline">\(X\)</span>.<br>
+</li>
+<li>ausência de estruturas sistemáticas associadas a regiões específicas de <span class="math inline">\(X\)</span>.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>estruturas em forma de arco ou curva</strong> → o efeito de <span class="math inline">\(X\)</span> pode ser não linear; o modelo linear <span class="math inline">\(E(Y\mid X)=\beta_0+\beta_1X\)</span> pode estar omitindo termos relevantes (por exemplo, <span class="math inline">\(X^2\)</span> ou outra transformação).<br>
+</li>
+<li><strong>padrões em “S” ou mudança de inclinação</strong> → possível quebra de regime ou efeito estrutural não capturado.<br>
+</li>
+<li><strong>faixas onde a dispersão muda</strong> → variação da variância conforme <span class="math inline">\(X\)</span>, sugerindo heteroscedasticidade.<br>
+</li>
+<li><strong>concentração de pontos extremos em regiões específicas de</strong> <span class="math inline">\(X\)</span> → possível influência associada a valores extremos da variável explicativa.</li>
+</ul></li>
+</ul>
+<p>Enquanto o gráfico resíduos vs ajustados enfatiza o comportamento do erro em relação à resposta prevista, o gráfico resíduos vs <span class="math inline">\(X\)</span> enfatiza a adequação da <strong>forma funcional</strong> da regressão. Ele permite avaliar diretamente se a hipótese de linearidade entre <span class="math inline">\(X\)</span> e a média condicional de <span class="math inline">\(Y\)</span> é plausível (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Este gráfico é especialmente informativo quando <span class="math inline">\(X\)</span> possui interpretação física, econômica ou temporal clara. Nesses casos, padrões sistemáticos ao longo de <span class="math inline">\(X\)</span> podem revelar efeitos omitidos, mudanças estruturais ou fenômenos não lineares que não são imediatamente visíveis no gráfico resíduos vs ajustados.</p>
+<p>Assim como no gráfico anterior, recomenda-se utilizar resíduos padronizados ou estudentizados para tornar a escala comparável entre observações, principalmente quando há variação relevante na alavancagem <span class="math inline">\(h_{ii}\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Resíduos vs X — Esquerda: Ajuste bom (linear); Direita: Ajuste ruim (não linearidade em arco). Linhas em 0 e ±2.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="resíduos-estudentizados-vs-valores-ajustados-outliers-estrutura" class="level3" data-number="8.5.3">
+<h3 data-number="8.5.3" class="anchored" data-anchor-id="resíduos-estudentizados-vs-valores-ajustados-outliers-estrutura"><span class="header-section-number">8.5.3</span> Resíduos estudentizados vs valores ajustados (outliers + estrutura)</h3>
+<p>Este gráfico é uma versão refinada do gráfico resíduos vs ajustados, utilizando os <strong>resíduos estudentizados externos</strong> <span class="math inline">\(t_i^*\)</span>. Ele combina duas dimensões do diagnóstico: discrepância individual e possível estrutura sistemática.</p>
+<ul>
+<li><strong>Por que usar</strong>:
+<ul>
+<li>tornam resíduos comparáveis, pois ajustam pela variância individual de cada ponto, incorporando o fator <span class="math inline">\((1-h_{ii})\)</span> associado à alavancagem.<br>
+</li>
+<li>utilizam uma estimativa da variância <span class="math inline">\(\sigma^2\)</span> calculada sem a observação <span class="math inline">\(i\)</span> (<span class="math inline">\(s_{(i)}\)</span>), reduzindo o efeito de mascaramento que pode ocorrer quando um ponto extremo influencia a própria estimativa de variância.<br>
+</li>
+<li>possuem, sob normalidade dos erros, distribuição exata <span class="math inline">\(t_{n-3}\)</span>, permitindo interpretação inferencial mais precisa (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</li>
+</ul></li>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>aleatoriedade em torno da linha horizontal <span class="math inline">\(0\)</span>.<br>
+</li>
+<li>a maioria dos pontos entre <span class="math inline">\(-2\)</span> e <span class="math inline">\(+2\)</span>, sendo raros valores com <span class="math inline">\(|t_i^*|&gt;3\)</span> em amostras moderadas.<br>
+</li>
+<li>ausência de padrão sistemático ao longo da faixa de valores ajustados.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>pontos fora do intervalo</strong> <span class="math inline">\([-2,2]\)</span> → observações potencialmente discrepantes; valores acima de <span class="math inline">\(|t_i^*|&gt;3\)</span> são frequentemente considerados fortemente suspeitos.<br>
+</li>
+<li><strong>estruturas visíveis (curvas, funis)</strong> → possíveis violações de linearidade ou homocedasticidade, agora avaliadas com resíduos que já consideram diferenças de variância individual.<br>
+</li>
+<li><strong>concentração de valores extremos em regiões de alta alavancagem</strong> → possível influência desproporcional sobre os estimadores.</li>
+</ul></li>
+</ul>
+<p>Os resíduos estudentizados externos medem o quanto cada observação se afasta do modelo ajustado, levando em conta tanto a variabilidade residual quanto sua própria posição geométrica no conjunto de dados. Assim, eles são especialmente adequados para identificar <strong>outliers reais</strong>, isto é, observações cuja discrepância não pode ser explicada apenas por sua alavancagem.</p>
+<p>Um ponto com resíduo ordinário grande pode deixar de parecer extremo após a estudentização se sua variância condicional for naturalmente maior. Por outro lado, um ponto que permanece extremo mesmo após a correção por <span class="math inline">\((1-h_{ii})\)</span> e por <span class="math inline">\(s_{(i)}\)</span> merece investigação cuidadosa — seja por erro de registro, seja por representar um fenômeno estrutural distinto (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Resíduos estudentizados vs Ajustados — Esquerda: Ajuste bom; Direita: Ajuste ruim (curvatura + funil). Linhas em ±2.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="qq-plot-normalidade" class="level3" data-number="8.5.4">
+<h3 data-number="8.5.4" class="anchored" data-anchor-id="qq-plot-normalidade"><span class="header-section-number">8.5.4</span> QQ-plot (normalidade)</h3>
+<p>O gráfico QQ-plot (quantile–quantile) compara os quantis empíricos dos resíduos com os quantis teóricos de uma distribuição normal padrão. Ele é uma das ferramentas mais informativas para avaliar a hipótese de normalidade dos erros no MRLS (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<ul>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>pontos aproximadamente alinhados em torno da reta de 45°, indicando que os resíduos seguem aproximadamente uma distribuição normal.<br>
+</li>
+<li>pequenas flutuações aleatórias ao redor da reta, especialmente no centro da distribuição.<br>
+</li>
+<li>ausência de desvios sistemáticos nas caudas.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>desvios sistemáticos nas extremidades</strong> → caudas mais pesadas (pontos afastados da reta nas pontas) ou mais leves que a normal.<br>
+</li>
+<li><strong>desvios em formato de “S”</strong> → indício de assimetria dos resíduos.<br>
+</li>
+<li><strong>afastamentos persistentes ao longo de toda a reta</strong> → possível inadequação global da suposição de normalidade.<br>
+</li>
+<li><strong>pontos isolados muito distantes nas pontas</strong> → presença de outliers, que podem ser responsáveis por grande parte da violação observada.</li>
+</ul></li>
+</ul>
+<p>O QQ-plot compara toda a <strong>forma da distribuição</strong>. Se os resíduos forem normais, seus quantis empíricos devem crescer linearmente com os quantis teóricos da normal. Desvios sistemáticos dessa linearidade indicam diferenças estruturais entre as distribuições.</p>
+<p>É fundamental interpretar o QQ-plot em conjunto com resíduos estudentizados e medidas de influência. Muitas vezes, poucos pontos extremos explicam a maior parte do desvio observado nas caudas. Além disso, pequenas curvaturas no centro do gráfico, especialmente em amostras grandes, podem não ter relevância prática para a inferência, sobretudo quando o objetivo principal é previsão e não testes exatos em pequenas amostras (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>O QQ-plot, portanto, oferece uma visão global da normalidade e complementa tanto os testes formais (como Jarque–Bera) quanto os gráficos de histograma.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>QQ-plot dos resíduos — Esquerda: Ajuste bom (erros ~ Normal); Direita: Ajuste ruim (erros ~ t com caudas pesadas).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="histograma-assimetria-e-caudas" class="level3" data-number="8.5.5">
+<h3 data-number="8.5.5" class="anchored" data-anchor-id="histograma-assimetria-e-caudas"><span class="header-section-number">8.5.5</span> Histograma (assimetria e caudas)</h3>
+<p>O histograma dos resíduos é uma ferramenta complementar ao QQ-plot. Enquanto o QQ-plot enfatiza o alinhamento com a normal teórica por meio de quantis, o histograma permite visualizar diretamente a <strong>forma empírica</strong> da distribuição residual (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<ul>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>distribuição aproximadamente simétrica em torno de zero.<br>
+</li>
+<li>formato aproximadamente em sino (curva unimodal e suave).<br>
+</li>
+<li>maior concentração de valores próximos de <span class="math inline">\(0\)</span>, com frequência decrescente nas extremidades.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>assimetria</strong> → possível necessidade de transformação na resposta (<span class="math inline">\(Y\)</span>), como <span class="math inline">\(\log(Y)\)</span> ou <span class="math inline">\(\sqrt{Y}\)</span>, especialmente quando a assimetria é estrutural e não causada por poucos pontos extremos.<br>
+</li>
+<li><strong>caudas longas</strong> → presença de outliers ou distribuição com maior probabilidade de valores extremos do que a normal.<br>
+</li>
+<li><strong>bimodalidade ou múltiplos picos</strong> → possível mistura de grupos ou estrutura omitida no modelo (por exemplo, variável categórica não incluída).<br>
+</li>
+<li><strong>concentração excessiva no centro com poucas observações nas extremidades</strong> → caudas leves (platicurtose), também incompatíveis com normalidade.</li>
+</ul></li>
+</ul>
+<p>O histograma fornece uma visão direta da densidade empírica dos resíduos. Em um modelo com erros normais, espera-se que a forma geral seja compatível com a curva Normal<span class="math inline">\((0,\sigma^2)\)</span>. Desvios sistemáticos dessa forma indicam diferenças estruturais na distribuição do erro.</p>
+<p>Adicionamente, o histograma é sensível à escolha do número de classes (bins). Diferentes escolhas podem alterar a percepção visual da forma. Por isso, recomenda-se utilizá-lo em conjunto com o QQ-plot e com medidas numéricas de assimetria e curtose.</p>
+<p>Além disso, é importante lembrar que pequenas assimetrias visuais, especialmente em amostras grandes, podem não comprometer de forma relevante a inferência baseada em MQO, cuja robustez assintótica é discutida em (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Histograma dos resíduos — Esquerda: Ajuste bom (simétrico); Direita: Ajuste ruim (assimetria à direita). Curva Normal(0,1) de referência.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="resíduos-estudentizados-vs-índice-pontos-atípicos" class="level3" data-number="8.5.6">
+<h3 data-number="8.5.6" class="anchored" data-anchor-id="resíduos-estudentizados-vs-índice-pontos-atípicos"><span class="header-section-number">8.5.6</span> Resíduos estudentizados vs índice (pontos atípicos)</h3>
+<p>Este gráfico apresenta os resíduos estudentizados externos <span class="math inline">\(t_i^*\)</span> em função do índice da observação <span class="math inline">\(i\)</span>. Ele é particularmente útil para identificar <strong>observações discrepantes individuais</strong>, destacando sua posição relativa no conjunto de dados.</p>
+<ul>
+<li><strong>Por que usar</strong>:
+<ul>
+<li>são melhores na detecção de outliers, pois corrigem a influência da própria observação ao utilizar a estimativa de variância <span class="math inline">\(s_{(i)}\)</span>, calculada sem o ponto <span class="math inline">\(i\)</span>.<br>
+</li>
+<li>possuem distribuição <span class="math inline">\(t_{n-3}\)</span> sob normalidade dos erros, permitindo interpretação inferencial direta.<br>
+</li>
+<li>facilitam a visualização de padrões associados à ordem natural dos dados (por exemplo, tempo ou sequência experimental) <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>.</li>
+</ul></li>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>quase todos os pontos entre <span class="math inline">\(-2\)</span> e <span class="math inline">\(+2\)</span>.<br>
+</li>
+<li>raros pontos ultrapassando <span class="math inline">\(|t_i^*|&gt;3\)</span>, especialmente em amostras moderadas.<br>
+</li>
+<li>ausência de padrões sistemáticos ao longo do índice.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>valores extremos em</strong> <span class="math inline">\(|t_i^*|\)</span> → sugerem observações potencialmente discrepantes; quanto maior o valor absoluto, maior a evidência de que o ponto não é compatível com a variabilidade esperada sob o modelo.<br>
+</li>
+<li><strong>agrupamento de valores extremos em determinadas regiões do índice</strong> → pode indicar mudança estrutural, dependência temporal ou erro sistemático de medição.<br>
+</li>
+<li><strong>padrões alternados (positivo–negativo–positivo)</strong> → possível autocorrelação residual, especialmente quando os dados possuem ordem temporal.</li>
+</ul></li>
+</ul>
+<p>Este gráfico não apenas identifica outliers, mas também permite verificar se tais observações estão distribuídas aleatoriamente ao longo do conjunto de dados ou se seguem algum padrão estrutural.</p>
+<p>O significado do eixo “índice” depende do contexto. Se os dados tiverem uma ordem natural (tempo, experimento sequencial, posição espacial), padrões nesse gráfico podem indicar violação da hipótese de independência dos erros. Se não houver ordem natural, o gráfico atua principalmente como ferramenta de localização de observações discrepantes.</p>
+<p>Além disso, um valor extremo em <span class="math inline">\(t_i^*\)</span> não implica automaticamente exclusão da observação. Deve-se verificar conjuntamente a alavancagem <span class="math inline">\(h_{ii}\)</span> e medidas de influência (como a distância de Cook) antes de qualquer decisão sobre reespecificação ou remoção de dados (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Resíduos estudentizados vs índice — Esquerda: ajuste bom (Normal, sem outliers); Direita: ajuste ruim (caudas pesadas + outliers). Linhas em 0 e ±2; pontos extremos destacados.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="resíduos-estudentizados-ao-quadrado-vs-valores-ajustados-heteroscedasticidade-influência" class="level3" data-number="8.5.7">
+<h3 data-number="8.5.7" class="anchored" data-anchor-id="resíduos-estudentizados-ao-quadrado-vs-valores-ajustados-heteroscedasticidade-influência"><span class="header-section-number">8.5.7</span> Resíduos estudentizados ao quadrado vs valores ajustados (heteroscedasticidade / influência)</h3>
+<p>Este gráfico utiliza <span class="math inline">\(t_i^{*2}\)</span> (resíduos estudentizados externos ao quadrado) no eixo vertical e os valores ajustados <span class="math inline">\(\hat Y_i\)</span> no eixo horizontal. Ao elevar ao quadrado, eliminamos o sinal e focamos exclusivamente na <strong>magnitude da discrepância</strong>, o que é particularmente útil para investigar padrões de variância.</p>
+<ul>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>dispersão aproximadamente uniforme ao longo da faixa de <span class="math inline">\(\hat Y_i\)</span>.<br>
+</li>
+<li>ausência de tendência sistemática crescente ou decrescente.<br>
+</li>
+<li>pontos distribuídos sem estrutura definida ao redor de um nível aproximadamente constante.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>crescimento ou redução sistemática</strong> de <span class="math inline">\(t_i^{*2}\)</span> conforme <span class="math inline">\(\hat Y_i\)</span> aumenta → indício de heteroscedasticidade (variância não constante).<br>
+</li>
+<li><strong>estrutura em arco</strong> → possível não linearidade na função média.<br>
+</li>
+<li><strong>pontos isolados com valores muito elevados de</strong> <span class="math inline">\(t_i^{*2}\)</span> → observações potencialmente influentes ou discrepantes.</li>
+</ul></li>
+</ul>
+<p>Se o modelo satisfaz a hipótese de homocedasticidade, então <span class="math inline">\(Var(e_i)\)</span> deve ser constante. Como <span class="math inline">\(t_i^*\)</span> já corrige por <span class="math inline">\((1-h_{ii})\)</span> e por <span class="math inline">\(s_{(i)}\)</span>, padrões sistemáticos em <span class="math inline">\(t_i^{*2}\)</span> sugerem que a variância condicional de <span class="math inline">\(Y\)</span> depende do nível da resposta, ou seja, <span class="math inline">\(Var(Y \mid X)\)</span> não é constante.</p>
+<p>Ao trabalhar com o quadrado do resíduo, pequenas diferenças tornam-se mais visíveis. Por isso, esse gráfico frequentemente revela tendências de variância que não são tão evidentes no gráfico simples resíduos vs ajustados.</p>
+<p>A inclusão de uma curva suave (por exemplo, LOESS) auxilia na visualização de tendências médias na magnitude dos resíduos. Se essa curva apresentar inclinação clara ou formato sistemático, há evidência visual de heteroscedasticidade (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Este gráfico, portanto, complementa o diagnóstico tradicional, oferecendo uma perspectiva focada especificamente na estrutura da variância.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Valores ajustados vs resíduos estudentizados² — Esquerda: ajuste bom (dispersão uniforme); Direita: ajuste ruim (heteroscedasticidade/funil). LOWESS em vermelho.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="alavancagem-vs-resíduos-estudentizados-influência-cook" class="level3" data-number="8.5.8">
+<h3 data-number="8.5.8" class="anchored" data-anchor-id="alavancagem-vs-resíduos-estudentizados-influência-cook"><span class="header-section-number">8.5.8</span> Alavancagem vs resíduos estudentizados (influência / Cook)</h3>
+<p>Este gráfico combina duas dimensões centrais do diagnóstico no MRLS:<br>
+- <strong>alavancagem</strong> (<span class="math inline">\(h_{ii}\)</span>), que mede o quão extremo é o valor de <span class="math inline">\(X_i\)</span>;<br>
+- <strong>resíduo estudentizado externo</strong> (<span class="math inline">\(t_i^*\)</span>), que mede a discrepância vertical ajustada pela variância condicional.</p>
+<p>Ao analisar ambos simultaneamente, obtemos uma visão direta da <strong>influência potencial</strong> de cada observação sobre os estimadores do modelo (<span class="citation" data-cites="belsley1980">Belsley, Kuh, e Welsch (<a href="references.html#ref-belsley1980" role="doc-biblioref">1980</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<ul>
+<li><strong>Objetivo</strong>:
+<ul>
+<li>identificar observações influentes, isto é, aquelas que combinam alto resíduo e alta alavancagem.<br>
+</li>
+<li>distinguir entre pontos apenas discrepantes (grande <span class="math inline">\(|t_i^*|\)</span>) e pontos estruturalmente extremos (grande <span class="math inline">\(h_{ii}\)</span>).<br>
+</li>
+</ul></li>
+<li><strong>O que se espera</strong>:
+<ul>
+<li>maioria dos pontos dentro da “nuvem central”, isto é, com valores moderados de <span class="math inline">\(h_{ii}\)</span> e <span class="math inline">\(|t_i^*| \leq 2\)</span>.<br>
+</li>
+<li>poucos pontos próximos do limite usual de alavancagem (por exemplo, <span class="math inline">\(h_{ii} &gt; 2p/n\)</span>).<br>
+</li>
+<li>ausência de observações simultaneamente extremas em ambas as direções.</li>
+</ul></li>
+<li><strong>O que indica problema</strong>:
+<ul>
+<li><strong>pontos afastados horizontalmente</strong> (alto <span class="math inline">\(h_{ii}\)</span>) → observações com grande potencial de influenciar a inclinação da reta.<br>
+</li>
+<li><strong>pontos afastados verticalmente</strong> (alto <span class="math inline">\(|t_i^*|\)</span>) → observações discrepantes na resposta.<br>
+</li>
+<li><strong>pontos afastados horizontal e verticalmente</strong> → fortes candidatos a observações influentes, com impacto potencialmente desproporcional sobre os estimadores.<br>
+</li>
+</ul></li>
+</ul>
+<p>Influência não é sinônimo de discrepância. Um ponto pode ter grande resíduo, mas baixa alavancagem, afetando pouco os coeficientes. Da mesma forma, um ponto pode ter alta alavancagem e resíduo pequeno, mas ainda assim influenciar a inclinação da reta por estar em região extrema de <span class="math inline">\(X\)</span>.</p>
+<p>Observações influentes não devem ser automaticamente removidas. Elas podem representar fenômenos legítimos do processo gerador dos dados. O papel do diagnóstico é identificar e compreender tais pontos, não eliminá-los mecanicamente.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrls_diagnostico_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="1080"></p>
+<figcaption>Alavancagem (h) vs resíduos estudentizados — Esquerda: ajuste bom; Direita: ajuste ruim com ponto de alta alavancagem e discrepância. Área ∝ distância de Cook. Linha vertical: h &gt; 2p/n.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Os gráficos de resíduos são <strong>mapas visuais do ajuste</strong>. Eles sintetizam, de forma intuitiva, as hipóteses estruturais do MRLS e permitem avaliar se o modelo capturou adequadamente a relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Quando o modelo está bem especificado, espera-se que:</p>
+<ul>
+<li>os resíduos flutuem aleatoriamente em torno de zero;<br>
+</li>
+<li>a variância seja aproximadamente constante ao longo de toda a faixa de <span class="math inline">\(X\)</span> ou <span class="math inline">\(\hat Y\)</span>;<br>
+</li>
+<li>a distribuição seja aproximadamente normal (quando a inferência exata via <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> é relevante);<br>
+</li>
+<li>não existam observações com influência desproporcional sobre os estimadores.</li>
+</ul>
+<p>Essas características indicam que, condicionalmente a <span class="math inline">\(X\)</span>, o modelo não deixou estrutura sistemática não explicada.</p>
+<p>Quando há padrões, eles indicam possíveis caminhos de correção:</p>
+<ul>
+<li><strong>Curvaturas</strong> nos gráficos → possível inadequação da forma funcional; pode ser necessária a inclusão de termos como <span class="math inline">\(X^2\)</span>, transformações em <span class="math inline">\(X\)</span> (por exemplo, <span class="math inline">\(\log(X)\)</span>) ou outra reespecificação da função média.<br>
+</li>
+<li><strong>Variância crescente ou decrescente</strong> → indício de heteroscedasticidade; transformações em <span class="math inline">\(Y\)</span> (como <span class="math inline">\(\log(Y)\)</span> ou <span class="math inline">\(\sqrt{Y}\)</span>) ou métodos que acomodem variância não constante podem ser considerados.<br>
+</li>
+<li><strong>Assimetria na distribuição dos resíduos</strong> → possível necessidade de transformação na resposta ou presença de outliers que devem ser investigados.<br>
+</li>
+<li><strong>Observações influentes</strong> → revisão individual do ponto, verificação de erros de registro ou análise substantiva do fenômeno representado.</li>
+</ul>
+<p>Cada padrão visual corresponde a uma hipótese específica do modelo. Assim, o diagnóstico gráfico não é apenas uma etapa técnica, mas uma verificação das suposições matemáticas que fundamentam a inferência no MRLS.</p>
+<p>Transformações não devem ser aplicadas de forma automática ou mecânica. Elas devem ser justificadas teoricamente, interpretadas no contexto do problema e validadas por novo ciclo de diagnóstico após o reajuste do modelo. O processo é iterativo: ajustar → diagnosticar → reespecificar → diagnosticar novamente.</p>
+</section>
+</section>
+<section id="aspectos-computacionais-para-resíduos-no-r" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="aspectos-computacionais-para-resíduos-no-r"><span class="header-section-number">8.6</span> Aspectos computacionais para resíduos no R</h2>
+<p>Para a análise gráfica de resíduos no <strong>MRLS</strong>, podemos usar principalmente os pacotes:</p>
+<ul>
+<li><strong><code>stats</code></strong> → para ajustar o modelo com <code>lm()</code> e extrair resíduos e ajustados (<code>residuals()</code>, <code>fitted()</code>).</li>
+<li><strong><code>ggplot2</code></strong> → para construir gráficos com <code>geom_point()</code>, <code>geom_hline()</code>, <code>geom_vline()</code>, <code>facet_wrap()</code>.</li>
+<li><strong><code>broom</code></strong> → para organizar saídas do modelo em data frames (<code>augment()</code>), incluindo resíduos e ajustados.</li>
+<li><strong><code>car</code></strong> (opcional) → para alguns diagnósticos e gráficos prontos (ex.: <code>residualPlots()</code>).</li>
+<li><strong><code>ggfortify</code></strong> (opcional) → para gráficos diagnósticos automáticos a partir de objetos <code>lm</code> (<code>autoplot()</code>).</li>
+<li><strong><code>stats</code></strong> + <strong><code>ggplot2</code></strong> → para QQ-plot (via <code>qqnorm()/qqline()</code> ou construção manual para <code>ggplot2</code>).</li>
+<li><strong><code>MASS</code></strong> (opcional) → para simulações com distribuições alternativas quando necessário.</li>
+<li><strong><code>lmtest</code></strong> / <strong><code>sandwich</code></strong> (opcional) → para testes formais (Breusch–Pagan etc.) e erros-padrão robustos.</li>
+</ul>
+<p>A seguir, quais funções e pacotes usar em cada gráfico:</p>
+<p><strong>1. Resíduos vs.&nbsp;Valores Ajustados</strong></p>
+<ul>
+<li>Objetivo: verificar aleatoriedade e homocedasticidade.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>modelo &lt;- lm(Y ~ X, data=df)</code></li>
+<li><code>fitted &lt;- fitted(modelo)</code></li>
+<li><code>resid  &lt;- resid(modelo)</code></li>
+</ul></li>
+<li>Em <code>ggplot2</code>: <code>geom_point()</code> + <code>geom_hline(yintercept=0, ...)</code>.</li>
+</ul>
+<p><strong>2. Resíduos vs.&nbsp;Variável Explicativa (</strong><span class="math inline">\(X\)</span>)</p>
+<ul>
+<li>Objetivo: avaliar linearidade da relação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>resid &lt;- resid(modelo)</code></li>
+</ul></li>
+<li>Em <code>ggplot2</code>: <code>geom_point()</code> com <code>aes(x=X, y=resid)</code> + <code>geom_hline(yintercept=0, ...)</code>.</li>
+</ul>
+<p><strong>3. Resíduos Estudentizados vs.&nbsp;Valores Ajustados</strong></p>
+<ul>
+<li>Objetivo: detectar outliers e padrões (considerando alavancagem).</li>
+<li>Funções/objetos:
+<ul>
+<li><code>stud &lt;- rstudent(modelo)</code> (resíduos estudentizados externos)</li>
+<li><code>fitted &lt;- fitted(modelo)</code></li>
+</ul></li>
+<li>Em <code>ggplot2</code>: <code>geom_point()</code> + <code>geom_hline(yintercept=c(-2,2), ...)</code>.</li>
+</ul>
+<p><strong>4. QQ-Plot dos Resíduos</strong></p>
+<ul>
+<li>Objetivo: verificar normalidade.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>resid &lt;- resid(modelo)</code></li>
+<li>Base R: <code>qqnorm(resid); qqline(resid)</code></li>
+<li>Para <code>ggplot2</code>: <code>qq &lt;- qqnorm(resid, plot.it=FALSE)</code> e então <code>geom_point()</code> + <code>geom_abline()</code>.</li>
+</ul></li>
+</ul>
+<p><strong>5. Histograma dos Resíduos</strong></p>
+<ul>
+<li>Objetivo: verificar forma aproximada da distribuição.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>resid_pad &lt;- scale(resid(modelo))</code> (opcional)</li>
+</ul></li>
+<li>Em <code>ggplot2</code>:
+<ul>
+<li><code>geom_histogram(aes(y=after_stat(density)))</code></li>
+<li>Curva Normal de referência: <code>dnorm(x, 0, 1)</code> via <code>geom_line()</code> com uma grade <code>x</code>.</li>
+</ul></li>
+</ul>
+<p><strong>6. Resíduos Estudentizados vs.&nbsp;Índice da Observação</strong></p>
+<ul>
+<li>Objetivo: identificar observações discrepantes.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>stud &lt;- rstudent(modelo)</code></li>
+<li><code>idx &lt;- seq_along(stud)</code></li>
+</ul></li>
+<li>Em <code>ggplot2</code>: <code>geom_point()</code> + <code>geom_hline(yintercept=c(-2,2), ...)</code>.</li>
+</ul>
+<p><strong>7. Valores Ajustados vs.&nbsp;Resíduos Estudentizados²</strong></p>
+<ul>
+<li>Objetivo: investigar heterocedasticidade.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>fitted &lt;- fitted(modelo)</code></li>
+<li><code>t2 &lt;- rstudent(modelo)^2</code></li>
+</ul></li>
+<li>Suavização:
+<ul>
+<li><code>geom_smooth(method="loess", se=FALSE, ...)</code> (substitui o LOWESS do Python de forma direta).</li>
+</ul></li>
+</ul>
+<p><strong>8. Alavancagem vs.&nbsp;Resíduos Estudentizados (Influence Plot)</strong></p>
+<ul>
+<li>Objetivo: detectar observações influentes.</li>
+<li>Funções/objetos:
+<ul>
+<li><code>h &lt;- hatvalues(modelo)</code> (alavancagem)</li>
+<li><code>stud &lt;- rstudent(modelo)</code> (resíduo estudentizado)</li>
+<li><code>ck &lt;- cooks.distance(modelo)</code> (distância de Cook)</li>
+</ul></li>
+<li>Em <code>ggplot2</code>: <code>geom_point(aes(size=ck))</code> para tornar a área proporcional a Cook + linhas de referência (ex.: <code>geom_vline()</code> com regra 2(p+1)/n).</li>
+</ul>
+<p><strong>Resumo didático:</strong></p>
+<ol type="1">
+<li>Ajuste o modelo com <code>lm()</code>:
+<ul>
+<li><code>modelo &lt;- lm(Y ~ X, data = df)</code></li>
+</ul></li>
+<li>Obtenha resíduos e ajustados:
+<ul>
+<li><code>resid   &lt;- resid(modelo)</code></li>
+<li><code>fitted  &lt;- fitted(modelo)</code></li>
+</ul></li>
+<li>Obtenha diagnósticos extras:
+<ul>
+<li><code>stud &lt;- rstudent(modelo)</code><br>
+</li>
+<li><code>h    &lt;- hatvalues(modelo)</code><br>
+</li>
+<li><code>ck   &lt;- cooks.distance(modelo)</code></li>
+</ul></li>
+<li>(Opcional) Organize tudo em um único data frame (facilita gráficos):
+<ul>
+<li><code>broom::augment(modelo)</code> (traz <code>.fitted</code>, <code>.resid</code>, <code>.std.resid</code>, <code>.hat</code>, <code>.cooksd</code>)</li>
+</ul></li>
+</ol>
+<p>Com esses objetos, é possível montar todos os oito gráficos de resíduos apresentados neste capítulo.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-belsley1980" class="csl-entry" role="listitem">
+Belsley, David A., Edwin Kuh, e Roy E. Welsch. 1980. <em>Regression Diagnostics: Identifying Influential Data and Sources of Collinearity</em>. New York: John Wiley &amp; Sons.
+</div>
+<div id="ref-casella2002" class="csl-entry" role="listitem">
+Casella, George, e Roger L. Berger. 2002. <em>Statistical Inference</em>. 2º ed. Pacific Grove: Duxbury.
+</div>
+<div id="ref-charnet2008" class="csl-entry" role="listitem">
+Charnet, Reinaldo, Carlos Alberto Freire, Eliane M. R. Charnet, e Helio Bonvino. 2008. <em>Análise de Modelos de Regressão Linear com Aplicações</em>. 2º ed. Campinas: EDUNICAMP.
+</div>
+<div id="ref-gujarati2006" class="csl-entry" role="listitem">
+Gujarati, Damodar N. 2006. <em>Econometria Básica</em>. 4º ed. Rio de Janeiro: Elsevier Campus.
+</div>
+<div id="ref-harville2000" class="csl-entry" role="listitem">
+Harville, David A. 2000. <em>Matrix Algebra from a Statistician’s Perspective</em>. New York: Springer.
+</div>
+<div id="ref-hoffmann2016" class="csl-entry" role="listitem">
+Hoffmann, Rodolfo. 2016. <em>Análise de Regressão: Uma Introdução à Econometria</em>. 5º ed. Portal de Livros Abertos da USP. <a href="https://doi.org/10.11606/9788592105709">https://doi.org/10.11606/9788592105709</a>.
+</div>
+<div id="ref-kutner2005" class="csl-entry" role="listitem">
+Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+</div>
+<div id="ref-montgomery2021" class="csl-entry" role="listitem">
+Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+</div>
+<div id="ref-searle2016" class="csl-entry" role="listitem">
+Searle, Shayle R. 2016. <em>Matrix Algebra Useful for Statistics</em>. 2º ed. Hoboken: Wiley.
+</div>
+<div id="ref-weisberg2005" class="csl-entry" role="listitem">
+Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. New York: Wiley.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./mrls_testes.html" class="pagination-link" aria-label="Testes de hipóteses e ANOVA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses e ANOVA</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./mrls_transf.html" class="pagination-link" aria-label="Transformações nas Variáveis">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Transformações nas Variáveis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
