@@ -5,19 +5,60 @@ lang: pt-BR
 
 
 book:
-  title: "Análise de Regressão: Teoria e Prática"
-  subtitle: "Departamento de Estatística e Matemática Aplicada"
-  description: "Laboratório de Inovação em Estatística - StatLab"
-  author: "Rafael Braz, Ronald Targino, Juvêncio Nobre e Manoel Santos-Neto"
-  date: today
+#  title: "Modelos de Regressão: Teoria e Prática"
+#  subtitle: "Departamento de Estatística e Matemática Aplicada"
+#  description: "Laboratório de Inovação em Estatística - StatLab"
+#  author: "Grupo de Pesquisa Modelos de Regressão e Aplicações do CNPq"
+#  date: today
   chapters:
     - index.qmd
-    - intro.qmd
-    - preliminares.qmd
-    - reg.qmd
-    - pres.qmd
-    - diag.qmd
-    - references.qmd
+    - prefacio.qmd
+    
+    - part: "Parte I — Modelagem"
+      chapters:
+        - intro.qmd
+        - modelagem.qmd
+        - part1_ex.qmd
+
+    - part: "Parte II — Modelo de Regressão Linear Simples (MRLS)"
+      chapters:
+        - mrls.qmd
+        - mrls_emq.qmd
+        - mrls_inferencia.qmd
+        - mrls_testes.qmd
+        - mrls_diagnostico.qmd
+        - mrls_transf.qmd
+        - mrls_compara.qmd
+#        - mrls_inferencia2.qmd
+        - part2_ex.qmd
+
+    
+    - part: "Parte III — Modelo de Regressão Linear Simples (MRLM)"
+      chapters:
+#        - mrlm.qmd
+#        - mrlm_emq.qmd
+#        - mrlm_inferencia.qmd
+#        - mrlm_dummies.qmd
+#        - mrlm_ancova.qmd
+#        - mrlm_qualidade.qmd
+#        - mrlm_diagnostico.qmd
+#        - mrlm_transf.qmd
+#        - mrlm_aplica.qmd
+        - part3_ex.qmd
+        
+        
+    - part: "Parte IV — Apêndices"
+      chapters:
+        - ap_listas.qmd
+        - ap_matrizes.qmd
+        - ap_normal.qmd
+        - ap_forma_linear.qmd
+#        - ap_estimadores.qmd
+#        - ap_inferencia.qmd
+        - ap_tratamento.qmd
+#        - demo.qmd
+
+    - references.qmd  
 
 bibliography: references.bib
 
@@ -26,6 +67,9 @@ format:
     theme: cosmo
   pdf:
     documentclass: scrreprt
+    include-in-header: cover-header.tex
+    include-before-body: cover.tex
 
 editor: visual
+
 
