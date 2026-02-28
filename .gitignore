@@ -1,6 +1,6 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-
+/_book/
 /.quarto/
+*.log
+*.aux
+*.toc
+*.out
