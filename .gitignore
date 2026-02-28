@@ -1,6 +1,17 @@
-/_book/
-/.quarto/
-*.log
+# Quarto / Book (gerados)
+_book/
+.quarto/
+
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# LaTeX/PDF (gerados)
 *.aux
-*.toc
+*.log
 *.out
+*.toc
+*.tex
+*.pdf
