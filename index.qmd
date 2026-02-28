@@ -6,12 +6,11 @@
 
 ## Direitos Autorais e Uso da Obra {.unnumbered}
 
-© 2026 — Os autores.
+© 2026 --- Os autores.
 
 Todos os direitos reservados. Esta obra é protegida pela legislação brasileira de direitos autorais (Lei nº 9.610/1998). É vedada a reprodução, distribuição, armazenamento ou transmissão total ou parcial deste livro, por qualquer meio ou processo, eletrônico ou mecânico, sem autorização expressa e por escrito dos autores, salvo nos casos permitidos pela legislação vigente para fins exclusivamente acadêmicos e não comerciais, com a devida citação da fonte.
 
 A utilização do material em ambientes de ensino é permitida desde que preservada a integridade do conteúdo, mencionada a autoria e respeitados os princípios de uso responsável da informação científica. A reprodução para fins comerciais, bem como a modificação substancial do conteúdo sem autorização, constitui violação de direitos autorais.
-
 
 ## Declaração sobre o Uso de Ferramentas de Inteligência Artificial {.unnumbered}
 

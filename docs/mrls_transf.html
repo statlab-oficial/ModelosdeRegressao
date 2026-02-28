@@ -59,7 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -417,7 +417,7 @@ window.Quarto = {
 
 <section id="motivação" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="motivação"><span class="header-section-number">9.1</span> Motivação</h2>
-<p>Quando os <strong>gráficos de resíduos</strong> revelam padrões sistemáticos, heteroscedasticidade ou violações de normalidade, é sinal de que a especificação do modelo pode estar inadequada. Em termos formais, isso significa que ao menos uma das hipóteses centrais do MRLS — linearidade da função média, homoscedasticidade ou normalidade dos erros — pode não estar sendo satisfeita (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Quando os <strong>gráficos de resíduos</strong> revelam padrões sistemáticos, heteroscedasticidade ou violações de normalidade, é sinal de que a especificação do modelo pode estar inadequada. Em termos formais, isso significa que ao menos uma das hipóteses centrais do MRLS — linearidade da função média, homoscedasticidade ou normalidade dos erros — pode não estar sendo satisfeita (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
 <p>A regressão linear simples assume que</p>
 <p><span class="math display">\[
 E(Y \mid X) = \beta_0 + \beta_1 X
@@ -456,7 +456,7 @@ Var(Y \mid X) = \sigma^2,
 <p><span class="math display">\[
 Var(Y \mid X) \neq \text{constante}
 \]</span></p>
-<p>ou que os erros apresentam forte assimetria ou caudas pesadas pode motivar uma transformação em <span class="math inline">\(Y\)</span> (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>ou que os erros apresentam forte assimetria ou caudas pesadas pode motivar uma transformação em <span class="math inline">\(Y\)</span> (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
 <p>Para exemplificar, suponha que a variância condicional dependa da média:</p>
 <p><span class="math display">\[
 Var(Y \mid X) = g\big(E(Y \mid X)\big),
@@ -561,7 +561,7 @@ Var(Y \mid X) \propto [E(Y \mid X)]^2,
 <p><span class="math display">\[
 E(Y \mid X) = \exp(\mu + \tfrac{1}{2}\sigma^2),
 \]</span></p>
-<p>e não apenas <span class="math inline">\(\exp(\mu)\)</span> (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Ignorar esse termo pode introduzir <strong>viés de retransformação</strong>.</p>
+<p>e não apenas <span class="math inline">\(\exp(\mu)\)</span> (<span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Ignorar esse termo pode introduzir <strong>viés de retransformação</strong>.</p>
 <p><strong>Quando usar</strong></p>
 <ul>
 <li>Resíduos vs.&nbsp;ajustados exibem padrão de funil.</li>
@@ -647,7 +647,7 @@ Y = \frac{1}{\alpha + \beta X},
 <section id="transformações-na-variável-explicativa-x" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="transformações-na-variável-explicativa-x"><span class="header-section-number">9.3</span> Transformações na variável explicativa (<span class="math inline">\(X\)</span>)</h2>
 <p>As transformações na variável explicativa têm como objetivo principal <strong>linearizar a relação entre <span class="math inline">\(X\)</span> e a média condicional de <span class="math inline">\(Y\)</span></strong>, preservando, quando possível, a estrutura de variância constante dos erros.</p>
-<p>Recordando que o MRLS assume <span class="math inline">\(E(Y \mid X) = \beta_0 + \beta_1 X\)</span>, portanto, qualquer evidência de que a relação média entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> não é linear, por exemplo, presença de curvatura sistemática no gráfico de resíduos vs.&nbsp;<span class="math inline">\(X\)</span>, sugere que a especificação funcional pode estar inadequada (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Recordando que o MRLS assume <span class="math inline">\(E(Y \mid X) = \beta_0 + \beta_1 X\)</span>, portanto, qualquer evidência de que a relação média entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> não é linear, por exemplo, presença de curvatura sistemática no gráfico de resíduos vs.&nbsp;<span class="math inline">\(X\)</span>, sugere que a especificação funcional pode estar inadequada (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
 <p>Nesse caso, buscamos uma transformação <span class="math inline">\(X^* = h(X)\)</span> tal que</p>
 <p><span class="math display">\[
 E(Y \mid X^*) = \beta_0 + \beta_1 X^*
@@ -772,7 +772,7 @@ Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \cdots + \varepsilon.
 <section id="guia-prático-escolhendo-a-transformação" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="guia-prático-escolhendo-a-transformação"><span class="header-section-number">9.4</span> Guia prático: escolhendo a transformação</h2>
 <p>Após compreender as motivações teóricas para transformar <span class="math inline">\(Y\)</span> ou <span class="math inline">\(X\)</span>, surge a questão prática: <strong>como decidir qual transformação aplicar?</strong></p>
-<p>A escolha não deve ser arbitrária nem baseada apenas em melhora numérica de <span class="math inline">\(R^2\)</span>. O critério central é a adequação às hipóteses do modelo e à estrutura substantiva do fenômeno (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>A escolha não deve ser arbitrária nem baseada apenas em melhora numérica de <span class="math inline">\(R^2\)</span>. O critério central é a adequação às hipóteses do modelo e à estrutura substantiva do fenômeno (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
 <p><strong>Etapa 1 — Diagnóstico inicial</strong></p>
 <p>Antes de qualquer transformação, ajusta-se o modelo na escala original:</p>
 <p><span class="math display">\[
@@ -1323,7 +1323,7 @@ Y = \exp(\beta_0^*) \exp(\beta_1^* X).
 <p><span class="math display">\[
 E(Y \mid X) = \exp\left(\mu + \tfrac{1}{2}\sigma^2\right),
 \]</span></p>
-<p>e não simplesmente <span class="math inline">\(\exp(\mu)\)</span> (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Ignorar esse termo introduz <strong>viés de retransformação</strong></p>
+<p>e não simplesmente <span class="math inline">\(\exp(\mu)\)</span> (<span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Ignorar esse termo introduz <strong>viés de retransformação</strong></p>
 <p>Este exemplo evidencia que:</p>
 <ul>
 <li>a análise de resíduos é central na validação do modelo;</li>
@@ -1334,18 +1334,18 @@ E(Y \mid X) = \exp\left(\mu + \tfrac{1}{2}\sigma^2\right),
 <p>Em regressão, a forma funcional adequada é aquela que torna os resíduos compatíveis com as hipóteses do modelo — não necessariamente aquela que produz o maior <span class="math inline">\(R^2\)</span>.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-casella2002" class="csl-entry" role="listitem">
-Casella, George, e Roger L. Berger. 2002. <em>Statistical Inference</em>. 2º ed. Pacific Grove: Duxbury.
+CASELLA, George; BERGER, Roger L. <strong>Statistical Inference</strong>. 2. ed. Pacific Grove: Duxbury, 2002.
 </div>
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
-Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
 </div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
-Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 <div id="ref-weisberg2005" class="csl-entry" role="listitem">
-Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. New York: Wiley.
+WEISBERG, Sanford. <strong>Applied Linear Regression</strong>. New York: Wiley, 2005.
 </div>
 </div>
 </section>

@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -363,11 +363,11 @@ window.Quarto = {
 
 
 <p>A compreensão do <strong>Modelo de Regressão Linear Simples (MRLS)</strong> é essencial para o estudo dos modelos de regressão. Sua importância não se limita à simplicidade algébrica, mas repousa no fato de que ele estabelece as bases conceituais para toda a teoria de modelagem estatística. Ao assumir que a variação média de uma variável resposta <span class="math inline">\(Y\)</span> pode ser explicada por uma única variável explicativa <span class="math inline">\(X\)</span>, o MRLS introduz a noção central de <strong>média condicional</strong>, isto é, a ideia de que existe uma estrutura determinística que organiza o comportamento médio dos dados, à qual se sobrepõe uma componente aleatória que representa o ruído <em>inevitável</em> das observações empíricas.</p>
-<p>Essa leitura “pela média condicional” é a forma mais precisa de entender o que a regressão linear simples afirma: para cada valor fixado de <span class="math inline">\(X\)</span>, existe uma distribuição de <span class="math inline">\(Y\)</span>, e o modelo especifica como a média dessa distribuição varia com <span class="math inline">\(X\)</span>. (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="references.html#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>)</p>
+<p>Essa leitura “pela média condicional” é a forma mais precisa de entender o que a regressão linear simples afirma: para cada valor fixado de <span class="math inline">\(X\)</span>, existe uma distribuição de <span class="math inline">\(Y\)</span>, e o modelo especifica como a média dessa distribuição varia com <span class="math inline">\(X\)</span>. (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="references.html#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>)</p>
 <p>O intercepto e a inclinação da reta de regressão apresentadas anteriormente traduzem a parte sistemática do fenômeno, enquanto o erro agrega fatores não observados, variações aleatórias ou imprecisões de medição. É nessa combinação entre regularidade e aleatoriedade que se encontra a força do modelo: a regressão linear simples oferece uma linguagem matemática capaz de quantificar associações e, ao mesmo tempo, de reconhecer que o mundo real não se comporta de maneira perfeitamente determinística.</p>
 <p>Em particular, o termo “erro” não deve ser lido como “falha”: ele representa a parcela de variabilidade de <span class="math inline">\(Y\)</span> que permanece mesmo quando <span class="math inline">\(X\)</span> é conhecido e o componente médio <span class="math inline">\(E(Y\mid X)\)</span> foi especificado. (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>)</p>
 <p>O MRLS pode ser usado em diferentes perspectivas. Em um primeiro plano, ele ajuda a compreender como uma variável se relaciona com outra, permitindo isolar a contribuição média de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>. Em seguida, oferece meios de previsão, já que a reta ajustada pode ser utilizada para estimar valores futuros ou não observados de <span class="math inline">\(Y\)</span>. Finalmente, ele fornece um instrumento de controle, pois ao quantificar a variação esperada em <span class="math inline">\(Y\)</span> para uma mudança em <span class="math inline">\(X\)</span>, torna-se possível avaliar de forma objetiva a influência de um fator específico mantendo os demais aspectos fixos ou controlados no desenho do estudo. Essa tríade, nomeadamente; explicação, predição e controle, sustenta a relevância prática do modelo e justifica sua centralidade tanto no ensino quanto na aplicação da estatística.</p>
-<p>Um cuidado conceitual importante é distinguir “prever o valor médio” de “prever uma observação individual”: mesmo que a média condicional seja bem descrita, observações individuais ainda variam ao redor dessa média por causa do erro aleatório. (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
+<p>Um cuidado conceitual importante é distinguir “prever o valor médio” de “prever uma observação individual”: mesmo que a média condicional seja bem descrita, observações individuais ainda variam ao redor dessa média por causa do erro aleatório. (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
 <p>A intuição do MRLS pode ser visualizada em gráficos de dispersão: os pontos <span class="math inline">\((X,Y)\)</span> representam as observações empíricas e, sobre esse conjunto, a reta de regressão traduz a tendência média. As distâncias verticais entre cada ponto e a reta correspondem aos resíduos, isto é, às variações não capturadas pelo modelo. Adicionalmente, sabendo que a relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> pode assumir diferentes intensidades e direções, mesmo dentro de um modelo linear simples, considere os quatro cenários a seguir, todos baseados em uma reta verdadeira perturbada por erros aleatórios:</p>
 <ul>
 <li><strong>(a) Correlação positiva forte</strong>: a inclinação da reta é positiva e os pontos se distribuem próximos a ela. O sinal determinístico domina, e o ruído é pequeno em relação à estrutura média.<br>
@@ -390,7 +390,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Essa representação gráfica simples, mas poderosa, revela a lógica do modelo: a regressão não busca explicar cada observação em particular, mas descrever o comportamento médio de <span class="math inline">\(Y\)</span> em função de <span class="math inline">\(X\)</span>. É nesse sentido que ela constitui uma primeira aproximação, um alicerce sobre o qual se constroem modelos mais complexos. (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
+<p>Essa representação gráfica simples, mas poderosa, revela a lógica do modelo: a regressão não busca explicar cada observação em particular, mas descrever o comportamento médio de <span class="math inline">\(Y\)</span> em função de <span class="math inline">\(X\)</span>. É nesse sentido que ela constitui uma primeira aproximação, um alicerce sobre o qual se constroem modelos mais complexos. (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
 <section id="formulação-matemática-do-mrls" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="formulação-matemática-do-mrls"><span class="header-section-number">4.1</span> Formulação Matemática do MRLS</h2>
 <p>A formulação do modelo de regressão linear simples parte da ideia de que cada observação <span class="math inline">\(Y_i\)</span> pode ser decomposta em duas partes: uma componente sistemática, que expressa o valor médio de <span class="math inline">\(Y\)</span> condicionado a um dado valor de <span class="math inline">\(X_i\)</span>, e uma componente aleatória, que traduz as variações não explicadas. Em notação formal, escrevemos</p>
@@ -410,7 +410,7 @@ Var(\varepsilon_i\mid X_i)=\sigma^2.
 <p><span class="math display">\[
 Cov(\varepsilon_i,\varepsilon_j\mid X_i,X_j)=0,\quad \forall i\neq j,
 \]</span></p>
-<p>isto é, condicionando ao conjunto de regressores, os termos de erro não apresentam associação linear entre observações distintas. Em muitos textos, essa hipótese aparece na forma mais forte de independência entre os erros; a condição de covariância nula é a expressão mínima necessária para várias propriedades algébricas clássicas do modelo linear. (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
+<p>isto é, condicionando ao conjunto de regressores, os termos de erro não apresentam associação linear entre observações distintas. Em muitos textos, essa hipótese aparece na forma mais forte de independência entre os erros; a condição de covariância nula é a expressão mínima necessária para várias propriedades algébricas clássicas do modelo linear. (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
 <p>Sob essas suposições, podemos derivar <strong>propriedades imediatas</strong> do modelo:</p>
 <ol type="1">
 <li><strong>Média condicional</strong></li>
@@ -446,7 +446,7 @@ E[Y_i \mid X_i] = \mu(X_i;\beta_0,\beta_1) = \beta_0 + \beta_1 X_i,
 <p>o que leva à formulação completa do modelo:</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \quad i=1,2,\dots,n.
-\]</span> Uma vez especificada a função <span class="math inline">\(\mu(X_i;\beta_0,\beta_1)\)</span> e as hipóteses sobre <span class="math inline">\(\varepsilon_i\)</span>, a tarefa estatística passa a ser <strong>estimar</strong> <span class="math inline">\(E(Y_i\mid X_i)\)</span> (isto é, a função de regressão) a partir dos dados, tipicamente via métodos como mínimos quadrados (MMQ) e, quando apropriado, máxima verossimilhança (MMV). (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
+\]</span> Uma vez especificada a função <span class="math inline">\(\mu(X_i;\beta_0,\beta_1)\)</span> e as hipóteses sobre <span class="math inline">\(\varepsilon_i\)</span>, a tarefa estatística passa a ser <strong>estimar</strong> <span class="math inline">\(E(Y_i\mid X_i)\)</span> (isto é, a função de regressão) a partir dos dados, tipicamente via métodos como mínimos quadrados (MMQ) e, quando apropriado, máxima verossimilhança (MMV). (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
 </section>
 <section id="interpretação-dos-parâmetros-e-hipóteses-do-modelo" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="interpretação-dos-parâmetros-e-hipóteses-do-modelo"><span class="header-section-number">4.2</span> Interpretação dos Parâmetros e Hipóteses do Modelo</h2>
@@ -463,7 +463,7 @@ E(Y\mid X=0)=\beta_0,
 E(Y\mid X=x+1)-E(Y\mid X=x)=\beta_1.
 \]</span></p>
 <p>Assim, <span class="math inline">\(\beta_1\)</span> mede o efeito médio de uma variação unitária em <span class="math inline">\(X\)</span> sobre a média condicional de <span class="math inline">\(Y\)</span>. O erro <span class="math inline">\(\varepsilon_i\)</span> traduz tanto a variabilidade natural dos fenômenos quanto fatores não observados, assumindo sempre que sua esperança condicional a <span class="math inline">\(X_i\)</span> seja nula.</p>
-<p>É essencial notar que “<span class="math inline">\(X=0\)</span>” pode não ter significado em alguns contextos; ainda assim, <span class="math inline">\(\beta_0\)</span> permanece necessário como parâmetro de localização da reta. Quando <span class="math inline">\(0\)</span> não pertence ao intervalo observado de <span class="math inline">\(X\)</span>, ou quando não possui interpretação prática, pode-se redefinir a variável explicativa por centralização (por exemplo, <span class="math inline">\(X_i^\ast = X_i - \bar X\)</span>), de modo que o novo intercepto represente o valor esperado de <span class="math inline">\(Y\)</span> em um ponto de referência mais informativo. (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
+<p>É essencial notar que “<span class="math inline">\(X=0\)</span>” pode não ter significado em alguns contextos; ainda assim, <span class="math inline">\(\beta_0\)</span> permanece necessário como parâmetro de localização da reta. Quando <span class="math inline">\(0\)</span> não pertence ao intervalo observado de <span class="math inline">\(X\)</span>, ou quando não possui interpretação prática, pode-se redefinir a variável explicativa por centralização (por exemplo, <span class="math inline">\(X_i^\ast = X_i - \bar X\)</span>), de modo que o novo intercepto represente o valor esperado de <span class="math inline">\(Y\)</span> em um ponto de referência mais informativo. (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>)</p>
 </section>
 <section id="hipóteses-do-mrls" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="hipóteses-do-mrls"><span class="header-section-number">4.3</span> Hipóteses do MRLS</h2>
@@ -548,24 +548,24 @@ E(\varepsilon_i\mid X_i)=0,
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-charnet2008" class="csl-entry" role="listitem">
-Charnet, Reinaldo, Carlos Alberto Freire, Eliane M. R. Charnet, e Helio Bonvino. 2008. <em>Análise de Modelos de Regressão Linear com Aplicações</em>. 2º ed. Campinas: EDUNICAMP.
+CHARNET, Reinaldo <em>et al.</em> <strong>Análise de Modelos de Regressão Linear com Aplicações</strong>. 2. ed. Campinas: EDUNICAMP, 2008.
 </div>
 <div id="ref-gujarati2006" class="csl-entry" role="listitem">
-Gujarati, Damodar N. 2006. <em>Econometria Básica</em>. 4º ed. Rio de Janeiro: Elsevier Campus.
+GUJARATI, Damodar N. <strong>Econometria Básica</strong>. 4. ed. Rio de Janeiro: Elsevier Campus, 2006.
 </div>
 <div id="ref-hoffmann2016" class="csl-entry" role="listitem">
-Hoffmann, Rodolfo. 2016. <em>Análise de Regressão: Uma Introdução à Econometria</em>. 5º ed. Portal de Livros Abertos da USP. <a href="https://doi.org/10.11606/9788592105709">https://doi.org/10.11606/9788592105709</a>.
+HOFFMANN, Rodolfo. <strong><a href="https://doi.org/10.11606/9788592105709">Análise de Regressão: Uma Introdução à Econometria</a></strong>. 5. ed. <em>[S.l.]</em>: Portal de Livros Abertos da USP, 2016.
 </div>
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
-Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
 </div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
-Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 <div id="ref-weisberg2005" class="csl-entry" role="listitem">
-Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. New York: Wiley.
+WEISBERG, Sanford. <strong>Applied Linear Regression</strong>. New York: Wiley, 2005.
 </div>
 </div>
 </section>

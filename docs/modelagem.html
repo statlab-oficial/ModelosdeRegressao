@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -431,7 +431,7 @@ Dependendo da natureza das variáveis envolvidas. Contagens são discretas; altu
 <li><p><strong>Dinâmicos ou estáticos</strong><br>
 Dependendo se o tempo é incorporado explicitamente na estrutura do modelo.</p></li>
 </ol>
-<p>Essas classificações são discutidas em livros clássicos de modelagem matemática, como <span class="citation" data-cites="meerschaert2013">Meerschaert (<a href="references.html#ref-meerschaert2013" role="doc-biblioref">2013</a>)</span> e <span class="citation" data-cites="giordano2013">Giordano, Fox, e Horton (<a href="references.html#ref-giordano2013" role="doc-biblioref">2013</a>)</span>. Elas ajudam a organizar o tipo de pergunta que estamos fazendo e a estrutura matemática adequada para respondê-la.</p>
+<p>Essas classificações são discutidas em livros clássicos de modelagem matemática, como <span class="citation" data-cites="meerschaert2013">Meerschaert (<a href="references.html#ref-meerschaert2013" role="doc-biblioref">2013</a>)</span> e <span class="citation" data-cites="giordano2013">Giordano; Fox; Horton (<a href="references.html#ref-giordano2013" role="doc-biblioref">2013</a>)</span>. Elas ajudam a organizar o tipo de pergunta que estamos fazendo e a estrutura matemática adequada para respondê-la.</p>
 </section>
 <section id="o-ciclo-da-modelagem" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="o-ciclo-da-modelagem"><span class="header-section-number">2.1.3</span> O ciclo da modelagem</h3>
@@ -500,7 +500,7 @@ E(Y \mid X)
 <li>Uma <strong>estrutura determinística</strong> (ou componente sistemática), que representa o sinal da relação entre as variáveis;</li>
 <li>Uma <strong>componente aleatória</strong>, representada pelo ruído <span class="math inline">\(\varepsilon\)</span>, que captura variações não explicadas pelo modelo.</li>
 </ol>
-<p>Essa decomposição aparece de forma recorrente na literatura de regressão aplicada (<span class="citation" data-cites="draper1998">Draper e Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>) como a base conceitual do modelo linear.</p>
+<p>Essa decomposição aparece de forma recorrente na literatura de regressão aplicada (<span class="citation" data-cites="draper1998">Draper; Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>) como a base conceitual do modelo linear.</p>
 <p>De forma geral, existem duas representações usuais para essa ideia. - <strong>Modelo Aditivo</strong> (o mais utilizado):</p>
 <p><span class="math display">\[
 Y = \mu(X) + \varepsilon
@@ -544,7 +544,7 @@ Y = \text{sinal} + \text{ruído}
 <li>flutuações naturais,</li>
 <li>fatores aleatórios não controlados.</li>
 </ul>
-<p>Essa separação entre componente sistemática e erro é um dos pilares da regressão linear clássica (<span class="citation" data-cites="draper1998">Draper e Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>).</p>
+<p>Essa separação entre componente sistemática e erro é um dos pilares da regressão linear clássica (<span class="citation" data-cites="draper1998">Draper; Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>).</p>
 <section id="exemplo-ilustrativo-sinal-ruído" class="level4" data-number="2.2.1.1">
 <h4 data-number="2.2.1.1" class="anchored" data-anchor-id="exemplo-ilustrativo-sinal-ruído"><span class="header-section-number">2.2.1.1</span> Exemplo ilustrativo: Sinal + Ruído</h4>
 <p>A seguir, simulamos um conjunto de dados artificiais para ilustrar a lógica central da regressão: <strong>um sinal determinístico mais um componente de ruído</strong>.</p>
@@ -669,7 +669,7 @@ Utilizar o modelo ajustado para estimar valores futuros ou não observados de <s
 <li><p><strong>Controlar</strong><br>
 Avaliar o efeito de uma variável mantendo as demais constantes, permitindo interpretações condicionais.</p></li>
 </ol>
-<p>Esses objetivos aparecem de maneira combinada na prática. Em econometria, frequentemente busca-se compreender relações estruturais entre variáveis macroeconômicas (<span class="citation" data-cites="gujarati2006">Gujarati (<a href="references.html#ref-gujarati2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="hoffmann2006">Hoffmann (<a href="references.html#ref-hoffmann2006" role="doc-biblioref">2006</a>)</span>). Em engenharia e estatística aplicada, pode haver maior ênfase na capacidade preditiva do modelo (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). Em estudos científicos em geral, explicar e prever caminham juntos.</p>
+<p>Esses objetivos aparecem de maneira combinada na prática. Em econometria, frequentemente busca-se compreender relações estruturais entre variáveis macroeconômicas (<span class="citation" data-cites="gujarati2006">Gujarati (<a href="references.html#ref-gujarati2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="hoffmann2006">Hoffmann (<a href="references.html#ref-hoffmann2006" role="doc-biblioref">2006</a>)</span>). Em engenharia e estatística aplicada, pode haver maior ênfase na capacidade preditiva do modelo (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). Em estudos científicos em geral, explicar e prever caminham juntos.</p>
 </section>
 <section id="observações-conceituais-importantes" class="level4" data-number="2.2.2.2">
 <h4 data-number="2.2.2.2" class="anchored" data-anchor-id="observações-conceituais-importantes"><span class="header-section-number">2.2.2.2</span> Observações conceituais importantes</h4>
@@ -761,30 +761,30 @@ Avaliações de impacto utilizam regressão para investigar como programas socia
 <p>No próximo capítulo, iniciaremos o estudo formal do <strong>Modelo de Regressão Linear Simples (MRLS)</strong>, que constitui o ponto de partida para compreender, com rigor matemático, como essa estrutura é estimada e quais propriedades possui.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-charnet2008" class="csl-entry" role="listitem">
-Charnet, Reinaldo, Carlos Alberto Freire, Eliane M. R. Charnet, e Helio Bonvino. 2008. <em>Análise de Modelos de Regressão Linear com Aplicações</em>. 2º ed. Campinas: EDUNICAMP.
+CHARNET, Reinaldo <em>et al.</em> <strong>Análise de Modelos de Regressão Linear com Aplicações</strong>. 2. ed. Campinas: EDUNICAMP, 2008.
 </div>
 <div id="ref-draper1998" class="csl-entry" role="listitem">
-Draper, Norman R., e Harry Smith. 1998. <em>Applied Regression Analysis</em>. 3º ed. New York: John Wiley &amp; Sons.
+DRAPER, Norman R.; SMITH, Harry. <strong>Applied Regression Analysis</strong>. 3. ed. New York: John Wiley &amp; Sons, 1998.
 </div>
 <div id="ref-giordano2013" class="csl-entry" role="listitem">
-Giordano, Frank R., William P. Fox, e Steven B. Horton. 2013. <em>A First Course in Mathematical Modeling</em>. Cengage Learning.
+GIORDANO, Frank R.; FOX, William P.; HORTON, Steven B. <strong>A First Course in Mathematical Modeling</strong>. <em>[S.l.]</em>: Cengage Learning, 2013.
 </div>
 <div id="ref-gujarati2006" class="csl-entry" role="listitem">
-Gujarati, Damodar N. 2006. <em>Econometria Básica</em>. 4º ed. Rio de Janeiro: Elsevier Campus.
+GUJARATI, Damodar N. <strong>Econometria Básica</strong>. 4. ed. Rio de Janeiro: Elsevier Campus, 2006.
 </div>
 <div id="ref-hoffmann2006" class="csl-entry" role="listitem">
-Hoffmann, Rodolfo. 2006. <em>Análise de Regressão: Uma Introdução à Econometria</em>. 2º ed. São Paulo: Hucitec.
+HOFFMANN, Rodolfo. <strong>Análise de Regressão: Uma Introdução à Econometria</strong>. 2. ed. São Paulo: Hucitec, 2006.
 </div>
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
-Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
 </div>
 <div id="ref-meerschaert2013" class="csl-entry" role="listitem">
-Meerschaert, Mark M. 2013. <em>Mathematical Modeling</em>. 4º ed. Academic Press.
+MEERSCHAERT, Mark M. <strong>Mathematical Modeling</strong>. 4. ed. <em>[S.l.]</em>: Academic Press, 2013.
 </div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
-Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 </div>
 </section>

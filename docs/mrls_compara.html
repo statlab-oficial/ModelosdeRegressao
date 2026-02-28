@@ -59,7 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -422,7 +422,7 @@ window.Quarto = {
 </li>
 <li><strong>Pertinência substantiva</strong> – se o modelo faz sentido em relação ao fenômeno estudado, é parcimonioso e interpretável.</li>
 </ol>
-<p>Em regressão, “modelo melhor” <strong>não significa</strong> “modelo com o maior ajuste numérico”. O ponto é: um modelo é um <strong>compromisso</strong> entre (i) representar a estrutura sistemática de <span class="math inline">\(Y\)</span> explicada por <span class="math inline">\(X\)</span> e (ii) não incorporar estrutura espúria (ruído) como se fosse sinal. Critérios como AIC e BIC foram propostos justamente para explicitar essa troca: melhorar o ajuste (via log-verossimilhança) <strong>custa</strong> complexidade (número de parâmetros), e essa penalização é uma maneira de desencorajar sobreajuste (<span class="citation" data-cites="akaike1974">Akaike (<a href="references.html#ref-akaike1974" role="doc-biblioref">1974</a>)</span>; <span class="citation" data-cites="schwarz1978">Schwarz (<a href="references.html#ref-schwarz1978" role="doc-biblioref">1978</a>)</span>; <span class="citation" data-cites="burnham2002">Burnham e Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>Em regressão, “modelo melhor” <strong>não significa</strong> “modelo com o maior ajuste numérico”. O ponto é: um modelo é um <strong>compromisso</strong> entre (i) representar a estrutura sistemática de <span class="math inline">\(Y\)</span> explicada por <span class="math inline">\(X\)</span> e (ii) não incorporar estrutura espúria (ruído) como se fosse sinal. Critérios como AIC e BIC foram propostos justamente para explicitar essa troca: melhorar o ajuste (via log-verossimilhança) <strong>custa</strong> complexidade (número de parâmetros), e essa penalização é uma maneira de desencorajar sobreajuste <span class="citation" data-cites="akaike1974 schwarz1978 burnham2002">(<a href="references.html#ref-akaike1974" role="doc-biblioref">Akaike, 1974</a>; <a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>; <a href="references.html#ref-schwarz1978" role="doc-biblioref">Schwarz, 1978</a>)</span>.</p>
 <p>Um ponto central é que <strong>não adianta comparar dois modelos se ambos têm resíduos inadequados</strong>. O primeiro filtro deve ser sempre o diagnóstico dos resíduos. Uma vez que os modelos estejam pelo menos aproximadamente bem especificados, podemos partir para critérios comparativos.</p>
 <p>Essa ordem (“diagnóstico <span class="math inline">\(\rightarrow\)</span> comparação”) é importante porque muitos critérios formais assumem que o modelo está <strong>minimamente compatível</strong> com as hipóteses estruturais do MRLS (por exemplo: relação média aproximadamente linear na escala adotada, variância aproximadamente constante e ausência de padrões sistemáticos evidentes nos resíduos). Se essas condições falham, é comum observar situações enganosas como:</p>
 <ul>
@@ -436,7 +436,7 @@ window.Quarto = {
 <ul>
 <li><strong>Explicação/interpretação:</strong> prioriza parâmetros estáveis e interpretáveis e tende a valorizar parcimônia (frequentemente BIC é usado como referência em seleção mais “conservadora”).<br>
 </li>
-<li><strong>Predição:</strong> prioriza desempenho fora da amostra; critérios baseados em verossimilhança com penalização moderada (como AIC) são frequentemente usados como aproximações de desempenho preditivo, mas idealmente devem ser complementados por validação (ex.: validação cruzada) quando isso fizer parte do desenho analítico (<span class="citation" data-cites="burnham2002">Burnham e Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</li>
+<li><strong>Predição:</strong> prioriza desempenho fora da amostra; critérios baseados em verossimilhança com penalização moderada (como AIC) são frequentemente usados como aproximações de desempenho preditivo, mas idealmente devem ser complementados por validação (ex.: validação cruzada) quando isso fizer parte do desenho analítico <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</li>
 </ul>
 <p>Nesta seção, organizamos os principais critérios formais e práticos de comparação, seguidos de exemplos ilustrativos.</p>
 </section>
@@ -450,7 +450,7 @@ window.Quarto = {
 R^2 = 1 - \frac{SQ_{Res}}{SQ_{Tot}},
 \]</span></p>
 <p>em que <span class="math inline">\(SQ_{Res} = \sum_{i=1}^n (Y_i-\hat Y_i)^2\)</span> é a soma de quadrados dos resíduos e <span class="math inline">\(SQ_{Tot} = \sum_{i=1}^n (Y_i-\bar Y)^2\)</span> é a soma de quadrados total.</p>
-<p>O <span class="math inline">\(R^2\)</span> responde à pergunta: “<strong>quanto da variabilidade total observada em <span class="math inline">\(Y\)</span> foi capturada pelo componente sistemático do modelo?</strong>”. Ele é, portanto, uma medida <strong>descritiva de ajuste</strong>: compara o erro do modelo com o erro de um “modelo nulo” que sempre prediz <span class="math inline">\(\bar Y\)</span>.</p>
+<p>O <span class="math inline">\(R^2\)</span> responde à pergunta: “<strong>quanto da variabilidade total observada em</strong> <span class="math inline">\(Y\)</span> foi capturada pelo componente sistemático do modelo?”. Ele é, portanto, uma medida <strong>descritiva de ajuste</strong>: compara o erro do modelo com o erro de um “modelo nulo” que sempre prediz <span class="math inline">\(\bar Y\)</span>.</p>
 <p>Como a decomposição <span class="math display">\[
 SQ_{Tot}=SQ_{Reg}+SQ_{Res}
 \]</span> vale no MRLS com intercepto, também podemos escrever <span class="math display">\[
@@ -460,11 +460,11 @@ R^2=\frac{SQ_{Reg}}{SQ_{Tot}},
 <h4 data-number="10.2.1.1" class="anchored" data-anchor-id="propriedades-e-limitações"><span class="header-section-number">10.2.1.1</span> Propriedades e limitações</h4>
 <p>É tentador ler <span class="math inline">\(R^2\)</span> como “o modelo é bom/ruim”, mas isso é perigoso por três razões:</p>
 <ol type="1">
-<li><strong><span class="math inline">\(R^2\)</span> não diagnostica adequação das hipóteses</strong>: um modelo pode ter <span class="math inline">\(R^2\)</span> alto e ainda assim apresentar resíduos com curvatura, heteroscedasticidade ou dependência. Por isso, o diagnóstico de resíduos vem antes.</li>
-<li><strong><span class="math inline">\(R^2\)</span> não mede capacidade preditiva fora da amostra</strong>: ele é calculado na amostra usada no ajuste.</li>
-<li><strong><span class="math inline">\(R^2\)</span> depende da variabilidade de <span class="math inline">\(Y\)</span></strong>: em bases com pouca variação em <span class="math inline">\(Y\)</span>, mesmo modelos úteis podem ter <span class="math inline">\(R^2\)</span> modestos; e em bases com grande variação em <span class="math inline">\(Y\)</span>, <span class="math inline">\(R^2\)</span> pode ser alto sem que o modelo seja substantivamente satisfatório.</li>
+<li><span class="math inline">\(R^2\)</span> não diagnostica adequação das hipóteses: um modelo pode ter <span class="math inline">\(R^2\)</span> alto e ainda assim apresentar resíduos com curvatura, heteroscedasticidade ou dependência. Por isso, o diagnóstico de resíduos vem antes.</li>
+<li><span class="math inline">\(R^2\)</span> não mede capacidade preditiva fora da amostra: ele é calculado na amostra usada no ajuste.</li>
+<li><span class="math inline">\(R^2\)</span> depende da variabilidade de <span class="math inline">\(Y\)</span>: em bases com pouca variação em <span class="math inline">\(Y\)</span>, mesmo modelos úteis podem ter <span class="math inline">\(R^2\)</span> modestos; e em bases com grande variação em <span class="math inline">\(Y\)</span>, <span class="math inline">\(R^2\)</span> pode ser alto sem que o modelo seja substantivamente satisfatório.</li>
 </ol>
-<p><strong>Vantagens e limitaçoes </strong></p>
+<p><strong>Vantagens e limitaçoes</strong></p>
 <ul>
 <li><strong>Vantagem:</strong> fornece uma medida intuitiva de ajuste.<br>
 </li>
@@ -490,7 +490,7 @@ R^2_{aj} = 1 - \frac{SQ_{Res}/(n-p)}{SQ_{Tot}/(n-1)},
 <li><span class="math inline">\(SQ_{Res}/(n-p)\)</span> é o estimador de <span class="math inline">\(\sigma^2\)</span> (variância do erro) sob o modelo candidato;</li>
 <li><span class="math inline">\(SQ_{Tot}/(n-1)\)</span> é a variância amostral de <span class="math inline">\(Y\)</span>.</li>
 </ul>
-<p>Assim, <span class="math inline">\(R^2_{aj}\)</span> pergunta: “<strong>o quanto a variância residual estimada caiu em relação à variância total de <span class="math inline">\(Y\)</span>, levando em conta quantos parâmetros eu usei para isso?</strong>”.</p>
+<p>Assim, <span class="math inline">\(R^2_{aj}\)</span> pergunta: “<strong>o quanto a variância residual estimada caiu em relação à variância total de</strong> <span class="math inline">\(Y\)</span>, levando em conta quantos parâmetros eu usei para isso?”.</p>
 <p>Ao contrário do <span class="math inline">\(R^2\)</span>, o <span class="math inline">\(R^2_{aj}\)</span> <strong>pode diminuir</strong> quando adicionamos regressoras. Isso é desejável: se um novo termo reduz pouco o <span class="math inline">\(SQ_{Res}\)</span>, a penalização por perder graus de liberdade pode dominar, sinalizando que o ganho de ajuste não compensa a complexidade.</p>
 <section id="vantagens-e-limitações" class="level4" data-number="10.2.2.1">
 <h4 data-number="10.2.2.1" class="anchored" data-anchor-id="vantagens-e-limitações"><span class="header-section-number">10.2.2.1</span> Vantagens e limitações</h4>
@@ -562,7 +562,7 @@ AIC = -2\ell(\hat\theta) + 2p,
 <li><span class="math inline">\(\ell(\hat\theta)\)</span> é a log-verossimilhança no ponto estimado;</li>
 <li><span class="math inline">\(p\)</span> é o número de parâmetros estimados (incluindo <span class="math inline">\(\sigma^2\)</span>, quando apropriado).</li>
 </ul>
-<p>O AIC pode ser interpretado como uma aproximação para a <strong>distância de Kullback–Leibler</strong> entre o modelo candidato e o verdadeiro mecanismo gerador dos dados (<span class="citation" data-cites="akaike1974">Akaike (<a href="references.html#ref-akaike1974" role="doc-biblioref">1974</a>)</span>; <span class="citation" data-cites="burnham2002">Burnham e Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>). Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.</p>
+<p>O AIC pode ser interpretado como uma aproximação para a <strong>distância de Kullback–Leibler</strong> entre o modelo candidato e o verdadeiro mecanismo gerador dos dados (<span class="citation" data-cites="akaike1974">Akaike (<a href="references.html#ref-akaike1974" role="doc-biblioref">1974</a>)</span>; <span class="citation" data-cites="burnham2002">Burnham; Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>). Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.</p>
 <p>A estrutura do critério explicita o compromisso:</p>
 <ul>
 <li><span class="math inline">\(-2\ell(\hat\theta)\)</span> recompensa melhor ajuste (maior verossimilhança);</li>
@@ -573,10 +573,10 @@ AIC = -2\ell(\hat\theta) + 2p,
 <ul>
 <li><strong>Regra:</strong> entre modelos comparáveis, preferir o de <strong>menor AIC</strong>.</li>
 <li>O AIC não tem interpretação absoluta; só faz sentido <strong>comparativamente</strong>.</li>
-<li>Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados (<span class="citation" data-cites="burnham2002">Burnham e Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</li>
+<li>Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados (<span class="citation" data-cites="burnham2002">Burnham; Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</li>
 </ul>
 <p>O AIC não testa hipóteses do tipo <span class="math inline">\(H_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\)</span>. Ele não produz valor-p nem decisão “rejeita/não rejeita”. É um critério de <strong>seleção por informação</strong>, não um teste clássico de significância.</p>
-<p>Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas (ver <span class="citation" data-cites="burnham2002">Burnham e Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas (ver <span class="citation" data-cites="burnham2002">Burnham; Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</p>
 </section>
 <section id="critério-bayesiano-de-schwarz-bic" class="level3" data-number="10.3.2">
 <h3 data-number="10.3.2" class="anchored" data-anchor-id="critério-bayesiano-de-schwarz-bic"><span class="header-section-number">10.3.2</span> Critério Bayesiano de Schwarz (BIC)</h3>
@@ -688,7 +688,7 @@ Y = \beta_1 X + \varepsilon
 </li>
 <li><strong>Modelo A0 (sem intercepto)</strong> declara, como hipótese estrutural, que “se <span class="math inline">\(X=0\)</span>, então <span class="math inline">\(Y=0\)</span>”. Essa é uma afirmação forte: se ela for falsa, o ajuste pode “compensar” deslocando a inclinação e gerando resíduos estruturados.<br>
 </li>
-<li><strong>Modelo B (com <span class="math inline">\(\log Y\)</span>)</strong> muda a escala da resposta e, portanto, muda o tipo de erro “natural” no modelo (efeitos multiplicativos no <span class="math inline">\(Y\)</span> original tendem a virar efeitos aditivos em <span class="math inline">\(\log(Y)\)</span>).</li>
+<li><strong>Modelo B (com</strong> <span class="math inline">\(\log Y\)</span>) muda a escala da resposta e, portanto, muda o tipo de erro “natural” no modelo (efeitos multiplicativos no <span class="math inline">\(Y\)</span> original tendem a virar efeitos aditivos em <span class="math inline">\(\log(Y)\)</span>).</li>
 </ul>
 <p><strong>Visualização da primeiras linhas da Base de dados</strong></p>
 <div class="cell">
@@ -1319,6 +1319,7 @@ O QQ-plot avalia <em>normalidade aproximada</em> por meio do alinhamento entre o
 <ol start="3" type="i">
 <li><strong>Roteiro de tarefas (atividade guiada)</strong></li>
 </ol>
+<!-- -->
 <ol type="1">
 <li><strong>Ajuste os três modelos candidatos</strong> separadamente:
 <ul>
@@ -1637,15 +1638,15 @@ F-statistic: 0.2932 on 1 and 118 DF,  p-value: 0.5892</code></pre>
 <p>Em conjunto, os exemplos reforçam que a escolha do modelo não deve se basear apenas em indicadores numéricos, mas sim no equilíbrio entre <strong>consistência estatística, parcimônia e coerência substantiva</strong> com o fenômeno estudado.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-akaike1974" class="csl-entry" role="listitem">
-Akaike, Hirotugu. 1974. <span>“A new look at the statistical model identification”</span>. <em>IEEE Transactions on Automatic Control</em> 19 (6): 716–23.
+AKAIKE, Hirotugu. A new look at the statistical model identification. <strong>IEEE Transactions on Automatic Control</strong>, v. 19, n. 6, p. 716–723, 1974.
 </div>
 <div id="ref-burnham2002" class="csl-entry" role="listitem">
-Burnham, Kenneth P., e David R. Anderson. 2002. <em>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</em>. 2º ed. New York: Springer.
+BURNHAM, Kenneth P.; ANDERSON, David R. <strong>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</strong>. 2. ed. New York: Springer, 2002.
 </div>
 <div id="ref-schwarz1978" class="csl-entry" role="listitem">
-Schwarz, Gideon. 1978. <span>“Estimating the Dimension of a Model”</span>. <em>The Annals of Statistics</em> 6 (2): 461–64.
+SCHWARZ, Gideon. Estimating the Dimension of a Model. <strong>The Annals of Statistics</strong>, v. 6, n. 2, p. 461–464, 1978.
 </div>
 </div>
 </section>

@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -379,7 +379,7 @@ window.Quarto = {
 
 <section id="por-que-assumir-normalidade" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="por-que-assumir-normalidade"><span class="header-section-number">6.1</span> Por que assumir normalidade?</h2>
-<p>Até aqui, estudamos as propriedades dos estimadores de mínimos quadrados ordinários (MQO) no Modelo de Regressão Linear Simples (MRLS). Mostramos que <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são <strong>não viesados</strong>, possuem <strong>variâncias explícitas</strong> e, pelo <strong>Teorema de Gauss–Markov</strong>, são os <strong>melhores estimadores lineares não viesados (BLUE)</strong> sob as hipóteses clássicas de exogeneidade, homoscedasticidade e independência dos erros (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Até aqui, estudamos as propriedades dos estimadores de mínimos quadrados ordinários (MQO) no Modelo de Regressão Linear Simples (MRLS). Mostramos que <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são <strong>não viesados</strong>, possuem <strong>variâncias explícitas</strong> e, pelo <strong>Teorema de Gauss–Markov</strong>, são os <strong>melhores estimadores lineares não viesados (BLUE)</strong> sob as hipóteses clássicas de exogeneidade, homoscedasticidade e independência dos erros (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <p>No entanto, até este ponto conhecemos apenas <strong>momentos de primeira e segunda ordem</strong> das distribuições amostrais dos estimadores, ou seja, suas esperanças e variâncias. Não conhecemos suas <strong>distribuições exatas</strong>. De inferência, já sabemos que um estimador ser não viesado e eficiente dentro de uma classe não é suficiente para construir intervalos de confiança exatos ou realizar testes de hipóteses com nível de significância controlado em amostras finitas.</p>
 <p>Para superar essa limitação, acrescentamos uma hipótese mais forte e específica: a <strong>normalidade dos erros</strong>,</p>
 <p><span class="math display">\[
@@ -407,7 +407,7 @@ Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \, \sigma^2).
 <ul>
 <li><p>O <strong>MRLS continua sendo um modelo para a média condicional</strong>, mas agora a variabilidade em torno dessa média é descrita por uma estrutura probabilística completamente especificada.</p></li>
 <li><p>As hipóteses de Gauss–Markov já asseguravam que os estimadores de MQO eram BLUE, mas <strong>não determinavam suas distribuições exatas</strong>. A normalidade preenche exatamente essa lacuna.</p></li>
-<li><p>Como combinações lineares de variáveis normais são normais, os estimadores <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span>, que são combinações lineares dos <span class="math inline">\(Y_i\)</span>, passam a ter distribuições normais exatas em amostras finitas (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p></li>
+<li><p>Como combinações lineares de variáveis normais são normais, os estimadores <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span>, que são combinações lineares dos <span class="math inline">\(Y_i\)</span>, passam a ter distribuições normais exatas em amostras finitas (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p></li>
 <li><p>A estatística baseada na soma dos quadrados dos resíduos passa a ter distribuição qui-quadrado, o que permite derivar distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> de forma exata (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p></li>
 </ul>
 <p>Do ponto de vista metodológico, a normalidade não é necessária para a obtenção das propriedades de não viés ou eficiência relativa, mas é uma boa alternativa para a construção de <strong>procedimentos inferenciais exatos em amostras finitas</strong>. Essa hipótese não altera os estimadores de MQO, mas altera o que podemos afirmar sobre sua variabilidade e sobre a incerteza associada às estimativas.</p>
@@ -421,7 +421,7 @@ Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \, \sigma^2).
 <p><span class="math display">\[
 \varepsilon_i \sim N(0,\sigma^2), \quad \text{independentes}.
 \]</span></p>
-<p>Como os estimadores de MQO podem ser escritos como <strong>combinações lineares dos <span class="math inline">\(Y_i\)</span></strong>, e cada <span class="math inline">\(Y_i\)</span> é normal condicionalmente a <span class="math inline">\(X_i\)</span>, segue que <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são também normalmente distribuídos. Essa conclusão decorre do fato fundamental de que combinações lineares de variáveis normais independentes permanecem normais (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Como os estimadores de MQO podem ser escritos como <strong>combinações lineares dos <span class="math inline">\(Y_i\)</span></strong>, e cada <span class="math inline">\(Y_i\)</span> é normal condicionalmente a <span class="math inline">\(X_i\)</span>, segue que <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são também normalmente distribuídos. Essa conclusão decorre do fato fundamental de que combinações lineares de variáveis normais independentes permanecem normais (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <section id="distribuição-de-hatbeta_0-hatbeta_1" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="distribuição-de-hatbeta_0-hatbeta_1"><span class="header-section-number">6.2.1</span> Distribuição de <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span></h3>
 <p>Para a inclinação, obtemos:</p>
@@ -463,7 +463,7 @@ SQRes = \sum_{i=1}^n (Y_i - \hat Y_i)^2,
 <p><span class="math display">\[
 \hat{\mu}(X_0) \;=\; \hat\beta_0 + \hat\beta_1 X_0.
 \]</span></p>
-<p>Sob erros normais, <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são combinações lineares dos <span class="math inline">\(Y_i\)</span> e, portanto, <span class="math inline">\(\hat{\mu}(X_0)\)</span> também é uma combinação linear de variáveis normais. Assim, <span class="math inline">\(\hat{\mu}(X_0)\)</span> é normalmente distribuído (ver <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Sob erros normais, <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são combinações lineares dos <span class="math inline">\(Y_i\)</span> e, portanto, <span class="math inline">\(\hat{\mu}(X_0)\)</span> também é uma combinação linear de variáveis normais. Assim, <span class="math inline">\(\hat{\mu}(X_0)\)</span> é normalmente distribuído (ver <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <p>Além disso, sua esperança é</p>
 <p><span class="math display">\[
 E[\hat{\mu}(X_0)] = \beta_0 + \beta_1 X_0 = \mu(X_0),
@@ -502,7 +502,7 @@ N\!\left(\mu(X_0),\;
 <li>um <strong>intervalo de confiança</strong> para <span class="math inline">\(\mu(X_0)\)</span>, quando o interesse é a tendência média; ou</li>
 <li>um <strong>intervalo de predição</strong>, quando o objetivo é prever uma nova observação individual.</li>
 </ul>
-<p>Essas duas construções serão desenvolvidas nas próximas subseções (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Essas duas construções serão desenvolvidas nas próximas subseções (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <p>Considere o seguinte gráfico, onde o ponto destacado corresponde a <span class="math inline">\(\hat Y_0\)</span>, isto é, à estimativa da média condicional em <span class="math inline">\(X_0\)</span>. Observe que o valor pontual não informa, por si só, o grau de incerteza associado à estimativa, questão que será tratada na próxima subseção.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -524,7 +524,7 @@ s^2 = \frac{SQRes}{n-2},
 \qquad
 SQRes = \sum_{i=1}^n (Y_i-\hat Y_i)^2.
 \]</span></p>
-<p>Essa substituição tem consequência direta na forma das distribuições amostrais: ao padronizarmos os estimadores utilizando <span class="math inline">\(s\)</span> em vez de <span class="math inline">\(\sigma\)</span>, as estatísticas resultantes deixam de seguir a normal padrão e passam a seguir distribuições <span class="math inline">\(t\)</span> de Student com <span class="math inline">\(n-2\)</span> graus de liberdade (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Essa substituição tem consequência direta na forma das distribuições amostrais: ao padronizarmos os estimadores utilizando <span class="math inline">\(s\)</span> em vez de <span class="math inline">\(\sigma\)</span>, as estatísticas resultantes deixam de seguir a normal padrão e passam a seguir distribuições <span class="math inline">\(t\)</span> de Student com <span class="math inline">\(n-2\)</span> graus de liberdade (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <p>Essa mudança decorre do fato de que</p>
 <p><span class="math display">\[
 \frac{(n-2)s^2}{\sigma^2} \sim \chi^2_{n-2},
@@ -585,7 +585,7 @@ T =
 \frac{\hat{\mu}(X_0) - \mu(X_0)}
 {s \sqrt{\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}}}
 \]</span></p>
-<p>segue distribuição <span class="math inline">\(t\)</span> de Student com <span class="math inline">\(n-2\)</span> graus de liberdade (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). A demonstração formal pode ser consultada no Apêndice de Demonstrações {#demo}.</p>
+<p>segue distribuição <span class="math inline">\(t\)</span> de Student com <span class="math inline">\(n-2\)</span> graus de liberdade (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). A demonstração formal pode ser consultada no Apêndice de Demonstrações {#demo}.</p>
 <p>Consequentemente, um intervalo de confiança de nível <span class="math inline">\((1-\alpha)\times 100\%\)</span> para a média condicional é</p>
 <p><span class="math display">\[
 IC_{1-\alpha}\left[\mu(X_0)\right]
@@ -677,7 +677,7 @@ Var\!\left[Y_{\text{novo}}(X_0) - \hat{\mu}(X_0)\right]
 1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
 \right].
 \]</span></p>
-<p>O termo adicional “<span class="math inline">\(+1\)</span>” aparece porque a nova observação contém um erro próprio, independente daquele utilizado na estimação dos parâmetros. A demonstração formal dessa variância pode ser consultada no Apêndice de Demonstrações {#demo} (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>O termo adicional “<span class="math inline">\(+1\)</span>” aparece porque a nova observação contém um erro próprio, independente daquele utilizado na estimação dos parâmetros. A demonstração formal dessa variância pode ser consultada no Apêndice de Demonstrações {#demo} (ver <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <p>Padronizando essa quantidade por <span class="math inline">\(s\)</span>, obtemos uma estatística que segue distribuição t de Student com <span class="math inline">\(n-2\)</span> graus de liberdade (<span class="math inline">\(t_{n-2}\)</span>) sob normalidade dos erros. Assim, o intervalo de predição de nível <span class="math inline">\((1-\alpha)\times 100\%\)</span> é</p>
 <p><span class="math display">\[
 IC\!\left[Y_{\text{novo}}(X_0)\right]
@@ -731,15 +731,15 @@ X_{(min)} \leq X_i \leq X_{(max)}.
 \]</span></p>
 <p>Quando <span class="math inline">\(X_0 \in [X_{(min)}, X_{(max)}]\)</span>, o modelo está sendo utilizado em uma região sustentada pelos dados. Nesse caso, embora o intervalo possa se alargar à medida que <span class="math inline">\(X_0\)</span> se afasta de <span class="math inline">\(\bar X\)</span>, a inferência permanece ancorada na informação empírica disponível.</p>
 <p>Por outro lado, quando <span class="math inline">\(X_0\)</span> está fora desse intervalo, ocorre <strong>extrapolação</strong>. Nessa situação, a validade formal da expressão algébrica do intervalo permanece, mas sua confiabilidade prática pode ser comprometida, pois o modelo passa a depender fortemente da suposição de linearidade fora da região observada. Pequenas violações da forma funcional podem produzir erros substanciais de predição.</p>
-<p>Como destacam <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span> e <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>, a regressão linear deve ser utilizada com cautela fora do domínio amostral, pois o comportamento da relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> além dos dados observados não é garantido pelo modelo ajustado. Assim, intervalos de predição em extrapolação tendem a ser não apenas mais largos, mas também potencialmente menos representativos do processo real.</p>
+<p>Como destacam <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span> e <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>, a regressão linear deve ser utilizada com cautela fora do domínio amostral, pois o comportamento da relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> além dos dados observados não é garantido pelo modelo ajustado. Assim, intervalos de predição em extrapolação tendem a ser não apenas mais largos, mas também potencialmente menos representativos do processo real.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
-Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
 </div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
-Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 </div>
 </section>

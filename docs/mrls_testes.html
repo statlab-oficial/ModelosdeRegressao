@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -369,11 +369,11 @@ window.Quarto = {
 
 
 <p>A construção de intervalos de confiança fornece uma forma de expressar a incerteza nos estimadores. Outra abordagem complementar é a dos <strong>testes de hipóteses</strong> e <strong>análise de variância (ANOVA)</strong>, que avaliam formalmente se os coeficientes do modelo diferem significativamente de determinados valores, em especial do zero. No Modelo de Regressão Linear Simples (MRLS) com erros normais, os testes se apoiam nas distribuições exatas dos estimadores discutidas anteriormente.</p>
-<p>Sob as hipóteses clássicas do MRLS normal: (a) linearidade na forma funcional, (b) independência dos erros, (b) homocedasticidade e (d) normalidade, os estimadores de mínimos quadrados coincidem com os estimadores de máxima verossimilhança, e possuem distribuições amostrais exatas baseadas na distribuição normal e na distribuição <span class="math inline">\(t\)</span> de Student (<span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="references.html#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). Em particular, condicionalmente aos valores observados de <span class="math inline">\(X\)</span>, temos</p>
+<p>Sob as hipóteses clássicas do MRLS normal: (a) linearidade na forma funcional, (b) independência dos erros, (b) homocedasticidade e (d) normalidade, os estimadores de mínimos quadrados coincidem com os estimadores de máxima verossimilhança, e possuem distribuições amostrais exatas baseadas na distribuição normal e na distribuição <span class="math inline">\(t\)</span> de Student (<span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="references.html#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>). Em particular, condicionalmente aos valores observados de <span class="math inline">\(X\)</span>, temos</p>
 <p><span class="math display">\[
 \hat\beta_1 \sim N\!\left(\beta_1,\; \frac{\sigma^2}{S_{xx}}\right),
 \]</span></p>
-<p>e, como <span class="math inline">\(\sigma^2\)</span> é desconhecida e estimada por <span class="math inline">\(s^2 = SQ_{Res}/(n-2)\)</span>, a padronização conduz à distribuição <span class="math inline">\(t_{n-2}\)</span>, resultado central para a inferência clássica em regressão linear simples (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>e, como <span class="math inline">\(\sigma^2\)</span> é desconhecida e estimada por <span class="math inline">\(s^2 = SQ_{Res}/(n-2)\)</span>, a padronização conduz à distribuição <span class="math inline">\(t_{n-2}\)</span>, resultado central para a inferência clássica em regressão linear simples (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>).</p>
 <p>É importante enfatizar que os testes de hipóteses são construídos <em>dentro do modelo</em>. A validade exata da distribuição <span class="math inline">\(t\)</span> depende da normalidade dos erros; na ausência dessa hipótese, os resultados passam a ter caráter assintótico. Assim, significância estatística deve sempre ser interpretada à luz das suposições estruturais do modelo.</p>
 <section id="testes-marginais-para-beta_1-e-beta_0" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="testes-marginais-para-beta_1-e-beta_0"><span class="header-section-number">7.1</span> Testes marginais para <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\beta_0\)</span></h2>
@@ -390,8 +390,8 @@ H_1: \beta_1 \neq \beta_{1,0},
 T = \frac{\hat\beta_1 - \beta_{1,0}}{s / \sqrt{S_{xx}}} \;\sim\; t_{n-2}.
 \]</span></p>
 <p>Esse teste é especialmente relevante quando <span class="math inline">\(\beta_{1,0}=0\)</span>, situação em que verificamos se existe associação linear entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>. Em termos práticos, ele responde à pergunta: <em>vale a pena incluir</em> <span class="math inline">\(X\)</span> para explicar <span class="math inline">\(Y\)</span>? Se <span class="math inline">\(|T|\)</span> ultrapassa o valor crítico da distribuição <span class="math inline">\(t_{n-2}\)</span>, rejeitamos <span class="math inline">\(H_0\)</span> e concluímos que a inclinação é estatisticamente diferente de zero.</p>
-<p>Do ponto de vista conceitual, testar <span class="math inline">\(\beta_1=0\)</span> equivale a testar se a melhor reta ajustada possui inclinação nula, isto é, se o modelo reduz-se a <span class="math inline">\(Y_i=\beta_0+\varepsilon_i\)</span>. Portanto, o teste compara dois modelos aninhados: o modelo completo (com inclinação livre) e o modelo restrito (com <span class="math inline">\(\beta_1=0\)</span>). Essa interpretação como comparação entre modelos é fundamental para compreender a ligação posterior com a estatística <span class="math inline">\(F\)</span> (<span class="citation" data-cites="draper1998">Draper e Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
-<p>Além disso, há equivalência formal entre o teste <span class="math inline">\(t\)</span> bilateral ao nível <span class="math inline">\(\alpha\)</span> e o intervalo de confiança <span class="math inline">\((1-\alpha)\)</span> para <span class="math inline">\(\beta_1\)</span>: rejeitar <span class="math inline">\(H_0\)</span> é equivalente a verificar que <span class="math inline">\(\beta_{1,0}\)</span> não pertence ao intervalo de confiança correspondente <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>. O <span class="math inline">\(p\)</span>-valor, por sua vez, é definido como</p>
+<p>Do ponto de vista conceitual, testar <span class="math inline">\(\beta_1=0\)</span> equivale a testar se a melhor reta ajustada possui inclinação nula, isto é, se o modelo reduz-se a <span class="math inline">\(Y_i=\beta_0+\varepsilon_i\)</span>. Portanto, o teste compara dois modelos aninhados: o modelo completo (com inclinação livre) e o modelo restrito (com <span class="math inline">\(\beta_1=0\)</span>). Essa interpretação como comparação entre modelos é fundamental para compreender a ligação posterior com a estatística <span class="math inline">\(F\)</span> (<span class="citation" data-cites="draper1998">Draper; Smith (<a href="references.html#ref-draper1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Além disso, há equivalência formal entre o teste <span class="math inline">\(t\)</span> bilateral ao nível <span class="math inline">\(\alpha\)</span> e o intervalo de confiança <span class="math inline">\((1-\alpha)\)</span> para <span class="math inline">\(\beta_1\)</span>: rejeitar <span class="math inline">\(H_0\)</span> é equivalente a verificar que <span class="math inline">\(\beta_{1,0}\)</span> não pertence ao intervalo de confiança correspondente <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>. O <span class="math inline">\(p\)</span>-valor, por sua vez, é definido como</p>
 <p><span class="math display">\[
 p = P\left(|T| \ge |t_{obs}| \mid H_0 \right),
 \]</span></p>
@@ -410,9 +410,9 @@ H_1: \beta_0 \neq \beta_{0,0},
 T = \frac{\hat\beta_0 - \beta_{0,0}}{s \sqrt{\tfrac{1}{n}+\tfrac{\bar X^2}{S_{xx}}}} \;\sim\; t_{n-2}.
 \]</span></p>
 <p>Esse teste é menos central do ponto de vista prático, mas pode ser importante quando se deseja avaliar se o valor médio de <span class="math inline">\(Y\)</span> para <span class="math inline">\(X=0\)</span> coincide com alguma referência teórica ou prática.</p>
-<p>Conceitualmente, <span class="math inline">\(\beta_0 = E(Y\mid X=0)\)</span> dentro do modelo linear. Assim, sua interpretação depende criticamente de <span class="math inline">\(X=0\)</span> ter significado no fenômeno estudado e estar dentro do intervalo de observação dos dados. Caso contrário, o intercepto pode representar apenas uma extrapolação matemática da reta ajustada, ainda que perfeitamente bem definido do ponto de vista estatístico (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Conceitualmente, <span class="math inline">\(\beta_0 = E(Y\mid X=0)\)</span> dentro do modelo linear. Assim, sua interpretação depende criticamente de <span class="math inline">\(X=0\)</span> ter significado no fenômeno estudado e estar dentro do intervalo de observação dos dados. Caso contrário, o intercepto pode representar apenas uma extrapolação matemática da reta ajustada, ainda que perfeitamente bem definido do ponto de vista estatístico (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
 <blockquote class="blockquote">
-<p><strong>Apêndice de Demonstrações {#demo}:</strong> as distribuições exatas das estatísticas <span class="math inline">\(T\)</span> decorrem da normalidade dos erros, da independência entre <span class="math inline">\(\hat\beta_j\)</span> e <span class="math inline">\(SQ_{Res}\)</span> e da relação entre variância residual e distribuição qui-quadrado, conforme desenvolvimento clássico da inferência em modelos lineares (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p><strong>Apêndice de Demonstrações {#demo}:</strong> as distribuições exatas das estatísticas <span class="math inline">\(T\)</span> decorrem da normalidade dos erros, da independência entre <span class="math inline">\(\hat\beta_j\)</span> e <span class="math inline">\(SQ_{Res}\)</span> e da relação entre variância residual e distribuição qui-quadrado, conforme desenvolvimento clássico da inferência em modelos lineares (<span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
 </blockquote>
 </section>
 </section>
@@ -466,7 +466,7 @@ F = \frac{QM_{Reg}}{QM_{Res}} \;\sim\; F_{1,n-2} \quad \text{sob } H_0: \beta_1=
 \]</span></p>
 <p>Esse teste avalia, portanto, se a proporção de variabilidade explicada pela regressão é grande o suficiente em comparação com a variabilidade residual, justificando o uso do modelo.</p>
 <p>Interpretativamente, <span class="math inline">\(QM_{Res}\)</span> é um estimador não viesado de <span class="math inline">\(\sigma^2\)</span>, enquanto <span class="math inline">\(QM_{Reg}\)</span> mede a variação explicada <em>por grau de liberdade associado ao efeito linear de <span class="math inline">\(X\)</span></em>. Assim, o teste <span class="math inline">\(F\)</span> compara um componente sistemático (sinal) com um componente aleatório (ruído).</p>
-<p>Valores elevados de <span class="math inline">\(F\)</span> indicam que a redução em <span class="math inline">\(SQ_{Res}\)</span> ao incluir <span class="math inline">\(X\)</span> é grande demais para ser atribuída apenas ao acaso (<span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Valores elevados de <span class="math inline">\(F\)</span> indicam que a redução em <span class="math inline">\(SQ_{Res}\)</span> ao incluir <span class="math inline">\(X\)</span> é grande demais para ser atribuída apenas ao acaso (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
 </section>
 <section id="tabela-anova-do-mrls" class="level3" data-number="7.2.3">
 <h3 data-number="7.2.3" class="anchored" data-anchor-id="tabela-anova-do-mrls"><span class="header-section-number">7.2.3</span> Tabela ANOVA do MRLS</h3>
@@ -524,7 +524,7 @@ F = \frac{QM_{Reg}}{QM_{Res}} \;\sim\; F_{1,n-2} \quad \text{sob } H_0: \beta_1=
 R^2 = \frac{SQ_{Reg}}{SQ_{Total}} = 1 - \frac{SQ_{Res}}{SQ_{Total}}.
 \]</span></p>
 <p>Ele mede a proporção da variabilidade total de <span class="math inline">\(Y\)</span> explicada pela regressão e está limitado ao intervalo <span class="math inline">\(0 \leq R^2 \leq 1\)</span>. Em termos práticos, <span class="math inline">\(R^2 \times 100\%\)</span> indica o percentual da variabilidade de <span class="math inline">\(Y\)</span> que é explicado linearmente por <span class="math inline">\(X\)</span>. Quanto maior <span class="math inline">\(R^2\)</span>, maior o poder explicativo do modelo.</p>
-<p>É importante compreender que <span class="math inline">\(R^2\)</span> é uma medida descritiva da qualidade de ajuste dentro da amostra observada. Ele <strong>não implica causalidade, nem garante desempenho preditivo</strong>. Além disso, em modelos com múltiplos preditores, <span class="math inline">\(R^2\)</span> tende a aumentar com a inclusão de variáveis, mesmo que irrelevantes, motivo pelo qual se introduz posteriormente o <span class="math inline">\(R^2\)</span> ajustado (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>É importante compreender que <span class="math inline">\(R^2\)</span> é uma medida descritiva da qualidade de ajuste dentro da amostra observada. Ele <strong>não implica causalidade, nem garante desempenho preditivo</strong>. Além disso, em modelos com múltiplos preditores, <span class="math inline">\(R^2\)</span> tende a aumentar com a inclusão de variáveis, mesmo que irrelevantes, motivo pelo qual se introduz posteriormente o <span class="math inline">\(R^2\)</span> ajustado (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 <p>No caso do MRLS, há uma relação direta com a estatística descritiva da correlação linear:</p>
 <p><span class="math display">\[
 R^2 = r_{XY}^2,
@@ -538,7 +538,7 @@ F = \frac{QM_{Reg}}{QM_{Res}} = \frac{R^2}{1-R^2}(n-2).
 <blockquote class="blockquote">
 <p><strong>Apêndice de Demonstrações {#demo}:</strong> a relação entre <span class="math inline">\(F\)</span> e <span class="math inline">\(R^2\)</span> é obtida substituindo as definições de <span class="math inline">\(SQ_{Reg}\)</span> e <span class="math inline">\(SQ_{Res}\)</span> na razão <span class="math inline">\(QM_{Reg}/QM_{Res}\)</span> e utilizando a identidade <span class="math inline">\(R^2 = SQ_{Reg}/SQ_{Total}\)</span>.</p>
 </blockquote>
-<p>Em resumo, os testes de hipóteses no MRLS permitem verificar tanto a significância individual dos coeficientes quanto o poder explicativo global do modelo. A equivalência entre os testes <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span>, a decomposição da soma de quadrados e a interpretação do <span class="math inline">\(R^2\)</span> reforçam a visão integrada da regressão como técnica que conecta <strong>estimação, inferência e análise da variabilidade</strong> em um único arcabouço teórico (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Em resumo, os testes de hipóteses no MRLS permitem verificar tanto a significância individual dos coeficientes quanto o poder explicativo global do modelo. A equivalência entre os testes <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span>, a decomposição da soma de quadrados e a interpretação do <span class="math inline">\(R^2\)</span> reforçam a visão integrada da regressão como técnica que conecta <strong>estimação, inferência e análise da variabilidade</strong> em um único arcabouço teórico (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>).</p>
 </section>
 <section id="equivalência-entre-t2-e-f" class="level3" data-number="7.2.5">
 <h3 data-number="7.2.5" class="anchored" data-anchor-id="equivalência-entre-t2-e-f"><span class="header-section-number">7.2.5</span> Equivalência entre <span class="math inline">\(T^2\)</span> e <span class="math inline">\(F\)</span></h3>
@@ -579,40 +579,40 @@ T \sim t_{n-2},
 <p><span class="math display">\[
 T^2 \sim F_{1,n-2},
 \]</span></p>
-<p>o que decorre da relação geral entre as distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> (<span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Assim, a equivalência também se verifica ao nível das distribuições.</p>
+<p>o que decorre da relação geral entre as distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> (<span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Assim, a equivalência também se verifica ao nível das distribuições.</p>
 <p>Essa identidade tem uma consequência didática importante: no MRLS, o teste global da regressão e o teste individual da inclinação são exatamente o mesmo teste, apenas expressos em escalas diferentes. Em outras palavras, testar a significância global do modelo é o mesmo que testar se a inclinação é nula.</p>
 <blockquote class="blockquote">
-<p><strong>Apêndice de Demonstrações {#demo}:</strong> a identidade <span class="math inline">\(SQ_{Reg}=\hat\beta_1^2 S_{xx}\)</span> e a relação distribucional entre <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> podem ser demonstradas a partir das propriedades do MQO e da definição da distribuição <span class="math inline">\(F\)</span> como razão de qui-quadrados independentes <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
+<p><strong>Apêndice de Demonstrações {#demo}:</strong> a identidade <span class="math inline">\(SQ_{Reg}=\hat\beta_1^2 S_{xx}\)</span> e a relação distribucional entre <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> podem ser demonstradas a partir das propriedades do MQO e da definição da distribuição <span class="math inline">\(F\)</span> como razão de qui-quadrados independentes <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
 </blockquote>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-casella2002" class="csl-entry" role="listitem">
-Casella, George, e Roger L. Berger. 2002. <em>Statistical Inference</em>. 2º ed. Pacific Grove: Duxbury.
+CASELLA, George; BERGER, Roger L. <strong>Statistical Inference</strong>. 2. ed. Pacific Grove: Duxbury, 2002.
 </div>
 <div id="ref-charnet2008" class="csl-entry" role="listitem">
-Charnet, Reinaldo, Carlos Alberto Freire, Eliane M. R. Charnet, e Helio Bonvino. 2008. <em>Análise de Modelos de Regressão Linear com Aplicações</em>. 2º ed. Campinas: EDUNICAMP.
+CHARNET, Reinaldo <em>et al.</em> <strong>Análise de Modelos de Regressão Linear com Aplicações</strong>. 2. ed. Campinas: EDUNICAMP, 2008.
 </div>
 <div id="ref-draper1998" class="csl-entry" role="listitem">
-Draper, Norman R., e Harry Smith. 1998. <em>Applied Regression Analysis</em>. 3º ed. New York: John Wiley &amp; Sons.
+DRAPER, Norman R.; SMITH, Harry. <strong>Applied Regression Analysis</strong>. 3. ed. New York: John Wiley &amp; Sons, 1998.
 </div>
 <div id="ref-harville2000" class="csl-entry" role="listitem">
-Harville, David A. 2000. <em>Matrix Algebra from a Statistician’s Perspective</em>. New York: Springer.
+HARVILLE, David A. <strong>Matrix Algebra from a Statistician’s Perspective</strong>. New York: Springer, 2000.
 </div>
 <div id="ref-hoffmann2016" class="csl-entry" role="listitem">
-Hoffmann, Rodolfo. 2016. <em>Análise de Regressão: Uma Introdução à Econometria</em>. 5º ed. Portal de Livros Abertos da USP. <a href="https://doi.org/10.11606/9788592105709">https://doi.org/10.11606/9788592105709</a>.
+HOFFMANN, Rodolfo. <strong><a href="https://doi.org/10.11606/9788592105709">Análise de Regressão: Uma Introdução à Econometria</a></strong>. 5. ed. <em>[S.l.]</em>: Portal de Livros Abertos da USP, 2016.
 </div>
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
-Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
 </div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
-Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 <div id="ref-searle2016" class="csl-entry" role="listitem">
-Searle, Shayle R. 2016. <em>Matrix Algebra Useful for Statistics</em>. 2º ed. Hoboken: Wiley.
+SEARLE, Shayle R. <strong>Matrix Algebra Useful for Statistics</strong>. 2. ed. Hoboken: Wiley, 2016.
 </div>
 <div id="ref-weisberg2005" class="csl-entry" role="listitem">
-Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. New York: Wiley.
+WEISBERG, Sanford. <strong>Applied Linear Regression</strong>. New York: Wiley, 2005.
 </div>
 </div>
 </section>

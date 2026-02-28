@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -445,8 +445,8 @@ window.Quarto = {
 <p><strong>Cartões de decisão</strong></p>
 <ul>
 <li><p><strong>Faltantes:</strong><br>
-Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? (<span class="citation" data-cites="little2019">Little e Rubin (<a href="references.html#ref-little2019" role="doc-biblioref">2019</a>)</span>)<br>
-→ excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. (<span class="citation" data-cites="recipes_impute">Kuhn et al. (<a href="references.html#ref-recipes_impute" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="mice_cran">Buuren e Groothuis-Oudshoorn (<a href="references.html#ref-mice_cran" role="doc-biblioref">2024</a>)</span>)</p></li>
+Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? (<span class="citation" data-cites="little2019">Little; Rubin (<a href="references.html#ref-little2019" role="doc-biblioref">2019</a>)</span>)<br>
+→ excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. (<span class="citation" data-cites="recipes_impute">Kuhn et al. (<a href="references.html#ref-recipes_impute" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="mice_cran">Buuren; Groothuis-Oudshoorn (<a href="references.html#ref-mice_cran" role="doc-biblioref">2024</a>)</span>)</p></li>
 <li><p><strong>Outliers:</strong><br>
 Erro de digitação ou unidade? Valor plausível no domínio?<br>
 → corrigir / winsorizar / transformar / manter e justificar.</p></li>
@@ -582,7 +582,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <li>Imputar a variável resposta sem justificativa metodológica.</li>
 </ul>
 <p><strong>Sugestões da literatura</strong></p>
-<p>Segundo <span class="citation" data-cites="little2019">Little e Rubin (<a href="references.html#ref-little2019" role="doc-biblioref">2019</a>)</span>, o tratamento adequado depende do mecanismo de ausência:</p>
+<p>Segundo <span class="citation" data-cites="little2019">Little; Rubin (<a href="references.html#ref-little2019" role="doc-biblioref">2019</a>)</span>, o tratamento adequado depende do mecanismo de ausência:</p>
 <ul>
 <li><strong>MCAR (Missing Completely At Random)</strong>: ausência independente de variáveis observadas e não observadas.</li>
 <li><strong>MAR (Missing At Random)</strong>: ausência depende apenas de variáveis observadas.</li>
@@ -634,7 +634,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <li>Ignorar a possibilidade de que o ponto seja informativo para o fenômeno estudado.</li>
 </ul>
 <p>Segundo <span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span> e <span class="citation" data-cites="sheather2009">Sheather (<a href="references.html#ref-sheather2009" role="doc-biblioref">2009</a>)</span>, valores extremos podem distorcer estimativas, ampliar variâncias e comprometer testes de hipóteses.</p>
-<p><span class="citation" data-cites="barnett1994">Barnett e Lewis (<a href="references.html#ref-barnett1994" role="doc-biblioref">1994</a>)</span> oferecem fundamentos formais para detecção de outliers em análises univariadas e multivariadas, distinguindo entre:</p>
+<p><span class="citation" data-cites="barnett1994">Barnett; Lewis (<a href="references.html#ref-barnett1994" role="doc-biblioref">1994</a>)</span> oferecem fundamentos formais para detecção de outliers em análises univariadas e multivariadas, distinguindo entre:</p>
 <ul>
 <li>Observações extremas na distribuição marginal;</li>
 <li>Pontos de alta alavancagem (leverage);</li>
@@ -677,7 +677,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <p>Em regressão linear clássica, a padronização não altera o ajuste global do modelo nem o <span class="math inline">\(R^2\)</span>, mas modifica a escala dos coeficientes e sua interpretação. Já em métodos penalizados (Ridge e LASSO), a padronização é praticamente indispensável.</p>
 <p><span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span> ressaltam que variáveis em escalas muito distintas podem gerar instabilidade numérica e dificultar a comparação entre efeitos.</p>
 <p><span class="citation" data-cites="sheather2009">Sheather (<a href="references.html#ref-sheather2009" role="doc-biblioref">2009</a>)</span> destaca que reescalar variáveis pode facilitar a interpretação de coeficientes em regressões múltiplas, especialmente quando as unidades originais são muito grandes ou muito pequenas.</p>
-<p><span class="citation" data-cites="montgomery2021">Montgomery, Peck, e Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span> enfatizam que diferenças extremas de magnitude entre covariáveis podem afetar diagnósticos e procedimentos computacionais.</p>
+<p><span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span> enfatizam que diferenças extremas de magnitude entre covariáveis podem afetar diagnósticos e procedimentos computacionais.</p>
 <p><strong>Ferramentas R</strong></p>
 <ul>
 <li><code>scale()</code> — padronização pelo z-score (média zero e desvio padrão um).</li>
@@ -759,7 +759,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <ul>
 <li><code>cor()</code> ou pacote <code>corrr</code> — inspeção de associações entre preditores.</li>
 <li><code>qr()</code> ou <code>Matrix::rankMatrix()</code> — verificação do posto da matriz de projeto.</li>
-<li><code>car::vif()</code> — cálculo do fator de inflação da variância (VIF). (<span class="citation" data-cites="car_vif">Fox e Weisberg (<a href="references.html#ref-car_vif" role="doc-biblioref">2024</a>)</span>)</li>
+<li><code>car::vif()</code> — cálculo do fator de inflação da variância (VIF). (<span class="citation" data-cites="car_vif">Fox; Weisberg (<a href="references.html#ref-car_vif" role="doc-biblioref">2024</a>)</span>)</li>
 <li><code>summary()</code> e inspeção de variância — identificação de variáveis constantes.</li>
 </ul>
 <p>Essas ferramentas ajudam a identificar:</p>
@@ -1104,48 +1104,48 @@ Formato de texto para dados estruturados em pares chave:valor (não será foco a
 Sequência organizada de passos de tratamento: leitura → limpeza → transformação → verificação → saída tratada.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-barnett1994" class="csl-entry" role="listitem">
-Barnett, Vic, e Toby Lewis. 1994. <em>Outliers in Statistical Data</em>. 3º ed. Chichester: Wiley.
+BARNETT, Vic; LEWIS, Toby. <strong>Outliers in Statistical Data</strong>. 3. ed. Chichester: Wiley, 1994.
 </div>
 <div id="ref-mice_cran" class="csl-entry" role="listitem">
-Buuren, Stef van, e Karin Groothuis-Oudshoorn. 2024. <em>mice: Multivariate Imputation by Chained Equations</em>. CRAN. <a href="https://cran.r-project.org/package=mice">https://cran.r-project.org/package=mice</a>.
+BUUREN, Stef van; GROOTHUIS-OUDSHOORN, Karin. <strong><a href="https://cran.r-project.org/package=mice">mice: Multivariate Imputation by Chained Equations</a></strong>. <em>[S.l.]</em>: CRAN, 2024.
 </div>
 <div id="ref-charnet2008" class="csl-entry" role="listitem">
-Charnet, Reinaldo, Carlos Alberto Freire, Eliane M. R. Charnet, e Helio Bonvino. 2008. <em>Análise de Modelos de Regressão Linear com Aplicações</em>. 2º ed. Campinas: EDUNICAMP.
+CHARNET, Reinaldo <em>et al.</em> <strong>Análise de Modelos de Regressão Linear com Aplicações</strong>. 2. ed. Campinas: EDUNICAMP, 2008.
 </div>
 <div id="ref-car_vif" class="csl-entry" role="listitem">
-Fox, John, e Sanford Weisberg. 2024. <em>vif: Variance Inflation Factors</em>. car package documentation. <a href="https://search.r-project.org/CRAN/refmans/car/html/vif.html">https://search.r-project.org/CRAN/refmans/car/html/vif.html</a>.
+FOX, John; WEISBERG, Sanford. <strong><a href="https://search.r-project.org/CRAN/refmans/car/html/vif.html">vif: Variance Inflation Factors</a></strong>. <em>[S.l.]</em>: car package documentation, 2024.
 </div>
 <div id="ref-pointblank_pkg" class="csl-entry" role="listitem">
-Iannone, Richard. 2024. <em>pointblank: Data Validation</em>. R package documentation. <a href="https://rstudio.github.io/pointblank/">https://rstudio.github.io/pointblank/</a>.
+IANNONE, Richard. <strong><a href="https://rstudio.github.io/pointblank/">pointblank: Data Validation</a></strong>. <em>[S.l.]</em>: R package documentation, 2024.
 </div>
 <div id="ref-james2013" class="csl-entry" role="listitem">
-James, Gareth, Daniela Witten, Trevor Hastie, e Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning with Applications in R</em>. New York: Springer.
+JAMES, Gareth <em>et al.</em> <strong>An Introduction to Statistical Learning with Applications in R</strong>. New York: Springer, 2013.
 </div>
 <div id="ref-recipes_impute" class="csl-entry" role="listitem">
-Kuhn, Max et al. 2024. <em>step_impute_mean: Imputation Steps</em>. recipes package documentation. <a href="https://recipes.tidymodels.org/reference/step_impute_mean.html">https://recipes.tidymodels.org/reference/step_impute_mean.html</a>.
+KUHN, Max <em>et al.</em> <strong><a href="https://recipes.tidymodels.org/reference/step_impute_mean.html">step_impute_mean: Imputation Steps</a></strong>. <em>[S.l.]</em>: recipes package documentation, 2024.
 </div>
 <div id="ref-little2019" class="csl-entry" role="listitem">
-Little, Roderick J. A., e Donald B. Rubin. 2019. <em>Statistical Analysis with Missing Data</em>. 3º ed. Hoboken: Wiley.
+LITTLE, Roderick J. A.; RUBIN, Donald B. <strong>Statistical Analysis with Missing Data</strong>. 3. ed. Hoboken: Wiley, 2019.
 </div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
-Montgomery, Douglas C., Elizabeth A. Peck, e G. Geoffrey Vining. 2021. <em>Introduction to Linear Regression Analysis</em>. 6º ed. Hoboken: John Wiley &amp; Sons.
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 <div id="ref-paula2004" class="csl-entry" role="listitem">
-Paula, Gilberto A. 2004. <em>Modelos de Regressão com Apoio Computacional</em>. São Paulo: IME-USP.
+PAULA, Gilberto A. <strong>Modelos de Regressão com Apoio Computacional</strong>. São Paulo: IME-USP, 2004.
 </div>
 <div id="ref-searle2016" class="csl-entry" role="listitem">
-Searle, Shayle R. 2016. <em>Matrix Algebra Useful for Statistics</em>. 2º ed. Hoboken: Wiley.
+SEARLE, Shayle R. <strong>Matrix Algebra Useful for Statistics</strong>. 2. ed. Hoboken: Wiley, 2016.
 </div>
 <div id="ref-sheather2009" class="csl-entry" role="listitem">
-Sheather, Simon J. 2009. <em>A Modern Approach to Regression with R</em>. New York: Springer.
+SHEATHER, Simon J. <strong>A Modern Approach to Regression with R</strong>. New York: Springer, 2009.
 </div>
 <div id="ref-tufte2001" class="csl-entry" role="listitem">
-Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. 2º ed. Cheshire: Graphics Press.
+TUFTE, Edward R. <strong>The Visual Display of Quantitative Information</strong>. 2. ed. Cheshire: Graphics Press, 2001.
 </div>
 <div id="ref-tidyr_missing" class="csl-entry" role="listitem">
-Wickham, Hadley et al. 2024. <em>Missing values</em>. tidyr package documentation. <a href="https://tidyr.tidyverse.org/articles/missing-values.html">https://tidyr.tidyverse.org/articles/missing-values.html</a>.
+WICKHAM, Hadley <em>et al.</em> <strong><a href="https://tidyr.tidyverse.org/articles/missing-values.html">Missing values</a></strong>. <em>[S.l.]</em>: tidyr package documentation, 2024.
 </div>
 </div>
 </section>

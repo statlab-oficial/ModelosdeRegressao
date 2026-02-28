@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -385,7 +385,7 @@ N_m(\mathbf{A}\boldsymbol{\mu}+\mathbf{a},\, \mathbf{A}\boldsymbol{\Sigma}\mathb
 L=\mathbf{c}^\top\mathbf{Y}
 \sim
 N\!\left(\mathbf{c}^\top\boldsymbol{\mu},\, \mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}\right).
-\]</span> A dedução segue diretamente da propriedade anterior e também pode ser vista como aplicação do fato de que combinações lineares de vetores Normais permanecem Normais, como discutido em <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+\]</span> A dedução segue diretamente da propriedade anterior e também pode ser vista como aplicação do fato de que combinações lineares de vetores Normais permanecem Normais, como discutido em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
 <p>Essa estrutura será aplicada diretamente a:</p>
 <ul>
 <li><span class="math inline">\(\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}\)</span>;</li>
@@ -457,7 +457,7 @@ Z_i\sim N(0,1).
 \sim
 \chi^2_n.
 \]</span></p>
-<p>Esse resultado é a base de todas as somas de quadrados na regressão sob normalidade, como apresentado em textos de inferência como <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>Esse resultado é a base de todas as somas de quadrados na regressão sob normalidade, como apresentado em textos de inferência como <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
 </section>
 <section id="projeções-ortogonais-e-qui-quadrado" class="level2" data-number="16.6">
 <h2 data-number="16.6" class="anchored" data-anchor-id="projeções-ortogonais-e-qui-quadrado"><span class="header-section-number">16.6</span> Projeções ortogonais e Qui-quadrado</h2>
@@ -468,7 +468,7 @@ Z_i\sim N(0,1).
 \]</span></p>
 <p>Se <span class="math inline">\(r=\mathrm{rank}(\mathbf{A})=\mathrm{tr}(\mathbf{A})\)</span>, então <span class="math display">\[
 \mathbf{Z}^\top\mathbf{A}\mathbf{Z}\sim \chi^2_r.
-\]</span> Esse resultado pode ser deduzido via decomposição espectral de <span class="math inline">\(\mathbf{A}\)</span> e é tratado com rigor em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span> e <span class="citation" data-cites="rencher2012">Rencher e Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>.</p>
+\]</span> Esse resultado pode ser deduzido via decomposição espectral de <span class="math inline">\(\mathbf{A}\)</span> e é tratado com rigor em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span> e <span class="citation" data-cites="rencher2012">Rencher; Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>.</p>
 <p>Geometricamente, <span class="math inline">\(\mathbf{A}\)</span> projeta sobre um subespaço <span class="math inline">\(S\)</span> de dimensão <span class="math inline">\(r\)</span>. Assim, <span class="math inline">\(\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\)</span> mede o comprimento ao quadrado da componente projetada de <span class="math inline">\(\mathbf{Z}\)</span> em <span class="math inline">\(S\)</span>, que se comporta como soma de quadrados de <span class="math inline">\(r\)</span> Normais padrão.</p>
 <p>Esse resultado aplica-se diretamente às matrizes <span class="math inline">\(\mathbf{H}\)</span> (posto <span class="math inline">\(p+1\)</span>) e <span class="math inline">\(\mathbf{M}\)</span> (posto <span class="math inline">\(n-p-1\)</span>). Quando <span class="math inline">\(\mathbf{Z}\)</span> representa a versão padronizada do vetor de erros, as somas de quadrados do modelo e do resíduo assumem distribuições Qui-quadrado com graus de liberdade dados por esses postos.</p>
 </section>
@@ -659,18 +659,18 @@ F_{\,p+1,\;n-p-1},
 <p>Assim, as distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> não são introduzidas ad hoc: elas emergem diretamente da estrutura geométrica das projeções ortogonais combinada com a Normalidade multivariada do vetor de respostas.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-anderson2003" class="csl-entry" role="listitem">
-Anderson, T. W. 2003. <em>An Introduction to Multivariate Statistical Analysis</em>. 3º ed. New York: Wiley.
+ANDERSON, T. W. <strong>An Introduction to Multivariate Statistical Analysis</strong>. 3. ed. New York: Wiley, 2003.
 </div>
 <div id="ref-casella2002" class="csl-entry" role="listitem">
-Casella, George, e Roger L. Berger. 2002. <em>Statistical Inference</em>. 2º ed. Pacific Grove: Duxbury.
+CASELLA, George; BERGER, Roger L. <strong>Statistical Inference</strong>. 2. ed. Pacific Grove: Duxbury, 2002.
 </div>
 <div id="ref-harville1997" class="csl-entry" role="listitem">
-Harville, David A. 1997. <em>Matrix Algebra From a Statistician’s Perspective</em>. New York: Springer.
+HARVILLE, David A. <strong>Matrix Algebra From a Statistician’s Perspective</strong>. New York: Springer, 1997.
 </div>
 <div id="ref-rencher2012" class="csl-entry" role="listitem">
-Rencher, Alvin C., e William F. Christensen. 2012. <em>Methods of Multivariate Analysis</em>. 3º ed. Hoboken: Wiley.
+RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.
 </div>
 </div>
 </section>

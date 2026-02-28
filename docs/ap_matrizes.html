@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
+  margin-bottom: 1em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -531,7 +531,7 @@ b &amp; c
 =
 a x_1^2 + 2b x_1 x_2 + c x_2^2.
 \]</span></p>
-<p>Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor <span class="math inline">\(\mathbf{Y}\)</span> (ver <span class="citation" data-cites="rencher2012">Rencher e Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>).</p>
+<p>Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor <span class="math inline">\(\mathbf{Y}\)</span> (ver <span class="citation" data-cites="rencher2012">Rencher; Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>).</p>
 </section>
 <section id="transposição" class="level3" data-number="14.1.5">
 <h3 data-number="14.1.5" class="anchored" data-anchor-id="transposição"><span class="header-section-number">14.1.5</span> Transposição</h3>
@@ -577,7 +577,7 @@ d &amp; -b \\
 -c &amp; a
 \end{bmatrix}.
 \]</span></p>
-<p>Na regressão, a invertibilidade de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas, ver <span class="citation" data-cites="golub2013">Golub e Van Loan (<a href="references.html#ref-golub2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>Na regressão, a invertibilidade de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas, ver <span class="citation" data-cites="golub2013">Golub; Van Loan (<a href="references.html#ref-golub2013" role="doc-biblioref">2013</a>)</span>.</p>
 </section>
 <section id="propriedades-importantes" class="level3" data-number="14.1.7">
 <h3 data-number="14.1.7" class="anchored" data-anchor-id="propriedades-importantes"><span class="header-section-number">14.1.7</span> Propriedades Importantes</h3>
@@ -744,7 +744,7 @@ d &amp; -b \\
 <p><span class="math display">\[
 \mathbf{A} = \mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\top,
 \]</span></p>
-<p>em que <span class="math inline">\(\boldsymbol{\Lambda}\)</span> é diagonal contendo os autovalores.A análise numérica dessas decomposições é tratada em profundidade em <span class="citation" data-cites="golub2013">Golub e Van Loan (<a href="references.html#ref-golub2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>em que <span class="math inline">\(\boldsymbol{\Lambda}\)</span> é diagonal contendo os autovalores.A análise numérica dessas decomposições é tratada em profundidade em <span class="citation" data-cites="golub2013">Golub; Van Loan (<a href="references.html#ref-golub2013" role="doc-biblioref">2013</a>)</span>.</p>
 <p>Na regressão, essa decomposição permite analisar:</p>
 <ul>
 <li>a estrutura de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span>;</li>
@@ -1197,7 +1197,7 @@ S(\boldsymbol{\beta})
 <p>A função objetivo é, portanto, um polinômio quadrático convexo sempre que <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> for definida positiva.</p>
 <section id="derivadas-matriciais-fundamentais" class="level3" data-number="14.5.1">
 <h3 data-number="14.5.1" class="anchored" data-anchor-id="derivadas-matriciais-fundamentais"><span class="header-section-number">14.5.1</span> Derivadas Matriciais Fundamentais</h3>
-<p>As identidades de cálculo matricial utilizadas a seguir são sistematizadas em <span class="citation" data-cites="abadir2005">Abadir e Magnus (<a href="references.html#ref-abadir2005" role="doc-biblioref">2005</a>)</span>.</p>
+<p>As identidades de cálculo matricial utilizadas a seguir são sistematizadas em <span class="citation" data-cites="abadir2005">Abadir; Magnus (<a href="references.html#ref-abadir2005" role="doc-biblioref">2005</a>)</span>.</p>
 <ol type="1">
 <li><p><span class="math display">\[
 \frac{\partial (\mathbf{a}^\top \mathbf{x})}{\partial \mathbf{x}}
@@ -1240,7 +1240,7 @@ S(\boldsymbol{\beta})
 </section>
 <section id="derivação-das-equações-normais" class="level3" data-number="14.5.2">
 <h3 data-number="14.5.2" class="anchored" data-anchor-id="derivação-das-equações-normais"><span class="header-section-number">14.5.2</span> Derivação das Equações Normais</h3>
-<p>Aplicando a derivada à função <span class="math inline">\(S(\boldsymbol{\beta})\)</span> (ver <span class="citation" data-cites="abadir2005">Abadir e Magnus (<a href="references.html#ref-abadir2005" role="doc-biblioref">2005</a>)</span>):</p>
+<p>Aplicando a derivada à função <span class="math inline">\(S(\boldsymbol{\beta})\)</span> (ver <span class="citation" data-cites="abadir2005">Abadir; Magnus (<a href="references.html#ref-abadir2005" role="doc-biblioref">2005</a>)</span>):</p>
 <p><span class="math display">\[
 \nabla_{\boldsymbol{\beta}} S(\boldsymbol{\beta})
 =
@@ -1396,21 +1396,21 @@ h_{ii}
 <p>Essas dimensões serão reinterpretadas, no contexto probabilístico, como graus de liberdade associados às somas de quadrados.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
 <div id="ref-abadir2005" class="csl-entry" role="listitem">
-Abadir, Karim M., e Jan R. Magnus. 2005. <em>Matrix Algebra</em>. Cambridge: Cambridge University Press.
+ABADIR, Karim M.; MAGNUS, Jan R. <strong>Matrix Algebra</strong>. Cambridge: Cambridge University Press, 2005.
 </div>
 <div id="ref-golub2013" class="csl-entry" role="listitem">
-Golub, Gene H., e Charles F. Van Loan. 2013. <em>Matrix Computations</em>. 4º ed. Baltimore: Johns Hopkins University Press.
+GOLUB, Gene H.; VAN LOAN, Charles F. <strong>Matrix Computations</strong>. 4. ed. Baltimore: Johns Hopkins University Press, 2013.
 </div>
 <div id="ref-harville1997" class="csl-entry" role="listitem">
-Harville, David A. 1997. <em>Matrix Algebra From a Statistician’s Perspective</em>. New York: Springer.
+HARVILLE, David A. <strong>Matrix Algebra From a Statistician’s Perspective</strong>. New York: Springer, 1997.
 </div>
 <div id="ref-rencher2012" class="csl-entry" role="listitem">
-Rencher, Alvin C., e William F. Christensen. 2012. <em>Methods of Multivariate Analysis</em>. 3º ed. Hoboken: Wiley.
+RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.
 </div>
 <div id="ref-weisberg2005" class="csl-entry" role="listitem">
-Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. New York: Wiley.
+WEISBERG, Sanford. <strong>Applied Linear Regression</strong>. New York: Wiley, 2005.
 </div>
 </div>
 </section>
