@@ -2343,6 +2343,43 @@
         "Built": "R 4.5.2; ; 2026-01-23 03:06:58 UTC; windows"
       }
     },
+    "icons": {
+      "Source": "github",
+      "Repository": null,
+      "description": {
+        "Package": "icons",
+        "Type": "Package",
+        "Title": "SVG Icons for R Documents and Apps",
+        "Version": "0.2.0",
+        "Authors@R": "c(\n    person(\"Mitchell\", \"O'Hara-Wild\", email = \"mail@mitchelloharawild.com\", role = c(\"aut\", \"cre\")),\n    person(\"Earo\", \"Wang\", role = \"ctb\"),\n    person(\"Timothy\", \"Hyndman\", role = \"ctb\"),\n    person(\"Matthew T. Warkentin\", role = \"ctb\"),\n    person(\"Tom\", \"Jemmett\", email = \"thomas.jemmett@nhs.net\", role = \"ctb\", comment = c(ORCID=\"0000-0002-6943-2990\"))\n    )",
+        "Description": "Easily embed SVG icons into R Markdown documents or shiny apps. A collection of popular icon sets are supported by the package, including Font Awesome, Academicons and Ionicons.",
+        "Depends": "R (>= 3.1.3)",
+        "Imports": "knitr, rlang, htmltools, glue, rappdirs, xml2, stringr,\njsonlite, cli, crayon, utils, rstudioapi",
+        "Suggests": "rsvg, covr, gh",
+        "URL": "https://pkg.mitchelloharawild.com/icons/,\nhttps://github.com/mitchelloharawild/icons",
+        "BugReports": "https://github.com/mitchelloharawild/icons/issues",
+        "VignetteBuilder": "knitr",
+        "License": "GPL-3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.3",
+        "Roxygen": "list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))",
+        "RemoteType": "github",
+        "RemoteHost": "api.github.com",
+        "RemoteRepo": "icons",
+        "RemoteUsername": "mitchelloharawild",
+        "RemoteRef": "HEAD",
+        "RemoteSha": "d77f904a626f375e4874b65abbf334dcf92cd9a0",
+        "GithubRepo": "icons",
+        "GithubUsername": "mitchelloharawild",
+        "GithubRef": "HEAD",
+        "GithubSHA1": "d77f904a626f375e4874b65abbf334dcf92cd9a0",
+        "NeedsCompilation": "no",
+        "Packaged": "2026-02-28 19:11:30 UTC; Rafael Farias",
+        "Author": "Mitchell O'Hara-Wild [aut, cre],\n  Earo Wang [ctb],\n  Timothy Hyndman [ctb],\n  Matthew T. Warkentin [ctb],\n  Tom Jemmett [ctb] (ORCID: <https://orcid.org/0000-0002-6943-2990>)",
+        "Maintainer": "Mitchell O'Hara-Wild <mail@mitchelloharawild.com>",
+        "Built": "R 4.5.2; ; 2026-02-28 19:11:31 UTC; windows"
+      }
+    },
     "ids": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -5254,6 +5291,9 @@
     "_book/modelagem_files/figure-html/unnamed-chunk-4-1.png": {
       "checksum": "04e04e18739a91f77fee259f1015da7d"
     },
+    "_book/ModelosdeRegressao.pdf": {
+      "checksum": "7ddc8a25ac87001f9a4f2880e950f991"
+    },
     "_book/mrls.html": {
       "checksum": "3f672ee0080ca8b23e01be2a6ed348a1"
     },
@@ -5325,45 +5365,6 @@
     },
     "_book/mrls_emq_files/figure-html/unnamed-chunk-1-1.png": {
       "checksum": "17d85d0f32f3d8074512b2218104175f"
-    },
-    "_book/mrls_emq_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css": {
-      "checksum": "9e3ffae467580fdb927a41352e75a2e0"
-    },
-    "_book/mrls_emq_files/libs/bootstrap/bootstrap-icons.css": {
-      "checksum": "886da841d7421705f715f600c5ff11bb"
-    },
-    "_book/mrls_emq_files/libs/bootstrap/bootstrap-icons.woff": {
-      "checksum": "efe54401ef52214fd3b701e23ff88c5f"
-    },
-    "_book/mrls_emq_files/libs/bootstrap/bootstrap.min.js": {
-      "checksum": "e2b09c06f0e714b6144a6788a28e3950"
-    },
-    "_book/mrls_emq_files/libs/clipboard/clipboard.min.js": {
-      "checksum": "15f52a1ee547f2bdd46e56747332ca2d"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/anchor.min.js": {
-      "checksum": "91bcf6cd1fd88fec3f109811e5fc3546"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/axe/axe-check.js": {
-      "checksum": "b4f6a44157bfe20b68b69aabf2f8125d"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/popper.min.js": {
-      "checksum": "3a4a291ccf3f1ea0f82b641542fd3827"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css": {
-      "checksum": "1fe81d0376b2c50856e68e651e390326"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/quarto.js": {
-      "checksum": "a65a7780c10232b6515cdfb8beaaa221"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/tabsets/tabsets.js": {
-      "checksum": "e8d6a8862b33ccc461f8fd532e05b365"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/tippy.css": {
-      "checksum": "ebd6f8ce46a677e1a4f5f8a8317109a9"
-    },
-    "_book/mrls_emq_files/libs/quarto-html/tippy.umd.min.js": {
-      "checksum": "d828775275749701b48bd9d958814111"
     },
     "_book/mrls_files/figure-html/unnamed-chunk-1-1.png": {
       "checksum": "1ec1db75ce1314a220c8ddcafdca43ba"
@@ -5442,9 +5443,6 @@
     },
     "_book/references.html": {
       "checksum": "b52c12d3b97f6a762338a4b934ec7afb"
-    },
-    "_book/regressao.pdf": {
-      "checksum": "31e18cfa437d9552150ac3961ba62195"
     },
     "_book/search.json": {
       "checksum": "3c36f44f38c316991b626a120e0700c4"
@@ -5531,58 +5529,58 @@
       "checksum": "55e9f5e6528f8f71c7e02175e1031eeb"
     },
     "bases/comparacao_modelos.csv": {
-      "checksum": "c1eede3b755cda8fe52264f872de1060"
+      "checksum": "95295f21e673eb561c2de789d55183b1"
     },
     "bases/contraste.csv": {
-      "checksum": "328bfc40368d074d34d5fd9504ea6046"
+      "checksum": "cf99389b9c8c77e0825a9ef80fec3638"
     },
     "bases/controle_sem_relacao.csv": {
-      "checksum": "a451e2794ffb4923fac84770eebb1527"
+      "checksum": "220a856cb241240b39444d47529afa21"
     },
     "bases/energia.csv": {
-      "checksum": "e811d05c2574c991083163a98b93457e"
+      "checksum": "f254897be96d321808e2011de9d803c3"
     },
     "bases/energia_consumo.csv": {
-      "checksum": "51a17ba0678c97ad8c038205d3837043"
+      "checksum": "5a1678b9893443819f0fe5b15e23aa05"
     },
     "bases/estudo_setorial.csv": {
-      "checksum": "f2ebf6d16c50ffbbb0579ad6814db453"
+      "checksum": "60e8cbf435938d62d6e0f02267d05740"
     },
     "bases/estudo_vs_nota.csv": {
-      "checksum": "c0cf4a28b2296d79074c1a0aa7f0a67e"
+      "checksum": "8f3d50b1ada03f3a6bedf037bd50ad41"
     },
     "bases/fertilizante_clima.csv": {
-      "checksum": "f899db89cc43968bf0dd53356a9968db"
+      "checksum": "46114f1354c8480adaef5177138ab384"
     },
     "bases/fertilizante_vs_produtividade.csv": {
-      "checksum": "38459b9b2139f81e11912c92c11f4346"
+      "checksum": "622ceebea0f276cb651307a29f17894f"
     },
     "bases/idade_vs_pressao.csv": {
-      "checksum": "95051c129434bf429bb2227a6fd628f1"
+      "checksum": "325bedd9367296bceaf81baf19f2df8b"
     },
     "bases/mercado_multifatores.csv": {
-      "checksum": "65e98c9d80d30836cc357efcd2ff71e2"
+      "checksum": "f1bed14b93042f367cc77668f786b4b3"
     },
     "bases/publicidade_multicanais.csv": {
-      "checksum": "9c160bd7e13242f3b2944c2bef76fb8c"
+      "checksum": "d94e90d9099e6aea42be25ff5f4febbd"
     },
     "bases/publicidade_vs_vendas.csv": {
-      "checksum": "123fec19bc7922adb7cfe396e122ab77"
+      "checksum": "1ff2c91ef92409bfc4329e6d2afd9cc4"
     },
     "bases/saude_pressao.csv": {
-      "checksum": "66333233476e3620cb2a17ad28b80c87"
+      "checksum": "a6318f674d8527dc6d7bfa1f29b4325b"
     },
     "bases/temperatura_vs_sorvete.csv": {
-      "checksum": "358763388ad249870d65f639e1fd106a"
+      "checksum": "5657537b36e8f45f9c3bb1df4765445c"
     },
     "bases/transporte_tempo.csv": {
-      "checksum": "fbfb188c2612499c6b4489f9da51295d"
+      "checksum": "a3adf0fa7d7723106dbe510b2f9724cf"
     },
     "bases/vendamix.csv": {
-      "checksum": "ffd08c159142e312eed36abf3b2716d4"
+      "checksum": "aa5699cac0068dca5d50dce86fb800d3"
     },
     "bases/vendas_online.csv": {
-      "checksum": "388a298d7b87cbf9012567b2cc63c096"
+      "checksum": "25cc19e3e515cb66372f15203e34b1f7"
     },
     "cover-header.tex": {
       "checksum": "3e06bd9fbe581ebad2e7e3b7a5aabeed"
@@ -5713,26 +5711,11 @@
     "mrls_inferencia2.quarto_ipynb": {
       "checksum": "031b6d7d758e47d5488f9029138a1284"
     },
-    "mrls_inferencia2_files/figure-html/unnamed-chunk-2-1.png": {
-      "checksum": "1e95fbd08c60e09545eb0c2ef1a651aa"
-    },
-    "mrls_inferencia2_files/figure-html/unnamed-chunk-3-1.png": {
-      "checksum": "bdeff3cfdefa0ab51c1458fb658587ee"
-    },
-    "mrls_inferencia2_files/figure-html/unnamed-chunk-4-1.png": {
-      "checksum": "20ab6172117ede8605a9cbad05e77fb3"
-    },
-    "mrls_inferencia2_files/figure-html/unnamed-chunk-5-1.png": {
-      "checksum": "87e7924c9795ade338e2f9ba67b76916"
-    },
     "mrls_testes.qmd": {
       "checksum": "7a50a8896bf160bc27ba8c9f03fba0d6"
     },
     "mrls_transf.qmd": {
       "checksum": "3a4006116a1a6566c67282c3e2267f46"
-    },
-    "pacotes.R": {
-      "checksum": "fe75448162e13262db5c93dc75dba1ed"
     },
     "part1_ex.qmd": {
       "checksum": "67f67ac7966e0aadbe2f1abaa9d13ea4"
@@ -5752,6 +5735,9 @@
     "pres.qmd": {
       "checksum": "db2e226ea885e445d8edf36e154f6a3a"
     },
+    "pres_files/figure-pdf/unnamed-chunk-1-1.pdf": {
+      "checksum": "3436c530bddbb4f49bc8e5c87e920050"
+    },
     "references.bib": {
       "checksum": "08d89ea221452d4d5648d2e1f23afbef"
     },
@@ -5759,7 +5745,7 @@
       "checksum": "05b63e4f630b701ef07cc32b68cf5ff1"
     },
     "reg.qmd": {
-      "checksum": "adb32ab16d61775152b8ee2e94343190"
+      "checksum": "c7c5d5d128685c70f53e40bd3dac5851"
     },
     "skincancer.txt": {
       "checksum": "1cdad8604288c0bede89f71df308acfa"

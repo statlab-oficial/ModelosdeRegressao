@@ -1,5 +1,4 @@
 # Quarto / Book (gerados)
-_book/
 .quarto/
 
 # R / RStudio
