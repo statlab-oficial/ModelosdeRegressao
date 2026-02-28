@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>15&nbsp; Distribuição Normal</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ap_forma_linear.html" rel="next">
+<link href="./ap_matrizes.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_normal.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Modelagem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução e Panorama dos Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelagem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelagem Estatística e Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Modelo de Regressão Linear Simples (MRLS)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">O MRLS como Modelo para a Média Condicional</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Inferência no MRLS com erros normais</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_testes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses e ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_diagnostico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_transf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Transformações nas Variáveis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_compara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Comparação de Modelos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Modelo de Regressão Linear Simples (MRLM)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Apêndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_matrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_normal.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#distribuição-normal-univariada" id="toc-distribuição-normal-univariada" class="nav-link active" data-scroll-target="#distribuição-normal-univariada"><span class="header-section-number">15.1</span> Distribuição Normal Univariada</a></li>
+  <li><a href="#distribuição-normal-bivariada" id="toc-distribuição-normal-bivariada" class="nav-link" data-scroll-target="#distribuição-normal-bivariada"><span class="header-section-number">15.2</span> Distribuição Normal Bivariada</a></li>
+  <li><a href="#distribuição-normal-multivariada" id="toc-distribuição-normal-multivariada" class="nav-link" data-scroll-target="#distribuição-normal-multivariada"><span class="header-section-number">15.3</span> Distribuição Normal Multivariada</a></li>
+  <li><a href="#partição-da-normal-multivariada" id="toc-partição-da-normal-multivariada" class="nav-link" data-scroll-target="#partição-da-normal-multivariada"><span class="header-section-number">15.4</span> Partição da Normal Multivariada</a></li>
+  <li><a href="#covariância-zero-implica-independência" id="toc-covariância-zero-implica-independência" class="nav-link" data-scroll-target="#covariância-zero-implica-independência"><span class="header-section-number">15.5</span> Covariância zero implica independência</a>
+  <ul class="collapse">
+  <li><a href="#independência-no-caso-bivariado" id="toc-independência-no-caso-bivariado" class="nav-link" data-scroll-target="#independência-no-caso-bivariado"><span class="header-section-number">15.5.1</span> Independência no caso bivariado</a></li>
+  <li><a href="#caso-marginal" id="toc-caso-marginal" class="nav-link" data-scroll-target="#caso-marginal"><span class="header-section-number">15.5.2</span> Caso marginal</a></li>
+  <li><a href="#partições-e-independência-entre-blocos" id="toc-partições-e-independência-entre-blocos" class="nav-link" data-scroll-target="#partições-e-independência-entre-blocos"><span class="header-section-number">15.5.3</span> Partições e Independência entre Blocos</a></li>
+  </ul></li>
+  <li><a href="#papel-da-distribuição-normal-na-fundamentação-dos-modelos-de-regressão" id="toc-papel-da-distribuição-normal-na-fundamentação-dos-modelos-de-regressão" class="nav-link" data-scroll-target="#papel-da-distribuição-normal-na-fundamentação-dos-modelos-de-regressão"><span class="header-section-number">15.6</span> Papel da Distribuição Normal na fundamentação dos modelos de regressão</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_normal.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Este apêndice tem um papel estrutural na fundamentação matemática dos modelos de regressão linear. A Distribuição Normal, especialmente em sua forma multivariada, fornece a base probabilística que torna possível derivar distribuições amostrais exatas para estimadores, contrastes lineares e estatísticas de teste em amostras finitas. Uma exposição formal e sistemática dessas propriedades pode ser encontrada em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>A ideia central que deve acompanhar o leitor ao longo deste apêndice é a seguinte:</p>
+<blockquote class="blockquote">
+<p>Em regressão, não estudamos variáveis isoladas, mas vetores aleatórios e suas transformações lineares e quadráticas.</p>
+</blockquote>
+<p>Essa perspectiva vetorial não é apenas notacional. Ela altera profundamente a forma de pensar sobre variabilidade, dependência e inferência.</p>
+<section id="distribuição-normal-univariada" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="distribuição-normal-univariada"><span class="header-section-number">15.1</span> Distribuição Normal Univariada</h2>
+<p>Uma variável aleatória <span class="math inline">\(Y\)</span> tem distribuição Normal univariada com média <span class="math inline">\(\mu \in \mathbb{R}\)</span> e variância <span class="math inline">\(\sigma^2 &gt; 0\)</span> se sua função densidade (fpd) é</p>
+<p><span class="math display">\[
+f(y; \mu, \sigma^2)
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\!\left(
+-\frac{(y - \mu)^2}{2\sigma^2}
+\right),
+\quad y \in \mathbb{R}.
+\]</span> Essa distribuição surge com frequência em modelagem estatística porque aparece como <strong>distribuição limite</strong> em muitos contextos, especialmente quando uma quantidade observada pode ser representada como a soma (ou média) de um grande número de contribuições aleatórias.</p>
+<p>O <strong>Teorema Central do Limite</strong> estabelece que, sob condições adequadas, a soma devidamente padronizada de variáveis aleatórias independentes, ou fracamente dependentes, converge em distribuição para a Normal, independentemente da forma das distribuições individuais; essa fundamentação é essencialmente assintótica e aproximada, não constituindo uma identidade estrutural exata. Uma formulação rigorosa desse resultado pode ser consultada em <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>No contexto de modelos de regressão, a suposição de Normalidade <strong>não é obrigatória</strong> nem define o modelo em si. Um modelo de regressão linear pode ser formulado sem qualquer hipótese distributiva explícita sobre o erro, bastando condições sobre esperança, variância e independência.</p>
+<p>A Normalidade é frequentemente adotada porque constitui o <strong>caso mais simples e matematicamente tratável</strong>, permitindo obter distribuições exatas para estimadores, estatísticas de teste e intervalos de confiança em amostras finitas. Em outros contextos, distribuições alternativas podem ser mais adequadas, levando a extensões naturais da regressão linear, como os modelos lineares generalizados.</p>
+<p>Os parâmetros da Normal univariada admitem interpretações diretas, mas é importante compreendê-las com precisão estatística.</p>
+<p>O parâmetro <span class="math inline">\(\mu\)</span> representa o <strong>valor esperado teórico</strong> da variável aleatória <span class="math inline">\(Y\)</span>, isto é, o ponto em torno do qual a distribuição se concentra em média. Trata-se de uma quantidade populacional, definida independentemente de qualquer amostra específica, e que resume a tendência central do fenômeno sob o modelo probabilístico adotado.</p>
+<p>O parâmetro <span class="math inline">\(\sigma^2\)</span> representa a <strong>variância populacional</strong> da variável aleatória, quantificando a dispersão em torno de <span class="math inline">\(\mu\)</span>. Essa variabilidade reflete a incerteza inerente ao fenômeno modelado e não carrega, nesse estágio, qualquer interpretação ligada a explicação ou não explicação por covariáveis. Essa distinção só surgirá no contexto de modelos condicionais, como a regressão.</p>
+<p>Essas interpretações ficam claras ao observarmos duas propriedades fundamentais da distribuição Normal:</p>
+<ul>
+<li><p>Esperança: <span class="math display">\[
+\mathbb{E}[Y] = \mu
+\]</span></p></li>
+<li><p>Variância: <span class="math display">\[
+\mathrm{Var}(Y) = \sigma^2
+\]</span></p></li>
+</ul>
+<p>Essas igualdades não são meras convenções, mas decorrem da integração direta da densidade.</p>
+<p>Uma característica estrutural importante da Normal é sua estabilidade por transformações lineares. Se <span class="math inline">\(Y \sim N(\mu,\sigma^2)\)</span> e definimos</p>
+<p><span class="math display">\[
+Z = aY + b,
+\]</span></p>
+<p>com <span class="math inline">\(a \neq 0\)</span>, então</p>
+<p><span class="math display">\[
+Z \sim N(a\mu + b, a^2\sigma^2).
+\]</span></p>
+<p>Essa propriedade, demonstrada em <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>, é o primeiro indício da importância da Normal na regressão: combinações lineares preservam a forma distributiva.</p>
+<p>Uma transformação particularmente importante, tanto do ponto de vista teórico quanto prático, é a <strong>padronização</strong>. Definindo</p>
+<p><span class="math display">\[
+Z = \frac{Y - \mu}{\sigma},
+\]</span></p>
+<p>obtém-se uma nova variável aleatória com distribuição</p>
+<p><span class="math display">\[
+Z \sim N(0,1),
+\]</span></p>
+<p>conhecida como <strong>Normal padrão</strong>.</p>
+<p>A padronização desempenha um papel central em inferência estatística porque remove as unidades de medida e a escala original da variável, permitindo comparar desvios em termos relativos. Em modelos de regressão, essa ideia reaparece de forma sistemática: estatísticas de teste, resíduos padronizados e intervalos de confiança são construídos a partir de quantidades que mensuram desvios em relação a uma média teórica, expressos em unidades de desvio-padrão.</p>
+<p>Assim, compreender profundamente o significado de <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span> e da padronização é essencial para interpretar corretamente os resultados inferenciais que surgirão nos modelos de regressão.</p>
+</section>
+<section id="distribuição-normal-bivariada" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="distribuição-normal-bivariada"><span class="header-section-number">15.2</span> Distribuição Normal Bivariada</h2>
+<p>Ao avançarmos para o caso bivariado, deixamos de estudar variáveis aleatórias isoladas e passamos a lidar explicitamente com <strong>dependência entre variáveis aleatórias</strong>. Esse é um passo conceitual fundamental, pois modelos estatísticos mais complexos e abrangentes, incluindo os modelos de regressão, são construídos exatamente a partir de relações entre variáveis.</p>
+<p>Considere o vetor aleatório <span class="math display">\[
+\mathbf{Y} = (Y_1, Y_2)^\top.
+\]</span></p>
+<p>Dizemos que <span class="math inline">\(\mathbf{Y}\)</span> segue uma <strong>Distribuição Normal bivariada</strong> se</p>
+<p><span class="math display">\[
+\mathbf{Y} \sim N_2(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
+\]</span></p>
+<p>onde o vetor de médias é dado por</p>
+<p><span class="math display">\[
+\boldsymbol{\mu} =
+\begin{bmatrix}
+\mu_1 \\
+\mu_2
+\end{bmatrix},
+\]</span></p>
+<p>e a matriz de covariância é</p>
+<p><span class="math display">\[
+\boldsymbol{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 &amp; \rho\,\sigma_1\sigma_2 \\
+\rho\,\sigma_1\sigma_2 &amp; \sigma_2^2
+\end{bmatrix}.
+\]</span></p>
+<p>Neste ponto ocorre uma mudança conceitual importante. Enquanto no caso univariado a variância era um único número, agora a <strong>matriz</strong> <span class="math inline">\(\boldsymbol{\Sigma}\)</span> passa a concentrar toda a informação sobre dispersão e dependência:</p>
+<ul>
+<li>os termos da diagonal (<span class="math inline">\(\sigma_1^2\)</span> e <span class="math inline">\(\sigma_2^2\)</span>) descrevem a variabilidade individual de cada componente;</li>
+<li>os termos fora da diagonal descrevem a associação linear entre as variáveis, resumida pelo coeficiente de correlação <span class="math inline">\(\rho\)</span>.</li>
+</ul>
+<p>Assim, a estrutura de dependência entre <span class="math inline">\(Y_1\)</span> e <span class="math inline">\(Y_2\)</span> não é um elemento acessório, mas parte integrante da própria definição da distribuição conjunta.</p>
+<p>A função densidade de probabilidade conjunta, como apresentado em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span>, pode ser escrita de forma compacta como</p>
+<p><span class="math display">\[
+f(\mathbf{y})
+=
+\frac{1}{2\pi |\boldsymbol{\Sigma}|^{1/2}}
+\exp\!\left\{
+-\frac{1}{2}
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu})
+\right\}.
+\]</span></p>
+<p>Essa expressão merece uma leitura cuidadosa. O termo que aparece no expoente, <span class="math display">\[
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu}),
+\]</span> é um escalar obtido a partir de vetores e matrizes, resultado de uma operação que combina transposição, multiplicação matricial e produto interno.</p>
+<p>Neste momento, <strong>não é necessário compreender formalmente esse termo como uma “forma quadrática”</strong> essa noção será estudada com cuidado em um apêndice específico.</p>
+<p>Intuitivamente, essa quantidade mede quão distante o vetor <span class="math inline">\(\mathbf{y}\)</span> está do centro <span class="math inline">\(\boldsymbol{\mu}\)</span>, mas <strong>não usando a distância euclidiana usual</strong>. Em vez disso, a distância é avaliada levando em conta a estrutura de variabilidade e dependência entre as componentes do vetor, codificada na matriz de covariância <span class="math inline">\(\boldsymbol{\Sigma}\)</span>.</p>
+<p>Dessa forma, desvios ao longo de direções em que há maior variabilidade conjunta são penalizados de maneira diferente de desvios ao longo de direções com menor variabilidade. É essa ponderação que faz com que a distribuição apresente contornos elípticos, em vez de circulares.</p>
+<p>A formalização matemática desse tipo de expressão, bem como seu papel central na regressão, nas somas de quadrados e nas estatísticas de teste, será apresentada posteriormente, quando estudarmos explicitamente as distribuições associadas a expressões desse tipo.</p>
+<p>Geometricamente, isso se traduz no fato de que as curvas de mesma densidade dessa distribuição são <strong>elipses centradas em</strong> <span class="math inline">\(\boldsymbol{\mu}\)</span>.</p>
+<p>A forma, o tamanho e a orientação dessas elipses dependem diretamente de <span class="math inline">\(\boldsymbol{\Sigma}\)</span>:</p>
+<ul>
+<li>quando <span class="math inline">\(\rho = 0\)</span>, as elipses são alinhadas com os eixos coordenados;</li>
+<li>quando <span class="math inline">\(\rho \neq 0\)</span>, as elipses tornam-se inclinadas, refletindo a associação linear entre <span class="math inline">\(Y_1\)</span> e <span class="math inline">\(Y_2\)</span>.</li>
+</ul>
+<p>Essa interpretação geométrica será essencial mais adiante, quando discutirmos <strong>projeções, decomposições ortogonais e ajuste de modelos de regressão</strong>, nos quais a ideia de “direções relevantes” no espaço dos dados desempenha papel central.</p>
+<p>Mesmo nesse cenário conjunto, algumas propriedades permanecem familiares e ajudam a consolidar a intuição:</p>
+<ul>
+<li>As <strong>distribuições marginais</strong> continuam sendo Normais univariadas: <span class="math display">\[
+Y_1 \sim N(\mu_1, \sigma_1^2),
+\qquad
+Y_2 \sim N(\mu_2, \sigma_2^2).
+\]</span></li>
+</ul>
+<p>Essas marginais mostram que, marginalmente, cada componente do vetor se comporta como uma variável Normal comum, mas isso <strong>não elimina</strong> a possibilidade de dependência entre elas quando observadas conjuntamente.</p>
+<ul>
+<li>As <strong>distribuições condicionais</strong> também são Normais: <span class="math display">\[
+Y_1 \mid Y_2 = y_2
+\sim
+N\!\left(
+\mu_1 + \rho\frac{\sigma_1}{\sigma_2}(y_2 - \mu_2),
+\,
+(1 - \rho^2)\sigma_1^2
+\right).
+\]</span></li>
+</ul>
+<p>Aqui aparece uma ideia conceitualmente profunda e extremamente importante para o que virá depois: <strong>a média condicional de uma variável Normal é uma função linear da variável condicionante</strong>.</p>
+<p>Essa linearidade não é um artifício do modelo, nem uma escolha conveniente; ela é uma consequência direta da estrutura da Normalidade conjunta. Em modelos de regressão, essa propriedade será reinterpretada como a relação entre a resposta e as covariáveis, agora formulada de maneira explícita e sistemática.</p>
+<p>Portanto, compreender a Normal bivariada é compreender, em um cenário simples, a origem probabilística da ideia de regressão como relação média condicional.</p>
+</section>
+<section id="distribuição-normal-multivariada" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="distribuição-normal-multivariada"><span class="header-section-number">15.3</span> Distribuição Normal Multivariada</h2>
+<p>No caso geral, consideramos um vetor aleatório <span class="math display">\[
+\mathbf{Y} \in \mathbb{R}^n,
+\]</span> que segue uma <strong>Distribuição Normal multivariada</strong> se</p>
+<p><span class="math display">\[
+\mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
+\]</span></p>
+<p>onde <span class="math inline">\(\boldsymbol{\mu}\)</span> é o vetor de médias e <span class="math inline">\(\boldsymbol{\Sigma}\)</span> é a matriz de covariância, simétrica e definida positiva.</p>
+<p>A função densidade associada é</p>
+<p><span class="math display">\[
+f(\mathbf{y})
+=
+\frac{1}{(2\pi)^{n/2} |\boldsymbol{\Sigma}|^{1/2}}
+\exp\!\left\{
+-\frac{1}{2}
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu})
+\right\}.
+\]</span></p>
+<p>Neste ponto, é importante fazer uma mudança consciente na forma de pensar. Não estamos mais lidando com observações isoladas, mas com <strong>vetores aleatórios</strong>, e a incerteza passa a ser descrita por <strong>estruturas geométricas em espaços de dimensão maior</strong>.</p>
+<p>O vetor <span class="math inline">\(\boldsymbol{\mu}\)</span> representa o centro da distribuição no espaço <span class="math inline">\(\mathbb{R}^n\)</span>, enquanto a matriz <span class="math inline">\(\boldsymbol{\Sigma}\)</span> determina como a variabilidade se organiza em torno desse centro. Mais especificamente, <span class="math inline">\(\boldsymbol{\Sigma}\)</span> define:</p>
+<ul>
+<li>direções ao longo das quais a variabilidade conjunta é maior;</li>
+<li>direções ao longo das quais a variabilidade conjunta é menor;</li>
+<li>dependências lineares entre as componentes do vetor.</li>
+</ul>
+<p>Essas direções não precisam coincidir com os eixos coordenados originais, e essa observação será fundamental quando discutirmos projeções e decomposições em regressão múltipla.</p>
+<p>A expressão que aparece no expoente da densidade envolve novamente uma quantidade do tipo</p>
+<p><span class="math display">\[
+(\mathbf{y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{y} - \boldsymbol{\mu}),
+\]</span></p>
+<p>que produz um escalar a partir de vetores e matrizes. Assim como no caso bivariado, <strong>não é necessário, neste momento, compreender formalmente essa expressão como uma forma quadrática</strong>. Por ora, basta interpretar essa quantidade como uma medida de distância multivariada entre <span class="math inline">\(\mathbf{y}\)</span> e o centro <span class="math inline">\(\boldsymbol{\mu}\)</span>, ajustada pela estrutura de covariância.</p>
+<p>Essa forma de medir distância explica por que as regiões de maior densidade da Normal multivariada são elipsoides em <span class="math inline">\(\mathbb{R}^n\)</span>, generalizando as elipses vistas no caso bivariado.</p>
+<p>Algumas propriedades fundamentais seguem diretamente dessa definição e merecem ser destacadas, pois reaparecerão continuamente ao longo do estudo de modelos de regressão.</p>
+<p>A esperança e a covariância do vetor aleatório são dadas por</p>
+<p><span class="math display">\[
+\mathbb{E}[\mathbf{Y}] = \boldsymbol{\mu},
+\qquad
+\mathrm{Cov}(\mathbf{Y}) = \boldsymbol{\Sigma}.
+\]</span></p>
+<p>Essas expressões formalizam a interpretação de <span class="math inline">\(\boldsymbol{\mu}\)</span> como centro da distribuição e de <span class="math inline">\(\boldsymbol{\Sigma}\)</span> como descrição completa da variabilidade conjunta.</p>
+<p>Uma propriedade absolutamente central da Normal multivariada é sua <strong>estabilidade por transformações lineares</strong>. Se tomarmos uma transformação do tipo</p>
+<p><span class="math display">\[
+\mathbf{Z} = \mathbf{A}\mathbf{Y} + \mathbf{a},
+\]</span></p>
+<p>então a variável transformada também segue uma distribuição Normal multivariada:</p>
+<p><span class="math display">\[
+\mathbf{Z} \sim
+N_m(\mathbf{A}\boldsymbol{\mu} + \mathbf{a},\,
+\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top).
+\]</span></p>
+<p>Essa propriedade merece atenção especial. Ela afirma que <strong>qualquer combinação linear de um vetor Normal multivariado continua sendo Normal</strong>, independentemente da dimensão envolvida.</p>
+<p>Esse resultado será a pedra angular da teoria de regressão linear. Quando estudarmos regressão, veremos que os estimadores dos coeficientes, os valores ajustados e diversos contrastes estatísticos são obtidos exatamente como transformações lineares do vetor de respostas. A Normalidade dessas quantidades decorre diretamente desta propriedade, e não de argumentos ad hoc.</p>
+<p>Outra quantidade natural que surge no contexto da Normal multivariada é a chamada <strong>distância de Mahalanobis</strong>:</p>
+<p><span class="math display">\[
+Q =
+(\mathbf{Y} - \boldsymbol{\mu})^\top
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{Y} - \boldsymbol{\mu}),
+\]</span></p>
+<p>para o qual vale</p>
+<p><span class="math display">\[
+Q \sim \chi^2_n.
+\]</span></p>
+<p>Mais uma vez, não é necessário aprofundar formalmente esse resultado neste momento. Conceitualmente, ele afirma que a distância multivariada entre <span class="math inline">\(\mathbf{Y}\)</span> e seu centro, quando devidamente padronizada pela matriz de covariância, possui uma distribuição conhecida.</p>
+<p>Esse fato será explorado de forma sistemática em regressão, onde somas de quadrados, estatísticas de teste e medidas de ajuste surgirão como casos particulares desse tipo de expressão.</p>
+<p>Assim, a Distribuição Normal multivariada fornece não apenas um modelo probabilístico para vetores de dados, mas também a base matemática para compreender por que as quantidades centrais da regressão admitem distribuições explícitas e interpretáveis.</p>
+</section>
+<section id="partição-da-normal-multivariada" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="partição-da-normal-multivariada"><span class="header-section-number">15.4</span> Partição da Normal Multivariada</h2>
+<p>Um dos recursos mais poderosos da Normal multivariada é a possibilidade de <strong>particionar o vetor aleatório</strong> em blocos menores e ainda assim manter uma descrição probabilística completa e explícita.</p>
+<p>Considere o vetor aleatório particionado como</p>
+<p><span class="math display">\[
+\mathbf{Y} =
+\begin{bmatrix}
+\mathbf{Y}_1 \\
+\mathbf{Y}_2
+\end{bmatrix}
+\sim
+N_n\!\left(
+\begin{bmatrix}
+\boldsymbol{\mu}_1 \\
+\boldsymbol{\mu}_2
+\end{bmatrix},
+\begin{bmatrix}
+\boldsymbol{\Sigma}_{11} &amp; \boldsymbol{\Sigma}_{12} \\
+\boldsymbol{\Sigma}_{21} &amp; \boldsymbol{\Sigma}_{22}
+\end{bmatrix}
+\right).
+\]</span></p>
+<p>Aqui, a partição é puramente conceitual: estamos apenas reorganizando o vetor em dois blocos, sem alterar o modelo probabilístico subjacente. Ainda assim, essa simples reorganização permite responder a perguntas fundamentais sobre o comportamento do vetor aleatório.</p>
+<p>Em particular, ela nos permite distinguir claramente dois tipos de informação:</p>
+<ul>
+<li><strong>comportamento marginal</strong>, isto é, como cada bloco se distribui quando considerado isoladamente;</li>
+<li><strong>comportamento condicional</strong>, isto é, como um bloco se distribui quando o outro é observado.</li>
+</ul>
+<p>As distribuições marginais seguem diretamente da definição da Normal multivariada:</p>
+<p><span class="math display">\[
+\mathbf{Y}_1 \sim N_{n_1}(\boldsymbol{\mu}_1, \boldsymbol{\Sigma}_{11}),
+\qquad
+\mathbf{Y}_2 \sim N_{n_2}(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_{22}).
+\]</span></p>
+<p>Essas expressões mostram que, ao “olharmos apenas para uma parte do vetor”, o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de <span class="math inline">\(\boldsymbol{\mu}\)</span> e <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (<span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span>; <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). No entanto, essa visão marginal ignora completamente a dependência entre os blocos.</p>
+<p>A riqueza da Normal multivariada aparece de forma ainda mais clara ao analisarmos o comportamento <strong>condicional</strong>. A distribuição de <span class="math inline">\(\mathbf{Y}_1\)</span> dado que <span class="math inline">\(\mathbf{Y}_2 = \mathbf{y}_2\)</span> é</p>
+<p><span class="math display">\[
+\mathbf{Y}_1 \mid \mathbf{Y}_2 = \mathbf{y}_2
+\sim
+N_{n_1}\!\left(
+\boldsymbol{\mu}_1 +
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+(\mathbf{y}_2 - \boldsymbol{\mu}_2),
+\,
+\boldsymbol{\Sigma}_{11} -
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+\boldsymbol{\Sigma}_{21}
+\right).
+\]</span></p>
+<p>Essa expressão concentra vários conceitos importantes em um único resultado.</p>
+<p>Primeiro, observe que a <strong>média condicional</strong> de <span class="math inline">\(\mathbf{Y}_1\)</span> não é simplesmente <span class="math inline">\(\boldsymbol{\mu}_1\)</span>. Ela é ajustada pelo termo <span class="math display">\[
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+(\mathbf{y}_2 - \boldsymbol{\mu}_2),
+\]</span> que incorpora a informação trazida pela observação de <span class="math inline">\(\mathbf{Y}_2\)</span>. Esse ajuste depende exclusivamente da estrutura de covariância entre os blocos, e não de escolhas arbitrárias de modelagem.</p>
+<p>Segundo, note que a <strong>matriz de covariância condicional</strong> <span class="math display">\[
+\boldsymbol{\Sigma}_{11} -
+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}
+\boldsymbol{\Sigma}_{21}
+\]</span> é sempre menor, no sentido de variância, do que a covariância marginal <span class="math inline">\(\boldsymbol{\Sigma}_{11}\)</span>. Isso formaliza matematicamente uma ideia intuitiva: <strong>ao observar parte do vetor, reduzimos a incerteza sobre o restante</strong>.</p>
+<p>Esse resultado mostra que, na Normal multivariada, o condicionamento produz dois efeitos simultâneos e bem definidos:</p>
+<ul>
+<li><p>a média é deslocada de forma linear em função da parte observada;</p></li>
+<li><p>a variabilidade é reduzida de maneira controlada pela estrutura de dependência.</p></li>
+</ul>
+<p>Essas duas propriedades; linearidade da média condicional e redução da variância, não são hipóteses adicionais nem aproximações, elas são consequências diretas da Normalidade conjunta.</p>
+<p>Embora ainda não estejamos estudando modelos de regressão, é importante registrar que essa lógica será reinterpretada mais adiante quando os coeficientes de um modelo passarem a ser entendidos como <strong>efeitos condicionais</strong>, isto é, como variações esperadas em uma componente do vetor quando outras são mantidas fixas.</p>
+<p>Assim, a partição da Normal multivariada fornece o arcabouço probabilístico que sustenta a noção de regressão como estudo de relações condicionais, mesmo antes de qualquer equação de regressão ser escrita explicitamente.</p>
+</section>
+<section id="covariância-zero-implica-independência" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="covariância-zero-implica-independência"><span class="header-section-number">15.5</span> Covariância zero implica independência</h2>
+<p>Em geral, para vetores aleatórios arbitrários, a condição de covariância nula <strong>não implica independência</strong>. Isto é, pode ocorrer que duas variáveis tenham covariância igual a zero e, ainda assim, sejam dependentes.</p>
+<p>Entretanto, a família Normal possui uma propriedade estrutural especial:</p>
+<blockquote class="blockquote">
+<p>Se um vetor aleatório é Normal multivariado, então quaisquer componentes (ou combinações lineares de componentes) que tenham covariância zero são independentes.</p>
+</blockquote>
+<p>Mais precisamente, se <span class="math display">\[
+\mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+\]</span> e <span class="math inline">\(\mathbf{a}, \mathbf{b} \in \mathbb{R}^n\)</span>, então <span class="math display">\[
+\mathrm{Cov}(\mathbf{a}^\top \mathbf{Y},\, \mathbf{b}^\top \mathbf{Y}) = 0
+\quad \Longrightarrow \quad
+\mathbf{a}^\top \mathbf{Y}
+\text{ e }
+\mathbf{b}^\top \mathbf{Y}
+\text{ são independentes.}
+\]</span></p>
+<p>Essa propriedade é específica da distribuição Normal e não vale em geral para outras distribuições multivariadas. Uma demonstração pode ser encontrada em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e em <span class="citation" data-cites="casella2002">Casella e Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>Essa característica será essencial na regressão linear, pois permite concluir, sob Normalidade dos erros, que:</p>
+<ul>
+<li>o estimador dos coeficientes é independente do vetor de resíduos;</li>
+<li>diferentes somas de quadrados associadas a projeções ortogonais são independentes;</li>
+<li>estatísticas baseadas em decomposições ortogonais possuem distribuições independentes.</li>
+</ul>
+<p>A independência decorre da ortogonalidade geométrica no espaço das observações, combinada com a estrutura da Normal multivariada.</p>
+<section id="independência-no-caso-bivariado" class="level3" data-number="15.5.1">
+<h3 data-number="15.5.1" class="anchored" data-anchor-id="independência-no-caso-bivariado"><span class="header-section-number">15.5.1</span> Independência no caso bivariado</h3>
+<p>No caso particular bivariado, seja <span class="math display">\[
+\mathbf{Y} =
+\begin{bmatrix}
+Y_1 \\
+Y_2
+\end{bmatrix}
+\sim N_2(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
+\]</span> com <span class="math display">\[
+\boldsymbol{\Sigma} =
+\begin{bmatrix}
+\sigma_1^2 &amp; \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2 &amp; \sigma_2^2
+\end{bmatrix}.
+\]</span></p>
+<p>Então vale a equivalência:</p>
+<p><span class="math display">\[
+\rho = 0
+\quad \Longleftrightarrow \quad
+Y_1 \text{ e } Y_2 \text{ são independentes.}
+\]</span></p>
+<p>Essa equivalência é uma consequência direta da forma explícita da densidade conjunta e constitui uma propriedade distintiva da Normal bivariada. Em distribuições gerais, correlação zero não implica independência.</p>
+</section>
+<section id="caso-marginal" class="level3" data-number="15.5.2">
+<h3 data-number="15.5.2" class="anchored" data-anchor-id="caso-marginal"><span class="header-section-number">15.5.2</span> Caso marginal</h3>
+<p>Se <span class="math display">\[
+\mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
+\]</span> então qualquer subconjunto de componentes de <span class="math inline">\(\mathbf{Y}\)</span> também possui distribuição Normal multivariada.</p>
+<p>Formalmente, se particionarmos <span class="math display">\[
+\mathbf{Y} =
+\begin{bmatrix}
+\mathbf{Y}_1 \\
+\mathbf{Y}_2
+\end{bmatrix},
+\]</span> então as distribuições marginais são</p>
+<p><span class="math display">\[
+\mathbf{Y}_1 \sim N_{n_1}(\boldsymbol{\mu}_1, \boldsymbol{\Sigma}_{11}),
+\qquad
+\mathbf{Y}_2 \sim N_{n_2}(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_{22}).
+\]</span></p>
+<p>Essa estabilidade marginal é consequência direta da definição da Normal multivariada e pode ser verificada integrando-se a densidade conjunta ou utilizando o resultado de que combinações lineares preservam Normalidade.</p>
+</section>
+<section id="partições-e-independência-entre-blocos" class="level3" data-number="15.5.3">
+<h3 data-number="15.5.3" class="anchored" data-anchor-id="partições-e-independência-entre-blocos"><span class="header-section-number">15.5.3</span> Partições e Independência entre Blocos</h3>
+<p>Considere novamente a partição</p>
+<p><span class="math display">\[
+\mathbf{Y} =
+\begin{bmatrix}
+\mathbf{Y}_1 \\
+\mathbf{Y}_2
+\end{bmatrix}
+\sim
+N_n\!\left(
+\begin{bmatrix}
+\boldsymbol{\mu}_1 \\
+\boldsymbol{\mu}_2
+\end{bmatrix},
+\begin{bmatrix}
+\boldsymbol{\Sigma}_{11} &amp; \boldsymbol{\Sigma}_{12} \\
+\boldsymbol{\Sigma}_{21} &amp; \boldsymbol{\Sigma}_{22}
+\end{bmatrix}
+\right).
+\]</span></p>
+<p>Então:</p>
+<p><span class="math display">\[
+\boldsymbol{\Sigma}_{12} = \mathbf{0}
+\quad \Longleftrightarrow \quad
+\mathbf{Y}_1 \text{ e } \mathbf{Y}_2 \text{ são independentes.}
+\]</span></p>
+<p>Isto é, na Normal multivariada, blocos são independentes se, e somente se, sua matriz de covariância cruzada for nula.</p>
+<p>Essa propriedade tem papel central na teoria da regressão linear clássica. Quando se demonstra que duas quantidades são obtidas por projeções ortogonais e que a matriz de covariância cruzada entre elas é nula, a Normalidade garante automaticamente independência.</p>
+<p>Essa combinação entre:</p>
+<ul>
+<li>ortogonalidade algébrica,</li>
+<li>covariância nula,</li>
+<li>estrutura Normal,</li>
+</ul>
+<p>é o mecanismo matemático que sustenta a independência entre soma de quadrados do modelo e soma de quadrados do erro, fundamento da estatística <span class="math inline">\(F\)</span>.</p>
+</section>
+</section>
+<section id="papel-da-distribuição-normal-na-fundamentação-dos-modelos-de-regressão" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="papel-da-distribuição-normal-na-fundamentação-dos-modelos-de-regressão"><span class="header-section-number">15.6</span> Papel da Distribuição Normal na fundamentação dos modelos de regressão</h2>
+<p>Os resultados apresentados neste apêndice fornecem uma base probabilística razoável para a formulação e a análise dos modelos clássicos de regressão linear. O objetivo aqui é explicitar as estruturas matemáticas que a tornam analisável de forma rigorosa.</p>
+<p>Em modelos de regressão linear com erros normalmente distribuídos, considera-se que o vetor de respostas pode ser escrito como</p>
+<p><span class="math display">\[
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon} \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n),
+\]</span></p>
+<p>o que implica diretamente que</p>
+<p><span class="math display">\[
+\mathbf{Y} \sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
+\]</span></p>
+<p>como discutido em <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>. Essa especificação não define o modelo de regressão em si, que pode ser formulado sob hipóteses mais gerais, mas estabelece um <strong>caso fundamental</strong> no qual resultados exatos de inferência podem ser obtidos em amostras finitas.</p>
+<p>A partir dessa estrutura probabilística decorrem, de forma sistemática, várias propriedades centrais da regressão linear clássica:</p>
+<ul>
+<li><p>os estimadores dos coeficientes surgem como <strong>transformações lineares</strong> do vetor aleatório <span class="math inline">\(\mathbf{Y}\)</span>;</p></li>
+<li><p>os resíduos e as somas de quadrados associadas ao ajuste do modelo surgem como <strong>expressões quadráticas</strong> em <span class="math inline">\(\mathbf{Y}\)</span>;</p></li>
+<li><p>as distribuições amostrais das estatísticas utilizadas para inferência são obtidas a partir das distribuições dessas transformações lineares e quadráticas.</p></li>
+</ul>
+<p>Deste modo, estatísticas do tipo <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> não são introduzidas de maneira ad hoc, mas emergem naturalmente da combinação entre a Normal multivariada e as operações algébricas realizadas sobre o vetor de respostas.</p>
+<p>Outros apêndices exploram explicitamente essas estruturas, estudando as distribuições associadas a transformações lineares e quadráticas de vetores aleatórios conjuntamente normais. Esse desenvolvimento permitirá compreender, de forma unificada, a origem das principais ferramentas inferenciais utilizadas em modelos de regressão linear.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-anderson2003" class="csl-entry" role="listitem">
+Anderson, T. W. 2003. <em>An Introduction to Multivariate Statistical Analysis</em>. 3º ed. New York: Wiley.
+</div>
+<div id="ref-casella2002" class="csl-entry" role="listitem">
+Casella, George, e Roger L. Berger. 2002. <em>Statistical Inference</em>. 2º ed. Pacific Grove: Duxbury.
+</div>
+<div id="ref-kutner2005" class="csl-entry" role="listitem">
+Kutner, Michael H., Christopher J. Nachtsheim, John Neter, e William Li. 2005. <em>Applied Linear Statistical Models</em>. 5º ed. New York: McGraw-Hill.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./ap_matrizes.html" class="pagination-link" aria-label="Estrutura Matricial dos Modelos de Regressão Linear">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ap_forma_linear.html" class="pagination-link" aria-label="Formas Lineares e Quadráticas na Normal Multivariada">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
