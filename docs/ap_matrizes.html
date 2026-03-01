@@ -409,7 +409,7 @@ window.Quarto = {
 </header>
 
 
-<p>A formulação moderna dos modelos de regressão linear é essencialmente matricial. Essa notação vetorial revela a estrutura geométrica do problema de estimação, explicita as condições necessárias para identificabilidade dos parâmetros e permite analisar propriedades estatísticas dos estimadores de forma sistemática (ver <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span>).</p>
+<p>A formulação moderna dos modelos de regressão linear é essencialmente matricial. Essa notação vetorial revela a estrutura geométrica do problema de estimação, explicita as condições necessárias para identificabilidade dos parâmetros e permite analisar propriedades estatísticas dos estimadores de forma sistemática <span class="citation" data-cites="harville2000">(<a href="references.html#ref-harville2000" role="doc-biblioref">Harville, 2000</a>)</span>.</p>
 <p>Este apêndice consolida os principais elementos de Álgebra Linear utilizados ao longo do estudo de regressão, com ênfase nas estruturas que reaparecem na estimação por mínimos quadrados, na inferência e na análise de diagnóstico.</p>
 <section id="operações-fundamentais-com-matrizes-e-vetores" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="operações-fundamentais-com-matrizes-e-vetores"><span class="header-section-number">14.1</span> Operações Fundamentais com Matrizes e Vetores</h2>
@@ -514,7 +514,7 @@ No modelo linear</p>
 <p><span class="math display">\[
 \|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2.
 \]</span></p>
-<p>Portanto, o problema de estimação é um problema geométrico de minimizar distância no espaço <span class="math inline">\(\mathbb{R}^n\)</span>. A formulação geométrica da regressão em termos de subespaços e projeções é desenvolvida em detalhe em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span>.</p>
+<p>Portanto, o problema de estimação é um problema geométrico de minimizar distância no espaço <span class="math inline">\(\mathbb{R}^n\)</span>. A formulação geométrica da regressão em termos de subespaços e projeções é desenvolvida em detalhe em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
 </section>
 <section id="forma-quadrática" class="level3" data-number="14.1.4">
 <h3 data-number="14.1.4" class="anchored" data-anchor-id="forma-quadrática"><span class="header-section-number">14.1.4</span> Forma Quadrática</h3>
@@ -543,7 +543,7 @@ b &amp; c
 =
 a x_1^2 + 2b x_1 x_2 + c x_2^2.
 \]</span></p>
-<p>Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor <span class="math inline">\(\mathbf{Y}\)</span> (ver <span class="citation" data-cites="rencher2012">Rencher; Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>).</p>
+<p>Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor <span class="math inline">\(\mathbf{Y}\)</span> <span class="citation" data-cites="rencher2012">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>)</span>.</p>
 </section>
 <section id="transposição" class="level3" data-number="14.1.5">
 <h3 data-number="14.1.5" class="anchored" data-anchor-id="transposição"><span class="header-section-number">14.1.5</span> Transposição</h3>
@@ -589,7 +589,7 @@ d &amp; -b \\
 -c &amp; a
 \end{bmatrix}.
 \]</span></p>
-<p>Na regressão, a invertibilidade de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas, ver <span class="citation" data-cites="golub2013">Golub; Van Loan (<a href="references.html#ref-golub2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>Na regressão, a invertibilidade de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas <span class="citation" data-cites="golub2013">(<a href="references.html#ref-golub2013" role="doc-biblioref">Golub; Van Loan, 2013</a>)</span>.</p>
 </section>
 <section id="propriedades-importantes" class="level3" data-number="14.1.7">
 <h3 data-number="14.1.7" class="anchored" data-anchor-id="propriedades-importantes"><span class="header-section-number">14.1.7</span> Propriedades Importantes</h3>
@@ -706,7 +706,7 @@ d &amp; -b \\
 \end{bmatrix}
 \]</span></p>
 <p>é simétrica.</p>
-<p>Matrizes simétricas possuem autovalores reais e podem ser diagonalizadas por matrizes ortogonais. Essa propriedade é crucial para compreender a decomposição espectral de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> e analisar problemas como multicolinearidade (ver <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span>).</p>
+<p>Matrizes simétricas possuem autovalores reais e podem ser diagonalizadas por matrizes ortogonais. Essa propriedade é crucial para compreender a decomposição espectral de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> e analisar problemas como multicolinearidade <span class="citation" data-cites="harville2000">(<a href="references.html#ref-harville2000" role="doc-biblioref">Harville, 2000</a>)</span>.</p>
 <p>No modelo linear, as matrizes <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span>, <span class="math inline">\(\mathbf{H}\)</span> e <span class="math inline">\(\mathbf{M}\)</span> são simétricas.</p>
 </section>
 <section id="matrizes-idempotentes" class="level3" data-number="14.2.3">
@@ -911,7 +911,8 @@ d_1 &amp; 0 &amp; \cdots &amp; 0 \\
 </section>
 <section id="interpretação-ortogonal-e-soma-direta" class="level3" data-number="14.3.3">
 <h3 data-number="14.3.3" class="anchored" data-anchor-id="interpretação-ortogonal-e-soma-direta"><span class="header-section-number">14.3.3</span> Interpretação Ortogonal e Soma Direta</h3>
-<p>Seja <span class="math inline">\(V = \mathbb{R}^n\)</span> equipado com o produto interno usual <span class="math display">\[
+<p>Seja <span class="math inline">\(V = \mathbb{R}^n\)</span> equipado com o produto interno usual</p>
+<p><span class="math display">\[
 \langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y}.
 \]</span></p>
 <p>Se <span class="math inline">\(S\)</span> é um subespaço de <span class="math inline">\(\mathbb{R}^n\)</span>, define-se seu complemento ortogonal como</p>
@@ -1141,7 +1142,7 @@ n - (p+1).
 <p><span class="math display">\[
 \mathrm{tr}(\mathbf{M}) = n - p - 1.
 \]</span></p>
-<p>Como o traço de uma matriz idempotente simétrica coincide com seu posto, essas quantidades correspondem às dimensões dos subespaços projetados (ver <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span>).</p>
+<p>Como o traço de uma matriz idempotente simétrica coincide com seu posto, essas quantidades correspondem às dimensões dos subespaços projetados (ver <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>).</p>
 </section>
 <section id="conexão-com-somas-de-quadrados" class="level4" data-number="14.4.0.6">
 <h4 data-number="14.4.0.6" class="anchored" data-anchor-id="conexão-com-somas-de-quadrados"><span class="header-section-number">14.4.0.6</span> Conexão com Somas de Quadrados</h4>
@@ -1252,7 +1253,7 @@ S(\boldsymbol{\beta})
 </section>
 <section id="derivação-das-equações-normais" class="level3" data-number="14.5.2">
 <h3 data-number="14.5.2" class="anchored" data-anchor-id="derivação-das-equações-normais"><span class="header-section-number">14.5.2</span> Derivação das Equações Normais</h3>
-<p>Aplicando a derivada à função <span class="math inline">\(S(\boldsymbol{\beta})\)</span> (ver <span class="citation" data-cites="abadir2005">Abadir; Magnus (<a href="references.html#ref-abadir2005" role="doc-biblioref">2005</a>)</span>):</p>
+<p>Aplicando a derivada à função <span class="math inline">\(S(\boldsymbol{\beta})\)</span> <span class="citation" data-cites="abadir2005">(<a href="references.html#ref-abadir2005" role="doc-biblioref">Abadir; Magnus, 2005</a>)</span>:</p>
 <p><span class="math display">\[
 \nabla_{\boldsymbol{\beta}} S(\boldsymbol{\beta})
 =
@@ -1415,8 +1416,8 @@ ABADIR, Karim M.; MAGNUS, Jan R. <strong>Matrix Algebra</strong>. Cambridge: Cam
 <div id="ref-golub2013" class="csl-entry" role="listitem">
 GOLUB, Gene H.; VAN LOAN, Charles F. <strong>Matrix Computations</strong>. 4. ed. Baltimore: Johns Hopkins University Press, 2013.
 </div>
-<div id="ref-harville1997" class="csl-entry" role="listitem">
-HARVILLE, David A. <strong>Matrix Algebra From a Statistician’s Perspective</strong>. New York: Springer, 1997.
+<div id="ref-harville2000" class="csl-entry" role="listitem">
+HARVILLE, David A. <strong>Matrix Algebra from a Statistician’s Perspective</strong>. New York: Springer, 2000.
 </div>
 <div id="ref-rencher2012" class="csl-entry" role="listitem">
 RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.

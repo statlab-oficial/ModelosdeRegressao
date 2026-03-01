@@ -386,7 +386,7 @@ window.Quarto = {
 <li><strong>Transparência:</strong> todo procedimento deve ser reprodutível e documentado (log de alterações + dicionário de variáveis).</li>
 <li><strong>Consistência:</strong> mantenha coerência entre bases, períodos e versões (nomes de variáveis, unidades de medida, tipos e categorias).</li>
 <li><strong>Domínio do contexto:</strong> conheça o fenômeno estudado antes de decidir se determinado valor é erro, exceção legítima ou padrão relevante.</li>
-<li><strong>Validação cruzada:</strong> confirme decisões de tratamento por mais de uma ótica — estatística e substantiva. (<span class="citation" data-cites="pointblank_pkg">Iannone (<a href="references.html#ref-pointblank_pkg" role="doc-biblioref">2024</a>)</span>)</li>
+<li><strong>Validação cruzada:</strong> confirme decisões de tratamento por mais de uma ótica — estatística e substantiva. <span class="citation" data-cites="pointblank_pkg">(<a href="references.html#ref-pointblank_pkg" role="doc-biblioref">Iannone, 2024</a>)</span></li>
 </ol>
 <p><strong>Ferramentas e escopo</strong></p>
 <ul>
@@ -406,7 +406,7 @@ window.Quarto = {
 <li><p><strong>Acentos e caracteres estranhos</strong>: colunas aparecem como <code>ação</code>, <code>aÃ§Ã£o</code> ou nomes quebrados.<br>
 <strong>Tratamento</strong>: ajustar o <code>encoding</code> (ex.: UTF-8 vs latin-1) e padronizar nomes de variáveis.</p></li>
 <li><p><strong>Tipos incorretos</strong>: idades lidas como texto (<code>"21"</code>), datas como strings (<code>"2025-10-24"</code>) e variáveis 0/1 lidas como numéricas quando deveriam ser categóricas. <strong>Tratamento</strong>: converter explicitamente para os tipos adequados (numérico, data/hora, fator) e validar o resultado.</p></li>
-<li><p><strong>Códigos de “faltante” disfarçados</strong>: valores como <code>999</code>, <code>-1</code>, <code>NA</code>, <code>""</code> representam ausência, mas estão misturados com dados válidos. (<span class="citation" data-cites="tidyr_missing">Wickham et al. (<a href="references.html#ref-tidyr_missing" role="doc-biblioref">2024</a>)</span>)<br>
+<li><p><strong>Códigos de “faltante” disfarçados</strong>: valores como <code>999</code>, <code>-1</code>, <code>NA</code>, <code>""</code> representam ausência, mas estão misturados com dados válidos. <span class="citation" data-cites="tidyr_missing">(<a href="references.html#ref-tidyr_missing" role="doc-biblioref">Wickham et al., 2024</a>)</span><br>
 <strong>Tratamento</strong>: recodificar para ausentes padronizados e decidir entre excluir, imputar ou manter com justificativa.</p></li>
 <li><p><strong>Duplicatas e chaves quebradas</strong>: a mesma unidade amostral aparece repetida; totais e médias ficam incorretos.<br>
 <strong>Tratamento</strong>: identificar chaves únicas, remover ou conciliar duplicatas e documentar a decisão.</p></li>
@@ -429,7 +429,7 @@ window.Quarto = {
 <li><strong>Defina o objetivo e o tipo de resposta</strong>: contínua, binária ou contagem; confirme que a variável resposta é compatível com o modelo pretendido.</li>
 <li><strong>Garanta leitura correta</strong>: verifique separador, encoding e símbolo decimal; confirme que variáveis numéricas não foram importadas como texto.</li>
 <li><strong>Acerte tipos e unidades</strong>: converta datas, inteiros e reais; padronize unidades e nomes de variáveis.</li>
-<li><strong>Mapeie e trate dados faltantes</strong>: identifique <code>NA</code>, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. (<span class="citation" data-cites="tidyr_missing">Wickham et al. (<a href="references.html#ref-tidyr_missing" role="doc-biblioref">2024</a>)</span>)</li>
+<li><strong>Mapeie e trate dados faltantes</strong>: identifique <code>NA</code>, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. <span class="citation" data-cites="tidyr_missing">(<a href="references.html#ref-tidyr_missing" role="doc-biblioref">Wickham et al., 2024</a>)</span></li>
 <li><strong>Elimine inconsistências</strong>: remova ou una duplicatas, valide chaves, corrija valores impossíveis.</li>
 <li><strong>Cuide de outliers</strong>: identifique pontos extremos; corrija, transforme ou mantenha. Todas as ações com outliers devem ser realizadas com justificativa documentada.</li>
 <li><strong>Codifique variáveis qualitativas</strong>: unifique rótulos, defina categoria de referência e evite colinearidade perfeita na matriz de projeto.</li>
@@ -449,8 +449,8 @@ window.Quarto = {
 <p><strong>Cartões de decisão</strong></p>
 <ul>
 <li><p><strong>Faltantes:</strong><br>
-Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? (<span class="citation" data-cites="little2019">Little; Rubin (<a href="references.html#ref-little2019" role="doc-biblioref">2019</a>)</span>)<br>
-→ excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. (<span class="citation" data-cites="recipes_impute">Kuhn et al. (<a href="references.html#ref-recipes_impute" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="mice_cran">Buuren; Groothuis-Oudshoorn (<a href="references.html#ref-mice_cran" role="doc-biblioref">2024</a>)</span>)</p></li>
+Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? <span class="citation" data-cites="little2019">(<a href="references.html#ref-little2019" role="doc-biblioref">Little; Rubin, 2019</a>)</span><br>
+→ excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. <span class="citation" data-cites="recipes_impute mice_cran">(<a href="references.html#ref-mice_cran" role="doc-biblioref">Buuren; Groothuis-Oudshoorn, 2024</a>; <a href="references.html#ref-recipes_impute" role="doc-biblioref">Kuhn et al., 2024</a>)</span></p></li>
 <li><p><strong>Outliers:</strong><br>
 Erro de digitação ou unidade? Valor plausível no domínio?<br>
 → corrigir / winsorizar / transformar / manter e justificar.</p></li>

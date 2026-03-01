@@ -382,7 +382,7 @@ window.Quarto = {
 </header>
 
 
-<p>Em regressão linear clássica, muitos estimadores e estatísticas fundamentais são <strong>formas lineares</strong> e <strong>formas quadráticas</strong> de um vetor aleatório Normal multivariado. Essa conexão não é meramente técnica: ela é estrutural e explica por que distribuições exatas em amostras finitas podem ser obtidas sob normalidade. A fundamentação matricial e geométrica desses resultados pode ser encontrada, em diferentes níveis de formalidade, em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span> e <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span>.</p>
+<p>Em regressão linear clássica, muitos estimadores e estatísticas fundamentais são <strong>formas lineares</strong> e <strong>formas quadráticas</strong> de um vetor aleatório Normal multivariado. Essa conexão não é meramente técnica: ela é estrutural e explica por que distribuições exatas em amostras finitas podem ser obtidas sob normalidade. A fundamentação matricial e geométrica desses resultados pode ser encontrada, em diferentes níveis de formalidade <span class="citation" data-cites="harville2000 anderson2003">(<a href="references.html#ref-anderson2003" role="doc-biblioref">Anderson, 2003</a>; <a href="references.html#ref-harville2000" role="doc-biblioref">Harville, 2000</a>)</span>.</p>
 <section id="preliminares-normal-multivariada-e-transformações-lineares" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="preliminares-normal-multivariada-e-transformações-lineares"><span class="header-section-number">16.1</span> Preliminares: Normal multivariada e transformações lineares</h2>
 <p>Seja <span class="math display">\[
@@ -412,11 +412,13 @@ N\!\left(\mathbf{c}^\top\boldsymbol{\mu},\, \mathbf{c}^\top\boldsymbol{\Sigma}\m
 \boldsymbol{\Sigma}^{1/2}\boldsymbol{\Sigma}^{1/2}=\boldsymbol{\Sigma},
 \qquad
 (\boldsymbol{\Sigma}^{1/2})^{-1}=\boldsymbol{\Sigma}^{-1/2}.
-\]</span> A existência dessa raiz quadrada decorre da decomposição espectral de matrizes simétricas definidas positivas, tratada em detalhe em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span>.</p>
-<p>Defina <span class="math display">\[
+\]</span> A existência dessa raiz quadrada decorre da decomposição espectral de matrizes simétricas definidas positivas, tratada em detalhe em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
+<p>Defina</p>
+<p><span class="math display">\[
 \mathbf{Z}=\boldsymbol{\Sigma}^{-1/2}(\mathbf{Y}-\boldsymbol{\mu}).
 \]</span></p>
-<p>Então <span class="math display">\[
+<p>Então</p>
+<p><span class="math display">\[
 \mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n).
 \]</span></p>
 <p>Essa transformação separa de maneira conceitualmente limpa os papéis de média e dispersão, reduzindo a análise probabilística ao caso esférico. Além disso, ela mostra que a chamada distância de Mahalanobis <span class="math display">\[
@@ -449,8 +451,9 @@ Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y},
 \mathbf{Y}^\top\mathbf{A}\mathbf{Y}
 =
 \mathbf{Y}^\top\left(\frac{\mathbf{A}+\mathbf{A}^\top}{2}\right)\mathbf{Y}.
-\]</span> Logo, pode-se assumir <span class="math inline">\(\mathbf{A}\)</span> simétrica sem perda de generalidade, fato discutido na literatura matricial estatística como em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span>.</p>
-<p>Em regressão, as somas de quadrados são precisamente formas quadráticas: <span class="math display">\[
+\]</span> Logo, pode-se assumir <span class="math inline">\(\mathbf{A}\)</span> simétrica sem perda de generalidade, fato discutido na literatura matricial estatística como em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
+<p>Em regressão, as somas de quadrados são precisamente formas quadráticas:</p>
+<p><span class="math display">\[
 \mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y},
 \qquad
 \mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
@@ -459,10 +462,12 @@ Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y},
 </section>
 <section id="o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2" class="level2" data-number="16.5">
 <h2 data-number="16.5" class="anchored" data-anchor-id="o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2"><span class="header-section-number">16.5</span> O caso central: <span class="math inline">\(\mathbf{Z}^\top\mathbf{Z}\)</span> e a distribuição <span class="math inline">\(\chi^2\)</span></h2>
-<p>Se <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span>, então suas componentes são independentes e <span class="math display">\[
+<p>Se <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span>, então suas componentes são independentes e</p>
+<p><span class="math display">\[
 Z_i\sim N(0,1).
 \]</span></p>
-<p>Consequentemente, <span class="math display">\[
+<p>Consequentemente,</p>
+<p><span class="math display">\[
 \mathbf{Z}^\top\mathbf{Z}
 =
 \sum_{i=1}^n Z_i^2
@@ -473,29 +478,38 @@ Z_i\sim N(0,1).
 </section>
 <section id="projeções-ortogonais-e-qui-quadrado" class="level2" data-number="16.6">
 <h2 data-number="16.6" class="anchored" data-anchor-id="projeções-ortogonais-e-qui-quadrado"><span class="header-section-number">16.6</span> Projeções ortogonais e Qui-quadrado</h2>
-<p>Seja <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span> e seja <span class="math inline">\(\mathbf{A}\)</span> simétrica e idempotente: <span class="math display">\[
+<p>Seja <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span> e seja <span class="math inline">\(\mathbf{A}\)</span> simétrica e idempotente:</p>
+<p><span class="math display">\[
 \mathbf{A}^\top=\mathbf{A},
 \qquad
 \mathbf{A}^2=\mathbf{A}.
 \]</span></p>
-<p>Se <span class="math inline">\(r=\mathrm{rank}(\mathbf{A})=\mathrm{tr}(\mathbf{A})\)</span>, então <span class="math display">\[
+<p>Se <span class="math inline">\(r=\mathrm{rank}(\mathbf{A})=\mathrm{tr}(\mathbf{A})\)</span>, então</p>
+<p><span class="math display">\[
 \mathbf{Z}^\top\mathbf{A}\mathbf{Z}\sim \chi^2_r.
-\]</span> Esse resultado pode ser deduzido via decomposição espectral de <span class="math inline">\(\mathbf{A}\)</span> e é tratado com rigor em <span class="citation" data-cites="harville1997">Harville (<a href="references.html#ref-harville1997" role="doc-biblioref">1997</a>)</span> e <span class="citation" data-cites="rencher2012">Rencher; Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>.</p>
+\]</span></p>
+<p>Esse resultado pode ser deduzido via decomposição espectral de <span class="math inline">\(\mathbf{A}\)</span> e é tratado com rigor em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span> e <span class="citation" data-cites="rencher2012">Rencher; Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>.</p>
 <p>Geometricamente, <span class="math inline">\(\mathbf{A}\)</span> projeta sobre um subespaço <span class="math inline">\(S\)</span> de dimensão <span class="math inline">\(r\)</span>. Assim, <span class="math inline">\(\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\)</span> mede o comprimento ao quadrado da componente projetada de <span class="math inline">\(\mathbf{Z}\)</span> em <span class="math inline">\(S\)</span>, que se comporta como soma de quadrados de <span class="math inline">\(r\)</span> Normais padrão.</p>
 <p>Esse resultado aplica-se diretamente às matrizes <span class="math inline">\(\mathbf{H}\)</span> (posto <span class="math inline">\(p+1\)</span>) e <span class="math inline">\(\mathbf{M}\)</span> (posto <span class="math inline">\(n-p-1\)</span>). Quando <span class="math inline">\(\mathbf{Z}\)</span> representa a versão padronizada do vetor de erros, as somas de quadrados do modelo e do resíduo assumem distribuições Qui-quadrado com graus de liberdade dados por esses postos.</p>
 </section>
 <section id="independência-via-ortogonalidade" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="independência-via-ortogonalidade"><span class="header-section-number">16.7</span> Independência via ortogonalidade</h2>
-<p>Se <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span> e <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{B}\)</span> são simétricas idempotentes tais que <span class="math display">\[
+<p>Se <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span> e <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{B}\)</span> são simétricas idempotentes tais que</p>
+<p><span class="math display">\[
 \mathbf{A}\mathbf{B}=\mathbf{0},
-\]</span> então <span class="math display">\[
+\]</span></p>
+<p>então</p>
+<p><span class="math display">\[
 \mathbf{Z}^\top\mathbf{A}\mathbf{Z}
 \ \perp\
 \mathbf{Z}^\top\mathbf{B}\mathbf{Z}.
-\]</span> A independência decorre da decomposição ortogonal do espaço combinada com a simetria esférica da Normal padrão.</p>
-<p>Critério análogo vale para independência entre forma linear <span class="math inline">\(L=\mathbf{a}^\top\mathbf{Z}\)</span> e forma quadrática <span class="math inline">\(Q=\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\)</span>: se <span class="math display">\[
+\]</span></p>
+<p>A independência decorre da decomposição ortogonal do espaço combinada com a simetria esférica da Normal padrão.</p>
+<p>Critério análogo vale para independência entre forma linear <span class="math inline">\(L=\mathbf{a}^\top\mathbf{Z}\)</span> e forma quadrática <span class="math inline">\(Q=\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\)</span>: se</p>
+<p><span class="math display">\[
 \mathbf{A}\mathbf{a}=\mathbf{0},
-\]</span> então <span class="math inline">\(L\)</span> e <span class="math inline">\(Q\)</span> são independentes.</p>
+\]</span></p>
+<p>então <span class="math inline">\(L\)</span> e <span class="math inline">\(Q\)</span> são independentes.</p>
 </section>
 <section id="mrlm-normal" class="level2" data-number="16.8">
 <h2 data-number="16.8" class="anchored" data-anchor-id="mrlm-normal"><span class="header-section-number">16.8</span> MRLM Normal</h2>
@@ -678,8 +692,8 @@ ANDERSON, T. W. <strong>An Introduction to Multivariate Statistical Analysis</st
 <div id="ref-casella2002" class="csl-entry" role="listitem">
 CASELLA, George; BERGER, Roger L. <strong>Statistical Inference</strong>. 2. ed. Pacific Grove: Duxbury, 2002.
 </div>
-<div id="ref-harville1997" class="csl-entry" role="listitem">
-HARVILLE, David A. <strong>Matrix Algebra From a Statistician’s Perspective</strong>. New York: Springer, 1997.
+<div id="ref-harville2000" class="csl-entry" role="listitem">
+HARVILLE, David A. <strong>Matrix Algebra from a Statistician’s Perspective</strong>. New York: Springer, 2000.
 </div>
 <div id="ref-rencher2012" class="csl-entry" role="listitem">
 RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.

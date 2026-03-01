@@ -20,8 +20,7 @@ f(y; \mu, \sigma^2)
 -\frac{(y - \mu)^2}{2\sigma^2}
 \right),
 \quad y \in \mathbb{R}.
-$$
-Essa distribuição surge com frequência em modelagem estatística porque aparece como **distribuição limite** em muitos contextos, especialmente quando uma quantidade observada pode ser representada como a soma (ou média) de um grande número de contribuições aleatórias.
+$$ Essa distribuição surge com frequência em modelagem estatística porque aparece como **distribuição limite** em muitos contextos, especialmente quando uma quantidade observada pode ser representada como a soma (ou média) de um grande número de contribuições aleatórias.
 
 O **Teorema Central do Limite** estabelece que, sob condições adequadas, a soma devidamente padronizada de variáveis aleatórias independentes, ou fracamente dependentes, converge em distribuição para a Normal, independentemente da forma das distribuições individuais; essa fundamentação é essencialmente assintótica e aproximada, não constituindo uma identidade estrutural exata. Uma formulação rigorosa desse resultado pode ser consultada em @casella2002.
 
@@ -45,7 +44,7 @@ Essas interpretações ficam claras ao observarmos duas propriedades fundamentai
     \mathrm{Var}(Y) = \sigma^2
     $$
 
-Essas igualdades não são meras convenções, mas decorrem da integração direta da densidade. 
+Essas igualdades não são meras convenções, mas decorrem da integração direta da densidade.
 
 Uma característica estrutural importante da Normal é sua estabilidade por transformações lineares. Se $Y \sim N(\mu,\sigma^2)$ e definimos
 
@@ -77,15 +76,15 @@ conhecida como **Normal padrão**.
 
 A padronização desempenha um papel central em inferência estatística porque remove as unidades de medida e a escala original da variável, permitindo comparar desvios em termos relativos. Em modelos de regressão, essa ideia reaparece de forma sistemática: estatísticas de teste, resíduos padronizados e intervalos de confiança são construídos a partir de quantidades que mensuram desvios em relação a uma média teórica, expressos em unidades de desvio-padrão.
 
-
 Assim, compreender profundamente o significado de $\mu$, $\sigma^2$ e da padronização é essencial para interpretar corretamente os resultados inferenciais que surgirão nos modelos de regressão.
-
 
 ## Distribuição Normal Bivariada
 
 Ao avançarmos para o caso bivariado, deixamos de estudar variáveis aleatórias isoladas e passamos a lidar explicitamente com **dependência entre variáveis aleatórias**. Esse é um passo conceitual fundamental, pois modelos estatísticos mais complexos e abrangentes, incluindo os modelos de regressão, são construídos exatamente a partir de relações entre variáveis.
 
-Considere o vetor aleatório $$
+Considere o vetor aleatório 
+
+$$
 \mathbf{Y} = (Y_1, Y_2)^\top.
 $$
 
@@ -324,7 +323,7 @@ $$
 \mathbf{Y}_2 \sim N_{n_2}(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_{22}).
 $$
 
-Essas expressões mostram que, ao "olharmos apenas para uma parte do vetor", o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ (@anderson2003; @casella2002). No entanto, essa visão marginal ignora completamente a dependência entre os blocos.
+Essas expressões mostram que, ao "olharmos apenas para uma parte do vetor", o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ [@anderson2003; @casella2002]. No entanto, essa visão marginal ignora completamente a dependência entre os blocos.
 
 A riqueza da Normal multivariada aparece de forma ainda mais clara ao analisarmos o comportamento **condicional**. A distribuição de $\mathbf{Y}_1$ dado que $\mathbf{Y}_2 = \mathbf{y}_2$ é
 
@@ -367,7 +366,6 @@ Embora ainda não estejamos estudando modelos de regressão, é importante regis
 
 Assim, a partição da Normal multivariada fornece o arcabouço probabilístico que sustenta a noção de regressão como estudo de relações condicionais, mesmo antes de qualquer equação de regressão ser escrita explicitamente.
 
-
 ## Covariância zero implica independência
 
 Em geral, para vetores aleatórios arbitrários, a condição de covariância nula **não implica independência**. Isto é, pode ocorrer que duas variáveis tenham covariância igual a zero e, ainda assim, sejam dependentes.
@@ -376,11 +374,14 @@ Entretanto, a família Normal possui uma propriedade estrutural especial:
 
 > Se um vetor aleatório é Normal multivariado, então quaisquer componentes (ou combinações lineares de componentes) que tenham covariância zero são independentes.
 
-Mais precisamente, se
+Mais precisamente, se 
+
 $$
 \mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})
-$$
-e $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$, então
+$$ 
+
+e $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$, então 
+
 $$
 \mathrm{Cov}(\mathbf{a}^\top \mathbf{Y},\, \mathbf{b}^\top \mathbf{Y}) = 0
 \quad \Longrightarrow \quad
@@ -394,15 +395,16 @@ Essa propriedade é específica da distribuição Normal e não vale em geral pa
 
 Essa característica será essencial na regressão linear, pois permite concluir, sob Normalidade dos erros, que:
 
-- o estimador dos coeficientes é independente do vetor de resíduos;
-- diferentes somas de quadrados associadas a projeções ortogonais são independentes;
-- estatísticas baseadas em decomposições ortogonais possuem distribuições independentes.
+-   o estimador dos coeficientes é independente do vetor de resíduos;
+-   diferentes somas de quadrados associadas a projeções ortogonais são independentes;
+-   estatísticas baseadas em decomposições ortogonais possuem distribuições independentes.
 
 A independência decorre da ortogonalidade geométrica no espaço das observações, combinada com a estrutura da Normal multivariada.
 
 ### Independência no caso bivariado
 
-No caso particular bivariado, seja
+No caso particular bivariado, seja 
+
 $$
 \mathbf{Y} =
 \begin{bmatrix}
@@ -410,8 +412,9 @@ Y_1 \\
 Y_2
 \end{bmatrix}
 \sim N_2(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
-$$
-com
+$$ 
+com 
+
 $$
 \boldsymbol{\Sigma} =
 \begin{bmatrix}
@@ -432,21 +435,17 @@ Essa equivalência é uma consequência direta da forma explícita da densidade 
 
 ### Caso marginal
 
-Se
-$$
+Se $$
 \mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
-$$
-então qualquer subconjunto de componentes de $\mathbf{Y}$ também possui distribuição Normal multivariada.
+$$ então qualquer subconjunto de componentes de $\mathbf{Y}$ também possui distribuição Normal multivariada.
 
-Formalmente, se particionarmos
-$$
+Formalmente, se particionarmos $$
 \mathbf{Y} =
 \begin{bmatrix}
 \mathbf{Y}_1 \\
 \mathbf{Y}_2
 \end{bmatrix},
-$$
-então as distribuições marginais são
+$$ então as distribuições marginais são
 
 $$
 \mathbf{Y}_1 \sim N_{n_1}(\boldsymbol{\mu}_1, \boldsymbol{\Sigma}_{11}),
@@ -455,7 +454,6 @@ $$
 $$
 
 Essa estabilidade marginal é consequência direta da definição da Normal multivariada e pode ser verificada integrando-se a densidade conjunta ou utilizando o resultado de que combinações lineares preservam Normalidade.
-
 
 ### Partições e Independência entre Blocos
 
@@ -494,12 +492,11 @@ Essa propriedade tem papel central na teoria da regressão linear clássica. Qua
 
 Essa combinação entre:
 
-- ortogonalidade algébrica,
-- covariância nula,
-- estrutura Normal,
+-   ortogonalidade algébrica,
+-   covariância nula,
+-   estrutura Normal,
 
 é o mecanismo matemático que sustenta a independência entre soma de quadrados do modelo e soma de quadrados do erro, fundamento da estatística $F$.
-
 
 ## Papel da Distribuição Normal na fundamentação dos modelos de regressão
 
@@ -532,6 +529,3 @@ A partir dessa estrutura probabilística decorrem, de forma sistemática, vária
 Deste modo, estatísticas do tipo $t$ e $F$ não são introduzidas de maneira ad hoc, mas emergem naturalmente da combinação entre a Normal multivariada e as operações algébricas realizadas sobre o vetor de respostas.
 
 Outros apêndices exploram explicitamente essas estruturas, estudando as distribuições associadas a transformações lineares e quadráticas de vetores aleatórios conjuntamente normais. Esse desenvolvimento permitirá compreender, de forma unificada, a origem das principais ferramentas inferenciais utilizadas em modelos de regressão linear.
-
-
-

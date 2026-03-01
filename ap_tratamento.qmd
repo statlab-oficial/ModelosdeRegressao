@@ -10,7 +10,7 @@ Os métodos de regressão (lineares, generalizados ou penalizados) **pressupõem
 2.  **Transparência:** todo procedimento deve ser reprodutível e documentado (log de alterações + dicionário de variáveis).
 3.  **Consistência:** mantenha coerência entre bases, períodos e versões (nomes de variáveis, unidades de medida, tipos e categorias).
 4.  **Domínio do contexto:** conheça o fenômeno estudado antes de decidir se determinado valor é erro, exceção legítima ou padrão relevante.
-5.  **Validação cruzada:** confirme decisões de tratamento por mais de uma ótica --- estatística e substantiva. (@pointblank_pkg)
+5.  **Validação cruzada:** confirme decisões de tratamento por mais de uma ótica --- estatística e substantiva. [@pointblank_pkg]
 
 **Ferramentas e escopo**
 
@@ -36,7 +36,7 @@ O tratamento de dados é, portanto, uma etapa intermediária e estruturante, que
 
 -   **Tipos incorretos**: idades lidas como texto (`"21"`), datas como strings (`"2025-10-24"`) e variáveis 0/1 lidas como numéricas quando deveriam ser categóricas. **Tratamento**: converter explicitamente para os tipos adequados (numérico, data/hora, fator) e validar o resultado.
 
--   **Códigos de "faltante" disfarçados**: valores como `999`, `-1`, `NA`, `""` representam ausência, mas estão misturados com dados válidos. (@tidyr_missing)\
+-   **Códigos de "faltante" disfarçados**: valores como `999`, `-1`, `NA`, `""` representam ausência, mas estão misturados com dados válidos. [@tidyr_missing]\
     **Tratamento**: recodificar para ausentes padronizados e decidir entre excluir, imputar ou manter com justificativa.
 
 -   **Duplicatas e chaves quebradas**: a mesma unidade amostral aparece repetida; totais e médias ficam incorretos.\
@@ -67,7 +67,7 @@ Observe que, assim como a cozinha precisa estar organizada para a receita "dar c
 1.  **Defina o objetivo e o tipo de resposta**: contínua, binária ou contagem; confirme que a variável resposta é compatível com o modelo pretendido.
 2.  **Garanta leitura correta**: verifique separador, encoding e símbolo decimal; confirme que variáveis numéricas não foram importadas como texto.
 3.  **Acerte tipos e unidades**: converta datas, inteiros e reais; padronize unidades e nomes de variáveis.
-4.  **Mapeie e trate dados faltantes**: identifique `NA`, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. (@tidyr_missing)
+4.  **Mapeie e trate dados faltantes**: identifique `NA`, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. [@tidyr_missing]
 5.  **Elimine inconsistências**: remova ou una duplicatas, valide chaves, corrija valores impossíveis.
 6.  **Cuide de outliers**: identifique pontos extremos; corrija, transforme ou mantenha. Todas as ações com outliers devem ser realizadas com justificativa documentada.
 7.  **Codifique variáveis qualitativas**: unifique rótulos, defina categoria de referência e evite colinearidade perfeita na matriz de projeto.
@@ -81,8 +81,8 @@ Observe que, assim como a cozinha precisa estar organizada para a receita "dar c
 **Cartões de decisão**
 
 -   **Faltantes:**\
-    Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? (@little2019)\
-    → excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. (@recipes_impute; @mice_cran)
+    Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? [@little2019]\
+    → excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. [@recipes_impute; @mice_cran]
 
 -   **Outliers:**\
     Erro de digitação ou unidade? Valor plausível no domínio?\

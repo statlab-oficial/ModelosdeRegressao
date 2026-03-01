@@ -436,7 +436,8 @@ Z \sim N(0,1),
 <section id="distribuição-normal-bivariada" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="distribuição-normal-bivariada"><span class="header-section-number">15.2</span> Distribuição Normal Bivariada</h2>
 <p>Ao avançarmos para o caso bivariado, deixamos de estudar variáveis aleatórias isoladas e passamos a lidar explicitamente com <strong>dependência entre variáveis aleatórias</strong>. Esse é um passo conceitual fundamental, pois modelos estatísticos mais complexos e abrangentes, incluindo os modelos de regressão, são construídos exatamente a partir de relações entre variáveis.</p>
-<p>Considere o vetor aleatório <span class="math display">\[
+<p>Considere o vetor aleatório</p>
+<p><span class="math display">\[
 \mathbf{Y} = (Y_1, Y_2)^\top.
 \]</span></p>
 <p>Dizemos que <span class="math inline">\(\mathbf{Y}\)</span> segue uma <strong>Distribuição Normal bivariada</strong> se</p>
@@ -623,7 +624,7 @@ N_n\!\left(
 \qquad
 \mathbf{Y}_2 \sim N_{n_2}(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_{22}).
 \]</span></p>
-<p>Essas expressões mostram que, ao “olharmos apenas para uma parte do vetor”, o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de <span class="math inline">\(\boldsymbol{\mu}\)</span> e <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (<span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span>; <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). No entanto, essa visão marginal ignora completamente a dependência entre os blocos.</p>
+<p>Essas expressões mostram que, ao “olharmos apenas para uma parte do vetor”, o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de <span class="math inline">\(\boldsymbol{\mu}\)</span> e <span class="math inline">\(\boldsymbol{\Sigma}\)</span> <span class="citation" data-cites="anderson2003 casella2002">(<a href="references.html#ref-anderson2003" role="doc-biblioref">Anderson, 2003</a>; <a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>. No entanto, essa visão marginal ignora completamente a dependência entre os blocos.</p>
 <p>A riqueza da Normal multivariada aparece de forma ainda mais clara ao analisarmos o comportamento <strong>condicional</strong>. A distribuição de <span class="math inline">\(\mathbf{Y}_1\)</span> dado que <span class="math inline">\(\mathbf{Y}_2 = \mathbf{y}_2\)</span> é</p>
 <p><span class="math display">\[
 \mathbf{Y}_1 \mid \mathbf{Y}_2 = \mathbf{y}_2
@@ -664,9 +665,12 @@ N_{n_1}\!\left(
 <blockquote class="blockquote">
 <p>Se um vetor aleatório é Normal multivariado, então quaisquer componentes (ou combinações lineares de componentes) que tenham covariância zero são independentes.</p>
 </blockquote>
-<p>Mais precisamente, se <span class="math display">\[
+<p>Mais precisamente, se</p>
+<p><span class="math display">\[
 \mathbf{Y} \sim N_n(\boldsymbol{\mu}, \boldsymbol{\Sigma})
-\]</span> e <span class="math inline">\(\mathbf{a}, \mathbf{b} \in \mathbb{R}^n\)</span>, então <span class="math display">\[
+\]</span></p>
+<p>e <span class="math inline">\(\mathbf{a}, \mathbf{b} \in \mathbb{R}^n\)</span>, então</p>
+<p><span class="math display">\[
 \mathrm{Cov}(\mathbf{a}^\top \mathbf{Y},\, \mathbf{b}^\top \mathbf{Y}) = 0
 \quad \Longrightarrow \quad
 \mathbf{a}^\top \mathbf{Y}
@@ -684,14 +688,16 @@ N_{n_1}\!\left(
 <p>A independência decorre da ortogonalidade geométrica no espaço das observações, combinada com a estrutura da Normal multivariada.</p>
 <section id="independência-no-caso-bivariado" class="level3" data-number="15.5.1">
 <h3 data-number="15.5.1" class="anchored" data-anchor-id="independência-no-caso-bivariado"><span class="header-section-number">15.5.1</span> Independência no caso bivariado</h3>
-<p>No caso particular bivariado, seja <span class="math display">\[
+<p>No caso particular bivariado, seja</p>
+<p><span class="math display">\[
 \mathbf{Y} =
 \begin{bmatrix}
 Y_1 \\
 Y_2
 \end{bmatrix}
 \sim N_2(\boldsymbol{\mu}, \boldsymbol{\Sigma}),
-\]</span> com <span class="math display">\[
+\]</span> com</p>
+<p><span class="math display">\[
 \boldsymbol{\Sigma} =
 \begin{bmatrix}
 \sigma_1^2 &amp; \rho \sigma_1 \sigma_2 \\

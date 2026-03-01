@@ -429,7 +429,7 @@ window.Quarto = {
 
 <section id="motivação" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="motivação"><span class="header-section-number">9.1</span> Motivação</h2>
-<p>Quando os <strong>gráficos de resíduos</strong> revelam padrões sistemáticos, heteroscedasticidade ou violações de normalidade, é sinal de que a especificação do modelo pode estar inadequada. Em termos formais, isso significa que ao menos uma das hipóteses centrais do MRLS — linearidade da função média, homoscedasticidade ou normalidade dos erros — pode não estar sendo satisfeita (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Quando os <strong>gráficos de resíduos</strong> revelam padrões sistemáticos, heteroscedasticidade ou violações de normalidade, é sinal de que a especificação do modelo pode estar inadequada. Em termos formais, isso significa que ao menos uma das hipóteses centrais do MRLS — linearidade da função média, homoscedasticidade ou normalidade dos erros — pode não estar sendo satisfeita <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p>A regressão linear simples assume que</p>
 <p><span class="math display">\[
 E(Y \mid X) = \beta_0 + \beta_1 X
@@ -447,7 +447,7 @@ Var(Y \mid X) = \sigma^2,
 <p>Há duas formas de realizar tais transformações:<br>
 (a) na variável resposta (<span class="math inline">\(Y\)</span>) e<br>
 (b) na variável explicativa (<span class="math inline">\(X\)</span>).</p>
-<p>Note que, ao aplicarmos uma transformação de variáveis, estamos implicitamente redefinindo o modelo estatístico. Por exemplo, ao transformar <span class="math inline">\(Y\)</span> em <span class="math inline">\(\log(Y)\)</span>, deixamos de modelar diretamente <span class="math inline">\(E(Y \mid X)\)</span> e passamos a modelar <span class="math inline">\(E(\log Y \mid X)\)</span>. Isso altera a interpretação dos coeficientes, a distribuição assumida para os erros e, em certos casos, a própria classe de modelos implícita (<span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Note que, ao aplicarmos uma transformação de variáveis, estamos implicitamente redefinindo o modelo estatístico. Por exemplo, ao transformar <span class="math inline">\(Y\)</span> em <span class="math inline">\(\log(Y)\)</span>, deixamos de modelar diretamente <span class="math inline">\(E(Y \mid X)\)</span> e passamos a modelar <span class="math inline">\(E(\log Y \mid X)\)</span>. Isso altera a interpretação dos coeficientes, a distribuição assumida para os erros e, em certos casos, a própria classe de modelos implícita <span class="citation" data-cites="weisberg2005 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span>.</p>
 <p>Portanto, transformações devem ser motivadas por evidência empírica (diagnóstico de resíduos) e, sempre que possível, por fundamentação teórica do fenômeno estudado. Aplicá-las de forma automática pode melhorar métricas numéricas de ajuste, mas comprometer a interpretação do modelo.</p>
 <p>Além disso, a aplicação de uma transformação implica um novo ciclo completo de análise:</p>
 <ol type="1">
@@ -463,12 +463,12 @@ Var(Y \mid X) = \sigma^2,
 </section>
 <section id="transformações-na-variável-resposta-y" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="transformações-na-variável-resposta-y"><span class="header-section-number">9.2</span> Transformações na variável resposta (<span class="math inline">\(Y\)</span>)</h2>
-<p>As transformações na variável resposta têm como objetivo principal modificar a <strong>estrutura probabilística condicional de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span></strong>. Em muitos contextos aplicados, a violação das hipóteses do MRLS decorre não da forma funcional da média, mas do comportamento da variância ou da distribuição dos erros.</p>
+<p>As transformações na variável resposta têm como objetivo principal modificar a <strong>estrutura probabilística condicional de</strong> <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>. Em muitos contextos aplicados, a violação das hipóteses do MRLS decorre não da forma funcional da média, mas do comportamento da variância ou da distribuição dos erros.</p>
 <p>Recordando que o MRLS assume <span class="math inline">\(Var(Y \mid X) = \sigma^2\)</span>,qualquer evidência de que</p>
 <p><span class="math display">\[
 Var(Y \mid X) \neq \text{constante}
 \]</span></p>
-<p>ou que os erros apresentam forte assimetria ou caudas pesadas pode motivar uma transformação em <span class="math inline">\(Y\)</span> (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>ou que os erros apresentam forte assimetria ou caudas pesadas pode motivar uma transformação em <span class="math inline">\(Y\)</span> <span class="citation" data-cites="montgomery2021 kutner2005 weisberg2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span>.</p>
 <p>Para exemplificar, suponha que a variância condicional dependa da média:</p>
 <p><span class="math display">\[
 Var(Y \mid X) = g\big(E(Y \mid X)\big),
@@ -517,7 +517,7 @@ Y_i^* = h(Y_i) = \beta_0^* + \beta_1^* X_i + \varepsilon_i,
 Y_i^* = \log(Y_i) = \beta_0^* + \beta_1^* X_i + \varepsilon_i,
 \quad \varepsilon_i \sim N(0, \sigma^2),
 \]</span></p>
-<p>estamos assumindo normalidade dos erros <strong>na escala logarítmica</strong>. Isso implica que, condicionalmente a <span class="math inline">\(X_i\)</span>, a variável original <span class="math inline">\(Y_i\)</span> segue uma <strong>distribuição log-normal</strong> (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>estamos assumindo normalidade dos erros <strong>na escala logarítmica</strong>. Isso implica que, condicionalmente a <span class="math inline">\(X_i\)</span>, a variável original <span class="math inline">\(Y_i\)</span> segue uma <strong>distribuição log-normal</strong> <span class="citation" data-cites="kutner2005 weisberg2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span>.</p>
 <p>Mais precisamente, se</p>
 <p><span class="math display">\[
 \log(Y_i) \mid X_i \sim N(\mu_i, \sigma^2),
@@ -573,7 +573,7 @@ Var(Y \mid X) \propto [E(Y \mid X)]^2,
 <p><span class="math display">\[
 E(Y \mid X) = \exp(\mu + \tfrac{1}{2}\sigma^2),
 \]</span></p>
-<p>e não apenas <span class="math inline">\(\exp(\mu)\)</span> (<span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Ignorar esse termo pode introduzir <strong>viés de retransformação</strong>.</p>
+<p>e não apenas <span class="math inline">\(\exp(\mu)\)</span> <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>. Ignorar esse termo pode introduzir <strong>viés de retransformação</strong>.</p>
 <p><strong>Quando usar</strong></p>
 <ul>
 <li>Resíduos vs.&nbsp;ajustados exibem padrão de funil.</li>
@@ -658,8 +658,8 @@ Y = \frac{1}{\alpha + \beta X},
 </section>
 <section id="transformações-na-variável-explicativa-x" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="transformações-na-variável-explicativa-x"><span class="header-section-number">9.3</span> Transformações na variável explicativa (<span class="math inline">\(X\)</span>)</h2>
-<p>As transformações na variável explicativa têm como objetivo principal <strong>linearizar a relação entre <span class="math inline">\(X\)</span> e a média condicional de <span class="math inline">\(Y\)</span></strong>, preservando, quando possível, a estrutura de variância constante dos erros.</p>
-<p>Recordando que o MRLS assume <span class="math inline">\(E(Y \mid X) = \beta_0 + \beta_1 X\)</span>, portanto, qualquer evidência de que a relação média entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> não é linear, por exemplo, presença de curvatura sistemática no gráfico de resíduos vs.&nbsp;<span class="math inline">\(X\)</span>, sugere que a especificação funcional pode estar inadequada (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>As transformações na variável explicativa têm como objetivo principal <strong>linearizar a relação entre</strong> <span class="math inline">\(X\)</span> e a média condicional de <span class="math inline">\(Y\)</span>, preservando, quando possível, a estrutura de variância constante dos erros.</p>
+<p>Recordando que o MRLS assume <span class="math inline">\(E(Y \mid X) = \beta_0 + \beta_1 X\)</span>, portanto, qualquer evidência de que a relação média entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> não é linear, por exemplo, presença de curvatura sistemática no gráfico de resíduos vs.&nbsp;<span class="math inline">\(X\)</span>, sugere que a especificação funcional pode estar inadequada <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p>Nesse caso, buscamos uma transformação <span class="math inline">\(X^* = h(X)\)</span> tal que</p>
 <p><span class="math display">\[
 E(Y \mid X^*) = \beta_0 + \beta_1 X^*
@@ -681,7 +681,7 @@ E(Y \mid X^*) = \beta_0 + \beta_1 X^*
 <li>tendência sistemática crescente ou decrescente,</li>
 </ul>
 <p>então o modelo linear <span class="math inline">\(\beta_0 + \beta_1 X\)</span> não está capturando adequadamente a relação entre as variáveis. A solução é buscar uma transformação <span class="math inline">\(h(X)\)</span> tal que a nova relação seja aproximadamente linear.</p>
-<p>Essa estratégia é coerente com o princípio geral de modelagem estatística: <strong>especificar corretamente a função média antes de avaliar a variância dos erros</strong> (<span class="citation" data-cites="weisberg2005">Weisberg (<a href="references.html#ref-weisberg2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Essa estratégia é coerente com o princípio geral de modelagem estatística: <strong>especificar corretamente a função média antes de avaliar a variância dos erros</strong> <span class="citation" data-cites="weisberg2005">(<a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span>.</p>
 </section>
 <section id="logaritmo-x-log-x" class="level3" data-number="9.3.2">
 <h3 data-number="9.3.2" class="anchored" data-anchor-id="logaritmo-x-log-x"><span class="header-section-number">9.3.2</span> Logaritmo (<span class="math inline">\(X^* = \log X\)</span>)</h3>
@@ -784,7 +784,7 @@ Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \cdots + \varepsilon.
 <section id="guia-prático-escolhendo-a-transformação" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="guia-prático-escolhendo-a-transformação"><span class="header-section-number">9.4</span> Guia prático: escolhendo a transformação</h2>
 <p>Após compreender as motivações teóricas para transformar <span class="math inline">\(Y\)</span> ou <span class="math inline">\(X\)</span>, surge a questão prática: <strong>como decidir qual transformação aplicar?</strong></p>
-<p>A escolha não deve ser arbitrária nem baseada apenas em melhora numérica de <span class="math inline">\(R^2\)</span>. O critério central é a adequação às hipóteses do modelo e à estrutura substantiva do fenômeno (<span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>A escolha não deve ser arbitrária nem baseada apenas em melhora numérica de <span class="math inline">\(R^2\)</span>. O critério central é a adequação às hipóteses do modelo e à estrutura substantiva do fenômeno <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p><strong>Etapa 1 — Diagnóstico inicial</strong></p>
 <p>Antes de qualquer transformação, ajusta-se o modelo na escala original:</p>
 <p><span class="math display">\[
@@ -867,7 +867,7 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + \varepsilon_i.
 <p>Para consolidar as ideias discutidas até aqui, apresentamos um exemplo ilustrativo que mostra, de forma integrada, a <strong>necessidade estatística</strong> e a <strong>eficácia inferencial</strong> de uma transformação na variável resposta.</p>
 <section id="cenário-e-especificação-dos-modelos" class="level3" data-number="9.5.1">
 <h3 data-number="9.5.1" class="anchored" data-anchor-id="cenário-e-especificação-dos-modelos"><span class="header-section-number">9.5.1</span> Cenário e especificação dos modelos</h3>
-<p>Suponha que estejamos interessados em modelar a relação entre <strong>horas de prática de estudo (<span class="math inline">\(X\)</span>)</strong> e a <strong>nota obtida em uma prova (<span class="math inline">\(Y\)</span>)</strong>. Intuitivamente, espera-se que estudantes que dedicam mais horas de estudo tendam a alcançar notas maiores. Contudo, é plausível que:</p>
+<p>Suponha que estejamos interessados em modelar a relação entre <strong>horas de prática de estudo (</strong><span class="math inline">\(X\)</span>) e a <strong>nota obtida em uma prova (</strong><span class="math inline">\(Y\)</span>). Intuitivamente, espera-se que estudantes que dedicam mais horas de estudo tendam a alcançar notas maiores. Contudo, é plausível que:</p>
 <ul>
 <li>o ganho médio de desempenho seja aproximadamente exponencial;</li>
 <li>a variabilidade das notas aumente à medida que <span class="math inline">\(X\)</span> aumenta.</li>
@@ -1335,7 +1335,7 @@ Y = \exp(\beta_0^*) \exp(\beta_1^* X).
 <p><span class="math display">\[
 E(Y \mid X) = \exp\left(\mu + \tfrac{1}{2}\sigma^2\right),
 \]</span></p>
-<p>e não simplesmente <span class="math inline">\(\exp(\mu)\)</span> (<span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>). Ignorar esse termo introduz <strong>viés de retransformação</strong></p>
+<p>e não simplesmente <span class="math inline">\(\exp(\mu)\)</span> <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>. Ignorar esse termo introduz <strong>viés de retransformação</strong></p>
 <p>Este exemplo evidencia que:</p>
 <ul>
 <li>a análise de resíduos é central na validação do modelo;</li>

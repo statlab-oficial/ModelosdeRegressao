@@ -1,6 +1,6 @@
 # Estrutura Matricial dos Modelos de Regressão Linear
 
-A formulação moderna dos modelos de regressão linear é essencialmente matricial. Essa notação vetorial revela a estrutura geométrica do problema de estimação, explicita as condições necessárias para identificabilidade dos parâmetros e permite analisar propriedades estatísticas dos estimadores de forma sistemática (ver @harville1997).
+A formulação moderna dos modelos de regressão linear é essencialmente matricial. Essa notação vetorial revela a estrutura geométrica do problema de estimação, explicita as condições necessárias para identificabilidade dos parâmetros e permite analisar propriedades estatísticas dos estimadores de forma sistemática [@harville2000].
 
 Este apêndice consolida os principais elementos de Álgebra Linear utilizados ao longo do estudo de regressão, com ênfase nas estruturas que reaparecem na estimação por mínimos quadrados, na inferência e na análise de diagnóstico.
 
@@ -59,7 +59,7 @@ a_{21}+b_{21} & a_{22}+b_{22}
 \end{bmatrix}.
 $$
 
-A soma é definida elemento a elemento e exige dimensões idênticas. 
+A soma é definida elemento a elemento e exige dimensões idênticas.
 
 ### Produto Matricial
 
@@ -129,7 +129,7 @@ $$
 \|\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}\|^2.
 $$
 
-Portanto, o problema de estimação é um problema geométrico de minimizar distância no espaço $\mathbb{R}^n$. A formulação geométrica da regressão em termos de subespaços e projeções é desenvolvida em detalhe em @harville1997.
+Portanto, o problema de estimação é um problema geométrico de minimizar distância no espaço $\mathbb{R}^n$. A formulação geométrica da regressão em termos de subespaços e projeções é desenvolvida em detalhe em @harville2000.
 
 ### Forma Quadrática
 
@@ -165,7 +165,7 @@ $$
 a x_1^2 + 2b x_1 x_2 + c x_2^2.
 $$
 
-Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor $\mathbf{Y}$ (ver @rencher2012).
+Observe que surgem termos quadráticos e termos mistos. Em regressão, as somas de quadrados explicada e residual podem ser escritas exatamente como formas quadráticas do vetor $\mathbf{Y}$ [@rencher2012].
 
 ### Transposição
 
@@ -219,7 +219,7 @@ d & -b \\
 \end{bmatrix}.
 $$
 
-Na regressão, a invertibilidade de $\mathbf{X}^\top \mathbf{X}$ é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas, ver @golub2013.
+Na regressão, a invertibilidade de $\mathbf{X}^\top \mathbf{X}$ é condição necessária para a existência do estimador de mínimos quadrados único.Para o caso de posto deficiente e o uso de decomposição SVD e pseudoinversas [@golub2013].
 
 ### Propriedades Importantes
 
@@ -317,7 +317,7 @@ $$
 
 é simétrica.
 
-Matrizes simétricas possuem autovalores reais e podem ser diagonalizadas por matrizes ortogonais. Essa propriedade é crucial para compreender a decomposição espectral de $\mathbf{X}^\top \mathbf{X}$ e analisar problemas como multicolinearidade (ver @harville1997).
+Matrizes simétricas possuem autovalores reais e podem ser diagonalizadas por matrizes ortogonais. Essa propriedade é crucial para compreender a decomposição espectral de $\mathbf{X}^\top \mathbf{X}$ e analisar problemas como multicolinearidade [@harville2000].
 
 No modelo linear, as matrizes $\mathbf{X}^\top \mathbf{X}$, $\mathbf{H}$ e $\mathbf{M}$ são simétricas.
 
@@ -578,6 +578,7 @@ Essa condição é exatamente a forma matricial das equações normais.
 ### Interpretação Ortogonal e Soma Direta
 
 Seja $V = \mathbb{R}^n$ equipado com o produto interno usual 
+
 $$
 \langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y}.
 $$
@@ -691,7 +692,6 @@ A estrutura geométrica permite compreender diversos elementos de diagnóstico:
 -   A decomposição da variabilidade total decorre da ortogonalidade entre componentes projetadas.
 
 O modelo linear é, portato, uma decomposição geométrica do vetor de respostas em dois componentes ortogonais.
-
 
 ## Matrizes de Projeção e Decomposição Ortogonal
 
@@ -861,7 +861,7 @@ $$
 \mathrm{tr}(\mathbf{M}) = n - p - 1.
 $$
 
-Como o traço de uma matriz idempotente simétrica coincide com seu posto, essas quantidades correspondem às dimensões dos subespaços projetados (ver @harville1997).
+Como o traço de uma matriz idempotente simétrica coincide com seu posto, essas quantidades correspondem às dimensões dos subespaços projetados (ver @harville2000).
 
 #### Conexão com Somas de Quadrados
 
@@ -906,7 +906,6 @@ A matriz de projeção sintetiza, portanto, três dimensões fundamentais do mod
 1.  Estrutura geométrica (projeção ortogonal);
 2.  Estrutura algébrica (idempotência e posto);
 3.  Estrutura estatística (somas de quadrados e graus de liberdade).
-
 
 ## Diferenciação Matricial e Estimação por Mínimos Quadrados
 
@@ -989,7 +988,7 @@ $$
 
 ### Derivação das Equações Normais
 
-Aplicando a derivada à função $S(\boldsymbol{\beta})$ (ver @abadir2005):
+Aplicando a derivada à função $S(\boldsymbol{\beta})$ [@abadir2005]:
 
 $$
 \nabla_{\boldsymbol{\beta}} S(\boldsymbol{\beta})

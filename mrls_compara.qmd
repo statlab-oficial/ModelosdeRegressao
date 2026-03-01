@@ -151,7 +151,7 @@ em que:
 -   $\ell(\hat\theta)$ é a log-verossimilhança no ponto estimado;
 -   $p$ é o número de parâmetros estimados (incluindo $\sigma^2$, quando apropriado).
 
-O AIC pode ser interpretado como uma aproximação para a **distância de Kullback--Leibler** entre o modelo candidato e o verdadeiro mecanismo gerador dos dados (@akaike1974; @burnham2002). Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.
+O AIC pode ser interpretado como uma aproximação para a **distância de Kullback--Leibler** entre o modelo candidato e o verdadeiro mecanismo gerador dos dados [@akaike1974; @burnham2002]. Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.
 
 A estrutura do critério explicita o compromisso:
 
@@ -164,11 +164,11 @@ Assim, modelos com mais parâmetros precisam "ganhar" log-verossimilhança sufic
 
 -   **Regra:** entre modelos comparáveis, preferir o de **menor AIC**.
 -   O AIC não tem interpretação absoluta; só faz sentido **comparativamente**.
--   Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados (@burnham2002).
+-   Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados [@burnham2002].
 
 O AIC não testa hipóteses do tipo $H_0$ vs. $H_1$. Ele não produz valor-p nem decisão "rejeita/não rejeita". É um critério de **seleção por informação**, não um teste clássico de significância.
 
-Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas (ver @burnham2002).
+Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas [@burnham2002].
 
 ### Critério Bayesiano de Schwarz (BIC)
 
@@ -181,7 +181,7 @@ O BIC possui forma semelhante ao AIC, mas a penalização cresce com $\log(n)$. 
 -   Para amostras grandes, $\log(n)$ pode ser bem maior que 2;
 -   A penalização por parâmetro torna-se mais severa à medida que $n$ aumenta.
 
-O BIC pode ser interpretado como uma aproximação ao **log do fator de Bayes** sob certas condições assintóticas (@schwarz1978). Por isso, ele é frequentemente associado a uma perspectiva de **seleção do modelo "verdadeiro"** dentro do conjunto candidato.
+O BIC pode ser interpretado como uma aproximação ao **log do fator de Bayes** sob certas condições assintóticas [@schwarz1978]. Por isso, ele é frequentemente associado a uma perspectiva de **seleção do modelo "verdadeiro"** dentro do conjunto candidato.
 
 **Interpretação prática**
 

@@ -574,7 +574,7 @@ AIC = -2\ell(\hat\theta) + 2p,
 <li><span class="math inline">\(\ell(\hat\theta)\)</span> é a log-verossimilhança no ponto estimado;</li>
 <li><span class="math inline">\(p\)</span> é o número de parâmetros estimados (incluindo <span class="math inline">\(\sigma^2\)</span>, quando apropriado).</li>
 </ul>
-<p>O AIC pode ser interpretado como uma aproximação para a <strong>distância de Kullback–Leibler</strong> entre o modelo candidato e o verdadeiro mecanismo gerador dos dados (<span class="citation" data-cites="akaike1974">Akaike (<a href="references.html#ref-akaike1974" role="doc-biblioref">1974</a>)</span>; <span class="citation" data-cites="burnham2002">Burnham; Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>). Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.</p>
+<p>O AIC pode ser interpretado como uma aproximação para a <strong>distância de Kullback–Leibler</strong> entre o modelo candidato e o verdadeiro mecanismo gerador dos dados <span class="citation" data-cites="akaike1974 burnham2002">(<a href="references.html#ref-akaike1974" role="doc-biblioref">Akaike, 1974</a>; <a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>. Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.</p>
 <p>A estrutura do critério explicita o compromisso:</p>
 <ul>
 <li><span class="math inline">\(-2\ell(\hat\theta)\)</span> recompensa melhor ajuste (maior verossimilhança);</li>
@@ -585,10 +585,10 @@ AIC = -2\ell(\hat\theta) + 2p,
 <ul>
 <li><strong>Regra:</strong> entre modelos comparáveis, preferir o de <strong>menor AIC</strong>.</li>
 <li>O AIC não tem interpretação absoluta; só faz sentido <strong>comparativamente</strong>.</li>
-<li>Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados (<span class="citation" data-cites="burnham2002">Burnham; Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</li>
+<li>Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</li>
 </ul>
 <p>O AIC não testa hipóteses do tipo <span class="math inline">\(H_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\)</span>. Ele não produz valor-p nem decisão “rejeita/não rejeita”. É um critério de <strong>seleção por informação</strong>, não um teste clássico de significância.</p>
-<p>Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas (ver <span class="citation" data-cites="burnham2002">Burnham; Anderson (<a href="references.html#ref-burnham2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</p>
 </section>
 <section id="critério-bayesiano-de-schwarz-bic" class="level3" data-number="10.3.2">
 <h3 data-number="10.3.2" class="anchored" data-anchor-id="critério-bayesiano-de-schwarz-bic"><span class="header-section-number">10.3.2</span> Critério Bayesiano de Schwarz (BIC)</h3>
@@ -600,7 +600,7 @@ BIC = -2\ell(\hat\theta) + p \log(n).
 <li>Para amostras grandes, <span class="math inline">\(\log(n)\)</span> pode ser bem maior que 2;</li>
 <li>A penalização por parâmetro torna-se mais severa à medida que <span class="math inline">\(n\)</span> aumenta.</li>
 </ul>
-<p>O BIC pode ser interpretado como uma aproximação ao <strong>log do fator de Bayes</strong> sob certas condições assintóticas (<span class="citation" data-cites="schwarz1978">Schwarz (<a href="references.html#ref-schwarz1978" role="doc-biblioref">1978</a>)</span>). Por isso, ele é frequentemente associado a uma perspectiva de <strong>seleção do modelo “verdadeiro”</strong> dentro do conjunto candidato.</p>
+<p>O BIC pode ser interpretado como uma aproximação ao <strong>log do fator de Bayes</strong> sob certas condições assintóticas <span class="citation" data-cites="schwarz1978">(<a href="references.html#ref-schwarz1978" role="doc-biblioref">Schwarz, 1978</a>)</span>. Por isso, ele é frequentemente associado a uma perspectiva de <strong>seleção do modelo “verdadeiro”</strong> dentro do conjunto candidato.</p>
 <p><strong>Interpretação prática</strong></p>
 <ul>
 <li><strong>Regra:</strong> entre modelos comparáveis, preferir o de <strong>menor BIC</strong>.</li>

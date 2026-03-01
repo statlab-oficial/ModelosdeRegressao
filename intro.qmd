@@ -6,12 +6,11 @@ O curso está estruturado de forma progressiva: parte-se da regressão linear si
 
 Mais do que aprender procedimentos técnicos, o objetivo é desenvolver a capacidade de interpretar resultados, avaliar a adequação dos modelos e comunicar conclusões de forma clara. A ênfase está tanto na teoria quanto na prática, de modo que o estudante seja capaz de aplicar a modelagem estatística em contextos multidisciplinares.
 
-
 ## A centralidade da regressão
 
 A análise de regressão ocupa posição central na Estatística e, em especial, na Econometria. Como afirma @hoffmann2016:
 
-> “A análise de regressão é o método mais importante da econometria.”
+> "A análise de regressão é o método mais importante da econometria."
 
 Essa afirmação reflete o fato de que praticamente toda modelagem econométrica, seja para estimar elasticidades, avaliar políticas públicas, medir impactos ou testar teorias, passa, de alguma forma, por um modelo de regressão.
 
@@ -23,43 +22,39 @@ A regressão tornou-se, portanto, uma linguagem universal para responder a uma p
 
 Essa pergunta é simples. A resposta exige matemática, probabilidade, inferência e interpretação.
 
-
-
 ## Objetivos do livro
 
-- Contextualizar historicamente os modelos de regressão;  
-- Compreender a lógica da modelagem estatística: componente sistemático, componente aleatório e relação entre estes;  
-- Apresentar e discutir os principais modelos abordados na disciplina;  
-- Conectar a teoria com aplicações em economia, saúde, engenharia, ciências sociais e ambientais;  
-- Discutir potenciais e limitações de cada abordagem, reconhecendo as hipóteses subjacentes;  
-- Desenvolver a capacidade de usar ferramentas computacionais para ajuste, diagnóstico e interpretação de modelos.
+-   Contextualizar historicamente os modelos de regressão;\
+-   Compreender a lógica da modelagem estatística: componente sistemático, componente aleatório e relação entre estes;\
+-   Apresentar e discutir os principais modelos abordados na disciplina;\
+-   Conectar a teoria com aplicações em economia, saúde, engenharia, ciências sociais e ambientais;\
+-   Discutir potenciais e limitações de cada abordagem, reconhecendo as hipóteses subjacentes;\
+-   Desenvolver a capacidade de usar ferramentas computacionais para ajuste, diagnóstico e interpretação de modelos.
 
 Este material é concebidao como uma jornada pela família dos modelos de regressão. Partimos de um problema simples, como relacionar uma variável resposta a uma variável explicativa, e avançamos gradualmente até modelos capazes de lidar com múltiplos fatores, variáveis categóricas, dados de contagem, proporções e situações em que as hipóteses clássicas do modelo deixam de ser válidas.
 
 A ideia central é que, ao final do semestre, o estudante seja capaz de compreender não apenas **como ajustar** um modelo, mas também **quando e por que** usá-lo, avaliando sua adequação e reconhecendo seus limites.
 
-
 ## Breve História da Regressão
 
 A regressão, como hoje conhecemos, é fruto de mais de um século de evolução teórica e prática. Seu ponto de partida remonta ao século XIX, quando estudos empíricos sobre hereditariedade começaram a revelar regularidades que poderiam ser descritas matematicamente. Desde então, a regressão deixou de ser apenas uma curiosidade biológica e tornou-se um dos pilares da estatística moderna, sustentando análises nas mais diversas áreas.
 
-### Francis Galton (1822–1911)
+### Francis Galton (1822--1911)
 
-![Francis Galton](images/galton.jpg){width=35%}
+![Francis Galton](images/galton.jpg){width="35%"}
 
 A história da regressão começa com uma inquietação simples, quase doméstica. No final do século XIX, Francis Galton observava famílias inglesas e fazia uma pergunta que parecia trivial, mas que mudaria a estatística para sempre: **filhos de pais muito altos serão igualmente altos?**
 
 Ao analisar dados de estaturas familiares, Galton percebeu algo intrigante: filhos de pais muito altos tendiam a ser altos, mas não tanto quanto seus pais; filhos de pais muito baixos tendiam a ser baixos, mas não tão baixos quanto seus progenitores. Havia uma força invisível puxando as medidas extremas de volta ao centro. Em 1886 (@galton1886a; @galton1886b), ele chamou esse fenômeno de *regression toward mediocrity*.
 
-Sem perceber completamente, Galton havia introduzido quatro pilares da regressão moderna:  
+Sem perceber completamente, Galton havia introduzido quatro pilares da regressão moderna:\
 uma variável resposta, uma variável explicativa, uma média condicional e uma variabilidade em torno dessa média.
 
 A matemática ainda era rudimentar. Mas a ideia estava lançada.
 
+### Karl Pearson (1857--1936)
 
-### Karl Pearson (1857–1936)
-
-![Karl Pearson](images/pearson.jpg){width=35%}
+![Karl Pearson](images/pearson.jpg){width="35%"}
 
 Se Galton teve a intuição, Karl Pearson deu forma matemática ao fenômeno. Discípulo e colaborador de Galton, Pearson transformou observações empíricas em estrutura formal. Desenvolveu o coeficiente de correlação linear, sistematizou métodos de ajuste e ajudou a fundar o primeiro departamento de estatística do mundo, no University College London. Criou também a revista *Biometrika*, marco na consolidação da estatística como disciplina científica.
 
@@ -67,10 +62,9 @@ A regressão deixava de ser apenas uma regularidade observada em dados biológic
 
 O que antes era descrição começava a se tornar método.
 
+### Ronald A. Fisher (1890--1962)
 
-### Ronald A. Fisher (1890–1962)
-
-![Ronald Fisher](images/fisher.jpg){width=35%}
+![Ronald Fisher](images/fisher.jpg){width="35%"}
 
 Nas décadas seguintes, a estatística enfrentava um novo desafio: não bastava ajustar curvas; era preciso decidir. Ronald A. Fisher foi o arquiteto dessa virada. Na década de 1920, incorporou fundamentos de inferência à regressão e redefiniu o papel da estatística na ciência.
 
@@ -78,10 +72,9 @@ Com Fisher surgem a análise de variância (ANOVA), o método da máxima verossi
 
 A técnica deixa de ser apenas descritiva. Torna-se ferramenta de decisão científica.
 
+### Jerzy Neyman (1894--1981) & Egon Pearson (1895--1980)
 
-### Jerzy Neyman (1894–1981) & Egon Pearson (1895–1980)
-
-![Jerzy Neyman & Egon Pearson](images/neyman_pearson.jpg){width=55%}
+![Jerzy Neyman & Egon Pearson](images/neyman_pearson.jpg){width="55%"}
 
 A década de 1930 marca outro salto conceitual. Jerzy Neyman e Egon Pearson, filho de Karl Pearson, estruturam formalmente os testes de hipóteses. Definem os erros do tipo I e tipo II, introduzem critérios de decisão e consolidam o conceito de intervalo de confiança.
 
@@ -89,22 +82,20 @@ A regressão, agora, não apenas estima relações: ela fornece regras claras pa
 
 O método ganha rigor lógico.
 
+### John Tukey (1915--2000)
 
-### John Tukey (1915–2000)
-
-![John Tukey](images/tukey.jpg){width=40%}
+![John Tukey](images/tukey.jpg){width="40%"}
 
 Mas a estatística não evolui apenas por formalização. Na década de 1950, John Tukey propõe algo radical: antes de testar, é preciso explorar. Defende que os dados devem ser interrogados visualmente. Populariza gráficos de resíduos, diagnósticos e técnicas exploratórias.
 
-A regressão passa a ser acompanhada por perguntas práticas:  
+A regressão passa a ser acompanhada por perguntas práticas:\
 os pressupostos fazem sentido? há pontos influentes? o modelo realmente representa os dados?
 
 A estatística recupera o diálogo com a realidade empírica.
 
+### Peter McCullagh (1952--) & John Nelder (1934--2010)
 
-### Peter McCullagh (1952–) & John Nelder (1934–2010)
-
-![Peter McCullagh & John Nelder](images/mccullagh_nelder.jpg){width=55%}
+![Peter McCullagh & John Nelder](images/mccullagh_nelder.jpg){width="55%"}
 
 Com o avanço da computação nas décadas de 1960 e 1970, a regressão amplia suas fronteiras. A álgebra matricial viabiliza modelos com múltiplos preditores, e a necessidade de analisar dados não normais torna-se evidente.
 
@@ -118,7 +109,7 @@ O que começou como uma pergunta sobre estatura tornou-se uma das ferramentas ce
 
 ## O contexto histórico: eugenia
 
-É necessário reconhecer que parte do desenvolvimento inicial da estatística ocorreu em um contexto marcado por ideias eugenistas. Francis Galton cunhou o termo “eugenia” em 1883. A eugenia defendia o “melhoramento” da raça humana por meio de seleção artificial.
+É necessário reconhecer que parte do desenvolvimento inicial da estatística ocorreu em um contexto marcado por ideias eugenistas. Francis Galton cunhou o termo "eugenia" em 1883. A eugenia defendia o "melhoramento" da raça humana por meio de seleção artificial.
 
 Karl Pearson foi defensor ativo dessas ideias e dirigiu o laboratório Francis Galton para a Eugenia Nacional na University College London. Ronald Fisher também expressou posições eugenistas em seus escritos.
 
@@ -128,24 +119,22 @@ Essa contextualização histórica não diminui a importância dos avanços meto
 
 A regressão é instrumento científico poderoso. O modo como é utilizada depende do pesquisador.
 
-
 ## Consolidação da regressão como pilar da Estatística moderna
 
 A trajetória da regressão pode ser compreendida como uma sequência evolutiva:
 
-1. Observação empírica da regressão à média (Galton);  
-2. Formalização matemática e correlação (Pearson);  
-3. Inferência e planejamento experimental (Fisher);  
-4. Estrutura formal de testes de hipóteses (Neyman-Pearson);  
-5. Diagnóstico e análise exploratória (Tukey);  
-6. Generalização para modelos lineares generalizados (McCullagh e Nelder);  
-7. Regularização moderna (Ridge e LASSO);  
-8. Integração com ciência de dados e aprendizagem de máquina.
+1.  Observação empírica da regressão à média (Galton);\
+2.  Formalização matemática e correlação (Pearson);\
+3.  Inferência e planejamento experimental (Fisher);\
+4.  Estrutura formal de testes de hipóteses (Neyman-Pearson);\
+5.  Diagnóstico e análise exploratória (Tukey);\
+6.  Generalização para modelos lineares generalizados (McCullagh e Nelder);\
+7.  Regularização moderna (Ridge e LASSO);\
+8.  Integração com ciência de dados e aprendizagem de máquina.
 
 Apesar das transformações metodológicas, a pergunta central permanece:
 
 > Qual é a relação média entre uma variável resposta e seus preditores?
-
 
 ## Panorama dos Modelos de Regressão
 

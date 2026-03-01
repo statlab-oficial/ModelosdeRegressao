@@ -159,17 +159,16 @@ $$
 E(Y \mid X)
 $$
 
-Essa perspectiva é central nos textos clássicos de regressão e econometria (@charnet2008; @hoffmann2006; @gujarati2006). O objetivo não é afirmar que $X$ determina exatamente $Y$, mas que existe uma **estrutura sistemática média** associada às variáveis explicativas.
+Essa perspectiva é central nos textos clássicos de regressão e econometria [@charnet2008; @hoffmann2006; @gujarati2006]. O objetivo não é afirmar que $X$ determina exatamente $Y$, mas que existe uma **estrutura sistemática média** associada às variáveis explicativas.
 
 A ideia fundamental é que a variação observada em um fenômeno pode ser decomposta em duas partes:
 
-1. Uma **estrutura determinística** (ou componente sistemática), que representa o sinal da relação entre as variáveis;
-2. Uma **componente aleatória**, representada pelo ruído $\varepsilon$, que captura variações não explicadas pelo modelo.
+1.  Uma **estrutura determinística** (ou componente sistemática), que representa o sinal da relação entre as variáveis;
+2.  Uma **componente aleatória**, representada pelo ruído $\varepsilon$, que captura variações não explicadas pelo modelo.
 
-Essa decomposição aparece de forma recorrente na literatura de regressão aplicada (@draper1998; @kutner2005; @montgomery2021) como a base conceitual do modelo linear.
+Essa decomposição aparece de forma recorrente na literatura de regressão aplicada [@draper1998; @kutner2005; @montgomery2021] como a base conceitual do modelo linear.
 
-De forma geral, existem duas representações usuais para essa ideia.
--   **Modelo Aditivo** (o mais utilizado):
+De forma geral, existem duas representações usuais para essa ideia. - **Modelo Aditivo** (o mais utilizado):
 
 $$
 Y = \mu(X) + \varepsilon
@@ -186,7 +185,7 @@ com:
 -   $mu(X)$ → parte determinística (estrutura média);
 -   $\varepsilon$ → componente aleatória (ruído), que pode ser aditivo ou multiplicativo.
 
-O sinal $\mu(X)$ também é denominado de função de regressão. 
+O sinal $\mu(X)$ também é denominado de função de regressão.
 
 No modelo aditivo clássico, assume-se que
 
@@ -194,11 +193,9 @@ $$
 E(\varepsilon \mid X) = 0,
 $$
 
-isto é, o erro não carrega informação sistemática adicional sobre $Y$ além da já contida em $X$. Essa condição garante que $E(Y \mid X) = \mu(X)$, permitindo interpretar $\mu(X)$ como a **média condicional de $Y$ dado $X$**. Essa hipótese é central para a interpretação dos coeficientes como efeitos médios condicionais (@hoffmann2006; @gujarati2006).
+isto é, o erro não carrega informação sistemática adicional sobre $Y$ além da já contida em $X$. Essa condição garante que $E(Y \mid X) = \mu(X)$, permitindo interpretar $\mu(X)$ como a **média condicional de** $Y$ dado $X$. Essa hipótese é central para a interpretação dos coeficientes como efeitos médios condicionais [@hoffmann2006; @gujarati2006].
 
-
-No caso do **modelo multiplicativo**, a condição análoga é
-$$
+No caso do **modelo multiplicativo**, a condição análoga é $$
 E(\varepsilon \mid X) = 1.
 $$
 
@@ -208,9 +205,9 @@ A diferença fundamental entre as duas formulações é estrutural. No modelo ad
 
 Essa distinção tem implicações relevantes. Em estruturas aditivas, concebe-se a variabilidade como relativamente independente da escala do fenômeno; em estruturas multiplicativas, a dispersão tende a crescer ou decrescer proporcionalmente ao valor médio. Fenômenos econômicos, biológicos e ambientais frequentemente apresentam esse comportamento proporcional, por exemplo, renda, produção, crescimento populacional ou biomassa, o que torna a formulação multiplicativa conceitualmente mais adequada em muitos contextos.
 
-A escolha entre uma estrutura aditiva ou multiplicativa envolve considerações teóricas e empíricas. Modelos econômicos frequentemente sugerem relações proporcionais, enquanto a inspeção gráfica dos dados pode revelar padrões de variância crescente. Assim, a definição da forma funcional e da natureza da variação depende da teoria utilizada, da escala de mensuração das variáveis e do comportamento empírico observado nos dados (@gujarati2006; @hoffmann2006).
+A escolha entre uma estrutura aditiva ou multiplicativa envolve considerações teóricas e empíricas. Modelos econômicos frequentemente sugerem relações proporcionais, enquanto a inspeção gráfica dos dados pode revelar padrões de variância crescente. Assim, a definição da forma funcional e da natureza da variação depende da teoria utilizada, da escala de mensuração das variáveis e do comportamento empírico observado nos dados [@gujarati2006; @hoffmann2006].
 
-No caso do modelo aditivo clássico, a hipótese de que o erro não carrega informação sistemática adicional além da contida nas variáveis explicativas é central para a interpretação dos coeficientes como efeitos médios condicionais. Essa perspectiva, segundo a qual a regressão modela a média condicional e não valores individuais, constitui um dos pilares da regressão aplicada e da econometria tradicional (@hoffmann2006; @gujarati2006).
+No caso do modelo aditivo clássico, a hipótese de que o erro não carrega informação sistemática adicional além da contida nas variáveis explicativas é central para a interpretação dos coeficientes como efeitos médios condicionais. Essa perspectiva, segundo a qual a regressão modela a média condicional e não valores individuais, constitui um dos pilares da regressão aplicada e da econometria tradicional [@hoffmann2006; @gujarati2006].
 
 ### Interpretação conceitual: sinal e ruído
 
@@ -229,7 +226,7 @@ O sinal representa a parte explicável pelas variáveis incluídas no modelo; o 
 -   flutuações naturais,
 -   fatores aleatórios não controlados.
 
-Essa separação entre componente sistemática e erro é um dos pilares da regressão linear clássica (@draper1998).
+Essa separação entre componente sistemática e erro é um dos pilares da regressão linear clássica [@draper1998].
 
 #### Exemplo ilustrativo: Sinal + Ruído
 
@@ -492,7 +489,7 @@ A regressão pode ser compreendida a partir de três grandes finalidades:
 3.  **Controlar**\
     Avaliar o efeito de uma variável mantendo as demais constantes, permitindo interpretações condicionais.
 
-Esses objetivos aparecem de maneira combinada na prática. Em econometria, frequentemente busca-se compreender relações estruturais entre variáveis macroeconômicas (@gujarati2006; @hoffmann2006). Em engenharia e estatística aplicada, pode haver maior ênfase na capacidade preditiva do modelo (@montgomery2021). Em estudos científicos em geral, explicar e prever caminham juntos.
+Esses objetivos aparecem de maneira combinada na prática. Em econometria, frequentemente busca-se compreender relações estruturais entre variáveis macroeconômicas [@gujarati2006; @hoffmann2006]. Em engenharia e estatística aplicada, pode haver maior ênfase na capacidade preditiva do modelo [@montgomery2021]. Em estudos científicos em geral, explicar e prever caminham juntos.
 
 #### Observações conceituais importantes
 

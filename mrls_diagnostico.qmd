@@ -12,7 +12,7 @@ $$
 
 Estes resíduos representam a parte de $Y$ que **não foi explicada pelo modelo**. Enquanto os erros verdadeiros $\varepsilon_i$ são inobserváveis, os resíduos são acessíveis e servem como suas aproximações.
 
-Um ponto conceitual importante é distinguir "hipóteses sobre os erros" de "propriedades dos resíduos". As hipóteses clássicas do MRLS são formuladas para os **erros aleatórios** $\varepsilon_i$ (componentes não observáveis do mecanismo gerador de dados). Já os resíduos $e_i$ são funções dos dados e dos estimadores, logo carregam restrições algébricas impostas pelo MQO. Assim, mesmo que o MRLS seja verdadeiro (isto é, as hipóteses sobre $\varepsilon_i$ sejam satisfeitas), os resíduos **não** se comportam como uma amostra i.i.d. de uma mesma distribuição; em particular, eles são correlacionados e apresentam variâncias diferentes ao longo de $i$ a dependendo da alavancagem (@searle2016; @harville2000).
+Um ponto conceitual importante é distinguir "hipóteses sobre os erros" de "propriedades dos resíduos". As hipóteses clássicas do MRLS são formuladas para os **erros aleatórios** $\varepsilon_i$ (componentes não observáveis do mecanismo gerador de dados). Já os resíduos $e_i$ são funções dos dados e dos estimadores, logo carregam restrições algébricas impostas pelo MQO. Assim, mesmo que o MRLS seja verdadeiro (isto é, as hipóteses sobre $\varepsilon_i$ sejam satisfeitas), os resíduos **não** se comportam como uma amostra i.i.d. de uma mesma distribuição; em particular, eles são correlacionados e apresentam variâncias diferentes ao longo de $i$ a dependendo da alavancagem [@searle2016; @harville2000].
 
 As principais hipóteses do modelo para os erros ($\varepsilon$) do MRLS são:
 
@@ -28,7 +28,7 @@ A suposição (hipótese) distribuição mais considerada para a distribuição 
 
 -   Normalidade $(\varepsilon_i \sim N(0,\sigma^2))$.
 
-Um modelo só pode ser considerado adequado se os resíduos se comportarem como erros aleatórios: sem tendência sistemática, com variância aproximadamente constante, não correlacionaos e, em muitos contextos, aproximadamente normais. Em prática aplicada, é útil interpretar isso como: **(i)** a média condicional foi bem especificada (linearidade na forma funcional), **(ii)** a variância condicional não muda de forma sistemática (homocedasticidade) e **(iii)** não há estrutura temporal/espacial remanescente (independência), além de **(iv)** normalidade como hipótese adicional que viabiliza inferência exata e diagnósticos probabilísticos baseados em caudas (@montgomery2021; @kutner2005).
+Um modelo só pode ser considerado adequado se os resíduos se comportarem como erros aleatórios: sem tendência sistemática, com variância aproximadamente constante, não correlacionaos e, em muitos contextos, aproximadamente normais. Em prática aplicada, é útil interpretar isso como: **(i)** a média condicional foi bem especificada (linearidade na forma funcional), **(ii)** a variância condicional não muda de forma sistemática (homocedasticidade) e **(iii)** não há estrutura temporal/espacial remanescente (independência), além de **(iv)** normalidade como hipótese adicional que viabiliza inferência exata e diagnósticos probabilísticos baseados em caudas [@montgomery2021; @kutner2005].
 
 ## Tipos de resíduos e propriedades
 
@@ -42,7 +42,7 @@ $$
 
 Eles indicam o desvio direto entre a observação e a reta ajustada. Por exemplo, $e_i > 0$ mostra que o modelo **subestimou** $Y_i$, enquanto $e_i < 0$ mostra que o modelo **superestimou**.
 
-Do ponto de vista conceitual, o resíduo é uma *estimativa observável* do erro aleatório $\varepsilon_i$. Como $\varepsilon_i$ não é observável, toda a etapa de diagnóstico repousa sobre a análise do comportamento dos $e_i$. Entretanto, é fundamental compreender que resíduos **não são** os erros verdadeiros: eles dependem dos parâmetros estimados e, portanto, carregam estrutura imposta pelo método de mínimos quadrados @hoffmann2016; @montgomery2021.
+Do ponto de vista conceitual, o resíduo é uma *estimativa observável* do erro aleatório $\varepsilon_i$. Como $\varepsilon_i$ não é observável, toda a etapa de diagnóstico repousa sobre a análise do comportamento dos $e_i$. Entretanto, é fundamental compreender que resíduos **não são** os erros verdadeiros: eles dependem dos parâmetros estimados e, portanto, carregam estrutura imposta pelo método de mínimos quadrados [@hoffmann2016; @montgomery2021].
 
 #### Propriedades básicas dos resíduos ordinários
 
@@ -60,7 +60,7 @@ O método dos mínimos quadrados impõe três propriedades estruturais:
     \sum_{i=1}^n e_i^2 = SQ_{Res},
     $$ isto é, os resíduos concentram exatamente a variabilidade não explicada pelo modelo.
 
-Essas propriedades decorrem diretamente das **equações normais do método dos mínimos quadrados** no caso univariado, obtidas pela minimização de $\sum (Y_i - \beta_0 - \beta_1 X_i)^2$ em relação a $\beta_0$ e $\beta_1$ (@charnet2008; @kutner2005).
+Essas propriedades decorrem diretamente das **equações normais do método dos mínimos quadrados** no caso univariado, obtidas pela minimização de $\sum (Y_i - \beta_0 - \beta_1 X_i)^2$ em relação a $\beta_0$ e $\beta_1$ [@charnet2008; @kutner2005].
 
 > **Apêndice de Demonstrações {#demo}:** as propriedades acima são obtidas substituindo $\hat\beta_0$ e $\hat\beta_1$ nas expressões dos resíduos e manipulando os somatórios resultantes das equações normais.
 
@@ -90,7 +90,7 @@ $$
 
 A quantidade $h_{ii}$ é chamada de **alavancagem** da observação $i$. Ela mede o quanto o valor de $X_i$ influencia o próprio ajuste $\hat Y_i$.
 
-Observações com valores de $X_i$ muito afastados da média $\bar X$ apresentam maior alavancagem. Como consequência, possuem menor variância residual, pois "ancoram" a reta ajustada com maior intensidade (@belsley1980; @montgomery2021).
+Observações com valores de $X_i$ muito afastados da média $\bar X$ apresentam maior alavancagem. Como consequência, possuem menor variância residual, pois "ancoram" a reta ajustada com maior intensidade [@belsley1980; @montgomery2021].
 
 3.  **Covariância**
 
@@ -104,7 +104,7 @@ $$
 h_{ij} = \frac{1}{n} + \frac{(x_i - \bar X)(x_j - \bar X)}{S_{xx}}.
 $$
 
-Portanto, os resíduos são **correlacionados entre si**. Isso é consequência direta do fato de que todos os resíduos dependem dos mesmos estimadores $\hat\beta_0$ e $\hat\beta_1$ e, consequentemente, os resíduos não podem ser tratados como uma nova amostra independente de erros aleatórios (@kutner2005; @weisberg2005).
+Portanto, os resíduos são **correlacionados entre si**. Isso é consequência direta do fato de que todos os resíduos dependem dos mesmos estimadores $\hat\beta_0$ e $\hat\beta_1$ e, consequentemente, os resíduos não podem ser tratados como uma nova amostra independente de erros aleatórios [@kutner2005; @weisberg2005].
 
 4.  **Distribuição**
 
@@ -122,7 +122,7 @@ $$
 
 Essa normalidade é exata sob a hipótese de erros normais. Caso a normalidade não seja assumida, a distribuição dos resíduos pode ser aproximada por resultados assintóticos.
 
-> **Apêndice de Demonstrações {#demo}:** as expressões de variância e covariância dos resíduos são obtidas substituindo $e_i = Y_i - \hat Y_i$ e utilizando as propriedades das variâncias de combinações lineares, juntamente com as expressões explícitas de $\hat\beta_0$ e $\hat\beta_1$ @kutner2005; @montgomery2021.
+> **Apêndice de Demonstrações {#demo}:** as expressões de variância e covariância dos resíduos são obtidas substituindo $e_i = Y_i - \hat Y_i$ e utilizando as propriedades das variâncias de combinações lineares, juntamente com as expressões explícitas de $\hat\beta_0$ e $\hat\beta_1$ [@kutner2005; @montgomery2021].
 
 #### Implicações para diagnóstico
 
@@ -134,7 +134,7 @@ Esses resultados mostram que, mesmo quando as hipóteses usuais de média zero, 
 
 Portanto, embora úteis para visualização inicial e interpretação direta do ajuste, os resíduos ordinários não são ideais para comparações diretas entre observações com diferentes níveis de alavancagem.
 
-Essa limitação motiva a construção de resíduos transformados, como os **resíduos padronizados** e os **resíduos estudentizados**, que ajustam explicitamente a variabilidade individual e permitem diagnósticos mais adequados de pontos discrepantes e violações das hipóteses do modelo (@belsley1980; @weisberg2005).
+Essa limitação motiva a construção de resíduos transformados, como os **resíduos padronizados** e os **resíduos estudentizados**, que ajustam explicitamente a variabilidade individual e permitem diagnósticos mais adequados de pontos discrepantes e violações das hipóteses do modelo [@belsley1980; @weisberg2005].
 
 ### Resíduos padronizados
 
@@ -192,7 +192,7 @@ $$
 r_i \approx t_{n-2}.
 $$
 
-A aproximação não é exata porque $e_i$ e $s^2$ não são independentes: ambos dependem das mesmas observações e dos mesmos estimadores $\hat\beta_0$ e $\hat\beta_1$ (@weisberg2005).
+A aproximação não é exata porque $e_i$ e $s^2$ não são independentes: ambos dependem das mesmas observações e dos mesmos estimadores $\hat\beta_0$ e $\hat\beta_1$ [@weisberg2005].
 
 Em amostras grandes, pela consistência de $s^2$ para $\sigma^2$, a distribuição de $r_i$ aproxima-se da normal padrão:
 
@@ -223,7 +223,7 @@ Contudo, essa interpretação deve ser feita com cautela:
 
 Apesar de mais informativos que os resíduos ordinários, os resíduos padronizados ainda apresentam uma limitação importante: o denominador $s$ é calculado utilizando **todas as observações**, inclusive a própria observação $i$.
 
-Assim, um ponto extremo pode inflar $s$, reduzindo artificialmente seu próprio resíduo padronizado, fenômeno conhecido como *masking* (mascaramento) (@belsley1980).
+Assim, um ponto extremo pode inflar $s$, reduzindo artificialmente seu próprio resíduo padronizado, fenômeno conhecido como *masking* (mascaramento) [@belsley1980].
 
 Essa limitação motiva a definição dos **resíduos estudentizados externos**, nos quais a variância é estimada excluindo-se a própria observação sob análise.
 
@@ -237,7 +237,7 @@ Nos próximos tópicos, veremos como a estudentização externa corrige a depend
 
 ### Resíduos estudentizados (externos)
 
-Os **resíduos estudentizados externos** (também chamados de *externally studentized residuals* ou *deleted residuals*) foram propostos no contexto de diagnóstico de regressão para contornar a dependência entre numerador e denominador presente nos resíduos padronizados (@belsley1980; @weisberg2005).
+Os **resíduos estudentizados externos** (também chamados de *externally studentized residuals* ou *deleted residuals*) foram propostos no contexto de diagnóstico de regressão para contornar a dependência entre numerador e denominador presente nos resíduos padronizados [@belsley1980; @weisberg2005].
 
 Eles são definidos por
 
@@ -279,7 +279,7 @@ $$
 t_i^* \sim t_{n-3}.
 $$
 
-A perda de um grau de liberdade adicional (em comparação com $t_{n-2}$) decorre do fato de que a variância foi estimada com $n-3$ graus de liberdade no modelo ajustado sem a observação $i$ (@kutner2005; @montgomery2021).
+A perda de um grau de liberdade adicional (em comparação com $t_{n-2}$) decorre do fato de que a variância foi estimada com $n-3$ graus de liberdade no modelo ajustado sem a observação $i$ [@kutner2005; @montgomery2021].
 
 Essa é uma propriedade importante: diferentemente dos resíduos padronizados, aqui a distribuição $t$ é **exata** sob normalidade dos erros.
 
@@ -346,7 +346,7 @@ Propriedades importantes no MRLS:
     $$ pois dois parâmetros são estimados ($\beta_0$ e $\beta_1$);
 -   a média das alavancagens é $2/n$.
 
-Observações com $X_i$ muito afastado da média $\bar X$ possuem maior alavancagem e exercem maior influência geométrica sobre a reta ajustada (@montgomery2021; @kutner2005).
+Observações com $X_i$ muito afastado da média $\bar X$ possuem maior alavancagem e exercem maior influência geométrica sobre a reta ajustada [@montgomery2021; @kutner2005].
 
 Uma regra prática comum é considerar como potencialmente alta alavancagem valores tais que
 
@@ -354,7 +354,7 @@ $$
 h_{ii} > \frac{2p}{n},
 $$
 
-em que $p$ é o número de parâmetros do modelo (no MRLS, $p=2$). Assim, valores acima de $4/n$ merecem atenção especial (@belsley1980).
+em que $p$ é o número de parâmetros do modelo (no MRLS, $p=2$). Assim, valores acima de $4/n$ merecem atenção especial [@belsley1980].
 
 ### Conexão entre alavancagem e variância residual
 
@@ -393,7 +393,7 @@ $$
 D_i = \frac{t_i^{*2}}{2} \cdot \frac{h_{ii}}{1 - h_{ii}},
 $$
 
-quantificam diretamente o quanto os estimadores $(\hat\beta_0,\hat\beta_1)$ se alterariam caso a observação $i$ fosse removida (@belsley1980; @weisberg2005).
+quantificam diretamente o quanto os estimadores $(\hat\beta_0,\hat\beta_1)$ se alterariam caso a observação $i$ fosse removida [@belsley1980; @weisberg2005].
 
 ### Resumo comparativo dos resíduos
 
@@ -417,7 +417,7 @@ Somente essa leitura integrada permite avaliar adequadamente a robustez do ajust
 
 Antes da inspeção gráfica, é possível realizar **testes estatísticos formais** aplicados aos resíduos do MRLS. Esses testes não substituem a análise gráfica, mas fornecem evidência quantitativa sobre possíveis violações das hipóteses clássicas, especialmente **normalidade** e **independência** dos erros.
 
-É fundamental compreender que tais testes avaliam hipóteses específicas do modelo (por exemplo, normalidade dos erros), e não a "qualidade geral" da regressão. A interpretação correta exige articulação entre teoria, estatística e contexto (@kutner2005; @montgomery2021; @weisberg2005).
+É fundamental compreender que tais testes avaliam hipóteses específicas do modelo (por exemplo, normalidade dos erros), e não a "qualidade geral" da regressão. A interpretação correta exige articulação entre teoria, estatística e contexto [@kutner2005; @montgomery2021; @weisberg2005].
 
 ### Teste para Assimetria (Skewness)
 
@@ -452,7 +452,7 @@ $$ Esse teste verifica se há evidência estatística de assimetria na distribui
 
 Assimetria residual pode indicar: - variável resposta naturalmente assimétrica (ex.: tempos, rendas); - necessidade de transformação; - presença de outliers em apenas um lado da distribuição.
 
-A assimetria detectada estatisticamente pode ser irrelevante do ponto de vista prático se o impacto sobre estimativas e previsões for pequeno. Por isso, a análise gráfica (histograma e QQ-plot) é complementar e essencial (@weisberg2005; @montgomery2021).
+A assimetria detectada estatisticamente pode ser irrelevante do ponto de vista prático se o impacto sobre estimativas e previsões for pequeno. Por isso, a análise gráfica (histograma e QQ-plot) é complementar e essencial [@weisberg2005; @montgomery2021].
 
 ### Teste para Curtose (Kurtosis)
 
@@ -487,7 +487,7 @@ $$
 
 Curtose elevada frequentemente sinaliza presença de outliers ou heterogeneidade de variância. Caudas pesadas significam maior probabilidade de valores extremos, o que pode afetar inferência e previsão.
 
-Assim como a assimetria, a curtose deve ser interpretada junto com resíduos estudentizados e medidas de influência. Muitas vezes, poucos pontos extremos explicam grande parte da rejeição da normalidade (@belsley1980; @weisberg2005).
+Assim como a assimetria, a curtose deve ser interpretada junto com resíduos estudentizados e medidas de influência. Muitas vezes, poucos pontos extremos explicam grande parte da rejeição da normalidade [@belsley1980; @weisberg2005].
 
 ### 3. Omnibus Test (D'Agostino--Pearson)
 
@@ -551,7 +551,9 @@ Observe que o JB é equivalente, do ponto de vista assintótico, à soma dos qua
 
 O JB mede a distância conjunta entre a distribuição empírica dos resíduos e a normal, considerando forma (assimetria) e peso de caudas (curtose).
 
-Note que rejeitar normalidade não implica que o modelo linear esteja incorreto, isso pode indicar apenas que os erros não são gaussianos. A relevância prática depende do objetivo (estimação, teste, previsão) e do tamanho da amostra (@casella2002; @kutner2005). \### 5. Durbin--Watson (DW)
+Note que rejeitar normalidade não implica que o modelo linear esteja incorreto, isso pode indicar apenas que os erros não são gaussianos. A relevância prática depende do objetivo (estimação, teste, previsão) e do tamanho da amostra [@casella2002; @kutner2005]. \
+
+### 5. Durbin--Watson (DW)
 
 O teste de Durbin--Watson verifica autocorrelação serial:
 
@@ -586,9 +588,9 @@ Detectar autocorrelação é apenas o início do diagnóstico.
 
 ## Diagnóstico gráfico do MRLS
 
-A análise gráfica dos resíduos é uma das etapas mais importantes na verificação das hipóteses do MRLS. Os gráficos funcionam como ferramentas de diagnóstico visual, permitindo identificar padrões que revelem problemas estruturais no modelo @montgomery2021; @kutner2005; @weisberg2005.
+A análise gráfica dos resíduos é uma das etapas mais importantes na verificação das hipóteses do MRLS. Os gráficos funcionam como ferramentas de diagnóstico visual, permitindo identificar padrões que revelem problemas estruturais no modelo [@montgomery2021; @kutner2005; @weisberg2005].
 
-Em um **modelo bem especificado**, os resíduos devem se comportar como **ruído puro**: dispersão aleatória em torno de zero, variância aproximadamente constante e sem estrutura aparente. Em termos práticos, isso significa que, **condicionado aos valores de** $X$, não deve existir informação sistemática remanescente nos resíduos que pudesse ser capturada por uma reespecificação simples do modelo (por exemplo, inclusão de termos não lineares ou transformação da resposta) @montgomery2021; @weisberg2005.
+Em um **modelo bem especificado**, os resíduos devem se comportar como **ruído puro**: dispersão aleatória em torno de zero, variância aproximadamente constante e sem estrutura aparente. Em termos práticos, isso significa que, **condicionado aos valores de** $X$, não deve existir informação sistemática remanescente nos resíduos que pudesse ser capturada por uma reespecificação simples do modelo (por exemplo, inclusão de termos não lineares ou transformação da resposta) [@montgomery2021; @weisberg2005].
 
 A seguir, são descritos os principais gráficos e o que se esperar de cada um.
 
@@ -606,7 +608,7 @@ Este é o gráfico diagnóstico mais usado na prática, pois confronta diretamen
     -   **concentração de resíduos positivos (negativos)** em certas regiões → modelo subestima (superestima) sistematicamente nessas regiões, sugerindo viés local de especificação.\
     -   **pontos isolados muito afastados** do conjunto principal → possível outlier/influência; a confirmação deve ser feita em leitura conjunta com resíduos estudentizados $t_i^*$, alavancagem $h_{ii}$ e medidas de influência como a distância de Cook @belsley1980; @weisberg2005.
 
-Para diagnóstico visual, é recomendável utilizar resíduos que sejam comparáveis entre observações. Assim, em muitos contextos prefere-se plotar resíduos padronizados ($r_i$) ou estudentizados externos ($t_i^*$), em vez de resíduos ordinários ($e_i$), pois estes últimos têm variância dependente da alavancagem $(1-h_{ii})$ (@montgomery2021; @kutner2005).
+Para diagnóstico visual, é recomendável utilizar resíduos que sejam comparáveis entre observações. Assim, em muitos contextos prefere-se plotar resíduos padronizados ($r_i$) ou estudentizados externos ($t_i^*$), em vez de resíduos ordinários ($e_i$), pois estes últimos têm variância dependente da alavancagem $(1-h_{ii})$ [@montgomery2021; @kutner2005].
 
 ```{r}
 #| echo: false
@@ -670,7 +672,7 @@ Este gráfico é conceitualmente muito próximo ao anterior, mas desloca o foco:
     -   **faixas onde a dispersão muda** → variação da variância conforme $X$, sugerindo heteroscedasticidade.\
     -   **concentração de pontos extremos em regiões específicas de** $X$ → possível influência associada a valores extremos da variável explicativa.
 
-Enquanto o gráfico resíduos vs ajustados enfatiza o comportamento do erro em relação à resposta prevista, o gráfico resíduos vs $X$ enfatiza a adequação da **forma funcional** da regressão. Ele permite avaliar diretamente se a hipótese de linearidade entre $X$ e a média condicional de $Y$ é plausível (@montgomery2021; @kutner2005).
+Enquanto o gráfico resíduos vs ajustados enfatiza o comportamento do erro em relação à resposta prevista, o gráfico resíduos vs $X$ enfatiza a adequação da **forma funcional** da regressão. Ele permite avaliar diretamente se a hipótese de linearidade entre $X$ e a média condicional de $Y$ é plausível [@montgomery2021; @kutner2005].
 
 Este gráfico é especialmente informativo quando $X$ possui interpretação física, econômica ou temporal clara. Nesses casos, padrões sistemáticos ao longo de $X$ podem revelar efeitos omitidos, mudanças estruturais ou fenômenos não lineares que não são imediatamente visíveis no gráfico resíduos vs ajustados.
 
@@ -727,7 +729,7 @@ Este gráfico é uma versão refinada do gráfico resíduos vs ajustados, utiliz
 -   **Por que usar**:
     -   tornam resíduos comparáveis, pois ajustam pela variância individual de cada ponto, incorporando o fator $(1-h_{ii})$ associado à alavancagem.\
     -   utilizam uma estimativa da variância $\sigma^2$ calculada sem a observação $i$ ($s_{(i)}$), reduzindo o efeito de mascaramento que pode ocorrer quando um ponto extremo influencia a própria estimativa de variância.\
-    -   possuem, sob normalidade dos erros, distribuição exata $t_{n-3}$, permitindo interpretação inferencial mais precisa (@montgomery2021; @kutner2005).
+    -   possuem, sob normalidade dos erros, distribuição exata $t_{n-3}$, permitindo interpretação inferencial mais precisa [@montgomery2021; @kutner2005].
 -   **O que se espera**:
     -   aleatoriedade em torno da linha horizontal $0$.\
     -   a maioria dos pontos entre $-2$ e $+2$, sendo raros valores com $|t_i^*|>3$ em amostras moderadas.\
@@ -739,7 +741,7 @@ Este gráfico é uma versão refinada do gráfico resíduos vs ajustados, utiliz
 
 Os resíduos estudentizados externos medem o quanto cada observação se afasta do modelo ajustado, levando em conta tanto a variabilidade residual quanto sua própria posição geométrica no conjunto de dados. Assim, eles são especialmente adequados para identificar **outliers reais**, isto é, observações cuja discrepância não pode ser explicada apenas por sua alavancagem.
 
-Um ponto com resíduo ordinário grande pode deixar de parecer extremo após a estudentização se sua variância condicional for naturalmente maior. Por outro lado, um ponto que permanece extremo mesmo após a correção por $(1-h_{ii})$ e por $s_{(i)}$ merece investigação cuidadosa --- seja por erro de registro, seja por representar um fenômeno estrutural distinto (@belsley1980; @weisberg2005).
+Um ponto com resíduo ordinário grande pode deixar de parecer extremo após a estudentização se sua variância condicional for naturalmente maior. Por outro lado, um ponto que permanece extremo mesmo após a correção por $(1-h_{ii})$ e por $s_{(i)}$ merece investigação cuidadosa --- seja por erro de registro, seja por representar um fenômeno estrutural distinto [@belsley1980; @weisberg2005].
 
 ```{r}
 #| echo: false
@@ -790,7 +792,7 @@ ggplot(dados, aes(x = fit, y = stud)) +
 
 ### QQ-plot (normalidade)
 
-O gráfico QQ-plot (quantile--quantile) compara os quantis empíricos dos resíduos com os quantis teóricos de uma distribuição normal padrão. Ele é uma das ferramentas mais informativas para avaliar a hipótese de normalidade dos erros no MRLS (@montgomery2021; @kutner2005; @weisberg2005).
+O gráfico QQ-plot (quantile--quantile) compara os quantis empíricos dos resíduos com os quantis teóricos de uma distribuição normal padrão. Ele é uma das ferramentas mais informativas para avaliar a hipótese de normalidade dos erros no MRLS [@montgomery2021; @kutner2005; @weisberg2005].
 
 -   **O que se espera**:
     -   pontos aproximadamente alinhados em torno da reta de 45°, indicando que os resíduos seguem aproximadamente uma distribuição normal.\
@@ -804,7 +806,7 @@ O gráfico QQ-plot (quantile--quantile) compara os quantis empíricos dos resíd
 
 O QQ-plot compara toda a **forma da distribuição**. Se os resíduos forem normais, seus quantis empíricos devem crescer linearmente com os quantis teóricos da normal. Desvios sistemáticos dessa linearidade indicam diferenças estruturais entre as distribuições.
 
-É fundamental interpretar o QQ-plot em conjunto com resíduos estudentizados e medidas de influência. Muitas vezes, poucos pontos extremos explicam a maior parte do desvio observado nas caudas. Além disso, pequenas curvaturas no centro do gráfico, especialmente em amostras grandes, podem não ter relevância prática para a inferência, sobretudo quando o objetivo principal é previsão e não testes exatos em pequenas amostras (@casella2002; @kutner2005).
+É fundamental interpretar o QQ-plot em conjunto com resíduos estudentizados e medidas de influência. Muitas vezes, poucos pontos extremos explicam a maior parte do desvio observado nas caudas. Além disso, pequenas curvaturas no centro do gráfico, especialmente em amostras grandes, podem não ter relevância prática para a inferência, sobretudo quando o objetivo principal é previsão e não testes exatos em pequenas amostras [@casella2002; @kutner2005].
 
 O QQ-plot, portanto, oferece uma visão global da normalidade e complementa tanto os testes formais (como Jarque--Bera) quanto os gráficos de histograma.
 
@@ -873,7 +875,7 @@ ggplot(dados, aes(theo, samp)) +
 
 ### Histograma (assimetria e caudas)
 
-O histograma dos resíduos é uma ferramenta complementar ao QQ-plot. Enquanto o QQ-plot enfatiza o alinhamento com a normal teórica por meio de quantis, o histograma permite visualizar diretamente a **forma empírica** da distribuição residual (@montgomery2021; @kutner2005; @weisberg2005).
+O histograma dos resíduos é uma ferramenta complementar ao QQ-plot. Enquanto o QQ-plot enfatiza o alinhamento com a normal teórica por meio de quantis, o histograma permite visualizar diretamente a **forma empírica** da distribuição residual [@montgomery2021; @kutner2005; @weisberg2005].
 
 -   **O que se espera**:
     -   distribuição aproximadamente simétrica em torno de zero.\
@@ -889,7 +891,7 @@ O histograma fornece uma visão direta da densidade empírica dos resíduos. Em 
 
 Adicionamente, o histograma é sensível à escolha do número de classes (bins). Diferentes escolhas podem alterar a percepção visual da forma. Por isso, recomenda-se utilizá-lo em conjunto com o QQ-plot e com medidas numéricas de assimetria e curtose.
 
-Além disso, é importante lembrar que pequenas assimetrias visuais, especialmente em amostras grandes, podem não comprometer de forma relevante a inferência baseada em MQO, cuja robustez assintótica é discutida em (@casella2002; @kutner2005).
+Além disso, é importante lembrar que pequenas assimetrias visuais, especialmente em amostras grandes, podem não comprometer de forma relevante a inferência baseada em MQO, cuja robustez assintótica é discutida em [@casella2002; @kutner2005].
 
 ```{r}
 #| echo: false
@@ -967,7 +969,7 @@ Este gráfico não apenas identifica outliers, mas também permite verificar se 
 
 O significado do eixo "índice" depende do contexto. Se os dados tiverem uma ordem natural (tempo, experimento sequencial, posição espacial), padrões nesse gráfico podem indicar violação da hipótese de independência dos erros. Se não houver ordem natural, o gráfico atua principalmente como ferramenta de localização de observações discrepantes.
 
-Além disso, um valor extremo em $t_i^*$ não implica automaticamente exclusão da observação. Deve-se verificar conjuntamente a alavancagem $h_{ii}$ e medidas de influência (como a distância de Cook) antes de qualquer decisão sobre reespecificação ou remoção de dados (@belsley1980; @weisberg2005).
+Além disso, um valor extremo em $t_i^*$ não implica automaticamente exclusão da observação. Deve-se verificar conjuntamente a alavancagem $h_{ii}$ e medidas de influência (como a distância de Cook) antes de qualquer decisão sobre reespecificação ou remoção de dados [@belsley1980; @weisberg2005].
 
 ```{r}
 #| echo: false
@@ -1037,7 +1039,7 @@ Se o modelo satisfaz a hipótese de homocedasticidade, então $Var(e_i)$ deve se
 
 Ao trabalhar com o quadrado do resíduo, pequenas diferenças tornam-se mais visíveis. Por isso, esse gráfico frequentemente revela tendências de variância que não são tão evidentes no gráfico simples resíduos vs ajustados.
 
-A inclusão de uma curva suave (por exemplo, LOESS) auxilia na visualização de tendências médias na magnitude dos resíduos. Se essa curva apresentar inclinação clara ou formato sistemático, há evidência visual de heteroscedasticidade (@montgomery2021; @kutner2005; @weisberg2005).
+A inclusão de uma curva suave (por exemplo, LOESS) auxilia na visualização de tendências médias na magnitude dos resíduos. Se essa curva apresentar inclinação clara ou formato sistemático, há evidência visual de heteroscedasticidade [@montgomery2021; @kutner2005; @weisberg2005].
 
 Este gráfico, portanto, complementa o diagnóstico tradicional, oferecendo uma perspectiva focada especificamente na estrutura da variância.
 
@@ -1090,7 +1092,7 @@ Este gráfico combina duas dimensões centrais do diagnóstico no MRLS:\
 - **alavancagem** ($h_{ii}$), que mede o quão extremo é o valor de $X_i$;\
 - **resíduo estudentizado externo** ($t_i^*$), que mede a discrepância vertical ajustada pela variância condicional.
 
-Ao analisar ambos simultaneamente, obtemos uma visão direta da **influência potencial** de cada observação sobre os estimadores do modelo (@belsley1980; @weisberg2005; @montgomery2021).
+Ao analisar ambos simultaneamente, obtemos uma visão direta da **influência potencial** de cada observação sobre os estimadores do modelo [@belsley1980; @weisberg2005; @montgomery2021].
 
 -   **Objetivo**:
     -   identificar observações influentes, isto é, aquelas que combinam alto resíduo e alta alavancagem.\
@@ -1160,7 +1162,7 @@ ggplot(dados, aes(x = h, y = stud)) +
   guides(size = "none")
 ```
 
-Os gráficos de resíduos são **mapas visuais do ajuste**. Eles sintetizam, de forma intuitiva, as hipóteses estruturais do MRLS e permitem avaliar se o modelo capturou adequadamente a relação entre $X$ e $Y$ (@montgomery2021; @kutner2005; @weisberg2005).
+Os gráficos de resíduos são **mapas visuais do ajuste**. Eles sintetizam, de forma intuitiva, as hipóteses estruturais do MRLS e permitem avaliar se o modelo capturou adequadamente a relação entre $X$ e $Y$ [@montgomery2021; @kutner2005; @weisberg2005].
 
 Quando o modelo está bem especificado, espera-se que:
 
