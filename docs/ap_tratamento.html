@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Tratamento de dados para regressão (pré-modelagem)</title>
+<title>17&nbsp; Tratamento de dados para regressão</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./part4_ex.html" rel="next">
 <link href="./ap_forma_linear.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -132,7 +132,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_tratamento.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_tratamento.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -168,6 +168,12 @@ window.Quarto = {
  <span class="menu-text">Prefácio</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./identifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identificação da Disciplina</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -192,7 +198,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./part1_ex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
       </ul>
@@ -251,7 +257,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./part2_ex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
       </ul>
@@ -268,7 +274,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e atividades</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
       </ul>
@@ -309,7 +315,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part4_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
       </ul>
@@ -340,24 +352,16 @@ window.Quarto = {
   <li><a href="#sumários-e-visualizações-exploratórias" id="toc-sumários-e-visualizações-exploratórias" class="nav-link" data-scroll-target="#sumários-e-visualizações-exploratórias"><span class="header-section-number">17.8</span> Sumários e visualizações exploratórias</a></li>
   <li><a href="#salvamento-e-documentação-da-base-tratada" id="toc-salvamento-e-documentação-da-base-tratada" class="nav-link" data-scroll-target="#salvamento-e-documentação-da-base-tratada"><span class="header-section-number">17.9</span> Salvamento e documentação da base tratada</a></li>
   <li><a href="#checklist-técnico-condições-mínimas-para-seguir-à-modelagem" id="toc-checklist-técnico-condições-mínimas-para-seguir-à-modelagem" class="nav-link" data-scroll-target="#checklist-técnico-condições-mínimas-para-seguir-à-modelagem"><span class="header-section-number">17.10</span> Checklist técnico: Condições mínimas para seguir à modelagem</a></li>
-  <li><a href="#bases-para-prática" id="toc-bases-para-prática" class="nav-link" data-scroll-target="#bases-para-prática"><span class="header-section-number">17.11</span> Bases para prática</a>
-  <ul class="collapse">
-  <li><a href="#house-prices-advanced-regression-techniques-kaggle" id="toc-house-prices-advanced-regression-techniques-kaggle" class="nav-link" data-scroll-target="#house-prices-advanced-regression-techniques-kaggle"><span class="header-section-number">17.11.1</span> House Prices: Advanced Regression Techniques (Kaggle)</a></li>
-  <li><a href="#ames-housing-dataset" id="toc-ames-housing-dataset" class="nav-link" data-scroll-target="#ames-housing-dataset"><span class="header-section-number">17.11.2</span> Ames Housing Dataset</a></li>
-  <li><a href="#online-shoppers-purchasing-intention-uci" id="toc-online-shoppers-purchasing-intention-uci" class="nav-link" data-scroll-target="#online-shoppers-purchasing-intention-uci"><span class="header-section-number">17.11.3</span> Online Shoppers Purchasing Intention (UCI)</a></li>
-  <li><a href="#student-failure-messy-dataset-kaggle" id="toc-student-failure-messy-dataset-kaggle" class="nav-link" data-scroll-target="#student-failure-messy-dataset-kaggle"><span class="header-section-number">17.11.4</span> Student Failure (Messy) Dataset (Kaggle)</a></li>
-  <li><a href="#bike-sharing-dataset-uci" id="toc-bike-sharing-dataset-uci" class="nav-link" data-scroll-target="#bike-sharing-dataset-uci"><span class="header-section-number">17.11.5</span> Bike Sharing Dataset (UCI)</a></li>
-  </ul></li>
-  <li><a href="#glossario" id="toc-glossario" class="nav-link" data-scroll-target="#glossario"><span class="header-section-number">17.12</span> Glossário</a></li>
+  <li><a href="#glossario" id="toc-glossario" class="nav-link" data-scroll-target="#glossario"><span class="header-section-number">17.11</span> Glossário</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_tratamento.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_tratamento.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão (pré-modelagem)</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></h1>
 </div>
 
 
@@ -942,126 +946,10 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <li><strong>Pronta para modelagem:</strong> a base pode ser utilizada diretamente em MRLS, MRLM, MLG ou métodos penalizados sem retrabalho estrutural.</li>
 </ol>
 <p>O não atendimento a qualquer desses critérios compromete a legitimidade estatística do modelo. A qualidade de toda inferência estatística depende dessa distinção, e ela começa antes do ajuste do primeiro modelo.</p>
-</section>
-<section id="bases-para-prática" class="level2" data-number="17.11">
-<h2 data-number="17.11" class="anchored" data-anchor-id="bases-para-prática"><span class="header-section-number">17.11</span> Bases para prática</h2>
 <p>Ao finalizar o tratamento de uma base, tente <strong>ajustar um modelo simples apenas para validar tipos e dummies</strong> (sem discutir resultados). Se rodar sem erros e os sumários fizerem sentido, a base está pronta para a próxima unidade.</p>
-<p><strong>Escada de dificuldade das bases</strong> - <strong>Nível 1 (aquecimento):</strong> Online Shoppers: tipagem + dummies + sumários.<br>
-- <strong>Nível 2 (intermediário):</strong> Ames/House Prices: faltantes moderados + reescala + dicionário.<br>
-- <strong>Nível 3 (avançado):</strong> Student Failure (messy): chaves/duplicatas + integração + plano de imputação.<br>
-- <strong>Extra (discreta):</strong> Bike Sharing: temporais + zeros estruturais + outliers climáticos.</p>
-<p>Esta seção apresenta <strong>bases públicas e didáticas</strong> para exercícios de tratamento pré‑modelagem. Cada item traz link de acesso, o que a base representa e <strong>situações‑problema</strong> que motivam o tratamento. Ao final de cada base há um bloco <strong>Tarefas sugeridas</strong> para orientar o estudo.</p>
-<section id="house-prices-advanced-regression-techniques-kaggle" class="level3" data-number="17.11.1">
-<h3 data-number="17.11.1" class="anchored" data-anchor-id="house-prices-advanced-regression-techniques-kaggle"><span class="header-section-number">17.11.1</span> House Prices: Advanced Regression Techniques (Kaggle)</h3>
-<ul>
-<li><strong>Tipo de resposta:</strong> Contínua (<code>SalePrice</code>).</li>
-<li><strong>Link:</strong> <a href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques" class="uri">https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques</a></li>
-<li><strong>Sobre a base:</strong> preços de casas em Ames (Iowa, EUA), com ~79 variáveis numéricas e categóricas.</li>
-<li><strong>Situação:</strong>
-<ul>
-<li>Muitas colunas com valores ausentes (por ex.: <code>LotFrontage</code>, <code>Alley</code>, <code>PoolQC</code>).</li>
-<li>Variáveis categóricas com codificação inconsistente e níveis raros.</li>
-<li>Outliers em preço e área; unidades e escalas heterogêneas.</li>
-</ul></li>
-<li>Excelente caso para um <strong>pipeline completo</strong> de limpeza (missing, tipagem, codificação, reescala) antes da regressão contínua.</li>
-<li><strong>Tarefas sugeridas:</strong>
-<ol type="1">
-<li>Mapear porcentagens de faltantes por coluna e decidir estratégia (excluir, imputar, manter).</li>
-<li>Padronizar nomes e unidades; verificar outliers em <code>SalePrice</code> e <code>GrLivArea</code>.</li>
-<li>Unificar níveis categóricos raros e definir dummies com categoria de referência.</li>
-<li>Salvar uma versão tratada e documentar as decisões.</li>
-</ol></li>
-</ul>
 </section>
-<section id="ames-housing-dataset" class="level3" data-number="17.11.2">
-<h3 data-number="17.11.2" class="anchored" data-anchor-id="ames-housing-dataset"><span class="header-section-number">17.11.2</span> Ames Housing Dataset</h3>
-<ul>
-<li><strong>Tipo de resposta:</strong> Contínua (<code>SalePrice</code>).</li>
-<li><strong>Link:</strong> <a href="https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques" class="uri">https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques</a></li>
-<li><strong>Sobre a base:</strong> variação/derivação do problema de habitação de Ames, amplamente usada em cursos.</li>
-<li><strong>Situação:</strong>
-<ul>
-<li>Mistura de tipos (numéricos + categóricos), com valores ausentes e níveis raros.</li>
-<li>Recomendação frequente de transformação logarítmica da resposta.</li>
-<li>Outliers estruturais (ex.: casas muito acima da média).</li>
-</ul></li>
-<li>Reforça o <strong>contraste de estratégias</strong> de tratamento em relação à 10.1.</li>
-<li><strong>Tarefas sugeridas:</strong>
-<ol type="1">
-<li>Comparar duas abordagens de tratamento de faltantes (ex.: imputação por mediana vs.&nbsp;KNN) e registrar impactos em sumários.</li>
-<li>Testar padronização vs.&nbsp;não padronização nas variáveis contínuas.</li>
-<li>Produzir um dicionário de variáveis claro.</li>
-</ol></li>
-</ul>
-</section>
-<section id="online-shoppers-purchasing-intention-uci" class="level3" data-number="17.11.3">
-<h3 data-number="17.11.3" class="anchored" data-anchor-id="online-shoppers-purchasing-intention-uci"><span class="header-section-number">17.11.3</span> Online Shoppers Purchasing Intention (UCI)</h3>
-<ul>
-<li><strong>Tipo de resposta:</strong> Binária (<code>Revenue</code>: sim/não).</li>
-<li><strong>Link:</strong> <a href="https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset" class="uri">https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset</a></li>
-<li><strong>Sobre a base:</strong> sessões de navegação em e‑commerce; objetivo é prever se a sessão termina em compra.</li>
-<li><strong>Situação:</strong>
-<ul>
-<li>Variáveis categóricas e temporais misturadas às numéricas; necessidade de codificação.</li>
-<li>Possível desbalanceamento da classe <code>Revenue</code>.</li>
-<li>Datas/temporais como texto exigindo normalização e extração de componentes.</li>
-</ul></li>
-<li>Bom <strong>caso de tratamento moderado</strong>, contrastando com bases mais “sujas”.</li>
-<li><strong>Tarefas sugeridas:</strong>
-<ol type="1">
-<li>Verificar distribuição de <code>Revenue</code> (balanceamento).</li>
-<li>Definir dummies consistentes e padronizar escalas numéricas.</li>
-<li>Criar variáveis derivadas temporais (mês, dia da semana) de forma reproducível.</li>
-</ol></li>
-</ul>
-</section>
-<section id="student-failure-messy-dataset-kaggle" class="level3" data-number="17.11.4">
-<h3 data-number="17.11.4" class="anchored" data-anchor-id="student-failure-messy-dataset-kaggle"><span class="header-section-number">17.11.4</span> Student Failure (Messy) Dataset (Kaggle)</h3>
-<ul>
-<li><strong>Tipo de resposta:</strong> Binária (<code>fail</code> = 1 se o aluno reprova/sai; 0 caso contrário).</li>
-<li><strong>Link:</strong> <a href="https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset" class="uri">https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset</a></li>
-<li><strong>Sobre a base:</strong> dados educacionais com múltiplas tabelas heterogêneas para prever reprovação.</li>
-<li><strong>Situação:</strong>
-<ul>
-<li>Muitos valores ausentes; tabelas com chaves não padronizadas; duplicatas.</li>
-<li>Categorias inconsistentes para o mesmo conceito (ex.: formas distintas de escrever “curso”).</li>
-<li>Necessidade de unificação/integração de fontes (join/merge) com validação.</li>
-</ul></li>
-<li>Ótimo para treinar <strong>integração e saneamento</strong> antes de qualquer modelagem binária.</li>
-<li><strong>Tarefas sugeridas:</strong>
-<ol type="1">
-<li>Reconstruir uma chave única estável e eliminar duplicatas.</li>
-<li>Mapear e recodificar categorias equivalentes.</li>
-<li>Documentar um plano de imputação apropriado por variável.</li>
-</ol></li>
-</ul>
-</section>
-<section id="bike-sharing-dataset-uci" class="level3" data-number="17.11.5">
-<h3 data-number="17.11.5" class="anchored" data-anchor-id="bike-sharing-dataset-uci"><span class="header-section-number">17.11.5</span> Bike Sharing Dataset (UCI)</h3>
-<ul>
-<li><strong>Tipo de resposta:</strong> Discreta (contagem de bicicletas alugadas por hora/dia).</li>
-<li><strong>Link:</strong> <a href="https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset" class="uri">https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset</a></li>
-<li><strong>Sobre a base:</strong> uso de bicicletas compartilhadas, com variáveis meteorológicas, feriados, sazonalidade e efeitos de hora do dia.</li>
-<li><strong>Situação:</strong>
-<ul>
-<li>Contagens com muitos zeros em horários de baixa demanda e picos em horários de pico; necessidade de identificar <strong>zeros estruturais</strong>.</li>
-<li>Variáveis temporais em formato de texto exigindo conversão e extração (hora, dia da semana, feriado).</li>
-<li>Possíveis outliers (eventos climáticos extremos) e variabilidade alta da resposta.</li>
-<li>Padronização de escalas e codificação consistente de feriados/sazonalidade.</li>
-<li>Prepara para o tratamento de <strong>resposta discreta (contagem)</strong>, anterior à escolha de modelos como Poisson ou Binomial Negativa.</li>
-</ul></li>
-<li><strong>Tarefas sugeridas:</strong>
-<ol type="1">
-<li>Normalizar as variáveis temporais e criar indicadores (feriado, fim de semana, hora do rush).</li>
-<li>Caracterizar zeros estruturais vs.&nbsp;esparsidade aleatória e discutir implicações para a modelagem.</li>
-<li>Detectar outliers climáticos e decidir estratégia (transformação, winsorização ou justificativa de manutenção).</li>
-<li>Entregar uma versão tratada com dicionário e log de decisões.</li>
-</ol></li>
-</ul>
-</section>
-</section>
-<section id="glossario" class="level2" data-number="17.12">
-<h2 data-number="17.12" class="anchored" data-anchor-id="glossario"><span class="header-section-number">17.12</span> Glossário</h2>
+<section id="glossario" class="level2" data-number="17.11">
+<h2 data-number="17.11" class="anchored" data-anchor-id="glossario"><span class="header-section-number">17.11</span> Glossário</h2>
 <p><strong>Encoding (codificação de caracteres)</strong><br>
 Como o computador guarda letras com acentos e símbolos. Exemplos: <strong>UTF‑8</strong>, <strong>latin‑1</strong>. Se o encoding está errado, aparecem “�” ou letras quebradas.</p>
 <p><strong>Delimitador / Separador</strong><br>
@@ -1558,8 +1446,8 @@ WICKHAM, Hadley <em>et al.</em> <strong><a href="https://tidyr.tidyverse.org/art
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="Referências">
-        <span class="nav-page-text">Referências</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./part4_ex.html" class="pagination-link" aria-label="Exercícios e Atividades de Consolidação">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

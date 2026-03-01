@@ -1,0 +1,445 @@
+# Exercícios e Atividades de Consolidação - Gabarito
+
+## Exercícios conceituais
+
+### Estrutura Matricial dos Modelos de Regressão Linear
+
+1.  (Dimensões)  
+    a) $\mathbf{X}^\top\mathbf{X}\in\mathbb{R}^{(p+1)\times(p+1)}$;  
+    $\mathbf{X}^\top\mathbf{Y}\in\mathbb{R}^{(p+1)\times 1}$;  
+    $(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}\in\mathbb{R}^{(p+1)\times 1}$.  
+    b) A expressão exige que $\mathbf{X}^\top\mathbf{X}$ seja inversível; caso contrário, $(\mathbf{X}^\top\mathbf{X})^{-1}$ não existe e a fórmula não está definida.
+
+2.  (Posto e identificabilidade)  
+    $\operatorname{rank}(\mathbf{X})=p+1$ significa que as $p+1$ colunas de $\mathbf{X}$ são linearmente independentes.  
+    a) Geometricamente: $\mathrm{col}(\mathbf{X})$ tem dimensão $p+1$; não há “direção redundante” no subespaço gerado pelas colunas.  
+    b) Com posto completo, $\mathbf{X}^\top\mathbf{X}$ é definida positiva e inversível, o que garante uma única solução para mínimos quadrados.
+
+3.  (Equações normais)  
+    Seja $S(\boldsymbol{\beta})=\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2=(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})$.  
+    Derivando em relação a $\boldsymbol{\beta}$:
+    $$
+    \nabla_{\boldsymbol{\beta}}S(\boldsymbol{\beta})=-2\mathbf{X}^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+    $$
+    No ótimo, $\nabla_{\boldsymbol{\beta}}S(\hat{\boldsymbol{\beta}})=0$, logo:
+    $$
+    \mathbf{X}^\top(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})=\mathbf{0}.
+    $$
+    Interpretação: o resíduo $\mathbf{Y}-\hat{\mathbf{Y}}$ é ortogonal a todas as colunas de $\mathbf{X}$.
+
+4.  (Espaço coluna)  
+    $\mathrm{col}(\mathbf{X})=\{\mathbf{X}\boldsymbol{\beta}:\boldsymbol{\beta}\in\mathbb{R}^{p+1}\}$ é o conjunto de todas as combinações lineares das colunas de $\mathbf{X}$.  
+    $\hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}}$ pertence a esse conjunto porque é exatamente uma combinação linear das colunas de $\mathbf{X}$ com coeficientes $\hat{\boldsymbol{\beta}}$.
+
+5.  (Soma direta ortogonal)  
+    $\mathbb{R}^n=\mathrm{col}(\mathbf{X})\oplus\mathrm{col}(\mathbf{X})^\perp$ significa que todo vetor em $\mathbb{R}^n$ pode ser escrito de forma **única** como soma de um vetor no espaço coluna e outro no complemento ortogonal.  
+    a) A unicidade vem do fato de ser soma direta: a interseção é apenas $\{\mathbf{0}\}$.  
+    b) $\hat{\mathbf{Y}}^\top\hat{\boldsymbol{\varepsilon}}=0$ significa que as duas componentes fazem ângulo de $90^\circ$ (ortogonais).
+
+6.  (Matrizes de projeção)  
+    a) $\mathbf{H}$ é a projeção ortogonal sobre $\mathrm{col}(\mathbf{X})$ porque:  
+    - $\mathbf{H}\mathbf{y}\in\mathrm{col}(\mathbf{X})$ para todo $\mathbf{y}$;  
+    - $\mathbf{y}-\mathbf{H}\mathbf{y}\in\mathrm{col}(\mathbf{X})^\perp$ (resíduo ortogonal ao espaço coluna).  
+    b) $\mathbf{M}=\mathbf{I}-\mathbf{H}$ é a projeção complementar, então $\mathbf{M}\mathbf{y}\in\mathrm{col}(\mathbf{X})^\perp$.
+
+7.  (Idempotência e simetria)  
+    Usando $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e que $(\mathbf{X}^\top\mathbf{X})^{-1}$ é simétrica:  
+    - $\mathbf{H}^\top=\mathbf{H}$ (simetria).  
+    - $\mathbf{H}^2=\mathbf{H}$ pois
+      $$
+      \mathbf{H}^2=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\underbrace{\mathbf{X}^\top\mathbf{X}}_{\mathbf{I}\text{ após multiplicar por }(\mathbf{X}^\top\mathbf{X})^{-1}}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top=\mathbf{H}.
+      $$
+    Para $\mathbf{M}=\mathbf{I}-\mathbf{H}$:  
+    - $\mathbf{M}^\top=\mathbf{M}$ porque $\mathbf{I}$ e $\mathbf{H}$ são simétricas;  
+    - $\mathbf{M}^2=\mathbf{M}$ porque $(\mathbf{I}-\mathbf{H})^2=\mathbf{I}-2\mathbf{H}+\mathbf{H}^2=\mathbf{I}-\mathbf{H}=\mathbf{M}$.  
+    Interpretação: aplicar a projeção duas vezes não muda o resultado da primeira aplicação.
+
+8.  (Traço e posto)  
+    Para matriz simétrica idempotente, os autovalores são apenas $0$ ou $1$.  
+    O traço é a soma dos autovalores, logo conta quantos autovalores são $1$, isto é, o posto.  
+    Com posto completo $\operatorname{rank}(\mathbf{X})=p+1$:  
+    $\operatorname{rank}(\mathbf{H})=p+1\Rightarrow \mathrm{tr}(\mathbf{H})=p+1$;  
+    $\operatorname{rank}(\mathbf{M})=n-(p+1)\Rightarrow \mathrm{tr}(\mathbf{M})=n-p-1$.
+
+9.  (Decomposição da variabilidade)  
+    Como $\mathbf{Y}=\mathbf{H}\mathbf{Y}+\mathbf{M}\mathbf{Y}$ e $(\mathbf{H}\mathbf{Y})^\top(\mathbf{M}\mathbf{Y})=0$ (ortogonalidade), então:
+    $$
+    \mathbf{Y}^\top\mathbf{Y}
+    =
+    (\mathbf{H}\mathbf{Y}+\mathbf{M}\mathbf{Y})^\top(\mathbf{H}\mathbf{Y}+\mathbf{M}\mathbf{Y})
+    =
+    \mathbf{Y}^\top\mathbf{H}\mathbf{Y}+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+    $$
+    É “geométrica” porque depende apenas de projeções/ortogonalidade, não de distribuição de erros.
+
+10. (Forma quadrática)  
+    Exemplo: $\mathbf{x}=(x_1,x_2)^\top$ e $\mathbf{A}=\begin{bmatrix}a&b\\ b&c\end{bmatrix}$:
+    $$
+    \mathbf{x}^\top\mathbf{A}\mathbf{x}=ax_1^2+2bx_1x_2+cx_2^2.
+    $$
+    $\mathbf{Y}^\top\mathbf{H}\mathbf{Y}$ e $\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$ são formas quadráticas com $\mathbf{x}=\mathbf{Y}$ e $\mathbf{A}=\mathbf{H}$ ou $\mathbf{M}$.
+
+11. (Multicolinearidade perfeita)  
+    Ex.: criar $X_3=X_1+X_2$ (coluna redundante).  
+    a) As colunas ficam linearmente dependentes, então $\operatorname{rank}(\mathbf{X})<p+1$.  
+    b) $\mathbf{X}^\top\mathbf{X}$ fica singular (não invertível), e a solução de MQO não é única.  
+    c) SVD/pseudoinversa: permitem obter uma solução “de norma mínima” ou uma solução particular mesmo sem inversa, mas não restauram identificabilidade única.
+
+12. (Alavancagem)  
+    a) Como $\mathbf{H}$ é projeção ortogonal, seus autovalores estão em $\{0,1\}$ e $\mathbf{H}$ é semidefinida positiva; disso resulta $0\le h_{ii}\le 1$.  
+    b) $\sum_{i=1}^n h_{ii}=\mathrm{tr}(\mathbf{H})=p+1$.  
+    c) Alavancagem alta: observação em posição “extrema” no espaço das covariáveis (linha $\mathbf{x}_i$ distante do centro), tendo grande peso na projeção.
+
+13. (Ortogonalidade dos resíduos)  
+    $\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}=(\mathbf{I}-\mathbf{H})\mathbf{Y}=\mathbf{Y}-\hat{\mathbf{Y}}$.  
+    Das equações normais, $\mathbf{X}^\top(\mathbf{Y}-\hat{\mathbf{Y}})=\mathbf{0}$, então:
+    $$
+    \mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0}.
+    $$
+    Interpretação: resíduos ortogonais a cada coluna de $\mathbf{X}$.
+
+14. (Convexidade)  
+    $S(\boldsymbol{\beta})=(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+    =\mathbf{Y}^\top\mathbf{Y}-2\boldsymbol{\beta}^\top\mathbf{X}^\top\mathbf{Y}+\boldsymbol{\beta}^\top(\mathbf{X}^\top\mathbf{X})\boldsymbol{\beta}$,  
+    é quadrática com Hessiana $2\mathbf{X}^\top\mathbf{X}$, que é semidefinida positiva.  
+    É estritamente convexa quando $\mathbf{X}^\top\mathbf{X}$ é definida positiva (posto completo), garantindo solução única.
+
+15. (Verificação de consistência)  
+    $\hat{\mathbf{Y}}=\mathbf{H}\mathbf{Y}$ está em $\mathrm{col}(\mathbf{X})$ por construção (produto de $\mathbf{X}$ por algum vetor).  
+    $\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}=\mathbf{Y}-\mathbf{H}\mathbf{Y}$ está em $\mathrm{col}(\mathbf{X})^\perp$ pois é a componente “restante” após projetar em $\mathrm{col}(\mathbf{X})$.  
+    Portanto, $\mathbf{H}\mathbf{Y}$ é o ajustado e $\mathbf{M}\mathbf{Y}$ é o residual.
+
+### Distribuição Normal
+
+# Gabarito — Distribuição Normal (uni, bi e multivariada)
+
+## Exercícios conceituais
+
+1. **Leitura de parâmetros (univariada).**  
+   - $\mu$ é a **média populacional** (valor esperado) de $Y$, isto é, o “centro” teórico da distribuição.  
+   - $\sigma^2$ é a **variância populacional**, quantifica a dispersão de $Y$ em torno de $\mu$.  
+   - Fora de regressão, $\sigma^2$ não é “erro do modelo”; é apenas variabilidade da variável aleatória. O sentido de “erro” surge quando $Y$ é decomposta em parte sistemática + termo aleatório (por exemplo, $\varepsilon$ em regressão).
+
+2. **Transformação linear (univariada).**  
+   Para $Z=aY+b$ com $a\neq 0$ e $Y\sim N(\mu,\sigma^2)$:
+   - a) $\mathbb{E}[Z]=a\mu+b$.  
+   - b) $\mathrm{Var}(Z)=a^2\sigma^2$.  
+   - c) $Z\sim N(a\mu+b,\;a^2\sigma^2)$.
+
+3. **Padronização.**  
+   - a) $Z=(Y-\mu)/\sigma \sim N(0,1)$.  
+   - b) $Z=2$ significa $Y=\mu+2\sigma$: o valor observado está **2 desvios-padrão acima** da média.
+
+4. **Normalidade em regressão: papel e limites.**  
+   - A regressão linear pode ser formulada apenas com condições sobre $\mathbb{E}(\varepsilon\mid \mathbf{X})=0$, variância e (quando necessário) independência/ausência de correlação.  
+   - A Normalidade é usada porque permite obter **distribuições exatas** (em amostras finitas) para estimadores e estatísticas de teste (como $t$ e $F$). Sem Normalidade, muitos resultados são assintóticos ou exigem condições adicionais.
+
+5. **Matriz de covariância (bivariada).**  
+   - a) Diagonal: $\sigma_1^2=\mathrm{Var}(Y_1)$ e $\sigma_2^2=\mathrm{Var}(Y_2)$.  
+   - b) Fora da diagonal: $\mathrm{Cov}(Y_1,Y_2)=\rho\sigma_1\sigma_2$ mede associação linear.  
+   - c) $\rho=0$: contornos (níveis de densidade) alinhados aos eixos; $\rho\neq 0$: elipses **inclinadas**, refletindo dependência linear.
+
+6. **Condição vs. marginal (bivariada).**  
+   - a) $Y_1\sim N(\mu_1,\sigma_1^2)$ e $Y_2\sim N(\mu_2,\sigma_2^2)$.  
+   - b) As marginais não carregam toda a informação de dependência. Mesmo que ambas sejam Normais univariadas, a dependência pode existir via covariância diferente de zero (ou, em famílias não normais, por estruturas mais complexas).
+
+7. **Distribuição condicional (bivariada).**  
+   - a) Média condicional: $\mu_1+\rho\frac{\sigma_1}{\sigma_2}(y_2-\mu_2)$.  
+     Variância condicional: $(1-\rho^2)\sigma_1^2$.  
+   - b) É linear em $y_2$ porque, na Normal conjunta, a esperança condicional tem forma afim (propriedade estrutural da família Normal).  
+   - c) $\mathrm{Var}(Y_1\mid Y_2)=(1-\rho^2)\sigma_1^2 \le \sigma_1^2=\mathrm{Var}(Y_1)$. Condicionar em $Y_2$ **reduz incerteza** sobre $Y_1$ (quanto maior $|\rho|$, maior a redução).
+
+8. **Transformações lineares (multivariada).**  
+   - a) $\mathbf{Z}\sim N_m(\mathbf{A}\boldsymbol{\mu}+\mathbf{a},\;\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top)$.  
+   - b) Se $\mathbf{A}$ é $m\times n$, então $\mathbf{Z}\in\mathbb{R}^m$.  
+   - c) $\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top$ é a **covariância resultante** após combinar linearmente as componentes de $\mathbf{Y}$; ela incorpora como as dependências originais se propagam.
+
+9. **Distância de Mahalanobis e $\chi^2$.**  
+   - a) $Q$ mede a distância de $\mathbf{Y}$ a $\boldsymbol{\mu}$ **ponderada** pela covariância: desvios em direções de maior variância “custam menos” do que em direções de menor variância.  
+   - b) $Q\sim \chi^2_n$.  
+   - c) Difere da euclidiana porque considera escala e correlação via $\boldsymbol{\Sigma}^{-1}$; a euclidiana trata todas as direções igualmente.
+
+10. **Partição da Normal multivariada.**  
+   - a) $\mathbf{Y}_1\sim N_{n_1}(\boldsymbol{\mu}_1,\boldsymbol{\Sigma}_{11})$ e $\mathbf{Y}_2\sim N_{n_2}(\boldsymbol{\mu}_2,\boldsymbol{\Sigma}_{22})$.  
+   - b) 
+     $$
+     \mathbf{Y}_1\mid \mathbf{Y}_2=\mathbf{y}_2
+     \sim
+     N_{n_1}\!\left(
+     \boldsymbol{\mu}_1+\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}(\mathbf{y}_2-\boldsymbol{\mu}_2),\;
+     \boldsymbol{\Sigma}_{11}-\boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}\boldsymbol{\Sigma}_{21}
+     \right).
+     $$
+   - c) A covariância condicional subtrai um termo semidefinido positivo, reduzindo variabilidade: observar $\mathbf{Y}_2$ explica parte da variação de $\mathbf{Y}_1$.
+
+11. **Covariância zero e independência (Normal).**  
+   - a) Em geral, pode haver dependência não linear mesmo com covariância zero.  
+   - b) Na Normal multivariada, a distribuição conjunta é totalmente determinada por média e covariância; assim, covariância zero elimina dependência linear e, na família Normal, isso implica independência.  
+   - c) No caso bivariado Normal, $\rho=0$ faz a densidade fatorar (produto das marginais), e portanto $Y_1$ e $Y_2$ são independentes; reciprocamente, se são independentes, a covariância é zero e então $\rho=0$.
+
+12. **Conexão direta com regressão.**  
+   - a) $\mathbf{Y}\sim N_n(\mathbf{X}\boldsymbol{\beta},\sigma^2\mathbf{I}_n)$.  
+   - b) $\hat{\boldsymbol{\beta}}$ é função linear de $\mathbf{Y}$: $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$. Transformação linear de Normal multivariada é Normal multivariada.  
+   - c) Exemplos de forma quadrática em $\mathbf{Y}$: $\mathbf{Y}^\top \mathbf{H}\mathbf{Y}$ (SQ explicada) e $\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$ (SQ residual), com $\mathbf{H}$ e $\mathbf{M}$ matrizes de projeção.
+
+
+### Formas Lineares e Quadráticas na Normal Multivariada
+
+
+# Gabarito — Formas Lineares e Quadráticas na Normal Multivariada
+
+## 1. Transformações lineares e dimensão
+a) $\mathbf{Z}\in\mathbb{R}^m$.  
+b) 
+$$
+\mathbb{E}[\mathbf{Z}]=\mathbf{A}\boldsymbol{\mu}+\mathbf{a}, 
+\qquad 
+\mathrm{Cov}(\mathbf{Z})=\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top.
+$$
+c) A covariância transforma-se por “propagação linear” da variabilidade: $\mathbf{A}$ combina as componentes de $\mathbf{Y}$ e, por isso, as covariâncias entre componentes de $\mathbf{Y}$ são combinadas via $\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top$.
+
+---
+
+## 2. Forma linear como variável Normal
+a)
+$$
+L=\mathbf{c}^\top\mathbf{Y}\sim N\!\left(\mathbf{c}^\top\boldsymbol{\mu},\ \mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}\right).
+$$
+b) $\mathbf{c}^\top\boldsymbol{\mu}$ é a média (valor esperado) da combinação linear definida por $\mathbf{c}$.  
+c) Exemplo: um contraste/predição linear do tipo $\mathbf{x}_0^\top\mathbf{Y}$ não é típico, mas no MRLM o tipo típico é $\mathbf{c}^\top\hat{\boldsymbol{\beta}}$; como $\hat{\boldsymbol{\beta}}$ é linear em $\mathbf{Y}$, então $\mathbf{c}^\top\hat{\boldsymbol{\beta}}$ também é linear em $\mathbf{Y}$.
+
+---
+
+## 3. Padronização multivariada e Mahalanobis
+a) $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$.  
+b)
+$$
+\mathbf{Z}^\top\mathbf{Z}
+=
+(\mathbf{Y}-\boldsymbol{\mu})^\top(\boldsymbol{\Sigma}^{-1/2})^\top\boldsymbol{\Sigma}^{-1/2}(\mathbf{Y}-\boldsymbol{\mu})
+=
+(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu}),
+$$
+pois $\boldsymbol{\Sigma}^{-1/2}$ é simétrica (na escolha usual) e $(\boldsymbol{\Sigma}^{-1/2})^\top\boldsymbol{\Sigma}^{-1/2}=\boldsymbol{\Sigma}^{-1}$.  
+c) Significa transformar o problema para um vetor Normal com covariância identidade (mesma variância em todas as direções e sem correlações), facilitando resultados de $\chi^2$, projeções e independência.
+
+---
+
+## 4. Parte simétrica de $\mathbf{A}$ em forma quadrática
+a) Porque
+$$
+\mathbf{Y}^\top\mathbf{A}\mathbf{Y}=\mathbf{Y}^\top\Big(\tfrac{\mathbf{A}+\mathbf{A}^\top}{2}\Big)\mathbf{Y},
+$$
+e a parte antissimétrica cancela na forma quadrática.  
+b) $\mathbf{A}_s=\dfrac{\mathbf{A}+\mathbf{A}^\top}{2}$.  
+c) 
+$$
+\mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y},\qquad
+\mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+---
+
+## 5. Caso central: $\mathbf{Z}^\top\mathbf{Z}$
+a) $\mathbf{Z}^\top\mathbf{Z}\sim\chi^2_n$.  
+b) Porque $\mathbf{Z}^\top\mathbf{Z}=\sum_{i=1}^n Z_i^2$ e a caracterização como $\chi^2$ usa que $Z_i\stackrel{ind}{\sim}N(0,1)$.  
+c) Em regressão, somas de quadrados são normas ao quadrado (de componentes projetadas/residuais), isto é, somas de quadrados de Normais padronizadas em subespaços.
+
+---
+
+## 6. Projeções ortogonais e graus de liberdade
+a) Se $\mathbf{A}$ é simétrica idempotente e $r=\mathrm{rank}(\mathbf{A})$, então
+$$
+\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\sim\chi^2_r.
+$$
+b) Mede o comprimento ao quadrado da projeção de $\mathbf{Z}$ no subespaço $S=\mathrm{Im}(\mathbf{A})$ (dimensão $r$).  
+c) Para matrizes simétricas idempotentes, os autovalores são $0$ ou $1$; logo $\mathrm{tr}(\mathbf{A})$ conta quantos “1” existem, isto é, o posto $r$, que coincide com a dimensão do subespaço projetado (graus de liberdade).
+
+---
+
+## 7. Independência via ortogonalidade (quadrática–quadrática)
+a) Significa que as projeções são sobre subespaços ortogonais (componentes projetadas não “se misturam”).  
+b)
+$$
+\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\ \perp\ \mathbf{Z}^\top\mathbf{B}\mathbf{Z}.
+$$
+c) Em regressão: $\mathbf{Y}^\top\mathbf{H}\mathbf{Y}$ (parte ajustada) é independente de $\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$ (parte residual) sob normalidade e quando $\mathbf{H}\mathbf{M}=\mathbf{0}$.
+
+---
+
+## 8. Independência via ortogonalidade (linear–quadrática)
+a) A condição é
+$$
+\mathbf{A}\mathbf{a}=\mathbf{0}.
+$$
+b) O vetor $\mathbf{a}$ está no subespaço ortogonal ao subespaço projetado por $\mathbf{A}$; portanto, a forma linear usa uma direção ortogonal à componente medida pela forma quadrática.  
+c) No MRLM, um contraste de $\hat{\boldsymbol{\beta}}$ (forma linear em $\mathbf{Y}$ que vive em $\mathrm{col}(\mathbf{X})$) é independente de $\mathrm{SQRes}$ (que vive em $\mathrm{col}(\mathbf{X})^\perp$), sob normalidade.
+
+---
+
+## 9. $\hat{\boldsymbol{\beta}}$ como forma linear
+a) Porque $\hat{\boldsymbol{\beta}}=\mathbf{C}\mathbf{Y}$, com $\mathbf{C}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ constante (depende de $\mathbf{X}$).  
+b)
+$$
+\mathbb{E}(\hat{\boldsymbol{\beta}})=\boldsymbol{\beta},\qquad
+\mathrm{Cov}(\hat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+c) Porque transformação linear de vetor Normal multivariado é Normal multivariada.
+
+---
+
+## 10. Resíduos como transformação linear e degenerescência
+a)
+$$
+\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top,\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H},\qquad
+\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}.
+$$
+b)
+$$
+\mathbf{M}\mathbf{X}=(\mathbf{I}-\mathbf{H})\mathbf{X}=\mathbf{X}-\mathbf{X}=\mathbf{0},
+$$
+pois $\mathbf{H}\mathbf{X}=\mathbf{X}$.  
+c) $\mathbf{M}$ tem posto $n-p-1$ (não é invertível) e projeta para um subespaço: a distribuição de $\hat{\boldsymbol{\varepsilon}}$ está “concentrada” em $\mathrm{col}(\mathbf{X})^\perp$.
+
+---
+
+## 11. Distribuição de $\mathrm{SQRes}$
+a)
+$$
+\mathrm{SQRes}=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}
+=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+b)
+$$
+\frac{\mathrm{SQRes}}{\sigma^2}\sim\chi^2_{\,n-p-1}.
+$$
+c) Como $\hat{\sigma}^2=\mathrm{SQRes}/(n-p-1)$,
+$$
+\frac{(n-p-1)\hat{\sigma}^2}{\sigma^2}=\frac{\mathrm{SQRes}}{\sigma^2}\sim\chi^2_{\,n-p-1}.
+$$
+
+---
+
+## 12. Independência e origem do $t$ e do $F$
+a) Sob normalidade, projeções ortogonais produzem componentes com covariância zero; na família Normal, covariância zero implica independência.  
+b) O numerador é uma Normal padrão (padronização de $\hat{\beta}_j-\beta_j$) e o denominador usa $\hat{\sigma}^2$ obtido de $\mathrm{SQRes}$; sob normalidade, essas peças são independentes:
+$$
+T_j=\frac{\hat{\beta}_j-\beta_j}{\hat{\sigma}\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}\sim t_{\,n-p-1}.
+$$
+c)
+$$
+F=\frac{\mathrm{SQReg}/\nu_1}{\mathrm{SQRes}/\nu_2},
+$$
+com $\nu_1$ e $\nu_2$ os graus de liberdade apropriados; no caso central,
+$$
+F\sim F_{\nu_1,\nu_2}.
+$$
+(Em muitas apresentações: $\nu_1=p$ para testar “todos os coeficientes exceto intercepto”; no seu texto, ao escrever com $\mathbf{H}$ completo, aparece $p+1$ como posto de $\mathbf{H}$.)
+
+---
+
+## 13. Interpretação em subespaços
+a) $\mathbf{Y}^\top\mathbf{H}\mathbf{Y}$ mede o “comprimento ao quadrado” da componente de $\mathbf{Y}$ projetada em $\mathrm{col}(\mathbf{X})$ (parte ajustada).  
+b) $\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$ mede o “comprimento ao quadrado” da componente de $\mathbf{Y}$ em $\mathrm{col}(\mathbf{X})^\perp$ (parte residual).  
+c) Porque $\mathbf{H}$ e $\mathbf{M}$ projetam em subespaços ortogonais complementares e, por isso, o quadrado da norma se decompõe como soma dos quadrados das normas das componentes ortogonais:
+$$
+\|\mathbf{Y}\|^2=\|\mathbf{H}\mathbf{Y}\|^2+\|\mathbf{M}\mathbf{Y}\|^2.
+$$
+
+
+### Tratamento de dados
+
+1.  O tratamento de dados é parte do raciocínio estatístico porque define **o que o modelo está de fato representando**. Erros de leitura/tipagem alteram a própria codificação das variáveis (por exemplo, números lidos como texto ou categorias lidas como números), o que muda as colunas que entram em $\mathbf{X}$, seus valores e até sua dimensionalidade (por exemplo, dummies). Isso afeta estimativas, testes, intervalos e interpretação: o modelo pode capturar artefatos de registro/codificação em vez do fenômeno.
+
+2.  **MCAR**: a ausência é independente de variáveis observadas e não observadas; excluir pode ser “menos problemático” em termos de viés, mas reduz $n$ (aumenta erro-padrão).  
+    **MAR**: a ausência depende apenas de variáveis observadas; excluir pode induzir viés se a subamostra restante tiver distribuição diferente condicionada; imputação/modelos condicionais podem reduzir viés se bem especificados.  
+    **MNAR**: a ausência depende do próprio valor não observado; excluir e imputar ingenuamente tendem a produzir viés; exige modelagem do mecanismo de ausência/sensibilidade. Em todos os casos, imputar sem reconhecer incerteza tende a subestimar variâncias; imputação múltipla preserva melhor a incerteza.
+
+3.  Com intercepto, as $k$ dummies somam 1 em cada linha (uma categoria por observação). Logo, existe dependência linear exata: a coluna do intercepto é combinação linear das dummies (intercepto = soma das $k$ dummies). Assim, $\mathbf{X}$ não tem posto completo, $\mathbf{X}^\top\mathbf{X}$ fica singular e não é invertível. A solução padrão é usar $k-1$ dummies (definindo uma categoria de referência) ou remover o intercepto (o que muda a interpretação).
+
+4.  **Outlier marginal**: valor extremo em uma variável (marginal) — pode ser raro, erro ou fenômeno real.  
+    **Alta alavancagem (leverage)**: ponto com valores de preditores “distantes” no espaço de $\mathbf{X}$; pode ter grande influência potencial mesmo sem resíduo grande.  
+    **Influente**: ponto cuja remoção muda substancialmente o ajuste (coeficientes, predições, etc.).  
+    Nem todo outlier deve ser removido porque pode ser **plausível e informativo**; remover sem justificativa altera distribuição, $n$ e potencialmente a inferência.
+
+5.  Identificadores numéricos são **rótulos**, não quantidades. Tratar ID como variável quantitativa impõe relação linear artificial (ordem e distância sem sentido), cria padrões espúrios e pode induzir colinearidade/instabilidade. O correto é usar ID para chaves, deduplicação e junções, não como covariável numérica.
+
+6.  **Recomendável**: quando escalas diferem muito, quando se quer comparar magnitudes relativas, e especialmente em métodos penalizados (Ridge/LASSO), algoritmos de otimização e modelos sensíveis à escala.  
+    **Pode prejudicar interpretação**: quando a unidade original é substantivamente importante (ex.: “por R\$ 1.000”), ou quando se deseja interpretar coeficientes em unidades naturais.  
+    Na regressão linear clássica, padronizar não muda ajuste global (como $R^2$), mas muda escala/interpretação dos coeficientes. Em métodos penalizados, geralmente é essencial para que a penalização seja comparável entre preditores.
+
+7.  É necessário ter **mais observações do que parâmetros** para evitar subdeterminação: $n>p+1$ (com intercepto) evita que o sistema seja “curto” demais. Mas isso não garante invertibilidade. A condição estrutural adicional é: $\mathbf{X}$ ter **posto completo** $\operatorname{rank}(\mathbf{X})=p+1$, o que equivale a $\mathbf{X}^\top\mathbf{X}$ ser não singular.
+
+8.  Zeros estruturais são zeros esperados por construção/mecanismo (ex.: demanda de bicicletas em horários específicos). Eles indicam mistura de processos (um gerando zero “certo” e outro gerando contagens positivas), podendo violar suposições simples de Poisson/normalidade e sugerir modelos próprios (por exemplo, zero-inflated/hurdle) ou ao menos tratamento/variáveis que capturem o mecanismo (hora, feriado, etc.).
+
+9.  O log documenta **o que foi alterado, por quê e como**. Sem isso não há reprodutibilidade nem auditoria: não é possível refazer a base, avaliar impacto das decisões ou revisar criticamente a análise. Como inferência depende da base final, rastreabilidade é parte da legitimidade metodológica.
+
+10.  Na regressão linear, a predição é combinação linear $\hat{y}=\mathbf{x}^\top\hat{\beta}$ sem restrição; pode ficar $<0$ ou $>1$. Além disso, variância não é constante e erros não são bem representados por Normal com variância constante. Modelos binários (logístico/probit) impõem ligação que mantém predições em $[0,1]$ e estrutura de variância compatível com Bernoulli.
+
+11.  Duplicações no *join* (por chaves não únicas) replicam linhas, mudam pesos implícitos, alteram médias, totais, distribuições e podem enviesar coeficientes. Verificações: checar unicidade de chaves antes do *join*; após o *join*, comparar contagem de linhas, checar duplicatas por chave, validar somas/médias e fazer amostragens de conferência.
+
+12.  Remover casos com faltantes (listwise deletion) restringe a análise a quem “sobreviveu” ao critério de completude, o que pode induzir seleção: a subamostra pode diferir sistematicamente da população-alvo. Isso compromete validade externa e pode introduzir viés (especialmente sob MAR/MNAR), mudando interpretação dos coeficientes para um grupo selecionado.
+
+13.  Alta cardinalidade aumenta o número de parâmetros (muitas dummies), elevando dimensionalidade e risco de sobreajuste: o modelo pode ajustar ruído específico de níveis raros. Mais parâmetros tendem a aumentar variância dos estimadores e instabilidade (coeficientes sensíveis a pequenas mudanças), especialmente quando $n$ não cresce na mesma proporção.
+
+14.  Variável constante não contribui com variabilidade explicativa e pode causar problemas na estimação: com intercepto, uma coluna constante é combinação linear do intercepto, reduz o posto de $\mathbf{X}$ e pode tornar $\mathbf{X}^\top\mathbf{X}$ singular. “Quase constante” gera colunas com baixíssima variância, o que tende a instabilidade numérica e interpretações pouco úteis.
+
+15.  Roteiro e justificativa:
+    - **Leitura**: garantir que colunas e valores foram importados corretamente (delimitador/encoding/decimal).  
+    - **Tipagem**: definir tipos corretos (numérico, data, fator), pois isso controla como entra em $\mathbf{X}$.  
+    - **Faltantes**: mapear e recodificar ausências; decisões aqui dependem de tipagem e afetam $n$ efetivo.  
+    - **Inconsistências**: corrigir faixas impossíveis, duplicatas, chaves e categorias inconsistentes; evita artefatos.  
+    - **Padronização/transformações**: aplicar quando necessário para escala/assimetria/estabilidade, após dados estarem coerentes.  
+    - **Verificação estrutural**: checar posto, colinearidade e condições mínimas; faz sentido depois que $\mathbf{X}$ “final” está definido.  
+    - **Documentação**: registrar dicionário e log consolidando todas as decisões para reprodutibilidade.
+    
+
+## Atividades computacionais
+    
+### Estrutura Matricial dos Modelos de Regressão Linear
+
+1.  (Construção de $\mathbf{X}$)  
+    a) $\mathbf{X}=[\mathbf{1}\ \mathbf{x}_1\ \mathbf{x}_2]$.  
+    b) Verificar invertibilidade por: $\det(\mathbf{X}^\top\mathbf{X})\neq 0$ **ou** $\operatorname{rank}(\mathbf{X})=p+1$.  
+    c) $\hat{\boldsymbol{\beta}}$ via fórmula deve coincidir (até tolerância numérica) com `coef(lm_obj)`.
+
+2.  (Projeção e resíduos)  
+    a) $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$, $\mathbf{M}=\mathbf{I}-\mathbf{H}$.  
+    b) Checar $\|\mathbf{H}^2-\mathbf{H}\|$ e $\|\mathbf{M}^2-\mathbf{M}\|$ próximos de 0 (ex.: < $10^{-8}$).  
+    c) $\mathbf{H}\mathbf{Y}$ coincide com `fitted(lm_obj)` e $\mathbf{M}\mathbf{Y}$ coincide com `resid(lm_obj)` (até tolerância).
+
+3.  (Ortogonalidade)  
+    Verificar numericamente: $\hat{\mathbf{Y}}^\top\hat{\boldsymbol{\varepsilon}}\approx 0$ e $\mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}\approx\mathbf{0}$ (norma pequena).
+
+4.  (Decomposição de somas de quadrados)  
+    Calcular e conferir:
+    $$
+    \mathbf{Y}^\top\mathbf{Y}-(\mathbf{Y}^\top\mathbf{H}\mathbf{Y}+\mathbf{Y}^\top\mathbf{M}\mathbf{Y})\approx 0.
+    $$
+
+5.  (Alavancagem)  
+    $h_{ii}=(\mathbf{H})_{ii}$ deve coincidir com `hatvalues(lm_obj)` (até tolerância).  
+    As 3 maiores devem corresponder a linhas com $\mathbf{x}_i$ “extremos” (por exemplo, grandes valores de $X_1$ e/ou $X_2$ em relação ao restante).
+
+6.  (Posto deficiente)  
+    a) Para $X_3=X_1+X_2$, $\operatorname{rank}(\mathbf{X})$ cai (dependência linear).  
+    b) `lm()` tende a sinalizar coeficiente não estimável (NA) e/ou mensagens relacionadas a singularidade; isso reflete $\mathbf{X}^\top\mathbf{X}$ singular.
+    
+    
+### Distribuição Normal
+
+13. **Simulação e padronização (univariada).**  
+   Após simular $Y\sim N(\mu,\sigma^2)$ e construir $Z=(Y-\mu)/\sigma$, espera-se numericamente:  
+   - $\overline{Z}\approx 0$;  
+   - $\mathrm{Var}(Z)\approx 1$;  
+   - histograma/QQ-plot compatível com $N(0,1)$ (com pequenas flutuações amostrais).
+
+14. **Contornos elípticos (bivariada).**  
+   - Para $\rho=0$: nuvem aproximadamente “sem inclinação” (alinhada aos eixos).  
+   - Para $\rho=0{,}8$: nuvem alongada e inclinada (associação linear positiva forte).
+
+15. **Mahalanobis e $\chi^2$ (multivariada).**  
+   Calculando $Q$ em muitas repetições, espera-se:  
+   - histograma de $Q$ semelhante ao de uma $\chi^2_n$;  
+   - QQ-plot de $Q$ contra quantis de $\chi^2_n$ aproximadamente linear, com desvios pequenos devido ao tamanho finito da simulação.

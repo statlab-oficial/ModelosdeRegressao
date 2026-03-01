@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; Exercícios e Atividades de Consolidação</title>
+<title>Identificação da Disciplina</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ap_listas.html" rel="next">
-<link href="./part2_ex.html" rel="prev">
+<link href="./intro.html" rel="next">
+<link href="./prefacio.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -83,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part3_ex.html">Parte III — Modelo de Regressão Linear Simples (MRLM)</a></li><li class="breadcrumb-item"><a href="./part3_ex.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./identifica.html">Identificação da Disciplina</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -121,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./identifica.html" class="sidebar-item-text sidebar-link">
+  <a href="./identifica.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Identificação da Disciplina</span></a>
   </div>
 </li>
@@ -224,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link active">
+  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
@@ -288,15 +308,34 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#ementa" id="toc-ementa" class="nav-link active" data-scroll-target="#ementa">EMENTA</a></li>
+  <li><a href="#objetivo-geral" id="toc-objetivo-geral" class="nav-link" data-scroll-target="#objetivo-geral">OBJETIVO GERAL</a></li>
+  <li><a href="#objetivos-específicos" id="toc-objetivos-específicos" class="nav-link" data-scroll-target="#objetivos-específicos">OBJETIVOS ESPECÍFICOS</a></li>
+  <li><a href="#conteúdo-programático" id="toc-conteúdo-programático" class="nav-link" data-scroll-target="#conteúdo-programático">CONTEÚDO PROGRAMÁTICO</a>
+  <ul class="collapse">
+  <li><a href="#unidade-i-fundamentos-e-modelagem" id="toc-unidade-i-fundamentos-e-modelagem" class="nav-link" data-scroll-target="#unidade-i-fundamentos-e-modelagem">Unidade I – Fundamentos e Modelagem</a></li>
+  <li><a href="#unidade-ii-regressão-linear-simples" id="toc-unidade-ii-regressão-linear-simples" class="nav-link" data-scroll-target="#unidade-ii-regressão-linear-simples">Unidade II – Regressão Linear Simples</a></li>
+  <li><a href="#unidade-iii-regressão-linear-múltipla" id="toc-unidade-iii-regressão-linear-múltipla" class="nav-link" data-scroll-target="#unidade-iii-regressão-linear-múltipla">Unidade III – Regressão Linear Múltipla</a></li>
+  </ul></li>
+  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">METODOLOGIA</a></li>
+  <li><a href="#avaliação" id="toc-avaliação" class="nav-link" data-scroll-target="#avaliação">AVALIAÇÃO</a></li>
+  <li><a href="#critérios-de-avaliação" id="toc-critérios-de-avaliação" class="nav-link" data-scroll-target="#critérios-de-avaliação">CRITÉRIOS DE AVALIAÇÃO</a></li>
+  <li><a href="#bibliografia-básica" id="toc-bibliografia-básica" class="nav-link" data-scroll-target="#bibliografia-básica">BIBLIOGRAFIA BÁSICA</a></li>
+  <li><a href="#bibliografia-complementar" id="toc-bibliografia-complementar" class="nav-link" data-scroll-target="#bibliografia-complementar">BIBLIOGRAFIA COMPLEMENTAR</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part3_ex.html">Parte III — Modelo de Regressão Linear Simples (MRLM)</a></li><li class="breadcrumb-item"><a href="./part3_ex.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></h1>
+<h1 class="title">Identificação da Disciplina</h1>
 </div>
 
 
@@ -313,9 +352,165 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Em breve!!!</p>
+<p>Curso: Bacharelado em Estatística</p>
+<p>Disciplina: Modelos de Regressão I (CC0290)</p>
+<p>Carga Horária: 96 horas</p>
+<p>Créditos: 6</p>
+<p>Regime: Semestral</p>
+<p>Pré-requisitos: Inferência Estatística I (ou equivalente)</p>
+<p>Período Letivo: 2026.1</p>
+<p>Professor: Dr.&nbsp;Rafael Bráz Azevedo Farias</p>
+<hr>
+<section id="ementa" class="level2">
+<h2 class="anchored" data-anchor-id="ementa">EMENTA</h2>
+<p>Distribuição de formas lineares e quadráticas de vetores aleatórios conjuntamente normais. Modelo de Regressão Linear Simples. Modelo de Regressão Linear Múltipla. Estimação por Mínimos Quadrados Ordinários. Propriedades dos estimadores e Teorema de Gauss-Markov. Inferência clássica no modelo normal. Análise de resíduos e diagnóstico. Multicolinearidade. Variáveis dummy e análise de covariância. Transformações de variáveis.</p>
+<hr>
+</section>
+<section id="objetivo-geral" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo-geral">OBJETIVO GERAL</h2>
+<p>Apresentar os fundamentos teóricos e aplicados dos Modelos de Regressão Linear, capacitando o estudante a formular, estimar, interpretar e avaliar criticamente modelos de regressão sob a perspectiva probabilística e inferencial, com ênfase na estrutura matricial, na verificação de pressupostos e na análise diagnóstica.</p>
+<hr>
+</section>
+<section id="objetivos-específicos" class="level2">
+<h2 class="anchored" data-anchor-id="objetivos-específicos">OBJETIVOS ESPECÍFICOS</h2>
+<p>Ao final da disciplina, o estudante deverá ser capaz de:</p>
+<ul>
+<li>compreender a estrutura probabilística do modelo linear;</li>
+<li>derivar e interpretar estimadores de mínimos quadrados;</li>
+<li>analisar propriedades como não-viesamento, variância e eficiência;</li>
+<li>aplicar testes t e F em modelos simples e múltiplos;</li>
+<li>interpretar coeficientes no MRLM;</li>
+<li>utilizar variáveis dummy e interpretar modelos com fatores;</li>
+<li>realizar análise de resíduos e diagnóstico de influência;</li>
+<li>avaliar multicolinearidade e suas consequências;</li>
+<li>aplicar transformações de variáveis;</li>
+<li>implementar modelos no software R e interpretar resultados à luz da teoria.</li>
+</ul>
+<hr>
+</section>
+<section id="conteúdo-programático" class="level2">
+<h2 class="anchored" data-anchor-id="conteúdo-programático">CONTEÚDO PROGRAMÁTICO</h2>
+<section id="unidade-i-fundamentos-e-modelagem" class="level3">
+<h3 class="anchored" data-anchor-id="unidade-i-fundamentos-e-modelagem">Unidade I – Fundamentos e Modelagem</h3>
+<p>Modelo estatístico de regressão<br>
+Suposições do modelo linear clássico<br>
+Distribuição normal multivariada<br>
+Formas lineares e quadráticas<br>
+Estrutura matricial do modelo</p>
+</section>
+<section id="unidade-ii-regressão-linear-simples" class="level3">
+<h3 class="anchored" data-anchor-id="unidade-ii-regressão-linear-simples">Unidade II – Regressão Linear Simples</h3>
+<p>Especificação e interpretação do modelo<br>
+Estimação por mínimos quadrados<br>
+Propriedades dos estimadores<br>
+Inferência no MRLS<br>
+Análise de variância<br>
+Análise de resíduos<br>
+Homoscedasticidade e normalidade<br>
+Transformações básicas de variáveis</p>
+</section>
+<section id="unidade-iii-regressão-linear-múltipla" class="level3">
+<h3 class="anchored" data-anchor-id="unidade-iii-regressão-linear-múltipla">Unidade III – Regressão Linear Múltipla</h3>
+<p>Formulação matricial do MRLM<br>
+Estimação e propriedades<br>
+Teorema de Gauss-Markov<br>
+Inferência no MRLM<br>
+Testes parciais e globais<br>
+Variáveis dummy e análise de covariância<br>
+Multicolinearidade (VIF)<br>
+Análise de influência (Cook, alavancagem, DFFITS)<br>
+Transformação Box-Cox</p>
+<hr>
+</section>
+</section>
+<section id="metodologia" class="level2">
+<h2 class="anchored" data-anchor-id="metodologia">METODOLOGIA</h2>
+<p>A disciplina será desenvolvida por meio de aulas expositivo-dialogadas, integrando demonstrações matemáticas e implementação computacional em R. O conteúdo teórico será constantemente articulado com exemplos aplicados e análise de dados reais, enfatizando interpretação estatística e verificação de pressupostos.</p>
+<p>Serão propostas listas periódicas de exercícios teóricos e computacionais, bem como um projeto aplicado envolvendo análise completa de um modelo de regressão.</p>
+<hr>
+</section>
+<section id="avaliação" class="level2">
+<h2 class="anchored" data-anchor-id="avaliação">AVALIAÇÃO</h2>
+<p>A avaliação será composta por:</p>
+<p>Provas teórico-analíticas:<br>
+Listas de exercícios e atividades computacionais:<br>
+Projeto aplicado em regressão linear:</p>
+<p>A aprovação seguirá as normas vigentes da UFC.</p>
+<hr>
+</section>
+<section id="critérios-de-avaliação" class="level2">
+<h2 class="anchored" data-anchor-id="critérios-de-avaliação">CRITÉRIOS DE AVALIAÇÃO</h2>
+<p>Serão considerados:</p>
+<ul>
+<li>rigor matemático;</li>
+<li>correção conceitual;</li>
+<li>interpretação estatística adequada;</li>
+<li>clareza na exposição escrita;</li>
+<li>qualidade e reprodutibilidade das análises computacionais.</li>
+</ul>
+<hr>
+</section>
+<section id="bibliografia-básica" class="level2">
+<h2 class="anchored" data-anchor-id="bibliografia-básica">BIBLIOGRAFIA BÁSICA</h2>
+<p>CHARNET, R.; FREIRE, C. A.; CHARNET, E. M. R.; BONVINO, H.<br>
+<em>Análise de Modelos de Regressão Linear com Aplicações</em>. 2ª ed.&nbsp;Campinas: EDUNICAMP, 2008. <span class="citation" data-cites="charnet2008">(<a href="references.html#ref-charnet2008" role="doc-biblioref">Charnet et al., 2008</a>)</span></p>
+<p>HOFFMANN, R.<br>
+<em>Análise de Regressão: Uma Introdução à Econometria</em>. 5ª ed.&nbsp;2016. <span class="citation" data-cites="hoffmann2016">(<a href="references.html#ref-hoffmann2016" role="doc-biblioref">Hoffmann, 2016</a>)</span></p>
+<p>GUJARATI, D. N.<br>
+<em>Econometria Básica</em>. 4ª ed.&nbsp;Rio de Janeiro: Elsevier, 2006. <span class="citation" data-cites="gujarati2006">(<a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>)</span></p>
+<hr>
+</section>
+<section id="bibliografia-complementar" class="level2">
+<h2 class="anchored" data-anchor-id="bibliografia-complementar">BIBLIOGRAFIA COMPLEMENTAR</h2>
+<p>HARVILLE, D. A.<br>
+<em>Matrix Algebra from a Statistician’s Perspective</em>. Springer, 2000. <span class="citation" data-cites="harville2000">(<a href="references.html#ref-harville2000" role="doc-biblioref">Harville, 2000</a>)</span></p>
+<p>DRAPER, N.; SMITH, H.<br>
+<em>Applied Regression Analysis</em>. 3rd ed.&nbsp;Wiley, 1998. <span class="citation" data-cites="draper1998">(<a href="references.html#ref-draper1998" role="doc-biblioref">Draper; Smith, 1998</a>)</span></p>
+<p>KUTNER, M. H.; NACHTSHEIM, C. J.; NETER, J.; LI, W.<br>
+<em>Applied Linear Statistical Models</em>. 5th ed.&nbsp;McGraw-Hill, 2005. <span class="citation" data-cites="kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>)</span></p>
+<p>MONTGOMERY, D. C.; PECK, E. A.; VINING, G. G.<br>
+<em>Introduction to Linear Regression Analysis</em>. 6th ed.&nbsp;Wiley, 2021. <span class="citation" data-cites="montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span></p>
+<p>PAULA, G. A.<br>
+<em>Modelos de Regressão com Apoio Computacional</em>. IME-USP, 2004. <span class="citation" data-cites="paula2004">(<a href="references.html#ref-paula2004" role="doc-biblioref">Paula, 2004</a>)</span></p>
+<p>SHEATHER, S. J.<br>
+<em>A Modern Approach to Regression with R</em>. Springer, 2009. <span class="citation" data-cites="sheather2009">(<a href="references.html#ref-sheather2009" role="doc-biblioref">Sheather, 2009</a>)</span></p>
+<p>WEISBERG, S.<br>
+<em>Applied Linear Regression</em>. Wiley, 2005. <span class="citation" data-cites="weisberg2005">(<a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span></p>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-charnet2008" class="csl-entry" role="listitem">
+CHARNET, Reinaldo <em>et al.</em> <strong>Análise de Modelos de Regressão Linear com Aplicações</strong>. 2. ed. Campinas: EDUNICAMP, 2008.
+</div>
+<div id="ref-draper1998" class="csl-entry" role="listitem">
+DRAPER, Norman R.; SMITH, Harry. <strong>Applied Regression Analysis</strong>. 3. ed. New York: John Wiley &amp; Sons, 1998.
+</div>
+<div id="ref-gujarati2006" class="csl-entry" role="listitem">
+GUJARATI, Damodar N. <strong>Econometria Básica</strong>. 4. ed. Rio de Janeiro: Elsevier Campus, 2006.
+</div>
+<div id="ref-harville2000" class="csl-entry" role="listitem">
+HARVILLE, David A. <strong>Matrix Algebra from a Statistician’s Perspective</strong>. New York: Springer, 2000.
+</div>
+<div id="ref-hoffmann2016" class="csl-entry" role="listitem">
+HOFFMANN, Rodolfo. <strong><a href="https://doi.org/10.11606/9788592105709">Análise de Regressão: Uma Introdução à Econometria</a></strong>. 5. ed. <em>[S.l.]</em>: Portal de Livros Abertos da USP, 2016.
+</div>
+<div id="ref-kutner2005" class="csl-entry" role="listitem">
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
+</div>
+<div id="ref-montgomery2021" class="csl-entry" role="listitem">
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
+</div>
+<div id="ref-paula2004" class="csl-entry" role="listitem">
+PAULA, Gilberto A. <strong>Modelos de Regressão com Apoio Computacional</strong>. São Paulo: IME-USP, 2004.
+</div>
+<div id="ref-sheather2009" class="csl-entry" role="listitem">
+SHEATHER, Simon J. <strong>A Modern Approach to Regression with R</strong>. New York: Springer, 2009.
+</div>
+<div id="ref-weisberg2005" class="csl-entry" role="listitem">
+WEISBERG, Sanford. <strong>Applied Linear Regression</strong>. New York: Wiley, 2005.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -720,13 +915,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./part2_ex.html" class="pagination-link" aria-label="Exercícios e Atividades de Consolidação">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span>
+      <a href="./prefacio.html" class="pagination-link" aria-label="Prefácio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Prefácio</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ap_listas.html" class="pagination-link" aria-label="Lista de Siglas e Símbolos">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./intro.html" class="pagination-link" aria-label="Introdução e Panorama dos Modelos de Regressão">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução e Panorama dos Modelos de Regressão</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

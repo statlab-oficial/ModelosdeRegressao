@@ -15,6 +15,7 @@ book:
   chapters:
     - index.qmd
     - prefacio.qmd
+    - identifica.qmd
     
     - part: "Parte I — Modelagem"
       chapters:
@@ -59,6 +60,7 @@ book:
 #        - ap_inferencia.qmd
         - ap_tratamento.qmd
 #        - demo.qmd
+        - part4_ex.qmd
 
     - references.qmd  
 

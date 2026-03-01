@@ -1,4 +1,4 @@
-# Tratamento de dados para regressão (pré-modelagem)
+# Tratamento de dados para regressão
 
 Este apêndice organiza, em forma de roteiro estruturado, os procedimentos que devem ser realizados **antes** do ajuste de qualquer modelo de regressão. O objetivo é preparar bases de dados tabulares (em que linhas representam observações e colunas representam variáveis) para que estejam **coerentes, consistentes, completas e adequadas à modelagem estatística**.
 
@@ -320,7 +320,6 @@ A remoção deve ser exceção, não regra.
 
 Eliminar valores extremos altera a distribuição da variável, o tamanho da amostra e potencialmente a matriz $\mathbf{X}$. Toda decisão deve ser registrada no log de tratamento.
 
-
 ## Padronização e transformações numéricas
 
 Padronizar variáveis numéricas torna os preditores comparáveis em escala e pode melhorar a estabilidade numérica de procedimentos de estimação. Transformações adequadas, por sua vez, reduzem assimetria, estabilizam variância e facilitam interpretações coerentes com o fenômeno estudado.
@@ -594,94 +593,7 @@ Este checklist consolida os critérios estruturais que devem ser verificados ao 
 
 O não atendimento a qualquer desses critérios compromete a legitimidade estatística do modelo. A qualidade de toda inferência estatística depende dessa distinção, e ela começa antes do ajuste do primeiro modelo.
 
-## Bases para prática
-
 Ao finalizar o tratamento de uma base, tente **ajustar um modelo simples apenas para validar tipos e dummies** (sem discutir resultados). Se rodar sem erros e os sumários fizerem sentido, a base está pronta para a próxima unidade.
-
-**Escada de dificuldade das bases** - **Nível 1 (aquecimento):** Online Shoppers: tipagem + dummies + sumários.\
-- **Nível 2 (intermediário):** Ames/House Prices: faltantes moderados + reescala + dicionário.\
-- **Nível 3 (avançado):** Student Failure (messy): chaves/duplicatas + integração + plano de imputação.\
-- **Extra (discreta):** Bike Sharing: temporais + zeros estruturais + outliers climáticos.
-
-Esta seção apresenta **bases públicas e didáticas** para exercícios de tratamento pré‑modelagem. Cada item traz link de acesso, o que a base representa e **situações‑problema** que motivam o tratamento. Ao final de cada base há um bloco **Tarefas sugeridas** para orientar o estudo.
-
-### House Prices: Advanced Regression Techniques (Kaggle)
-
--   **Tipo de resposta:** Contínua (`SalePrice`).
--   **Link:** <https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques>
--   **Sobre a base:** preços de casas em Ames (Iowa, EUA), com \~79 variáveis numéricas e categóricas.
--   **Situação:**
-    -   Muitas colunas com valores ausentes (por ex.: `LotFrontage`, `Alley`, `PoolQC`).
-    -   Variáveis categóricas com codificação inconsistente e níveis raros.
-    -   Outliers em preço e área; unidades e escalas heterogêneas.
--   Excelente caso para um **pipeline completo** de limpeza (missing, tipagem, codificação, reescala) antes da regressão contínua.
--   **Tarefas sugeridas:**
-    1.  Mapear porcentagens de faltantes por coluna e decidir estratégia (excluir, imputar, manter).
-    2.  Padronizar nomes e unidades; verificar outliers em `SalePrice` e `GrLivArea`.
-    3.  Unificar níveis categóricos raros e definir dummies com categoria de referência.
-    4.  Salvar uma versão tratada e documentar as decisões.
-
-### Ames Housing Dataset
-
--   **Tipo de resposta:** Contínua (`SalePrice`).
--   **Link:** <https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques>
--   **Sobre a base:** variação/derivação do problema de habitação de Ames, amplamente usada em cursos.
--   **Situação:**
-    -   Mistura de tipos (numéricos + categóricos), com valores ausentes e níveis raros.
-    -   Recomendação frequente de transformação logarítmica da resposta.
-    -   Outliers estruturais (ex.: casas muito acima da média).
--   Reforça o **contraste de estratégias** de tratamento em relação à 10.1.
--   **Tarefas sugeridas:**
-    1.  Comparar duas abordagens de tratamento de faltantes (ex.: imputação por mediana vs. KNN) e registrar impactos em sumários.
-    2.  Testar padronização vs. não padronização nas variáveis contínuas.
-    3.  Produzir um dicionário de variáveis claro.
-
-### Online Shoppers Purchasing Intention (UCI)
-
--   **Tipo de resposta:** Binária (`Revenue`: sim/não).
--   **Link:** <https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset>
--   **Sobre a base:** sessões de navegação em e‑commerce; objetivo é prever se a sessão termina em compra.
--   **Situação:**
-    -   Variáveis categóricas e temporais misturadas às numéricas; necessidade de codificação.
-    -   Possível desbalanceamento da classe `Revenue`.
-    -   Datas/temporais como texto exigindo normalização e extração de componentes.
--   Bom **caso de tratamento moderado**, contrastando com bases mais "sujas".
--   **Tarefas sugeridas:**
-    1.  Verificar distribuição de `Revenue` (balanceamento).
-    2.  Definir dummies consistentes e padronizar escalas numéricas.
-    3.  Criar variáveis derivadas temporais (mês, dia da semana) de forma reproducível.
-
-### Student Failure (Messy) Dataset (Kaggle)
-
--   **Tipo de resposta:** Binária (`fail` = 1 se o aluno reprova/sai; 0 caso contrário).
--   **Link:** <https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset>
--   **Sobre a base:** dados educacionais com múltiplas tabelas heterogêneas para prever reprovação.
--   **Situação:**
-    -   Muitos valores ausentes; tabelas com chaves não padronizadas; duplicatas.
-    -   Categorias inconsistentes para o mesmo conceito (ex.: formas distintas de escrever "curso").
-    -   Necessidade de unificação/integração de fontes (join/merge) com validação.
--   Ótimo para treinar **integração e saneamento** antes de qualquer modelagem binária.
--   **Tarefas sugeridas:**
-    1.  Reconstruir uma chave única estável e eliminar duplicatas.
-    2.  Mapear e recodificar categorias equivalentes.
-    3.  Documentar um plano de imputação apropriado por variável.
-
-### Bike Sharing Dataset (UCI)
-
--   **Tipo de resposta:** Discreta (contagem de bicicletas alugadas por hora/dia).
--   **Link:** <https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset>
--   **Sobre a base:** uso de bicicletas compartilhadas, com variáveis meteorológicas, feriados, sazonalidade e efeitos de hora do dia.
--   **Situação:**
-    -   Contagens com muitos zeros em horários de baixa demanda e picos em horários de pico; necessidade de identificar **zeros estruturais**.
-    -   Variáveis temporais em formato de texto exigindo conversão e extração (hora, dia da semana, feriado).
-    -   Possíveis outliers (eventos climáticos extremos) e variabilidade alta da resposta.
-    -   Padronização de escalas e codificação consistente de feriados/sazonalidade.
-    -   Prepara para o tratamento de **resposta discreta (contagem)**, anterior à escolha de modelos como Poisson ou Binomial Negativa.
--   **Tarefas sugeridas:**
-    1.  Normalizar as variáveis temporais e criar indicadores (feriado, fim de semana, hora do rush).
-    2.  Caracterizar zeros estruturais vs. esparsidade aleatória e discutir implicações para a modelagem.
-    3.  Detectar outliers climáticos e decidir estratégia (transformação, winsorização ou justificativa de manutenção).
-    4.  Entregar uma versão tratada com dicionário e log de decisões.
 
 ## Glossário {#glossario}
 

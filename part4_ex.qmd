@@ -1,0 +1,441 @@
+# Exercícios e Atividades de Consolidação
+
+## Exercícios conceituais
+
+### Estrutura Matricial dos Modelos de Regressão Linear
+
+1.  Suponha $\mathbf{X}\in\mathbb{R}^{n\times(p+1)}$, $\mathbf{Y}\in\mathbb{R}^n$ e $\boldsymbol{\beta}\in\mathbb{R}^{p+1}$.
+
+    a)  Indique as dimensões de $\mathbf{X}^\top\mathbf{X}$, $\mathbf{X}^\top\mathbf{Y}$ e $(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$.\
+    b)  Mostre por que $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$ só faz sentido quando $\mathbf{X}^\top\mathbf{X}$ é invertível.
+
+2.  Explique, em termos de colunas de $\mathbf{X}$, o que significa $\operatorname{rank}(\mathbf{X})=p+1$.
+
+    a)  Interprete geometricamente essa condição.\
+    b)  Relacione-a com a unicidade do estimador de mínimos quadrados.
+
+3.  Partindo do problema $$
+    \min_{\boldsymbol{\beta}}\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2,
+    $$ mostre que a condição de primeira ordem é
+
+$$
+\mathbf{X}^\top(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})=\mathbf{0}.
+$$
+
+Interprete essa igualdade como uma condição de ortogonalidade.
+
+4.  Defina $\mathrm{col}(\mathbf{X})$ e descreva, em palavras, o conjunto
+
+$$
+\{\mathbf{X}\boldsymbol{\beta}:\boldsymbol{\beta}\in\mathbb{R}^{p+1}\}.
+$$
+
+Por que $\hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}}$ pertence a esse conjunto?
+
+5.  Explique o significado de
+
+$$
+\mathbb{R}^n=\mathrm{col}(\mathbf{X})\oplus\mathrm{col}(\mathbf{X})^\perp.
+$$ a) O que garante a unicidade da decomposição $\mathbf{Y}=\hat{\mathbf{Y}}+\hat{\boldsymbol{\varepsilon}}$?\
+b) O que significa $\hat{\mathbf{Y}}^\top\hat{\boldsymbol{\varepsilon}}=0$ em termos geométricos?
+
+6.  Considere
+
+$$
+\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top,\qquad
+\mathbf{M}=\mathbf{I}_n-\mathbf{H}.
+$$ a) Explique por que $\mathbf{H}$ é uma projeção sobre $\mathrm{col}(\mathbf{X})$.\
+b) Explique por que $\mathbf{M}$ projeta sobre $\mathrm{col}(\mathbf{X})^\perp$.
+
+7.  Mostre que, quando $\mathbf{X}^\top\mathbf{X}$ é invertível, valem:
+
+$$
+\mathbf{H}^\top=\mathbf{H},\quad \mathbf{H}^2=\mathbf{H},
+\qquad
+\mathbf{M}^\top=\mathbf{M},\quad \mathbf{M}^2=\mathbf{M}.
+$$ Interprete o que "idempotente" significa operacionalmente em uma projeção.
+
+8.  Justifique por que, para matrizes simétricas idempotentes, o traço coincide com o posto. Em particular, explique por que, no caso de posto completo de $\mathbf{X}$,
+
+$$
+\mathrm{tr}(\mathbf{H})=p+1,\qquad \mathrm{tr}(\mathbf{M})=n-p-1.
+$$
+
+9.  Use $\mathbf{Y}=\mathbf{H}\mathbf{Y}+\mathbf{M}\mathbf{Y}$ para deduzir:
+
+$$
+\mathbf{Y}^\top\mathbf{Y}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y}+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+$$
+
+Explique por que essa decomposição é "puramente geométrica" (isto é, não usa hipóteses probabilísticas).
+
+10. Dê um exemplo concreto, com $\mathbf{x}\in\mathbb{R}^2$ e $\mathbf{A}$ simétrica $2\times 2$, e escreva explicitamente $\mathbf{x}^\top\mathbf{A}\mathbf{x}$. Em seguida, explique por que $\mathbf{Y}^\top\mathbf{H}\mathbf{Y}$ e $\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$ são formas quadráticas.
+
+11. Descreva um cenário simples em que uma coluna de $\mathbf{X}$ seja combinação linear das demais.
+
+    a)  O que acontece com $\mathbf{X}^\top\mathbf{X}$?\
+    b)  O que acontece com $\hat{\boldsymbol{\beta}}$ (unicidade)?\
+    c)  Como SVD/pseudoinversa se relacionam com essa situação (em alto nível, sem detalhes técnicos)?
+
+12. Considere $h_{ii}=(\mathbf{H})_{ii}$.
+
+    a)  Por que $0\le h_{ii}\le 1$?\
+    b)  Por que $\sum_{i=1}^n h_{ii}=p+1$?\
+    c)  Interprete "alavancagem alta" geometricamente (no espaço das covariáveis).
+
+13. Mostre que $\mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0}$, onde $\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}$. Interprete essa propriedade como "resíduos ortogonais às colunas de $\mathbf{X}$".
+
+14. Explique por que $S(\boldsymbol{\beta})=\|\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}\|^2$ é convexa em $\boldsymbol{\beta}$. Em que condição ela é *estritamente* convexa? Relacione com "solução única".
+
+15. Sem usar cálculos longos, explique por que $\mathbf{H}\mathbf{Y}$ é o vetor ajustado e $\mathbf{M}\mathbf{Y}$ é o vetor residual.\
+    Dica: use as afirmações "pertence a $\mathrm{col}(\mathbf{X})$" e "pertence ao complemento ortogonal".
+
+### Distribuição Normal
+
+1.  Seja $Y\sim N(\mu,\sigma^2)$. Explique, em palavras, o significado de $\mu$ e de $\sigma^2$ como quantidades populacionais. Em seguida, explique por que $\sigma^2$ não deve ser interpretada como "erro do modelo" fora do contexto de regressão.
+
+2.  Se $Y\sim N(\mu,\sigma^2)$ e $Z=aY+b$ com $a\neq 0$, determine:
+
+    a)  $\mathbb{E}[Z]$;\
+    b)  $\mathrm{Var}(Z)$;\
+    c)  a distribuição de $Z$ (nome + parâmetros).
+
+3.  Defina $Z=(Y-\mu)/\sigma$ para $Y\sim N(\mu,\sigma^2)$.
+
+    a)  Qual é a distribuição de $Z$?\
+    b)  Interprete o significado de $Z=2$ em termos da variável original $Y$.
+
+4.  Explique (sem fórmulas) por que a Normalidade não define o modelo de regressão linear, mas é frequentemente usada para obter resultados exatos de inferência em amostras finitas.
+
+5.  No caso bivariado, a matriz
+
+$$
+\boldsymbol{\Sigma}=
+\begin{bmatrix}
+\sigma_1^2 & \rho\sigma_1\sigma_2\\
+\rho\sigma_1\sigma_2 & \sigma_2^2
+\end{bmatrix}
+$$
+
+codifica variabilidade e dependência. a) O que representam os elementos da diagonal?\
+b) O que representam os elementos fora da diagonal?\
+c) O que muda geometricamente quando $\rho=0$ vs. $\rho\neq 0$?
+
+6.  Seja $(Y_1,Y_2)^\top\sim N_2(\boldsymbol{\mu},\boldsymbol{\Sigma})$.
+
+    a)  Escreva as distribuições marginais de $Y_1$ e $Y_2$.\
+    b)  Explique por que "marginalmente Normal" não implica independência.
+
+7.  Para a Normal bivariada, sabe-se que
+
+$$
+Y_1\mid Y_2=y_2 \sim N\!\left(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(y_2-\mu_2),\, (1-\rho^2)\sigma_1^2\right).
+$$ a) Identifique (sem demonstrar) a média condicional e variância condicional.\
+b) Explique por que a média condicional é uma função linear de $y_2$.\
+c) Compare $\mathrm{Var}(Y_1\mid Y_2)$ com $\mathrm{Var}(Y_1)$ e interprete.
+
+8.  Se $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$ e $\mathbf{Z}=\mathbf{A}\mathbf{Y}+\mathbf{a}$:
+    a)  Qual é a distribuição de $\mathbf{Z}$? (nome + parâmetros)\
+    b)  Qual é a dimensão de $\mathbf{Z}$ em função de $\mathbf{A}$?\
+    c)  Interprete o papel de $\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top$.
+9.  Considere
+
+$$
+Q=(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu}).
+$$ a) O que $Q$ mede, intuitivamente?\
+b) Qual é a distribuição de $Q$ quando $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$?\
+c) Em que sentido essa "distância" difere da distância euclidiana?
+
+10. Considere
+
+$$
+\mathbf{Y}=
+\begin{bmatrix}\mathbf{Y}_1\\ \mathbf{Y}_2\end{bmatrix}
+\sim
+N_n\!\left(
+\begin{bmatrix}\boldsymbol{\mu}_1\\ \boldsymbol{\mu}_2\end{bmatrix},
+\begin{bmatrix}
+\boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12}\\
+\boldsymbol{\Sigma}_{21} & \boldsymbol{\Sigma}_{22}
+\end{bmatrix}
+\right).
+$$ a) Escreva as distribuições marginais de $\mathbf{Y}_1$ e $\mathbf{Y}_2$.\
+b) Escreva a distribuição condicional de $\mathbf{Y}_1\mid \mathbf{Y}_2=\mathbf{y}_2$ (média e covariância).\
+c) Explique por que a covariância condicional é "menor" (no sentido de incerteza) do que $\boldsymbol{\Sigma}_{11}$.
+
+11. Explique por que:
+
+    a)  em geral, $\mathrm{Cov}(U,V)=0$ não implica independência.\
+    b)  no caso Normal multivariado, covariância zero implica independência (sem demonstrar).
+
+12. No modelo
+
+$$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},\qquad
+\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$ a) Determine a distribuição de $\mathbf{Y}$ (nome + parâmetros).\
+b) Explique por que $\hat{\boldsymbol{\beta}}$ é Normal (use apenas a ideia "transformação linear preserva Normalidade").\
+c) Dê um exemplo de quantidade importante em regressão que é uma forma quadrática em $\mathbf{Y}$.
+
+### Formas Lineares e Quadráticas na Normal Multivariada
+
+1.  Seja $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$ e $\mathbf{Z}=\mathbf{A}\mathbf{Y}+\mathbf{a}$, com $\mathbf{A}$ de dimensão $m\times n$ e $\mathbf{a}\in\mathbb{R}^m$.
+
+    a)  Qual é a dimensão de $\mathbf{Z}$?\
+    b)  Escreva a média e a covariância de $\mathbf{Z}$.\
+    c)  Interprete, em palavras, por que $\mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top$ aparece como covariância.
+
+2.  Para um vetor fixo $\mathbf{c}\in\mathbb{R}^n$, defina $L=\mathbf{c}^\top\mathbf{Y}$.
+
+    a)  Qual é a distribuição de $L$?\
+    b)  Qual é a interpretação de $\mathbf{c}^\top\boldsymbol{\mu}$?\
+    c)  Dê um exemplo, no contexto de regressão, de uma quantidade que tenha a forma $\mathbf{c}^\top\mathbf{Y}$.
+
+3.  Defina $\mathbf{Z}=\boldsymbol{\Sigma}^{-1/2}(\mathbf{Y}-\boldsymbol{\mu})$.
+
+    a)  Qual é a distribuição de $\mathbf{Z}$?\
+    b)  Mostre (por manipulação algébrica) que\
+
+$$
+(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})
+=
+\mathbf{Z}^\top\mathbf{Z}.
+$$
+
+```         
+c)  Explique, em palavras, o que significa "reduzir ao caso esférico".
+```
+
+4.  Seja $Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y}$.
+
+    a)  Por que podemos assumir $\mathbf{A}$ simétrica "sem perda de generalidade"?\
+    b)  Escreva explicitamente a matriz simétrica associada a $\mathbf{A}$ que produz o mesmo $Q$.\
+    c)  Em regressão, cite duas somas de quadrados que são formas quadráticas em $\mathbf{Y}$.
+
+5.  Se $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$:
+
+    a)  Qual é a distribuição de $\mathbf{Z}^\top\mathbf{Z}$?\
+    b)  Por que esse resultado depende da independência das componentes de $\mathbf{Z}$?\
+    c)  Relacione esse resultado com a interpretação de "soma de quadrados" em regressão.
+
+6.  Seja $\mathbf{A}$ simétrica e idempotente e $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$.
+
+    a)  Qual é a distribuição de $\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$ em termos de $r=\mathrm{rank}(\mathbf{A})$?\
+    b)  Interprete geometricamente o que mede $\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$.\
+    c)  Explique por que o "número de graus de liberdade" coincide com $\mathrm{tr}(\mathbf{A})$ nesse caso.
+
+7.  Suponha $\mathbf{A}$ e $\mathbf{B}$ simétricas idempotentes e $\mathbf{A}\mathbf{B}=\mathbf{0}$.
+
+    a)  O que significa geometricamente a condição $\mathbf{A}\mathbf{B}=\mathbf{0}$?\
+    b)  Qual conclusão probabilística é válida para $\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$ e $\mathbf{Z}^\top\mathbf{B}\mathbf{Z}$ quando $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$?\
+    c)  Dê um exemplo (em regressão) de duas formas quadráticas independentes obtidas por projeções ortogonais.
+
+8.  Seja $L=\mathbf{a}^\top\mathbf{Z}$ e $Q=\mathbf{Z}^\top\mathbf{A}\mathbf{Z}$, com $\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)$ e $\mathbf{A}$ simétrica idempotente.
+
+    a)  Qual condição sobre $\mathbf{A}$ e $\mathbf{a}$ garante independência entre $L$ e $Q$?\
+    b)  Interprete essa condição geometricamente.\
+    c)  No MRLM, identifique uma situação típica em que um contraste linear é independente de uma soma de quadrados residual.
+
+9.  Considere o MRLM sob normalidade:
+
+$$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n).
+$$
+
+e $\hat{\boldsymbol{\beta}}$ como forma linear. a) Mostre que $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$ é transformação linear de $\mathbf{Y}$.\
+b) Escreva $\mathbb{E}(\hat{\boldsymbol{\beta}})$ e $\mathrm{Cov}(\hat{\boldsymbol{\beta}})$.\
+c) Explique por que, sob normalidade, $\hat{\boldsymbol{\beta}}$ tem distribuição Normal multivariada exata.
+
+### Tratamento de dados
+
+1.  Explique por que o tratamento de dados não é uma etapa meramente operacional, mas parte do raciocínio estatístico aplicado. Em sua resposta, discuta como erros de leitura, tipagem ou codificação podem afetar diretamente a construção da matriz de projeto $\mathbf{X}$ e a interpretação dos coeficientes estimados.
+
+2.  Diferencie os mecanismos de ausência MCAR, MAR e MNAR. Para cada caso, discuta qualitativamente como a escolha entre excluir observações e imputar valores pode afetar viés, variância e interpretação do modelo de regressão.
+
+3.  Justifique por que criar $k$ dummies para uma variável categórica com $k$ níveis, mantendo intercepto no modelo, gera singularidade em $\mathbf{X}^\top \mathbf{X}$. Relacione sua resposta com o conceito de posto completo da matriz $\mathbf{X}$.
+
+4.  Discuta a diferença entre:
+
+    -   valor extremo na distribuição marginal;
+    -   ponto de alta alavancagem;
+    -   observação influente.
+
+    Por que nem todo outlier deve ser removido automaticamente?
+
+5.  Explique por que identificadores numéricos (por exemplo, código do aluno ou número de matrícula) não devem ser tratados como variáveis quantitativas na regressão, mesmo sendo números.
+
+6.  Em que situações a padronização (z-score) é recomendável? Em que situações pode prejudicar a interpretação dos coeficientes? Discuta separadamente os casos de regressão linear clássica e métodos penalizados.
+
+7.  Mostre por que a condição $n > p + 1$ é necessária (mas não suficiente) para a existência do estimador de mínimos quadrados no modelo linear com intercepto. Qual condição matricial adicional é estruturalmente indispensável?
+
+8.  Explique o que são zeros estruturais em dados de contagem e por que sua presença pode indicar a necessidade de modelos diferentes daqueles utilizados para respostas contínuas.
+
+9.  Discuta a importância do log de decisões no tratamento de dados. Por que a reprodutibilidade é parte da legitimidade estatística da inferência?
+
+10. Considere uma variável resposta binária codificada como 0 e 1. Explique por que ajustar uma regressão linear clássica pode produzir predições fora do intervalo $[0,1]$ e por que isso motiva o uso de modelos específicos para respostas binárias.
+
+11. Ao integrar duas bases por meio de uma junção (*join*), explique como duplicações inesperadas podem alterar médias, totais e estimativas de regressão. Que verificações estruturais devem ser feitas antes e depois da junção?
+
+12. Explique por que remover observações com dados faltantes pode equivaler, na prática, a realizar uma seleção amostral não planejada. Em que contexto essa decisão pode comprometer a validade externa do estudo?
+
+13. Discuta a relação entre alta cardinalidade em variáveis categóricas e risco de sobreajuste. Por que o aumento do número de parâmetros pode afetar variância dos estimadores e estabilidade do modelo?
+
+14. Explique por que a verificação de variáveis constantes ou quase constantes é uma etapa estrutural antes da modelagem. Qual o efeito de uma variável constante na matriz $\mathbf{X}$?
+
+15. Elabore um pequeno roteiro conceitual (sem código) descrevendo o fluxo ideal: leitura → tipagem → verificação de faltantes → tratamento de inconsistências → padronização → verificação estrutural → documentação. Justifique a ordem proposta.
+
+## Atividades computacionais
+
+### Estrutura Matricial dos Modelos de Regressão Linear
+
+1.  (Construção de $\mathbf{X}$) Dado um conjunto de dados com resposta $Y$ e dois preditores $(X_1,X_2)$:
+
+    a)  Construa a matriz $\mathbf{X}$ explicitamente (com intercepto).\
+    b)  Calcule $\mathbf{X}^\top\mathbf{X}$ e verifique se é invertível (por determinante ou posto).\
+    c)  Calcule $\hat{\boldsymbol{\beta}}$ via fórmula matricial e compare com `lm()`.
+
+2.  (Projeção e resíduos) Para o mesmo conjunto de dados:
+
+    a)  Calcule $\mathbf{H}$ e $\mathbf{M}$.\
+    b)  Verifique numericamente (tolerância) que $\mathbf{H}^2\approx\mathbf{H}$ e $\mathbf{M}^2\approx\mathbf{M}$.\
+    c)  Verifique que $\hat{\mathbf{Y}}=\mathbf{H}\mathbf{Y}$ e $\hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y}$ batem com os valores de `fitted()` e `resid()` do `lm()`.
+
+3.  (Ortogonalidade) Verifique numericamente que $\hat{\mathbf{Y}}^\top\hat{\boldsymbol{\varepsilon}}\approx 0$ e que $\mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}\approx\mathbf{0}$.
+
+4.  (Decomposição de somas de quadrados) Calcule:
+
+$$
+\mathbf{Y}^\top\mathbf{Y},\quad \mathbf{Y}^\top\mathbf{H}\mathbf{Y},\quad \mathbf{Y}^\top\mathbf{M}\mathbf{Y}
+$$
+
+e verifique que $\mathbf{Y}^\top\mathbf{Y}\approx\mathbf{Y}^\top\mathbf{H}\mathbf{Y}+\mathbf{Y}^\top\mathbf{M}\mathbf{Y}$.
+
+5.  (Alavancagem) Extraia $h_{ii}=(\mathbf{H})_{ii}$ e compare com `hatvalues(lm_obj)`. Identifique as 3 maiores alavancagens e descreva, com base em $(X_1,X_2)$, por que são "pontos extremos".
+
+6.  (Posto deficiente) Provoque multicolinearidade perfeita criando um preditor $X_3=X_1+X_2$.
+
+    a)  Verifique o posto de $\mathbf{X}$.\
+    b)  Observe o comportamento de `lm()` (coeficientes não estimáveis/NA) e relacione com a não-invertibilidade de $\mathbf{X}^\top\mathbf{X}$.
+
+### Distribuição Normal
+
+1.  Simule uma amostra grande de $N(\mu,\sigma^2)$ com $\mu\neq 0$ e $\sigma\neq 1$, padronize e verifique numericamente: média próxima de 0 e variância próxima de 1.
+
+2.  Simule dados de uma Normal bivariada com:
+
+    a)  $\rho=0$;\
+    b)  $\rho=0{,}8$;\
+        Faça um gráfico de dispersão e compare a orientação/forma da nuvem de pontos.
+
+3.  Simule $\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})$, compute $Q$ para muitas repetições e compare a distribuição empírica de $Q$ com $\chi^2_n$ (por exemplo, via QQ-plot).
+
+### Tratamento de dados
+
+Considere as seguintes bases de dados e orientações:
+
+**Escada de dificuldade das bases**
+
+-   **Nível 1 (aquecimento):** Online Shoppers: tipagem + dummies + sumários.\
+-   **Nível 2 (intermediário):** Ames/House Prices: faltantes moderados + reescala + dicionário.\
+-   **Nível 3 (avançado):** Student Failure (messy): chaves/duplicatas + integração + plano de imputação.\
+-   **Extra (discreta):** Bike Sharing: temporais + zeros estruturais + outliers climáticos.
+
+Aqui são apresentadas **bases públicas e didáticas** para exercícios de tratamento pré-modelagem. Cada item traz link de acesso, o que a base representa e **situações-problema** que motivam o tratamento. Ao final de cada base há um bloco Tarefas sugeridas para orientar o estudo.
+
+Em todas as atividades, os entregáveis mínimos são:
+
+1.  **Base tratada** (salva em arquivo, sem sobrescrever a base original);
+2.  **Dicionário de variáveis**, contendo (no mínimo): nome, tipo, unidade (quando aplicável), níveis (para categóricas) e transformações realizadas;
+3.  **Log de decisões**, registrando o que foi alterado, por que foi alterado e como foi alterado (de forma que outra pessoa consiga reproduzir o tratamento).
+
+#### House Prices: Advanced Regression Techniques (Kaggle)
+
+-   **Tipo de resposta:** Contínua (`SalePrice`).
+-   **Link:** <https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques>
+-   **Sobre a base:** preços de casas em Ames (Iowa, EUA), com \~79 variáveis numéricas e categóricas.
+-   **Situação:**
+    -   Muitas colunas com valores ausentes (por ex.: `LotFrontage`, `Alley`, `PoolQC`).
+    -   Variáveis categóricas com codificação inconsistente e níveis raros.
+    -   Outliers em preço e área; unidades e escalas heterogêneas.
+-   Excelente caso para um **pipeline completo** de limpeza (missing, tipagem, codificação, reescala) antes da regressão contínua.
+-   **Tarefas sugeridas:**
+    1.  Mapear porcentagens de faltantes por coluna e decidir estratégia (excluir, imputar, manter), explicitando a justificativa no log.
+    2.  Padronizar nomes e unidades; verificar outliers em `SalePrice` e `GrLivArea`, distinguindo erro provável vs. valor plausível no domínio.
+    3.  Unificar níveis categóricos raros e definir dummies com categoria de referência, registrando o critério de referência adotado.
+    4.  Verificar condições mínimas para regressão (incluindo posto de $\mathbf{X}$ e colinearidade) e registrar eventuais correções realizadas.
+    5.  Salvar uma versão tratada e documentar as decisões (base tratada + dicionário + log).
+
+#### Ames Housing Dataset
+
+-   **Tipo de resposta:** Contínua (`SalePrice`).
+-   **Link:** <https://github.com/data-doctors/kaggle-house-prices-advanced-regression-techniques>
+-   **Sobre a base:** variação/derivação do problema de habitação de Ames, amplamente usada em cursos.
+-   **Situação:**
+    -   Mistura de tipos (numéricos + categóricos), com valores ausentes e níveis raros.
+    -   Recomendação frequente de transformação logarítmica da resposta.
+    -   Outliers estruturais (ex.: casas muito acima da média).
+-   Reforça o **contraste de estratégias** de tratamento em relação à anterior.
+-   **Tarefas sugeridas:**
+    1.  Comparar duas abordagens de tratamento de faltantes (ex.: imputação por mediana vs. KNN) e registrar impactos em sumários (antes/depois).
+    2.  Testar padronização vs. não padronização nas variáveis contínuas, descrevendo quando a padronização é útil e quando não é necessária.
+    3.  Avaliar a transformação da resposta (por exemplo, $\log(\texttt{SalePrice})$), registrando a motivação e a implicação interpretativa no dicionário.
+    4.  Produzir um dicionário de variáveis claro e um log de decisões completo, incluindo critérios para tratamento de níveis raros.
+
+#### Online Shoppers Purchasing Intention (UCI)
+
+-   **Tipo de resposta:** Binária (`Revenue`: sim/não).
+-   **Link:** <https://archive.ics.uci.edu/ml/datasets/Online%2BShoppers%2BPurchasing%2BIntention%2BDataset>
+-   **Sobre a base:** sessões de navegação em e-commerce; objetivo é prever se a sessão termina em compra.
+-   **Situação:**
+    -   Variáveis categóricas e temporais misturadas às numéricas; necessidade de codificação.
+    -   Possível desbalanceamento da classe `Revenue`.
+    -   Datas/temporais como texto exigindo normalização e extração de componentes.
+-   Bom **caso de tratamento moderado**, contrastando com bases mais "sujas".
+-   **Tarefas sugeridas:**
+    1.  Verificar distribuição de `Revenue` (balanceamento) e registrar possíveis implicações para avaliação futura do modelo.
+    2.  Definir dummies consistentes e padronizar escalas numéricas quando necessário, registrando as escolhas no dicionário.
+    3.  Criar variáveis derivadas temporais (mês, dia da semana) de forma reprodutível, mantendo o procedimento documentado no log.
+    4.  Verificar se há inconsistências de tipagem (numérico vs. categórico) e corrigir de forma explícita, com checagens antes/depois.
+
+#### Student Failure (Messy) Dataset (Kaggle)
+
+-   **Tipo de resposta:** Binária (`fail` = 1 se o aluno reprova/sai; 0 caso contrário).
+-   **Link:** <https://www.kaggle.com/code/sashatarakanova/student-failure-modelling-with-a-messy-dataset>
+-   **Sobre a base:** dados educacionais com múltiplas tabelas heterogêneas para prever reprovação.
+-   **Situação:**
+    -   Muitos valores ausentes; tabelas com chaves não padronizadas; duplicatas.
+    -   Categorias inconsistentes para o mesmo conceito (ex.: formas distintas de escrever "curso").
+    -   Necessidade de unificação/integração de fontes (join/merge) com validação.
+-   Ótimo para treinar **integração e saneamento** antes de qualquer modelagem binária.
+-   **Tarefas sugeridas:**
+    1.  Reconstruir uma chave única estável e eliminar duplicatas, descrevendo a regra adotada para definir unicidade.
+    2.  Mapear e recodificar categorias equivalentes (sinônimos, grafias diferentes) e registrar o mapeamento no dicionário.
+    3.  Documentar um plano de imputação apropriado por variável, justificando a estratégia (ex.: por grupo, múltipla, exclusão seletiva).
+    4.  Validar o resultado das integrações (joins) com checagens estruturais (linhas esperadas, chaves, duplicações), registrando tudo no log.
+
+#### Bike Sharing Dataset (UCI)
+
+-   **Tipo de resposta:** Discreta (contagem de bicicletas alugadas por hora/dia).
+-   **Link:** <https://archive.ics.uci.edu/dataset/275/bike%2Bsharing%2Bdataset>
+-   **Sobre a base:** uso de bicicletas compartilhadas, com variáveis meteorológicas, feriados, sazonalidade e efeitos de hora do dia.
+-   **Situação:**
+    -   Contagens com muitos zeros em horários de baixa demanda e picos em horários de pico; necessidade de identificar **zeros estruturais**.
+    -   Variáveis temporais em formato de texto exigindo conversão e extração (hora, dia da semana, feriado).
+    -   Possíveis outliers (eventos climáticos extremos) e variabilidade alta da resposta.
+    -   Padronização de escalas e codificação consistente de feriados/sazonalidade.
+    -   Prepara para o tratamento de **resposta discreta (contagem)**, anterior à escolha de modelos como Poisson ou Binomial Negativa.
+-   **Tarefas sugeridas:**
+    1.  Normalizar as variáveis temporais e criar indicadores (feriado, fim de semana, hora do rush), registrando as regras de derivação.
+    2.  Caracterizar zeros estruturais vs. esparsidade aleatória e discutir implicações para a modelagem, mantendo essa justificativa no log.
+    3.  Detectar outliers climáticos e decidir estratégia (transformação, winsorização ou justificativa de manutenção), com critério explícito.
+    4.  Entregar uma versão tratada com dicionário e log de decisões, incluindo a checagem de consistência de limites (por exemplo, contagens não negativas).
+
+#### Ao final desta atividade o leitor deverá ser capaz de:
+
+-   Diagnosticar problemas estruturais em bases tabulares;
+-   Identificar mecanismos de ausência;
+-   Construir um pipeline reprodutível de tratamento;
+-   Verificar condições estruturais para regressão;
+-   Documentar decisões de limpeza de dados.

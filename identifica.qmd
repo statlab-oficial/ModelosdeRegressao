@@ -1,0 +1,151 @@
+# Identificação da Disciplina {.unnumbered}
+
+Curso: Bacharelado em Estatística
+
+Disciplina: Modelos de Regressão I (CC0290)
+
+Carga Horária: 96 horas
+
+Créditos: 6
+
+Regime: Semestral
+
+Pré-requisitos: Inferência Estatística I (ou equivalente)
+
+Período Letivo: 2026.1
+
+Professor: Dr. Rafael Bráz Azevedo Farias
+
+------------------------------------------------------------------------
+
+## EMENTA
+
+Distribuição de formas lineares e quadráticas de vetores aleatórios conjuntamente normais. Modelo de Regressão Linear Simples. Modelo de Regressão Linear Múltipla. Estimação por Mínimos Quadrados Ordinários. Propriedades dos estimadores e Teorema de Gauss-Markov. Inferência clássica no modelo normal. Análise de resíduos e diagnóstico. Multicolinearidade. Variáveis dummy e análise de covariância. Transformações de variáveis.
+
+------------------------------------------------------------------------
+
+## OBJETIVO GERAL
+
+Apresentar os fundamentos teóricos e aplicados dos Modelos de Regressão Linear, capacitando o estudante a formular, estimar, interpretar e avaliar criticamente modelos de regressão sob a perspectiva probabilística e inferencial, com ênfase na estrutura matricial, na verificação de pressupostos e na análise diagnóstica.
+
+------------------------------------------------------------------------
+
+## OBJETIVOS ESPECÍFICOS
+
+Ao final da disciplina, o estudante deverá ser capaz de:
+
+-   compreender a estrutura probabilística do modelo linear;
+-   derivar e interpretar estimadores de mínimos quadrados;
+-   analisar propriedades como não-viesamento, variância e eficiência;
+-   aplicar testes t e F em modelos simples e múltiplos;
+-   interpretar coeficientes no MRLM;
+-   utilizar variáveis dummy e interpretar modelos com fatores;
+-   realizar análise de resíduos e diagnóstico de influência;
+-   avaliar multicolinearidade e suas consequências;
+-   aplicar transformações de variáveis;
+-   implementar modelos no software R e interpretar resultados à luz da teoria.
+
+------------------------------------------------------------------------
+
+## CONTEÚDO PROGRAMÁTICO
+
+### Unidade I -- Fundamentos e Modelagem
+
+Modelo estatístico de regressão\
+Suposições do modelo linear clássico\
+Distribuição normal multivariada\
+Formas lineares e quadráticas\
+Estrutura matricial do modelo
+
+### Unidade II -- Regressão Linear Simples
+
+Especificação e interpretação do modelo\
+Estimação por mínimos quadrados\
+Propriedades dos estimadores\
+Inferência no MRLS\
+Análise de variância\
+Análise de resíduos\
+Homoscedasticidade e normalidade\
+Transformações básicas de variáveis
+
+### Unidade III -- Regressão Linear Múltipla
+
+Formulação matricial do MRLM\
+Estimação e propriedades\
+Teorema de Gauss-Markov\
+Inferência no MRLM\
+Testes parciais e globais\
+Variáveis dummy e análise de covariância\
+Multicolinearidade (VIF)\
+Análise de influência (Cook, alavancagem, DFFITS)\
+Transformação Box-Cox
+
+------------------------------------------------------------------------
+
+## METODOLOGIA
+
+A disciplina será desenvolvida por meio de aulas expositivo-dialogadas, integrando demonstrações matemáticas e implementação computacional em R. O conteúdo teórico será constantemente articulado com exemplos aplicados e análise de dados reais, enfatizando interpretação estatística e verificação de pressupostos.
+
+Serão propostas listas periódicas de exercícios teóricos e computacionais, bem como um projeto aplicado envolvendo análise completa de um modelo de regressão.
+
+------------------------------------------------------------------------
+
+## AVALIAÇÃO
+
+A avaliação será composta por:
+
+Provas teórico-analíticas: \
+Listas de exercícios e atividades computacionais: \
+Projeto aplicado em regressão linear:
+
+A aprovação seguirá as normas vigentes da UFC.
+
+------------------------------------------------------------------------
+
+## CRITÉRIOS DE AVALIAÇÃO
+
+Serão considerados:
+
+-   rigor matemático;
+-   correção conceitual;
+-   interpretação estatística adequada;
+-   clareza na exposição escrita;
+-   qualidade e reprodutibilidade das análises computacionais.
+
+------------------------------------------------------------------------
+
+## BIBLIOGRAFIA BÁSICA
+
+CHARNET, R.; FREIRE, C. A.; CHARNET, E. M. R.; BONVINO, H.\
+*Análise de Modelos de Regressão Linear com Aplicações*. 2ª ed. Campinas: EDUNICAMP, 2008. [@charnet2008]
+
+HOFFMANN, R.\
+*Análise de Regressão: Uma Introdução à Econometria*. 5ª ed. 2016. [@hoffmann2016]
+
+GUJARATI, D. N.\
+*Econometria Básica*. 4ª ed. Rio de Janeiro: Elsevier, 2006. [@gujarati2006]
+
+------------------------------------------------------------------------
+
+## BIBLIOGRAFIA COMPLEMENTAR
+
+HARVILLE, D. A.\
+*Matrix Algebra from a Statistician's Perspective*. Springer, 2000. [@harville2000]
+
+DRAPER, N.; SMITH, H.\
+*Applied Regression Analysis*. 3rd ed. Wiley, 1998. [@draper1998]
+
+KUTNER, M. H.; NACHTSHEIM, C. J.; NETER, J.; LI, W.\
+*Applied Linear Statistical Models*. 5th ed. McGraw-Hill, 2005. [@kutner2005]
+
+MONTGOMERY, D. C.; PECK, E. A.; VINING, G. G.\
+*Introduction to Linear Regression Analysis*. 6th ed. Wiley, 2021. [@montgomery2021]
+
+PAULA, G. A.\
+*Modelos de Regressão com Apoio Computacional*. IME-USP, 2004. [@paula2004]
+
+SHEATHER, S. J.\
+*A Modern Approach to Regression with R*. Springer, 2009. [@sheather2009]
+
+WEISBERG, S.\
+*Applied Linear Regression*. Wiley, 2005. [@weisberg2005]
