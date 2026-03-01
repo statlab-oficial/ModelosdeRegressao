@@ -6,10 +6,6 @@ Disciplina: Modelos de Regressão I (CC0290)
 
 Carga Horária: 96 horas
 
-Créditos: 6
-
-Regime: Semestral
-
 Pré-requisitos: Inferência Estatística I (ou equivalente)
 
 Período Letivo: 2026.1
@@ -94,8 +90,8 @@ Serão propostas listas periódicas de exercícios teóricos e computacionais, b
 
 A avaliação será composta por:
 
-Provas teórico-analíticas: \
-Listas de exercícios e atividades computacionais: \
+Provas teórico-analíticas:\
+Listas de exercícios e atividades computacionais:\
 Projeto aplicado em regressão linear:
 
 A aprovação seguirá as normas vigentes da UFC.

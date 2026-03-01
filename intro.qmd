@@ -37,104 +37,116 @@ A ideia central é que, ao final do semestre, o estudante seja capaz de compreen
 
 ## Breve História da Regressão
 
-A regressão, como hoje conhecemos, é fruto de mais de um século de evolução teórica e prática. Seu ponto de partida remonta ao século XIX, quando estudos empíricos sobre hereditariedade começaram a revelar regularidades que poderiam ser descritas matematicamente. Desde então, a regressão deixou de ser apenas uma curiosidade biológica e tornou-se um dos pilares da estatística moderna, sustentando análises nas mais diversas áreas.
+A regressão, como hoje a entendemos, não surgiu como uma teoria pronta nem como um capítulo isolado da Estatística. Ela é resultado de um processo histórico longo, no qual problemas práticos de mensuração, questões científicas sobre relações entre variáveis e desenvolvimentos matemáticos em teoria dos erros foram progressivamente convergindo. Sua consolidação exigiu mais de um século de elaboração conceitual e técnica.
 
-### Francis Galton (1822--1911)
+Embora o termo “regressão” tenha sido introduzido apenas na segunda metade do século XIX, os fundamentos matemáticos que tornariam possível sua formalização remontam ao início do século XIX. A regressão nasce da interseção de três necessidades intelectuais: **(i)** resumir relações empíricas entre grandezas observáveis, **(ii)** estabelecer critérios objetivos para ajustar modelos a dados imperfeitos e **(iii)** desenvolver uma estrutura probabilística que permitisse quantificar a incerteza associada a esses ajustes.
+
+Essa história começa antes da biologia e antes da hereditariedade. Ela começa na astronomia e na geodésia.
+
+
+### Antes do nome “regressão”: o ajuste por mínimos quadrados (1805–1809)
+
+No final do século XVIII e início do século XIX, astrônomos enfrentavam um problema técnico crucial: diferentes observações de um mesmo fenômeno, por exemplo, a posição de um planeta, produziam valores ligeiramente discrepantes. A questão não era apenas calcular uma média, mas determinar qual conjunto de parâmetros melhor explicava um sistema de observações inconsistentes.
+
+Em 1805, Adrien-Marie Legendre publica formalmente o método dos mínimos quadrados em *Nouvelles méthodes pour la détermination des orbites des comètes*, propondo escolher os parâmetros que minimizam a soma dos quadrados dos resíduos [@legendre1805]. A escolha da soma de quadrados produzia um sistema de equações lineares tratável analiticamente e possuía propriedades geométricas que tornavam o procedimento matematicamente consistente.
+
+Em 1809, Carl Friedrich Gauss publica *Theoria motus corporum coelestium*, no qual também utiliza o método e afirma empregá-lo desde 1795 [@gauss1809]. Gauss relaciona o método à teoria dos erros e mostra que, sob hipóteses específicas de distribuição Normal para os erros, o estimador de mínimos quadrados coincide com o estimador de máxima verossimilhança. A reconstrução histórica desse desenvolvimento e da controvérsia de prioridade entre Legendre e Gauss é analisada detalhadamente em @plackett1972, @stigler1981 e @stigler1986.
+
+O debate sobre prioridade é parte constitutiva da história da Estatística. Mais importante do que a controvérsia é o fato de que, nesse período, o ajuste por mínimos quadrados passa a ser entendido como princípio sistemático para extrair estrutura de dados imperfeitos.
+
+Esse desenvolvimento foi decisivo. Quando, décadas depois, cientistas começaram a investigar relações entre características observáveis, como estatura, peso, rendimento agrícola ou desempenho fisiológico, já existia um método matemático capaz de ajustar uma linha média a um conjunto de pontos. O que ainda faltava era interpretar essa linha como descrição de uma relação entre variáveis.
+
+É nesse ponto que a história muda de domínio: da mecânica celeste para a variabilidade biológica e social.
+
+### Francis Galton (1822–1911): regressão à mediocridade como padrão empírico (1886)
 
 ![Francis Galton](images/galton.jpg){width="35%"}
 
-A história da regressão começa com uma inquietação simples, quase doméstica. No final do século XIX, Francis Galton observava famílias inglesas e fazia uma pergunta que parecia trivial, mas que mudaria a estatística para sempre: **filhos de pais muito altos serão igualmente altos?**
+Em 1886, Francis Galton publica dois trabalhos fundamentais sobre estatura e semelhança familiar [@galton1886a; @galton1886b]. Ao comparar alturas de pais e filhos, identifica um padrão estatístico sistemático: descendentes de pais muito altos tendem, em média, a apresentar estaturas menos extremas; descendentes de pais muito baixos tendem, igualmente em média, a aproximar-se da média populacional.
 
-Ao analisar dados de estaturas familiares, Galton percebeu algo intrigante: filhos de pais muito altos tendiam a ser altos, mas não tanto quanto seus pais; filhos de pais muito baixos tendiam a ser baixos, mas não tão baixos quanto seus progenitores. Havia uma força invisível puxando as medidas extremas de volta ao centro. Em 1886 (@galton1886a; @galton1886b), ele chamou esse fenômeno de *regression toward mediocrity*.
+Galton denominou esse fenômeno *regression toward mediocrity*. O termo “mediocridade” referia-se à média estatística da população. O que estava sendo descrito era uma propriedade da associação imperfeita entre variáveis: quando a correlação é menor que um, valores extremos tendem a ser seguidos por valores menos extremos.
 
-Sem perceber completamente, Galton havia introduzido quatro pilares da regressão moderna:\
-uma variável resposta, uma variável explicativa, uma média condicional e uma variabilidade em torno dessa média.
+Galton utilizou representações gráficas e procedimentos geométricos para estimar a tendência média. Não formulou, contudo, um procedimento geral de estimação com propriedades probabilísticas explicitadas nem apresentou uma teoria formal da regressão linear no sentido moderno. A formalização matemática rigorosa viria na geração seguinte.
 
-A matemática ainda era rudimentar. Mas a ideia estava lançada.
-
-### Karl Pearson (1857--1936)
+### Karl Pearson (1857–1936): formalização matemática da regressão
 
 ![Karl Pearson](images/pearson.jpg){width="35%"}
 
-Se Galton teve a intuição, Karl Pearson deu forma matemática ao fenômeno. Discípulo e colaborador de Galton, Pearson transformou observações empíricas em estrutura formal. Desenvolveu o coeficiente de correlação linear, sistematizou métodos de ajuste e ajudou a fundar o primeiro departamento de estatística do mundo, no University College London. Criou também a revista *Biometrika*, marco na consolidação da estatística como disciplina científica.
+Karl Pearson transforma a intuição de Galton em estrutura matemática sistemática. Em 1896, apresenta a formulação analítica da regressão linear simples e explicita sua relação com a covariância e a variância. A inclinação da reta de regressão passa a ser expressa como razão entre covariância e variância, estabelecendo formalmente a conexão entre regressão e correlação.
 
-A regressão deixava de ser apenas uma regularidade observada em dados biológicos. Tornava-se parte da teoria da probabilidade e da estatística matemática (@pearson1903).
+Em 1903, Pearson e Alice Lee ampliam essa abordagem no estudo das leis de herança [@pearson1903], consolidando o uso da regressão como instrumento quantitativo no programa biométrico.
 
-O que antes era descrição começava a se tornar método.
+Em 1901, juntamente com W. F. R. Weldon e com apoio de Galton, funda a revista *Biometrika*, central na institucionalização da Estatística como disciplina científica.
 
-### Ronald A. Fisher (1890--1962)
+### Udny Yule (1871–1951): regressão múltipla e ampliação do escopo aplicado
+
+![Udny Yule](images/yule.jpg){width="35%"}
+
+Udny Yule contribuiu decisivamente para a sistematização da regressão múltipla e da correlação parcial [@yule1897; @yule1907]. Seus trabalhos ampliaram o uso das equações normais para contextos envolvendo múltiplas variáveis explicativas, favorecendo aplicações em demografia e ciências sociais.
+
+A regressão deixa de ser instrumento predominantemente biométrico e passa a integrar um conjunto mais amplo de métodos quantitativos aplicáveis a diversas áreas empíricas.
+
+
+### Ronald A. Fisher (1890–1962): integração com inferência e planejamento experimental
 
 ![Ronald Fisher](images/fisher.jpg){width="35%"}
 
-Nas décadas seguintes, a estatística enfrentava um novo desafio: não bastava ajustar curvas; era preciso decidir. Ronald A. Fisher foi o arquiteto dessa virada. Na década de 1920, incorporou fundamentos de inferência à regressão e redefiniu o papel da estatística na ciência.
+Ronald A. Fisher não cria a regressão linear, mas redefine seu estatuto científico ao integrá-la explicitamente ao arcabouço inferencial moderno. Em *Statistical Methods for Research Workers* (1925) [@fisher1925], sistematiza procedimentos de teste aplicáveis a modelos lineares. Em *The Design of Experiments* (1935) [@fisher1935], estabelece princípios de randomização e planejamento experimental que estruturam a interpretação causal.
 
-Com Fisher surgem a análise de variância (ANOVA), o método da máxima verossimilhança e os princípios modernos de planejamento experimental. A regressão passa a permitir testar hipóteses, construir intervalos de confiança e quantificar incertezas.
+A decomposição da variabilidade já estava implícita na teoria dos mínimos quadrados. O mérito de Fisher foi sistematizar essa decomposição no contexto da análise de variância e integrá-la a um sistema coerente de inferência. A regressão passa a ser entendida como modelo probabilístico com hipóteses explícitas sobre estrutura de erro e distribuição.
 
-A técnica deixa de ser apenas descritiva. Torna-se ferramenta de decisão científica.
-
-### Jerzy Neyman (1894--1981) & Egon Pearson (1895--1980)
+### Jerzy Neyman (1894–1981) e Egon S. Pearson (1895–1980): estrutura formal da decisão estatística
 
 ![Jerzy Neyman & Egon Pearson](images/neyman_pearson.jpg){width="55%"}
 
-A década de 1930 marca outro salto conceitual. Jerzy Neyman e Egon Pearson, filho de Karl Pearson, estruturam formalmente os testes de hipóteses. Definem os erros do tipo I e tipo II, introduzem critérios de decisão e consolidam o conceito de intervalo de confiança.
+Em 1933, Neyman e Egon Pearson estabelecem a teoria formal dos testes de hipóteses [@neymanpearson1933], definindo erros do tipo I e tipo II e critérios baseados em propriedades de longo prazo. Embora sua contribuição não seja específica da regressão, ela molda profundamente sua prática.
 
-A regressão, agora, não apenas estima relações: ela fornece regras claras para aceitar ou rejeitar hipóteses. A incerteza passa a ser quantificada de maneira sistemática.
+A partir desse arcabouço, estimativas em modelos lineares passam a ser acompanhadas por testes com propriedades explicitamente definidas. Posteriormente, Neyman introduz a formulação moderna de intervalos de confiança [@neyman1937], completando a estrutura inferencial que passa a integrar naturalmente a análise de regressão.
 
-O método ganha rigor lógico.
 
-### John Tukey (1915--2000)
+### John W. Tukey (1915–2000): análise exploratória e diagnóstico
 
 ![John Tukey](images/tukey.jpg){width="40%"}
 
-Mas a estatística não evolui apenas por formalização. Na década de 1950, John Tukey propõe algo radical: antes de testar, é preciso explorar. Defende que os dados devem ser interrogados visualmente. Populariza gráficos de resíduos, diagnósticos e técnicas exploratórias.
+Técnicas de inspeção de resíduos já eram conhecidas, mas John Tukey sistematiza a análise exploratória como etapa metodológica autônoma. Em *Exploratory Data Analysis* (1977) [@tukey1977], defende a distinção entre análise exploratória e confirmatória.
 
-A regressão passa a ser acompanhada por perguntas práticas:\
-os pressupostos fazem sentido? há pontos influentes? o modelo realmente representa os dados?
+No contexto da regressão, isso implica examinar resíduos, identificar não linearidades, heterocedasticidade e pontos influentes como parte integrante da modelagem. O diagnóstico deixa de ser etapa auxiliar e passa a constituir componente essencial do processo estatístico.
 
-A estatística recupera o diálogo com a realidade empírica.
+### Nelder, Wedderburn, McCullagh: generalização estrutural da regressão
 
-### Peter McCullagh (1952--) & John Nelder (1934--2010)
+![Peter McCullagh & Robert Wedderburn & John Nelder](images/mccullagh_nelder.jpg){width="55%"}
 
-![Peter McCullagh & John Nelder](images/mccullagh_nelder.jpg){width="55%"}
+Em 1972, Nelder e Wedderburn introduzem os Modelos Lineares Generalizados, ampliando a regressão para distribuições da família exponencial e funções de ligação apropriadas [@nelderwedderburn1972]. Em 1983, McCullagh e Nelder sistematizam essa teoria em *Generalized Linear Models* [@mccullaghnelder1989].
 
-Com o avanço da computação nas décadas de 1960 e 1970, a regressão amplia suas fronteiras. A álgebra matricial viabiliza modelos com múltiplos preditores, e a necessidade de analisar dados não normais torna-se evidente.
+A estrutura central permanece a modelagem da média condicional, mas o arcabouço probabilístico torna-se mais geral.
 
-Em 1983, McCullagh e Nelder publicam *Generalized Linear Models*, obra que sistematiza os Modelos Lineares Generalizados. A regressão deixa de ser restrita a variáveis contínuas normalmente distribuídas. Passa a modelar contagens, proporções, tempos de ocorrência.
+### Regularização e expansão computacional
 
-A ideia que nasceu da altura de pais e filhos expande-se para praticamente todos os campos científicos.
+Em 1970, Hoerl e Kennard propõem a ridge regression como solução para problemas de colinearidade e instabilidade numérica em sistemas não ortogonais [@hoerlkennard1970]. O objetivo original não era a alta dimensionalidade no sentido contemporâneo, mas a redução da variância do estimador sob multicolinearidade.
 
-A regressão não surgiu pronta. Foi construída por inquietações, formalizações, rupturas e expansões. Cada geração acrescentou uma camada: intuição, estrutura, inferência, decisão, diagnóstico e generalização.
+Em 1996, Tibshirani introduz o LASSO [@tibshirani1996], incorporando penalização $\ell_1$ e seleção automática de variáveis, ampliando o alcance da regressão para cenários com grande número de preditores.
 
-O que começou como uma pergunta sobre estatura tornou-se uma das ferramentas centrais da ciência moderna.
+### Contexto histórico e responsabilidade
 
-## O contexto histórico: eugenia
+Parte do desenvolvimento inicial da biometria esteve associada a ideias eugenistas. Galton cunhou o termo “eugenia” em 1883. Pearson e Fisher expressaram posições alinhadas a esse movimento em determinados momentos históricos.
 
-É necessário reconhecer que parte do desenvolvimento inicial da estatística ocorreu em um contexto marcado por ideias eugenistas. Francis Galton cunhou o termo "eugenia" em 1883. A eugenia defendia o "melhoramento" da raça humana por meio de seleção artificial.
+O reconhecimento desse contexto é necessário para compreender o ambiente intelectual no qual a Estatística se institucionalizou. O método estatístico, entretanto, não é intrinsecamente vinculado a tais agendas. Sua aplicação exige responsabilidade ética e consciência histórica.
 
-Karl Pearson foi defensor ativo dessas ideias e dirigiu o laboratório Francis Galton para a Eugenia Nacional na University College London. Ronald Fisher também expressou posições eugenistas em seus escritos.
+## Consolidação como pilar da Estatística moderna
 
-As ideias eugenistas foram posteriormente utilizadas para justificar políticas discriminatórias e violações graves de direitos humanos no século XX. Após a Segunda Guerra Mundial, consolidou-se um consenso internacional de condenação à eugenia como ideologia racista e incompatível com princípios éticos fundamentais.
+A regressão consolidou-se por sucessivas ampliações conceituais:
 
-Essa contextualização histórica não diminui a importância dos avanços metodológicos produzidos por esses autores. Pelo contrário, reforça a necessidade de compreender que métodos estatísticos são ferramentas cujo uso exige responsabilidade ética.
+1. Ajuste sistemático sob erro observacional;  
+2. Identificação empírica da relação média condicional;  
+3. Formalização matemática e desenvolvimento da regressão múltipla;  
+4. Inserção no arcabouço inferencial;  
+5. Consolidação do diagnóstico e da análise exploratória;  
+6. Generalização probabilística;  
+7. Regularização e expansão computacional.
 
-A regressão é instrumento científico poderoso. O modo como é utilizada depende do pesquisador.
+Apesar das transformações metodológicas profundas, permanece a mesma questão fundamental:
 
-## Consolidação da regressão como pilar da Estatística moderna
-
-A trajetória da regressão pode ser compreendida como uma sequência evolutiva:
-
-1.  Observação empírica da regressão à média (Galton);\
-2.  Formalização matemática e correlação (Pearson);\
-3.  Inferência e planejamento experimental (Fisher);\
-4.  Estrutura formal de testes de hipóteses (Neyman-Pearson);\
-5.  Diagnóstico e análise exploratória (Tukey);\
-6.  Generalização para modelos lineares generalizados (McCullagh e Nelder);\
-7.  Regularização moderna (Ridge e LASSO);\
-8.  Integração com ciência de dados e aprendizagem de máquina.
-
-Apesar das transformações metodológicas, a pergunta central permanece:
-
-> Qual é a relação média entre uma variável resposta e seus preditores?
+> Qual é a estrutura da relação média entre uma variável resposta e seus preditores, e como quantificar a incerteza associada a essa descrição?
 
 ## Panorama dos Modelos de Regressão
 

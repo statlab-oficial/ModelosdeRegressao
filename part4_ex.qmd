@@ -117,7 +117,8 @@ $$
 \end{bmatrix}
 $$
 
-codifica variabilidade e dependência. a) O que representam os elementos da diagonal?\
+codifica variabilidade e dependência. 
+a) O que representam os elementos da diagonal?\
 b) O que representam os elementos fora da diagonal?\
 c) O que muda geometricamente quando $\rho=0$ vs. $\rho\neq 0$?
 
@@ -130,7 +131,7 @@ c) O que muda geometricamente quando $\rho=0$ vs. $\rho\neq 0$?
 
 $$
 Y_1\mid Y_2=y_2 \sim N\!\left(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(y_2-\mu_2),\, (1-\rho^2)\sigma_1^2\right).
-$$ a) Identifique (sem demonstrar) a média condicional e variância condicional.\
+$$ a) Identifique a média condicional e variância condicional.\
 b) Explique por que a média condicional é uma função linear de $y_2$.\
 c) Compare $\mathrm{Var}(Y_1\mid Y_2)$ com $\mathrm{Var}(Y_1)$ e interprete.
 
@@ -201,10 +202,9 @@ $$
 =
 \mathbf{Z}^\top\mathbf{Z}.
 $$
+    
+    c)  Explique, em palavras, o que significa "reduzir ao caso esférico".
 
-```         
-c)  Explique, em palavras, o que significa "reduzir ao caso esférico".
-```
 
 4.  Seja $Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y}$.
 
@@ -244,7 +244,9 @@ $$
 \boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n).
 $$
 
-e $\hat{\boldsymbol{\beta}}$ como forma linear. a) Mostre que $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$ é transformação linear de $\mathbf{Y}$.\
+e $\hat{\boldsymbol{\beta}}$ como forma linear. 
+
+a) Mostre que $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}$ é transformação linear de $\mathbf{Y}$.\
 b) Escreva $\mathbb{E}(\hat{\boldsymbol{\beta}})$ e $\mathrm{Cov}(\hat{\boldsymbol{\beta}})$.\
 c) Explique por que, sob normalidade, $\hat{\boldsymbol{\beta}}$ tem distribuição Normal multivariada exata.
 

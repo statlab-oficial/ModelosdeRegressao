@@ -91,6 +91,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -317,16 +346,19 @@ div.csl-indent {
   <li><a href="#objetivos-do-livro" id="toc-objetivos-do-livro" class="nav-link" data-scroll-target="#objetivos-do-livro"><span class="header-section-number">1.2</span> Objetivos do livro</a></li>
   <li><a href="#breve-história-da-regressão" id="toc-breve-história-da-regressão" class="nav-link" data-scroll-target="#breve-história-da-regressão"><span class="header-section-number">1.3</span> Breve História da Regressão</a>
   <ul class="collapse">
-  <li><a href="#francis-galton-18221911" id="toc-francis-galton-18221911" class="nav-link" data-scroll-target="#francis-galton-18221911"><span class="header-section-number">1.3.1</span> Francis Galton (1822–1911)</a></li>
-  <li><a href="#karl-pearson-18571936" id="toc-karl-pearson-18571936" class="nav-link" data-scroll-target="#karl-pearson-18571936"><span class="header-section-number">1.3.2</span> Karl Pearson (1857–1936)</a></li>
-  <li><a href="#ronald-a.-fisher-18901962" id="toc-ronald-a.-fisher-18901962" class="nav-link" data-scroll-target="#ronald-a.-fisher-18901962"><span class="header-section-number">1.3.3</span> Ronald A. Fisher (1890–1962)</a></li>
-  <li><a href="#jerzy-neyman-18941981-egon-pearson-18951980" id="toc-jerzy-neyman-18941981-egon-pearson-18951980" class="nav-link" data-scroll-target="#jerzy-neyman-18941981-egon-pearson-18951980"><span class="header-section-number">1.3.4</span> Jerzy Neyman (1894–1981) &amp; Egon Pearson (1895–1980)</a></li>
-  <li><a href="#john-tukey-19152000" id="toc-john-tukey-19152000" class="nav-link" data-scroll-target="#john-tukey-19152000"><span class="header-section-number">1.3.5</span> John Tukey (1915–2000)</a></li>
-  <li><a href="#peter-mccullagh-1952-john-nelder-19342010" id="toc-peter-mccullagh-1952-john-nelder-19342010" class="nav-link" data-scroll-target="#peter-mccullagh-1952-john-nelder-19342010"><span class="header-section-number">1.3.6</span> Peter McCullagh (1952–) &amp; John Nelder (1934–2010)</a></li>
+  <li><a href="#antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809" id="toc-antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809" class="nav-link" data-scroll-target="#antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809"><span class="header-section-number">1.3.1</span> Antes do nome “regressão”: o ajuste por mínimos quadrados (1805–1809)</a></li>
+  <li><a href="#francis-galton-18221911-regressão-à-mediocridade-como-padrão-empírico-1886" id="toc-francis-galton-18221911-regressão-à-mediocridade-como-padrão-empírico-1886" class="nav-link" data-scroll-target="#francis-galton-18221911-regressão-à-mediocridade-como-padrão-empírico-1886"><span class="header-section-number">1.3.2</span> Francis Galton (1822–1911): regressão à mediocridade como padrão empírico (1886)</a></li>
+  <li><a href="#karl-pearson-18571936-formalização-matemática-da-regressão" id="toc-karl-pearson-18571936-formalização-matemática-da-regressão" class="nav-link" data-scroll-target="#karl-pearson-18571936-formalização-matemática-da-regressão"><span class="header-section-number">1.3.3</span> Karl Pearson (1857–1936): formalização matemática da regressão</a></li>
+  <li><a href="#udny-yule-18711951-regressão-múltipla-e-ampliação-do-escopo-aplicado" id="toc-udny-yule-18711951-regressão-múltipla-e-ampliação-do-escopo-aplicado" class="nav-link" data-scroll-target="#udny-yule-18711951-regressão-múltipla-e-ampliação-do-escopo-aplicado"><span class="header-section-number">1.3.4</span> Udny Yule (1871–1951): regressão múltipla e ampliação do escopo aplicado</a></li>
+  <li><a href="#ronald-a.-fisher-18901962-integração-com-inferência-e-planejamento-experimental" id="toc-ronald-a.-fisher-18901962-integração-com-inferência-e-planejamento-experimental" class="nav-link" data-scroll-target="#ronald-a.-fisher-18901962-integração-com-inferência-e-planejamento-experimental"><span class="header-section-number">1.3.5</span> Ronald A. Fisher (1890–1962): integração com inferência e planejamento experimental</a></li>
+  <li><a href="#jerzy-neyman-18941981-e-egon-s.-pearson-18951980-estrutura-formal-da-decisão-estatística" id="toc-jerzy-neyman-18941981-e-egon-s.-pearson-18951980-estrutura-formal-da-decisão-estatística" class="nav-link" data-scroll-target="#jerzy-neyman-18941981-e-egon-s.-pearson-18951980-estrutura-formal-da-decisão-estatística"><span class="header-section-number">1.3.6</span> Jerzy Neyman (1894–1981) e Egon S. Pearson (1895–1980): estrutura formal da decisão estatística</a></li>
+  <li><a href="#john-w.-tukey-19152000-análise-exploratória-e-diagnóstico" id="toc-john-w.-tukey-19152000-análise-exploratória-e-diagnóstico" class="nav-link" data-scroll-target="#john-w.-tukey-19152000-análise-exploratória-e-diagnóstico"><span class="header-section-number">1.3.7</span> John W. Tukey (1915–2000): análise exploratória e diagnóstico</a></li>
+  <li><a href="#nelder-wedderburn-mccullagh-generalização-estrutural-da-regressão" id="toc-nelder-wedderburn-mccullagh-generalização-estrutural-da-regressão" class="nav-link" data-scroll-target="#nelder-wedderburn-mccullagh-generalização-estrutural-da-regressão"><span class="header-section-number">1.3.8</span> Nelder, Wedderburn, McCullagh: generalização estrutural da regressão</a></li>
+  <li><a href="#regularização-e-expansão-computacional" id="toc-regularização-e-expansão-computacional" class="nav-link" data-scroll-target="#regularização-e-expansão-computacional"><span class="header-section-number">1.3.9</span> Regularização e expansão computacional</a></li>
+  <li><a href="#contexto-histórico-e-responsabilidade" id="toc-contexto-histórico-e-responsabilidade" class="nav-link" data-scroll-target="#contexto-histórico-e-responsabilidade"><span class="header-section-number">1.3.10</span> Contexto histórico e responsabilidade</a></li>
   </ul></li>
-  <li><a href="#o-contexto-histórico-eugenia" id="toc-o-contexto-histórico-eugenia" class="nav-link" data-scroll-target="#o-contexto-histórico-eugenia"><span class="header-section-number">1.4</span> O contexto histórico: eugenia</a></li>
-  <li><a href="#consolidação-da-regressão-como-pilar-da-estatística-moderna" id="toc-consolidação-da-regressão-como-pilar-da-estatística-moderna" class="nav-link" data-scroll-target="#consolidação-da-regressão-como-pilar-da-estatística-moderna"><span class="header-section-number">1.5</span> Consolidação da regressão como pilar da Estatística moderna</a></li>
-  <li><a href="#panorama-dos-modelos-de-regressão" id="toc-panorama-dos-modelos-de-regressão" class="nav-link" data-scroll-target="#panorama-dos-modelos-de-regressão"><span class="header-section-number">1.6</span> Panorama dos Modelos de Regressão</a></li>
+  <li><a href="#consolidação-como-pilar-da-estatística-moderna" id="toc-consolidação-como-pilar-da-estatística-moderna" class="nav-link" data-scroll-target="#consolidação-como-pilar-da-estatística-moderna"><span class="header-section-number">1.4</span> Consolidação como pilar da Estatística moderna</a></li>
+  <li><a href="#panorama-dos-modelos-de-regressão" id="toc-panorama-dos-modelos-de-regressão" class="nav-link" data-scroll-target="#panorama-dos-modelos-de-regressão"><span class="header-section-number">1.5</span> Panorama dos Modelos de Regressão</a></li>
   </ul>
 </nav>
     </div>
@@ -389,120 +421,133 @@ div.csl-indent {
 </section>
 <section id="breve-história-da-regressão" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="breve-história-da-regressão"><span class="header-section-number">1.3</span> Breve História da Regressão</h2>
-<p>A regressão, como hoje conhecemos, é fruto de mais de um século de evolução teórica e prática. Seu ponto de partida remonta ao século XIX, quando estudos empíricos sobre hereditariedade começaram a revelar regularidades que poderiam ser descritas matematicamente. Desde então, a regressão deixou de ser apenas uma curiosidade biológica e tornou-se um dos pilares da estatística moderna, sustentando análises nas mais diversas áreas.</p>
-<section id="francis-galton-18221911" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="francis-galton-18221911"><span class="header-section-number">1.3.1</span> Francis Galton (1822–1911)</h3>
+<p>A regressão, como hoje a entendemos, não surgiu como uma teoria pronta nem como um capítulo isolado da Estatística. Ela é resultado de um processo histórico longo, no qual problemas práticos de mensuração, questões científicas sobre relações entre variáveis e desenvolvimentos matemáticos em teoria dos erros foram progressivamente convergindo. Sua consolidação exigiu mais de um século de elaboração conceitual e técnica.</p>
+<p>Embora o termo “regressão” tenha sido introduzido apenas na segunda metade do século XIX, os fundamentos matemáticos que tornariam possível sua formalização remontam ao início do século XIX. A regressão nasce da interseção de três necessidades intelectuais: <strong>(i)</strong> resumir relações empíricas entre grandezas observáveis, <strong>(ii)</strong> estabelecer critérios objetivos para ajustar modelos a dados imperfeitos e <strong>(iii)</strong> desenvolver uma estrutura probabilística que permitisse quantificar a incerteza associada a esses ajustes.</p>
+<p>Essa história começa antes da biologia e antes da hereditariedade. Ela começa na astronomia e na geodésia.</p>
+<section id="antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809"><span class="header-section-number">1.3.1</span> Antes do nome “regressão”: o ajuste por mínimos quadrados (1805–1809)</h3>
+<p>No final do século XVIII e início do século XIX, astrônomos enfrentavam um problema técnico crucial: diferentes observações de um mesmo fenômeno, por exemplo, a posição de um planeta, produziam valores ligeiramente discrepantes. A questão não era apenas calcular uma média, mas determinar qual conjunto de parâmetros melhor explicava um sistema de observações inconsistentes.</p>
+<p>Em 1805, Adrien-Marie Legendre publica formalmente o método dos mínimos quadrados em <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>, propondo escolher os parâmetros que minimizam a soma dos quadrados dos resíduos <span class="citation" data-cites="legendre1805">(<a href="references.html#ref-legendre1805" role="doc-biblioref">Legendre, 1805</a>)</span>. A escolha da soma de quadrados produzia um sistema de equações lineares tratável analiticamente e possuía propriedades geométricas que tornavam o procedimento matematicamente consistente.</p>
+<p>Em 1809, Carl Friedrich Gauss publica <em>Theoria motus corporum coelestium</em>, no qual também utiliza o método e afirma empregá-lo desde 1795 <span class="citation" data-cites="gauss1809">(<a href="references.html#ref-gauss1809" role="doc-biblioref">Gauss, 1809</a>)</span>. Gauss relaciona o método à teoria dos erros e mostra que, sob hipóteses específicas de distribuição Normal para os erros, o estimador de mínimos quadrados coincide com o estimador de máxima verossimilhança. A reconstrução histórica desse desenvolvimento e da controvérsia de prioridade entre Legendre e Gauss é analisada detalhadamente em <span class="citation" data-cites="plackett1972">Plackett (<a href="references.html#ref-plackett1972" role="doc-biblioref">1972</a>)</span>, <span class="citation" data-cites="stigler1981">Stigler (<a href="references.html#ref-stigler1981" role="doc-biblioref">1981</a>)</span> e <span class="citation" data-cites="stigler1986">Stigler (<a href="references.html#ref-stigler1986" role="doc-biblioref">1986</a>)</span>.</p>
+<p>O debate sobre prioridade é parte constitutiva da história da Estatística. Mais importante do que a controvérsia é o fato de que, nesse período, o ajuste por mínimos quadrados passa a ser entendido como princípio sistemático para extrair estrutura de dados imperfeitos.</p>
+<p>Esse desenvolvimento foi decisivo. Quando, décadas depois, cientistas começaram a investigar relações entre características observáveis, como estatura, peso, rendimento agrícola ou desempenho fisiológico, já existia um método matemático capaz de ajustar uma linha média a um conjunto de pontos. O que ainda faltava era interpretar essa linha como descrição de uma relação entre variáveis.</p>
+<p>É nesse ponto que a história muda de domínio: da mecânica celeste para a variabilidade biológica e social.</p>
+</section>
+<section id="francis-galton-18221911-regressão-à-mediocridade-como-padrão-empírico-1886" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="francis-galton-18221911-regressão-à-mediocridade-como-padrão-empírico-1886"><span class="header-section-number">1.3.2</span> Francis Galton (1822–1911): regressão à mediocridade como padrão empírico (1886)</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/galton.jpg" class="img-fluid figure-img" style="width:35.0%"></p>
 <figcaption>Francis Galton</figcaption>
 </figure>
 </div>
-<p>A história da regressão começa com uma inquietação simples, quase doméstica. No final do século XIX, Francis Galton observava famílias inglesas e fazia uma pergunta que parecia trivial, mas que mudaria a estatística para sempre: <strong>filhos de pais muito altos serão igualmente altos?</strong></p>
-<p>Ao analisar dados de estaturas familiares, Galton percebeu algo intrigante: filhos de pais muito altos tendiam a ser altos, mas não tanto quanto seus pais; filhos de pais muito baixos tendiam a ser baixos, mas não tão baixos quanto seus progenitores. Havia uma força invisível puxando as medidas extremas de volta ao centro. Em 1886 (<span class="citation" data-cites="galton1886a">Galton (<a href="references.html#ref-galton1886a" role="doc-biblioref">1886a</a>)</span>; <span class="citation" data-cites="galton1886b">Galton (<a href="references.html#ref-galton1886b" role="doc-biblioref">1886b</a>)</span>), ele chamou esse fenômeno de <em>regression toward mediocrity</em>.</p>
-<p>Sem perceber completamente, Galton havia introduzido quatro pilares da regressão moderna:<br>
-uma variável resposta, uma variável explicativa, uma média condicional e uma variabilidade em torno dessa média.</p>
-<p>A matemática ainda era rudimentar. Mas a ideia estava lançada.</p>
+<p>Em 1886, Francis Galton publica dois trabalhos fundamentais sobre estatura e semelhança familiar <span class="citation" data-cites="galton1886a galton1886b">(<a href="references.html#ref-galton1886a" role="doc-biblioref">Galton, 1886a</a>, <a href="references.html#ref-galton1886b" role="doc-biblioref">1886b</a>)</span>. Ao comparar alturas de pais e filhos, identifica um padrão estatístico sistemático: descendentes de pais muito altos tendem, em média, a apresentar estaturas menos extremas; descendentes de pais muito baixos tendem, igualmente em média, a aproximar-se da média populacional.</p>
+<p>Galton denominou esse fenômeno <em>regression toward mediocrity</em>. O termo “mediocridade” referia-se à média estatística da população. O que estava sendo descrito era uma propriedade da associação imperfeita entre variáveis: quando a correlação é menor que um, valores extremos tendem a ser seguidos por valores menos extremos.</p>
+<p>Galton utilizou representações gráficas e procedimentos geométricos para estimar a tendência média. Não formulou, contudo, um procedimento geral de estimação com propriedades probabilísticas explicitadas nem apresentou uma teoria formal da regressão linear no sentido moderno. A formalização matemática rigorosa viria na geração seguinte.</p>
 </section>
-<section id="karl-pearson-18571936" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="karl-pearson-18571936"><span class="header-section-number">1.3.2</span> Karl Pearson (1857–1936)</h3>
+<section id="karl-pearson-18571936-formalização-matemática-da-regressão" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="karl-pearson-18571936-formalização-matemática-da-regressão"><span class="header-section-number">1.3.3</span> Karl Pearson (1857–1936): formalização matemática da regressão</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/pearson.jpg" class="img-fluid figure-img" style="width:35.0%"></p>
 <figcaption>Karl Pearson</figcaption>
 </figure>
 </div>
-<p>Se Galton teve a intuição, Karl Pearson deu forma matemática ao fenômeno. Discípulo e colaborador de Galton, Pearson transformou observações empíricas em estrutura formal. Desenvolveu o coeficiente de correlação linear, sistematizou métodos de ajuste e ajudou a fundar o primeiro departamento de estatística do mundo, no University College London. Criou também a revista <em>Biometrika</em>, marco na consolidação da estatística como disciplina científica.</p>
-<p>A regressão deixava de ser apenas uma regularidade observada em dados biológicos. Tornava-se parte da teoria da probabilidade e da estatística matemática (<span class="citation" data-cites="pearson1903">Pearson; Lee (<a href="references.html#ref-pearson1903" role="doc-biblioref">1903</a>)</span>).</p>
-<p>O que antes era descrição começava a se tornar método.</p>
+<p>Karl Pearson transforma a intuição de Galton em estrutura matemática sistemática. Em 1896, apresenta a formulação analítica da regressão linear simples e explicita sua relação com a covariância e a variância. A inclinação da reta de regressão passa a ser expressa como razão entre covariância e variância, estabelecendo formalmente a conexão entre regressão e correlação.</p>
+<p>Em 1903, Pearson e Alice Lee ampliam essa abordagem no estudo das leis de herança <span class="citation" data-cites="pearson1903">(<a href="references.html#ref-pearson1903" role="doc-biblioref">Pearson; Lee, 1903</a>)</span>, consolidando o uso da regressão como instrumento quantitativo no programa biométrico.</p>
+<p>Em 1901, juntamente com W. F. R. Weldon e com apoio de Galton, funda a revista <em>Biometrika</em>, central na institucionalização da Estatística como disciplina científica.</p>
 </section>
-<section id="ronald-a.-fisher-18901962" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="ronald-a.-fisher-18901962"><span class="header-section-number">1.3.3</span> Ronald A. Fisher (1890–1962)</h3>
+<section id="udny-yule-18711951-regressão-múltipla-e-ampliação-do-escopo-aplicado" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="udny-yule-18711951-regressão-múltipla-e-ampliação-do-escopo-aplicado"><span class="header-section-number">1.3.4</span> Udny Yule (1871–1951): regressão múltipla e ampliação do escopo aplicado</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/yule.jpg" class="img-fluid figure-img" style="width:35.0%"></p>
+<figcaption>Udny Yule</figcaption>
+</figure>
+</div>
+<p>Udny Yule contribuiu decisivamente para a sistematização da regressão múltipla e da correlação parcial <span class="citation" data-cites="yule1897 yule1907">(<a href="references.html#ref-yule1897" role="doc-biblioref">Yule, 1897</a>, <a href="references.html#ref-yule1907" role="doc-biblioref">1907</a>)</span>. Seus trabalhos ampliaram o uso das equações normais para contextos envolvendo múltiplas variáveis explicativas, favorecendo aplicações em demografia e ciências sociais.</p>
+<p>A regressão deixa de ser instrumento predominantemente biométrico e passa a integrar um conjunto mais amplo de métodos quantitativos aplicáveis a diversas áreas empíricas.</p>
+</section>
+<section id="ronald-a.-fisher-18901962-integração-com-inferência-e-planejamento-experimental" class="level3" data-number="1.3.5">
+<h3 data-number="1.3.5" class="anchored" data-anchor-id="ronald-a.-fisher-18901962-integração-com-inferência-e-planejamento-experimental"><span class="header-section-number">1.3.5</span> Ronald A. Fisher (1890–1962): integração com inferência e planejamento experimental</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/fisher.jpg" class="img-fluid figure-img" style="width:35.0%"></p>
 <figcaption>Ronald Fisher</figcaption>
 </figure>
 </div>
-<p>Nas décadas seguintes, a estatística enfrentava um novo desafio: não bastava ajustar curvas; era preciso decidir. Ronald A. Fisher foi o arquiteto dessa virada. Na década de 1920, incorporou fundamentos de inferência à regressão e redefiniu o papel da estatística na ciência.</p>
-<p>Com Fisher surgem a análise de variância (ANOVA), o método da máxima verossimilhança e os princípios modernos de planejamento experimental. A regressão passa a permitir testar hipóteses, construir intervalos de confiança e quantificar incertezas.</p>
-<p>A técnica deixa de ser apenas descritiva. Torna-se ferramenta de decisão científica.</p>
+<p>Ronald A. Fisher não cria a regressão linear, mas redefine seu estatuto científico ao integrá-la explicitamente ao arcabouço inferencial moderno. Em <em>Statistical Methods for Research Workers</em> (1925) <span class="citation" data-cites="fisher1925">(<a href="references.html#ref-fisher1925" role="doc-biblioref">Fisher, 1925</a>)</span>, sistematiza procedimentos de teste aplicáveis a modelos lineares. Em <em>The Design of Experiments</em> (1935) <span class="citation" data-cites="fisher1935">(<a href="references.html#ref-fisher1935" role="doc-biblioref">Fisher, 1935</a>)</span>, estabelece princípios de randomização e planejamento experimental que estruturam a interpretação causal.</p>
+<p>A decomposição da variabilidade já estava implícita na teoria dos mínimos quadrados. O mérito de Fisher foi sistematizar essa decomposição no contexto da análise de variância e integrá-la a um sistema coerente de inferência. A regressão passa a ser entendida como modelo probabilístico com hipóteses explícitas sobre estrutura de erro e distribuição.</p>
 </section>
-<section id="jerzy-neyman-18941981-egon-pearson-18951980" class="level3" data-number="1.3.4">
-<h3 data-number="1.3.4" class="anchored" data-anchor-id="jerzy-neyman-18941981-egon-pearson-18951980"><span class="header-section-number">1.3.4</span> Jerzy Neyman (1894–1981) &amp; Egon Pearson (1895–1980)</h3>
+<section id="jerzy-neyman-18941981-e-egon-s.-pearson-18951980-estrutura-formal-da-decisão-estatística" class="level3" data-number="1.3.6">
+<h3 data-number="1.3.6" class="anchored" data-anchor-id="jerzy-neyman-18941981-e-egon-s.-pearson-18951980-estrutura-formal-da-decisão-estatística"><span class="header-section-number">1.3.6</span> Jerzy Neyman (1894–1981) e Egon S. Pearson (1895–1980): estrutura formal da decisão estatística</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/neyman_pearson.jpg" class="img-fluid figure-img" style="width:55.0%"></p>
 <figcaption>Jerzy Neyman &amp; Egon Pearson</figcaption>
 </figure>
 </div>
-<p>A década de 1930 marca outro salto conceitual. Jerzy Neyman e Egon Pearson, filho de Karl Pearson, estruturam formalmente os testes de hipóteses. Definem os erros do tipo I e tipo II, introduzem critérios de decisão e consolidam o conceito de intervalo de confiança.</p>
-<p>A regressão, agora, não apenas estima relações: ela fornece regras claras para aceitar ou rejeitar hipóteses. A incerteza passa a ser quantificada de maneira sistemática.</p>
-<p>O método ganha rigor lógico.</p>
+<p>Em 1933, Neyman e Egon Pearson estabelecem a teoria formal dos testes de hipóteses, definindo erros do tipo I e tipo II e critérios baseados em propriedades de longo prazo. Embora sua contribuição não seja específica da regressão, ela molda profundamente sua prática.</p>
+<p>A partir desse arcabouço, estimativas em modelos lineares passam a ser acompanhadas por testes com propriedades explicitamente definidas. Posteriormente, Neyman introduz a formulação moderna de intervalos de confiança, completando a estrutura inferencial que passa a integrar naturalmente a análise de regressão.</p>
 </section>
-<section id="john-tukey-19152000" class="level3" data-number="1.3.5">
-<h3 data-number="1.3.5" class="anchored" data-anchor-id="john-tukey-19152000"><span class="header-section-number">1.3.5</span> John Tukey (1915–2000)</h3>
+<section id="john-w.-tukey-19152000-análise-exploratória-e-diagnóstico" class="level3" data-number="1.3.7">
+<h3 data-number="1.3.7" class="anchored" data-anchor-id="john-w.-tukey-19152000-análise-exploratória-e-diagnóstico"><span class="header-section-number">1.3.7</span> John W. Tukey (1915–2000): análise exploratória e diagnóstico</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/tukey.jpg" class="img-fluid figure-img" style="width:40.0%"></p>
 <figcaption>John Tukey</figcaption>
 </figure>
 </div>
-<p>Mas a estatística não evolui apenas por formalização. Na década de 1950, John Tukey propõe algo radical: antes de testar, é preciso explorar. Defende que os dados devem ser interrogados visualmente. Populariza gráficos de resíduos, diagnósticos e técnicas exploratórias.</p>
-<p>A regressão passa a ser acompanhada por perguntas práticas:<br>
-os pressupostos fazem sentido? há pontos influentes? o modelo realmente representa os dados?</p>
-<p>A estatística recupera o diálogo com a realidade empírica.</p>
+<p>Técnicas de inspeção de resíduos já eram conhecidas, mas John Tukey sistematiza a análise exploratória como etapa metodológica autônoma. Em <em>Exploratory Data Analysis</em> (1977) <span class="citation" data-cites="tukey1977">(<a href="references.html#ref-tukey1977" role="doc-biblioref">Tukey, 1977</a>)</span>, defende a distinção entre análise exploratória e confirmatória.</p>
+<p>No contexto da regressão, isso implica examinar resíduos, identificar não linearidades, heterocedasticidade e pontos influentes como parte integrante da modelagem. O diagnóstico deixa de ser etapa auxiliar e passa a constituir componente essencial do processo estatístico.</p>
 </section>
-<section id="peter-mccullagh-1952-john-nelder-19342010" class="level3" data-number="1.3.6">
-<h3 data-number="1.3.6" class="anchored" data-anchor-id="peter-mccullagh-1952-john-nelder-19342010"><span class="header-section-number">1.3.6</span> Peter McCullagh (1952–) &amp; John Nelder (1934–2010)</h3>
+<section id="nelder-wedderburn-mccullagh-generalização-estrutural-da-regressão" class="level3" data-number="1.3.8">
+<h3 data-number="1.3.8" class="anchored" data-anchor-id="nelder-wedderburn-mccullagh-generalização-estrutural-da-regressão"><span class="header-section-number">1.3.8</span> Nelder, Wedderburn, McCullagh: generalização estrutural da regressão</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/mccullagh_nelder.jpg" class="img-fluid figure-img" style="width:55.0%"></p>
 <figcaption>Peter McCullagh &amp; John Nelder</figcaption>
 </figure>
 </div>
-<p>Com o avanço da computação nas décadas de 1960 e 1970, a regressão amplia suas fronteiras. A álgebra matricial viabiliza modelos com múltiplos preditores, e a necessidade de analisar dados não normais torna-se evidente.</p>
-<p>Em 1983, McCullagh e Nelder publicam <em>Generalized Linear Models</em>, obra que sistematiza os Modelos Lineares Generalizados. A regressão deixa de ser restrita a variáveis contínuas normalmente distribuídas. Passa a modelar contagens, proporções, tempos de ocorrência.</p>
-<p>A ideia que nasceu da altura de pais e filhos expande-se para praticamente todos os campos científicos.</p>
-<p>A regressão não surgiu pronta. Foi construída por inquietações, formalizações, rupturas e expansões. Cada geração acrescentou uma camada: intuição, estrutura, inferência, decisão, diagnóstico e generalização.</p>
-<p>O que começou como uma pergunta sobre estatura tornou-se uma das ferramentas centrais da ciência moderna.</p>
+<p>Em 1972, Nelder e Wedderburn introduzem os Modelos Lineares Generalizados, ampliando a regressão para distribuições da família exponencial e funções de ligação apropriadas <span class="citation" data-cites="nelderwedderburn1972">(<a href="references.html#ref-nelderwedderburn1972" role="doc-biblioref">Nelder; Wedderburn, 1972</a>)</span>. Em 1983, McCullagh e Nelder sistematizam essa teoria em <em>Generalized Linear Models</em> <span class="citation" data-cites="mccullaghnelder1989">(<a href="references.html#ref-mccullaghnelder1989" role="doc-biblioref">McCullagh; Nelder, 1989</a>)</span>.</p>
+<p>A estrutura central permanece a modelagem da média condicional, mas o arcabouço probabilístico torna-se mais geral.</p>
+</section>
+<section id="regularização-e-expansão-computacional" class="level3" data-number="1.3.9">
+<h3 data-number="1.3.9" class="anchored" data-anchor-id="regularização-e-expansão-computacional"><span class="header-section-number">1.3.9</span> Regularização e expansão computacional</h3>
+<p>Em 1970, Hoerl e Kennard propõem a ridge regression como solução para problemas de colinearidade e instabilidade numérica em sistemas não ortogonais <span class="citation" data-cites="hoerlkennard1970">(<a href="references.html#ref-hoerlkennard1970" role="doc-biblioref">Hoerl; Kennard, 1970</a>)</span>. O objetivo original não era a alta dimensionalidade no sentido contemporâneo, mas a redução da variância do estimador sob multicolinearidade.</p>
+<p>Em 1996, Tibshirani introduz o LASSO <span class="citation" data-cites="tibshirani1996">(<a href="references.html#ref-tibshirani1996" role="doc-biblioref">Tibshirani, 1996</a>)</span>, incorporando penalização <span class="math inline">\(\ell_1\)</span> e seleção automática de variáveis, ampliando o alcance da regressão para cenários com grande número de preditores.</p>
+</section>
+<section id="contexto-histórico-e-responsabilidade" class="level3" data-number="1.3.10">
+<h3 data-number="1.3.10" class="anchored" data-anchor-id="contexto-histórico-e-responsabilidade"><span class="header-section-number">1.3.10</span> Contexto histórico e responsabilidade</h3>
+<p>Parte do desenvolvimento inicial da biometria esteve associada a ideias eugenistas. Galton cunhou o termo “eugenia” em 1883. Pearson e Fisher expressaram posições alinhadas a esse movimento em determinados momentos históricos.</p>
+<p>O reconhecimento desse contexto é necessário para compreender o ambiente intelectual no qual a Estatística se institucionalizou. O método estatístico, entretanto, não é intrinsecamente vinculado a tais agendas. Sua aplicação exige responsabilidade ética e consciência histórica.</p>
 </section>
 </section>
-<section id="o-contexto-histórico-eugenia" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="o-contexto-histórico-eugenia"><span class="header-section-number">1.4</span> O contexto histórico: eugenia</h2>
-<p>É necessário reconhecer que parte do desenvolvimento inicial da estatística ocorreu em um contexto marcado por ideias eugenistas. Francis Galton cunhou o termo “eugenia” em 1883. A eugenia defendia o “melhoramento” da raça humana por meio de seleção artificial.</p>
-<p>Karl Pearson foi defensor ativo dessas ideias e dirigiu o laboratório Francis Galton para a Eugenia Nacional na University College London. Ronald Fisher também expressou posições eugenistas em seus escritos.</p>
-<p>As ideias eugenistas foram posteriormente utilizadas para justificar políticas discriminatórias e violações graves de direitos humanos no século XX. Após a Segunda Guerra Mundial, consolidou-se um consenso internacional de condenação à eugenia como ideologia racista e incompatível com princípios éticos fundamentais.</p>
-<p>Essa contextualização histórica não diminui a importância dos avanços metodológicos produzidos por esses autores. Pelo contrário, reforça a necessidade de compreender que métodos estatísticos são ferramentas cujo uso exige responsabilidade ética.</p>
-<p>A regressão é instrumento científico poderoso. O modo como é utilizada depende do pesquisador.</p>
-</section>
-<section id="consolidação-da-regressão-como-pilar-da-estatística-moderna" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="consolidação-da-regressão-como-pilar-da-estatística-moderna"><span class="header-section-number">1.5</span> Consolidação da regressão como pilar da Estatística moderna</h2>
-<p>A trajetória da regressão pode ser compreendida como uma sequência evolutiva:</p>
+<section id="consolidação-como-pilar-da-estatística-moderna" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="consolidação-como-pilar-da-estatística-moderna"><span class="header-section-number">1.4</span> Consolidação como pilar da Estatística moderna</h2>
+<p>A regressão consolidou-se por sucessivas ampliações conceituais:</p>
 <ol type="1">
-<li>Observação empírica da regressão à média (Galton);<br>
+<li>Ajuste sistemático sob erro observacional;<br>
 </li>
-<li>Formalização matemática e correlação (Pearson);<br>
+<li>Identificação empírica da relação média condicional;<br>
 </li>
-<li>Inferência e planejamento experimental (Fisher);<br>
+<li>Formalização matemática e desenvolvimento da regressão múltipla;<br>
 </li>
-<li>Estrutura formal de testes de hipóteses (Neyman-Pearson);<br>
+<li>Inserção no arcabouço inferencial;<br>
 </li>
-<li>Diagnóstico e análise exploratória (Tukey);<br>
+<li>Consolidação do diagnóstico e da análise exploratória;<br>
 </li>
-<li>Generalização para modelos lineares generalizados (McCullagh e Nelder);<br>
+<li>Generalização probabilística;<br>
 </li>
-<li>Regularização moderna (Ridge e LASSO);<br>
-</li>
-<li>Integração com ciência de dados e aprendizagem de máquina.</li>
+<li>Regularização e expansão computacional.</li>
 </ol>
-<p>Apesar das transformações metodológicas, a pergunta central permanece:</p>
+<p>Apesar das transformações metodológicas profundas, permanece a mesma questão fundamental:</p>
 <blockquote class="blockquote">
-<p>Qual é a relação média entre uma variável resposta e seus preditores?</p>
+<p>Qual é a estrutura da relação média entre uma variável resposta e seus preditores, e como quantificar a incerteza associada a essa descrição?</p>
 </blockquote>
 </section>
-<section id="panorama-dos-modelos-de-regressão" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="panorama-dos-modelos-de-regressão"><span class="header-section-number">1.6</span> Panorama dos Modelos de Regressão</h2>
+<section id="panorama-dos-modelos-de-regressão" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="panorama-dos-modelos-de-regressão"><span class="header-section-number">1.5</span> Panorama dos Modelos de Regressão</h2>
 <p>Tendo em mente os objetivos, estruturas e suposições discutidos anteriormente, é possível visualizar o <strong>panorama dos modelos de regressão</strong> que compõem esta disciplina. A ideia é seguir uma trajetória progressiva: partir de modelos simples e intuitivos, que permitem enxergar diretamente a relação entre duas variáveis, e avançar gradualmente para estruturas mais sofisticadas, capazes de lidar com múltiplos fatores, respostas não normais e bases de dados complexas.</p>
 <p>O percurso do curso está organizado em quatro blocos principais:</p>
 <ol type="1">
@@ -519,17 +564,59 @@ os pressupostos fazem sentido? há pontos influentes? o modelo realmente represe
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-fisher1925" class="csl-entry" role="listitem">
+FISHER, Ronald A. <strong>Statistical Methods for Research Workers</strong>. Edinburgh: Oliver; Boyd, 1925.
+</div>
+<div id="ref-fisher1935" class="csl-entry" role="listitem">
+FISHER, Ronald A. <strong>The Design of Experiments</strong>. Edinburgh: Oliver; Boyd, 1935.
+</div>
 <div id="ref-galton1886a" class="csl-entry" role="listitem">
 GALTON, Francis. Regression towards mediocrity in hereditary stature. <strong>Journal of the Anthropological Institute</strong>, v. 15, p. 246–263, a1886.
 </div>
 <div id="ref-galton1886b" class="csl-entry" role="listitem">
 GALTON, Francis. Family likeness in stature. <strong>Proceedings of the Royal Society of London</strong>, v. 40, p. 42–72, b1886.
 </div>
+<div id="ref-gauss1809" class="csl-entry" role="listitem">
+GAUSS, Carl Friedrich. <strong>Theoria motus corporum coelestium in sectionibus conicis solem ambientium</strong>. Hamburg: Perthes et Besser, 1809.
+</div>
+<div id="ref-hoerlkennard1970" class="csl-entry" role="listitem">
+HOERL, Arthur E.; KENNARD, Robert W. <a href="https://doi.org/10.1080/00401706.1970.10488634">Ridge Regression: Biased Estimation for Nonorthogonal Problems</a>. <strong>Technometrics</strong>, v. 12, n. 1, p. 55–67, 1970.
+</div>
 <div id="ref-hoffmann2016" class="csl-entry" role="listitem">
 HOFFMANN, Rodolfo. <strong><a href="https://doi.org/10.11606/9788592105709">Análise de Regressão: Uma Introdução à Econometria</a></strong>. 5. ed. <em>[S.l.]</em>: Portal de Livros Abertos da USP, 2016.
 </div>
+<div id="ref-legendre1805" class="csl-entry" role="listitem">
+LEGENDRE, Adrien-Marie. <strong>Nouvelles méthodes pour la détermination des orbites des comètes</strong>. Paris: F. Didot, 1805.
+</div>
+<div id="ref-mccullaghnelder1989" class="csl-entry" role="listitem">
+MCCULLAGH, Peter; NELDER, John A. <strong>Generalized Linear Models</strong>. 2. ed. London: Chapman; Hall, 1989.
+</div>
+<div id="ref-nelderwedderburn1972" class="csl-entry" role="listitem">
+NELDER, John A.; WEDDERBURN, Robert W. M. <a href="https://doi.org/10.2307/2344614">Generalized Linear Models</a>. <strong>Journal of the Royal Statistical Society. Series A (General)</strong>, v. 135, n. 3, p. 370–384, 1972.
+</div>
 <div id="ref-pearson1903" class="csl-entry" role="listitem">
 PEARSON, Karl; LEE, Alice. On the laws of inheritance. <strong>Biometrika</strong>, v. 2, p. 357–462, 1903.
+</div>
+<div id="ref-plackett1972" class="csl-entry" role="listitem">
+PLACKETT, Robin L. <a href="https://doi.org/10.1093/biomet/59.2.239">Studies in the History of Probability and Statistics. XXIX. The Discovery of the Method of Least Squares</a>. <strong>Biometrika</strong>, v. 59, n. 2, p. 239–251, 1972.
+</div>
+<div id="ref-stigler1981" class="csl-entry" role="listitem">
+STIGLER, Stephen M. <a href="https://doi.org/10.1214/aos/1176345451">Gauss and the Invention of Least Squares</a>. <strong>The Annals of Statistics</strong>, v. 9, n. 3, p. 465–474, 1981.
+</div>
+<div id="ref-stigler1986" class="csl-entry" role="listitem">
+STIGLER, Stephen M. <strong>The History of Statistics: The Measurement of Uncertainty before 1900</strong>. Cambridge, MA: Harvard University Press, 1986.
+</div>
+<div id="ref-tibshirani1996" class="csl-entry" role="listitem">
+TIBSHIRANI, Robert. <a href="https://doi.org/10.1111/j.2517-6161.1996.tb02080.x">Regression Shrinkage and Selection via the Lasso</a>. <strong>Journal of the Royal Statistical Society: Series B (Methodological)</strong>, v. 58, n. 1, p. 267–288, 1996.
+</div>
+<div id="ref-tukey1977" class="csl-entry" role="listitem">
+TUKEY, John W. <strong>Exploratory Data Analysis</strong>. Reading, MA: Addison-Wesley, 1977.
+</div>
+<div id="ref-yule1897" class="csl-entry" role="listitem">
+YULE, George Udny. On the Theory of Correlation. <strong>Journal of the Royal Statistical Society</strong>, v. 60, n. 4, p. 812–854, 1897.
+</div>
+<div id="ref-yule1907" class="csl-entry" role="listitem">
+YULE, George Udny. On the Theory of Correlation for any Number of Variables, Treated by a New System of Notation. <strong>Proceedings of the Royal Society of London. Series A</strong>, v. 79, p. 182–193, 1907.
 </div>
 </div>
 </section>
