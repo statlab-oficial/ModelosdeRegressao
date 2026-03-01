@@ -386,7 +386,7 @@ window.Quarto = {
 <li><strong>Transparência:</strong> todo procedimento deve ser reprodutível e documentado (log de alterações + dicionário de variáveis).</li>
 <li><strong>Consistência:</strong> mantenha coerência entre bases, períodos e versões (nomes de variáveis, unidades de medida, tipos e categorias).</li>
 <li><strong>Domínio do contexto:</strong> conheça o fenômeno estudado antes de decidir se determinado valor é erro, exceção legítima ou padrão relevante.</li>
-<li><strong>Validação cruzada:</strong> confirme decisões de tratamento por mais de uma ótica — estatística e substantiva. <span class="citation" data-cites="pointblank_pkg">(<a href="references.html#ref-pointblank_pkg" role="doc-biblioref">Iannone, 2024</a>)</span></li>
+<li><strong>Validação cruzada:</strong> confirme decisões de tratamento por mais de uma ótica — estatística e substantiva. <span class="citation" data-cites="pointblank_pkg">(<a href="#ref-pointblank_pkg" role="doc-biblioref">Iannone, 2024</a>)</span></li>
 </ol>
 <p><strong>Ferramentas e escopo</strong></p>
 <ul>
@@ -406,7 +406,7 @@ window.Quarto = {
 <li><p><strong>Acentos e caracteres estranhos</strong>: colunas aparecem como <code>ação</code>, <code>aÃ§Ã£o</code> ou nomes quebrados.<br>
 <strong>Tratamento</strong>: ajustar o <code>encoding</code> (ex.: UTF-8 vs latin-1) e padronizar nomes de variáveis.</p></li>
 <li><p><strong>Tipos incorretos</strong>: idades lidas como texto (<code>"21"</code>), datas como strings (<code>"2025-10-24"</code>) e variáveis 0/1 lidas como numéricas quando deveriam ser categóricas. <strong>Tratamento</strong>: converter explicitamente para os tipos adequados (numérico, data/hora, fator) e validar o resultado.</p></li>
-<li><p><strong>Códigos de “faltante” disfarçados</strong>: valores como <code>999</code>, <code>-1</code>, <code>NA</code>, <code>""</code> representam ausência, mas estão misturados com dados válidos. <span class="citation" data-cites="tidyr_missing">(<a href="references.html#ref-tidyr_missing" role="doc-biblioref">Wickham et al., 2024</a>)</span><br>
+<li><p><strong>Códigos de “faltante” disfarçados</strong>: valores como <code>999</code>, <code>-1</code>, <code>NA</code>, <code>""</code> representam ausência, mas estão misturados com dados válidos. <span class="citation" data-cites="tidyr_missing">(<a href="#ref-tidyr_missing" role="doc-biblioref">Wickham et al., 2024</a>)</span><br>
 <strong>Tratamento</strong>: recodificar para ausentes padronizados e decidir entre excluir, imputar ou manter com justificativa.</p></li>
 <li><p><strong>Duplicatas e chaves quebradas</strong>: a mesma unidade amostral aparece repetida; totais e médias ficam incorretos.<br>
 <strong>Tratamento</strong>: identificar chaves únicas, remover ou conciliar duplicatas e documentar a decisão.</p></li>
@@ -429,7 +429,7 @@ window.Quarto = {
 <li><strong>Defina o objetivo e o tipo de resposta</strong>: contínua, binária ou contagem; confirme que a variável resposta é compatível com o modelo pretendido.</li>
 <li><strong>Garanta leitura correta</strong>: verifique separador, encoding e símbolo decimal; confirme que variáveis numéricas não foram importadas como texto.</li>
 <li><strong>Acerte tipos e unidades</strong>: converta datas, inteiros e reais; padronize unidades e nomes de variáveis.</li>
-<li><strong>Mapeie e trate dados faltantes</strong>: identifique <code>NA</code>, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. <span class="citation" data-cites="tidyr_missing">(<a href="references.html#ref-tidyr_missing" role="doc-biblioref">Wickham et al., 2024</a>)</span></li>
+<li><strong>Mapeie e trate dados faltantes</strong>: identifique <code>NA</code>, vazios e códigos artificiais (ex.: 999); decida entre excluir, imputar ou manter com justificativa. <span class="citation" data-cites="tidyr_missing">(<a href="#ref-tidyr_missing" role="doc-biblioref">Wickham et al., 2024</a>)</span></li>
 <li><strong>Elimine inconsistências</strong>: remova ou una duplicatas, valide chaves, corrija valores impossíveis.</li>
 <li><strong>Cuide de outliers</strong>: identifique pontos extremos; corrija, transforme ou mantenha. Todas as ações com outliers devem ser realizadas com justificativa documentada.</li>
 <li><strong>Codifique variáveis qualitativas</strong>: unifique rótulos, defina categoria de referência e evite colinearidade perfeita na matriz de projeto.</li>
@@ -449,8 +449,8 @@ window.Quarto = {
 <p><strong>Cartões de decisão</strong></p>
 <ul>
 <li><p><strong>Faltantes:</strong><br>
-Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? <span class="citation" data-cites="little2019">(<a href="references.html#ref-little2019" role="doc-biblioref">Little; Rubin, 2019</a>)</span><br>
-→ excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. <span class="citation" data-cites="recipes_impute mice_cran">(<a href="references.html#ref-mice_cran" role="doc-biblioref">Buuren; Groothuis-Oudshoorn, 2024</a>; <a href="references.html#ref-recipes_impute" role="doc-biblioref">Kuhn et al., 2024</a>)</span></p></li>
+Qual a proporção? A variável é essencial? Qual o mecanismo provável (MCAR/MAR/MNAR)? <span class="citation" data-cites="little2019">(<a href="#ref-little2019" role="doc-biblioref">Little; Rubin, 2019</a>)</span><br>
+→ excluir / imputar (média, mediana, por grupo, métodos múltiplos) / manter com justificativa. <span class="citation" data-cites="recipes_impute mice_cran">(<a href="#ref-mice_cran" role="doc-biblioref">Buuren; Groothuis-Oudshoorn, 2024</a>; <a href="#ref-recipes_impute" role="doc-biblioref">Kuhn et al., 2024</a>)</span></p></li>
 <li><p><strong>Outliers:</strong><br>
 Erro de digitação ou unidade? Valor plausível no domínio?<br>
 → corrigir / winsorizar / transformar / manter e justificar.</p></li>
@@ -467,7 +467,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <p>Ler corretamente um arquivo de dados (formato, delimitador, encoding, símbolo decimal) é a primeira barreira contra erros que podem comprometer toda a análise. Uma leitura incorreta pode fazer com que números sejam interpretados como texto, datas como caracteres ou colunas inteiras sejam deslocadas. Esses problemas, se não detectados no início, propagam-se até a modelagem e podem invalidar inferências.</p>
 <p>Em regressão, erros de tipagem e leitura afetam diretamente a construção da matriz de projeto <span class="math inline">\(\mathbf{X}\)</span> e da variável resposta <span class="math inline">\(\mathbf{y}\)</span>. Portanto, esta etapa é estrutural, não meramente operacional.</p>
 <p><strong>Conexões com a literatura e boas práticas</strong></p>
-<p>Autores como <span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span> e <span class="citation" data-cites="sheather2009">Sheather (<a href="references.html#ref-sheather2009" role="doc-biblioref">2009</a>)</span> enfatizam que a qualidade dos dados influencia diretamente as estimativas, testes e intervalos de confiança. Essa etapa integra o que se denomina <strong>análise exploratória de dados (AED)</strong>: conhecer o material empírico antes de ajustar qualquer modelo.</p>
+<p>Autores como <span class="citation" data-cites="charnet2008">Charnet et al. (<a href="#ref-charnet2008" role="doc-biblioref">2008</a>)</span> e <span class="citation" data-cites="sheather2009">Sheather (<a href="#ref-sheather2009" role="doc-biblioref">2009</a>)</span> enfatizam que a qualidade dos dados influencia diretamente as estimativas, testes e intervalos de confiança. Essa etapa integra o que se denomina <strong>análise exploratória de dados (AED)</strong>: conhecer o material empírico antes de ajustar qualquer modelo.</p>
 <p>Explorar não é modelar, é compreender a estrutura do dado.</p>
 <p><strong>Funções úteis no R</strong></p>
 <p>Pacotes e funções frequentemente utilizados nessa etapa incluem:</p>
@@ -521,7 +521,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <section id="estrutura-e-tipagem-das-variáveis" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="estrutura-e-tipagem-das-variáveis"><span class="header-section-number">17.2</span> Estrutura e tipagem das variáveis</h2>
 <p>A estrutura e o tipo das variáveis determinam como a matriz de projeto <span class="math inline">\(\mathbf{X}\)</span> será construída. Uma tipagem incorreta não é apenas um erro técnico: ela altera o significado estatístico do modelo, pode introduzir colinearidade artificial e comprometer estimativas, testes e interpretações.</p>
-<p>De acordo com <span class="citation" data-cites="sheather2009">Sheather (<a href="references.html#ref-sheather2009" role="doc-biblioref">2009</a>)</span>, a correta identificação do tipo de cada variável é condição essencial para que o modelo represente adequadamente a relação entre preditores e resposta. Uma variável categórica tratada como numérica impõe uma estrutura inexistente; uma variável numérica tratada como categórica multiplica desnecessariamente parâmetros.</p>
+<p>De acordo com <span class="citation" data-cites="sheather2009">Sheather (<a href="#ref-sheather2009" role="doc-biblioref">2009</a>)</span>, a correta identificação do tipo de cada variável é condição essencial para que o modelo represente adequadamente a relação entre preditores e resposta. Uma variável categórica tratada como numérica impõe uma estrutura inexistente; uma variável numérica tratada como categórica multiplica desnecessariamente parâmetros.</p>
 <p>Em regressão, a tipagem define como cada coluna entra em <span class="math inline">\(\mathbf{X}\)</span>: como valor contínuo, como conjunto de dummies ou como transformação temporal.</p>
 <p><strong>Ferramentas R úteis</strong></p>
 <p>Funções base do R:</p>
@@ -586,7 +586,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <li>Imputar a variável resposta sem justificativa metodológica.</li>
 </ul>
 <p><strong>Sugestões da literatura</strong></p>
-<p>Segundo <span class="citation" data-cites="little2019">Little; Rubin (<a href="references.html#ref-little2019" role="doc-biblioref">2019</a>)</span>, o tratamento adequado depende do mecanismo de ausência:</p>
+<p>Segundo <span class="citation" data-cites="little2019">Little; Rubin (<a href="#ref-little2019" role="doc-biblioref">2019</a>)</span>, o tratamento adequado depende do mecanismo de ausência:</p>
 <ul>
 <li><strong>MCAR (Missing Completely At Random)</strong>: ausência independente de variáveis observadas e não observadas.</li>
 <li><strong>MAR (Missing At Random)</strong>: ausência depende apenas de variáveis observadas.</li>
@@ -637,8 +637,8 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <li>Transformar a variável resposta sem considerar a nova interpretação dos coeficientes.</li>
 <li>Ignorar a possibilidade de que o ponto seja informativo para o fenômeno estudado.</li>
 </ul>
-<p>Segundo <span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span> e <span class="citation" data-cites="sheather2009">Sheather (<a href="references.html#ref-sheather2009" role="doc-biblioref">2009</a>)</span>, valores extremos podem distorcer estimativas, ampliar variâncias e comprometer testes de hipóteses.</p>
-<p><span class="citation" data-cites="barnett1994">Barnett; Lewis (<a href="references.html#ref-barnett1994" role="doc-biblioref">1994</a>)</span> oferecem fundamentos formais para detecção de outliers em análises univariadas e multivariadas, distinguindo entre:</p>
+<p>Segundo <span class="citation" data-cites="charnet2008">Charnet et al. (<a href="#ref-charnet2008" role="doc-biblioref">2008</a>)</span> e <span class="citation" data-cites="sheather2009">Sheather (<a href="#ref-sheather2009" role="doc-biblioref">2009</a>)</span>, valores extremos podem distorcer estimativas, ampliar variâncias e comprometer testes de hipóteses.</p>
+<p><span class="citation" data-cites="barnett1994">Barnett; Lewis (<a href="#ref-barnett1994" role="doc-biblioref">1994</a>)</span> oferecem fundamentos formais para detecção de outliers em análises univariadas e multivariadas, distinguindo entre:</p>
 <ul>
 <li>Observações extremas na distribuição marginal;</li>
 <li>Pontos de alta alavancagem (leverage);</li>
@@ -679,9 +679,9 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <h2 data-number="17.5" class="anchored" data-anchor-id="padronização-e-transformações-numéricas"><span class="header-section-number">17.5</span> Padronização e transformações numéricas</h2>
 <p>Padronizar variáveis numéricas torna os preditores comparáveis em escala e pode melhorar a estabilidade numérica de procedimentos de estimação. Transformações adequadas, por sua vez, reduzem assimetria, estabilizam variância e facilitam interpretações coerentes com o fenômeno estudado.</p>
 <p>Em regressão linear clássica, a padronização não altera o ajuste global do modelo nem o <span class="math inline">\(R^2\)</span>, mas modifica a escala dos coeficientes e sua interpretação. Já em métodos penalizados (Ridge e LASSO), a padronização é praticamente indispensável.</p>
-<p><span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span> ressaltam que variáveis em escalas muito distintas podem gerar instabilidade numérica e dificultar a comparação entre efeitos.</p>
-<p><span class="citation" data-cites="sheather2009">Sheather (<a href="references.html#ref-sheather2009" role="doc-biblioref">2009</a>)</span> destaca que reescalar variáveis pode facilitar a interpretação de coeficientes em regressões múltiplas, especialmente quando as unidades originais são muito grandes ou muito pequenas.</p>
-<p><span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="references.html#ref-montgomery2021" role="doc-biblioref">2021</a>)</span> enfatizam que diferenças extremas de magnitude entre covariáveis podem afetar diagnósticos e procedimentos computacionais.</p>
+<p><span class="citation" data-cites="charnet2008">Charnet et al. (<a href="#ref-charnet2008" role="doc-biblioref">2008</a>)</span> ressaltam que variáveis em escalas muito distintas podem gerar instabilidade numérica e dificultar a comparação entre efeitos.</p>
+<p><span class="citation" data-cites="sheather2009">Sheather (<a href="#ref-sheather2009" role="doc-biblioref">2009</a>)</span> destaca que reescalar variáveis pode facilitar a interpretação de coeficientes em regressões múltiplas, especialmente quando as unidades originais são muito grandes ou muito pequenas.</p>
+<p><span class="citation" data-cites="montgomery2021">Montgomery; Peck; Vining (<a href="#ref-montgomery2021" role="doc-biblioref">2021</a>)</span> enfatizam que diferenças extremas de magnitude entre covariáveis podem afetar diagnósticos e procedimentos computacionais.</p>
 <p><strong>Ferramentas R</strong></p>
 <ul>
 <li><code>scale()</code> — padronização pelo z-score (média zero e desvio padrão um).</li>
@@ -694,7 +694,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <p><strong>Soluções recomendadas na literatura</strong></p>
 <ul>
 <li>Para variáveis altamente assimétricas, aplicar transformações logarítmicas pode aproximar a normalidade e reduzir heterocedasticidade.</li>
-<li>Para contagens moderadas, <span class="citation" data-cites="paula2004">Paula (<a href="references.html#ref-paula2004" role="doc-biblioref">2004</a>)</span> sugere transformação por raiz quadrada como alternativa simples.</li>
+<li>Para contagens moderadas, <span class="citation" data-cites="paula2004">Paula (<a href="#ref-paula2004" role="doc-biblioref">2004</a>)</span> sugere transformação por raiz quadrada como alternativa simples.</li>
 <li>Para distribuições fortemente assimétricas, considerar Box–Cox quando apropriado.</li>
 <li>Evitar misturar variáveis em escalas radicalmente diferentes sem padronização prévia.</li>
 </ul>
@@ -724,8 +724,8 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <p>Se todas as <span class="math inline">\(k\)</span> dummies forem incluídas juntamente com o intercepto, ocorre dependência linear exata, tornando <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> não invertível no caso clássico de MRLM.</p>
 <p>Portanto, a codificação correta não é apenas conveniência computacional, é condição para a existência do estimador de mínimos quadrados.</p>
 <p><strong>Fundamentação teórica</strong></p>
-<p><span class="citation" data-cites="charnet2008">Charnet et al. (<a href="references.html#ref-charnet2008" role="doc-biblioref">2008</a>)</span> destacam a importância da escolha da categoria de referência para interpretação dos coeficientes.</p>
-<p><span class="citation" data-cites="james2013">James et al. (<a href="references.html#ref-james2013" role="doc-biblioref">2013</a>)</span> discutem como alta cardinalidade pode gerar modelos instáveis e sobreajustados.</p>
+<p><span class="citation" data-cites="charnet2008">Charnet et al. (<a href="#ref-charnet2008" role="doc-biblioref">2008</a>)</span> destacam a importância da escolha da categoria de referência para interpretação dos coeficientes.</p>
+<p><span class="citation" data-cites="james2013">James et al. (<a href="#ref-james2013" role="doc-biblioref">2013</a>)</span> discutem como alta cardinalidade pode gerar modelos instáveis e sobreajustados.</p>
 <p>Para variáveis ordinais, a estrutura de ordenação pode ser incorporada explicitamente, evitando perda de informação.</p>
 <p><strong>Ferramentas R</strong></p>
 <ul>
@@ -757,13 +757,13 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <section id="verificação-de-condições-para-modelagem-linear" class="level2" data-number="17.7">
 <h2 data-number="17.7" class="anchored" data-anchor-id="verificação-de-condições-para-modelagem-linear"><span class="header-section-number">17.7</span> Verificação de condições para modelagem linear</h2>
 <p>Cumprir condições mínimas como variabilidade das covariáveis, ausência de colinearidade perfeita e tamanho amostral adequado (<span class="math inline">\(n &gt; p + 1\)</span>) é o que permite aplicar os resultados teóricos da regressão linear e múltipla com segurança.</p>
-<p>No modelo linear clássico, a existência do estimador de mínimos quadrados depende de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> ser invertível, o que exige que a matriz de projeto <span class="math inline">\(\mathbf{X}\)</span> tenha posto completo. Assim, esta verificação não é opcional — é estrutural. (<span class="citation" data-cites="searle2016">Searle (<a href="references.html#ref-searle2016" role="doc-biblioref">2016</a>)</span>)</p>
+<p>No modelo linear clássico, a existência do estimador de mínimos quadrados depende de <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> ser invertível, o que exige que a matriz de projeto <span class="math inline">\(\mathbf{X}\)</span> tenha posto completo. Assim, esta verificação não é opcional — é estrutural. (<span class="citation" data-cites="searle2016">Searle (<a href="#ref-searle2016" role="doc-biblioref">2016</a>)</span>)</p>
 <p>Essas checagens antecedem os diagnósticos formais e reduzem problemas posteriores na estimação e interpretação.</p>
 <p><strong>Ferramentas R úteis</strong></p>
 <ul>
 <li><code>cor()</code> ou pacote <code>corrr</code> — inspeção de associações entre preditores.</li>
 <li><code>qr()</code> ou <code>Matrix::rankMatrix()</code> — verificação do posto da matriz de projeto.</li>
-<li><code>car::vif()</code> — cálculo do fator de inflação da variância (VIF). (<span class="citation" data-cites="car_vif">Fox; Weisberg (<a href="references.html#ref-car_vif" role="doc-biblioref">2024</a>)</span>)</li>
+<li><code>car::vif()</code> — cálculo do fator de inflação da variância (VIF). (<span class="citation" data-cites="car_vif">Fox; Weisberg (<a href="#ref-car_vif" role="doc-biblioref">2024</a>)</span>)</li>
 <li><code>summary()</code> e inspeção de variância — identificação de variáveis constantes.</li>
 </ul>
 <p>Essas ferramentas ajudam a identificar:</p>
@@ -838,7 +838,7 @@ Toda decisão foi registrada no <strong>log de tratamento</strong>?</p></li>
 <section id="sumários-e-visualizações-exploratórias" class="level2" data-number="17.8">
 <h2 data-number="17.8" class="anchored" data-anchor-id="sumários-e-visualizações-exploratórias"><span class="header-section-number">17.8</span> Sumários e visualizações exploratórias</h2>
 <p>Explorar os dados antes da modelagem permite identificar padrões, inconsistências e relações estruturais que orientam decisões de limpeza, transformação e especificação do modelo.</p>
-<p>A visualização não substitui a modelagem, ela antecipa problemas e revela estruturas que podem afetar a construção de <span class="math inline">\(\mathbf{X}\)</span> e a escolha do modelo. (<span class="citation" data-cites="tufte2001">Tufte (<a href="references.html#ref-tufte2001" role="doc-biblioref">2001</a>)</span>)</p>
+<p>A visualização não substitui a modelagem, ela antecipa problemas e revela estruturas que podem afetar a construção de <span class="math inline">\(\mathbf{X}\)</span> e a escolha do modelo. (<span class="citation" data-cites="tufte2001">Tufte (<a href="#ref-tufte2001" role="doc-biblioref">2001</a>)</span>)</p>
 <p><strong>Ferramentas R</strong></p>
 <p>Funções e pacotes úteis nesta etapa:</p>
 <ul>
@@ -992,7 +992,7 @@ Formato de texto para dados estruturados em pares chave:valor (não será foco a
 Sequência organizada de passos de tratamento: leitura → limpeza → transformação → verificação → saída tratada.</p>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
 <div id="ref-barnett1994" class="csl-entry" role="listitem">
 BARNETT, Vic; LEWIS, Toby. <strong>Outliers in Statistical Data</strong>. 3. ed. Chichester: Wiley, 1994.
 </div>

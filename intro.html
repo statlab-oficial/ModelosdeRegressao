@@ -389,7 +389,7 @@ window.Quarto = {
 <p>Mais do que aprender procedimentos técnicos, o objetivo é desenvolver a capacidade de interpretar resultados, avaliar a adequação dos modelos e comunicar conclusões de forma clara. A ênfase está tanto na teoria quanto na prática, de modo que o estudante seja capaz de aplicar a modelagem estatística em contextos multidisciplinares.</p>
 <section id="a-centralidade-da-regressão" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="a-centralidade-da-regressão"><span class="header-section-number">1.1</span> A centralidade da regressão</h2>
-<p>A análise de regressão ocupa posição central na Estatística e, em especial, na Econometria. Como afirma <span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="references.html#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>:</p>
+<p>A análise de regressão ocupa posição central na Estatística e, em especial, na Econometria. Como afirma <span class="citation" data-cites="hoffmann2016">Hoffmann (<a href="#ref-hoffmann2016" role="doc-biblioref">2016</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>“A análise de regressão é o método mais importante da econometria.”</p>
 </blockquote>
@@ -427,8 +427,8 @@ window.Quarto = {
 <section id="antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="antes-do-nome-regressão-o-ajuste-por-mínimos-quadrados-18051809"><span class="header-section-number">1.3.1</span> Antes do nome “regressão”: o ajuste por mínimos quadrados (1805–1809)</h3>
 <p>No final do século XVIII e início do século XIX, astrônomos enfrentavam um problema técnico crucial: diferentes observações de um mesmo fenômeno, por exemplo, a posição de um planeta, produziam valores ligeiramente discrepantes. A questão não era apenas calcular uma média, mas determinar qual conjunto de parâmetros melhor explicava um sistema de observações inconsistentes.</p>
-<p>Em 1805, Adrien-Marie Legendre publica formalmente o método dos mínimos quadrados em <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>, propondo escolher os parâmetros que minimizam a soma dos quadrados dos resíduos <span class="citation" data-cites="legendre1805">(<a href="references.html#ref-legendre1805" role="doc-biblioref">Legendre, 1805</a>)</span>. A escolha da soma de quadrados produzia um sistema de equações lineares tratável analiticamente e possuía propriedades geométricas que tornavam o procedimento matematicamente consistente.</p>
-<p>Em 1809, Carl Friedrich Gauss publica <em>Theoria motus corporum coelestium</em>, no qual também utiliza o método e afirma empregá-lo desde 1795 <span class="citation" data-cites="gauss1809">(<a href="references.html#ref-gauss1809" role="doc-biblioref">Gauss, 1809</a>)</span>. Gauss relaciona o método à teoria dos erros e mostra que, sob hipóteses específicas de distribuição Normal para os erros, o estimador de mínimos quadrados coincide com o estimador de máxima verossimilhança. A reconstrução histórica desse desenvolvimento e da controvérsia de prioridade entre Legendre e Gauss é analisada detalhadamente em <span class="citation" data-cites="plackett1972">Plackett (<a href="references.html#ref-plackett1972" role="doc-biblioref">1972</a>)</span>, <span class="citation" data-cites="stigler1981">Stigler (<a href="references.html#ref-stigler1981" role="doc-biblioref">1981</a>)</span> e <span class="citation" data-cites="stigler1986">Stigler (<a href="references.html#ref-stigler1986" role="doc-biblioref">1986</a>)</span>.</p>
+<p>Em 1805, Adrien-Marie Legendre publica formalmente o método dos mínimos quadrados em <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>, propondo escolher os parâmetros que minimizam a soma dos quadrados dos resíduos <span class="citation" data-cites="legendre1805">(<a href="#ref-legendre1805" role="doc-biblioref">Legendre, 1805</a>)</span>. A escolha da soma de quadrados produzia um sistema de equações lineares tratável analiticamente e possuía propriedades geométricas que tornavam o procedimento matematicamente consistente.</p>
+<p>Em 1809, Carl Friedrich Gauss publica <em>Theoria motus corporum coelestium</em>, no qual também utiliza o método e afirma empregá-lo desde 1795 <span class="citation" data-cites="gauss1809">(<a href="#ref-gauss1809" role="doc-biblioref">Gauss, 1809</a>)</span>. Gauss relaciona o método à teoria dos erros e mostra que, sob hipóteses específicas de distribuição Normal para os erros, o estimador de mínimos quadrados coincide com o estimador de máxima verossimilhança. A reconstrução histórica desse desenvolvimento e da controvérsia de prioridade entre Legendre e Gauss é analisada detalhadamente em <span class="citation" data-cites="plackett1972">Plackett (<a href="#ref-plackett1972" role="doc-biblioref">1972</a>)</span>, <span class="citation" data-cites="stigler1981">Stigler (<a href="#ref-stigler1981" role="doc-biblioref">1981</a>)</span> e <span class="citation" data-cites="stigler1986">Stigler (<a href="#ref-stigler1986" role="doc-biblioref">1986</a>)</span>.</p>
 <p>O debate sobre prioridade é parte constitutiva da história da Estatística. Mais importante do que a controvérsia é o fato de que, nesse período, o ajuste por mínimos quadrados passa a ser entendido como princípio sistemático para extrair estrutura de dados imperfeitos.</p>
 <p>Esse desenvolvimento foi decisivo. Quando, décadas depois, cientistas começaram a investigar relações entre características observáveis, como estatura, peso, rendimento agrícola ou desempenho fisiológico, já existia um método matemático capaz de ajustar uma linha média a um conjunto de pontos. O que ainda faltava era interpretar essa linha como descrição de uma relação entre variáveis.</p>
 <p>É nesse ponto que a história muda de domínio: da mecânica celeste para a variabilidade biológica e social.</p>
@@ -441,7 +441,7 @@ window.Quarto = {
 <figcaption>Francis Galton</figcaption>
 </figure>
 </div>
-<p>Em 1886, Francis Galton publica dois trabalhos fundamentais sobre estatura e semelhança familiar <span class="citation" data-cites="galton1886a galton1886b">(<a href="references.html#ref-galton1886a" role="doc-biblioref">Galton, 1886a</a>, <a href="references.html#ref-galton1886b" role="doc-biblioref">1886b</a>)</span>. Ao comparar alturas de pais e filhos, identifica um padrão estatístico sistemático: descendentes de pais muito altos tendem, em média, a apresentar estaturas menos extremas; descendentes de pais muito baixos tendem, igualmente em média, a aproximar-se da média populacional.</p>
+<p>Em 1886, Francis Galton publica dois trabalhos fundamentais sobre estatura e semelhança familiar <span class="citation" data-cites="galton1886a galton1886b">(<a href="#ref-galton1886a" role="doc-biblioref">Galton, 1886a</a>, <a href="#ref-galton1886b" role="doc-biblioref">1886b</a>)</span>. Ao comparar alturas de pais e filhos, identifica um padrão estatístico sistemático: descendentes de pais muito altos tendem, em média, a apresentar estaturas menos extremas; descendentes de pais muito baixos tendem, igualmente em média, a aproximar-se da média populacional.</p>
 <p>Galton denominou esse fenômeno <em>regression toward mediocrity</em>. O termo “mediocridade” referia-se à média estatística da população. O que estava sendo descrito era uma propriedade da associação imperfeita entre variáveis: quando a correlação é menor que um, valores extremos tendem a ser seguidos por valores menos extremos.</p>
 <p>Galton utilizou representações gráficas e procedimentos geométricos para estimar a tendência média. Não formulou, contudo, um procedimento geral de estimação com propriedades probabilísticas explicitadas nem apresentou uma teoria formal da regressão linear no sentido moderno. A formalização matemática rigorosa viria na geração seguinte.</p>
 </section>
@@ -454,7 +454,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>Karl Pearson transforma a intuição de Galton em estrutura matemática sistemática. Em 1896, apresenta a formulação analítica da regressão linear simples e explicita sua relação com a covariância e a variância. A inclinação da reta de regressão passa a ser expressa como razão entre covariância e variância, estabelecendo formalmente a conexão entre regressão e correlação.</p>
-<p>Em 1903, Pearson e Alice Lee ampliam essa abordagem no estudo das leis de herança <span class="citation" data-cites="pearson1903">(<a href="references.html#ref-pearson1903" role="doc-biblioref">Pearson; Lee, 1903</a>)</span>, consolidando o uso da regressão como instrumento quantitativo no programa biométrico.</p>
+<p>Em 1903, Pearson e Alice Lee ampliam essa abordagem no estudo das leis de herança <span class="citation" data-cites="pearson1903">(<a href="#ref-pearson1903" role="doc-biblioref">Pearson; Lee, 1903</a>)</span>, consolidando o uso da regressão como instrumento quantitativo no programa biométrico.</p>
 <p>Em 1901, juntamente com W. F. R. Weldon e com apoio de Galton, funda a revista <em>Biometrika</em>, central na institucionalização da Estatística como disciplina científica.</p>
 </section>
 <section id="udny-yule-18711951-regressão-múltipla-e-ampliação-do-escopo-aplicado" class="level3" data-number="1.3.4">
@@ -465,7 +465,7 @@ window.Quarto = {
 <figcaption>Udny Yule</figcaption>
 </figure>
 </div>
-<p>Udny Yule contribuiu decisivamente para a sistematização da regressão múltipla e da correlação parcial <span class="citation" data-cites="yule1897 yule1907">(<a href="references.html#ref-yule1897" role="doc-biblioref">Yule, 1897</a>, <a href="references.html#ref-yule1907" role="doc-biblioref">1907</a>)</span>. Seus trabalhos ampliaram o uso das equações normais para contextos envolvendo múltiplas variáveis explicativas, favorecendo aplicações em demografia e ciências sociais.</p>
+<p>Udny Yule contribuiu decisivamente para a sistematização da regressão múltipla e da correlação parcial <span class="citation" data-cites="yule1897 yule1907">(<a href="#ref-yule1897" role="doc-biblioref">Yule, 1897</a>, <a href="#ref-yule1907" role="doc-biblioref">1907</a>)</span>. Seus trabalhos ampliaram o uso das equações normais para contextos envolvendo múltiplas variáveis explicativas, favorecendo aplicações em demografia e ciências sociais.</p>
 <p>A regressão deixa de ser instrumento predominantemente biométrico e passa a integrar um conjunto mais amplo de métodos quantitativos aplicáveis a diversas áreas empíricas.</p>
 </section>
 <section id="ronald-a.-fisher-18901962-integração-com-inferência-e-planejamento-experimental" class="level3" data-number="1.3.5">
@@ -476,7 +476,7 @@ window.Quarto = {
 <figcaption>Ronald Fisher</figcaption>
 </figure>
 </div>
-<p>Ronald A. Fisher não cria a regressão linear, mas redefine seu estatuto científico ao integrá-la explicitamente ao arcabouço inferencial moderno. Em <em>Statistical Methods for Research Workers</em> (1925) <span class="citation" data-cites="fisher1925">(<a href="references.html#ref-fisher1925" role="doc-biblioref">Fisher, 1925</a>)</span>, sistematiza procedimentos de teste aplicáveis a modelos lineares. Em <em>The Design of Experiments</em> (1935) <span class="citation" data-cites="fisher1935">(<a href="references.html#ref-fisher1935" role="doc-biblioref">Fisher, 1935</a>)</span>, estabelece princípios de randomização e planejamento experimental que estruturam a interpretação causal.</p>
+<p>Ronald A. Fisher não cria a regressão linear, mas redefine seu estatuto científico ao integrá-la explicitamente ao arcabouço inferencial moderno. Em <em>Statistical Methods for Research Workers</em> (1925) <span class="citation" data-cites="fisher1925">(<a href="#ref-fisher1925" role="doc-biblioref">Fisher, 1925</a>)</span>, sistematiza procedimentos de teste aplicáveis a modelos lineares. Em <em>The Design of Experiments</em> (1935) <span class="citation" data-cites="fisher1935">(<a href="#ref-fisher1935" role="doc-biblioref">Fisher, 1935</a>)</span>, estabelece princípios de randomização e planejamento experimental que estruturam a interpretação causal.</p>
 <p>A decomposição da variabilidade já estava implícita na teoria dos mínimos quadrados. O mérito de Fisher foi sistematizar essa decomposição no contexto da análise de variância e integrá-la a um sistema coerente de inferência. A regressão passa a ser entendida como modelo probabilístico com hipóteses explícitas sobre estrutura de erro e distribuição.</p>
 </section>
 <section id="jerzy-neyman-18941981-e-egon-s.-pearson-18951980-estrutura-formal-da-decisão-estatística" class="level3" data-number="1.3.6">
@@ -487,8 +487,8 @@ window.Quarto = {
 <figcaption>Jerzy Neyman &amp; Egon Pearson</figcaption>
 </figure>
 </div>
-<p>Em 1933, Neyman e Egon Pearson estabelecem a teoria formal dos testes de hipóteses, definindo erros do tipo I e tipo II e critérios baseados em propriedades de longo prazo. Embora sua contribuição não seja específica da regressão, ela molda profundamente sua prática.</p>
-<p>A partir desse arcabouço, estimativas em modelos lineares passam a ser acompanhadas por testes com propriedades explicitamente definidas. Posteriormente, Neyman introduz a formulação moderna de intervalos de confiança, completando a estrutura inferencial que passa a integrar naturalmente a análise de regressão.</p>
+<p>Em 1933, Neyman e Egon Pearson estabelecem a teoria formal dos testes de hipóteses <span class="citation" data-cites="neymanpearson1933">(<a href="#ref-neymanpearson1933" role="doc-biblioref">Neyman; Pearson, 1933</a>)</span>, definindo erros do tipo I e tipo II e critérios baseados em propriedades de longo prazo. Embora sua contribuição não seja específica da regressão, ela molda profundamente sua prática.</p>
+<p>A partir desse arcabouço, estimativas em modelos lineares passam a ser acompanhadas por testes com propriedades explicitamente definidas. Posteriormente, Neyman introduz a formulação moderna de intervalos de confiança <span class="citation" data-cites="neyman1937">(<a href="#ref-neyman1937" role="doc-biblioref">Neyman, 1937</a>)</span>, completando a estrutura inferencial que passa a integrar naturalmente a análise de regressão.</p>
 </section>
 <section id="john-w.-tukey-19152000-análise-exploratória-e-diagnóstico" class="level3" data-number="1.3.7">
 <h3 data-number="1.3.7" class="anchored" data-anchor-id="john-w.-tukey-19152000-análise-exploratória-e-diagnóstico"><span class="header-section-number">1.3.7</span> John W. Tukey (1915–2000): análise exploratória e diagnóstico</h3>
@@ -498,7 +498,7 @@ window.Quarto = {
 <figcaption>John Tukey</figcaption>
 </figure>
 </div>
-<p>Técnicas de inspeção de resíduos já eram conhecidas, mas John Tukey sistematiza a análise exploratória como etapa metodológica autônoma. Em <em>Exploratory Data Analysis</em> (1977) <span class="citation" data-cites="tukey1977">(<a href="references.html#ref-tukey1977" role="doc-biblioref">Tukey, 1977</a>)</span>, defende a distinção entre análise exploratória e confirmatória.</p>
+<p>Técnicas de inspeção de resíduos já eram conhecidas, mas John Tukey sistematiza a análise exploratória como etapa metodológica autônoma. Em <em>Exploratory Data Analysis</em> (1977) <span class="citation" data-cites="tukey1977">(<a href="#ref-tukey1977" role="doc-biblioref">Tukey, 1977</a>)</span>, defende a distinção entre análise exploratória e confirmatória.</p>
 <p>No contexto da regressão, isso implica examinar resíduos, identificar não linearidades, heterocedasticidade e pontos influentes como parte integrante da modelagem. O diagnóstico deixa de ser etapa auxiliar e passa a constituir componente essencial do processo estatístico.</p>
 </section>
 <section id="nelder-wedderburn-mccullagh-generalização-estrutural-da-regressão" class="level3" data-number="1.3.8">
@@ -506,16 +506,16 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/mccullagh_nelder.jpg" class="img-fluid figure-img" style="width:55.0%"></p>
-<figcaption>Peter McCullagh &amp; John Nelder</figcaption>
+<figcaption>Peter McCullagh &amp; Robert Wedderburn &amp; John Nelder</figcaption>
 </figure>
 </div>
-<p>Em 1972, Nelder e Wedderburn introduzem os Modelos Lineares Generalizados, ampliando a regressão para distribuições da família exponencial e funções de ligação apropriadas <span class="citation" data-cites="nelderwedderburn1972">(<a href="references.html#ref-nelderwedderburn1972" role="doc-biblioref">Nelder; Wedderburn, 1972</a>)</span>. Em 1983, McCullagh e Nelder sistematizam essa teoria em <em>Generalized Linear Models</em> <span class="citation" data-cites="mccullaghnelder1989">(<a href="references.html#ref-mccullaghnelder1989" role="doc-biblioref">McCullagh; Nelder, 1989</a>)</span>.</p>
+<p>Em 1972, Nelder e Wedderburn introduzem os Modelos Lineares Generalizados, ampliando a regressão para distribuições da família exponencial e funções de ligação apropriadas <span class="citation" data-cites="nelderwedderburn1972">(<a href="#ref-nelderwedderburn1972" role="doc-biblioref">Nelder; Wedderburn, 1972</a>)</span>. Em 1983, McCullagh e Nelder sistematizam essa teoria em <em>Generalized Linear Models</em> <span class="citation" data-cites="mccullaghnelder1989">(<a href="#ref-mccullaghnelder1989" role="doc-biblioref">McCullagh; Nelder, 1989</a>)</span>.</p>
 <p>A estrutura central permanece a modelagem da média condicional, mas o arcabouço probabilístico torna-se mais geral.</p>
 </section>
 <section id="regularização-e-expansão-computacional" class="level3" data-number="1.3.9">
 <h3 data-number="1.3.9" class="anchored" data-anchor-id="regularização-e-expansão-computacional"><span class="header-section-number">1.3.9</span> Regularização e expansão computacional</h3>
-<p>Em 1970, Hoerl e Kennard propõem a ridge regression como solução para problemas de colinearidade e instabilidade numérica em sistemas não ortogonais <span class="citation" data-cites="hoerlkennard1970">(<a href="references.html#ref-hoerlkennard1970" role="doc-biblioref">Hoerl; Kennard, 1970</a>)</span>. O objetivo original não era a alta dimensionalidade no sentido contemporâneo, mas a redução da variância do estimador sob multicolinearidade.</p>
-<p>Em 1996, Tibshirani introduz o LASSO <span class="citation" data-cites="tibshirani1996">(<a href="references.html#ref-tibshirani1996" role="doc-biblioref">Tibshirani, 1996</a>)</span>, incorporando penalização <span class="math inline">\(\ell_1\)</span> e seleção automática de variáveis, ampliando o alcance da regressão para cenários com grande número de preditores.</p>
+<p>Em 1970, Hoerl e Kennard propõem a ridge regression como solução para problemas de colinearidade e instabilidade numérica em sistemas não ortogonais <span class="citation" data-cites="hoerlkennard1970">(<a href="#ref-hoerlkennard1970" role="doc-biblioref">Hoerl; Kennard, 1970</a>)</span>. O objetivo original não era a alta dimensionalidade no sentido contemporâneo, mas a redução da variância do estimador sob multicolinearidade.</p>
+<p>Em 1996, Tibshirani introduz o LASSO <span class="citation" data-cites="tibshirani1996">(<a href="#ref-tibshirani1996" role="doc-biblioref">Tibshirani, 1996</a>)</span>, incorporando penalização <span class="math inline">\(\ell_1\)</span> e seleção automática de variáveis, ampliando o alcance da regressão para cenários com grande número de preditores.</p>
 </section>
 <section id="contexto-histórico-e-responsabilidade" class="level3" data-number="1.3.10">
 <h3 data-number="1.3.10" class="anchored" data-anchor-id="contexto-histórico-e-responsabilidade"><span class="header-section-number">1.3.10</span> Contexto histórico e responsabilidade</h3>
@@ -563,7 +563,7 @@ window.Quarto = {
 <p>Assim, o panorama da disciplina funciona como um <strong>mapa de navegação</strong>: consolidamos primeiro os alicerces da regressão, depois exploramos aplicações mais complexas e, por fim, avançamos até modelos modernos que dialogam diretamente com os desafios atuais da análise de dados.</p>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
 <div id="ref-fisher1925" class="csl-entry" role="listitem">
 FISHER, Ronald A. <strong>Statistical Methods for Research Workers</strong>. Edinburgh: Oliver; Boyd, 1925.
 </div>
@@ -593,6 +593,12 @@ MCCULLAGH, Peter; NELDER, John A. <strong>Generalized Linear Models</strong>. 2.
 </div>
 <div id="ref-nelderwedderburn1972" class="csl-entry" role="listitem">
 NELDER, John A.; WEDDERBURN, Robert W. M. <a href="https://doi.org/10.2307/2344614">Generalized Linear Models</a>. <strong>Journal of the Royal Statistical Society. Series A (General)</strong>, v. 135, n. 3, p. 370–384, 1972.
+</div>
+<div id="ref-neyman1937" class="csl-entry" role="listitem">
+NEYMAN, Jerzy. <a href="https://doi.org/10.1098/rsta.1937.0005">Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability</a>. <strong>Philosophical Transactions of the Royal Society of London. Series A</strong>, v. 236, n. 767, p. 333–380, 1937.
+</div>
+<div id="ref-neymanpearson1933" class="csl-entry" role="listitem">
+NEYMAN, Jerzy; PEARSON, Egon S. <a href="https://doi.org/10.1098/rsta.1933.0009">On the Problem of the Most Efficient Tests of Statistical Hypotheses</a>. <strong>Philosophical Transactions of the Royal Society of London. Series A</strong>, v. 231, n. 694–706, p. 289–337, 1933.
 </div>
 <div id="ref-pearson1903" class="csl-entry" role="listitem">
 PEARSON, Karl; LEE, Alice. On the laws of inheritance. <strong>Biometrika</strong>, v. 2, p. 357–462, 1903.

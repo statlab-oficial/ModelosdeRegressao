@@ -378,7 +378,7 @@ window.Quarto = {
 </header>
 
 
-<p>Este apêndice tem um papel estrutural na fundamentação matemática dos modelos de regressão linear. A Distribuição Normal, especialmente em sua forma multivariada, fornece a base probabilística que torna possível derivar distribuições amostrais exatas para estimadores, contrastes lineares e estatísticas de teste em amostras finitas. Uma exposição formal e sistemática dessas propriedades pode ser encontrada em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>Este apêndice tem um papel estrutural na fundamentação matemática dos modelos de regressão linear. A Distribuição Normal, especialmente em sua forma multivariada, fornece a base probabilística que torna possível derivar distribuições amostrais exatas para estimadores, contrastes lineares e estatísticas de teste em amostras finitas. Uma exposição formal e sistemática dessas propriedades pode ser encontrada em <span class="citation" data-cites="anderson2003">Anderson (<a href="#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e <span class="citation" data-cites="casella2002">Casella; Berger (<a href="#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
 <p>A ideia central que deve acompanhar o leitor ao longo deste apêndice é a seguinte:</p>
 <blockquote class="blockquote">
 <p>Em regressão, não estudamos variáveis isoladas, mas vetores aleatórios e suas transformações lineares e quadráticas.</p>
@@ -396,7 +396,7 @@ f(y; \mu, \sigma^2)
 \right),
 \quad y \in \mathbb{R}.
 \]</span> Essa distribuição surge com frequência em modelagem estatística porque aparece como <strong>distribuição limite</strong> em muitos contextos, especialmente quando uma quantidade observada pode ser representada como a soma (ou média) de um grande número de contribuições aleatórias.</p>
-<p>O <strong>Teorema Central do Limite</strong> estabelece que, sob condições adequadas, a soma devidamente padronizada de variáveis aleatórias independentes, ou fracamente dependentes, converge em distribuição para a Normal, independentemente da forma das distribuições individuais; essa fundamentação é essencialmente assintótica e aproximada, não constituindo uma identidade estrutural exata. Uma formulação rigorosa desse resultado pode ser consultada em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>O <strong>Teorema Central do Limite</strong> estabelece que, sob condições adequadas, a soma devidamente padronizada de variáveis aleatórias independentes, ou fracamente dependentes, converge em distribuição para a Normal, independentemente da forma das distribuições individuais; essa fundamentação é essencialmente assintótica e aproximada, não constituindo uma identidade estrutural exata. Uma formulação rigorosa desse resultado pode ser consultada em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
 <p>No contexto de modelos de regressão, a suposição de Normalidade <strong>não é obrigatória</strong> nem define o modelo em si. Um modelo de regressão linear pode ser formulado sem qualquer hipótese distributiva explícita sobre o erro, bastando condições sobre esperança, variância e independência.</p>
 <p>A Normalidade é frequentemente adotada porque constitui o <strong>caso mais simples e matematicamente tratável</strong>, permitindo obter distribuições exatas para estimadores, estatísticas de teste e intervalos de confiança em amostras finitas. Em outros contextos, distribuições alternativas podem ser mais adequadas, levando a extensões naturais da regressão linear, como os modelos lineares generalizados.</p>
 <p>Os parâmetros da Normal univariada admitem interpretações diretas, mas é importante compreendê-las com precisão estatística.</p>
@@ -420,7 +420,7 @@ Z = aY + b,
 <p><span class="math display">\[
 Z \sim N(a\mu + b, a^2\sigma^2).
 \]</span></p>
-<p>Essa propriedade, demonstrada em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>, é o primeiro indício da importância da Normal na regressão: combinações lineares preservam a forma distributiva.</p>
+<p>Essa propriedade, demonstrada em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="#ref-casella2002" role="doc-biblioref">2002</a>)</span>, é o primeiro indício da importância da Normal na regressão: combinações lineares preservam a forma distributiva.</p>
 <p>Uma transformação particularmente importante, tanto do ponto de vista teórico quanto prático, é a <strong>padronização</strong>. Definindo</p>
 <p><span class="math display">\[
 Z = \frac{Y - \mu}{\sigma},
@@ -466,7 +466,7 @@ Z \sim N(0,1),
 <li>os termos fora da diagonal descrevem a associação linear entre as variáveis, resumida pelo coeficiente de correlação <span class="math inline">\(\rho\)</span>.</li>
 </ul>
 <p>Assim, a estrutura de dependência entre <span class="math inline">\(Y_1\)</span> e <span class="math inline">\(Y_2\)</span> não é um elemento acessório, mas parte integrante da própria definição da distribuição conjunta.</p>
-<p>A função densidade de probabilidade conjunta, como apresentado em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span>, pode ser escrita de forma compacta como</p>
+<p>A função densidade de probabilidade conjunta, como apresentado em <span class="citation" data-cites="anderson2003">Anderson (<a href="#ref-anderson2003" role="doc-biblioref">2003</a>)</span>, pode ser escrita de forma compacta como</p>
 <p><span class="math display">\[
 f(\mathbf{y})
 =
@@ -624,7 +624,7 @@ N_n\!\left(
 \qquad
 \mathbf{Y}_2 \sim N_{n_2}(\boldsymbol{\mu}_2, \boldsymbol{\Sigma}_{22}).
 \]</span></p>
-<p>Essas expressões mostram que, ao “olharmos apenas para uma parte do vetor”, o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de <span class="math inline">\(\boldsymbol{\mu}\)</span> e <span class="math inline">\(\boldsymbol{\Sigma}\)</span> <span class="citation" data-cites="anderson2003 casella2002">(<a href="references.html#ref-anderson2003" role="doc-biblioref">Anderson, 2003</a>; <a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>. No entanto, essa visão marginal ignora completamente a dependência entre os blocos.</p>
+<p>Essas expressões mostram que, ao “olharmos apenas para uma parte do vetor”, o comportamento probabilístico dessa parte continua sendo Normal, com média e covariância correspondentes aos blocos apropriados de <span class="math inline">\(\boldsymbol{\mu}\)</span> e <span class="math inline">\(\boldsymbol{\Sigma}\)</span> <span class="citation" data-cites="anderson2003 casella2002">(<a href="#ref-anderson2003" role="doc-biblioref">Anderson, 2003</a>; <a href="#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>. No entanto, essa visão marginal ignora completamente a dependência entre os blocos.</p>
 <p>A riqueza da Normal multivariada aparece de forma ainda mais clara ao analisarmos o comportamento <strong>condicional</strong>. A distribuição de <span class="math inline">\(\mathbf{Y}_1\)</span> dado que <span class="math inline">\(\mathbf{Y}_2 = \mathbf{y}_2\)</span> é</p>
 <p><span class="math display">\[
 \mathbf{Y}_1 \mid \mathbf{Y}_2 = \mathbf{y}_2
@@ -678,7 +678,7 @@ N_{n_1}\!\left(
 \mathbf{b}^\top \mathbf{Y}
 \text{ são independentes.}
 \]</span></p>
-<p>Essa propriedade é específica da distribuição Normal e não vale em geral para outras distribuições multivariadas. Uma demonstração pode ser encontrada em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
+<p>Essa propriedade é específica da distribuição Normal e não vale em geral para outras distribuições multivariadas. Uma demonstração pode ser encontrada em <span class="citation" data-cites="anderson2003">Anderson (<a href="#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
 <p>Essa característica será essencial na regressão linear, pois permite concluir, sob Normalidade dos erros, que:</p>
 <ul>
 <li>o estimador dos coeficientes é independente do vetor de resíduos;</li>
@@ -782,7 +782,7 @@ N_n\!\left(
 <p><span class="math display">\[
 \mathbf{Y} \sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}_n).
 \]</span></p>
-<p>como discutido em <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>. Essa especificação não define o modelo de regressão em si, que pode ser formulado sob hipóteses mais gerais, mas estabelece um <strong>caso fundamental</strong> no qual resultados exatos de inferência podem ser obtidos em amostras finitas.</p>
+<p>como discutido em <span class="citation" data-cites="kutner2005">Kutner et al. (<a href="#ref-kutner2005" role="doc-biblioref">2005</a>)</span>. Essa especificação não define o modelo de regressão em si, que pode ser formulado sob hipóteses mais gerais, mas estabelece um <strong>caso fundamental</strong> no qual resultados exatos de inferência podem ser obtidos em amostras finitas.</p>
 <p>A partir dessa estrutura probabilística decorrem, de forma sistemática, várias propriedades centrais da regressão linear clássica:</p>
 <ul>
 <li><p>os estimadores dos coeficientes surgem como <strong>transformações lineares</strong> do vetor aleatório <span class="math inline">\(\mathbf{Y}\)</span>;</p></li>
@@ -793,7 +793,7 @@ N_n\!\left(
 <p>Outros apêndices exploram explicitamente essas estruturas, estudando as distribuições associadas a transformações lineares e quadráticas de vetores aleatórios conjuntamente normais. Esse desenvolvimento permitirá compreender, de forma unificada, a origem das principais ferramentas inferenciais utilizadas em modelos de regressão linear.</p>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
 <div id="ref-anderson2003" class="csl-entry" role="listitem">
 ANDERSON, T. W. <strong>An Introduction to Multivariate Statistical Analysis</strong>. 3. ed. New York: Wiley, 2003.
 </div>

@@ -434,7 +434,7 @@ window.Quarto = {
 </li>
 <li><strong>Pertinência substantiva</strong> – se o modelo faz sentido em relação ao fenômeno estudado, é parcimonioso e interpretável.</li>
 </ol>
-<p>Em regressão, “modelo melhor” <strong>não significa</strong> “modelo com o maior ajuste numérico”. O ponto é: um modelo é um <strong>compromisso</strong> entre (i) representar a estrutura sistemática de <span class="math inline">\(Y\)</span> explicada por <span class="math inline">\(X\)</span> e (ii) não incorporar estrutura espúria (ruído) como se fosse sinal. Critérios como AIC e BIC foram propostos justamente para explicitar essa troca: melhorar o ajuste (via log-verossimilhança) <strong>custa</strong> complexidade (número de parâmetros), e essa penalização é uma maneira de desencorajar sobreajuste <span class="citation" data-cites="akaike1974 schwarz1978 burnham2002">(<a href="references.html#ref-akaike1974" role="doc-biblioref">Akaike, 1974</a>; <a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>; <a href="references.html#ref-schwarz1978" role="doc-biblioref">Schwarz, 1978</a>)</span>.</p>
+<p>Em regressão, “modelo melhor” <strong>não significa</strong> “modelo com o maior ajuste numérico”. O ponto é: um modelo é um <strong>compromisso</strong> entre (i) representar a estrutura sistemática de <span class="math inline">\(Y\)</span> explicada por <span class="math inline">\(X\)</span> e (ii) não incorporar estrutura espúria (ruído) como se fosse sinal. Critérios como AIC e BIC foram propostos justamente para explicitar essa troca: melhorar o ajuste (via log-verossimilhança) <strong>custa</strong> complexidade (número de parâmetros), e essa penalização é uma maneira de desencorajar sobreajuste <span class="citation" data-cites="akaike1974 schwarz1978 burnham2002">(<a href="#ref-akaike1974" role="doc-biblioref">Akaike, 1974</a>; <a href="#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>; <a href="#ref-schwarz1978" role="doc-biblioref">Schwarz, 1978</a>)</span>.</p>
 <p>Um ponto central é que <strong>não adianta comparar dois modelos se ambos têm resíduos inadequados</strong>. O primeiro filtro deve ser sempre o diagnóstico dos resíduos. Uma vez que os modelos estejam pelo menos aproximadamente bem especificados, podemos partir para critérios comparativos.</p>
 <p>Essa ordem (“diagnóstico <span class="math inline">\(\rightarrow\)</span> comparação”) é importante porque muitos critérios formais assumem que o modelo está <strong>minimamente compatível</strong> com as hipóteses estruturais do MRLS (por exemplo: relação média aproximadamente linear na escala adotada, variância aproximadamente constante e ausência de padrões sistemáticos evidentes nos resíduos). Se essas condições falham, é comum observar situações enganosas como:</p>
 <ul>
@@ -448,7 +448,7 @@ window.Quarto = {
 <ul>
 <li><strong>Explicação/interpretação:</strong> prioriza parâmetros estáveis e interpretáveis e tende a valorizar parcimônia (frequentemente BIC é usado como referência em seleção mais “conservadora”).<br>
 </li>
-<li><strong>Predição:</strong> prioriza desempenho fora da amostra; critérios baseados em verossimilhança com penalização moderada (como AIC) são frequentemente usados como aproximações de desempenho preditivo, mas idealmente devem ser complementados por validação (ex.: validação cruzada) quando isso fizer parte do desenho analítico <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</li>
+<li><strong>Predição:</strong> prioriza desempenho fora da amostra; critérios baseados em verossimilhança com penalização moderada (como AIC) são frequentemente usados como aproximações de desempenho preditivo, mas idealmente devem ser complementados por validação (ex.: validação cruzada) quando isso fizer parte do desenho analítico <span class="citation" data-cites="burnham2002">(<a href="#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</li>
 </ul>
 <p>Nesta seção, organizamos os principais critérios formais e práticos de comparação, seguidos de exemplos ilustrativos.</p>
 </section>
@@ -574,7 +574,7 @@ AIC = -2\ell(\hat\theta) + 2p,
 <li><span class="math inline">\(\ell(\hat\theta)\)</span> é a log-verossimilhança no ponto estimado;</li>
 <li><span class="math inline">\(p\)</span> é o número de parâmetros estimados (incluindo <span class="math inline">\(\sigma^2\)</span>, quando apropriado).</li>
 </ul>
-<p>O AIC pode ser interpretado como uma aproximação para a <strong>distância de Kullback–Leibler</strong> entre o modelo candidato e o verdadeiro mecanismo gerador dos dados <span class="citation" data-cites="akaike1974 burnham2002">(<a href="references.html#ref-akaike1974" role="doc-biblioref">Akaike, 1974</a>; <a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>. Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.</p>
+<p>O AIC pode ser interpretado como uma aproximação para a <strong>distância de Kullback–Leibler</strong> entre o modelo candidato e o verdadeiro mecanismo gerador dos dados <span class="citation" data-cites="akaike1974 burnham2002">(<a href="#ref-akaike1974" role="doc-biblioref">Akaike, 1974</a>; <a href="#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>. Ele busca selecionar o modelo que, entre os candidatos, minimiza a perda de informação esperada.</p>
 <p>A estrutura do critério explicita o compromisso:</p>
 <ul>
 <li><span class="math inline">\(-2\ell(\hat\theta)\)</span> recompensa melhor ajuste (maior verossimilhança);</li>
@@ -585,10 +585,10 @@ AIC = -2\ell(\hat\theta) + 2p,
 <ul>
 <li><strong>Regra:</strong> entre modelos comparáveis, preferir o de <strong>menor AIC</strong>.</li>
 <li>O AIC não tem interpretação absoluta; só faz sentido <strong>comparativamente</strong>.</li>
-<li>Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</li>
+<li>Diferenças pequenas (por exemplo, menores que 2 unidades) geralmente indicam que os modelos têm suporte semelhante nos dados <span class="citation" data-cites="burnham2002">(<a href="#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</li>
 </ul>
 <p>O AIC não testa hipóteses do tipo <span class="math inline">\(H_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\)</span>. Ele não produz valor-p nem decisão “rejeita/não rejeita”. É um critério de <strong>seleção por informação</strong>, não um teste clássico de significância.</p>
-<p>Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</p>
+<p>Além disso, o AIC tende a favorecer modelos levemente mais complexos, especialmente em amostras pequenas. Em contextos de amostras reduzidas, versões corrigidas (como AICc) podem ser mais adequadas <span class="citation" data-cites="burnham2002">(<a href="#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</p>
 </section>
 <section id="critério-bayesiano-de-schwarz-bic" class="level3" data-number="10.3.2">
 <h3 data-number="10.3.2" class="anchored" data-anchor-id="critério-bayesiano-de-schwarz-bic"><span class="header-section-number">10.3.2</span> Critério Bayesiano de Schwarz (BIC)</h3>
@@ -600,7 +600,7 @@ BIC = -2\ell(\hat\theta) + p \log(n).
 <li>Para amostras grandes, <span class="math inline">\(\log(n)\)</span> pode ser bem maior que 2;</li>
 <li>A penalização por parâmetro torna-se mais severa à medida que <span class="math inline">\(n\)</span> aumenta.</li>
 </ul>
-<p>O BIC pode ser interpretado como uma aproximação ao <strong>log do fator de Bayes</strong> sob certas condições assintóticas <span class="citation" data-cites="schwarz1978">(<a href="references.html#ref-schwarz1978" role="doc-biblioref">Schwarz, 1978</a>)</span>. Por isso, ele é frequentemente associado a uma perspectiva de <strong>seleção do modelo “verdadeiro”</strong> dentro do conjunto candidato.</p>
+<p>O BIC pode ser interpretado como uma aproximação ao <strong>log do fator de Bayes</strong> sob certas condições assintóticas <span class="citation" data-cites="schwarz1978">(<a href="#ref-schwarz1978" role="doc-biblioref">Schwarz, 1978</a>)</span>. Por isso, ele é frequentemente associado a uma perspectiva de <strong>seleção do modelo “verdadeiro”</strong> dentro do conjunto candidato.</p>
 <p><strong>Interpretação prática</strong></p>
 <ul>
 <li><strong>Regra:</strong> entre modelos comparáveis, preferir o de <strong>menor BIC</strong>.</li>
@@ -1650,7 +1650,7 @@ F-statistic: 0.2932 on 1 and 118 DF,  p-value: 0.5892</code></pre>
 <p>Em conjunto, os exemplos reforçam que a escolha do modelo não deve se basear apenas em indicadores numéricos, mas sim no equilíbrio entre <strong>consistência estatística, parcimônia e coerência substantiva</strong> com o fenômeno estudado.</p>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
 <div id="ref-akaike1974" class="csl-entry" role="listitem">
 AKAIKE, Hirotugu. A new look at the statistical model identification. <strong>IEEE Transactions on Automatic Control</strong>, v. 19, n. 6, p. 716–723, 1974.
 </div>
