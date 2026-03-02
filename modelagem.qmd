@@ -77,7 +77,7 @@ plot(x2, y2, pch = 19, cex = 0.7,
      xlab = "X", ylab = "Y",
      main = "(b) Modelo estatístico\n(relação com ruído)")
 abline(lm(y2 ~ x2), lwd = 2)
-text(1.2, max(y2)-0.5, labels = expression(Y==2*X+varepsilon), pos = 4)
+text(1.2, max(y2)-0.5, labels = expression(Y==2*X+epsilon), pos = 4)
 
 par(op)
 ```
@@ -182,7 +182,7 @@ $$
 
 com:
 
--   $mu(X)$ → parte determinística (estrutura média);
+-   $\mu(X)$ → parte determinística (estrutura média);
 -   $\varepsilon$ → componente aleatória (ruído), que pode ser aditivo ou multiplicativo.
 
 O sinal $\mu(X)$ também é denominado de função de regressão.
@@ -195,7 +195,9 @@ $$
 
 isto é, o erro não carrega informação sistemática adicional sobre $Y$ além da já contida em $X$. Essa condição garante que $E(Y \mid X) = \mu(X)$, permitindo interpretar $\mu(X)$ como a **média condicional de** $Y$ dado $X$. Essa hipótese é central para a interpretação dos coeficientes como efeitos médios condicionais [@hoffmann2006; @gujarati2006].
 
-No caso do **modelo multiplicativo**, a condição análoga é $$
+No caso do **modelo multiplicativo**, a condição análoga é 
+
+$$
 E(\varepsilon \mid X) = 1.
 $$
 
@@ -324,7 +326,7 @@ legend("topleft", legend = c("Reta verdadeira"), lty = 1, col = "red", bty = "n"
 par(op)
 ```
 
-#### Exemplo ilustrativo: Possíbildiades de relações ente X e Y
+#### Exemplo ilustrativo: Possibilidades de relações ente X e Y
 
 Observe que nem toda relação entre duas variáveis é **linear e forte**. Considere algums possibilidades comuns:
 

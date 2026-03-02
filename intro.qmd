@@ -31,7 +31,7 @@ Essa pergunta é simples. A resposta exige matemática, probabilidade, inferênc
 -   Discutir potenciais e limitações de cada abordagem, reconhecendo as hipóteses subjacentes;\
 -   Desenvolver a capacidade de usar ferramentas computacionais para ajuste, diagnóstico e interpretação de modelos.
 
-Este material é concebidao como uma jornada pela família dos modelos de regressão. Partimos de um problema simples, como relacionar uma variável resposta a uma variável explicativa, e avançamos gradualmente até modelos capazes de lidar com múltiplos fatores, variáveis categóricas, dados de contagem, proporções e situações em que as hipóteses clássicas do modelo deixam de ser válidas.
+Este material é concebido como uma jornada pela família dos modelos de regressão. Partimos de um problema simples, como relacionar uma variável resposta a uma variável explicativa, e avançamos gradualmente até modelos capazes de lidar com múltiplos fatores, variáveis categóricas, dados de contagem, proporções e situações em que as hipóteses clássicas do modelo deixam de ser válidas.
 
 A ideia central é que, ao final do semestre, o estudante seja capaz de compreender não apenas **como ajustar** um modelo, mas também **quando e por que** usá-lo, avaliando sua adequação e reconhecendo seus limites.
 
