@@ -12,19 +12,13 @@ Período Letivo: 2026.1
 
 Professor: Dr. Rafael Bráz Azevedo Farias
 
-------------------------------------------------------------------------
-
 ## EMENTA
 
 Distribuição de formas lineares e quadráticas de vetores aleatórios conjuntamente normais. Modelo de Regressão Linear Simples. Modelo de Regressão Linear Múltipla. Estimação por Mínimos Quadrados Ordinários. Propriedades dos estimadores e Teorema de Gauss-Markov. Inferência clássica no modelo normal. Análise de resíduos e diagnóstico. Multicolinearidade. Variáveis dummy e análise de covariância. Transformações de variáveis.
 
-------------------------------------------------------------------------
-
 ## OBJETIVO GERAL
 
 Apresentar os fundamentos teóricos e aplicados dos Modelos de Regressão Linear, capacitando o estudante a formular, estimar, interpretar e avaliar criticamente modelos de regressão sob a perspectiva probabilística e inferencial, com ênfase na estrutura matricial, na verificação de pressupostos e na análise diagnóstica.
-
-------------------------------------------------------------------------
 
 ## OBJETIVOS ESPECÍFICOS
 
@@ -40,8 +34,6 @@ Ao final da disciplina, o estudante deverá ser capaz de:
 -   avaliar multicolinearidade e suas consequências;
 -   aplicar transformações de variáveis;
 -   implementar modelos no software R e interpretar resultados à luz da teoria.
-
-------------------------------------------------------------------------
 
 ## CONTEÚDO PROGRAMÁTICO
 
@@ -76,15 +68,11 @@ Multicolinearidade (VIF)\
 Análise de influência (Cook, alavancagem, DFFITS)\
 Transformação Box-Cox
 
-------------------------------------------------------------------------
-
 ## METODOLOGIA
 
 A disciplina será desenvolvida por meio de aulas expositivo-dialogadas, integrando demonstrações matemáticas e implementação computacional em R. O conteúdo teórico será constantemente articulado com exemplos aplicados e análise de dados reais, enfatizando interpretação estatística e verificação de pressupostos.
 
 Serão propostas listas periódicas de exercícios teóricos e computacionais, bem como um projeto aplicado envolvendo análise completa de um modelo de regressão.
-
-------------------------------------------------------------------------
 
 ## AVALIAÇÃO
 
@@ -96,8 +84,6 @@ Projeto aplicado em regressão linear:
 
 A aprovação seguirá as normas vigentes da UFC.
 
-------------------------------------------------------------------------
-
 ## CRITÉRIOS DE AVALIAÇÃO
 
 Serão considerados:
@@ -107,8 +93,6 @@ Serão considerados:
 -   interpretação estatística adequada;
 -   clareza na exposição escrita;
 -   qualidade e reprodutibilidade das análises computacionais.
-
-------------------------------------------------------------------------
 
 ## BIBLIOGRAFIA BÁSICA
 
@@ -120,8 +104,6 @@ HOFFMANN, R.\
 
 GUJARATI, D. N.\
 *Econometria Básica*. 4ª ed. Rio de Janeiro: Elsevier, 2006. [@gujarati2006]
-
-------------------------------------------------------------------------
 
 ## BIBLIOGRAFIA COMPLEMENTAR
 
