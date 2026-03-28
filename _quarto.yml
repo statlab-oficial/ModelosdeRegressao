@@ -59,7 +59,7 @@ book:
 #        - ap_estimadores.qmd
 #        - ap_inferencia.qmd
         - ap_tratamento.qmd
-#        - demo.qmd
+        - demo.qmd
         - part4_ex.qmd
 
     - references.qmd  

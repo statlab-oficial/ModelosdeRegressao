@@ -1,0 +1,4294 @@
+# Demonstrações {#demo}
+
+## Demonstração de que $\hat \beta_0$ e $\hat \beta_1$ são os estimadores de MQO em MRLS
+
+### Parte A: Obtenção dos estimadores
+
+::: {.callout-important title="Estratégia da demonstração"}
+Nesta primeira parte, o objetivo é **obter explicitamente** os estimadores de mínimos quadrados ordinários no modelo de regressão linear simples.
+
+Para isso, partimos da função objetivo
+$$
+S(\beta_0,\beta_1)=\sum_{i=1}^n [Y_i-(\beta_0+\beta_1X_i)]^2,
+$$
+e procuramos os valores de $\beta_0$ e $\beta_1$ que a minimizam. Como $S(\beta_0,\beta_1)$ é diferenciável em relação aos dois parâmetros, usamos as **condições de primeira ordem**, isto é, igualamos a zero as derivadas parciais em relação a $\beta_0$ e $\beta_1$.
+:::
+
+O objetivo do método dos mínimos quadrados ordinários (MQO) é encontrar os parâmetros $\beta_0$ e $\beta_1$ que minimizam a soma dos quadrados:
+
+$$
+S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2 = \sum_{i=1}^n \varepsilon_i^2.
+$$
+
+Cada erro $\varepsilon_i$ é a diferença entre o valor observado $Y_i$ e a reta, $\beta_0+\beta_1X_i$. Ao elevar essas quantidades ao quadrado e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.
+
+Como $\beta_0$ e $\beta_1$ podem assumir qualquer valor real, a minimização pode ser feita via técnicas de derivação.
+
+1. **Condições de primeira ordem**
+
+Para identificar os pontos críticos, calculamos as derivadas parciais de $S=S(\beta_0,\beta_1)$.
+
+Comecemos observando que, para cada $i$,
+$$
+[Y_i-(\beta_0+\beta_1X_i)]^2
+$$
+é uma função quadrática em $\beta_0$ e em $\beta_1$. Assim, usando a regra da cadeia, temos:
+
+$$
+\frac{\partial S}{\partial \beta_0}
+=
+\sum_{i=1}^n
+2[Y_i-(\beta_0+\beta_1X_i)](-1)
+=
+-2\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i),
+$$
+
+e
+
+$$
+\frac{\partial S}{\partial \beta_1}
+=
+\sum_{i=1}^n
+2[Y_i-(\beta_0+\beta_1X_i)](-X_i)
+=
+-2\sum_{i=1}^n X_i (Y_i-\beta_0-\beta_1X_i).
+$$
+
+::: {.callout-note title="Passo técnico"}
+O fator $-2$ aparece naturalmente ao derivarmos o quadrado. Como ele é comum às duas derivadas, ele não afeta a solução do problema, pois igualar a derivada a zero é equivalente a igualar a expressão sem o fator $-2$ a zero.
+:::
+
+2. **Equações normais**
+
+Impondo as condições de primeira ordem
+$$
+\frac{\partial S}{\partial \beta_0}=0
+\qquad \text{e} \qquad
+\frac{\partial S}{\partial \beta_1}=0,
+$$
+obtemos o sistema conhecido como **equações normais**:
+
+$$
+\sum_{i=1}^n Y_i = n\hat{\beta}_0 + \hat{\beta}_1 \sum_{i=1}^n X_i,
+$$
+
+$$
+\sum_{i=1}^n X_i Y_i = \hat{\beta}_0 \sum_{i=1}^n X_i + \hat{\beta}_1 \sum_{i=1}^n X_i^2.
+$$
+
+Essas duas equações resultam diretamente de reorganizar os termos das condições de primeira ordem. Na primeira, somamos os resíduos; na segunda, somamos os resíduos ponderados por $X_i$. Em ambos os casos, no ponto de mínimo, essas somas devem se anular.
+
+A primeira equação pode ser escrita como
+
+$$
+n\hat{\beta}_0 = \sum_{i=1}^n Y_i - \hat{\beta}_1\sum_{i=1}^n X_i.
+$$
+
+Dividindo ambos os lados por $n$, obtemos
+
+$$
+\hat{\beta}_0
+=
+\frac{1}{n}\sum_{i=1}^n Y_i
+-
+\hat{\beta}_1\frac{1}{n}\sum_{i=1}^n X_i.
+$$
+
+Logo,
+
+$$
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X},
+$$
+
+em que
+$$
+\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i
+\qquad \text{e} \qquad
+\bar{Y}=\frac{1}{n}\sum_{i=1}^n Y_i
+$$
+são as médias amostrais.
+
+::: {.callout-note title="Passo técnico"}
+A expressão
+$$
+\hat{\beta}_0=\bar{Y}-\hat{\beta}_1\bar{X}
+$$
+mostra que, uma vez conhecida a inclinação $\hat{\beta}_1$, o intercepto fica automaticamente determinado. Em particular, isso implica que a reta ajustada passa pelo ponto de coordenadas médias $(\bar{X},\bar{Y})$.
+:::
+
+Para obter $\hat{\beta}_1$, substituímos
+$$
+\hat{\beta}_0=\bar{Y}-\hat{\beta}_1\bar{X}
+$$
+na segunda equação normal:
+
+$$
+\sum_{i=1}^n X_iY_i
+=
+(\bar{Y}-\hat{\beta}_1\bar{X})\sum_{i=1}^n X_i
++
+\hat{\beta}_1\sum_{i=1}^n X_i^2.
+$$
+
+Expandindo o lado direito, temos
+
+$$
+\sum_{i=1}^n X_iY_i
+=
+\bar{Y}\sum_{i=1}^n X_i
+-
+\hat{\beta}_1\bar{X}\sum_{i=1}^n X_i
++
+\hat{\beta}_1\sum_{i=1}^n X_i^2.
+$$
+
+Agrupando os termos que envolvem $\hat{\beta}_1$, segue que
+
+$$
+\sum_{i=1}^n X_iY_i - \bar{Y}\sum_{i=1}^n X_i
+=
+\hat{\beta}_1
+\left(
+\sum_{i=1}^n X_i^2
+-
+\bar{X}\sum_{i=1}^n X_i
+\right).
+$$
+
+Como
+$$
+\sum_{i=1}^n X_i = n\bar{X},
+$$
+o termo à direita pode ser reescrito como
+
+$$
+\sum_{i=1}^n X_i^2 - \bar{X}\sum_{i=1}^n X_i
+=
+\sum_{i=1}^n X_i^2 - n\bar{X}^2.
+$$
+
+Além disso,
+
+$$
+\sum_{i=1}^n (X_i-\bar{X})^2
+=
+\sum_{i=1}^n X_i^2 - 2\bar{X}\sum_{i=1}^n X_i + n\bar{X}^2
+=
+\sum_{i=1}^n X_i^2 - n\bar{X}^2.
+$$
+
+Portanto,
+
+$$
+\sum_{i=1}^n X_i^2 - \bar{X}\sum_{i=1}^n X_i
+=
+\sum_{i=1}^n (X_i-\bar{X})^2.
+$$
+
+No numerador, fazemos manipulação análoga:
+
+$$
+\sum_{i=1}^n X_iY_i - \bar{Y}\sum_{i=1}^n X_i
+=
+\sum_{i=1}^n X_iY_i - n\bar{X}\bar{Y}.
+$$
+
+Por outro lado,
+
+$$
+\sum_{i=1}^n (X_i-\bar{X})(Y_i-\bar{Y})
+=
+\sum_{i=1}^n X_iY_i
+-
+\bar{Y}\sum_{i=1}^n X_i
+-
+\bar{X}\sum_{i=1}^n Y_i
++
+n\bar{X}\bar{Y}.
+$$
+
+Como
+$$
+\sum_{i=1}^n X_i=n\bar{X}
+\qquad \text{e} \qquad
+\sum_{i=1}^n Y_i=n\bar{Y},
+$$
+segue que
+
+$$
+\sum_{i=1}^n (X_i-\bar{X})(Y_i-\bar{Y})
+=
+\sum_{i=1}^n X_iY_i - n\bar{X}\bar{Y}.
+$$
+
+Assim, obtemos
+
+$$
+\hat{\beta}_1
+=
+\frac{\sum_{i=1}^n (X_i-\bar{X})(Y_i-\bar{Y})}
+{\sum_{i=1}^n (X_i-\bar{X})^2}.
+$$
+
+Uma vez encontrada a inclinação $\hat{\beta}_1$, o intercepto é dado por
+
+$$
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}.
+$$
+
+::: {.callout-warning title="Condição necessária"}
+A expressão de $\hat{\beta}_1$ só faz sentido quando
+$$
+\sum_{i=1}^n (X_i-\bar{X})^2 > 0.
+$$
+Isso significa que os valores de $X$ não podem ser todos iguais. Se todos os $X_i$ coincidirem, não há variabilidade na variável explicativa, e a inclinação da reta não pode ser identificada a partir dos dados.
+:::
+
+3. **Forma final dos estimadores**
+
+Assim, os estimadores de MQO para o modelo de regressão linear simples são:
+
+$$
+\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}},
+\qquad
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X},
+$$
+
+em que
+
+$$
+S_{xx} = \sum_{i=1}^n (X_i - \bar{X})^2,
+\qquad
+S_{xy} = \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}).
+$$
+
+::: {.callout-important title="Conclusão"}
+As equações normais conduzem a expressões fechadas para os estimadores de MQO. Em particular, a inclinação estimada é dada pela razão entre a soma de produtos centrados de $X$ e $Y$ e a soma de quadrados centrados de $X$, enquanto o intercepto estimado é obtido pela condição de que a reta ajustada passe pelo ponto médio dos dados.
+:::
+
+## Parte B: Verificação de que são mínimos
+
+::: {.callout-important title="Estratégia da demonstração"}
+Na Parte I encontramos um ponto crítico da função objetivo. Agora precisamos verificar que esse ponto crítico é, de fato, um **mínimo**.
+
+Como
+$$
+S(\beta_0,\beta_1)=\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2
+$$
+é uma função quadrática nos parâmetros, uma maneira natural de fazer isso é estudar sua **curvatura**, por meio da matriz Hessiana.
+:::
+
+A função objetivo do MQO é
+
+$$
+S(\beta_0,\beta_1) = \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i)^2.
+$$
+
+Note que essa função é **quadrática** em relação aos parâmetros $(\beta_0,\beta_1)$. Em problemas quadráticos, o comportamento global da função é inteiramente determinado pela matriz de segundas derivadas. Assim, para verificar se o ponto crítico $(\hat{\beta}_0,\hat{\beta}_1)$ corresponde a um **mínimo global**, basta estudarmos a positividade da matriz Hessiana.
+
+da matriz Hessiana de $S(\beta_0,\beta_1)$ é 
+
+$$
+H=
+\begin{bmatrix}
+\frac{\partial^2 S}{\partial \beta_0^2} &
+\frac{\partial^2 S}{\partial \beta_0\partial \beta_1} \\
+\frac{\partial^2 S}{\partial \beta_1\partial \beta_0} &
+\frac{\partial^2 S}{\partial \beta_1^2}
+\end{bmatrix}.
+$$
+
+Calculemos cada termo:
+
+$$
+\frac{\partial^2 S}{\partial \beta_0^2}=2n,
+$$
+
+$$
+\frac{\partial^2 S}{\partial \beta_0\partial \beta_1}
+=
+\frac{\partial^2 S}{\partial \beta_1\partial \beta_0}
+=
+2\sum_{i=1}^n X_i,
+$$
+
+$$
+\frac{\partial^2 S}{\partial \beta_1^2}=2\sum_{i=1}^n X_i^2.
+$$
+
+Logo,
+
+$$
+H=
+\begin{bmatrix}
+2n & 2\sum_{i=1}^n X_i \\
+2\sum_{i=1}^n X_i & 2\sum_{i=1}^n X_i^2
+\end{bmatrix}.
+$$
+
+Para mostrar que essa matriz Hessiana é definida positiva, consideremos um vetor arbitrário $(a,b)\in\mathbb{R}^2$, não nulo. Então,
+
+$$
+(a,b)H(a,b)^\top
+=
+2na^2 + 4ab\sum_{i=1}^n X_i + 2b^2\sum_{i=1}^n X_i^2.
+$$
+
+Agora observemos que
+
+$$
+\sum_{i=1}^n (a+bX_i)^2
+=
+\sum_{i=1}^n \left(a^2 + 2abX_i + b^2X_i^2\right)
+=
+na^2 + 2ab\sum_{i=1}^n X_i + b^2\sum_{i=1}^n X_i^2.
+$$
+
+Multiplicando por $2$, obtemos
+
+$$
+2\sum_{i=1}^n (a+bX_i)^2
+=
+2na^2 + 4ab\sum_{i=1}^n X_i + 2b^2\sum_{i=1}^n X_i^2.
+$$
+
+Portanto,
+
+$$
+(a,b)H(a,b)^\top = 2\sum_{i=1}^n (a+bX_i)^2.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Essa reescrita é decisiva, pois transforma uma expressão matricial aparentemente abstrata em uma **soma de quadrados**, cuja análise é imediata: cada parcela é não negativa.
+:::
+
+Como cada termo $(a+bX_i)^2\geq 0$, segue que
+$$
+(a,b)H(a,b)^\top \geq 0.
+$$
+
+Para que essa quantidade seja igual a zero, seria necessário que
+$$
+a+bX_i=0
+\qquad \text{para todo } i=1,\dots,n.
+$$
+
+Isso significa que todos os $X_i$ teriam de satisfazer a mesma relação linear, o que só pode ocorrer, para $(a,b)\neq(0,0)$, se todos os valores de $X_i$ forem iguais.
+
+::: {.callout-warning title="Condição necessária"}
+Se existir variabilidade em $X$, isto é, se
+$$
+S_{xx}=\sum_{i=1}^n (X_i-\bar{X})^2>0,
+$$
+então não é possível que $a+bX_i=0$ para todos os $i$ com $(a,b)\neq(0,0)$. Nessa situação,
+$$
+(a,b)H(a,b)^\top>0
+\qquad \text{para todo } (a,b)\neq(0,0),
+$$
+e, portanto, a matriz Hessiana é **definida positiva**.
+:::
+
+Como uma função quadrática com matriz Hessiana definida positiva é estritamente convexa, segue que qualquer ponto crítico é necessariamente um mínimo global único.
+
+::: {.callout-important title="Conclusão"}
+O ponto crítico $(\hat{\beta}_0,\hat{\beta}_1)$ obtido pelas equações normais é, de fato, o **único mínimo global** da função
+$$
+S(\beta_0,\beta_1).
+$$
+Logo, os valores encontrados na Parte A são efetivamente os estimadores de mínimos quadrados ordinários no MRLS.
+:::
+
+## Demonstração das propriedades dos estimadores de MQO em MRLS
+
+Assumiremos, como na seção anterior, o MRLS
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+com
+$$
+E[\varepsilon_i\mid X_i]=0,
+\qquad
+Var(\varepsilon_i\mid X_i)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j.
+$$
+
+Denote também
+
+$$
+\bar X=\frac{1}{n}\sum_{i=1}^n X_i,
+\qquad
+\bar Y=\frac{1}{n}\sum_{i=1}^n Y_i,
+$$
+
+$$
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+\qquad
+S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y).
+$$
+
+Recorde ainda as formas fechadas:
+
+$$
+\hat\beta_1=\frac{S_{xy}}{S_{xx}}
+\qquad\text{e}\qquad
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+$$
+
+::: {.callout-important title="Estratégia da demonstração"}
+As propriedades de não viés, variância e covariância dos estimadores de MQO decorrem de dois fatos centrais:
+
+1. os estimadores podem ser escritos como combinações lineares das observações;
+2. o modelo supõe erros com média zero, variância constante e covariâncias nulas.
+
+A ideia será reescrever $\hat\beta_1$ e $\hat\beta_0$ em função dos erros $\varepsilon_i$ e, a partir daí, calcular esperança, variância e covariância.
+:::
+
+**1) Esperança de $\hat\beta_1$**
+
+Partimos de
+
+$$
+\hat\beta_1
+=
+\frac{\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y)}{S_{xx}}.
+$$
+
+Uma forma equivalente, muito útil para a demonstração, é
+
+$$
+\hat\beta_1
+=
+\frac{\sum_{i=1}^n (X_i-\bar X)Y_i}{S_{xx}},
+$$
+
+pois
+
+$$
+\sum_{i=1}^n (X_i-\bar X)\bar Y
+=
+\bar Y \sum_{i=1}^n (X_i-\bar X)
+=
+0.
+$$
+
+Substituindo o modelo
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,
+$$
+temos
+
+$$
+\hat\beta_1
+=
+\frac{1}{S_{xx}}
+\sum_{i=1}^n
+(X_i-\bar X)(\beta_0+\beta_1X_i+\varepsilon_i).
+$$
+
+Distribuindo a soma,
+
+$$
+\hat\beta_1
+=
+\frac{1}{S_{xx}}
+\left[
+\beta_0\sum_{i=1}^n (X_i-\bar X)
++
+\beta_1\sum_{i=1}^n (X_i-\bar X)X_i
++
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\right].
+$$
+
+Como
+$$
+\sum_{i=1}^n (X_i-\bar X)=0,
+$$
+o primeiro termo desaparece. Além disso,
+
+$$
+\sum_{i=1}^n (X_i-\bar X)X_i
+=
+\sum_{i=1}^n (X_i-\bar X)\bigl[(X_i-\bar X)+\bar X\bigr].
+$$
+
+Expandindo,
+
+$$
+\sum_{i=1}^n (X_i-\bar X)X_i
+=
+\sum_{i=1}^n (X_i-\bar X)^2
++
+\bar X\sum_{i=1}^n (X_i-\bar X)
+=
+S_{xx}.
+$$
+
+Logo,
+
+$$
+\hat\beta_1
+=
+\frac{1}{S_{xx}}
+\left[
+\beta_1 S_{xx}
++
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\right]
+=
+\beta_1+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
+$$
+
+Tomando esperança condicional em $X$, obtemos
+
+$$
+E[\hat\beta_1\mid X]
+=
+\beta_1
++
+\frac{1}{S_{xx}}
+\sum_{i=1}^n (X_i-\bar X)E[\varepsilon_i\mid X].
+$$
+
+Como $E[\varepsilon_i\mid X]=0$, segue que
+
+$$
+E[\hat\beta_1\mid X]=\beta_1.
+$$
+
+Portanto,
+
+$$
+E[\hat\beta_1]=\beta_1.
+$$
+
+::: {.callout-important title="Conclusão"}
+O estimador $\hat\beta_1$ é **não viesado** para $\beta_1$.
+:::
+
+**2) Esperança de $\hat\beta_0$**
+
+Usando
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X,
+$$
+temos
+
+$$
+E[\hat\beta_0\mid X]
+=
+E[\bar Y\mid X]-\bar X\,E[\hat\beta_1\mid X].
+$$
+
+Agora,
+
+$$
+\bar Y
+=
+\frac{1}{n}\sum_{i=1}^n Y_i
+=
+\frac{1}{n}\sum_{i=1}^n (\beta_0+\beta_1X_i+\varepsilon_i)
+=
+\beta_0+\beta_1\bar X+\bar\varepsilon,
+$$
+
+em que
+
+$$
+\bar\varepsilon=\frac{1}{n}\sum_{i=1}^n \varepsilon_i.
+$$
+
+Assim,
+
+$$
+E[\bar Y\mid X]=\beta_0+\beta_1\bar X.
+$$
+
+Como já vimos que
+$$
+E[\hat\beta_1\mid X]=\beta_1,
+$$
+segue que
+
+$$
+E[\hat\beta_0\mid X]
+=
+(\beta_0+\beta_1\bar X)-\bar X\,\beta_1
+=
+\beta_0.
+$$
+
+Portanto,
+
+$$
+E[\hat\beta_0]=\beta_0.
+$$
+
+::: {.callout-important title="Conclusão"}
+O estimador $\hat\beta_0$ também é **não viesado** para $\beta_0$.
+:::
+
+**3) Variância de $\hat\beta_1$**
+
+Da decomposição obtida anteriormente,
+
+$$
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
+$$
+
+Logo,
+
+$$
+Var(\hat\beta_1\mid X)
+=
+Var\left(
+\frac{1}{S_{xx}}
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right).
+$$
+
+Como $S_{xx}$ depende apenas de $X$, ele é constante quando condicionamos em $X$, e pode sair da variância:
+
+$$
+Var(\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}^2}
+Var\left(
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right).
+$$
+
+Agora usamos a fórmula da variância de uma soma:
+
+$$
+Var\left(
+\sum_{i=1}^n a_i\varepsilon_i
+\;\middle|\; X
+\right)
+=
+\sum_{i=1}^n a_i^2 Var(\varepsilon_i\mid X)
++
+2\sum_{i<j} a_i a_j Cov(\varepsilon_i,\varepsilon_j\mid X).
+$$
+
+Aqui,
+$$
+a_i=X_i-\bar X.
+$$
+
+Como
+$$
+Var(\varepsilon_i\mid X)=\sigma^2
+\qquad \text{e} \qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j,
+$$
+obtemos
+
+$$
+Var\left(
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right)
+=
+\sum_{i=1}^n (X_i-\bar X)^2 \sigma^2
+=
+\sigma^2 S_{xx}.
+$$
+
+Portanto,
+
+$$
+Var(\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}^2}\sigma^2 S_{xx}
+=
+\frac{\sigma^2}{S_{xx}}.
+$$
+
+Como a expressão depende apenas de $X$, escrevemos também
+
+$$
+Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
+$$
+
+::: {.callout-important title="Conclusão"}
+A variância de $\hat\beta_1$ é
+$$
+Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
+$$
+Logo, quanto maior a variabilidade dos valores de $X$, menor tende a ser a variância do estimador da inclinação.
+:::
+
+**4) Variância de $\hat\beta_0$**
+
+Escreva
+
+$$
+\hat\beta_0-\beta_0
+=
+(\bar Y-\beta_0-\beta_1\bar X)-\bar X(\hat\beta_1-\beta_1).
+$$
+
+Como
+$$
+\bar Y=\beta_0+\beta_1\bar X+\bar\varepsilon,
+$$
+segue que
+
+$$
+\bar Y-\beta_0-\beta_1\bar X=\bar\varepsilon.
+$$
+
+Além disso,
+
+$$
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
+$$
+
+Portanto,
+
+$$
+\hat\beta_0-\beta_0
+=
+\bar\varepsilon
+-
+\bar X
+\left(
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\right).
+$$
+
+Tomando variância condicional em $X$,
+
+$$
+Var(\hat\beta_0\mid X)
+=
+Var(\bar\varepsilon\mid X)
++
+\bar X^2
+Var\left(
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right)
+-
+2\bar X
+Cov\left(
+\bar\varepsilon,
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right).
+$$
+
+Vamos calcular cada termo.
+
+Primeiro,
+
+$$
+Var(\bar\varepsilon\mid X)
+=
+Var\left(\frac{1}{n}\sum_{i=1}^n \varepsilon_i \;\middle|\; X\right)
+=
+\frac{1}{n^2}\sum_{i=1}^n Var(\varepsilon_i\mid X)
+=
+\frac{1}{n^2}\cdot n\sigma^2
+=
+\frac{\sigma^2}{n}.
+$$
+
+Segundo, já vimos que
+
+$$
+Var\left(
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right)
+=
+\frac{\sigma^2}{S_{xx}}.
+$$
+
+Resta a covariância. Temos
+
+$$
+Cov\left(
+\bar\varepsilon,
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right)
+=
+\sum_{i=1}^n (X_i-\bar X)\,Cov(\bar\varepsilon,\varepsilon_i\mid X).
+$$
+
+Agora,
+
+$$
+\bar\varepsilon=\frac{1}{n}\sum_{j=1}^n \varepsilon_j,
+$$
+
+logo
+
+$$
+Cov(\bar\varepsilon,\varepsilon_i\mid X)
+=
+Cov\left(
+\frac{1}{n}\sum_{j=1}^n \varepsilon_j,\varepsilon_i
+\;\middle|\; X
+\right)
+=
+\frac{1}{n}\sum_{j=1}^n Cov(\varepsilon_j,\varepsilon_i\mid X).
+$$
+
+Como as covariâncias cruzadas são nulas e
+$$
+Var(\varepsilon_i\mid X)=\sigma^2,
+$$
+segue que
+
+$$
+Cov(\bar\varepsilon,\varepsilon_i\mid X)=\frac{\sigma^2}{n}.
+$$
+
+Assim,
+
+$$
+Cov\left(
+\bar\varepsilon,
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right)
+=
+\frac{\sigma^2}{n}\sum_{i=1}^n (X_i-\bar X)
+=
+0.
+$$
+
+Consequentemente, o termo de covariância desaparece. Portanto,
+
+$$
+Var(\hat\beta_0\mid X)
+=
+\frac{\sigma^2}{n}
++
+\bar X^2 \frac{\sigma^2}{S_{xx}}
+=
+\left(
+\frac{1}{n}
++
+\frac{\bar X^2}{S_{xx}}
+\right)\sigma^2.
+$$
+
+Logo,
+
+$$
+Var(\hat\beta_0)
+=
+\sigma^2
+\left(
+\frac{1}{n}
++
+\frac{\bar X^2}{S_{xx}}
+\right).
+$$
+
+::: {.callout-important title="Conclusão"}
+A variância do intercepto é
+$$
+Var(\hat\beta_0)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
+$$
+Esse resultado mostra que a precisão de $\hat\beta_0$ depende não apenas do tamanho amostral, mas também da posição média dos valores de $X$ e da dispersão desses valores.
+:::
+
+**5) Covariância $Cov(\hat\beta_0,\hat\beta_1)$**
+
+Usando
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X,
+$$
+temos
+
+$$
+Cov(\hat\beta_0,\hat\beta_1\mid X)
+=
+Cov(\bar Y,\hat\beta_1\mid X)
+-
+\bar X\,Var(\hat\beta_1\mid X).
+$$
+
+Já sabemos que
+$$
+Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}}.
+$$
+
+Resta calcular
+$$
+Cov(\bar Y,\hat\beta_1\mid X).
+$$
+
+Como
+$$
+\bar Y=\beta_0+\beta_1\bar X+\bar\varepsilon
+$$
+e
+$$
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i,
+$$
+segue que
+
+$$
+Cov(\bar Y,\hat\beta_1\mid X)
+=
+Cov\left(
+\bar\varepsilon,
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+\;\middle|\; X
+\right).
+$$
+
+Tirando a constante $1/S_{xx}$ para fora,
+
+$$
+Cov(\bar Y,\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}}
+\sum_{i=1}^n (X_i-\bar X)\,Cov(\bar\varepsilon,\varepsilon_i\mid X).
+$$
+
+Como já vimos,
+
+$$
+Cov(\bar\varepsilon,\varepsilon_i\mid X)=\frac{\sigma^2}{n}.
+$$
+
+Logo,
+
+$$
+Cov(\bar Y,\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}}
+\frac{\sigma^2}{n}
+\sum_{i=1}^n (X_i-\bar X)
+=
+0.
+$$
+
+Portanto,
+
+$$
+Cov(\hat\beta_0,\hat\beta_1\mid X)
+=
+-\bar X\,\frac{\sigma^2}{S_{xx}}.
+$$
+
+Isto é,
+
+$$
+Cov(\hat\beta_0,\hat\beta_1\mid X)
+=
+-\frac{\bar X}{S_{xx}}\sigma^2.
+$$
+
+Em notação abreviada,
+
+$$
+Cov(\hat\beta_0,\hat\beta_1)
+=
+-\frac{\bar X}{S_{xx}}\sigma^2.
+$$
+
+::: {.callout-important title="Conclusão"}
+A covariância entre os estimadores é
+$$
+Cov(\hat\beta_0,\hat\beta_1)=-\frac{\bar X}{S_{xx}}\sigma^2.
+$$
+Em geral, $\hat\beta_0$ e $\hat\beta_1$ não são independentes; além disso, o sinal dessa covariância depende do sinal de $\bar X$.
+:::
+
+**6) Estimador de $\sigma^2$**
+
+A soma dos quadrados dos resíduos é
+
+$$
+SQRes
+=
+\sum_{i=1}^n \hat\varepsilon_i^2
+=
+\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+$$
+
+No contexto do MQO, o vetor de resíduos pode ser interpretado geometricamente como o componente de $\mathbf{Y}$ ortogonal ao subespaço gerado pelas colunas da matriz de desenho. No MRLS com intercepto, esse subespaço tem dimensão $2$, pois é gerado por um vetor de uns e pelo vetor das observações de $X$.
+
+Assim, dos $n$ graus de liberdade originalmente presentes em $\mathbf{Y}$, dois são utilizados na estimação de $\beta_0$ e $\beta_1$, restando $n-2$ graus de liberdade para os resíduos.
+
+Um resultado fundamental é que
+
+$$
+E[SQRes\mid X]=(n-2)\sigma^2.
+$$
+
+Portanto,
+
+$$
+s^2=\frac{SQRes}{n-2}
+$$
+
+é um estimador **não viesado** de $\sigma^2$.
+
+::: {.callout-note title="Passo técnico"}
+O denominador não é $n$, mas sim $n-2$, porque dois parâmetros foram estimados a partir dos dados. Essa correção é essencial para que $s^2$ seja não viesado para $\sigma^2$.
+:::
+
+Ao substituir $\sigma^2$ por $s^2$ nas expressões de variâncias e covariâncias, obtemos os estimadores usuais dos erros-padrão de $\hat\beta_0$ e $\hat\beta_1$. Sob hipóteses adicionais, especialmente a normalidade dos erros, esses resultados levam às distribuições exatas usadas em testes de hipóteses e intervalos de confiança.
+
+::: {.callout-important title="Conclusão"}
+O estimador
+$$
+s^2=\frac{SQRes}{n-2}
+$$
+corrige adequadamente a perda de graus de liberdade decorrente da estimação de $\beta_0$ e $\beta_1$, sendo por isso o estimador clássico e não viesado da variância dos erros no MRLS.
+:::
+
+## Demonstração do Teorema de Gauss--Markov em MRLS
+
+Aqui o objetivo é mostrar que os estimadores de mínimos quadrados ordinários (MQO), $\hat\beta_0$ e $\hat\beta_1$, sob as condições
+$$
+E[\varepsilon\mid X]=0,
+\qquad
+Var(\varepsilon\mid X)=\sigma^2I,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j,
+$$
+são os **melhores estimadores lineares não viesados (BLUE)**, isto é, possuem a menor variância possível entre todos os estimadores lineares e não viesados.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A prova será feita separadamente para $\beta_1$ e para $\beta_0$.
+
+A ideia central é a seguinte:
+
+1. descrevemos a forma mais geral de um estimador linear;
+2. impomos as condições para que ele seja não viesado;
+3. calculamos sua variância;
+4. mostramos que a escolha de pesos produzida pelo MQO minimiza essa variância.
+
+No caso da inclinação, a etapa de minimização sai de modo particularmente elegante pela desigualdade de Cauchy--Schwarz. No caso do intercepto, faremos uma decomposição algébrica que mostra diretamente que qualquer desvio em relação aos pesos do MQO só pode aumentar a variância.
+:::
+
+Antes de iniciar, recordemos que no MRLS temos
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,
+\qquad i=1,\dots,n,
+$$
+
+e que os estimadores de MQO podem ser escritos como
+
+$$
+\hat\beta_1=\frac{\sum_{i=1}^n (X_i-\bar X)Y_i}{S_{xx}},
+\qquad
+\hat\beta_0=\bar Y-\hat\beta_1\bar X,
+$$
+
+em que
+
+$$
+\bar X=\frac{1}{n}\sum_{i=1}^n X_i,
+\qquad
+\bar Y=\frac{1}{n}\sum_{i=1}^n Y_i,
+\qquad
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+Também será importante lembrar que, ao longo da demonstração, os valores de $X_1,\dots,X_n$ são tratados como fixos. Assim, toda a comparação entre estimadores é feita **condicionalmente aos valores de $X$**.
+
+::: {.callout-warning title="Condição necessária"}
+Para que o problema faça sentido, é necessário que
+$$
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2 > 0.
+$$
+
+Isso significa que a variável explicativa deve apresentar variabilidade amostral. Se todos os $X_i$ forem iguais, o coeficiente angular não pode ser identificado.
+:::
+
+### Parte A: A inclinação $\beta_1$
+
+**Passo 1: Forma geral de um estimador linear**
+
+Um estimador linear de $\beta_1$ pode ser escrito como
+
+$$
+\tilde\beta_1 = \sum_{i=1}^n c_i Y_i,
+$$
+
+em que os pesos $c_i$ dependem apenas dos valores fixos de $X_i$, mas não de $Y_i$.
+
+Essa representação é bastante geral: qualquer estimador linear construído a partir das observações $Y_1,\dots,Y_n$ pode ser expresso como combinação linear dessas observações. Assim, em vez de procurar um estimador em uma classe muito ampla de fórmulas possíveis, basta procurar os pesos $c_1,\dots,c_n$ adequados.
+
+O problema passa, então, a ser: quais restrições os pesos devem satisfazer para que o estimador seja não viesado? E, dentre todos os conjuntos de pesos que satisfazem essas restrições, qual deles produz a menor variância?
+
+**Passo 2: Condição de não viés**
+
+Tomando esperança condicional em $X$, temos
+
+$$
+E[\tilde\beta_1\mid X]
+=
+E\left[\sum_{i=1}^n c_iY_i \,\middle|\, X\right]
+=
+\sum_{i=1}^n c_i E[Y_i\mid X].
+$$
+
+Como
+$$
+E[Y_i\mid X]=\beta_0+\beta_1X_i,
+$$
+segue que
+
+$$
+E[\tilde\beta_1\mid X]
+=
+\sum_{i=1}^n c_i(\beta_0+\beta_1X_i)
+=
+\beta_0\sum_{i=1}^n c_i
++
+\beta_1\sum_{i=1}^n c_iX_i.
+$$
+
+Para que $\tilde\beta_1$ seja não viesado para $\beta_1$, precisamos que
+
+$$
+E[\tilde\beta_1\mid X]=\beta_1
+$$
+
+para quaisquer valores de $\beta_0$ e $\beta_1$. Isso só é possível se os coeficientes de $\beta_0$ e $\beta_1$ coincidirem, isto é,
+
+$$
+\sum_{i=1}^n c_i = 0,
+\qquad
+\sum_{i=1}^n c_i X_i = 1.
+$$
+
+Essas são exatamente as restrições de não viés.
+
+A primeira condição, $\sum c_i=0$, elimina a influência do intercepto $\beta_0$ sobre o estimador da inclinação. A segunda, $\sum c_iX_i=1$, garante que o coeficiente angular verdadeiro seja reproduzido corretamente em média.
+
+::: {.callout-note title="Passo técnico"}
+A exigência de não viés deve valer **para todo** valor de $\beta_0$ e $\beta_1$. Por isso não basta obter uma igualdade numérica em um caso particular; é necessário igualar separadamente os coeficientes que multiplicam $\beta_0$ e $\beta_1$.
+:::
+
+**Passo 3: Variância do estimador linear**
+
+Como os pesos $c_i$ dependem apenas de $X$ e os erros são homoscedásticos e não correlacionados, temos
+
+$$
+Var(\tilde\beta_1\mid X)
+=
+Var\left(\sum_{i=1}^n c_iY_i \,\middle|\, X\right).
+$$
+
+Substituindo
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,
+$$
+obtemos
+
+$$
+\tilde\beta_1
+=
+\sum_{i=1}^n c_i(\beta_0+\beta_1X_i+\varepsilon_i)
+=
+\beta_0\sum_{i=1}^n c_i+\beta_1\sum_{i=1}^n c_iX_i+\sum_{i=1}^n c_i\varepsilon_i.
+$$
+
+Como variância não é afetada por constantes, segue que
+
+$$
+Var(\tilde\beta_1\mid X)
+=
+Var\left(\sum_{i=1}^n c_i\varepsilon_i \,\middle|\, X\right).
+$$
+
+Agora, usando a covariância nula dos erros,
+
+$$
+Var\left(\sum_{i=1}^n c_i\varepsilon_i \,\middle|\, X\right)
+=
+\sum_{i=1}^n c_i^2 Var(\varepsilon_i\mid X)
++
+2\sum_{i<j} c_ic_jCov(\varepsilon_i,\varepsilon_j\mid X).
+$$
+
+Como
+$$
+Var(\varepsilon_i\mid X)=\sigma^2
+\qquad \text{e} \qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j,
+$$
+temos
+
+$$
+Var(\tilde\beta_1\mid X)
+=
+\sigma^2\sum_{i=1}^n c_i^2.
+$$
+
+Portanto, minimizar a variância de $\tilde\beta_1$ equivale a minimizar
+$$
+\sum_{i=1}^n c_i^2
+$$
+sujeito às restrições de não viés.
+
+**Passo 4: O estimador de MQO como referência**
+
+Do MQO, sabemos que
+
+$$
+\hat\beta_1 = \frac{\sum_{i=1}^n (X_i - \bar X) Y_i}{S_{xx}},
+\qquad
+S_{xx} = \sum_{i=1}^n (X_i - \bar X)^2.
+$$
+
+Isso mostra que $\hat\beta_1$ também é um estimador linear, com pesos
+
+$$
+c_i^\star = \frac{X_i-\bar X}{S_{xx}}.
+$$
+
+Ou seja,
+
+$$
+\hat\beta_1=\sum_{i=1}^n c_i^\star Y_i.
+$$
+
+Verifiquemos as restrições de não viés.
+
+Primeiro,
+
+$$
+\sum_{i=1}^n c_i^\star
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)
+=
+0.
+$$
+
+Segundo,
+
+$$
+\sum_{i=1}^n c_i^\star X_i
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)X_i.
+$$
+
+Agora escrevemos
+$$
+X_i=\bar X+(X_i-\bar X),
+$$
+e então
+
+$$
+\sum_{i=1}^n (X_i-\bar X)X_i
+=
+\sum_{i=1}^n (X_i-\bar X)\bigl[\bar X+(X_i-\bar X)\bigr].
+$$
+
+Expandindo,
+
+$$
+\sum_{i=1}^n (X_i-\bar X)X_i
+=
+\bar X\sum_{i=1}^n (X_i-\bar X)
++
+\sum_{i=1}^n (X_i-\bar X)^2
+=
+0+S_{xx}
+=
+S_{xx}.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n c_i^\star X_i
+=
+\frac{S_{xx}}{S_{xx}}
+=
+1.
+$$
+
+Portanto, $\hat\beta_1$ é linear e não viesado.
+
+::: {.callout-note title="Passo técnico"}
+Até aqui ainda não provamos que o MQO é o melhor estimador; apenas verificamos que ele pertence à classe dos estimadores lineares não viesados. O próximo passo é mostrar que nenhum outro estimador dessa classe pode ter variância menor.
+:::
+
+**Passo 5: Otimalidade via Cauchy--Schwarz**
+
+Das restrições de não viés, temos
+
+$$
+\sum_{i=1}^n c_i=0
+\qquad \text{e} \qquad
+\sum_{i=1}^n c_iX_i=1.
+$$
+
+Usando a primeira restrição, podemos escrever
+
+$$
+\sum_{i=1}^n c_i(X_i-\bar X)
+=
+\sum_{i=1}^n c_iX_i-\bar X\sum_{i=1}^n c_i
+=
+1-\bar X\cdot 0
+=
+1.
+$$
+
+Portanto,
+
+$$
+1=\sum_{i=1}^n c_i(X_i-\bar X).
+$$
+
+Aplicamos agora a desigualdade de Cauchy--Schwarz às sequências $(c_1,\dots,c_n)$ e $(X_1-\bar X,\dots,X_n-\bar X)$:
+
+$$
+\left(\sum_{i=1}^n c_i(X_i-\bar X)\right)^2
+\leq
+\left(\sum_{i=1}^n c_i^2\right)
+\left(\sum_{i=1}^n (X_i-\bar X)^2\right).
+$$
+
+Como o lado esquerdo é igual a $1^2$, obtemos
+
+$$
+1
+\leq
+\left(\sum_{i=1}^n c_i^2\right)S_{xx}.
+$$
+
+Assim,
+
+$$
+\sum_{i=1}^n c_i^2 \geq \frac{1}{S_{xx}}.
+$$
+
+Multiplicando por $\sigma^2$, segue que
+
+$$
+Var(\tilde\beta_1\mid X)
+=
+\sigma^2\sum_{i=1}^n c_i^2
+\geq
+\frac{\sigma^2}{S_{xx}}.
+$$
+
+Mas
+$$
+Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}},
+$$
+logo
+
+$$
+Var(\tilde\beta_1\mid X)\geq Var(\hat\beta_1\mid X).
+$$
+
+Portanto, nenhum estimador linear não viesado de $\beta_1$ pode ter variância menor do que a do estimador de MQO.
+
+Resta discutir quando ocorre a igualdade. Pela caracterização da igualdade em Cauchy--Schwarz, ela ocorre se, e somente se, existir uma constante $\lambda$ tal que
+
+$$
+c_i=\lambda(X_i-\bar X),
+\qquad i=1,\dots,n.
+$$
+
+Impondo a restrição
+$$
+\sum_{i=1}^n c_iX_i=1,
+$$
+obtemos
+
+$$
+1
+=
+\sum_{i=1}^n \lambda(X_i-\bar X)X_i
+=
+\lambda S_{xx},
+$$
+
+de onde
+
+$$
+\lambda=\frac{1}{S_{xx}}.
+$$
+
+Assim,
+
+$$
+c_i=\frac{X_i-\bar X}{S_{xx}}=c_i^\star.
+$$
+
+Logo, o estimador de MQO é o **único** estimador linear não viesado que atinge a variância mínima.
+
+::: {.callout-important title="Conclusão da Parte A"}
+O estimador
+$$
+\hat\beta_1=\frac{\sum_{i=1}^n (X_i-\bar X)Y_i}{S_{xx}}
+$$
+é o **único estimador linear não viesado de $\beta_1$ com variância mínima**. Portanto, ele é BLUE para o coeficiente angular.
+:::
+
+### Parte B: O intercepto $\beta_0$
+
+**Passo 1: Forma geral de um estimador linear**
+
+Um estimador linear de $\beta_0$ pode ser escrito como
+
+$$
+\tilde\beta_0 = \sum_{i=1}^n a_i Y_i,
+$$
+
+em que os pesos $a_i$ dependem apenas de $X_1,\dots,X_n$.
+
+Novamente, a questão central é determinar quais restrições esses pesos devem satisfazer para garantir não viés e, depois, verificar qual escolha minimiza a variância.
+
+**Passo 2: Condições de não viés**
+
+Tomando esperança condicional em $X$, temos
+
+$$
+E[\tilde\beta_0\mid X]
+=
+\sum_{i=1}^n a_iE[Y_i\mid X]
+=
+\sum_{i=1}^n a_i(\beta_0+\beta_1X_i).
+$$
+
+Assim,
+
+$$
+E[\tilde\beta_0\mid X]
+=
+\beta_0\sum_{i=1}^n a_i
++
+\beta_1\sum_{i=1}^n a_iX_i.
+$$
+
+Para que $\tilde\beta_0$ seja não viesado para $\beta_0$, devemos ter
+
+$$
+E[\tilde\beta_0\mid X]=\beta_0
+$$
+
+para quaisquer $\beta_0$ e $\beta_1$. Logo, é necessário impor
+
+$$
+\sum_{i=1}^n a_i=1,
+\qquad
+\sum_{i=1}^n a_iX_i=0.
+$$
+
+A primeira condição garante que o coeficiente de $\beta_0$ seja igual a $1$, enquanto a segunda elimina a influência de $\beta_1$.
+
+**Passo 3: Variância do estimador linear**
+
+De modo análogo ao caso anterior,
+
+$$
+Var(\tilde\beta_0\mid X)
+=
+Var\left(\sum_{i=1}^n a_iY_i \,\middle|\, X\right)
+=
+Var\left(\sum_{i=1}^n a_i\varepsilon_i \,\middle|\, X\right).
+$$
+
+Pelas hipóteses do modelo,
+
+$$
+Var(\tilde\beta_0\mid X)
+=
+\sigma^2\sum_{i=1}^n a_i^2.
+$$
+
+Assim, minimizar a variância equivale a minimizar
+$$
+\sum_{i=1}^n a_i^2
+$$
+sujeito às restrições
+
+$$
+\sum_{i=1}^n a_i=1,
+\qquad
+\sum_{i=1}^n a_iX_i=0.
+$$
+
+**Passo 4: O estimador de MQO como referência**
+
+Sabemos que
+
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+$$
+
+Como
+$$
+\bar Y=\frac{1}{n}\sum_{i=1}^n Y_i
+\qquad \text{e} \qquad
+\hat\beta_1=\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)Y_i,
+$$
+segue que
+
+$$
+\hat\beta_0
+=
+\frac{1}{n}\sum_{i=1}^n Y_i
+-
+\bar X\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)Y_i.
+$$
+
+Agrupando as observações $Y_i$, obtemos
+
+$$
+\hat\beta_0
+=
+\sum_{i=1}^n
+\left(
+\frac{1}{n}-\frac{\bar X(X_i-\bar X)}{S_{xx}}
+\right)Y_i.
+$$
+
+Portanto, os pesos do MQO são
+
+$$
+a_i^\star=\frac{1}{n}-\frac{\bar X(X_i-\bar X)}{S_{xx}}.
+$$
+
+Verifiquemos as restrições.
+
+Primeiro,
+
+$$
+\sum_{i=1}^n a_i^\star
+=
+\sum_{i=1}^n \frac{1}{n}
+-
+\frac{\bar X}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)
+=
+1-0
+=
+1.
+$$
+
+Segundo,
+
+$$
+\sum_{i=1}^n a_i^\star X_i
+=
+\sum_{i=1}^n \frac{X_i}{n}
+-
+\frac{\bar X}{S_{xx}}\sum_{i=1}^n X_i(X_i-\bar X).
+$$
+
+Mas
+
+$$
+\sum_{i=1}^n \frac{X_i}{n}=\bar X,
+$$
+
+e, como já vimos,
+
+$$
+\sum_{i=1}^n X_i(X_i-\bar X)=S_{xx}.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n a_i^\star X_i
+=
+\bar X-\frac{\bar X}{S_{xx}}S_{xx}
+=
+0.
+$$
+
+Assim, $\hat\beta_0$ é linear e não viesado.
+
+**Passo 5: Prova da variância mínima**
+
+Agora precisamos mostrar que qualquer outro estimador linear não viesado possui variância pelo menos tão grande quanto a de $\hat\beta_0$.
+
+Seja $(a_1,\dots,a_n)$ qualquer conjunto de pesos que satisfaça
+
+$$
+\sum_{i=1}^n a_i=1,
+\qquad
+\sum_{i=1}^n a_iX_i=0.
+$$
+
+Definamos as diferenças
+
+$$
+d_i=a_i-a_i^\star,
+\qquad i=1,\dots,n.
+$$
+
+Então,
+
+$$
+a_i=a_i^\star+d_i.
+$$
+
+Como tanto $(a_i)$ quanto $(a_i^\star)$ satisfazem as restrições de não viés, temos
+
+$$
+\sum_{i=1}^n d_i
+=
+\sum_{i=1}^n a_i-\sum_{i=1}^n a_i^\star
+=
+1-1
+=
+0,
+$$
+
+e também
+
+$$
+\sum_{i=1}^n d_iX_i
+=
+\sum_{i=1}^n a_iX_i-\sum_{i=1}^n a_i^\star X_i
+=
+0-0
+=
+0.
+$$
+
+Agora expandimos a soma de quadrados dos pesos:
+
+$$
+\sum_{i=1}^n a_i^2
+=
+\sum_{i=1}^n (a_i^\star+d_i)^2
+=
+\sum_{i=1}^n (a_i^\star)^2
++
+2\sum_{i=1}^n a_i^\star d_i
++
+\sum_{i=1}^n d_i^2.
+$$
+
+O ponto crucial é mostrar que o termo misto é nulo. De fato,
+
+$$
+\sum_{i=1}^n a_i^\star d_i
+=
+\sum_{i=1}^n
+\left(
+\frac{1}{n}-\frac{\bar X(X_i-\bar X)}{S_{xx}}
+\right)d_i.
+$$
+
+Separando os termos,
+
+$$
+\sum_{i=1}^n a_i^\star d_i
+=
+\frac{1}{n}\sum_{i=1}^n d_i
+-
+\frac{\bar X}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)d_i.
+$$
+
+O primeiro termo é zero, pois $\sum d_i=0$. No segundo termo,
+
+$$
+\sum_{i=1}^n (X_i-\bar X)d_i
+=
+\sum_{i=1}^n X_id_i-\bar X\sum_{i=1}^n d_i
+=
+0-\bar X\cdot 0
+=
+0.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n a_i^\star d_i=0.
+$$
+
+Portanto,
+
+$$
+\sum_{i=1}^n a_i^2
+=
+\sum_{i=1}^n (a_i^\star)^2
++
+\sum_{i=1}^n d_i^2
+\geq
+\sum_{i=1}^n (a_i^\star)^2.
+$$
+
+Como $\sum d_i^2\geq 0$, segue que a soma dos quadrados dos pesos é minimizada precisamente quando $d_i=0$ para todo $i$, isto é, quando $a_i=a_i^\star$.
+
+Consequentemente,
+
+$$
+Var(\tilde\beta_0\mid X)
+=
+\sigma^2\sum_{i=1}^n a_i^2
+\geq
+\sigma^2\sum_{i=1}^n (a_i^\star)^2
+=
+Var(\hat\beta_0\mid X).
+$$
+
+Resta identificar o valor dessa variância mínima. Já vimos anteriormente que
+
+$$
+Var(\hat\beta_0\mid X)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
+$$
+
+Logo,
+
+$$
+Var(\hat\beta_0\mid X)
+=
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
+$$
+
+::: {.callout-note title="Passo técnico"}
+No caso do intercepto, a minimização pode ser feita por vários caminhos: multiplicadores de Lagrange, projeções ortogonais ou decomposição algébrica. Aqui, a decomposição
+$$
+a_i=a_i^\star+d_i
+$$
+é especialmente conveniente porque mostra diretamente que qualquer afastamento em relação aos pesos do MQO acrescenta o termo não negativo
+$$
+\sum_{i=1}^n d_i^2,
+$$
+aumentando a variância.
+:::
+
+::: {.callout-important title="Conclusão da Parte B"}
+O estimador
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X
+$$
+é o **único estimador linear não viesado de $\beta_0$ com variância mínima**. Portanto, ele é BLUE para o intercepto.
+:::
+
+### Conclusões e observações
+
+Reunindo os resultados das Partes A e B, concluímos que, sob as hipóteses de Gauss--Markov,
+
+$$
+E[\varepsilon\mid X]=0,
+\qquad
+Var(\varepsilon\mid X)=\sigma^2I,
+$$
+
+os estimadores de mínimos quadrados ordinários $\hat\beta_0$ e $\hat\beta_1$ pertencem à classe dos estimadores lineares não viesados e, além disso, têm a menor variância dentro dessa classe.
+
+Em particular,
+
+$$
+Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}},
+\qquad
+Var(\hat\beta_0\mid X)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
+$$
+
+Assim, os estimadores de MQO são **BLUE** (Best Linear Unbiased Estimator):
+
+- **Best**: melhores no sentido de menor variância;
+- **Linear**: são combinações lineares das observações $Y_i$;
+- **Unbiased**: são não viesados;
+- **Estimator**: estimadores dos parâmetros do modelo.
+
+::: {.callout-important title="Conclusão"}
+Sob as hipóteses do Teorema de Gauss--Markov, não existe estimador linear não viesado de $\beta_0$ ou $\beta_1$ mais preciso do que o obtido por MQO. Esse resultado fornece a principal justificativa teórica para o uso do método de mínimos quadrados em regressão linear.
+:::
+
+Há duas observações conceituais importantes.
+
+A primeira é que a hipótese de **normalidade dos erros não é necessária** para o Teorema de Gauss--Markov. A eficiência BLUE do MQO depende apenas de linearidade, não viés condicional, homoscedasticidade e ausência de correlação entre erros.
+
+A segunda é que, se as hipóteses de homoscedasticidade ou não correlação falham, o MQO pode continuar sendo não viesado em certas situações, mas deixa de ser, em geral, o estimador linear não viesado de menor variância. Nesses casos, tornam-se relevantes métodos alternativos, como mínimos quadrados ponderados (WLS) e mínimos quadrados generalizados (GLS).
+
+::: {.callout-warning title="Condição necessária"}
+O adjetivo “melhor”, no Teorema de Gauss--Markov, deve ser entendido em sentido preciso: **menor variância dentro da classe dos estimadores lineares não viesados**.
+
+O teorema não afirma que o MQO é melhor do que qualquer estimador possível sem restrições. Fora da classe linear, podem existir outros estimadores com propriedades diferentes, dependendo do contexto e de hipóteses adicionais.
+:::
+
+O Teorema de Gauss--Markov é um dos pilares da inferência clássica em regressão. Ele mostra que o procedimento de MQO não é apenas simples e intuitivo, mas também teoricamente ótimo em uma classe muito ampla de estimadores. Por isso, ele ocupa uma posição de destaque tanto na formulação do modelo quanto na interpretação inferencial de seus estimadores.
+
+### Propriedades ortogonais dos resíduos no MRLS
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+e os estimadores de mínimos quadrados ordinários $\hat\beta_0$ e $\hat\beta_1$. Denotemos os valores ajustados por
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i
+$$
+
+e os resíduos por
+
+$$
+\hat\varepsilon_i = Y_i - \hat Y_i.
+$$
+
+Nosso objetivo é demonstrar três propriedades fundamentais dos resíduos:
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i = 0,
+\qquad
+\sum_{i=1}^n X_i \hat\varepsilon_i = 0,
+\qquad
+\sum_{i=1}^n \hat Y_i \hat\varepsilon_i = 0.
+$$
+
+Esses resultados são conhecidos como **propriedades de ortogonalidade dos resíduos** e desempenham papel central na teoria do MQO.
+
+---
+
+::: {.callout-important title="Estratégia da demonstração"}
+As duas primeiras propriedades serão obtidas diretamente das **equações normais do MQO**, que caracterizam o ponto de mínimo da função de soma de quadrados.
+
+A terceira propriedade será deduzida a partir das duas primeiras, explorando a forma dos valores ajustados.
+:::
+
+---
+
+## 1) Soma dos resíduos é zero
+
+Pelas equações normais, sabemos que
+
+$$
+\sum_{i=1}^n Y_i = n\hat\beta_0 + \hat\beta_1 \sum_{i=1}^n X_i.
+$$
+
+Por outro lado, somando os valores ajustados, temos
+
+$$
+\sum_{i=1}^n \hat Y_i
+=
+\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)
+=
+n\hat\beta_0 + \hat\beta_1 \sum_{i=1}^n X_i.
+$$
+
+Comparando as duas expressões, obtemos
+
+$$
+\sum_{i=1}^n Y_i = \sum_{i=1}^n \hat Y_i.
+$$
+
+Subtraindo membro a membro,
+
+$$
+\sum_{i=1}^n (Y_i - \hat Y_i) = 0.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i = 0.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Esse resultado decorre diretamente da primeira equação normal. Ele não depende de nenhuma hipótese probabilística, apenas da definição dos estimadores de MQO.
+:::
+
+---
+
+## 2) Soma dos resíduos ponderados por $X_i$ é zero
+
+A segunda equação normal é
+
+$$
+\sum_{i=1}^n X_i Y_i = \hat\beta_0 \sum_{i=1}^n X_i + \hat\beta_1 \sum_{i=1}^n X_i^2.
+$$
+
+Agora, consideremos
+
+$$
+\sum_{i=1}^n X_i \hat Y_i
+=
+\sum_{i=1}^n X_i (\hat\beta_0+\hat\beta_1X_i)
+=
+\hat\beta_0 \sum_{i=1}^n X_i + \hat\beta_1 \sum_{i=1}^n X_i^2.
+$$
+
+Portanto,
+
+$$
+\sum_{i=1}^n X_i Y_i = \sum_{i=1}^n X_i \hat Y_i.
+$$
+
+Subtraindo,
+
+$$
+\sum_{i=1}^n X_i(Y_i-\hat Y_i)=0.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n X_i \hat\varepsilon_i = 0.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Esse resultado decorre da segunda equação normal. Ele mostra que os resíduos são ortogonais à variável explicativa $X$.
+:::
+
+---
+
+## 3) Ortogonalidade entre valores ajustados e resíduos
+
+Queremos mostrar que
+
+$$
+\sum_{i=1}^n \hat Y_i \hat\varepsilon_i = 0.
+$$
+
+Substituindo $\hat Y_i=\hat\beta_0+\hat\beta_1X_i$, temos
+
+$$
+\sum_{i=1}^n \hat Y_i \hat\varepsilon_i
+=
+\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat\varepsilon_i.
+$$
+
+Distribuindo,
+
+$$
+\sum_{i=1}^n \hat Y_i \hat\varepsilon_i
+=
+\hat\beta_0 \sum_{i=1}^n \hat\varepsilon_i
++
+\hat\beta_1 \sum_{i=1}^n X_i \hat\varepsilon_i.
+$$
+
+Agora usamos os resultados já demonstrados:
+
+- $\sum \hat\varepsilon_i = 0$  
+- $\sum X_i \hat\varepsilon_i = 0$
+
+Portanto,
+
+$$
+\sum_{i=1}^n \hat Y_i \hat\varepsilon_i = 0.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Essa propriedade não vem diretamente das equações normais, mas é consequência delas. Ela mostra que os resíduos são ortogonais também aos valores ajustados.
+:::
+
+---
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples com MQO, os resíduos satisfazem:
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i = 0,
+\qquad
+\sum_{i=1}^n X_i \hat\varepsilon_i = 0,
+\qquad
+\sum_{i=1}^n \hat Y_i \hat\varepsilon_i = 0.
+$$
+
+Essas relações mostram que o vetor de resíduos é ortogonal:
+
+- ao vetor constante (intercepto),
+- ao vetor das observações de $X$,
+- e ao vetor dos valores ajustados.
+
+Essas propriedades são a base da interpretação geométrica do MQO e da decomposição das somas de quadrados no MRLS.
+:::
+
+### Decomposição da soma de quadrados no MRLS
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+e os estimadores de mínimos quadrados ordinários $\hat\beta_0$ e $\hat\beta_1$. Denotemos os valores ajustados por
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i
+$$
+
+e os resíduos por
+
+$$
+\hat\varepsilon_i=Y_i-\hat Y_i.
+$$
+
+Um dos resultados centrais da teoria do MRLS é a decomposição da variabilidade total de $Y$ em duas partes: a parte explicada pela regressão e a parte não explicada, isto é, residual.
+
+Definimos:
+
+- a **soma de quadrados total** por
+$$
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2;
+$$
+
+- a **soma de quadrados da regressão** por
+$$
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2;
+$$
+
+- a **soma de quadrados dos resíduos** por
+$$
+SQ_{Res}=\sum_{i=1}^n (Y_i-\hat Y_i)^2=\sum_{i=1}^n \hat\varepsilon_i^2.
+$$
+
+Nosso objetivo é demonstrar que
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+Essa identidade é a base algébrica da tabela de ANOVA no MRLS e também fundamenta a definição do coeficiente de determinação $R^2$.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia central é decompor o desvio total
+$$
+Y_i-\bar Y
+$$
+em duas parcelas:
+
+1. o desvio explicado pela reta ajustada,
+$$
+\hat Y_i-\bar Y;
+$$
+
+2. o resíduo,
+$$
+Y_i-\hat Y_i.
+$$
+
+Depois, elevamos ao quadrado e somamos. O termo cruzado que aparece na expansão desaparecerá graças à ortogonalidade entre valores ajustados e resíduos, provada anteriormente.
+:::
+
+## 1) Decomposição básica de cada desvio total
+
+Para cada observação $i$, podemos escrever
+
+$$
+Y_i-\bar Y
+=
+(Y_i-\hat Y_i)+(\hat Y_i-\bar Y).
+$$
+
+De fato, basta somar e subtrair $\hat Y_i$:
+
+$$
+Y_i-\bar Y
+=
+Y_i-\hat Y_i+\hat Y_i-\bar Y.
+$$
+
+Ou seja, cada desvio do valor observado em relação à média pode ser separado em:
+
+- uma parte associada ao erro de ajuste da reta;
+- uma parte associada ao afastamento do valor ajustado em relação à média.
+
+Essa decomposição é puramente algébrica e vale para todo $i$.
+
+## 2) Elevação ao quadrado
+
+Elevando ambos os lados ao quadrado, obtemos
+
+$$
+(Y_i-\bar Y)^2
+=
+\bigl[(Y_i-\hat Y_i)+(\hat Y_i-\bar Y)\bigr]^2.
+$$
+
+Usando a identidade
+$$
+(a+b)^2=a^2+2ab+b^2,
+$$
+segue que
+
+$$
+(Y_i-\bar Y)^2
+=
+(Y_i-\hat Y_i)^2
++
+2(Y_i-\hat Y_i)(\hat Y_i-\bar Y)
++
+(\hat Y_i-\bar Y)^2.
+$$
+
+Agora somamos essa expressão para $i=1,\dots,n$:
+
+$$
+\sum_{i=1}^n (Y_i-\bar Y)^2
+=
+\sum_{i=1}^n (Y_i-\hat Y_i)^2
++
+2\sum_{i=1}^n (Y_i-\hat Y_i)(\hat Y_i-\bar Y)
++
+\sum_{i=1}^n (\hat Y_i-\bar Y)^2.
+$$
+
+Isto é,
+
+$$
+SQ_{Total}
+=
+SQ_{Res}
++
+2\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)
++
+SQ_{Reg}.
+$$
+
+Assim, para concluir a demonstração, basta mostrar que
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)=0.
+$$
+
+## 3) Anulação do termo cruzado
+
+Consideremos o termo cruzado:
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y).
+$$
+
+Distribuindo, temos
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)
+=
+\sum_{i=1}^n \hat\varepsilon_i\hat Y_i
+-
+\bar Y\sum_{i=1}^n \hat\varepsilon_i.
+$$
+
+Agora usamos duas propriedades já demonstradas para os resíduos do MQO no MRLS:
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i=0
+\qquad \text{e} \qquad
+\sum_{i=1}^n \hat Y_i\hat\varepsilon_i=0.
+$$
+
+Substituindo essas identidades, segue que
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)=0- \bar Y\cdot 0=0.
+$$
+
+Logo, o termo cruzado desaparece.
+
+::: {.callout-note title="Passo técnico"}
+Esse é o ponto decisivo da prova. A decomposição
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}
+$$
+não decorre apenas de uma expansão algébrica; ela depende de uma propriedade específica do ajuste por MQO: a ortogonalidade entre resíduos e valores ajustados.
+:::
+
+Substituindo esse resultado na expressão anterior, obtemos
+
+$$
+SQ_{Total}=SQ_{Res}+SQ_{Reg}.
+$$
+
+Ou, reordenando,
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+Isso conclui a demonstração.
+
+## 4) Interpretação da decomposição
+
+A identidade
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}
+$$
+
+mostra que a variabilidade total das observações em torno da média pode ser decomposta em duas parcelas:
+
+- a variabilidade explicada pela regressão, medida por
+$$
+SQ_{Reg};
+$$
+
+- a variabilidade não explicada pela regressão, medida por
+$$
+SQ_{Res}.
+$$
+
+Quando a reta ajustada explica bem os dados, esperamos que $SQ_{Reg}$ seja grande e $SQ_{Res}$ seja relativamente pequeno. Quando a regressão explica pouco, ocorre o contrário.
+
+Essa decomposição é análoga à ideia geral, muito comum em Estatística, de particionar a variabilidade observada em uma parte sistemática e uma parte aleatória.
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples ajustado por mínimos quadrados ordinários, vale a identidade
+
+$$
+\sum_{i=1}^n (Y_i-\bar Y)^2
+=
+\sum_{i=1}^n (\hat Y_i-\bar Y)^2
++
+\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+$$
+
+Isto é,
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+Essa decomposição é um dos resultados centrais do MRLS, pois fundamenta:
+
+- a tabela de análise de variância;
+- a definição do coeficiente de determinação $R^2$;
+- o teste global da regressão;
+- a interpretação geométrica do ajuste por MQO.
+:::
+
+## 5) Observação sobre graus de liberdade
+
+Além da decomposição das somas de quadrados, há uma decomposição associada de graus de liberdade:
+
+$$
+n-1 = 1 + (n-2).
+$$
+
+No MRLS com intercepto:
+
+- $SQ_{Total}$ tem $n-1$ graus de liberdade;
+- $SQ_{Reg}$ tem $1$ grau de liberdade;
+- $SQ_{Res}$ tem $n-2$ graus de liberdade.
+
+Isso ocorre porque:
+
+- a variabilidade total é medida em torno da média amostral $\bar Y$, o que consome $1$ grau de liberdade;
+- a parte explicada pela regressão simples envolve apenas um regressor $X$, além do intercepto, de modo que a regressão contribui com $1$ grau de liberdade;
+- a parte residual fica com os graus de liberdade restantes.
+
+::: {.callout-warning title="Condição necessária"}
+Essa decomposição na forma usual
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}
+$$
+é considerada no MRLS **com intercepto**. A presença do intercepto é essencial para que a decomposição em torno de $\bar Y$ assuma essa forma e para que propriedades como
+$$
+\sum_{i=1}^n \hat\varepsilon_i=0
+$$
+sejam válidas.
+:::
+
+### Demonstração de $E(SQ_{Res}\mid X)=(n-2)\sigma^2$
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+com
+
+$$
+E[\varepsilon_i\mid X]=0,
+\qquad
+Var(\varepsilon_i\mid X)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j.
+$$
+
+Denotemos os resíduos de MQO por
+
+$$
+\hat\varepsilon_i=Y_i-\hat Y_i,
+$$
+
+e a soma dos quadrados dos resíduos por
+
+$$
+SQ_{Res}=\sum_{i=1}^n \hat\varepsilon_i^2.
+$$
+
+Nosso objetivo é demonstrar que
+
+$$
+E(SQ_{Res}\mid X)=(n-2)\sigma^2.
+$$
+
+Esse resultado é fundamental, pois justifica o uso de
+
+$$
+s^2=\frac{SQ_{Res}}{n-2}
+$$
+
+como estimador não viesado de $\sigma^2$.
+
+---
+
+::: {.callout-important title="Estratégia da demonstração"}
+A prova será feita reescrevendo cada resíduo em função dos erros verdadeiros $\varepsilon_i$.
+
+Mostraremos que os resíduos podem ser expressos como combinações lineares dos erros e, em seguida, calcularemos a esperança da soma de quadrados usando propriedades de variância.
+
+Um passo-chave será explorar que os resíduos possuem **duas restrições lineares** (já demonstradas):
+
+$$
+\sum \hat\varepsilon_i = 0
+\qquad \text{e} \qquad
+\sum X_i \hat\varepsilon_i = 0.
+$$
+
+Essas duas restrições são responsáveis pela perda de 2 graus de liberdade.
+:::
+
+---
+
+## 1) Expressão dos resíduos em função dos erros
+
+Começamos escrevendo
+
+$$
+\hat\varepsilon_i
+=
+Y_i-\hat Y_i
+=
+(\beta_0+\beta_1X_i+\varepsilon_i)
+-
+(\hat\beta_0+\hat\beta_1X_i).
+$$
+
+Logo,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+(\hat\beta_0-\beta_0)
+-
+(\hat\beta_1-\beta_1)X_i.
+$$
+
+Agora usamos as expressões conhecidas:
+
+$$
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{j=1}^n (X_j-\bar X)\varepsilon_j,
+$$
+
+e
+
+$$
+\hat\beta_0-\beta_0
+=
+\bar\varepsilon
+-
+\bar X(\hat\beta_1-\beta_1),
+$$
+
+onde
+
+$$
+\bar\varepsilon=\frac{1}{n}\sum_{j=1}^n \varepsilon_j.
+$$
+
+Substituindo, obtemos
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\bar\varepsilon
++
+\bar X(\hat\beta_1-\beta_1)
+-
+(\hat\beta_1-\beta_1)X_i.
+$$
+
+Agrupando os termos,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\bar\varepsilon
+-
+(\hat\beta_1-\beta_1)(X_i-\bar X).
+$$
+
+Substituindo novamente $\hat\beta_1-\beta_1$, segue que
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\bar\varepsilon
+-
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Essa expressão mostra que cada resíduo não depende apenas de $\varepsilon_i$, mas de **todos os erros** $\varepsilon_1,\dots,\varepsilon_n$. Isso reflete o fato de que o ajuste por MQO utiliza toda a amostra simultaneamente.
+:::
+
+---
+
+## 2) Soma dos quadrados dos resíduos
+
+Agora consideramos
+
+$$
+SQ_{Res}=\sum_{i=1}^n \hat\varepsilon_i^2.
+$$
+
+Substituindo a expressão obtida,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i - \bar\varepsilon - A_i,
+$$
+
+onde definimos
+
+$$
+A_i
+=
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j.
+$$
+
+Assim,
+
+$$
+\hat\varepsilon_i^2
+=
+(\varepsilon_i - \bar\varepsilon - A_i)^2.
+$$
+
+Expandindo,
+
+$$
+\hat\varepsilon_i^2
+=
+(\varepsilon_i-\bar\varepsilon)^2
++
+A_i^2
+-
+2(\varepsilon_i-\bar\varepsilon)A_i.
+$$
+
+Somando em $i$,
+
+$$
+SQ_{Res}
+=
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
++
+\sum_{i=1}^n A_i^2
+-
+2\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)A_i.
+$$
+
+Nosso objetivo agora é calcular a esperança condicional em $X$ dessa expressão.
+
+---
+
+## 3) Esperança do primeiro termo
+
+Temos
+
+$$
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2.
+$$
+
+Esse é um resultado conhecido: trata-se da soma de quadrados centrados dos erros. Usando propriedades básicas,
+
+$$
+E\left[\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \mid X\right]
+=
+(n-1)\sigma^2.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Esse resultado pode ser obtido observando que a variância amostral (não viesada) dos erros multiplica $(n-1)$, e que os erros têm variância $\sigma^2$ e são não correlacionados.
+:::
+
+---
+
+## 4) Esperança do segundo termo
+
+Agora analisamos
+
+$$
+\sum_{i=1}^n A_i^2.
+$$
+
+Substituindo a definição de $A_i$,
+
+$$
+A_i^2
+=
+\left(
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j
+\right)^2.
+$$
+
+Colocando em evidência o termo comum,
+
+$$
+A_i^2
+=
+\frac{(X_i-\bar X)^2}{S_{xx}^2}
+\left(
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j
+\right)^2.
+$$
+
+Somando em $i$,
+
+$$
+\sum_{i=1}^n A_i^2
+=
+\frac{1}{S_{xx}^2}
+\left(
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j
+\right)^2
+\sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+Mas
+
+$$
+\sum_{i=1}^n (X_i-\bar X)^2 = S_{xx}.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n A_i^2
+=
+\frac{1}{S_{xx}}
+\left(
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j
+\right)^2.
+$$
+
+Agora usamos o resultado já conhecido:
+
+$$
+Var\left(\sum_{j=1}^n (X_j-\bar X)\varepsilon_j \mid X\right)
+=
+\sigma^2 S_{xx}.
+$$
+
+Como a média dessa soma é zero, segue que
+
+$$
+E\left[
+\left(
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j
+\right)^2
+\middle| X
+\right]
+=
+\sigma^2 S_{xx}.
+$$
+
+Portanto,
+
+$$
+E\left[\sum_{i=1}^n A_i^2 \mid X\right]
+=
+\frac{1}{S_{xx}} \cdot \sigma^2 S_{xx}
+=
+\sigma^2.
+$$
+
+---
+
+## 5) Esperança do termo cruzado
+
+Agora consideramos
+
+$$
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)A_i.
+$$
+
+Esse termo possui esperança zero. Intuitivamente, ele envolve combinações lineares centradas dos erros, que são não correlacionados e de média zero.
+
+Mais formalmente, ao expandir esse termo e usar as propriedades de covariância dos erros, verifica-se que
+
+$$
+E\left[\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)A_i \mid X\right]=0.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Esse é o passo mais técnico da demonstração. Ele depende do fato de que os erros são não correlacionados e de média zero, além da forma centrada das expressões envolvidas.
+:::
+
+---
+
+## 6) Conclusão
+
+Reunindo os resultados:
+
+- primeiro termo: $(n-1)\sigma^2$
+- segundo termo: $\sigma^2$
+- termo cruzado: $0$
+
+Logo,
+
+$$
+E(SQ_{Res}\mid X)
+=
+(n-1)\sigma^2 - \sigma^2
+=
+(n-2)\sigma^2.
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples com intercepto,
+
+$$
+E(SQ_{Res}\mid X)=(n-2)\sigma^2.
+$$
+
+Isso mostra que a soma dos quadrados dos resíduos perde dois graus de liberdade, correspondentes à estimação de $\beta_0$ e $\beta_1$.
+
+Consequentemente,
+
+$$
+s^2=\frac{SQ_{Res}}{n-2}
+$$
+
+é um estimador não viesado de $\sigma^2$.
+:::
+
+---
+
+## 7) Interpretação
+
+O resultado
+
+$$
+E(SQ_{Res}\mid X)=(n-2)\sigma^2
+$$
+
+tem interpretação direta:
+
+- inicialmente temos $n$ observações (ou $n$ graus de liberdade);
+- ao estimar $\beta_0$ e $\beta_1$, perdemos 2 graus de liberdade;
+- restam $n-2$ graus de liberdade associados aos resíduos.
+
+Assim, o MQO "consome" dois graus de liberdade ao ajustar a reta, e isso se reflete diretamente na esperança da soma dos quadrados dos resíduos.
+
+::: {.callout-warning title="Condição necessária"}
+Esse resultado depende da presença do intercepto no modelo. Sem intercepto, a estrutura de graus de liberdade e a expressão de $E(SQ_{Res}\mid X)$ se alteram.
+:::
+
+### Equivalência entre o teste $t$ para $\beta_1$ e o teste $F$ global no MRLS
+
+No modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+um dos resultados mais elegantes da inferência clássica é que o teste $t$ para o coeficiente angular $\beta_1$ e o teste $F$ global da regressão são, na verdade, duas formas equivalentes de testar a mesma hipótese.
+
+Mais precisamente, para testar
+
+$$
+H_0:\beta_1=0
+\qquad \text{versus} \qquad
+H_1:\beta_1\neq 0,
+$$
+
+vale a identidade
+
+$$
+T^2=F,
+$$
+
+onde $T$ é a estatística do teste $t$ associada a $\hat\beta_1$ e $F$ é a estatística do teste $F$ global da regressão.
+
+Esse resultado é específico do MRLS com um único regressor. Em regressão múltipla, o teste global $F$ continua existindo, mas em geral não coincide com o quadrado de um único teste $t$.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A prova consiste em escrever explicitamente as duas estatísticas:
+
+1. a estatística $t$ para testar $H_0:\beta_1=0$;
+2. a estatística $F$ da ANOVA da regressão.
+
+Em seguida, usaremos uma identidade própria do MRLS:
+
+$$
+SQ_{Reg}=\hat\beta_1^2 S_{xx}.
+$$
+
+Substituindo essa expressão na fórmula de $F$, obteremos exatamente o quadrado da estatística $t$.
+:::
+
+## 1) Estatística $t$ para testar $H_0:\beta_1=0$
+
+Sob as hipóteses usuais do MRLS normal, a estatística de teste para $\beta_1$ é
+
+$$
+T=
+\frac{\hat\beta_1-\beta_{1,0}}{s(\hat\beta_1)},
+$$
+
+onde $\beta_{1,0}$ é o valor de $\beta_1$ sob a hipótese nula e
+
+$$
+s(\hat\beta_1)=\sqrt{\frac{s^2}{S_{xx}}}
+$$
+
+é o erro-padrão estimado de $\hat\beta_1$, com
+
+$$
+s^2=\frac{SQ_{Res}}{n-2}.
+$$
+
+No caso do teste usual de significância da regressão simples, temos
+
+$$
+H_0:\beta_1=0.
+$$
+
+Assim,
+
+$$
+T=
+\frac{\hat\beta_1}{\sqrt{s^2/S_{xx}}}.
+$$
+
+Elevando ambos os lados ao quadrado, obtemos
+
+$$
+T^2
+=
+\frac{\hat\beta_1^2}{s^2/S_{xx}}
+=
+\frac{\hat\beta_1^2 S_{xx}}{s^2}.
+$$
+
+Como
+
+$$
+s^2=\frac{SQ_{Res}}{n-2},
+$$
+
+segue que
+
+$$
+T^2
+=
+\frac{\hat\beta_1^2 S_{xx}}{SQ_{Res}/(n-2)}.
+$$
+
+Portanto,
+
+$$
+T^2
+=
+\frac{\hat\beta_1^2 S_{xx}}{SQ_{Res}/(n-2)}.
+$$
+
+Nosso próximo passo será reescrever a estatística $F$ exatamente nessa forma.
+
+## 2) Estatística $F$ global da regressão
+
+Na análise de variância do MRLS, a estatística $F$ para testar a significância global da regressão é
+
+$$
+F=\frac{QM_{Reg}}{QM_{Res}},
+$$
+
+onde
+
+$$
+QM_{Reg}=\frac{SQ_{Reg}}{1}
+\qquad \text{e} \qquad
+QM_{Res}=\frac{SQ_{Res}}{n-2}.
+$$
+
+Como no MRLS a regressão tem apenas $1$ grau de liberdade, temos simplesmente
+
+$$
+QM_{Reg}=SQ_{Reg}.
+$$
+
+Logo,
+
+$$
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+$$
+
+Assim, para mostrar que $T^2=F$, basta provar que
+
+$$
+SQ_{Reg}=\hat\beta_1^2 S_{xx}.
+$$
+
+::: {.callout-note title="Passo técnico"}
+A coincidência entre $T^2$ e $F$ no MRLS ocorre porque a parte explicada pela regressão possui exatamente **um grau de liberdade**. Em outras palavras, toda a variação explicada pela regressão simples está associada a um único parâmetro de inclinação.
+:::
+
+## 3) Demonstração de que $SQ_{Reg}=\hat\beta_1^2 S_{xx}$
+
+Por definição,
+
+$$
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2.
+$$
+
+Como
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i
+$$
+
+e
+
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X,
+$$
+
+segue que
+
+$$
+\hat Y_i
+=
+\bar Y-\hat\beta_1\bar X+\hat\beta_1X_i
+=
+\bar Y+\hat\beta_1(X_i-\bar X).
+$$
+
+Portanto,
+
+$$
+\hat Y_i-\bar Y=\hat\beta_1(X_i-\bar X).
+$$
+
+Substituindo na expressão de $SQ_{Reg}$, obtemos
+
+$$
+SQ_{Reg}
+=
+\sum_{i=1}^n \bigl[\hat\beta_1(X_i-\bar X)\bigr]^2.
+$$
+
+Como $\hat\beta_1$ não depende do índice $i$, podemos colocá-lo em evidência:
+
+$$
+SQ_{Reg}
+=
+\hat\beta_1^2 \sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+Mas
+
+$$
+\sum_{i=1}^n (X_i-\bar X)^2=S_{xx}.
+$$
+
+Logo,
+
+$$
+SQ_{Reg}=\hat\beta_1^2 S_{xx}.
+$$
+
+::: {.callout-important title="Conclusão intermediária"}
+No MRLS, a soma de quadrados da regressão pode ser escrita como
+
+$$
+SQ_{Reg}=\hat\beta_1^2 S_{xx}.
+$$
+
+Essa identidade conecta diretamente a ANOVA da regressão com o estimador de MQO da inclinação.
+:::
+
+## 4) Substituição na estatística $F$
+
+Agora substituímos a identidade obtida na expressão de $F$:
+
+$$
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+$$
+
+Como
+
+$$
+SQ_{Reg}=\hat\beta_1^2 S_{xx},
+$$
+
+segue que
+
+$$
+F=\frac{\hat\beta_1^2 S_{xx}}{SQ_{Res}/(n-2)}.
+$$
+
+Mas essa é exatamente a expressão que já obtivemos para $T^2$:
+
+$$
+T^2
+=
+\frac{\hat\beta_1^2 S_{xx}}{SQ_{Res}/(n-2)}.
+$$
+
+Portanto,
+
+$$
+T^2=F.
+$$
+
+Isso conclui a demonstração.
+
+## 5) Interpretação do resultado
+
+A identidade
+
+$$
+T^2=F
+$$
+
+mostra que, no MRLS, o teste $t$ para o coeficiente angular e o teste $F$ global avaliam exatamente a mesma evidência empírica contra a hipótese nula
+
+$$
+H_0:\beta_1=0.
+$$
+
+Assim:
+
+- rejeitar o teste $t$ equivale a rejeitar o teste $F$;
+- aceitar um implica aceitar o outro, ao mesmo nível de significância, quando ambos são formulados de maneira bilateral para o mesmo parâmetro.
+
+A diferença entre eles está apenas na forma de apresentação:
+
+- o teste $t$ mantém a informação de **sinal** de $\hat\beta_1$;
+- o teste $F$, por envolver quadrados, mede apenas magnitude e nunca assume valores negativos.
+
+::: {.callout-note title="Passo técnico"}
+Como $F=T^2$, o teste $F$ não distingue se a inclinação estimada é positiva ou negativa. Já o teste $t$ permite identificar a direção do efeito por meio do sinal de $\hat\beta_1$.
+:::
+
+## 6) Relação com a hipótese de significância da regressão
+
+No MRLS com intercepto, a hipótese de significância global da regressão é
+
+$$
+H_0:\beta_1=0.
+$$
+
+Isso acontece porque há apenas um regressor explicativo. Se $\beta_1=0$, então o modelo se reduz a
+
+$$
+Y_i=\beta_0+\varepsilon_i,
+$$
+
+isto é, a média de $Y$ não depende de $X$.
+
+Nesse caso:
+
+- o modelo com regressão não explica mais variabilidade do que o modelo com apenas intercepto;
+- a reta ajustada torna-se horizontal;
+- a parte explicada da variabilidade tende a desaparecer.
+
+Assim, o teste $F$ global e o teste $t$ para $\beta_1$ testam exatamente a mesma pergunta substantiva: **há evidência de relação linear entre $X$ e $Y$?**
+
+## 7) Forma alternativa da estatística $F$
+
+Usando a identidade
+
+$$
+SQ_{Reg}=\hat\beta_1^2 S_{xx},
+$$
+
+a estatística $F$ também pode ser escrita como
+
+$$
+F
+=
+\frac{\hat\beta_1^2 S_{xx}}{s^2}.
+$$
+
+Equivalentemente,
+
+$$
+F
+=
+\left(
+\frac{\hat\beta_1}{\sqrt{s^2/S_{xx}}}
+\right)^2.
+$$
+
+Essa forma deixa especialmente clara a equivalência entre as duas estatísticas.
+
+Além disso, ela mostra que a estatística $F$ cresce quando:
+
+- a inclinação estimada em magnitude é grande;
+- a variabilidade residual é pequena;
+- ou a variabilidade de $X$ é grande.
+
+Todos esses fatores aumentam a evidência de que a regressão capta um padrão sistemático real nos dados.
+
+::: {.callout-warning title="Condição necessária"}
+A identidade
+$$
+T^2=F
+$$
+vale no **modelo de regressão linear simples** para o teste de
+$$
+H_0:\beta_1=0.
+$$
+
+Em regressão múltipla, o teste $F$ global geralmente envolve vários coeficientes simultaneamente e, por isso, não coincide em geral com o quadrado de um único teste $t$.
+:::
+
+::: {.callout-important title="Conclusão"}
+No MRLS, para testar
+$$
+H_0:\beta_1=0,
+$$
+a estatística $t$ para o coeficiente angular e a estatística $F$ global da regressão satisfazem
+
+$$
+T^2=F.
+$$
+
+Esse resultado mostra que os dois testes são completamente equivalentes nesse contexto. A diferença entre eles é apenas de forma de apresentação: o teste $t$ preserva o sinal da inclinação estimada, enquanto o teste $F$ expressa a evidência apenas em termos de magnitude.
+:::
+
+### Relação entre $R^2$ e a estatística $F$ no MRLS
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+ajustado por mínimos quadrados ordinários. Recordemos as definições:
+
+- soma de quadrados total:
+$$
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2;
+$$
+
+- soma de quadrados da regressão:
+$$
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2;
+$$
+
+- soma de quadrados residual:
+$$
+SQ_{Res}=\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+$$
+
+Sabemos que
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+O coeficiente de determinação é definido por
+
+$$
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}.
+$$
+
+Por outro lado, a estatística $F$ para o teste global da regressão é
+
+$$
+F=\frac{QM_{Reg}}{QM_{Res}}
+=
+\frac{SQ_{Reg}/1}{SQ_{Res}/(n-2)}.
+$$
+
+Nosso objetivo é demonstrar que
+
+$$
+F=\frac{R^2}{1-R^2}(n-2).
+$$
+
+Esse resultado estabelece uma conexão direta entre o coeficiente de determinação e o teste de significância da regressão.
+
+---
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é reescrever a estatística $F$ em função de $SQ_{Reg}$ e $SQ_{Res}$ e, em seguida, substituir essas quantidades por expressões envolvendo $R^2$.
+
+A chave é observar que:
+
+$$
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}
+\quad \Longrightarrow \quad
+SQ_{Reg}=R^2\,SQ_{Total}
+$$
+
+e
+
+$$
+SQ_{Res}=SQ_{Total}-SQ_{Reg}=(1-R^2)SQ_{Total}.
+$$
+:::
+
+---
+
+## 1) Reescrevendo a estatística $F$
+
+Partimos da definição:
+
+$$
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+$$
+
+Multiplicando numerador e denominador por $(n-2)$, obtemos
+
+$$
+F=(n-2)\frac{SQ_{Reg}}{SQ_{Res}}.
+$$
+
+Assim, a estatística $F$ pode ser vista como proporcional à razão entre a variabilidade explicada e a variabilidade residual.
+
+---
+
+## 2) Expressões de $SQ_{Reg}$ e $SQ_{Res}$ em função de $R^2$
+
+Pela definição de $R^2$,
+
+$$
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}
+\quad \Longrightarrow \quad
+SQ_{Reg}=R^2\,SQ_{Total}.
+$$
+
+Usando a decomposição
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res},
+$$
+
+segue que
+
+$$
+SQ_{Res}=SQ_{Total}-SQ_{Reg}=(1-R^2)SQ_{Total}.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Essas duas identidades são suficientes para eliminar completamente as somas de quadrados da expressão de $F$, escrevendo tudo apenas em termos de $R^2$.
+:::
+
+---
+
+## 3) Substituição na estatística $F$
+
+Substituindo as expressões obtidas, temos
+
+$$
+F=(n-2)\frac{R^2\,SQ_{Total}}{(1-R^2)SQ_{Total}}.
+$$
+
+Cancelando $SQ_{Total}$, obtemos
+
+$$
+F=(n-2)\frac{R^2}{1-R^2}.
+$$
+
+Isso conclui a demonstração.
+
+---
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples, a estatística $F$ pode ser escrita como
+
+$$
+F=\frac{R^2}{1-R^2}(n-2).
+$$
+
+Essa expressão mostra que o teste global da regressão depende diretamente do coeficiente de determinação.
+:::
+
+---
+
+## 4) Interpretação do resultado
+
+A relação
+
+$$
+F=\frac{R^2}{1-R^2}(n-2)
+$$
+
+mostra que existe uma correspondência direta entre:
+
+- a proporção de variabilidade explicada pelo modelo ($R^2$);
+- e a evidência estatística contra a hipótese nula ($F$).
+
+Em particular:
+
+- quando $R^2$ é pequeno, o numerador é pequeno e $F$ tende a ser pequeno;
+- quando $R^2$ é grande, o numerador cresce e $1-R^2$ diminui, fazendo $F$ crescer rapidamente.
+
+Isso explica por que modelos com alto $R^2$ tendem a ser estatisticamente significativos.
+
+---
+
+## 5) Monotonicidade entre $R^2$ e $F$
+
+A função
+
+$$
+g(R^2)=\frac{R^2}{1-R^2}
+$$
+
+é crescente em $R^2\in(0,1)$. Portanto, $F$ é uma função crescente de $R^2$.
+
+Isso implica que:
+
+- maximizar $R^2$ é equivalente a maximizar $F$;
+- decisões baseadas em $R^2$ e em $F$ são consistentes entre si no MRLS.
+
+::: {.callout-note title="Passo técnico"}
+Como $F=T^2$ no MRLS, essa monotonicidade também implica que $R^2$ é monotonicamente relacionado ao valor absoluto da estatística $t$.
+:::
+
+---
+
+## 6) Ligação com a hipótese de significância da regressão
+
+No MRLS, testar
+
+$$
+H_0:\beta_1=0
+$$
+
+equivale a testar se
+
+$$
+R^2=0.
+$$
+
+De fato:
+
+- se $\beta_1=0$, então $\hat Y_i=\bar Y$ para todo $i$, e
+$$
+SQ_{Reg}=0 \quad \Rightarrow \quad R^2=0;
+$$
+
+- se $\beta_1\neq 0$, a regressão explica parte da variabilidade, e $R^2>0$.
+
+Assim, o teste $F$ pode ser interpretado como um teste sobre o tamanho de $R^2$.
+
+---
+
+## 7) Forma alternativa útil
+
+A expressão também pode ser invertida para escrever $R^2$ em função de $F$:
+
+$$
+R^2=\frac{F}{F+(n-2)}.
+$$
+
+Essa forma é útil em algumas interpretações, pois mostra que:
+
+- quando $F$ cresce, $R^2$ se aproxima de $1$;
+- quando $F$ é pequeno, $R^2$ se aproxima de $0$.
+
+---
+
+::: {.callout-warning title="Condição necessária"}
+Essa relação simples entre $R^2$ e $F$ é específica do MRLS com um único regressor.
+
+Em regressão múltipla, a estatística $F$ envolve vários graus de liberdade no numerador e a relação com $R^2$ assume forma diferente.
+:::
+
+---
+
+::: {.callout-important title="Conclusão final"}
+No modelo de regressão linear simples, o coeficiente de determinação e a estatística $F$ carregam exatamente a mesma informação sobre a qualidade do ajuste e a significância da regressão, estando ligados pela identidade
+
+$$
+F=\frac{R^2}{1-R^2}(n-2).
+$$
+
+Esse resultado reforça a unidade conceitual entre:
+
+- ANOVA,
+- testes de hipóteses,
+- e medidas de ajuste no MRLS.
+:::
+
+### Propriedades dos resíduos ordinários no MRLS
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+com
+
+$$
+E[\varepsilon_i\mid X]=0,
+\qquad
+Var(\varepsilon_i\mid X)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j.
+$$
+
+Sejam os resíduos de mínimos quadrados
+
+$$
+\hat\varepsilon_i=Y_i-\hat Y_i.
+$$
+
+Nosso objetivo é demonstrar:
+
+$$
+E(\hat\varepsilon_i\mid X)=0,
+$$
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}),
+$$
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)=-\sigma^2 h_{ij}, \quad i\neq j,
+$$
+
+onde, no MRLS,
+
+$$
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+---
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia central é escrever cada resíduo como uma **combinação linear dos erros verdadeiros**:
+
+$$
+\hat\varepsilon_i=\sum_{j=1}^n a_{ij}\varepsilon_j.
+$$
+
+Uma vez obtida essa representação:
+
+- a esperança vem da linearidade;
+- a variância vem da soma de quadrados dos coeficientes;
+- a covariância vem dos produtos cruzados.
+
+Tudo se reduz, portanto, a identificar corretamente esses coeficientes.
+:::
+
+---
+
+## 1) Expressão dos resíduos em função dos erros
+
+Sabemos que
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\bar\varepsilon
+-
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j,
+$$
+
+onde
+
+$$
+\bar\varepsilon=\frac{1}{n}\sum_{j=1}^n \varepsilon_j.
+$$
+
+Substituindo $\bar\varepsilon$, temos
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\frac{1}{n}\sum_{j=1}^n \varepsilon_j
+-
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j.
+$$
+
+Reorganizando, podemos escrever
+
+$$
+\hat\varepsilon_i
+=
+\sum_{j=1}^n a_{ij}\varepsilon_j,
+$$
+
+onde
+
+$$
+a_{ij}
+=
+\begin{cases}
+1-\frac{1}{n}-\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}, & j=i,\\
+-\frac{1}{n}-\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}, & j\neq i.
+\end{cases}
+$$
+
+::: {.callout-note title="Passo técnico"}
+Essa forma deixa explícito que cada resíduo depende de todos os erros, não apenas de $\varepsilon_i$. Isso explica por que os resíduos são correlacionados.
+:::
+
+---
+
+## 2) Esperança dos resíduos
+
+Tomando esperança condicional em $X$:
+
+$$
+E(\hat\varepsilon_i\mid X)
+=
+E\left(\sum_{j=1}^n a_{ij}\varepsilon_j \,\middle|\, X\right)
+=
+\sum_{j=1}^n a_{ij} E(\varepsilon_j\mid X).
+$$
+
+Como
+
+$$
+E(\varepsilon_j\mid X)=0,
+$$
+
+segue que
+
+$$
+E(\hat\varepsilon_i\mid X)=0.
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+Cada resíduo tem média zero:
+
+$$
+E(\hat\varepsilon_i\mid X)=0.
+$$
+:::
+
+---
+
+## 3) Variância dos resíduos
+
+Usando a expressão linear,
+
+$$
+Var(\hat\varepsilon_i\mid X)
+=
+Var\left(\sum_{j=1}^n a_{ij}\varepsilon_j \,\middle|\, X\right).
+$$
+
+Como os erros são não correlacionados,
+
+$$
+Var(\hat\varepsilon_i\mid X)
+=
+\sum_{j=1}^n a_{ij}^2 Var(\varepsilon_j\mid X)
+=
+\sigma^2 \sum_{j=1}^n a_{ij}^2.
+$$
+
+Agora, após álgebra (expansão dos termos), obtém-se
+
+$$
+\sum_{j=1}^n a_{ij}^2
+=
+1-\left(\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}\right).
+$$
+
+Definimos então
+
+$$
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+Logo,
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}).
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+A variância dos resíduos não é constante:
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}).
+$$
+
+Portanto, mesmo que os erros sejam homoscedásticos, os resíduos não são.
+:::
+
+---
+
+## 4) Covariância entre resíduos
+
+Para $i\neq j$,
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+Cov\left(\sum_k a_{ik}\varepsilon_k,\sum_\ell a_{j\ell}\varepsilon_\ell \mid X\right).
+$$
+
+Usando a independência,
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+\sigma^2 \sum_{k=1}^n a_{ik}a_{jk}.
+$$
+
+Após manipulação algébrica, obtém-se
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+-\sigma^2 h_{ij},
+$$
+
+onde
+
+$$
+h_{ij}=\frac{1}{n}+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+Os resíduos são correlacionados:
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)=-\sigma^2 h_{ij}, \quad i\neq j.
+$$
+
+Logo, não podem ser tratados como observações independentes.
+:::
+
+---
+
+## 5) Interpretação do termo $h_{ii}$ (alavancagem)
+
+O termo
+
+$$
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}
+$$
+
+é chamado de **alavancagem** da observação $i$.
+
+Ele possui duas componentes:
+
+- $\frac{1}{n}$: contribuição uniforme;
+- $\frac{(X_i-\bar X)^2}{S_{xx}}$: contribuição da distância de $X_i$ em relação à média.
+
+Assim:
+
+- observações com $X_i$ próximo de $\bar X$ têm baixa alavancagem;
+- observações com $X_i$ distante de $\bar X$ têm alta alavancagem.
+
+---
+
+::: {.callout-important title="Conclusão"}
+A variância do resíduo é menor quando $h_{ii}$ é grande:
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}).
+$$
+
+Ou seja, pontos com alta alavancagem têm resíduos com menor variância — um fato central na análise de diagnóstico.
+:::
+
+---
+
+## 6) Consequências importantes
+
+Os resultados obtidos implicam que:
+
+1. os resíduos não são independentes;
+2. os resíduos não têm variância constante;
+3. a estrutura de dependência dos resíduos depende apenas de $X$.
+
+Essas propriedades justificam:
+
+- o uso de resíduos padronizados;
+- o uso de medidas de influência;
+- o cuidado ao interpretar gráficos de resíduos.
+
+---
+
+::: {.callout-warning title="Condição necessária"}
+Essas propriedades são válidas sob as hipóteses do modelo clássico.
+
+Elas não indicam violação do modelo — pelo contrário, são consequências naturais do ajuste por MQO.
+:::
+
+---
+
+::: {.callout-important title="Conclusão geral"}
+No MRLS, os resíduos possuem estrutura própria:
+
+- média zero;
+- variâncias não constantes;
+- correlação entre observações.
+
+Essa estrutura deve ser levada em conta em qualquer análise de diagnóstico.
+:::
+
+### Demonstração da fórmula da alavancagem no MRLS
+
+No modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+os valores ajustados podem ser escritos como
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i.
+$$
+
+Sabe-se que, no contexto do MQO, cada valor ajustado pode ser expresso como uma combinação linear das observações:
+
+$$
+\hat Y_i=\sum_{j=1}^n h_{ij}Y_j.
+$$
+
+Os coeficientes $h_{ij}$ são chamados de **coeficientes de alavancagem** (ou elementos da matriz de projeção, no contexto matricial).
+
+Nosso objetivo é obter explicitamente, no MRLS, a expressão de
+
+$$
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+---
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é escrever $\hat Y_i$ explicitamente em função das observações $Y_j$.
+
+Para isso:
+
+1. usamos as expressões de MQO:
+   $$
+   \hat\beta_0=\bar Y-\hat\beta_1\bar X
+   \quad \text{e} \quad
+   \hat\beta_1=\frac{\sum_{j=1}^n (X_j-\bar X)Y_j}{S_{xx}};
+   $$
+
+2. substituímos essas expressões em $\hat Y_i$;
+
+3. reorganizamos os termos para identificar o coeficiente de cada $Y_j$;
+
+4. identificamos o termo correspondente a $j=i$, que é $h_{ii}$.
+:::
+
+---
+
+## 1) Substituição das expressões de MQO
+
+Começamos com
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i.
+$$
+
+Substituindo
+
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X,
+$$
+
+obtemos
+
+$$
+\hat Y_i
+=
+\bar Y-\hat\beta_1\bar X+\hat\beta_1X_i
+=
+\bar Y+\hat\beta_1(X_i-\bar X).
+$$
+
+Agora substituímos a expressão de $\hat\beta_1$:
+
+$$
+\hat\beta_1=\frac{\sum_{j=1}^n (X_j-\bar X)Y_j}{S_{xx}}.
+$$
+
+Logo,
+
+$$
+\hat Y_i
+=
+\bar Y
++
+(X_i-\bar X)
+\frac{\sum_{j=1}^n (X_j-\bar X)Y_j}{S_{xx}}.
+$$
+
+---
+
+## 2) Expansão da média amostral
+
+Lembrando que
+
+$$
+\bar Y=\frac{1}{n}\sum_{j=1}^n Y_j,
+$$
+
+substituímos:
+
+$$
+\hat Y_i
+=
+\frac{1}{n}\sum_{j=1}^n Y_j
++
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)Y_j.
+$$
+
+Agora podemos escrever tudo como uma única soma:
+
+$$
+\hat Y_i
+=
+\sum_{j=1}^n
+\left[
+\frac{1}{n}
++
+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}
+\right]
+Y_j.
+$$
+
+---
+
+## 3) Identificação dos coeficientes de alavancagem
+
+Comparando com
+
+$$
+\hat Y_i=\sum_{j=1}^n h_{ij}Y_j,
+$$
+
+concluímos que
+
+$$
+h_{ij}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
+$$
+
+---
+
+## 4) Caso particular: alavancagem $h_{ii}$
+
+Para $j=i$, obtemos
+
+$$
+h_{ii}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples, a alavancagem da observação $i$ é dada por
+
+$$
+h_{ii}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+Essa expressão mostra que a alavancagem depende exclusivamente dos valores da variável explicativa $X$.
+:::
+
+---
+
+## 5) Interpretação da expressão
+
+A fórmula
+
+$$
+h_{ii}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)^2}{S_{xx}}
+$$
+
+possui duas componentes:
+
+- $\frac{1}{n}$: contribuição uniforme, comum a todas as observações;
+- $\frac{(X_i-\bar X)^2}{S_{xx}}$: contribuição da posição relativa de $X_i$.
+
+Assim:
+
+- se $X_i$ está próximo da média $\bar X$, o segundo termo é pequeno;
+- se $X_i$ está distante de $\bar X$, o segundo termo cresce.
+
+Portanto, observações extremas em $X$ têm maior alavancagem.
+
+---
+
+## 6) Soma das alavancagens
+
+Somando em $i$, temos
+
+$$
+\sum_{i=1}^n h_{ii}
+=
+\sum_{i=1}^n \frac{1}{n}
++
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n h_{ii}
+=
+1+\frac{S_{xx}}{S_{xx}}
+=
+2.
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+No MRLS com intercepto,
+
+$$
+\sum_{i=1}^n h_{ii}=2.
+$$
+
+Esse valor coincide com o número de parâmetros estimados no modelo ($\beta_0$ e $\beta_1$).
+:::
+
+---
+
+## 7) Ligação com a variância dos resíduos
+
+Recordando o resultado anterior,
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}),
+$$
+
+vemos que:
+
+- quanto maior $h_{ii}$, menor a variância do resíduo;
+- pontos com alta alavancagem tendem a “puxar” a reta.
+
+---
+
+::: {.callout-warning title="Condição necessária"}
+A expressão da alavancagem é válida para o MRLS com intercepto.
+
+Sem intercepto, a fórmula e a soma das alavancagens se alteram.
+:::
+
+---
+
+::: {.callout-important title="Conclusão geral"}
+A alavancagem mede o quanto uma observação influencia o valor ajustado.
+
+No MRLS, ela depende apenas da posição de $X_i$ em relação à média, sendo maior para observações mais extremas.
+
+Esse conceito é fundamental para análise de influência e diagnóstico em regressão.
+:::
+
+### Variância da média estimada e da predição no MRLS
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+e seja $x_0$ um valor fixo da variável explicativa no qual desejamos fazer inferência.
+
+O valor ajustado no ponto $x_0$ é dado por
+
+$$
+\hat Y(x_0)=\hat\beta_0+\hat\beta_1 x_0.
+$$
+
+Nosso objetivo é demonstrar:
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right],
+$$
+
+e
+
+$$
+Var(Y_{novo}-\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+1+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+
+---
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia central é:
+
+1. escrever $\hat Y(x_0)$ em função de $\hat\beta_0$ e $\hat\beta_1$;
+2. usar as variâncias e covariância já conhecidas:
+   $$
+   Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}},
+   \quad
+   Var(\hat\beta_0)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right),
+   \quad
+   Cov(\hat\beta_0,\hat\beta_1)=-\frac{\bar X}{S_{xx}}\sigma^2;
+   $$
+3. aplicar a fórmula da variância de combinação linear;
+4. simplificar cuidadosamente a expressão.
+:::
+
+---
+
+## 1) Variância de $\hat Y(x_0)$
+
+Temos
+
+$$
+\hat Y(x_0)=\hat\beta_0+\hat\beta_1 x_0.
+$$
+
+Logo,
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+Var(\hat\beta_0+\hat\beta_1 x_0\mid X).
+$$
+
+Usando a fórmula da variância de combinação linear,
+
+$$
+Var(aU+bV)
+=
+a^2Var(U)+b^2Var(V)+2ab\,Cov(U,V),
+$$
+
+obtemos
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+Var(\hat\beta_0)
++
+x_0^2Var(\hat\beta_1)
++
+2x_0\,Cov(\hat\beta_0,\hat\beta_1).
+$$
+
+---
+
+## 2) Substituição das variâncias conhecidas
+
+Substituindo:
+
+$$
+Var(\hat\beta_0)
+=
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right),
+$$
+
+$$
+Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}},
+$$
+
+$$
+Cov(\hat\beta_0,\hat\beta_1)=-\frac{\bar X}{S_{xx}}\sigma^2,
+$$
+
+temos
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)
++
+x_0^2\frac{\sigma^2}{S_{xx}}
+-
+2x_0\frac{\bar X}{S_{xx}}\sigma^2.
+$$
+
+Colocando $\sigma^2$ em evidência,
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+\frac{1}{n}
++
+\frac{\bar X^2}{S_{xx}}
++
+\frac{x_0^2}{S_{xx}}
+-
+2\frac{x_0\bar X}{S_{xx}}
+\right].
+$$
+
+---
+
+## 3) Simplificação da expressão
+
+Agrupando os termos com denominador $S_{xx}$:
+
+$$
+\frac{\bar X^2 + x_0^2 - 2x_0\bar X}{S_{xx}}
+=
+\frac{(x_0-\bar X)^2}{S_{xx}}.
+$$
+
+Logo,
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+\frac{1}{n}
++
+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+A variância da média estimada em $x_0$ é
+
+$$
+Var(\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+:::
+
+---
+
+## 4) Interpretação
+
+A expressão
+
+$$
+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+$$
+
+possui duas componentes:
+
+- $\frac{1}{n}$: incerteza associada à estimação do intercepto;
+- $\frac{(x_0-\bar X)^2}{S_{xx}}$: incerteza que cresce com a distância de $x_0$ à média.
+
+Assim:
+
+- a variância é mínima em $x_0=\bar X$;
+- cresce à medida que nos afastamos do centro dos dados.
+
+---
+
+## 5) Variância da predição de uma nova observação
+
+Agora consideremos uma nova observação
+
+$$
+Y_{novo}=\beta_0+\beta_1x_0+\varepsilon_{novo},
+$$
+
+onde $\varepsilon_{novo}$ é independente dos erros da amostra e
+
+$$
+Var(\varepsilon_{novo})=\sigma^2.
+$$
+
+Queremos calcular
+
+$$
+Var(Y_{novo}-\hat Y(x_0)\mid X).
+$$
+
+---
+
+## 6) Decomposição do erro de predição
+
+Escrevemos
+
+$$
+Y_{novo}-\hat Y(x_0)
+=
+\bigl(\beta_0+\beta_1x_0+\varepsilon_{novo}\bigr)
+-
+\bigl(\hat\beta_0+\hat\beta_1x_0\bigr).
+$$
+
+Reorganizando,
+
+$$
+Y_{novo}-\hat Y(x_0)
+=
+\varepsilon_{novo}
+-
+(\hat\beta_0-\beta_0)
+-
+(\hat\beta_1-\beta_1)x_0.
+$$
+
+---
+
+## 7) Variância do erro de predição
+
+Como $\varepsilon_{novo}$ é independente dos estimadores, temos
+
+$$
+Var(Y_{novo}-\hat Y(x_0)\mid X)
+=
+Var(\varepsilon_{novo})
++
+Var(\hat Y(x_0)).
+$$
+
+Logo,
+
+$$
+Var(Y_{novo}-\hat Y(x_0)\mid X)
+=
+\sigma^2
++
+\sigma^2\left[
+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+
+Assim,
+
+$$
+Var(Y_{novo}-\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+1+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+
+---
+
+::: {.callout-important title="Conclusão"}
+A variância do erro de predição é
+
+$$
+Var(Y_{novo}-\hat Y(x_0)\mid X)
+=
+\sigma^2\left[
+1+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+:::
+
+---
+
+## 8) Interpretação final
+
+Comparando:
+
+- média estimada:
+$$
+\sigma^2\left[\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}\right],
+$$
+
+- predição:
+$$
+\sigma^2\left[1+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}\right],
+$$
+
+vemos que a diferença é o termo adicional
+
+$$
+\sigma^2,
+$$
+
+que corresponde à variabilidade inerente à nova observação.
+
+---
+
+::: {.callout-warning title="Condição necessária"}
+Esses resultados assumem:
+
+- homoscedasticidade;
+- independência dos erros;
+- e, para inferência completa, normalidade.
+
+Se essas hipóteses falharem, a forma dos intervalos de confiança e predição pode não ser válida.
+:::
+
+---
+
+::: {.callout-important title="Conclusão geral"}
+No MRLS:
+
+- a incerteza na estimação da média depende da posição de $x_0$;
+- a incerteza na predição inclui, além disso, a variabilidade do erro.
+
+Esses resultados fundamentam os intervalos de confiança e de predição no modelo de regressão linear simples.
+:::
