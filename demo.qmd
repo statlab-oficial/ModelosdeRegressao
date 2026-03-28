@@ -17,10 +17,10 @@ e procuramos os valores de $\beta_0$ e $\beta_1$ que a minimizam. Como $S(\beta_
 O objetivo do método dos mínimos quadrados ordinários (MQO) é encontrar os parâmetros $\beta_0$ e $\beta_1$ que minimizam a soma dos quadrados:
 
 $$
-S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2 = \sum_{i=1}^n \varepsilon_i^2.
+S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2.
 $$
 
-Cada erro $\varepsilon_i$ é a diferença entre o valor observado $Y_i$ e a reta, $\beta_0+\beta_1X_i$. Ao elevar essas quantidades ao quadrado e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.
+Ao elevar cada diferença $Y_i - (\beta_0 + \beta_1 X_i$ ao quadrado, e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.
 
 Como $\beta_0$ e $\beta_1$ podem assumir qualquer valor real, a minimização pode ser feita via técnicas de derivação.
 

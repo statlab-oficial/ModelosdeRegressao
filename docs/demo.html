@@ -387,9 +387,9 @@ S(\beta_0,\beta_1)=\sum_{i=1}^n [Y_i-(\beta_0+\beta_1X_i)]^2,
 </div>
 <p>O objetivo do método dos mínimos quadrados ordinários (MQO) é encontrar os parâmetros <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> que minimizam a soma dos quadrados:</p>
 <p><span class="math display">\[
-S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2 = \sum_{i=1}^n \varepsilon_i^2.
+S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2.
 \]</span></p>
-<p>Cada erro <span class="math inline">\(\varepsilon_i\)</span> é a diferença entre o valor observado <span class="math inline">\(Y_i\)</span> e a reta, <span class="math inline">\(\beta_0+\beta_1X_i\)</span>. Ao elevar essas quantidades ao quadrado e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.</p>
+<p>Ao elevar cada diferença entre o valor observado <span class="math inline">\(Y_i\)</span> e a reta <span class="math inline">\(\beta_0+\beta_1X_i\)</span> ao quadrado, e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.</p>
 <p>Como <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> podem assumir qualquer valor real, a minimização pode ser feita via técnicas de derivação.</p>
 <ol type="1">
 <li><strong>Condições de primeira ordem</strong></li>
