@@ -331,14 +331,14 @@ window.Quarto = {
   <li><a href="#demonstração-de-que-hat-beta_0-e-hat-beta_1-são-os-estimadores-de-mqo-em-mrls" id="toc-demonstração-de-que-hat-beta_0-e-hat-beta_1-são-os-estimadores-de-mqo-em-mrls" class="nav-link active" data-scroll-target="#demonstração-de-que-hat-beta_0-e-hat-beta_1-são-os-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.1</span> Demonstração de que <span class="math inline">\(\hat \beta_0\)</span> e <span class="math inline">\(\hat \beta_1\)</span> são os estimadores de MQO em MRLS</a>
   <ul class="collapse">
   <li><a href="#parte-a-obtenção-dos-estimadores" id="toc-parte-a-obtenção-dos-estimadores" class="nav-link" data-scroll-target="#parte-a-obtenção-dos-estimadores"><span class="header-section-number">18.1.1</span> Parte A: Obtenção dos estimadores</a></li>
+  <li><a href="#parte-b-verificação-de-que-são-mínimos" id="toc-parte-b-verificação-de-que-são-mínimos" class="nav-link" data-scroll-target="#parte-b-verificação-de-que-são-mínimos"><span class="header-section-number">18.1.2</span> Parte B: Verificação de que são mínimos</a></li>
   </ul></li>
-  <li><a href="#parte-b-verificação-de-que-são-mínimos" id="toc-parte-b-verificação-de-que-são-mínimos" class="nav-link" data-scroll-target="#parte-b-verificação-de-que-são-mínimos"><span class="header-section-number">18.2</span> Parte B: Verificação de que são mínimos</a></li>
-  <li><a href="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" id="toc-demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" class="nav-link" data-scroll-target="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.3</span> Demonstração das propriedades dos estimadores de MQO em MRLS</a></li>
-  <li><a href="#demonstração-do-teorema-de-gaussmarkov-em-mrls" id="toc-demonstração-do-teorema-de-gaussmarkov-em-mrls" class="nav-link" data-scroll-target="#demonstração-do-teorema-de-gaussmarkov-em-mrls"><span class="header-section-number">18.4</span> Demonstração do Teorema de Gauss–Markov em MRLS</a>
+  <li><a href="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" id="toc-demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" class="nav-link" data-scroll-target="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.2</span> Demonstração das propriedades dos estimadores de MQO em MRLS</a></li>
+  <li><a href="#demonstração-do-teorema-de-gaussmarkov-em-mrls" id="toc-demonstração-do-teorema-de-gaussmarkov-em-mrls" class="nav-link" data-scroll-target="#demonstração-do-teorema-de-gaussmarkov-em-mrls"><span class="header-section-number">18.3</span> Demonstração do Teorema de Gauss–Markov em MRLS</a>
   <ul class="collapse">
-  <li><a href="#parte-a-a-inclinação-beta_1" id="toc-parte-a-a-inclinação-beta_1" class="nav-link" data-scroll-target="#parte-a-a-inclinação-beta_1"><span class="header-section-number">18.4.1</span> Parte A: A inclinação <span class="math inline">\(\beta_1\)</span></a></li>
-  <li><a href="#parte-b-o-intercepto-beta_0" id="toc-parte-b-o-intercepto-beta_0" class="nav-link" data-scroll-target="#parte-b-o-intercepto-beta_0"><span class="header-section-number">18.4.2</span> Parte B: O intercepto <span class="math inline">\(\beta_0\)</span></a></li>
-  <li><a href="#conclusões-e-observações" id="toc-conclusões-e-observações" class="nav-link" data-scroll-target="#conclusões-e-observações"><span class="header-section-number">18.4.3</span> Conclusões e observações</a></li>
+  <li><a href="#parte-a-a-inclinação-beta_1" id="toc-parte-a-a-inclinação-beta_1" class="nav-link" data-scroll-target="#parte-a-a-inclinação-beta_1"><span class="header-section-number">18.3.1</span> Parte A: A inclinação <span class="math inline">\(\beta_1\)</span></a></li>
+  <li><a href="#parte-b-o-intercepto-beta_0" id="toc-parte-b-o-intercepto-beta_0" class="nav-link" data-scroll-target="#parte-b-o-intercepto-beta_0"><span class="header-section-number">18.3.2</span> Parte B: O intercepto <span class="math inline">\(\beta_0\)</span></a></li>
+  <li><a href="#conclusões-e-observações" id="toc-conclusões-e-observações" class="nav-link" data-scroll-target="#conclusões-e-observações"><span class="header-section-number">18.3.3</span> Conclusões e observações</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -615,9 +615,8 @@ S_{xy} = \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}).
 </div>
 </div>
 </section>
-</section>
-<section id="parte-b-verificação-de-que-são-mínimos" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="parte-b-verificação-de-que-são-mínimos"><span class="header-section-number">18.2</span> Parte B: Verificação de que são mínimos</h2>
+<section id="parte-b-verificação-de-que-são-mínimos" class="level3" data-number="18.1.2">
+<h3 data-number="18.1.2" class="anchored" data-anchor-id="parte-b-verificação-de-que-são-mínimos"><span class="header-section-number">18.1.2</span> Parte B: Verificação de que são mínimos</h3>
 <div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -751,8 +750,9 @@ S(\beta_0,\beta_1).
 </div>
 </div>
 </section>
-<section id="demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.3</span> Demonstração das propriedades dos estimadores de MQO em MRLS</h2>
+</section>
+<section id="demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.2</span> Demonstração das propriedades dos estimadores de MQO em MRLS</h2>
 <p>Assumiremos, como na seção anterior, o MRLS</p>
 <p><span class="math display">\[
 Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
@@ -1332,8 +1332,8 @@ s^2=\frac{SQRes}{n-2}
 </div>
 </div>
 </section>
-<section id="demonstração-do-teorema-de-gaussmarkov-em-mrls" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="demonstração-do-teorema-de-gaussmarkov-em-mrls"><span class="header-section-number">18.4</span> Demonstração do Teorema de Gauss–Markov em MRLS</h2>
+<section id="demonstração-do-teorema-de-gaussmarkov-em-mrls" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="demonstração-do-teorema-de-gaussmarkov-em-mrls"><span class="header-section-number">18.3</span> Demonstração do Teorema de Gauss–Markov em MRLS</h2>
 <p>Aqui o objetivo é mostrar que os estimadores de mínimos quadrados ordinários (MQO), <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span>, sob as condições <span class="math display">\[
 E[\varepsilon\mid X]=0,
 \qquad
@@ -1398,8 +1398,8 @@ S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2 &gt; 0.
 <p>Isso significa que a variável explicativa deve apresentar variabilidade amostral. Se todos os <span class="math inline">\(X_i\)</span> forem iguais, o coeficiente angular não pode ser identificado.</p>
 </div>
 </div>
-<section id="parte-a-a-inclinação-beta_1" class="level3" data-number="18.4.1">
-<h3 data-number="18.4.1" class="anchored" data-anchor-id="parte-a-a-inclinação-beta_1"><span class="header-section-number">18.4.1</span> Parte A: A inclinação <span class="math inline">\(\beta_1\)</span></h3>
+<section id="parte-a-a-inclinação-beta_1" class="level3" data-number="18.3.1">
+<h3 data-number="18.3.1" class="anchored" data-anchor-id="parte-a-a-inclinação-beta_1"><span class="header-section-number">18.3.1</span> Parte A: A inclinação <span class="math inline">\(\beta_1\)</span></h3>
 <p><strong>Passo 1: Forma geral de um estimador linear</strong></p>
 <p>Um estimador linear de <span class="math inline">\(\beta_1\)</span> pode ser escrito como</p>
 <p><span class="math display">\[
@@ -1663,8 +1663,8 @@ c_i=\frac{X_i-\bar X}{S_{xx}}=c_i^\star.
 </div>
 </div>
 </section>
-<section id="parte-b-o-intercepto-beta_0" class="level3" data-number="18.4.2">
-<h3 data-number="18.4.2" class="anchored" data-anchor-id="parte-b-o-intercepto-beta_0"><span class="header-section-number">18.4.2</span> Parte B: O intercepto <span class="math inline">\(\beta_0\)</span></h3>
+<section id="parte-b-o-intercepto-beta_0" class="level3" data-number="18.3.2">
+<h3 data-number="18.3.2" class="anchored" data-anchor-id="parte-b-o-intercepto-beta_0"><span class="header-section-number">18.3.2</span> Parte B: O intercepto <span class="math inline">\(\beta_0\)</span></h3>
 <p><strong>Passo 1: Forma geral de um estimador linear</strong></p>
 <p>Um estimador linear de <span class="math inline">\(\beta_0\)</span> pode ser escrito como</p>
 <p><span class="math display">\[
@@ -1935,8 +1935,8 @@ a_i=a_i^\star+d_i
 </div>
 </div>
 </section>
-<section id="conclusões-e-observações" class="level3" data-number="18.4.3">
-<h3 data-number="18.4.3" class="anchored" data-anchor-id="conclusões-e-observações"><span class="header-section-number">18.4.3</span> Conclusões e observações</h3>
+<section id="conclusões-e-observações" class="level3" data-number="18.3.3">
+<h3 data-number="18.3.3" class="anchored" data-anchor-id="conclusões-e-observações"><span class="header-section-number">18.3.3</span> Conclusões e observações</h3>
 <p>Reunindo os resultados das Partes A e B, concluímos que, sob as hipóteses de Gauss–Markov,</p>
 <p><span class="math display">\[
 E[\varepsilon\mid X]=0,

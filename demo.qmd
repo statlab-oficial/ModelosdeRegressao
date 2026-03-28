@@ -266,7 +266,7 @@ $$
 As equações normais conduzem a expressões fechadas para os estimadores de MQO. Em particular, a inclinação estimada é dada pela razão entre a soma de produtos centrados de $X$ e $Y$ e a soma de quadrados centrados de $X$, enquanto o intercepto estimado é obtido pela condição de que a reta ajustada passe pelo ponto médio dos dados.
 :::
 
-## Parte B: Verificação de que são mínimos
+### Parte B: Verificação de que são mínimos
 
 ::: {.callout-important title="Estratégia da demonstração"}
 Na Parte I encontramos um ponto crítico da função objetivo. Agora precisamos verificar que esse ponto crítico é, de fato, um **mínimo**.
