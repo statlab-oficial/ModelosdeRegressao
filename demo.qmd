@@ -20,7 +20,7 @@ $$
 S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2.
 $$
 
-Ao elevar cada diferença $Y_i - (\beta_0 + \beta_1 X_i$ ao quadrado, e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.
+Ao elevar cada diferença $Y_i - (\beta_0 + \beta_1 X_i)$ ao quadrado, e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distância total o menor possível.
 
 Como $\beta_0$ e $\beta_1$ podem assumir qualquer valor real, a minimização pode ser feita via técnicas de derivação.
 
@@ -76,7 +76,7 @@ $$
 \sum_{i=1}^n X_i Y_i = \hat{\beta}_0 \sum_{i=1}^n X_i + \hat{\beta}_1 \sum_{i=1}^n X_i^2.
 $$
 
-Essas duas equações resultam diretamente de reorganizar os termos das condições de primeira ordem. Na primeira, somamos os resíduos; na segunda, somamos os resíduos ponderados por $X_i$. Em ambos os casos, no ponto de mínimo, essas somas devem se anular.
+Essas duas equações resultam diretamente de reorganizar os termos das condições de primeira ordem. Essas somas devem se anular no ponto de mínimo.
 
 A primeira equação pode ser escrita como
 
@@ -185,7 +185,7 @@ $$
 \sum_{i=1}^n (X_i-\bar{X})^2.
 $$
 
-No numerador, fazemos manipulação análoga:
+No termo à esquerda, fazemos manipulação análoga:
 
 $$
 \sum_{i=1}^n X_iY_i - \bar{Y}\sum_{i=1}^n X_i
@@ -269,7 +269,7 @@ As equações normais conduzem a expressões fechadas para os estimadores de MQO
 ### Parte B: Verificação de que são mínimos
 
 ::: {.callout-important title="Estratégia da demonstração"}
-Na Parte I encontramos um ponto crítico da função objetivo. Agora precisamos verificar que esse ponto crítico é, de fato, um **mínimo**.
+Na Parte A encontramos um ponto crítico da função objetivo. Agora precisamos verificar que esse ponto crítico é, de fato, um **mínimo**.
 
 Como
 $$
@@ -284,12 +284,12 @@ $$
 S(\beta_0,\beta_1) = \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i)^2.
 $$
 
-Note que essa função é **quadrática** em relação aos parâmetros $(\beta_0,\beta_1)$. Em problemas quadráticos, o comportamento global da função é inteiramente determinado pela matriz de segundas derivadas. Assim, para verificar se o ponto crítico $(\hat{\beta}_0,\hat{\beta}_1)$ corresponde a um **mínimo global**, basta estudarmos a positividade da matriz Hessiana.
+Note que essa função é quadrática em relação aos parâmetros $(\beta_0,\beta_1)$. Em problemas quadráticos, o comportamento global da função é inteiramente determinado pela matriz de segundas derivadas. Assim, para verificar se o ponto crítico $(\hat{\beta}_0,\hat{\beta}_1)$ corresponde a um **mínimo global**, basta estudarmos a positividade da matriz Hessiana.
 
 da matriz Hessiana de $S(\beta_0,\beta_1)$ é 
 
 $$
-H=
+\mathbf{H}=
 \begin{bmatrix}
 \frac{\partial^2 S}{\partial \beta_0^2} &
 \frac{\partial^2 S}{\partial \beta_0\partial \beta_1} \\
@@ -301,7 +301,7 @@ $$
 Calculemos cada termo:
 
 $$
-\frac{\partial^2 S}{\partial \beta_0^2}=2n,
+\frac{\partial^2 S}{\partial \beta_0^2}=\frac{\partial S}{\partial \beta_0}\left(\frac{\partial S}{\partial \beta_0}\right)=2n,
 $$
 
 $$
@@ -309,17 +309,19 @@ $$
 =
 \frac{\partial^2 S}{\partial \beta_1\partial \beta_0}
 =
+\frac{\partial S}{\partial \beta_1}\left(\frac{\partial S}{\partial \beta_0}\right)
+=
 2\sum_{i=1}^n X_i,
 $$
 
 $$
-\frac{\partial^2 S}{\partial \beta_1^2}=2\sum_{i=1}^n X_i^2.
+\frac{\partial^2 S}{\partial \beta_1^2}=\frac{\partial S}{\partial \beta_1}\left(\frac{\partial S}{\partial \beta_1}\right)=2\sum_{i=1}^n X_i^2.
 $$
 
 Logo,
 
 $$
-H=
+\mathbf{H}=
 \begin{bmatrix}
 2n & 2\sum_{i=1}^n X_i \\
 2\sum_{i=1}^n X_i & 2\sum_{i=1}^n X_i^2
@@ -329,7 +331,7 @@ $$
 Para mostrar que essa matriz Hessiana é definida positiva, consideremos um vetor arbitrário $(a,b)\in\mathbb{R}^2$, não nulo. Então,
 
 $$
-(a,b)H(a,b)^\top
+(a,b)\mathbf{H}(a,b)^\top
 =
 2na^2 + 4ab\sum_{i=1}^n X_i + 2b^2\sum_{i=1}^n X_i^2.
 $$
@@ -355,16 +357,16 @@ $$
 Portanto,
 
 $$
-(a,b)H(a,b)^\top = 2\sum_{i=1}^n (a+bX_i)^2.
+(a,b)\mathbf{H}(a,b)^\top = 2\sum_{i=1}^n (a+bX_i)^2.
 $$
 
 ::: {.callout-note title="Passo técnico"}
-Essa reescrita é decisiva, pois transforma uma expressão matricial aparentemente abstrata em uma **soma de quadrados**, cuja análise é imediata: cada parcela é não negativa.
+Essa reescrita transforma uma expressão matricial aparentemente abstrata em uma soma de quadrados, cuja análise é imediata: cada parcela é não negativa.
 :::
 
 Como cada termo $(a+bX_i)^2\geq 0$, segue que
 $$
-(a,b)H(a,b)^\top \geq 0.
+(a,b)\mathbf{H}(a,b)^\top \geq 0.
 $$
 
 Para que essa quantidade seja igual a zero, seria necessário que
@@ -438,7 +440,7 @@ $$
 $$
 
 ::: {.callout-important title="Estratégia da demonstração"}
-As propriedades de não viés, variância e covariância dos estimadores de MQO decorrem de dois fatos centrais:
+As propriedades de não viés, variância e covariância dos estimadores de MQO decorrem de dois fatos:
 
 1. os estimadores podem ser escritos como combinações lineares das observações;
 2. o modelo supõe erros com média zero, variância constante e covariâncias nulas.
@@ -446,7 +448,7 @@ As propriedades de não viés, variância e covariância dos estimadores de MQO 
 A ideia será reescrever $\hat\beta_1$ e $\hat\beta_0$ em função dos erros $\varepsilon_i$ e, a partir daí, calcular esperança, variância e covariância.
 :::
 
-**1) Esperança de $\hat\beta_1$**
+### Esperança de $\hat\beta_1$
 
 Partimos de
 
@@ -559,17 +561,12 @@ $$
 E[\hat\beta_1\mid X]=\beta_1.
 $$
 
-Portanto,
-
-$$
-E[\hat\beta_1]=\beta_1.
-$$
 
 ::: {.callout-important title="Conclusão"}
 O estimador $\hat\beta_1$ é **não viesado** para $\beta_1$.
 :::
 
-**2) Esperança de $\hat\beta_0$**
+### Esperança de $\hat\beta_0$
 
 Usando
 $$
@@ -583,7 +580,7 @@ E[\hat\beta_0\mid X]
 E[\bar Y\mid X]-\bar X\,E[\hat\beta_1\mid X].
 $$
 
-Agora,
+Temos que,
 
 $$
 \bar Y
@@ -604,7 +601,7 @@ $$
 Assim,
 
 $$
-E[\bar Y\mid X]=\beta_0+\beta_1\bar X.
+E[\bar Y\mid X]=\beta_0+\beta_1\bar X, \qquad \text{pois} \qquad E[\\bar\varepsilon\mid X]= 0
 $$
 
 Como já vimos que
@@ -621,22 +618,16 @@ E[\hat\beta_0\mid X]
 \beta_0.
 $$
 
-Portanto,
-
-$$
-E[\hat\beta_0]=\beta_0.
-$$
-
 ::: {.callout-important title="Conclusão"}
 O estimador $\hat\beta_0$ também é **não viesado** para $\beta_0$.
 :::
 
-**3) Variância de $\hat\beta_1$**
+### Variância de $\hat\beta_1$
 
 Da decomposição obtida anteriormente,
 
 $$
-\hat\beta_1-\beta_1
+\hat\beta_1 - \beta_1 
 =
 \frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
 $$
@@ -712,21 +703,15 @@ Var(\hat\beta_1\mid X)
 \frac{\sigma^2}{S_{xx}}.
 $$
 
-Como a expressão depende apenas de $X$, escrevemos também
-
-$$
-Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
-$$
-
 ::: {.callout-important title="Conclusão"}
 A variância de $\hat\beta_1$ é
 $$
-Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
+\frac{\sigma^2}{S_{xx}}.
 $$
 Logo, quanto maior a variabilidade dos valores de $X$, menor tende a ser a variância do estimador da inclinação.
 :::
 
-**4) Variância de $\hat\beta_0$**
+### Variância de $\hat\beta_0$
 
 Escreva
 
@@ -886,28 +871,16 @@ Var(\hat\beta_0\mid X)
 \right)\sigma^2.
 $$
 
-Logo,
-
-$$
-Var(\hat\beta_0)
-=
-\sigma^2
-\left(
-\frac{1}{n}
-+
-\frac{\bar X^2}{S_{xx}}
-\right).
-$$
 
 ::: {.callout-important title="Conclusão"}
 A variância do intercepto é
 $$
-Var(\hat\beta_0)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
 $$
 Esse resultado mostra que a precisão de $\hat\beta_0$ depende não apenas do tamanho amostral, mas também da posição média dos valores de $X$ e da dispersão desses valores.
 :::
 
-**5) Covariância $Cov(\hat\beta_0,\hat\beta_1)$**
+### Covariância de $(\hat\beta_0,\hat\beta_1)$
 
 Usando
 $$
@@ -918,14 +891,16 @@ temos
 $$
 Cov(\hat\beta_0,\hat\beta_1\mid X)
 =
+Cov(\bar Y-\hat\beta_1\bar X,\hat\beta_1\mid X)
+=
 Cov(\bar Y,\hat\beta_1\mid X)
 -
-\bar X\,Var(\hat\beta_1\mid X).
+\bar X\,Cov(\hat\beta_1,\hat\beta_1\mid X).
 $$
 
 Já sabemos que
 $$
-Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}}.
+Cov(\hat\beta_1,\hat\beta_1\mid X)=Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}}.
 $$
 
 Resta calcular
@@ -959,6 +934,9 @@ Tirando a constante $1/S_{xx}$ para fora,
 
 $$
 Cov(\bar Y,\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}}
+\,Cov(\sum_{i=1}^n (X_i-\bar X)\bar\varepsilon,\varepsilon_i\mid X)
 =
 \frac{1}{S_{xx}}
 \sum_{i=1}^n (X_i-\bar X)\,Cov(\bar\varepsilon,\varepsilon_i\mid X).
@@ -1000,62 +978,325 @@ $$
 
 Em notação abreviada,
 
-$$
-Cov(\hat\beta_0,\hat\beta_1)
-=
--\frac{\bar X}{S_{xx}}\sigma^2.
-$$
 
 ::: {.callout-important title="Conclusão"}
 A covariância entre os estimadores é
 $$
-Cov(\hat\beta_0,\hat\beta_1)=-\frac{\bar X}{S_{xx}}\sigma^2.
+-\frac{\bar X}{S_{xx}}\sigma^2.
 $$
 Em geral, $\hat\beta_0$ e $\hat\beta_1$ não são independentes; além disso, o sinal dessa covariância depende do sinal de $\bar X$.
 :::
 
-**6) Estimador de $\sigma^2$**
+### Estimador não viesado para $\sigma^2$ no MRLS
 
-A soma dos quadrados dos resíduos é
+O objetivo é mostrar que o estimador
 
 $$
-SQRes
+s^2=\frac{1}{n-2}\sum_{i=1}^n \hat\varepsilon_i^2
+$$
+
+é não viesado para $\sigma^2$, isto é,
+
+$$
+E(s^2\mid X)=\sigma^2.
+$$
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é escrever cada resíduo em função dos erros do modelo e da quantidade $\hat\beta_1-\beta_1$.
+
+Em seguida, expandimos $\sum \hat\varepsilon_i^2$, calculamos sua esperança condicional em $X$ e mostramos que
+
+$$
+E\left(\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)=(n-2)\sigma^2.
+$$
+
+Daí seguirá imediatamente que $s^2$ é não viesado.
+:::
+
+1. **Expressão dos resíduos**
+
+Comecemos com
+
+$$
+\hat\varepsilon_i=Y_i-\hat Y_i
 =
+Y_i-\hat\beta_0-\hat\beta_1X_i.
+$$
+
+Substituindo $Y_i=\beta_0+\beta_1X_i+\varepsilon_i$, obtemos
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i-(\hat\beta_0-\beta_0)-(\hat\beta_1-\beta_1)X_i.
+$$
+
+Agora usamos a identidade já conhecida
+
+$$
+\hat\beta_0-\beta_0=\bar\varepsilon-\bar X(\hat\beta_1-\beta_1),
+$$
+
+em que
+
+$$
+\bar\varepsilon=\frac{1}{n}\sum_{i=1}^n \varepsilon_i.
+$$
+
+Substituindo,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i-\bar\varepsilon+\bar X(\hat\beta_1-\beta_1)-(\hat\beta_1-\beta_1)X_i.
+$$
+
+Logo,
+
+$$
+\hat\varepsilon_i
+=
+(\varepsilon_i-\bar\varepsilon)-(\hat\beta_1-\beta_1)(X_i-\bar X).
+$$
+
+Essa forma será suficiente para a demonstração.
+
+2. **Expansão de $\sum \hat\varepsilon_i^2$**
+
+Elevando ao quadrado,
+
+$$
+\hat\varepsilon_i^2
+=
+(\varepsilon_i-\bar\varepsilon)^2
+-2(\varepsilon_i-\bar\varepsilon)(\hat\beta_1-\beta_1)(X_i-\bar X)
++(\hat\beta_1-\beta_1)^2(X_i-\bar X)^2.
+$$
+
+Somando em $i$,
+
+$$
 \sum_{i=1}^n \hat\varepsilon_i^2
 =
-\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+-2(\hat\beta_1-\beta_1)\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
++(\hat\beta_1-\beta_1)^2\sum_{i=1}^n (X_i-\bar X)^2.
 $$
 
-No contexto do MQO, o vetor de resíduos pode ser interpretado geometricamente como o componente de $\mathbf{Y}$ ortogonal ao subespaço gerado pelas colunas da matriz de desenho. No MRLS com intercepto, esse subespaço tem dimensão $2$, pois é gerado por um vetor de uns e pelo vetor das observações de $X$.
-
-Assim, dos $n$ graus de liberdade originalmente presentes em $\mathbf{Y}$, dois são utilizados na estimação de $\beta_0$ e $\beta_1$, restando $n-2$ graus de liberdade para os resíduos.
-
-Um resultado fundamental é que
+Agora observemos que
 
 $$
-E[SQRes\mid X]=(n-2)\sigma^2.
+\sum_{i=1}^n (X_i-\bar X)^2=S_{xx}.
+$$
+
+Além disso,
+
+$$
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
+=
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+-
+\bar\varepsilon\sum_{i=1}^n (X_i-\bar X).
+$$
+
+Como
+
+$$
+\sum_{i=1}^n (X_i-\bar X)=0,
+$$
+
+segue que
+
+$$
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
+=
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
+$$
+
+Mas, pela expressão de $\hat\beta_1-\beta_1$,
+
+$$
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
 $$
 
 Portanto,
 
 $$
-s^2=\frac{SQRes}{n-2}
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
+=
+S_{xx}(\hat\beta_1-\beta_1).
 $$
 
-é um estimador **não viesado** de $\sigma^2$.
+Substituindo na expansão de $\sum \hat\varepsilon_i^2$, obtemos
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i^2
+=
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+-2(\hat\beta_1-\beta_1)S_{xx}(\hat\beta_1-\beta_1)
++(\hat\beta_1-\beta_1)^2S_{xx}.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i^2
+=
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+-S_{xx}(\hat\beta_1-\beta_1)^2.
+$$
 
 ::: {.callout-note title="Passo técnico"}
-O denominador não é $n$, mas sim $n-2$, porque dois parâmetros foram estimados a partir dos dados. Essa correção é essencial para que $s^2$ seja não viesado para $\sigma^2$.
+Note que a soma de quadrados dos resíduos pode ser escrita como a soma de quadrados centrados dos erros menos um termo associado à estimação da inclinação.
 :::
 
-Ao substituir $\sigma^2$ por $s^2$ nas expressões de variâncias e covariâncias, obtemos os estimadores usuais dos erros-padrão de $\hat\beta_0$ e $\hat\beta_1$. Sob hipóteses adicionais, especialmente a normalidade dos erros, esses resultados levam às distribuições exatas usadas em testes de hipóteses e intervalos de confiança.
+3. **Esperança do primeiro termo**
+
+Tomemos esperança condicional em $X$:
+
+$$
+E\left(\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)
+=
+E\left(\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \middle| X\right)
+-
+S_{xx}E\left((\hat\beta_1-\beta_1)^2\middle| X\right).
+$$
+
+Comecemos pelo primeiro termo. Usamos a identidade
+
+$$
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+=
+\sum_{i=1}^n \varepsilon_i^2-n\bar\varepsilon^2.
+$$
+
+Tomando esperança condicional em $X$,
+
+$$
+E\left(\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \middle| X\right)
+=
+\sum_{i=1}^n E(\varepsilon_i^2\mid X)-nE(\bar\varepsilon^2\mid X).
+$$
+
+Como
+
+$$
+E(\varepsilon_i^2\mid X)=Var(\varepsilon_i\mid X)=\sigma^2,
+$$
+
+temos
+
+$$
+\sum_{i=1}^n E(\varepsilon_i^2\mid X)=n\sigma^2.
+$$
+
+Além disso,
+
+$$
+Var(\bar\varepsilon\mid X)
+=
+Var\left(\frac{1}{n}\sum_{i=1}^n \varepsilon_i \middle| X\right)
+=
+\frac{1}{n^2}\sum_{i=1}^n Var(\varepsilon_i\mid X)
+=
+\frac{1}{n^2}\cdot n\sigma^2
+=
+\frac{\sigma^2}{n},
+$$
+
+pois os erros são não correlacionados.
+
+Como $E(\bar\varepsilon\mid X)=0$, segue que
+
+$$
+E(\bar\varepsilon^2\mid X)=\frac{\sigma^2}{n}.
+$$
+
+Portanto,
+
+$$
+E\left(\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \middle| X\right)
+=
+n\sigma^2-n\cdot\frac{\sigma^2}{n}
+=
+(n-1)\sigma^2.
+$$
+
+4. **Esperança do segundo termo**
+
+Agora analisemos
+
+$$
+E\left((\hat\beta_1-\beta_1)^2\middle| X\right).
+$$
+
+Como já foi demonstrado que
+
+$$
+E(\hat\beta_1\mid X)=\beta_1
+\qquad \text{e} \qquad
+Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}},
+$$
+
+temos
+
+$$
+E\left((\hat\beta_1-\beta_1)^2\middle| X\right)
+=
+Var(\hat\beta_1\mid X)
+=
+\frac{\sigma^2}{S_{xx}}.
+$$
+
+Logo,
+
+$$
+S_{xx}E\left((\hat\beta_1-\beta_1)^2\middle| X\right)
+=
+S_{xx}\cdot \frac{\sigma^2}{S_{xx}}
+=
+\sigma^2.
+$$
+
+5. **Conclusão**
+
+Substituindo os dois resultados obtidos,
+
+$$
+E\left(\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)
+=
+(n-1)\sigma^2-\sigma^2
+=
+(n-2)\sigma^2.
+$$
+
+Assim,
+
+$$
+E\left(\frac{1}{n-2}\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)
+=
+\frac{1}{n-2}(n-2)\sigma^2
+=
+\sigma^2.
+$$
+
+Portanto,
+
+$$
+E(s^2\mid X)=\sigma^2.
+$$
+
 
 ::: {.callout-important title="Conclusão"}
 O estimador
+
 $$
-s^2=\frac{SQRes}{n-2}
+s^2=\frac{1}{n-2}\sum_{i=1}^n \hat\varepsilon_i^2
 $$
-corrige adequadamente a perda de graus de liberdade decorrente da estimação de $\beta_0$ e $\beta_1$, sendo por isso o estimador clássico e não viesado da variância dos erros no MRLS.
+
+é não viesado para $\sigma^2$ no modelo de regressão linear simples.
 :::
 
 ## Demonstração do Teorema de Gauss--Markov em MRLS

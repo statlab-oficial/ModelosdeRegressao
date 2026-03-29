@@ -333,7 +333,15 @@ window.Quarto = {
   <li><a href="#parte-a-obtenção-dos-estimadores" id="toc-parte-a-obtenção-dos-estimadores" class="nav-link" data-scroll-target="#parte-a-obtenção-dos-estimadores"><span class="header-section-number">18.1.1</span> Parte A: Obtenção dos estimadores</a></li>
   <li><a href="#parte-b-verificação-de-que-são-mínimos" id="toc-parte-b-verificação-de-que-são-mínimos" class="nav-link" data-scroll-target="#parte-b-verificação-de-que-são-mínimos"><span class="header-section-number">18.1.2</span> Parte B: Verificação de que são mínimos</a></li>
   </ul></li>
-  <li><a href="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" id="toc-demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" class="nav-link" data-scroll-target="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.2</span> Demonstração das propriedades dos estimadores de MQO em MRLS</a></li>
+  <li><a href="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" id="toc-demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls" class="nav-link" data-scroll-target="#demonstração-das-propriedades-dos-estimadores-de-mqo-em-mrls"><span class="header-section-number">18.2</span> Demonstração das propriedades dos estimadores de MQO em MRLS</a>
+  <ul class="collapse">
+  <li><a href="#esperança-de-hatbeta_1" id="toc-esperança-de-hatbeta_1" class="nav-link" data-scroll-target="#esperança-de-hatbeta_1"><span class="header-section-number">18.2.1</span> Esperança de <span class="math inline">\(\hat\beta_1\)</span></a></li>
+  <li><a href="#esperança-de-hatbeta_0" id="toc-esperança-de-hatbeta_0" class="nav-link" data-scroll-target="#esperança-de-hatbeta_0"><span class="header-section-number">18.2.2</span> Esperança de <span class="math inline">\(\hat\beta_0\)</span></a></li>
+  <li><a href="#variância-de-hatbeta_1" id="toc-variância-de-hatbeta_1" class="nav-link" data-scroll-target="#variância-de-hatbeta_1"><span class="header-section-number">18.2.3</span> Variância de <span class="math inline">\(\hat\beta_1\)</span></a></li>
+  <li><a href="#variância-de-hatbeta_0" id="toc-variância-de-hatbeta_0" class="nav-link" data-scroll-target="#variância-de-hatbeta_0"><span class="header-section-number">18.2.4</span> Variância de <span class="math inline">\(\hat\beta_0\)</span></a></li>
+  <li><a href="#covariância-de-hatbeta_0hatbeta_1" id="toc-covariância-de-hatbeta_0hatbeta_1" class="nav-link" data-scroll-target="#covariância-de-hatbeta_0hatbeta_1"><span class="header-section-number">18.2.5</span> Covariância de <span class="math inline">\((\hat\beta_0,\hat\beta_1)\)</span></a></li>
+  <li><a href="#estimador-não-viesado-para-sigma2-no-mrls" id="toc-estimador-não-viesado-para-sigma2-no-mrls" class="nav-link" data-scroll-target="#estimador-não-viesado-para-sigma2-no-mrls"><span class="header-section-number">18.2.6</span> Estimador não viesado para <span class="math inline">\(\sigma^2\)</span> no MRLS</a></li>
+  </ul></li>
   <li><a href="#demonstração-do-teorema-de-gaussmarkov-em-mrls" id="toc-demonstração-do-teorema-de-gaussmarkov-em-mrls" class="nav-link" data-scroll-target="#demonstração-do-teorema-de-gaussmarkov-em-mrls"><span class="header-section-number">18.3</span> Demonstração do Teorema de Gauss–Markov em MRLS</a>
   <ul class="collapse">
   <li><a href="#parte-a-a-inclinação-beta_1" id="toc-parte-a-a-inclinação-beta_1" class="nav-link" data-scroll-target="#parte-a-a-inclinação-beta_1"><span class="header-section-number">18.3.1</span> Parte A: A inclinação <span class="math inline">\(\beta_1\)</span></a></li>
@@ -427,7 +435,7 @@ S(\beta_0,\beta_1)=\sum_{i=1}^n [Y_i-(\beta_0+\beta_1X_i)]^2,
 <p><span class="math display">\[
 S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2.
 \]</span></p>
-<p>Ao elevar cada diferença <span class="math inline">\(Y_i - (\beta_0 + \beta_1 X_i\)</span> ao quadrado, e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distancia total o menor possível.</p>
+<p>Ao elevar cada diferença <span class="math inline">\(Y_i - (\beta_0 + \beta_1 X_i)\)</span> ao quadrado, e somá-los, obtemos uma medida global de distância da reta aos dados. O método de MQO escolhe, entre todas as retas possíveis, aquela que torna esse distância total o menor possível.</p>
 <p>Como <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> podem assumir qualquer valor real, a minimização pode ser feita via técnicas de derivação.</p>
 <ol type="1">
 <li><strong>Condições de primeira ordem</strong></li>
@@ -480,7 +488,7 @@ S(\beta_0,\beta_1) = \sum_{i=1}^n [Y_i - (\beta_0 + \beta_1 X_i)]^2.
 <p><span class="math display">\[
 \sum_{i=1}^n X_i Y_i = \hat{\beta}_0 \sum_{i=1}^n X_i + \hat{\beta}_1 \sum_{i=1}^n X_i^2.
 \]</span></p>
-<p>Essas duas equações resultam diretamente de reorganizar os termos das condições de primeira ordem. Na primeira, somamos os resíduos; na segunda, somamos os resíduos ponderados por <span class="math inline">\(X_i\)</span>. Em ambos os casos, no ponto de mínimo, essas somas devem se anular.</p>
+<p>Essas duas equações resultam diretamente de reorganizar os termos das condições de primeira ordem. Essas somas devem se anular no ponto de mínimo.</p>
 <p>A primeira equação pode ser escrita como</p>
 <p><span class="math display">\[
 n\hat{\beta}_0 = \sum_{i=1}^n Y_i - \hat{\beta}_1\sum_{i=1}^n X_i.
@@ -570,7 +578,7 @@ n\hat{\beta}_0 = \sum_{i=1}^n Y_i - \hat{\beta}_1\sum_{i=1}^n X_i.
 =
 \sum_{i=1}^n (X_i-\bar{X})^2.
 \]</span></p>
-<p>No numerador, fazemos manipulação análoga:</p>
+<p>No termo à esquerda, fazemos manipulação análoga:</p>
 <p><span class="math display">\[
 \sum_{i=1}^n X_iY_i - \bar{Y}\sum_{i=1}^n X_i
 =
@@ -665,7 +673,7 @@ S_{xy} = \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}).
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Na Parte I encontramos um ponto crítico da função objetivo. Agora precisamos verificar que esse ponto crítico é, de fato, um <strong>mínimo</strong>.</p>
+<p>Na Parte A encontramos um ponto crítico da função objetivo. Agora precisamos verificar que esse ponto crítico é, de fato, um <strong>mínimo</strong>.</p>
 <p>Como <span class="math display">\[
 S(\beta_0,\beta_1)=\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2
 \]</span> é uma função quadrática nos parâmetros, uma maneira natural de fazer isso é estudar sua <strong>curvatura</strong>, por meio da matriz Hessiana.</p>
@@ -675,10 +683,10 @@ S(\beta_0,\beta_1)=\sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2
 <p><span class="math display">\[
 S(\beta_0,\beta_1) = \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i)^2.
 \]</span></p>
-<p>Note que essa função é <strong>quadrática</strong> em relação aos parâmetros <span class="math inline">\((\beta_0,\beta_1)\)</span>. Em problemas quadráticos, o comportamento global da função é inteiramente determinado pela matriz de segundas derivadas. Assim, para verificar se o ponto crítico <span class="math inline">\((\hat{\beta}_0,\hat{\beta}_1)\)</span> corresponde a um <strong>mínimo global</strong>, basta estudarmos a positividade da matriz Hessiana.</p>
+<p>Note que essa função é quadrática em relação aos parâmetros <span class="math inline">\((\beta_0,\beta_1)\)</span>. Em problemas quadráticos, o comportamento global da função é inteiramente determinado pela matriz de segundas derivadas. Assim, para verificar se o ponto crítico <span class="math inline">\((\hat{\beta}_0,\hat{\beta}_1)\)</span> corresponde a um <strong>mínimo global</strong>, basta estudarmos a positividade da matriz Hessiana.</p>
 <p>da matriz Hessiana de <span class="math inline">\(S(\beta_0,\beta_1)\)</span> é</p>
 <p><span class="math display">\[
-H=
+\mathbf{H}=
 \begin{bmatrix}
 \frac{\partial^2 S}{\partial \beta_0^2} &amp;
 \frac{\partial^2 S}{\partial \beta_0\partial \beta_1} \\
@@ -688,21 +696,23 @@ H=
 \]</span></p>
 <p>Calculemos cada termo:</p>
 <p><span class="math display">\[
-\frac{\partial^2 S}{\partial \beta_0^2}=2n,
+\frac{\partial^2 S}{\partial \beta_0^2}=\frac{\partial S}{\partial \beta_0}\left(\frac{\partial S}{\partial \beta_0}\right)=2n,
 \]</span></p>
 <p><span class="math display">\[
 \frac{\partial^2 S}{\partial \beta_0\partial \beta_1}
 =
 \frac{\partial^2 S}{\partial \beta_1\partial \beta_0}
 =
+\frac{\partial S}{\partial \beta_1}\left(\frac{\partial S}{\partial \beta_0}\right)
+=
 2\sum_{i=1}^n X_i,
 \]</span></p>
 <p><span class="math display">\[
-\frac{\partial^2 S}{\partial \beta_1^2}=2\sum_{i=1}^n X_i^2.
+\frac{\partial^2 S}{\partial \beta_1^2}=\frac{\partial S}{\partial \beta_1}\left(\frac{\partial S}{\partial \beta_1}\right)=2\sum_{i=1}^n X_i^2.
 \]</span></p>
 <p>Logo,</p>
 <p><span class="math display">\[
-H=
+\mathbf{H}=
 \begin{bmatrix}
 2n &amp; 2\sum_{i=1}^n X_i \\
 2\sum_{i=1}^n X_i &amp; 2\sum_{i=1}^n X_i^2
@@ -710,7 +720,7 @@ H=
 \]</span></p>
 <p>Para mostrar que essa matriz Hessiana é definida positiva, consideremos um vetor arbitrário <span class="math inline">\((a,b)\in\mathbb{R}^2\)</span>, não nulo. Então,</p>
 <p><span class="math display">\[
-(a,b)H(a,b)^\top
+(a,b)\mathbf{H}(a,b)^\top
 =
 2na^2 + 4ab\sum_{i=1}^n X_i + 2b^2\sum_{i=1}^n X_i^2.
 \]</span></p>
@@ -730,7 +740,7 @@ na^2 + 2ab\sum_{i=1}^n X_i + b^2\sum_{i=1}^n X_i^2.
 \]</span></p>
 <p>Portanto,</p>
 <p><span class="math display">\[
-(a,b)H(a,b)^\top = 2\sum_{i=1}^n (a+bX_i)^2.
+(a,b)\mathbf{H}(a,b)^\top = 2\sum_{i=1}^n (a+bX_i)^2.
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled" title="Passo técnico">
 <div class="callout-header d-flex align-content-center">
@@ -742,11 +752,11 @@ na^2 + 2ab\sum_{i=1}^n X_i + b^2\sum_{i=1}^n X_i^2.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Essa reescrita é decisiva, pois transforma uma expressão matricial aparentemente abstrata em uma <strong>soma de quadrados</strong>, cuja análise é imediata: cada parcela é não negativa.</p>
+<p>Essa reescrita transforma uma expressão matricial aparentemente abstrata em uma soma de quadrados, cuja análise é imediata: cada parcela é não negativa.</p>
 </div>
 </div>
 <p>Como cada termo <span class="math inline">\((a+bX_i)^2\geq 0\)</span>, segue que <span class="math display">\[
-(a,b)H(a,b)^\top \geq 0.
+(a,b)\mathbf{H}(a,b)^\top \geq 0.
 \]</span></p>
 <p>Para que essa quantidade seja igual a zero, seria necessário que <span class="math display">\[
 a+bX_i=0
@@ -829,7 +839,7 @@ S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y).
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>As propriedades de não viés, variância e covariância dos estimadores de MQO decorrem de dois fatos centrais:</p>
+<p>As propriedades de não viés, variância e covariância dos estimadores de MQO decorrem de dois fatos:</p>
 <ol type="1">
 <li>os estimadores podem ser escritos como combinações lineares das observações;</li>
 <li>o modelo supõe erros com média zero, variância constante e covariâncias nulas.</li>
@@ -837,7 +847,8 @@ S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y).
 <p>A ideia será reescrever <span class="math inline">\(\hat\beta_1\)</span> e <span class="math inline">\(\hat\beta_0\)</span> em função dos erros <span class="math inline">\(\varepsilon_i\)</span> e, a partir daí, calcular esperança, variância e covariância.</p>
 </div>
 </div>
-<p><strong>1) Esperança de <span class="math inline">\(\hat\beta_1\)</span></strong></p>
+<section id="esperança-de-hatbeta_1" class="level3" data-number="18.2.1">
+<h3 data-number="18.2.1" class="anchored" data-anchor-id="esperança-de-hatbeta_1"><span class="header-section-number">18.2.1</span> Esperança de <span class="math inline">\(\hat\beta_1\)</span></h3>
 <p>Partimos de</p>
 <p><span class="math display">\[
 \hat\beta_1
@@ -925,10 +936,6 @@ E[\hat\beta_1\mid X]
 <p><span class="math display">\[
 E[\hat\beta_1\mid X]=\beta_1.
 \]</span></p>
-<p>Portanto,</p>
-<p><span class="math display">\[
-E[\hat\beta_1]=\beta_1.
-\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -942,7 +949,9 @@ E[\hat\beta_1]=\beta_1.
 <p>O estimador <span class="math inline">\(\hat\beta_1\)</span> é <strong>não viesado</strong> para <span class="math inline">\(\beta_1\)</span>.</p>
 </div>
 </div>
-<p><strong>2) Esperança de <span class="math inline">\(\hat\beta_0\)</span></strong></p>
+</section>
+<section id="esperança-de-hatbeta_0" class="level3" data-number="18.2.2">
+<h3 data-number="18.2.2" class="anchored" data-anchor-id="esperança-de-hatbeta_0"><span class="header-section-number">18.2.2</span> Esperança de <span class="math inline">\(\hat\beta_0\)</span></h3>
 <p>Usando <span class="math display">\[
 \hat\beta_0=\bar Y-\hat\beta_1\bar X,
 \]</span> temos</p>
@@ -951,7 +960,7 @@ E[\hat\beta_0\mid X]
 =
 E[\bar Y\mid X]-\bar X\,E[\hat\beta_1\mid X].
 \]</span></p>
-<p>Agora,</p>
+<p>Temos que,</p>
 <p><span class="math display">\[
 \bar Y
 =
@@ -967,7 +976,7 @@ E[\bar Y\mid X]-\bar X\,E[\hat\beta_1\mid X].
 \]</span></p>
 <p>Assim,</p>
 <p><span class="math display">\[
-E[\bar Y\mid X]=\beta_0+\beta_1\bar X.
+E[\bar Y\mid X]=\beta_0+\beta_1\bar X, \qquad \text{pois} \qquad E[\\bar\varepsilon\mid X]= 0
 \]</span></p>
 <p>Como já vimos que <span class="math display">\[
 E[\hat\beta_1\mid X]=\beta_1,
@@ -978,10 +987,6 @@ E[\hat\beta_0\mid X]
 (\beta_0+\beta_1\bar X)-\bar X\,\beta_1
 =
 \beta_0.
-\]</span></p>
-<p>Portanto,</p>
-<p><span class="math display">\[
-E[\hat\beta_0]=\beta_0.
 \]</span></p>
 <div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
 <div class="callout-header d-flex align-content-center">
@@ -996,10 +1001,12 @@ E[\hat\beta_0]=\beta_0.
 <p>O estimador <span class="math inline">\(\hat\beta_0\)</span> também é <strong>não viesado</strong> para <span class="math inline">\(\beta_0\)</span>.</p>
 </div>
 </div>
-<p><strong>3) Variância de <span class="math inline">\(\hat\beta_1\)</span></strong></p>
+</section>
+<section id="variância-de-hatbeta_1" class="level3" data-number="18.2.3">
+<h3 data-number="18.2.3" class="anchored" data-anchor-id="variância-de-hatbeta_1"><span class="header-section-number">18.2.3</span> Variância de <span class="math inline">\(\hat\beta_1\)</span></h3>
 <p>Da decomposição obtida anteriormente,</p>
 <p><span class="math display">\[
-\hat\beta_1-\beta_1
+\hat\beta_1 - \beta_1
 =
 \frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
 \]</span></p>
@@ -1060,10 +1067,6 @@ Var(\hat\beta_1\mid X)
 =
 \frac{\sigma^2}{S_{xx}}.
 \]</span></p>
-<p>Como a expressão depende apenas de <span class="math inline">\(X\)</span>, escrevemos também</p>
-<p><span class="math display">\[
-Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
-\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1075,11 +1078,13 @@ Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
 </div>
 <div class="callout-body-container callout-body">
 <p>A variância de <span class="math inline">\(\hat\beta_1\)</span> é <span class="math display">\[
-Var(\hat\beta_1)=\frac{\sigma^2}{S_{xx}}.
+\frac{\sigma^2}{S_{xx}}.
 \]</span> Logo, quanto maior a variabilidade dos valores de <span class="math inline">\(X\)</span>, menor tende a ser a variância do estimador da inclinação.</p>
 </div>
 </div>
-<p><strong>4) Variância de <span class="math inline">\(\hat\beta_0\)</span></strong></p>
+</section>
+<section id="variância-de-hatbeta_0" class="level3" data-number="18.2.4">
+<h3 data-number="18.2.4" class="anchored" data-anchor-id="variância-de-hatbeta_0"><span class="header-section-number">18.2.4</span> Variância de <span class="math inline">\(\hat\beta_0\)</span></h3>
 <p>Escreva</p>
 <p><span class="math display">\[
 \hat\beta_0-\beta_0
@@ -1207,17 +1212,6 @@ Var(\hat\beta_0\mid X)
 \frac{\bar X^2}{S_{xx}}
 \right)\sigma^2.
 \]</span></p>
-<p>Logo,</p>
-<p><span class="math display">\[
-Var(\hat\beta_0)
-=
-\sigma^2
-\left(
-\frac{1}{n}
-+
-\frac{\bar X^2}{S_{xx}}
-\right).
-\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1229,23 +1223,27 @@ Var(\hat\beta_0)
 </div>
 <div class="callout-body-container callout-body">
 <p>A variância do intercepto é <span class="math display">\[
-Var(\hat\beta_0)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
 \]</span> Esse resultado mostra que a precisão de <span class="math inline">\(\hat\beta_0\)</span> depende não apenas do tamanho amostral, mas também da posição média dos valores de <span class="math inline">\(X\)</span> e da dispersão desses valores.</p>
 </div>
 </div>
-<p><strong>5) Covariância <span class="math inline">\(Cov(\hat\beta_0,\hat\beta_1)\)</span></strong></p>
+</section>
+<section id="covariância-de-hatbeta_0hatbeta_1" class="level3" data-number="18.2.5">
+<h3 data-number="18.2.5" class="anchored" data-anchor-id="covariância-de-hatbeta_0hatbeta_1"><span class="header-section-number">18.2.5</span> Covariância de <span class="math inline">\((\hat\beta_0,\hat\beta_1)\)</span></h3>
 <p>Usando <span class="math display">\[
 \hat\beta_0=\bar Y-\hat\beta_1\bar X,
 \]</span> temos</p>
 <p><span class="math display">\[
 Cov(\hat\beta_0,\hat\beta_1\mid X)
 =
+Cov(\bar Y-\hat\beta_1\bar X,\hat\beta_1\mid X)
+=
 Cov(\bar Y,\hat\beta_1\mid X)
 -
-\bar X\,Var(\hat\beta_1\mid X).
+\bar X\,Cov(\hat\beta_1,\hat\beta_1\mid X).
 \]</span></p>
 <p>Já sabemos que <span class="math display">\[
-Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}}.
+Cov(\hat\beta_1,\hat\beta_1\mid X)=Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}}.
 \]</span></p>
 <p>Resta calcular <span class="math display">\[
 Cov(\bar Y,\hat\beta_1\mid X).
@@ -1269,6 +1267,9 @@ Cov\left(
 <p>Tirando a constante <span class="math inline">\(1/S_{xx}\)</span> para fora,</p>
 <p><span class="math display">\[
 Cov(\bar Y,\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}}
+\,Cov(\sum_{i=1}^n (X_i-\bar X)\bar\varepsilon,\varepsilon_i\mid X)
 =
 \frac{1}{S_{xx}}
 \sum_{i=1}^n (X_i-\bar X)\,Cov(\bar\varepsilon,\varepsilon_i\mid X).
@@ -1300,11 +1301,6 @@ Cov(\hat\beta_0,\hat\beta_1\mid X)
 -\frac{\bar X}{S_{xx}}\sigma^2.
 \]</span></p>
 <p>Em notação abreviada,</p>
-<p><span class="math display">\[
-Cov(\hat\beta_0,\hat\beta_1)
-=
--\frac{\bar X}{S_{xx}}\sigma^2.
-\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1316,30 +1312,143 @@ Cov(\hat\beta_0,\hat\beta_1)
 </div>
 <div class="callout-body-container callout-body">
 <p>A covariância entre os estimadores é <span class="math display">\[
-Cov(\hat\beta_0,\hat\beta_1)=-\frac{\bar X}{S_{xx}}\sigma^2.
+-\frac{\bar X}{S_{xx}}\sigma^2.
 \]</span> Em geral, <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> não são independentes; além disso, o sinal dessa covariância depende do sinal de <span class="math inline">\(\bar X\)</span>.</p>
 </div>
 </div>
-<p><strong>6) Estimador de <span class="math inline">\(\sigma^2\)</span></strong></p>
-<p>A soma dos quadrados dos resíduos é</p>
+</section>
+<section id="estimador-não-viesado-para-sigma2-no-mrls" class="level3" data-number="18.2.6">
+<h3 data-number="18.2.6" class="anchored" data-anchor-id="estimador-não-viesado-para-sigma2-no-mrls"><span class="header-section-number">18.2.6</span> Estimador não viesado para <span class="math inline">\(\sigma^2\)</span> no MRLS</h3>
+<p>O objetivo é mostrar que o estimador</p>
 <p><span class="math display">\[
-SQRes
+s^2=\frac{1}{n-2}\sum_{i=1}^n \hat\varepsilon_i^2
+\]</span></p>
+<p>é não viesado para <span class="math inline">\(\sigma^2\)</span>, isto é,</p>
+<p><span class="math display">\[
+E(s^2\mid X)=\sigma^2.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ideia é escrever cada resíduo em função dos erros do modelo e da quantidade <span class="math inline">\(\hat\beta_1-\beta_1\)</span>.</p>
+<p>Em seguida, expandimos <span class="math inline">\(\sum \hat\varepsilon_i^2\)</span>, calculamos sua esperança condicional em <span class="math inline">\(X\)</span> e mostramos que</p>
+<p><span class="math display">\[
+E\left(\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)=(n-2)\sigma^2.
+\]</span></p>
+<p>Daí seguirá imediatamente que <span class="math inline">\(s^2\)</span> é não viesado.</p>
+</div>
+</div>
+<ol type="1">
+<li><strong>Expressão dos resíduos</strong></li>
+</ol>
+<p>Comecemos com</p>
+<p><span class="math display">\[
+\hat\varepsilon_i=Y_i-\hat Y_i
 =
+Y_i-\hat\beta_0-\hat\beta_1X_i.
+\]</span></p>
+<p>Substituindo <span class="math inline">\(Y_i=\beta_0+\beta_1X_i+\varepsilon_i\)</span>, obtemos</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+\varepsilon_i-(\hat\beta_0-\beta_0)-(\hat\beta_1-\beta_1)X_i.
+\]</span></p>
+<p>Agora usamos a identidade já conhecida</p>
+<p><span class="math display">\[
+\hat\beta_0-\beta_0=\bar\varepsilon-\bar X(\hat\beta_1-\beta_1),
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\bar\varepsilon=\frac{1}{n}\sum_{i=1}^n \varepsilon_i.
+\]</span></p>
+<p>Substituindo,</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+\varepsilon_i-\bar\varepsilon+\bar X(\hat\beta_1-\beta_1)-(\hat\beta_1-\beta_1)X_i.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+(\varepsilon_i-\bar\varepsilon)-(\hat\beta_1-\beta_1)(X_i-\bar X).
+\]</span></p>
+<p>Essa forma será suficiente para a demonstração.</p>
+<ol start="2" type="1">
+<li><strong>Expansão de <span class="math inline">\(\sum \hat\varepsilon_i^2\)</span></strong></li>
+</ol>
+<p>Elevando ao quadrado,</p>
+<p><span class="math display">\[
+\hat\varepsilon_i^2
+=
+(\varepsilon_i-\bar\varepsilon)^2
+-2(\varepsilon_i-\bar\varepsilon)(\hat\beta_1-\beta_1)(X_i-\bar X)
++(\hat\beta_1-\beta_1)^2(X_i-\bar X)^2.
+\]</span></p>
+<p>Somando em <span class="math inline">\(i\)</span>,</p>
+<p><span class="math display">\[
 \sum_{i=1}^n \hat\varepsilon_i^2
 =
-\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+-2(\hat\beta_1-\beta_1)\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
++(\hat\beta_1-\beta_1)^2\sum_{i=1}^n (X_i-\bar X)^2.
 \]</span></p>
-<p>No contexto do MQO, o vetor de resíduos pode ser interpretado geometricamente como o componente de <span class="math inline">\(\mathbf{Y}\)</span> ortogonal ao subespaço gerado pelas colunas da matriz de desenho. No MRLS com intercepto, esse subespaço tem dimensão <span class="math inline">\(2\)</span>, pois é gerado por um vetor de uns e pelo vetor das observações de <span class="math inline">\(X\)</span>.</p>
-<p>Assim, dos <span class="math inline">\(n\)</span> graus de liberdade originalmente presentes em <span class="math inline">\(\mathbf{Y}\)</span>, dois são utilizados na estimação de <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>, restando <span class="math inline">\(n-2\)</span> graus de liberdade para os resíduos.</p>
-<p>Um resultado fundamental é que</p>
+<p>Agora observemos que</p>
 <p><span class="math display">\[
-E[SQRes\mid X]=(n-2)\sigma^2.
+\sum_{i=1}^n (X_i-\bar X)^2=S_{xx}.
+\]</span></p>
+<p>Além disso,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
+=
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i
+-
+\bar\varepsilon\sum_{i=1}^n (X_i-\bar X).
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (X_i-\bar X)=0,
+\]</span></p>
+<p>segue que</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
+=
+\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
+\]</span></p>
+<p>Mas, pela expressão de <span class="math inline">\(\hat\beta_1-\beta_1\)</span>,</p>
+<p><span class="math display">\[
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)\varepsilon_i.
 \]</span></p>
 <p>Portanto,</p>
 <p><span class="math display">\[
-s^2=\frac{SQRes}{n-2}
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)(X_i-\bar X)
+=
+S_{xx}(\hat\beta_1-\beta_1).
 \]</span></p>
-<p>é um estimador <strong>não viesado</strong> de <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Substituindo na expansão de <span class="math inline">\(\sum \hat\varepsilon_i^2\)</span>, obtemos</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i^2
+=
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+-2(\hat\beta_1-\beta_1)S_{xx}(\hat\beta_1-\beta_1)
++(\hat\beta_1-\beta_1)^2S_{xx}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i^2
+=
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+-S_{xx}(\hat\beta_1-\beta_1)^2.
+\]</span></p>
 <div class="callout callout-style-default callout-note callout-titled" title="Passo técnico">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1350,10 +1459,117 @@ s^2=\frac{SQRes}{n-2}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>O denominador não é <span class="math inline">\(n\)</span>, mas sim <span class="math inline">\(n-2\)</span>, porque dois parâmetros foram estimados a partir dos dados. Essa correção é essencial para que <span class="math inline">\(s^2\)</span> seja não viesado para <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Note que a soma de quadrados dos resíduos pode ser escrita como a soma de quadrados centrados dos erros menos um termo associado à estimação da inclinação.</p>
 </div>
 </div>
-<p>Ao substituir <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(s^2\)</span> nas expressões de variâncias e covariâncias, obtemos os estimadores usuais dos erros-padrão de <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span>. Sob hipóteses adicionais, especialmente a normalidade dos erros, esses resultados levam às distribuições exatas usadas em testes de hipóteses e intervalos de confiança.</p>
+<ol start="3" type="1">
+<li><strong>Esperança do primeiro termo</strong></li>
+</ol>
+<p>Tomemos esperança condicional em <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+E\left(\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)
+=
+E\left(\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \middle| X\right)
+-
+S_{xx}E\left((\hat\beta_1-\beta_1)^2\middle| X\right).
+\]</span></p>
+<p>Comecemos pelo primeiro termo. Usamos a identidade</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2
+=
+\sum_{i=1}^n \varepsilon_i^2-n\bar\varepsilon^2.
+\]</span></p>
+<p>Tomando esperança condicional em <span class="math inline">\(X\)</span>,</p>
+<p><span class="math display">\[
+E\left(\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \middle| X\right)
+=
+\sum_{i=1}^n E(\varepsilon_i^2\mid X)-nE(\bar\varepsilon^2\mid X).
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+E(\varepsilon_i^2\mid X)=Var(\varepsilon_i\mid X)=\sigma^2,
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+\sum_{i=1}^n E(\varepsilon_i^2\mid X)=n\sigma^2.
+\]</span></p>
+<p>Além disso,</p>
+<p><span class="math display">\[
+Var(\bar\varepsilon\mid X)
+=
+Var\left(\frac{1}{n}\sum_{i=1}^n \varepsilon_i \middle| X\right)
+=
+\frac{1}{n^2}\sum_{i=1}^n Var(\varepsilon_i\mid X)
+=
+\frac{1}{n^2}\cdot n\sigma^2
+=
+\frac{\sigma^2}{n},
+\]</span></p>
+<p>pois os erros são não correlacionados.</p>
+<p>Como <span class="math inline">\(E(\bar\varepsilon\mid X)=0\)</span>, segue que</p>
+<p><span class="math display">\[
+E(\bar\varepsilon^2\mid X)=\frac{\sigma^2}{n}.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+E\left(\sum_{i=1}^n (\varepsilon_i-\bar\varepsilon)^2 \middle| X\right)
+=
+n\sigma^2-n\cdot\frac{\sigma^2}{n}
+=
+(n-1)\sigma^2.
+\]</span></p>
+<ol start="4" type="1">
+<li><strong>Esperança do segundo termo</strong></li>
+</ol>
+<p>Agora analisemos</p>
+<p><span class="math display">\[
+E\left((\hat\beta_1-\beta_1)^2\middle| X\right).
+\]</span></p>
+<p>Como já foi demonstrado que</p>
+<p><span class="math display">\[
+E(\hat\beta_1\mid X)=\beta_1
+\qquad \text{e} \qquad
+Var(\hat\beta_1\mid X)=\frac{\sigma^2}{S_{xx}},
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+E\left((\hat\beta_1-\beta_1)^2\middle| X\right)
+=
+Var(\hat\beta_1\mid X)
+=
+\frac{\sigma^2}{S_{xx}}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+S_{xx}E\left((\hat\beta_1-\beta_1)^2\middle| X\right)
+=
+S_{xx}\cdot \frac{\sigma^2}{S_{xx}}
+=
+\sigma^2.
+\]</span></p>
+<ol start="5" type="1">
+<li><strong>Conclusão</strong></li>
+</ol>
+<p>Substituindo os dois resultados obtidos,</p>
+<p><span class="math display">\[
+E\left(\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)
+=
+(n-1)\sigma^2-\sigma^2
+=
+(n-2)\sigma^2.
+\]</span></p>
+<p>Assim,</p>
+<p><span class="math display">\[
+E\left(\frac{1}{n-2}\sum_{i=1}^n \hat\varepsilon_i^2 \middle| X\right)
+=
+\frac{1}{n-2}(n-2)\sigma^2
+=
+\sigma^2.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+E(s^2\mid X)=\sigma^2.
+\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1364,11 +1580,14 @@ s^2=\frac{SQRes}{n-2}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>O estimador <span class="math display">\[
-s^2=\frac{SQRes}{n-2}
-\]</span> corrige adequadamente a perda de graus de liberdade decorrente da estimação de <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>, sendo por isso o estimador clássico e não viesado da variância dos erros no MRLS.</p>
+<p>O estimador</p>
+<p><span class="math display">\[
+s^2=\frac{1}{n-2}\sum_{i=1}^n \hat\varepsilon_i^2
+\]</span></p>
+<p>é não viesado para <span class="math inline">\(\sigma^2\)</span> no modelo de regressão linear simples.</p>
 </div>
 </div>
+</section>
 </section>
 <section id="demonstração-do-teorema-de-gaussmarkov-em-mrls" class="level2" data-number="18.3">
 <h2 data-number="18.3" class="anchored" data-anchor-id="demonstração-do-teorema-de-gaussmarkov-em-mrls"><span class="header-section-number">18.3</span> Demonstração do Teorema de Gauss–Markov em MRLS</h2>
