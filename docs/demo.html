@@ -340,6 +340,44 @@ window.Quarto = {
   <li><a href="#parte-b-o-intercepto-beta_0" id="toc-parte-b-o-intercepto-beta_0" class="nav-link" data-scroll-target="#parte-b-o-intercepto-beta_0"><span class="header-section-number">18.3.2</span> Parte B: O intercepto <span class="math inline">\(\beta_0\)</span></a></li>
   <li><a href="#conclusões-e-observações" id="toc-conclusões-e-observações" class="nav-link" data-scroll-target="#conclusões-e-observações"><span class="header-section-number">18.3.3</span> Conclusões e observações</a></li>
   </ul></li>
+  <li><a href="#distribuições-e-inferência-no-mrls" id="toc-distribuições-e-inferência-no-mrls" class="nav-link" data-scroll-target="#distribuições-e-inferência-no-mrls"><span class="header-section-number">18.4</span> Distribuições e inferência no MRLS</a>
+  <ul class="collapse">
+  <li><a href="#distribuição-de-hatbeta_1-e-hatbeta_0" id="toc-distribuição-de-hatbeta_1-e-hatbeta_0" class="nav-link" data-scroll-target="#distribuição-de-hatbeta_1-e-hatbeta_0"><span class="header-section-number">18.4.1</span> Distribuição de <span class="math inline">\(\hat\beta_1\)</span> e <span class="math inline">\(\hat\beta_0\)</span></a></li>
+  <li><a href="#distribuição-de-sq_res" id="toc-distribuição-de-sq_res" class="nav-link" data-scroll-target="#distribuição-de-sq_res"><span class="header-section-number">18.4.2</span> Distribuição de <span class="math inline">\(SQ_{Res}\)</span></a></li>
+  <li><a href="#independência-entre-estimadores-e-sq_res" id="toc-independência-entre-estimadores-e-sq_res" class="nav-link" data-scroll-target="#independência-entre-estimadores-e-sq_res"><span class="header-section-number">18.4.3</span> Independência entre estimadores e <span class="math inline">\(SQ_{Res}\)</span></a></li>
+  <li><a href="#distribuição-t-para-hatbeta_1" id="toc-distribuição-t-para-hatbeta_1" class="nav-link" data-scroll-target="#distribuição-t-para-hatbeta_1"><span class="header-section-number">18.4.4</span> Distribuição t para <span class="math inline">\(\hat\beta_1\)</span></a></li>
+  <li><a href="#distribuição-de-hat-yx_0" id="toc-distribuição-de-hat-yx_0" class="nav-link" data-scroll-target="#distribuição-de-hat-yx_0"><span class="header-section-number">18.4.5</span> Distribuição de <span class="math inline">\(\hat Y(x_0)\)</span></a></li>
+  <li><a href="#distribuição-da-predição" id="toc-distribuição-da-predição" class="nav-link" data-scroll-target="#distribuição-da-predição"><span class="header-section-number">18.4.6</span> Distribuição da predição</a></li>
+  <li><a href="#conclusão-geral" id="toc-conclusão-geral" class="nav-link" data-scroll-target="#conclusão-geral"><span class="header-section-number">18.4.7</span> Conclusão geral</a></li>
+  </ul></li>
+  <li><a href="#testes-de-hipóteses-no-mrls" id="toc-testes-de-hipóteses-no-mrls" class="nav-link" data-scroll-target="#testes-de-hipóteses-no-mrls"><span class="header-section-number">18.5</span> Testes de hipóteses no MRLS</a>
+  <ul class="collapse">
+  <li><a href="#decomposição-da-soma-de-quadrados-no-mrls" id="toc-decomposição-da-soma-de-quadrados-no-mrls" class="nav-link" data-scroll-target="#decomposição-da-soma-de-quadrados-no-mrls"><span class="header-section-number">18.5.1</span> Decomposição da soma de quadrados no MRLS</a></li>
+  <li><a href="#forma-da-estatística-f-no-mrls" id="toc-forma-da-estatística-f-no-mrls" class="nav-link" data-scroll-target="#forma-da-estatística-f-no-mrls"><span class="header-section-number">18.5.2</span> Forma da estatística <span class="math inline">\(F\)</span> no MRLS</a></li>
+  <li><a href="#demonstração-de-que-sq_reghatbeta_12s_xx" id="toc-demonstração-de-que-sq_reghatbeta_12s_xx" class="nav-link" data-scroll-target="#demonstração-de-que-sq_reghatbeta_12s_xx"><span class="header-section-number">18.5.3</span> Demonstração de que <span class="math inline">\(SQ_{Reg}=\hat\beta_1^2S_{xx}\)</span></a></li>
+  <li><a href="#equivalência-entre-o-teste-t-para-beta_1-e-o-teste-f-global" id="toc-equivalência-entre-o-teste-t-para-beta_1-e-o-teste-f-global" class="nav-link" data-scroll-target="#equivalência-entre-o-teste-t-para-beta_1-e-o-teste-f-global"><span class="header-section-number">18.5.4</span> Equivalência entre o teste <span class="math inline">\(t\)</span> para <span class="math inline">\(\beta_1\)</span> e o teste <span class="math inline">\(F\)</span> global</a></li>
+  <li><a href="#relação-entre-r2-e-a-estatística-f" id="toc-relação-entre-r2-e-a-estatística-f" class="nav-link" data-scroll-target="#relação-entre-r2-e-a-estatística-f"><span class="header-section-number">18.5.5</span> Relação entre <span class="math inline">\(R^2\)</span> e a estatística <span class="math inline">\(F\)</span></a></li>
+  <li><a href="#demonstração-de-que-no-mrls-r2r_xy2" id="toc-demonstração-de-que-no-mrls-r2r_xy2" class="nav-link" data-scroll-target="#demonstração-de-que-no-mrls-r2r_xy2"><span class="header-section-number">18.5.6</span> Demonstração de que, no MRLS, <span class="math inline">\(R^2=r_{XY}^2\)</span></a></li>
+  <li><a href="#relação-entre-t-f-e-r_xy" id="toc-relação-entre-t-f-e-r_xy" class="nav-link" data-scroll-target="#relação-entre-t-f-e-r_xy"><span class="header-section-number">18.5.7</span> Relação entre <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> e <span class="math inline">\(r_{XY}\)</span></a></li>
+  </ul></li>
+  <li><a href="#propriedades-dos-resíduos-e-alavancagem-no-mrls" id="toc-propriedades-dos-resíduos-e-alavancagem-no-mrls" class="nav-link" data-scroll-target="#propriedades-dos-resíduos-e-alavancagem-no-mrls"><span class="header-section-number">18.6</span> Propriedades dos resíduos e alavancagem no MRLS</a>
+  <ul class="collapse">
+  <li><a href="#expressão-dos-resíduos-em-função-dos-erros" id="toc-expressão-dos-resíduos-em-função-dos-erros" class="nav-link" data-scroll-target="#expressão-dos-resíduos-em-função-dos-erros"><span class="header-section-number">18.6.1</span> Expressão dos resíduos em função dos erros</a></li>
+  <li><a href="#esperança-dos-resíduos" id="toc-esperança-dos-resíduos" class="nav-link" data-scroll-target="#esperança-dos-resíduos"><span class="header-section-number">18.6.2</span> Esperança dos resíduos</a></li>
+  <li><a href="#variância-dos-resíduos" id="toc-variância-dos-resíduos" class="nav-link" data-scroll-target="#variância-dos-resíduos"><span class="header-section-number">18.6.3</span> Variância dos resíduos</a></li>
+  <li><a href="#covariância-entre-resíduos" id="toc-covariância-entre-resíduos" class="nav-link" data-scroll-target="#covariância-entre-resíduos"><span class="header-section-number">18.6.4</span> Covariância entre resíduos</a></li>
+  <li><a href="#demonstração-da-alavancagem-no-mrls" id="toc-demonstração-da-alavancagem-no-mrls" class="nav-link" data-scroll-target="#demonstração-da-alavancagem-no-mrls"><span class="header-section-number">18.6.5</span> Demonstração da alavancagem no MRLS</a></li>
+  <li><a href="#soma-das-alavancagens" id="toc-soma-das-alavancagens" class="nav-link" data-scroll-target="#soma-das-alavancagens"><span class="header-section-number">18.6.6</span> Soma das alavancagens</a></li>
+  <li><a href="#relação-entre-variância-dos-resíduos-e-alavancagem" id="toc-relação-entre-variância-dos-resíduos-e-alavancagem" class="nav-link" data-scroll-target="#relação-entre-variância-dos-resíduos-e-alavancagem"><span class="header-section-number">18.6.7</span> Relação entre variância dos resíduos e alavancagem</a></li>
+  <li><a href="#resíduos-padronizados" id="toc-resíduos-padronizados" class="nav-link" data-scroll-target="#resíduos-padronizados"><span class="header-section-number">18.6.8</span> Resíduos padronizados</a></li>
+  </ul></li>
+  <li><a href="#transformações-e-comparação-de-modelos-no-mrls" id="toc-transformações-e-comparação-de-modelos-no-mrls" class="nav-link" data-scroll-target="#transformações-e-comparação-de-modelos-no-mrls"><span class="header-section-number">18.7</span> Transformações e comparação de modelos no MRLS</a>
+  <ul class="collapse">
+  <li><a href="#método-delta-e-estabilização-de-variância" id="toc-método-delta-e-estabilização-de-variância" class="nav-link" data-scroll-target="#método-delta-e-estabilização-de-variância"><span class="header-section-number">18.7.1</span> Método Delta e estabilização de variância</a></li>
+  <li><a href="#demonstração-do-coeficiente-de-determinação-ajustado" id="toc-demonstração-do-coeficiente-de-determinação-ajustado" class="nav-link" data-scroll-target="#demonstração-do-coeficiente-de-determinação-ajustado"><span class="header-section-number">18.7.2</span> Demonstração do coeficiente de determinação ajustado</a></li>
+  <li><a href="#interpretação-formal-da-comparação-via-soma-de-quadrados" id="toc-interpretação-formal-da-comparação-via-soma-de-quadrados" class="nav-link" data-scroll-target="#interpretação-formal-da-comparação-via-soma-de-quadrados"><span class="header-section-number">18.7.3</span> Interpretação formal da comparação via soma de quadrados</a></li>
+  <li><a href="#conclusão-geral-1" id="toc-conclusão-geral-1" class="nav-link" data-scroll-target="#conclusão-geral-1"><span class="header-section-number">18.7.4</span> Conclusão geral</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1988,6 +2026,1768 @@ Var(\hat\beta_0\mid X)=\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).
 </div>
 </div>
 <p>O Teorema de Gauss–Markov é um dos pilares da inferência clássica em regressão. Ele mostra que o procedimento de MQO não é apenas simples e intuitivo, mas também teoricamente ótimo em uma classe muito ampla de estimadores. Por isso, ele ocupa uma posição de destaque tanto na formulação do modelo quanto na interpretação inferencial de seus estimadores.</p>
+</section>
+</section>
+<section id="distribuições-e-inferência-no-mrls" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="distribuições-e-inferência-no-mrls"><span class="header-section-number">18.4</span> Distribuições e inferência no MRLS</h2>
+<p>Nesta seção, desenvolvemos as demonstrações fundamentais que sustentam a inferência no modelo de regressão linear simples sob a hipótese de normalidade dos erros.</p>
+<p>Considere o modelo</p>
+<p><span class="math display">\[
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+\varepsilon_i \sim N(0,\sigma^2), \quad \text{independentes}.
+\]</span></p>
+<section id="distribuição-de-hatbeta_1-e-hatbeta_0" class="level3" data-number="18.4.1">
+<h3 data-number="18.4.1" class="anchored" data-anchor-id="distribuição-de-hatbeta_1-e-hatbeta_0"><span class="header-section-number">18.4.1</span> Distribuição de <span class="math inline">\(\hat\beta_1\)</span> e <span class="math inline">\(\hat\beta_0\)</span></h3>
+<p>Sabemos que</p>
+<p><span class="math display">\[
+\hat\beta_1=\frac{\sum_{i=1}^n (X_i-\bar X)Y_i}{S_{xx}}.
+\]</span></p>
+<p>Substituindo <span class="math inline">\(Y_i\)</span>:</p>
+<p><span class="math display">\[
+\hat\beta_1
+=
+\frac{\sum (X_i-\bar X)(\beta_0+\beta_1X_i+\varepsilon_i)}{S_{xx}}.
+\]</span></p>
+<p>Separando os termos:</p>
+<p><span class="math display">\[
+\hat\beta_1
+=
+\beta_1
++
+\frac{\sum (X_i-\bar X)\varepsilon_i}{S_{xx}}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mostraremos que <span class="math inline">\(\hat\beta_1\)</span> é uma combinação linear dos erros normais. Como combinações lineares de normais são normais, segue a distribuição desejada.</p>
+</div>
+</div>
+<p>Como</p>
+<p><span class="math display">\[
+\sum (X_i-\bar X)\varepsilon_i
+\]</span></p>
+<p>é combinação linear de variáveis normais independentes, temos:</p>
+<p><span class="math display">\[
+\hat\beta_1 \sim N\left(\beta_1,\frac{\sigma^2}{S_{xx}}\right).
+\]</span></p>
+<p>Para <span class="math inline">\(\hat\beta_0\)</span>:</p>
+<p><span class="math display">\[
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+\]</span></p>
+<p>Substituindo:</p>
+<p><span class="math display">\[
+\hat\beta_0
+=
+\beta_0+\bar\varepsilon-\bar X(\hat\beta_1-\beta_1).
+\]</span></p>
+<p>Logo, também é combinação linear de normais, implicando:</p>
+<p><span class="math display">\[
+\hat\beta_0 \sim N\left(\beta_0,\sigma^2\left[\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right]\right).
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Os estimadores de MQO são normalmente distribuídos sob normalidade dos erros:</p>
+<p><span class="math display">\[
+\hat\beta_1 \sim N\left(\beta_1,\frac{\sigma^2}{S_{xx}}\right),
+\]</span></p>
+<p><span class="math display">\[
+\hat\beta_0 \sim N\left(\beta_0,\sigma^2\left[\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right]\right).
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="distribuição-de-sq_res" class="level3" data-number="18.4.2">
+<h3 data-number="18.4.2" class="anchored" data-anchor-id="distribuição-de-sq_res"><span class="header-section-number">18.4.2</span> Distribuição de <span class="math inline">\(SQ_{Res}\)</span></h3>
+<p>Recordemos:</p>
+<p><span class="math display">\[
+SQ_{Res}=\sum \hat\varepsilon_i^2.
+\]</span></p>
+<p>Já foi demonstrado que:</p>
+<p><span class="math display">\[
+E(SQ_{Res}\mid X)=(n-2)\sigma^2.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ideia é reconhecer que os resíduos são combinações lineares dos erros com duas restrições lineares com isso teremos <span class="math inline">\(n-2\)</span> graus de liberdade.</p>
+</div>
+</div>
+<p>Sob normalidade, os resíduos são combinações lineares de normais. Como há duas restrições:</p>
+<p><span class="math display">\[
+\sum \hat\varepsilon_i=0,
+\qquad
+\sum X_i\hat\varepsilon_i=0,
+\]</span></p>
+<p>restam <span class="math inline">\(n-2\)</span> graus de liberdade independentes.</p>
+<p>Assim,</p>
+<p><span class="math display">\[
+\frac{SQ_{Res}}{\sigma^2} \sim \chi^2_{n-2}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A soma de quadrados dos resíduos segue:</p>
+<p><span class="math display">\[
+\frac{SQ_{Res}}{\sigma^2} \sim \chi^2_{n-2}.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="independência-entre-estimadores-e-sq_res" class="level3" data-number="18.4.3">
+<h3 data-number="18.4.3" class="anchored" data-anchor-id="independência-entre-estimadores-e-sq_res"><span class="header-section-number">18.4.3</span> Independência entre estimadores e <span class="math inline">\(SQ_{Res}\)</span></h3>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Exploramos a decomposição ortogonal entre:</p>
+<ul>
+<li>espaço gerado por <span class="math inline">\(1\)</span> e <span class="math inline">\(X\)</span></li>
+<li>espaço dos resíduos</li>
+</ul>
+<p>Essa ortogonalidade implica independência sob normalidade.</p>
+</div>
+</div>
+<p>Sabemos que:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> dependem de combinações lineares de <span class="math inline">\(Y_i\)</span> na direção de <span class="math inline">\(1\)</span> e <span class="math inline">\(X\)</span>;</li>
+<li>os resíduos são ortogonais a essas direções.</li>
+</ul>
+<p>Como estamos no caso normal, ortogonalidade implica independência.</p>
+<p>Logo,</p>
+<p><span class="math display">\[
+(\hat\beta_0,\hat\beta_1) \perp SQ_{Res}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Os estimadores de MQO são independentes da soma de quadrados dos resíduos sob normalidade.</p>
+</div>
+</div>
+</section>
+<section id="distribuição-t-para-hatbeta_1" class="level3" data-number="18.4.4">
+<h3 data-number="18.4.4" class="anchored" data-anchor-id="distribuição-t-para-hatbeta_1"><span class="header-section-number">18.4.4</span> Distribuição t para <span class="math inline">\(\hat\beta_1\)</span></h3>
+<p>Definimos</p>
+<p><span class="math display">\[
+T=\frac{\hat\beta_1-\beta_1}{\sqrt{s^2/S_{xx}}},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+s^2=\frac{SQ_{Res}}{n-2}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A estatística é construída como:</p>
+<ul>
+<li>numerador: normal padrão</li>
+<li>denominador: raiz de qui-quadrado independente</li>
+</ul>
+<p>Isso caracteriza uma distribuição t.</p>
+</div>
+</div>
+<p>Temos:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_1-\beta_1 \sim N(0,\sigma^2/S_{xx})\)</span></li>
+<li><span class="math inline">\(\frac{(n-2)s^2}{\sigma^2} \sim \chi^2_{n-2}\)</span></li>
+<li>independência entre ambos</li>
+</ul>
+<p>Logo,</p>
+<p><span class="math display">\[
+T \sim t_{n-2}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A estatística de teste para <span class="math inline">\(\beta_1\)</span> segue:</p>
+<p><span class="math display">\[
+T \sim t_{n-2}.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="distribuição-de-hat-yx_0" class="level3" data-number="18.4.5">
+<h3 data-number="18.4.5" class="anchored" data-anchor-id="distribuição-de-hat-yx_0"><span class="header-section-number">18.4.5</span> Distribuição de <span class="math inline">\(\hat Y(x_0)\)</span></h3>
+<p>Sabemos que</p>
+<p><span class="math display">\[
+\hat Y(x_0)=\hat\beta_0+\hat\beta_1 x_0.
+\]</span></p>
+<p>Como combinação linear de normais:</p>
+<p><span class="math display">\[
+\hat Y(x_0) \sim N\left(\beta_0+\beta_1 x_0,\;
+\sigma^2\left[\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}\right]\right).
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A média estimada segue distribuição normal com variância dependente de <span class="math inline">\(x_0\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="distribuição-da-predição" class="level3" data-number="18.4.6">
+<h3 data-number="18.4.6" class="anchored" data-anchor-id="distribuição-da-predição"><span class="header-section-number">18.4.6</span> Distribuição da predição</h3>
+<p>Para uma nova observação:</p>
+<p><span class="math display">\[
+Y_{novo}=\beta_0+\beta_1 x_0+\varepsilon_{novo}.
+\]</span></p>
+<p>Temos:</p>
+<p><span class="math display">\[
+Y_{novo}-\hat Y(x_0)
+=
+\varepsilon_{novo}
+-
+(\hat\beta_0-\beta_0)
+-
+(\hat\beta_1-\beta_1)x_0.
+\]</span></p>
+<p>Como soma de normais independentes:</p>
+<p><span class="math display">\[
+Y_{novo}-\hat Y(x_0)
+\sim
+N\left(0,\;
+\sigma^2\left[1+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}\right]\right).
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A variabilidade da predição inclui a variância do erro:</p>
+<p><span class="math display">\[
+\sigma^2
++
+\text{variância da média estimada}.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="conclusão-geral" class="level3" data-number="18.4.7">
+<h3 data-number="18.4.7" class="anchored" data-anchor-id="conclusão-geral"><span class="header-section-number">18.4.7</span> Conclusão geral</h3>
+<p>Sob normalidade dos erros:</p>
+<ul>
+<li>estimadores são normais;</li>
+<li>resíduos geram distribuição <span class="math inline">\(\chi^2\)</span>;</li>
+<li>estatísticas t e F são válidas;</li>
+<li>inferência completa pode ser construída.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão final">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão final
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A hipótese de normalidade não altera os estimadores de MQO, mas permite caracterizar completamente sua distribuição e, assim, fundamentar a inferência estatística no MRLS.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="testes-de-hipóteses-no-mrls" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="testes-de-hipóteses-no-mrls"><span class="header-section-number">18.5</span> Testes de hipóteses no MRLS</h2>
+<p>Nesta seção, reunimos algumas demonstrações que fundamentam a parte de testes no modelo de regressão linear simples. Em particular, mostraremos resultados que conectam:</p>
+<ul>
+<li>a decomposição da variabilidade;</li>
+<li>a estatística <span class="math inline">\(F\)</span> da análise de variância;</li>
+<li>a estatística <span class="math inline">\(t\)</span> para o coeficiente angular;</li>
+<li>o coeficiente de determinação <span class="math inline">\(R^2\)</span>;</li>
+<li>e, no caso do MRLS com intercepto, a correlação linear amostral entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</li>
+</ul>
+<p>Assumimos o modelo</p>
+<p><span class="math display">\[
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+\]</span></p>
+<p>com os pressupostos usuais do modelo clássico e, quando necessário para distribuições exatas, a normalidade dos erros.</p>
+<section id="decomposição-da-soma-de-quadrados-no-mrls" class="level3" data-number="18.5.1">
+<h3 data-number="18.5.1" class="anchored" data-anchor-id="decomposição-da-soma-de-quadrados-no-mrls"><span class="header-section-number">18.5.1</span> Decomposição da soma de quadrados no MRLS</h3>
+<p>Definimos:</p>
+<p><span class="math display">\[
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2,
+\]</span></p>
+<p><span class="math display">\[
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2,
+\]</span></p>
+<p><span class="math display">\[
+SQ_{Res}=\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+\]</span></p>
+<p>Nosso objetivo é demonstrar que</p>
+<p><span class="math display">\[
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ideia é decompor o desvio total de cada observação em relação à média como soma de duas parcelas:</p>
+<p><span class="math display">\[
+Y_i-\bar Y = (Y_i-\hat Y_i)+(\hat Y_i-\bar Y).
+\]</span></p>
+<p>Em seguida, elevamos ao quadrado e somamos em <span class="math inline">\(i\)</span>. O termo cruzado desaparecerá devido à ortogonalidade entre resíduos e valores ajustados no MQO.</p>
+</div>
+</div>
+<p>Para cada <span class="math inline">\(i\)</span>, temos</p>
+<p><span class="math display">\[
+Y_i-\bar Y
+=
+Y_i-\hat Y_i+\hat Y_i-\bar Y.
+\]</span></p>
+<p>Elevando ao quadrado,</p>
+<p><span class="math display">\[
+(Y_i-\bar Y)^2
+=
+\bigl[(Y_i-\hat Y_i)+(\hat Y_i-\bar Y)\bigr]^2.
+\]</span></p>
+<p>Aplicando a identidade <span class="math inline">\((a+b)^2=a^2+2ab+b^2\)</span>, obtemos</p>
+<p><span class="math display">\[
+(Y_i-\bar Y)^2
+=
+(Y_i-\hat Y_i)^2
++
+2(Y_i-\hat Y_i)(\hat Y_i-\bar Y)
++
+(\hat Y_i-\bar Y)^2.
+\]</span></p>
+<p>Somando de <span class="math inline">\(i=1\)</span> até <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (Y_i-\bar Y)^2
+=
+\sum_{i=1}^n (Y_i-\hat Y_i)^2
++
+2\sum_{i=1}^n (Y_i-\hat Y_i)(\hat Y_i-\bar Y)
++
+\sum_{i=1}^n (\hat Y_i-\bar Y)^2.
+\]</span></p>
+<p>Isto é,</p>
+<p><span class="math display">\[
+SQ_{Total}
+=
+SQ_{Res}
++
+2\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)
++
+SQ_{Reg},
+\]</span></p>
+<p>em que <span class="math inline">\(\hat\varepsilon_i=Y_i-\hat Y_i\)</span>.</p>
+<p>Agora analisemos o termo cruzado:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)
+=
+\sum_{i=1}^n \hat\varepsilon_i\hat Y_i
+-
+\bar Y\sum_{i=1}^n \hat\varepsilon_i.
+\]</span></p>
+<p>Pelas propriedades ortogonais dos resíduos no MQO, já demonstradas anteriormente, temos</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i=0
+\qquad \text{e} \qquad
+\sum_{i=1}^n \hat Y_i\hat\varepsilon_i=0.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)=0.
+\]</span></p>
+<p>Substituindo na expressão anterior, obtemos</p>
+<p><span class="math display">\[
+SQ_{Total}=SQ_{Res}+SQ_{Reg}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS com intercepto, a variabilidade total de <span class="math inline">\(Y\)</span> em torno da média pode ser decomposta em:</p>
+<p><span class="math display">\[
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+\]</span></p>
+<p>Essa identidade é a base algébrica da ANOVA da regressão linear simples.</p>
+</div>
+</div>
+</section>
+<section id="forma-da-estatística-f-no-mrls" class="level3" data-number="18.5.2">
+<h3 data-number="18.5.2" class="anchored" data-anchor-id="forma-da-estatística-f-no-mrls"><span class="header-section-number">18.5.2</span> Forma da estatística <span class="math inline">\(F\)</span> no MRLS</h3>
+<p>No MRLS, a estatística <span class="math inline">\(F\)</span> para testar a hipótese</p>
+<p><span class="math display">\[
+H_0:\beta_1=0
+\qquad \text{versus} \qquad
+H_1:\beta_1\neq 0
+\]</span></p>
+<p>é dada por</p>
+<p><span class="math display">\[
+F=\frac{QM_{Reg}}{QM_{Res}},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+QM_{Reg}=\frac{SQ_{Reg}}{1}
+\qquad \text{e} \qquad
+QM_{Res}=\frac{SQ_{Res}}{n-2}.
+\]</span></p>
+<p>Como no MRLS a regressão possui apenas <span class="math inline">\(1\)</span> grau de liberdade, temos</p>
+<p><span class="math display">\[
+QM_{Reg}=SQ_{Reg}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Passo técnico">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Passo técnico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O numerador tem <span class="math inline">\(1\)</span> grau de liberdade porque, no MRLS com intercepto, a parte explicada pela regressão está associada a um único coeficiente de inclinação, <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+</div>
+<p>Assim, a estatística <span class="math inline">\(F\)</span> pode ser escrita como</p>
+<p><span class="math display">\[
+F=(n-2)\frac{SQ_{Reg}}{SQ_{Res}}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS, a estatística <span class="math inline">\(F\)</span> da ANOVA da regressão assume a forma</p>
+<p><span class="math display">\[
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="demonstração-de-que-sq_reghatbeta_12s_xx" class="level3" data-number="18.5.3">
+<h3 data-number="18.5.3" class="anchored" data-anchor-id="demonstração-de-que-sq_reghatbeta_12s_xx"><span class="header-section-number">18.5.3</span> Demonstração de que <span class="math inline">\(SQ_{Reg}=\hat\beta_1^2S_{xx}\)</span></h3>
+<p>Esse resultado é relevante para conectar a estatística <span class="math inline">\(F\)</span> com a estatística <span class="math inline">\(t\)</span> e com <span class="math inline">\(R^2\)</span>.</p>
+<p>Sabemos que</p>
+<p><span class="math display">\[
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2.
+\]</span></p>
+<p>Além disso,</p>
+<p><span class="math display">\[
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+\]</span></p>
+<p>Substituindo,</p>
+<p><span class="math display">\[
+\hat Y_i
+=
+\bar Y-\hat\beta_1\bar X+\hat\beta_1X_i
+=
+\bar Y+\hat\beta_1(X_i-\bar X).
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\hat Y_i-\bar Y=\hat\beta_1(X_i-\bar X).
+\]</span></p>
+<p>Substituindo em <span class="math inline">\(SQ_{Reg}\)</span>,</p>
+<p><span class="math display">\[
+SQ_{Reg}
+=
+\sum_{i=1}^n \bigl[\hat\beta_1(X_i-\bar X)\bigr]^2.
+\]</span></p>
+<p>Como <span class="math inline">\(\hat\beta_1\)</span> não depende de <span class="math inline">\(i\)</span>, podemos colocá-lo em evidência:</p>
+<p><span class="math display">\[
+SQ_{Reg}
+=
+\hat\beta_1^2 \sum_{i=1}^n (X_i-\bar X)^2.
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+\]</span></p>
+<p>segue que</p>
+<p><span class="math display">\[
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS,</p>
+<p><span class="math display">\[
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+\]</span></p>
+<p>Essa identidade é decisiva para estabelecer a equivalência entre as estatísticas <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="equivalência-entre-o-teste-t-para-beta_1-e-o-teste-f-global" class="level3" data-number="18.5.4">
+<h3 data-number="18.5.4" class="anchored" data-anchor-id="equivalência-entre-o-teste-t-para-beta_1-e-o-teste-f-global"><span class="header-section-number">18.5.4</span> Equivalência entre o teste <span class="math inline">\(t\)</span> para <span class="math inline">\(\beta_1\)</span> e o teste <span class="math inline">\(F\)</span> global</h3>
+<p>Queremos demonstrar que, no MRLS,</p>
+<p><span class="math display">\[
+T^2=F,
+\]</span></p>
+<p>quando ambas as estatísticas testam</p>
+<p><span class="math display">\[
+H_0:\beta_1=0.
+\]</span></p>
+<p>A estatística <span class="math inline">\(t\)</span> para o coeficiente angular é</p>
+<p><span class="math display">\[
+T=\frac{\hat\beta_1}{\sqrt{s^2/S_{xx}}},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+s^2=\frac{SQ_{Res}}{n-2}.
+\]</span></p>
+<p>Elevando ao quadrado,</p>
+<p><span class="math display">\[
+T^2
+=
+\frac{\hat\beta_1^2}{s^2/S_{xx}}
+=
+\frac{\hat\beta_1^2S_{xx}}{s^2}.
+\]</span></p>
+<p>Substituindo</p>
+<p><span class="math display">\[
+s^2=\frac{SQ_{Res}}{n-2},
+\]</span></p>
+<p>obtemos</p>
+<p><span class="math display">\[
+T^2
+=
+\frac{\hat\beta_1^2S_{xx}}{SQ_{Res}/(n-2)}.
+\]</span></p>
+<p>Agora usamos o resultado já demonstrado:</p>
+<p><span class="math display">\[
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+T^2
+=
+\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+\]</span></p>
+<p>Mas essa é exatamente a estatística <span class="math inline">\(F\)</span> no MRLS. Portanto,</p>
+<p><span class="math display">\[
+T^2=F.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No modelo de regressão linear simples, o teste <span class="math inline">\(t\)</span> para <span class="math inline">\(\beta_1\)</span> e o teste <span class="math inline">\(F\)</span> global da regressão são equivalentes no sentido de que</p>
+<p><span class="math display">\[
+T^2=F.
+\]</span></p>
+<p>Assim, ambos testam exatamente a mesma hipótese e conduzem à mesma decisão.</p>
+</div>
+</div>
+</section>
+<section id="relação-entre-r2-e-a-estatística-f" class="level3" data-number="18.5.5">
+<h3 data-number="18.5.5" class="anchored" data-anchor-id="relação-entre-r2-e-a-estatística-f"><span class="header-section-number">18.5.5</span> Relação entre <span class="math inline">\(R^2\)</span> e a estatística <span class="math inline">\(F\)</span></h3>
+<p>O coeficiente de determinação é definido por</p>
+<p><span class="math display">\[
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}.
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+SQ_{Total}=SQ_{Reg}+SQ_{Res},
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+SQ_{Res}=SQ_{Total}-SQ_{Reg}.
+\]</span></p>
+<p>Pela definição de <span class="math inline">\(R^2\)</span>,</p>
+<p><span class="math display">\[
+SQ_{Reg}=R^2SQ_{Total}.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+SQ_{Res}=SQ_{Total}-R^2SQ_{Total}=(1-R^2)SQ_{Total}.
+\]</span></p>
+<p>A estatística <span class="math inline">\(F\)</span> pode ser escrita como</p>
+<p><span class="math display">\[
+F=(n-2)\frac{SQ_{Reg}}{SQ_{Res}}.
+\]</span></p>
+<p>Substituindo as expressões acima,</p>
+<p><span class="math display">\[
+F
+=
+(n-2)\frac{R^2SQ_{Total}}{(1-R^2)SQ_{Total}}.
+\]</span></p>
+<p>Cancelando <span class="math inline">\(SQ_{Total}\)</span>, obtemos</p>
+<p><span class="math display">\[
+F=\frac{R^2}{1-R^2}(n-2).
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS,</p>
+<p><span class="math display">\[
+F=\frac{R^2}{1-R^2}(n-2).
+\]</span></p>
+<p>Isso mostra que a estatística <span class="math inline">\(F\)</span> é uma função crescente de <span class="math inline">\(R^2\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="demonstração-de-que-no-mrls-r2r_xy2" class="level3" data-number="18.5.6">
+<h3 data-number="18.5.6" class="anchored" data-anchor-id="demonstração-de-que-no-mrls-r2r_xy2"><span class="header-section-number">18.5.6</span> Demonstração de que, no MRLS, <span class="math inline">\(R^2=r_{XY}^2\)</span></h3>
+<p>Agora demonstraremos um dos resultados mais conhecidos da regressão linear simples com intercepto:</p>
+<p><span class="math display">\[
+R^2=r_{XY}^2,
+\]</span></p>
+<p>em que <span class="math inline">\(r_{XY}\)</span> é o coeficiente de correlação linear amostral entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, dado por</p>
+<p><span class="math display">\[
+r_{XY}
+=
+\frac{\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y)}
+{\sqrt{\sum_{i=1}^n (X_i-\bar X)^2}\sqrt{\sum_{i=1}^n (Y_i-\bar Y)^2}}.
+\]</span></p>
+<p>Usando a notação</p>
+<p><span class="math display">\[
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+\qquad
+S_{yy}=\sum_{i=1}^n (Y_i-\bar Y)^2,
+\qquad
+S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y),
+\]</span></p>
+<p>podemos escrever</p>
+<p><span class="math display">\[
+r_{XY}=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+r_{XY}^2=\frac{S_{xy}^2}{S_{xx}S_{yy}}.
+\]</span></p>
+<p>Nosso objetivo é mostrar que essa expressão coincide com <span class="math inline">\(R^2\)</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ideia é reescrever <span class="math inline">\(R^2\)</span> em termos de <span class="math inline">\(S_{xx}\)</span>, <span class="math inline">\(S_{xy}\)</span> e <span class="math inline">\(S_{yy}\)</span>. Para isso, usaremos:</p>
+<ol type="1">
+<li><p>a expressão de <span class="math inline">\(\hat\beta_1\)</span>, <span class="math display">\[
+\hat\beta_1=\frac{S_{xy}}{S_{xx}};
+\]</span></p></li>
+<li><p>a identidade <span class="math display">\[
+SQ_{Reg}=\hat\beta_1^2S_{xx};
+\]</span></p></li>
+<li><p>o fato de que <span class="math display">\[
+SQ_{Total}=S_{yy}.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+<p>Sabemos que</p>
+<p><span class="math display">\[
+\hat\beta_1=\frac{S_{xy}}{S_{xx}}.
+\]</span></p>
+<p>Então,</p>
+<p><span class="math display">\[
+\hat\beta_1^2=\frac{S_{xy}^2}{S_{xx}^2}.
+\]</span></p>
+<p>Pela identidade já demonstrada,</p>
+<p><span class="math display">\[
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+\]</span></p>
+<p>Substituindo a expressão de <span class="math inline">\(\hat\beta_1^2\)</span>,</p>
+<p><span class="math display">\[
+SQ_{Reg}
+=
+\frac{S_{xy}^2}{S_{xx}^2}S_{xx}
+=
+\frac{S_{xy}^2}{S_{xx}}.
+\]</span></p>
+<p>Por outro lado,</p>
+<p><span class="math display">\[
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2=S_{yy}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+R^2
+=
+\frac{SQ_{Reg}}{SQ_{Total}}
+=
+\frac{S_{xy}^2/S_{xx}}{S_{yy}}
+=
+\frac{S_{xy}^2}{S_{xx}S_{yy}}.
+\]</span></p>
+<p>Mas essa é exatamente a expressão de <span class="math inline">\(r_{XY}^2\)</span>. Portanto,</p>
+<p><span class="math display">\[
+R^2=r_{XY}^2.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No modelo de regressão linear simples com intercepto, o coeficiente de determinação coincide com o quadrado da correlação linear amostral:</p>
+<p><span class="math display">\[
+R^2=r_{XY}^2.
+\]</span></p>
+<p>Esse resultado é específico do MRLS e fornece uma interpretação imediata de <span class="math inline">\(R^2\)</span> em termos de associação linear entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="relação-entre-t-f-e-r_xy" class="level3" data-number="18.5.7">
+<h3 data-number="18.5.7" class="anchored" data-anchor-id="relação-entre-t-f-e-r_xy"><span class="header-section-number">18.5.7</span> Relação entre <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> e <span class="math inline">\(r_{XY}\)</span></h3>
+<p>Podemos agora reunir os resultados obtidos:</p>
+<ol type="1">
+<li><p>no MRLS, <span class="math display">\[
+T^2=F;
+\]</span></p></li>
+<li><p>no MRLS, <span class="math display">\[
+F=\frac{R^2}{1-R^2}(n-2);
+\]</span></p></li>
+<li><p>no MRLS com intercepto, <span class="math display">\[
+R^2=r_{XY}^2.
+\]</span></p></li>
+</ol>
+<p>Substituindo <span class="math inline">\(R^2=r_{XY}^2\)</span> na expressão de <span class="math inline">\(F\)</span>, obtemos</p>
+<p><span class="math display">\[
+F=\frac{r_{XY}^2}{1-r_{XY}^2}(n-2).
+\]</span></p>
+<p>Como <span class="math inline">\(T^2=F\)</span>, segue que</p>
+<p><span class="math display">\[
+T^2=\frac{r_{XY}^2}{1-r_{XY}^2}(n-2).
+\]</span></p>
+<p>Tomando raiz quadrada, podemos escrever, em valor absoluto,</p>
+<p><span class="math display">\[
+|T|=\sqrt{\frac{r_{XY}^2}{1-r_{XY}^2}(n-2)}.
+\]</span></p>
+<p>Esse resultado mostra que, no MRLS, testar a significância do coeficiente angular, testar a significância global da regressão e avaliar a correlação linear amostral são, em essência, três maneiras equivalentes de examinar o mesmo fenômeno: a presença de associação linear entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Condição necessária">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Aviso</span>Condição necessária
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As identidades <span class="math display">\[
+T^2=F
+\qquad \text{e} \qquad
+R^2=r_{XY}^2
+\]</span> são específicas do modelo de regressão linear simples com intercepto. Em regressão múltipla, essas relações deixam de ter essa forma simples.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão geral">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão geral
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS com intercepto, os principais objetos da parte de testes estão profundamente conectados:</p>
+<ul>
+<li>a decomposição da soma de quadrados fundamenta a ANOVA;</li>
+<li>a estatística <span class="math inline">\(F\)</span> mede a razão entre variabilidade explicada e residual;</li>
+<li>a estatística <span class="math inline">\(t\)</span> para <span class="math inline">\(\beta_1\)</span> satisfaz <span class="math display">\[
+T^2=F;
+\]</span></li>
+<li>o coeficiente de determinação satisfaz <span class="math display">\[
+R^2=r_{XY}^2.
+\]</span></li>
+</ul>
+<p>Esses resultados mostram que, no MRLS, diferentes abordagens inferenciais convergem para uma mesma estrutura teórica.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="propriedades-dos-resíduos-e-alavancagem-no-mrls" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="propriedades-dos-resíduos-e-alavancagem-no-mrls"><span class="header-section-number">18.6</span> Propriedades dos resíduos e alavancagem no MRLS</h2>
+<p>Considere o modelo de regressão linear simples</p>
+<p><span class="math display">\[
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+E(\varepsilon_i\mid X)=0,
+\qquad
+Var(\varepsilon_i\mid X)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j.
+\]</span></p>
+<p>Denotemos:</p>
+<p><span class="math display">\[
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i,
+\qquad
+\hat\varepsilon_i=Y_i-\hat Y_i.
+\]</span></p>
+<p>Nosso objetivo é demonstrar as principais propriedades dos resíduos no MRLS e sua relação com a alavancagem.</p>
+<section id="expressão-dos-resíduos-em-função-dos-erros" class="level3" data-number="18.6.1">
+<h3 data-number="18.6.1" class="anchored" data-anchor-id="expressão-dos-resíduos-em-função-dos-erros"><span class="header-section-number">18.6.1</span> Expressão dos resíduos em função dos erros</h3>
+<p>Começamos escrevendo:</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+Y_i-\hat Y_i
+=
+(\beta_0+\beta_1X_i+\varepsilon_i)-(\hat\beta_0+\hat\beta_1X_i).
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+(\hat\beta_0-\beta_0)
+-
+(\hat\beta_1-\beta_1)X_i.
+\]</span></p>
+<p>Sabemos que</p>
+<p><span class="math display">\[
+\hat\beta_1-\beta_1=\frac{1}{S_{xx}}\sum_{j=1}^n (X_j-\bar X)\varepsilon_j,
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+\hat\beta_0-\beta_0=\bar\varepsilon-\bar X(\hat\beta_1-\beta_1),
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+\bar\varepsilon=\frac{1}{n}\sum_{j=1}^n \varepsilon_j.
+\]</span></p>
+<p>Substituindo,</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\bar\varepsilon
+-
+(\hat\beta_1-\beta_1)(X_i-\bar X).
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\frac{1}{n}\sum_{j=1}^n \varepsilon_j
+-
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Interpretação">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Interpretação
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cada resíduo depende de todos os erros <span class="math inline">\(\varepsilon_1,\dots,\varepsilon_n\)</span>, e não apenas de <span class="math inline">\(\varepsilon_i\)</span>. Isso explica por que os resíduos são correlacionados entre si.</p>
+</div>
+</div>
+</section>
+<section id="esperança-dos-resíduos" class="level3" data-number="18.6.2">
+<h3 data-number="18.6.2" class="anchored" data-anchor-id="esperança-dos-resíduos"><span class="header-section-number">18.6.2</span> Esperança dos resíduos</h3>
+<p>Tomando esperança condicional em <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+E(\hat\varepsilon_i\mid X)
+=
+E(\varepsilon_i\mid X)
+-
+E(\bar\varepsilon\mid X)
+-
+\frac{X_i-\bar X}{S_{xx}}
+E\left[\sum (X_j-\bar X)\varepsilon_j \mid X\right].
+\]</span></p>
+<p>Como todos os termos têm média zero, segue que</p>
+<p><span class="math display">\[
+E(\hat\varepsilon_i\mid X)=0.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Os resíduos possuem média zero:</p>
+<p><span class="math display">\[
+E(\hat\varepsilon_i\mid X)=0.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="variância-dos-resíduos" class="level3" data-number="18.6.3">
+<h3 data-number="18.6.3" class="anchored" data-anchor-id="variância-dos-resíduos"><span class="header-section-number">18.6.3</span> Variância dos resíduos</h3>
+<p>Usando a expressão obtida anteriormente, cada resíduo pode ser escrito como combinação linear dos erros:</p>
+<p><span class="math display">\[
+\hat\varepsilon_i=\sum_{j=1}^n a_{ij}\varepsilon_j.
+\]</span></p>
+<p>Como os erros são não correlacionados,</p>
+<p><span class="math display">\[
+Var(\hat\varepsilon_i\mid X)
+=
+\sigma^2\sum_{j=1}^n a_{ij}^2.
+\]</span></p>
+<p>Após simplificação algébrica, obtém-se:</p>
+<p><span class="math display">\[
+Var(\hat\varepsilon_i\mid X)
+=
+\sigma^2\left(1-h_{ii}\right),
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A variância dos resíduos não é constante:</p>
+<p><span class="math display">\[
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}).
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="covariância-entre-resíduos" class="level3" data-number="18.6.4">
+<h3 data-number="18.6.4" class="anchored" data-anchor-id="covariância-entre-resíduos"><span class="header-section-number">18.6.4</span> Covariância entre resíduos</h3>
+<p>Para <span class="math inline">\(i\neq j\)</span>,</p>
+<p><span class="math display">\[
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+\sigma^2\sum_{k=1}^n a_{ik}a_{jk}.
+\]</span></p>
+<p>Após manipulação algébrica, obtemos</p>
+<p><span class="math display">\[
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+-\sigma^2 h_{ij},
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+h_{ij}=\frac{1}{n}+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Os resíduos são correlacionados:</p>
+<p><span class="math display">\[
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)\neq 0.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="demonstração-da-alavancagem-no-mrls" class="level3" data-number="18.6.5">
+<h3 data-number="18.6.5" class="anchored" data-anchor-id="demonstração-da-alavancagem-no-mrls"><span class="header-section-number">18.6.5</span> Demonstração da alavancagem no MRLS</h3>
+<p>Sabemos que</p>
+<p><span class="math display">\[
+\hat Y_i=\bar Y+\hat\beta_1(X_i-\bar X).
+\]</span></p>
+<p>Substituindo</p>
+<p><span class="math display">\[
+\hat\beta_1=\frac{\sum_{j=1}^n (X_j-\bar X)Y_j}{S_{xx}},
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+\hat Y_i
+=
+\frac{1}{n}\sum_{j=1}^n Y_j
++
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)Y_j.
+\]</span></p>
+<p>Reorganizando,</p>
+<p><span class="math display">\[
+\hat Y_i
+=
+\sum_{j=1}^n
+\left[
+\frac{1}{n}
++
+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}
+\right]Y_j.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+h_{ij}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
+\]</span></p>
+<p>Para <span class="math inline">\(i=j\)</span>,</p>
+<p><span class="math display">\[
+h_{ii}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)^2}{S_{xx}}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A alavancagem no MRLS é dada por:</p>
+<p><span class="math display">\[
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="soma-das-alavancagens" class="level3" data-number="18.6.6">
+<h3 data-number="18.6.6" class="anchored" data-anchor-id="soma-das-alavancagens"><span class="header-section-number">18.6.6</span> Soma das alavancagens</h3>
+<p>Somando em <span class="math inline">\(i\)</span>,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n h_{ii}
+=
+\sum_{i=1}^n \frac{1}{n}
++
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)^2.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n h_{ii}=1+1=2.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS com intercepto,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n h_{ii}=2,
+\]</span></p>
+<p>o que corresponde ao número de parâmetros estimados no modelo.</p>
+</div>
+</div>
+</section>
+<section id="relação-entre-variância-dos-resíduos-e-alavancagem" class="level3" data-number="18.6.7">
+<h3 data-number="18.6.7" class="anchored" data-anchor-id="relação-entre-variância-dos-resíduos-e-alavancagem"><span class="header-section-number">18.6.7</span> Relação entre variância dos resíduos e alavancagem</h3>
+<p>Recordando:</p>
+<p><span class="math display">\[
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}),
+\]</span></p>
+<p>vemos que:</p>
+<ul>
+<li>quanto maior <span class="math inline">\(h_{ii}\)</span>, menor a variância do resíduo;</li>
+<li>pontos extremos em <span class="math inline">\(X\)</span> têm maior alavancagem e resíduos menos variáveis.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Interpretação">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Interpretação
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Observações com alto valor de <span class="math inline">\(h_{ii}\)</span> tendem a influenciar fortemente o ajuste da reta e apresentam resíduos com menor variabilidade.</p>
+</div>
+</div>
+</section>
+<section id="resíduos-padronizados" class="level3" data-number="18.6.8">
+<h3 data-number="18.6.8" class="anchored" data-anchor-id="resíduos-padronizados"><span class="header-section-number">18.6.8</span> Resíduos padronizados</h3>
+<p>Para corrigir a não homogeneidade da variância dos resíduos, definimos os resíduos padronizados:</p>
+<p><span class="math display">\[
+r_i=\frac{\hat\varepsilon_i}{\hat\sigma\sqrt{1-h_{ii}}},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\hat\sigma^2=\frac{SQ_{Res}}{n-2}.
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Motivação">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Motivação
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Como</p>
+<p><span class="math display">\[
+Var(\hat\varepsilon_i)=\sigma^2(1-h_{ii}),
+\]</span></p>
+<p>a divisão por <span class="math inline">\(\sqrt{1-h_{ii}}\)</span> torna os resíduos comparáveis entre si, ajustando a diferença de variâncias.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão final">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão final
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS:</p>
+<ul>
+<li>os resíduos não são independentes;</li>
+<li>não possuem variância constante;</li>
+<li>dependem da estrutura de <span class="math inline">\(X\)</span> via alavancagem;</li>
+<li>e devem ser analisados por meio de resíduos padronizados.</li>
+</ul>
+<p>Esses resultados fundamentam toda a análise de diagnóstico em regressão linear simples.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="transformações-e-comparação-de-modelos-no-mrls" class="level2" data-number="18.7">
+<h2 data-number="18.7" class="anchored" data-anchor-id="transformações-e-comparação-de-modelos-no-mrls"><span class="header-section-number">18.7</span> Transformações e comparação de modelos no MRLS</h2>
+<p>Nesta seção, apresentamos três resultados úteis para complementar a parte de transformações e comparação de modelos no contexto do modelo de regressão linear simples.</p>
+<p>Os resultados são:</p>
+<ol type="1">
+<li>uma justificativa, via expansão de Taylor de primeira ordem, para o uso de transformações com objetivo de <strong>estabilizar a variância</strong>;</li>
+<li>a demonstração da fórmula do <strong>coeficiente de determinação ajustado</strong>;</li>
+<li>uma interpretação formal da <strong>comparação via soma de quadrados</strong>, mostrando como a redução de variabilidade residual pode ser usada para comparar ajustes.</li>
+</ol>
+<section id="método-delta-e-estabilização-de-variância" class="level3" data-number="18.7.1">
+<h3 data-number="18.7.1" class="anchored" data-anchor-id="método-delta-e-estabilização-de-variância"><span class="header-section-number">18.7.1</span> Método Delta e estabilização de variância</h3>
+<p>Em muitos problemas práticos, a variância da resposta cresce com seu nível médio. Nesses casos, transformações da variável resposta podem ser úteis para tornar a variância aproximadamente constante.</p>
+<p>Um argumento clássico para isso usa a expansão de Taylor de primeira ordem, frequentemente chamada de Método Delta.</p>
+<p>Suponha que <span class="math inline">\(Y\)</span> seja uma variável aleatória com média</p>
+<p><span class="math display">\[
+E(Y)=\mu
+\]</span></p>
+<p>e variância</p>
+<p><span class="math display">\[
+Var(Y)=\sigma_Y^2.
+\]</span></p>
+<p>Seja <span class="math inline">\(g\)</span> uma função diferenciável em torno de <span class="math inline">\(\mu\)</span>. Queremos aproximar a variância de <span class="math inline">\(g(Y)\)</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ideia é aproximar <span class="math inline">\(g(Y)\)</span> por sua expansão de Taylor de primeira ordem em torno de <span class="math inline">\(\mu\)</span>:</p>
+<p><span class="math display">\[
+g(Y)\approx g(\mu)+g'(\mu)(Y-\mu).
+\]</span></p>
+<p>Como a variância de uma constante é zero, a variância de <span class="math inline">\(g(Y)\)</span> pode ser aproximada pela variância do termo linear.</p>
+</div>
+</div>
+<p><strong>1. Expansão de Taylor de primeira ordem</strong></p>
+<p>Expandindo <span class="math inline">\(g(Y)\)</span> em torno de <span class="math inline">\(\mu\)</span>, temos</p>
+<p><span class="math display">\[
+g(Y)
+=
+g(\mu)+g'(\mu)(Y-\mu)+R_2,
+\]</span></p>
+<p>em que <span class="math inline">\(R_2\)</span> representa o resto da expansão.</p>
+<p>Se desprezarmos, em primeira aproximação, os termos de ordem superior, obtemos</p>
+<p><span class="math display">\[
+g(Y)\approx g(\mu)+g'(\mu)(Y-\mu).
+\]</span></p>
+<p>Tomando variância em ambos os lados, segue que</p>
+<p><span class="math display">\[
+Var(g(Y))
+\approx
+Var\bigl(g(\mu)+g'(\mu)(Y-\mu)\bigr).
+\]</span></p>
+<p>Como <span class="math inline">\(g(\mu)\)</span> é constante,</p>
+<p><span class="math display">\[
+Var(g(Y))
+\approx
+Var\bigl(g'(\mu)(Y-\mu)\bigr).
+\]</span></p>
+<p>Extraindo o fator constante <span class="math inline">\(g'(\mu)\)</span>,</p>
+<p><span class="math display">\[
+Var(g(Y))
+\approx
+[g'(\mu)]^2 Var(Y-\mu).
+\]</span></p>
+<p>Mas</p>
+<p><span class="math display">\[
+Var(Y-\mu)=Var(Y).
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+Var(g(Y))\approx [g'(\mu)]^2 Var(Y).
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+Var(g(Y))\approx [g'(\mu)]^2 \sigma_Y^2.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pelo método Delta de primeira ordem,</p>
+<p><span class="math display">\[
+Var(g(Y))\approx [g'(\mu)]^2 Var(Y).
+\]</span></p>
+<p>Esse resultado mostra que a variância da variável transformada depende tanto da variância original quanto da inclinação local da transformação.</p>
+</div>
+</div>
+<p><strong>2. Aplicação à estabilização de variância</strong></p>
+<p>Suponha agora que a variância de <span class="math inline">\(Y\)</span> dependa da média segundo uma relação do tipo</p>
+<p><span class="math display">\[
+Var(Y)\approx C\,V(\mu),
+\]</span></p>
+<p>em que <span class="math inline">\(C&gt;0\)</span> é uma constante e <span class="math inline">\(V(\mu)\)</span> é uma função positiva da média.</p>
+<p>Queremos encontrar uma transformação <span class="math inline">\(g\)</span> tal que <span class="math inline">\(Var(g(Y))\)</span> seja aproximadamente constante.</p>
+<p>Pelo resultado anterior,</p>
+<p><span class="math display">\[
+Var(g(Y))
+\approx
+[g'(\mu)]^2 C\,V(\mu).
+\]</span></p>
+<p>Para que essa variância seja aproximadamente constante, basta escolher <span class="math inline">\(g\)</span> de forma que</p>
+<p><span class="math display">\[
+[g'(\mu)]^2 V(\mu)
+\]</span></p>
+<p>seja constante em <span class="math inline">\(\mu\)</span>.</p>
+<p>Uma escolha natural é impor</p>
+<p><span class="math display">\[
+g'(\mu)=\frac{1}{\sqrt{V(\mu)}}.
+\]</span></p>
+<p>Nesse caso,</p>
+<p><span class="math display">\[
+[g'(\mu)]^2V(\mu)
+=
+\frac{1}{V(\mu)}V(\mu)=1,
+\]</span></p>
+<p>e, portanto,</p>
+<p><span class="math display">\[
+Var(g(Y))\approx C.
+\]</span></p>
+<p>Isso mostra que a transformação estabilizadora pode ser obtida, ao menos aproximadamente, resolvendo</p>
+<p><span class="math display">\[
+g'(\mu)=\frac{1}{\sqrt{V(\mu)}}.
+\]</span></p>
+<p>Integrando,</p>
+<p><span class="math display">\[
+g(\mu)=\int \frac{1}{\sqrt{V(\mu)}}\,d\mu.
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Passo técnico">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Passo técnico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esse argumento não fornece uma igualdade exata, mas sim uma aproximação de primeira ordem. Ainda assim, ele é extremamente útil para justificar transformações clássicas.</p>
+</div>
+</div>
+<p><strong>3. Casos particulares importantes</strong></p>
+<p><strong>Caso 1: variância proporcional ao quadrado da média</strong></p>
+<p>Suponha que</p>
+<p><span class="math display">\[
+Var(Y)\approx C\mu^2.
+\]</span></p>
+<p>Então</p>
+<p><span class="math display">\[
+V(\mu)=\mu^2.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+g'(\mu)=\frac{1}{\sqrt{\mu^2}}=\frac{1}{|\mu|}.
+\]</span></p>
+<p>Se <span class="math inline">\(\mu&gt;0\)</span>, isso se reduz a</p>
+<p><span class="math display">\[
+g'(\mu)=\frac{1}{\mu}.
+\]</span></p>
+<p>Integrando,</p>
+<p><span class="math display">\[
+g(\mu)=\log(\mu)+\text{constante}.
+\]</span></p>
+<p>Assim, a transformação logarítmica surge naturalmente como transformação estabilizadora quando a variância é aproximadamente proporcional ao quadrado da média.</p>
+<p><strong>Caso 2: variância proporcional à média</strong></p>
+<p>Se</p>
+<p><span class="math display">\[
+Var(Y)\approx C\mu,
+\]</span></p>
+<p>então</p>
+<p><span class="math display">\[
+V(\mu)=\mu,
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+g'(\mu)=\frac{1}{\sqrt{\mu}}.
+\]</span></p>
+<p>Integrando,</p>
+<p><span class="math display">\[
+g(\mu)=2\sqrt{\mu}+\text{constante}.
+\]</span></p>
+<p>Nesse caso, a transformação raiz quadrada é a estabilizadora natural.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O método Delta justifica, de forma simples e elegante, o uso de transformações como:</p>
+<ul>
+<li><span class="math inline">\(\log(Y)\)</span>, quando <span class="math inline">\(Var(Y)\)</span> cresce aproximadamente como <span class="math inline">\(\mu^2\)</span>;</li>
+<li><span class="math inline">\(\sqrt{Y}\)</span>, quando <span class="math inline">\(Var(Y)\)</span> cresce aproximadamente como <span class="math inline">\(\mu\)</span>.</li>
+</ul>
+<p>Essas transformações podem tornar a variância aproximadamente constante, favorecendo o uso do modelo linear clássico.</p>
+</div>
+</div>
+</section>
+<section id="demonstração-do-coeficiente-de-determinação-ajustado" class="level3" data-number="18.7.2">
+<h3 data-number="18.7.2" class="anchored" data-anchor-id="demonstração-do-coeficiente-de-determinação-ajustado"><span class="header-section-number">18.7.2</span> Demonstração do coeficiente de determinação ajustado</h3>
+<p>No modelo de regressão linear simples com intercepto, o coeficiente de determinação é definido por</p>
+<p><span class="math display">\[
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}
+=
+1-\frac{SQ_{Res}}{SQ_{Total}}.
+\]</span></p>
+<p>Entretanto, em comparação de ajustes, é comum utilizar o <strong>coeficiente de determinação ajustado</strong>, definido por</p>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+\]</span></p>
+<p>Nosso objetivo é justificar essa expressão.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ideia é observar que <span class="math inline">\(R^2\)</span> compara somas de quadrados brutas, enquanto <span class="math inline">\(R^2_{aj}\)</span> compara <strong>quadrados médios</strong>, isto é, quantidades ajustadas pelos respectivos graus de liberdade.</p>
+<p>No MRLS com intercepto:</p>
+<ul>
+<li><span class="math inline">\(SQ_{Total}\)</span> tem <span class="math inline">\(n-1\)</span> graus de liberdade;</li>
+<li><span class="math inline">\(SQ_{Res}\)</span> tem <span class="math inline">\(n-2\)</span> graus de liberdade.</li>
+</ul>
+</div>
+</div>
+<p><strong>1. Ajuste por graus de liberdade</strong></p>
+<p>Sabemos que:</p>
+<p><span class="math display">\[
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2
+\]</span></p>
+<p>mede a variabilidade total em torno da média, e como a média <span class="math inline">\(\bar Y\)</span> é estimada a partir da própria amostra, essa quantidade possui <span class="math inline">\(n-1\)</span> graus de liberdade.</p>
+<p>Por outro lado,</p>
+<p><span class="math display">\[
+SQ_{Res}=\sum_{i=1}^n (Y_i-\hat Y_i)^2
+\]</span></p>
+<p>mede a variabilidade residual após o ajuste da reta, e como dois parâmetros são estimados, <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>, restam <span class="math inline">\(n-2\)</span> graus de liberdade.</p>
+<p>Assim, as quantidades comparáveis em termos médios são:</p>
+<p><span class="math display">\[
+\frac{SQ_{Total}}{n-1}
+\qquad \text{e} \qquad
+\frac{SQ_{Res}}{n-2}.
+\]</span></p>
+<p>A primeira representa a variabilidade total média por grau de liberdade, e a segunda representa a variabilidade residual média por grau de liberdade.</p>
+<p><strong>2. Construção do <span class="math inline">\(R^2\)</span> ajustado</strong></p>
+<p>O coeficiente <span class="math inline">\(R^2\)</span> usual mede a fração da variabilidade total explicada pelo modelo. Analogamente, podemos medir a fração da variabilidade total média que não permanece nos resíduos médios. Isso leva naturalmente a</p>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-\frac{\text{variabilidade residual média}}{\text{variabilidade total média}}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O coeficiente de determinação ajustado é dado por</p>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+\]</span></p>
+<p>Ele ajusta o coeficiente de determinação pelos graus de liberdade, penalizando a redução artificial da soma de quadrados residual.</p>
+</div>
+</div>
+<p><strong>3. Forma alternativa em função de <span class="math inline">\(R^2\)</span></strong></p>
+<p>Podemos reescrever <span class="math inline">\(R^2_{aj}\)</span> em função de <span class="math inline">\(R^2\)</span>.</p>
+<p>Como</p>
+<p><span class="math display">\[
+R^2=1-\frac{SQ_{Res}}{SQ_{Total}},
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+\frac{SQ_{Res}}{SQ_{Total}}=1-R^2.
+\]</span></p>
+<p>Substituindo na expressão do coeficiente ajustado,</p>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-
+\frac{n-1}{n-2}\frac{SQ_{Res}}{SQ_{Total}}
+=
+1-\frac{n-1}{n-2}(1-R^2).
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-\frac{n-1}{n-2}(1-R^2).
+\]</span></p>
+<p>Essa forma é útil para interpretação e comparação.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Passo técnico">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Passo técnico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Como <span class="math display">\[
+\frac{n-1}{n-2}&gt;1,
+\]</span> segue que, no MRLS com intercepto, <span class="math display">\[
+R^2_{aj}\leq R^2.
+\]</span> Ou seja, o coeficiente ajustado é sempre menor ou igual ao coeficiente de determinação usual.</p>
+</div>
+</div>
+</section>
+<section id="interpretação-formal-da-comparação-via-soma-de-quadrados" class="level3" data-number="18.7.3">
+<h3 data-number="18.7.3" class="anchored" data-anchor-id="interpretação-formal-da-comparação-via-soma-de-quadrados"><span class="header-section-number">18.7.3</span> Interpretação formal da comparação via soma de quadrados</h3>
+<p>Agora formalizaremos a ideia de que a comparação de ajustes pode ser feita examinando a redução da soma de quadrados residual.</p>
+<p>Considere dois modelos ajustados aos mesmos dados:</p>
+<ul>
+<li>um modelo mais simples, com soma de quadrados residual <span class="math inline">\(SQ_{Res}^{(S)}\)</span>;</li>
+<li>um modelo mais flexível, com soma de quadrados residual <span class="math inline">\(SQ_{Res}^{(F)}\)</span>.</li>
+</ul>
+<p>Suponhamos que o modelo mais simples esteja contido no mais flexível, de modo que o segundo tenha maior capacidade de ajuste.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Estratégia da demonstração">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Estratégia da demonstração
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A comparação será feita observando que, ao ampliar a classe de funções candidatas ao ajuste, a soma de quadrados residual não pode aumentar.</p>
+<p>Ou seja, se o modelo mais flexível contém o mais simples como caso particular, então o melhor ajuste dentro da classe maior nunca será pior do que o melhor ajuste dentro da classe menor.</p>
+</div>
+</div>
+<p><strong>1. A soma de quadrados residual não aumenta ao ampliar o modelo</strong></p>
+<p>No MQO, ajustamos o modelo escolhendo os parâmetros que minimizam a soma de quadrados residual dentro de uma determinada classe.</p>
+<p>Se o modelo mais simples está contido no modelo mais flexível, então todo ajuste possível no modelo simples também é admissível no modelo flexível.</p>
+<p>Assim, o mínimo obtido no modelo flexível é calculado sobre um conjunto maior de possibilidades. Portanto,</p>
+<p><span class="math display">\[
+SQ_{Res}^{(F)} \leq SQ_{Res}^{(S)}.
+\]</span></p>
+<p>Equivalentemente,</p>
+<p><span class="math display">\[
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}\geq 0.
+\]</span></p>
+<p>Essa diferença mede o ganho de ajuste proporcionado pela maior flexibilidade do modelo.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quando um modelo é ampliado, a soma de quadrados residual não aumenta:</p>
+<p><span class="math display">\[
+SQ_{Res}^{(F)} \leq SQ_{Res}^{(S)}.
+\]</span></p>
+<p>A redução <span class="math display">\[
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}
+\]</span> mede a parcela adicional de variabilidade explicada pelo modelo mais flexível.</p>
+</div>
+</div>
+<p><strong>2. Interpretação em termos de variabilidade explicada</strong></p>
+<p>Pela decomposição da soma de quadrados,</p>
+<p><span class="math display">\[
+SQ_{Total}=SQ_{Reg}+SQ_{Res},
+\]</span></p>
+<p>temos, para um mesmo conjunto de dados, <span class="math inline">\(SQ_{Total}\)</span> fixo.</p>
+<p>Logo, se a soma de quadrados residual diminui, a soma de quadrados da regressão aumenta na mesma proporção. Assim, a diferença</p>
+<p><span class="math display">\[
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}
+\]</span></p>
+<p>também pode ser interpretada como o aumento da variabilidade explicada quando passamos do modelo mais simples para o mais flexível.</p>
+<p>Se denotarmos por <span class="math inline">\(SQ_{Reg}^{(S)}\)</span> e <span class="math inline">\(SQ_{Reg}^{(F)}\)</span> as somas de quadrados de regressão dos dois modelos, então</p>
+<p><span class="math display">\[
+SQ_{Reg}^{(F)}-SQ_{Reg}^{(S)}
+=
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}.
+\]</span></p>
+<p>Isso decorre diretamente do fato de que <span class="math inline">\(SQ_{Total}\)</span> é o mesmo nos dois ajustes.</p>
+<p><strong>3. Caso particular: comparação com o modelo apenas com intercepto</strong></p>
+<p>No MRLS, o caso mais importante ocorre quando comparamos:</p>
+<ul>
+<li><p>o modelo reduzido: <span class="math display">\[
+Y_i=\beta_0+\varepsilon_i;
+\]</span></p></li>
+<li><p>com o modelo completo: <span class="math display">\[
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i.
+\]</span></p></li>
+</ul>
+<p>No modelo apenas com intercepto, os valores ajustados são todos iguais a <span class="math inline">\(\bar Y\)</span>, logo a soma de quadrados residual é exatamente</p>
+<p><span class="math display">\[
+SQ_{Total}.
+\]</span></p>
+<p>Já no modelo com regressão, a soma de quadrados residual é <span class="math inline">\(SQ_{Res}\)</span>.</p>
+<p>Assim, a redução da soma de quadrados residual ao introduzir <span class="math inline">\(X\)</span> é</p>
+<p><span class="math display">\[
+SQ_{Total}-SQ_{Res}.
+\]</span></p>
+<p>Mas, pela decomposição da soma de quadrados,</p>
+<p><span class="math display">\[
+SQ_{Total}-SQ_{Res}=SQ_{Reg}.
+\]</span></p>
+<p>Portanto, a soma de quadrados da regressão pode ser interpretada como a redução da variabilidade residual obtida ao substituir o modelo apenas com intercepto pelo modelo com inclinação.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS, a soma de quadrados da regressão pode ser interpretada como o ganho de explicação obtido ao passar do modelo sem <span class="math inline">\(X\)</span> para o modelo com <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+SQ_{Reg}=SQ_{Total}-SQ_{Res}.
+\]</span></p>
+</div>
+</div>
+<p><strong>4. Relação com a estatística <span class="math inline">\(F\)</span></strong></p>
+<p>A estatística <span class="math inline">\(F\)</span> no MRLS é dada por</p>
+<p><span class="math display">\[
+F=\frac{SQ_{Reg}/1}{SQ_{Res}/(n-2)}.
+\]</span></p>
+<p>Como <span class="math inline">\(SQ_{Reg}\)</span> representa o ganho de explicação produzido pela inclusão de <span class="math inline">\(X\)</span>, a estatística <span class="math inline">\(F\)</span> compara:</p>
+<ul>
+<li>a variabilidade explicada adicional por grau de liberdade;</li>
+<li>com a variabilidade residual média por grau de liberdade.</li>
+</ul>
+<p>Assim, valores grandes de <span class="math inline">\(F\)</span> indicam que a redução de <span class="math inline">\(SQ_{Res}\)</span> obtida ao incluir <span class="math inline">\(X\)</span> é grande em relação ao ruído residual ainda presente no modelo.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Passo técnico">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Passo técnico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No MRLS, a parte explicada adicional possui <span class="math inline">\(1\)</span> grau de liberdade, pois a diferença entre os dois modelos decorre da inclusão de um único parâmetro, <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="conclusão-geral-1" class="level3" data-number="18.7.4">
+<h3 data-number="18.7.4" class="anchored" data-anchor-id="conclusão-geral-1"><span class="header-section-number">18.7.4</span> Conclusão geral</h3>
+<p>Os resultados desta seção mostram que dois blocos importantes da parte aplicada do MRLS possuem fundamentação analítica simples e elegante.</p>
+<p>Primeiro, o método Delta fornece uma justificativa formal para o uso de transformações com o objetivo de estabilizar a variância. Em particular, ele mostra por que transformações como logaritmo e raiz quadrada surgem naturalmente em situações onde a variância cresce com a média.</p>
+<p>Segundo, a comparação de modelos via soma de quadrados possui interpretação geométrica e algébrica clara: um modelo mais flexível nunca aumenta a soma de quadrados residual, e a redução observada mede a variabilidade adicional explicada.</p>
+<p>Por fim, o coeficiente de determinação ajustado corrige o <span class="math inline">\(R^2\)</span> usual pelos graus de liberdade, oferecendo uma medida mais adequada para comparação de ajustes.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Conclusão final">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Conclusão final
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No contexto do MRLS,</p>
+<ul>
+<li>transformações podem ser justificadas por argumentos aproximativos de estabilização de variância;</li>
+<li>a comparação de modelos pode ser entendida pela redução da soma de quadrados residual;</li>
+<li>e o coeficiente de determinação ajustado incorpora explicitamente o papel dos graus de liberdade:</li>
+</ul>
+<p><span class="math display">\[
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+\]</span></p>
+</div>
+</div>
 
 
 </section>

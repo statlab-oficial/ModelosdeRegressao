@@ -1861,15 +1861,12 @@ $$
 
 Esses resultados são conhecidos como **propriedades de ortogonalidade dos resíduos** e desempenham papel central na teoria do MQO.
 
----
 
 ::: {.callout-important title="Estratégia da demonstração"}
 As duas primeiras propriedades serão obtidas diretamente das **equações normais do MQO**, que caracterizam o ponto de mínimo da função de soma de quadrados.
 
 A terceira propriedade será deduzida a partir das duas primeiras, explorando a forma dos valores ajustados.
 :::
-
----
 
 ## 1) Soma dos resíduos é zero
 
@@ -1911,7 +1908,6 @@ $$
 Esse resultado decorre diretamente da primeira equação normal. Ele não depende de nenhuma hipótese probabilística, apenas da definição dos estimadores de MQO.
 :::
 
----
 
 ## 2) Soma dos resíduos ponderados por $X_i$ é zero
 
@@ -1952,8 +1948,6 @@ $$
 ::: {.callout-note title="Passo técnico"}
 Esse resultado decorre da segunda equação normal. Ele mostra que os resíduos são ortogonais à variável explicativa $X$.
 :::
-
----
 
 ## 3) Ortogonalidade entre valores ajustados e resíduos
 
@@ -1996,7 +1990,6 @@ $$
 Essa propriedade não vem diretamente das equações normais, mas é consequência delas. Ela mostra que os resíduos são ortogonais também aos valores ajustados.
 :::
 
----
 
 ::: {.callout-important title="Conclusão"}
 No modelo de regressão linear simples com MQO, os resíduos satisfazem:
@@ -2347,8 +2340,6 @@ $$
 
 como estimador não viesado de $\sigma^2$.
 
----
-
 ::: {.callout-important title="Estratégia da demonstração"}
 A prova será feita reescrevendo cada resíduo em função dos erros verdadeiros $\varepsilon_i$.
 
@@ -2364,8 +2355,6 @@ $$
 
 Essas duas restrições são responsáveis pela perda de 2 graus de liberdade.
 :::
-
----
 
 ## 1) Expressão dos resíduos em função dos erros
 
@@ -2460,8 +2449,6 @@ $$
 Essa expressão mostra que cada resíduo não depende apenas de $\varepsilon_i$, mas de **todos os erros** $\varepsilon_1,\dots,\varepsilon_n$. Isso reflete o fato de que o ajuste por MQO utiliza toda a amostra simultaneamente.
 :::
 
----
-
 ## 2) Soma dos quadrados dos resíduos
 
 Agora consideramos
@@ -2521,7 +2508,6 @@ $$
 
 Nosso objetivo agora é calcular a esperança condicional em $X$ dessa expressão.
 
----
 
 ## 3) Esperança do primeiro termo
 
@@ -2543,7 +2529,6 @@ $$
 Esse resultado pode ser obtido observando que a variância amostral (não viesada) dos erros multiplica $(n-1)$, e que os erros têm variância $\sigma^2$ e são não correlacionados.
 :::
 
----
 
 ## 4) Esperança do segundo termo
 
@@ -2635,8 +2620,6 @@ E\left[\sum_{i=1}^n A_i^2 \mid X\right]
 \sigma^2.
 $$
 
----
-
 ## 5) Esperança do termo cruzado
 
 Agora consideramos
@@ -2657,8 +2640,6 @@ $$
 Esse é o passo mais técnico da demonstração. Ele depende do fato de que os erros são não correlacionados e de média zero, além da forma centrada das expressões envolvidas.
 :::
 
----
-
 ## 6) Conclusão
 
 Reunindo os resultados:
@@ -2677,7 +2658,6 @@ E(SQ_{Res}\mid X)
 (n-2)\sigma^2.
 $$
 
----
 
 ::: {.callout-important title="Conclusão"}
 No modelo de regressão linear simples com intercepto,
@@ -2696,8 +2676,6 @@ $$
 
 é um estimador não viesado de $\sigma^2$.
 :::
-
----
 
 ## 7) Interpretação
 
@@ -3146,7 +3124,6 @@ $$
 
 Esse resultado estabelece uma conexão direta entre o coeficiente de determinação e o teste de significância da regressão.
 
----
 
 ::: {.callout-important title="Estratégia da demonstração"}
 A ideia é reescrever a estatística $F$ em função de $SQ_{Reg}$ e $SQ_{Res}$ e, em seguida, substituir essas quantidades por expressões envolvendo $R^2$.
@@ -3166,7 +3143,6 @@ SQ_{Res}=SQ_{Total}-SQ_{Reg}=(1-R^2)SQ_{Total}.
 $$
 :::
 
----
 
 ## 1) Reescrevendo a estatística $F$
 
@@ -3184,7 +3160,6 @@ $$
 
 Assim, a estatística $F$ pode ser vista como proporcional à razão entre a variabilidade explicada e a variabilidade residual.
 
----
 
 ## 2) Expressões de $SQ_{Reg}$ e $SQ_{Res}$ em função de $R^2$
 
@@ -3212,8 +3187,6 @@ $$
 Essas duas identidades são suficientes para eliminar completamente as somas de quadrados da expressão de $F$, escrevendo tudo apenas em termos de $R^2$.
 :::
 
----
-
 ## 3) Substituição na estatística $F$
 
 Substituindo as expressões obtidas, temos
@@ -3230,7 +3203,6 @@ $$
 
 Isso conclui a demonstração.
 
----
 
 ::: {.callout-important title="Conclusão"}
 No modelo de regressão linear simples, a estatística $F$ pode ser escrita como
@@ -3241,8 +3213,6 @@ $$
 
 Essa expressão mostra que o teste global da regressão depende diretamente do coeficiente de determinação.
 :::
-
----
 
 ## 4) Interpretação do resultado
 
@@ -3264,7 +3234,6 @@ Em particular:
 
 Isso explica por que modelos com alto $R^2$ tendem a ser estatisticamente significativos.
 
----
 
 ## 5) Monotonicidade entre $R^2$ e $F$
 
@@ -3284,8 +3253,6 @@ Isso implica que:
 ::: {.callout-note title="Passo técnico"}
 Como $F=T^2$ no MRLS, essa monotonicidade também implica que $R^2$ é monotonicamente relacionado ao valor absoluto da estatística $t$.
 :::
-
----
 
 ## 6) Ligação com a hipótese de significância da regressão
 
@@ -3312,7 +3279,6 @@ $$
 
 Assim, o teste $F$ pode ser interpretado como um teste sobre o tamanho de $R^2$.
 
----
 
 ## 7) Forma alternativa útil
 
@@ -3327,15 +3293,12 @@ Essa forma é útil em algumas interpretações, pois mostra que:
 - quando $F$ cresce, $R^2$ se aproxima de $1$;
 - quando $F$ é pequeno, $R^2$ se aproxima de $0$.
 
----
-
 ::: {.callout-warning title="Condição necessária"}
 Essa relação simples entre $R^2$ e $F$ é específica do MRLS com um único regressor.
 
 Em regressão múltipla, a estatística $F$ envolve vários graus de liberdade no numerador e a relação com $R^2$ assume forma diferente.
 :::
 
----
 
 ::: {.callout-important title="Conclusão final"}
 No modelo de regressão linear simples, o coeficiente de determinação e a estatística $F$ carregam exatamente a mesma informação sobre a qualidade do ajuste e a significância da regressão, estando ligados pela identidade
@@ -3395,7 +3358,6 @@ $$
 h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
 $$
 
----
 
 ::: {.callout-important title="Estratégia da demonstração"}
 A ideia central é escrever cada resíduo como uma **combinação linear dos erros verdadeiros**:
@@ -3413,7 +3375,6 @@ Uma vez obtida essa representação:
 Tudo se reduz, portanto, a identificar corretamente esses coeficientes.
 :::
 
----
 
 ## 1) Expressão dos resíduos em função dos erros
 
@@ -3472,8 +3433,6 @@ $$
 Essa forma deixa explícito que cada resíduo depende de todos os erros, não apenas de $\varepsilon_i$. Isso explica por que os resíduos são correlacionados.
 :::
 
----
-
 ## 2) Esperança dos resíduos
 
 Tomando esperança condicional em $X$:
@@ -3498,7 +3457,6 @@ $$
 E(\hat\varepsilon_i\mid X)=0.
 $$
 
----
 
 ::: {.callout-important title="Conclusão"}
 Cada resíduo tem média zero:
@@ -3507,8 +3465,6 @@ $$
 E(\hat\varepsilon_i\mid X)=0.
 $$
 :::
-
----
 
 ## 3) Variância dos resíduos
 
@@ -3550,8 +3506,6 @@ $$
 Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}).
 $$
 
----
-
 ::: {.callout-important title="Conclusão"}
 A variância dos resíduos não é constante:
 
@@ -3561,8 +3515,6 @@ $$
 
 Portanto, mesmo que os erros sejam homoscedásticos, os resíduos não são.
 :::
-
----
 
 ## 4) Covariância entre resíduos
 
@@ -3596,8 +3548,6 @@ $$
 h_{ij}=\frac{1}{n}+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
 $$
 
----
-
 ::: {.callout-important title="Conclusão"}
 Os resíduos são correlacionados:
 
@@ -3607,8 +3557,6 @@ $$
 
 Logo, não podem ser tratados como observações independentes.
 :::
-
----
 
 ## 5) Interpretação do termo $h_{ii}$ (alavancagem)
 
@@ -3630,8 +3578,6 @@ Assim:
 - observações com $X_i$ próximo de $\bar X$ têm baixa alavancagem;
 - observações com $X_i$ distante de $\bar X$ têm alta alavancagem.
 
----
-
 ::: {.callout-important title="Conclusão"}
 A variância do resíduo é menor quando $h_{ii}$ é grande:
 
@@ -3641,8 +3587,6 @@ $$
 
 Ou seja, pontos com alta alavancagem têm resíduos com menor variância — um fato central na análise de diagnóstico.
 :::
-
----
 
 ## 6) Consequências importantes
 
@@ -3658,15 +3602,12 @@ Essas propriedades justificam:
 - o uso de medidas de influência;
 - o cuidado ao interpretar gráficos de resíduos.
 
----
-
 ::: {.callout-warning title="Condição necessária"}
 Essas propriedades são válidas sob as hipóteses do modelo clássico.
 
 Elas não indicam violação do modelo — pelo contrário, são consequências naturais do ajuste por MQO.
 :::
 
----
 
 ::: {.callout-important title="Conclusão geral"}
 No MRLS, os resíduos possuem estrutura própria:
@@ -3706,8 +3647,6 @@ $$
 h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
 $$
 
----
-
 ::: {.callout-important title="Estratégia da demonstração"}
 A ideia é escrever $\hat Y_i$ explicitamente em função das observações $Y_j$.
 
@@ -3726,8 +3665,6 @@ Para isso:
 
 4. identificamos o termo correspondente a $j=i$, que é $h_{ii}$.
 :::
-
----
 
 ## 1) Substituição das expressões de MQO
 
@@ -3770,8 +3707,6 @@ $$
 \frac{\sum_{j=1}^n (X_j-\bar X)Y_j}{S_{xx}}.
 $$
 
----
-
 ## 2) Expansão da média amostral
 
 Lembrando que
@@ -3805,8 +3740,6 @@ $$
 Y_j.
 $$
 
----
-
 ## 3) Identificação dos coeficientes de alavancagem
 
 Comparando com
@@ -3825,8 +3758,6 @@ h_{ij}
 \frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
 $$
 
----
-
 ## 4) Caso particular: alavancagem $h_{ii}$
 
 Para $j=i$, obtemos
@@ -3838,8 +3769,6 @@ h_{ii}
 +
 \frac{(X_i-\bar X)^2}{S_{xx}}.
 $$
-
----
 
 ::: {.callout-important title="Conclusão"}
 No modelo de regressão linear simples, a alavancagem da observação $i$ é dada por
@@ -3854,8 +3783,6 @@ $$
 
 Essa expressão mostra que a alavancagem depende exclusivamente dos valores da variável explicativa $X$.
 :::
-
----
 
 ## 5) Interpretação da expressão
 
@@ -3881,8 +3808,6 @@ Assim:
 
 Portanto, observações extremas em $X$ têm maior alavancagem.
 
----
-
 ## 6) Soma das alavancagens
 
 Somando em $i$, temos
@@ -3905,8 +3830,6 @@ $$
 2.
 $$
 
----
-
 ::: {.callout-important title="Conclusão"}
 No MRLS com intercepto,
 
@@ -3916,8 +3839,6 @@ $$
 
 Esse valor coincide com o número de parâmetros estimados no modelo ($\beta_0$ e $\beta_1$).
 :::
-
----
 
 ## 7) Ligação com a variância dos resíduos
 
@@ -3932,15 +3853,12 @@ vemos que:
 - quanto maior $h_{ii}$, menor a variância do resíduo;
 - pontos com alta alavancagem tendem a “puxar” a reta.
 
----
-
 ::: {.callout-warning title="Condição necessária"}
 A expressão da alavancagem é válida para o MRLS com intercepto.
 
 Sem intercepto, a fórmula e a soma das alavancagens se alteram.
 :::
 
----
 
 ::: {.callout-important title="Conclusão geral"}
 A alavancagem mede o quanto uma observação influencia o valor ajustado.
@@ -3986,8 +3904,6 @@ Var(Y_{novo}-\hat Y(x_0)\mid X)
 \right].
 $$
 
----
-
 ::: {.callout-important title="Estratégia da demonstração"}
 A ideia central é:
 
@@ -4003,8 +3919,6 @@ A ideia central é:
 3. aplicar a fórmula da variância de combinação linear;
 4. simplificar cuidadosamente a expressão.
 :::
-
----
 
 ## 1) Variância de $\hat Y(x_0)$
 
@@ -4041,8 +3955,6 @@ x_0^2Var(\hat\beta_1)
 +
 2x_0\,Cov(\hat\beta_0,\hat\beta_1).
 $$
-
----
 
 ## 2) Substituição das variâncias conhecidas
 
@@ -4090,8 +4002,6 @@ Var(\hat Y(x_0)\mid X)
 \right].
 $$
 
----
-
 ## 3) Simplificação da expressão
 
 Agrupando os termos com denominador $S_{xx}$:
@@ -4114,8 +4024,6 @@ Var(\hat Y(x_0)\mid X)
 \right].
 $$
 
----
-
 ::: {.callout-important title="Conclusão"}
 A variância da média estimada em $x_0$ é
 
@@ -4127,8 +4035,6 @@ Var(\hat Y(x_0)\mid X)
 \right].
 $$
 :::
-
----
 
 ## 4) Interpretação
 
@@ -4147,8 +4053,6 @@ Assim:
 
 - a variância é mínima em $x_0=\bar X$;
 - cresce à medida que nos afastamos do centro dos dados.
-
----
 
 ## 5) Variância da predição de uma nova observação
 
@@ -4170,7 +4074,6 @@ $$
 Var(Y_{novo}-\hat Y(x_0)\mid X).
 $$
 
----
 
 ## 6) Decomposição do erro de predição
 
@@ -4196,7 +4099,6 @@ Y_{novo}-\hat Y(x_0)
 (\hat\beta_1-\beta_1)x_0.
 $$
 
----
 
 ## 7) Variância do erro de predição
 
@@ -4232,7 +4134,6 @@ Var(Y_{novo}-\hat Y(x_0)\mid X)
 \right].
 $$
 
----
 
 ::: {.callout-important title="Conclusão"}
 A variância do erro de predição é
@@ -4246,7 +4147,6 @@ Var(Y_{novo}-\hat Y(x_0)\mid X)
 $$
 :::
 
----
 
 ## 8) Interpretação final
 
@@ -4270,7 +4170,6 @@ $$
 
 que corresponde à variabilidade inerente à nova observação.
 
----
 
 ::: {.callout-warning title="Condição necessária"}
 Esses resultados assumem:
@@ -4282,7 +4181,6 @@ Esses resultados assumem:
 Se essas hipóteses falharem, a forma dos intervalos de confiança e predição pode não ser válida.
 :::
 
----
 
 ::: {.callout-important title="Conclusão geral"}
 No MRLS:

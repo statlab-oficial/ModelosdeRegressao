@@ -1828,3 +1828,1812 @@ O teorema não afirma que o MQO é melhor do que qualquer estimador possível se
 :::
 
 O Teorema de Gauss--Markov é um dos pilares da inferência clássica em regressão. Ele mostra que o procedimento de MQO não é apenas simples e intuitivo, mas também teoricamente ótimo em uma classe muito ampla de estimadores. Por isso, ele ocupa uma posição de destaque tanto na formulação do modelo quanto na interpretação inferencial de seus estimadores.
+
+## Distribuições e inferência no MRLS
+
+Nesta seção, desenvolvemos as demonstrações fundamentais que sustentam a inferência no modelo de regressão linear simples sob a hipótese de normalidade dos erros.
+
+Considere o modelo
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+com
+
+$$
+\varepsilon_i \sim N(0,\sigma^2), \quad \text{independentes}.
+$$
+
+
+### Distribuição de $\hat\beta_1$ e $\hat\beta_0$
+
+Sabemos que
+
+$$
+\hat\beta_1=\frac{\sum_{i=1}^n (X_i-\bar X)Y_i}{S_{xx}}.
+$$
+
+Substituindo $Y_i$:
+
+$$
+\hat\beta_1
+=
+\frac{\sum (X_i-\bar X)(\beta_0+\beta_1X_i+\varepsilon_i)}{S_{xx}}.
+$$
+
+Separando os termos:
+
+$$
+\hat\beta_1
+=
+\beta_1
++
+\frac{\sum (X_i-\bar X)\varepsilon_i}{S_{xx}}.
+$$
+
+
+::: {.callout-important title="Estratégia da demonstração"}
+Mostraremos que $\hat\beta_1$ é uma combinação linear dos erros normais. Como combinações lineares de normais são normais, segue a distribuição desejada.
+:::
+
+Como
+
+$$
+\sum (X_i-\bar X)\varepsilon_i
+$$
+
+é combinação linear de variáveis normais independentes, temos:
+
+$$
+\hat\beta_1 \sim N\left(\beta_1,\frac{\sigma^2}{S_{xx}}\right).
+$$
+
+
+Para $\hat\beta_0$:
+
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+$$
+
+Substituindo:
+
+$$
+\hat\beta_0
+=
+\beta_0+\bar\varepsilon-\bar X(\hat\beta_1-\beta_1).
+$$
+
+Logo, também é combinação linear de normais, implicando:
+
+$$
+\hat\beta_0 \sim N\left(\beta_0,\sigma^2\left[\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right]\right).
+$$
+
+::: {.callout-important title="Conclusão"}
+Os estimadores de MQO são normalmente distribuídos sob normalidade dos erros:
+
+$$
+\hat\beta_1 \sim N\left(\beta_1,\frac{\sigma^2}{S_{xx}}\right),
+$$
+
+$$
+\hat\beta_0 \sim N\left(\beta_0,\sigma^2\left[\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right]\right).
+$$
+:::
+
+
+### Distribuição de $SQ_{Res}$
+
+Recordemos:
+
+$$
+SQ_{Res}=\sum \hat\varepsilon_i^2.
+$$
+
+Já foi demonstrado que:
+
+$$
+E(SQ_{Res}\mid X)=(n-2)\sigma^2.
+$$
+
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é reconhecer que os resíduos são combinações lineares dos erros com duas restrições lineares com isso teremos $n-2$ graus de liberdade.
+:::
+
+
+Sob normalidade, os resíduos são combinações lineares de normais. Como há duas restrições:
+
+$$
+\sum \hat\varepsilon_i=0,
+\qquad
+\sum X_i\hat\varepsilon_i=0,
+$$
+
+restam $n-2$ graus de liberdade independentes.
+
+Assim,
+
+$$
+\frac{SQ_{Res}}{\sigma^2} \sim \chi^2_{n-2}.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+A soma de quadrados dos resíduos segue:
+
+$$
+\frac{SQ_{Res}}{\sigma^2} \sim \chi^2_{n-2}.
+$$
+:::
+
+
+### Independência entre estimadores e $SQ_{Res}$
+
+
+::: {.callout-important title="Estratégia da demonstração"}
+Exploramos a decomposição ortogonal entre:
+
+- espaço gerado por $1$ e $X$
+- espaço dos resíduos
+
+Essa ortogonalidade implica independência sob normalidade.
+:::
+
+Sabemos que:
+
+- $\hat\beta_0$ e $\hat\beta_1$ dependem de combinações lineares de $Y_i$ na direção de $1$ e $X$;
+- os resíduos são ortogonais a essas direções.
+
+Como estamos no caso normal, ortogonalidade implica independência.
+
+Logo,
+
+$$
+(\hat\beta_0,\hat\beta_1) \perp SQ_{Res}.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+Os estimadores de MQO são independentes da soma de quadrados dos resíduos sob normalidade.
+:::
+
+
+### Distribuição t para $\hat\beta_1$
+
+Definimos
+
+$$
+T=\frac{\hat\beta_1-\beta_1}{\sqrt{s^2/S_{xx}}},
+$$
+
+em que
+
+$$
+s^2=\frac{SQ_{Res}}{n-2}.
+$$
+
+
+::: {.callout-important title="Estratégia da demonstração"}
+A estatística é construída como:
+
+- numerador: normal padrão
+- denominador: raiz de qui-quadrado independente
+
+Isso caracteriza uma distribuição t.
+:::
+
+
+Temos:
+
+- $\hat\beta_1-\beta_1 \sim N(0,\sigma^2/S_{xx})$
+- $\frac{(n-2)s^2}{\sigma^2} \sim \chi^2_{n-2}$
+- independência entre ambos
+
+Logo,
+
+$$
+T \sim t_{n-2}.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+A estatística de teste para $\beta_1$ segue:
+
+$$
+T \sim t_{n-2}.
+$$
+:::
+
+
+### Distribuição de $\hat Y(x_0)$
+
+Sabemos que
+
+$$
+\hat Y(x_0)=\hat\beta_0+\hat\beta_1 x_0.
+$$
+
+Como combinação linear de normais:
+
+$$
+\hat Y(x_0) \sim N\left(\beta_0+\beta_1 x_0,\;
+\sigma^2\left[\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}\right]\right).
+$$
+
+
+::: {.callout-important title="Conclusão"}
+A média estimada segue distribuição normal com variância dependente de $x_0$.
+:::
+
+### Distribuição da predição
+
+Para uma nova observação:
+
+$$
+Y_{novo}=\beta_0+\beta_1 x_0+\varepsilon_{novo}.
+$$
+
+Temos:
+
+$$
+Y_{novo}-\hat Y(x_0)
+=
+\varepsilon_{novo}
+-
+(\hat\beta_0-\beta_0)
+-
+(\hat\beta_1-\beta_1)x_0.
+$$
+
+Como soma de normais independentes:
+
+$$
+Y_{novo}-\hat Y(x_0)
+\sim
+N\left(0,\;
+\sigma^2\left[1+\frac{1}{n}+\frac{(x_0-\bar X)^2}{S_{xx}}\right]\right).
+$$
+
+::: {.callout-important title="Conclusão"}
+A variabilidade da predição inclui a variância do erro:
+
+$$
+\sigma^2
++
+\text{variância da média estimada}.
+$$
+:::
+
+### Conclusão geral
+
+Sob normalidade dos erros:
+
+- estimadores são normais;
+- resíduos geram distribuição $\chi^2$;
+- estatísticas t e F são válidas;
+- inferência completa pode ser construída.
+
+
+::: {.callout-important title="Conclusão final"}
+A hipótese de normalidade não altera os estimadores de MQO, mas permite caracterizar completamente sua distribuição e, assim, fundamentar a inferência estatística no MRLS.
+:::
+
+
+## Testes de hipóteses no MRLS
+
+Nesta seção, reunimos algumas demonstrações que fundamentam a parte de testes no modelo de regressão linear simples. Em particular, mostraremos resultados que conectam:
+
+- a decomposição da variabilidade;
+- a estatística $F$ da análise de variância;
+- a estatística $t$ para o coeficiente angular;
+- o coeficiente de determinação $R^2$;
+- e, no caso do MRLS com intercepto, a correlação linear amostral entre $X$ e $Y$.
+
+Assumimos o modelo
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+com os pressupostos usuais do modelo clássico e, quando necessário para distribuições exatas, a normalidade dos erros.
+
+### Decomposição da soma de quadrados no MRLS
+
+Definimos:
+
+$$
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2,
+$$
+
+$$
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2,
+$$
+
+$$
+SQ_{Res}=\sum_{i=1}^n (Y_i-\hat Y_i)^2.
+$$
+
+Nosso objetivo é demonstrar que
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é decompor o desvio total de cada observação em relação à média como soma de duas parcelas:
+
+$$
+Y_i-\bar Y = (Y_i-\hat Y_i)+(\hat Y_i-\bar Y).
+$$
+
+Em seguida, elevamos ao quadrado e somamos em $i$. O termo cruzado desaparecerá devido à ortogonalidade entre resíduos e valores ajustados no MQO.
+:::
+
+Para cada $i$, temos
+
+$$
+Y_i-\bar Y
+=
+Y_i-\hat Y_i+\hat Y_i-\bar Y.
+$$
+
+Elevando ao quadrado,
+
+$$
+(Y_i-\bar Y)^2
+=
+\bigl[(Y_i-\hat Y_i)+(\hat Y_i-\bar Y)\bigr]^2.
+$$
+
+Aplicando a identidade $(a+b)^2=a^2+2ab+b^2$, obtemos
+
+$$
+(Y_i-\bar Y)^2
+=
+(Y_i-\hat Y_i)^2
++
+2(Y_i-\hat Y_i)(\hat Y_i-\bar Y)
++
+(\hat Y_i-\bar Y)^2.
+$$
+
+Somando de $i=1$ até $n$,
+
+$$
+\sum_{i=1}^n (Y_i-\bar Y)^2
+=
+\sum_{i=1}^n (Y_i-\hat Y_i)^2
++
+2\sum_{i=1}^n (Y_i-\hat Y_i)(\hat Y_i-\bar Y)
++
+\sum_{i=1}^n (\hat Y_i-\bar Y)^2.
+$$
+
+Isto é,
+
+$$
+SQ_{Total}
+=
+SQ_{Res}
++
+2\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)
++
+SQ_{Reg},
+$$
+
+em que $\hat\varepsilon_i=Y_i-\hat Y_i$.
+
+Agora analisemos o termo cruzado:
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)
+=
+\sum_{i=1}^n \hat\varepsilon_i\hat Y_i
+-
+\bar Y\sum_{i=1}^n \hat\varepsilon_i.
+$$
+
+Pelas propriedades ortogonais dos resíduos no MQO, já demonstradas anteriormente, temos
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i=0
+\qquad \text{e} \qquad
+\sum_{i=1}^n \hat Y_i\hat\varepsilon_i=0.
+$$
+
+Portanto,
+
+$$
+\sum_{i=1}^n \hat\varepsilon_i(\hat Y_i-\bar Y)=0.
+$$
+
+Substituindo na expressão anterior, obtemos
+
+$$
+SQ_{Total}=SQ_{Res}+SQ_{Reg}.
+$$
+
+Logo,
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+::: {.callout-important title="Conclusão"}
+No MRLS com intercepto, a variabilidade total de $Y$ em torno da média pode ser decomposta em:
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res}.
+$$
+
+Essa identidade é a base algébrica da ANOVA da regressão linear simples.
+:::
+
+### Forma da estatística $F$ no MRLS
+
+No MRLS, a estatística $F$ para testar a hipótese
+
+$$
+H_0:\beta_1=0
+\qquad \text{versus} \qquad
+H_1:\beta_1\neq 0
+$$
+
+é dada por
+
+$$
+F=\frac{QM_{Reg}}{QM_{Res}},
+$$
+
+em que
+
+$$
+QM_{Reg}=\frac{SQ_{Reg}}{1}
+\qquad \text{e} \qquad
+QM_{Res}=\frac{SQ_{Res}}{n-2}.
+$$
+
+Como no MRLS a regressão possui apenas $1$ grau de liberdade, temos
+
+$$
+QM_{Reg}=SQ_{Reg}.
+$$
+
+Logo,
+
+$$
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+$$
+
+::: {.callout-note title="Passo técnico"}
+O numerador tem $1$ grau de liberdade porque, no MRLS com intercepto, a parte explicada pela regressão está associada a um único coeficiente de inclinação, $\beta_1$.
+:::
+
+Assim, a estatística $F$ pode ser escrita como
+
+$$
+F=(n-2)\frac{SQ_{Reg}}{SQ_{Res}}.
+$$
+
+::: {.callout-important title="Conclusão"}
+No MRLS, a estatística $F$ da ANOVA da regressão assume a forma
+
+$$
+F=\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+$$
+:::
+
+### Demonstração de que $SQ_{Reg}=\hat\beta_1^2S_{xx}$
+
+Esse resultado é relevante para conectar a estatística $F$ com a estatística $t$ e com $R^2$.
+
+Sabemos que
+
+$$
+SQ_{Reg}=\sum_{i=1}^n (\hat Y_i-\bar Y)^2.
+$$
+
+Além disso,
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i
+$$
+
+e
+
+$$
+\hat\beta_0=\bar Y-\hat\beta_1\bar X.
+$$
+
+Substituindo,
+
+$$
+\hat Y_i
+=
+\bar Y-\hat\beta_1\bar X+\hat\beta_1X_i
+=
+\bar Y+\hat\beta_1(X_i-\bar X).
+$$
+
+Logo,
+
+$$
+\hat Y_i-\bar Y=\hat\beta_1(X_i-\bar X).
+$$
+
+Substituindo em $SQ_{Reg}$,
+
+$$
+SQ_{Reg}
+=
+\sum_{i=1}^n \bigl[\hat\beta_1(X_i-\bar X)\bigr]^2.
+$$
+
+Como $\hat\beta_1$ não depende de $i$, podemos colocá-lo em evidência:
+
+$$
+SQ_{Reg}
+=
+\hat\beta_1^2 \sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+Como
+
+$$
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+$$
+
+segue que
+
+$$
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+$$
+
+::: {.callout-important title="Conclusão"}
+No MRLS,
+
+$$
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+$$
+
+Essa identidade é decisiva para estabelecer a equivalência entre as estatísticas $t$ e $F$.
+:::
+
+### Equivalência entre o teste $t$ para $\beta_1$ e o teste $F$ global
+
+Queremos demonstrar que, no MRLS,
+
+$$
+T^2=F,
+$$
+
+quando ambas as estatísticas testam
+
+$$
+H_0:\beta_1=0.
+$$
+
+A estatística $t$ para o coeficiente angular é
+
+$$
+T=\frac{\hat\beta_1}{\sqrt{s^2/S_{xx}}},
+$$
+
+em que
+
+$$
+s^2=\frac{SQ_{Res}}{n-2}.
+$$
+
+Elevando ao quadrado,
+
+$$
+T^2
+=
+\frac{\hat\beta_1^2}{s^2/S_{xx}}
+=
+\frac{\hat\beta_1^2S_{xx}}{s^2}.
+$$
+
+Substituindo
+
+$$
+s^2=\frac{SQ_{Res}}{n-2},
+$$
+
+obtemos
+
+$$
+T^2
+=
+\frac{\hat\beta_1^2S_{xx}}{SQ_{Res}/(n-2)}.
+$$
+
+Agora usamos o resultado já demonstrado:
+
+$$
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+$$
+
+Logo,
+
+$$
+T^2
+=
+\frac{SQ_{Reg}}{SQ_{Res}/(n-2)}.
+$$
+
+Mas essa é exatamente a estatística $F$ no MRLS. Portanto,
+
+$$
+T^2=F.
+$$
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples, o teste $t$ para $\beta_1$ e o teste $F$ global da regressão são equivalentes no sentido de que
+
+$$
+T^2=F.
+$$
+
+Assim, ambos testam exatamente a mesma hipótese e conduzem à mesma decisão.
+:::
+
+### Relação entre $R^2$ e a estatística $F$
+
+O coeficiente de determinação é definido por
+
+$$
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}.
+$$
+
+Como
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res},
+$$
+
+temos
+
+$$
+SQ_{Res}=SQ_{Total}-SQ_{Reg}.
+$$
+
+Pela definição de $R^2$,
+
+$$
+SQ_{Reg}=R^2SQ_{Total}.
+$$
+
+Portanto,
+
+$$
+SQ_{Res}=SQ_{Total}-R^2SQ_{Total}=(1-R^2)SQ_{Total}.
+$$
+
+A estatística $F$ pode ser escrita como
+
+$$
+F=(n-2)\frac{SQ_{Reg}}{SQ_{Res}}.
+$$
+
+Substituindo as expressões acima,
+
+$$
+F
+=
+(n-2)\frac{R^2SQ_{Total}}{(1-R^2)SQ_{Total}}.
+$$
+
+Cancelando $SQ_{Total}$, obtemos
+
+$$
+F=\frac{R^2}{1-R^2}(n-2).
+$$
+
+::: {.callout-important title="Conclusão"}
+No MRLS,
+
+$$
+F=\frac{R^2}{1-R^2}(n-2).
+$$
+
+Isso mostra que a estatística $F$ é uma função crescente de $R^2$.
+:::
+
+### Demonstração de que, no MRLS, $R^2=r_{XY}^2$
+
+Agora demonstraremos um dos resultados mais conhecidos da regressão linear simples com intercepto:
+
+$$
+R^2=r_{XY}^2,
+$$
+
+em que $r_{XY}$ é o coeficiente de correlação linear amostral entre $X$ e $Y$, dado por
+
+$$
+r_{XY}
+=
+\frac{\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y)}
+{\sqrt{\sum_{i=1}^n (X_i-\bar X)^2}\sqrt{\sum_{i=1}^n (Y_i-\bar Y)^2}}.
+$$
+
+Usando a notação
+
+$$
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+\qquad
+S_{yy}=\sum_{i=1}^n (Y_i-\bar Y)^2,
+\qquad
+S_{xy}=\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y),
+$$
+
+podemos escrever
+
+$$
+r_{XY}=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}.
+$$
+
+Portanto,
+
+$$
+r_{XY}^2=\frac{S_{xy}^2}{S_{xx}S_{yy}}.
+$$
+
+Nosso objetivo é mostrar que essa expressão coincide com $R^2$.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é reescrever $R^2$ em termos de $S_{xx}$, $S_{xy}$ e $S_{yy}$. Para isso, usaremos:
+
+1. a expressão de $\hat\beta_1$,
+$$
+\hat\beta_1=\frac{S_{xy}}{S_{xx}};
+$$
+
+2. a identidade
+$$
+SQ_{Reg}=\hat\beta_1^2S_{xx};
+$$
+
+3. o fato de que
+$$
+SQ_{Total}=S_{yy}.
+$$
+:::
+
+Sabemos que
+
+$$
+\hat\beta_1=\frac{S_{xy}}{S_{xx}}.
+$$
+
+Então,
+
+$$
+\hat\beta_1^2=\frac{S_{xy}^2}{S_{xx}^2}.
+$$
+
+Pela identidade já demonstrada,
+
+$$
+SQ_{Reg}=\hat\beta_1^2S_{xx}.
+$$
+
+Substituindo a expressão de $\hat\beta_1^2$,
+
+$$
+SQ_{Reg}
+=
+\frac{S_{xy}^2}{S_{xx}^2}S_{xx}
+=
+\frac{S_{xy}^2}{S_{xx}}.
+$$
+
+Por outro lado,
+
+$$
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2=S_{yy}.
+$$
+
+Logo,
+
+$$
+R^2
+=
+\frac{SQ_{Reg}}{SQ_{Total}}
+=
+\frac{S_{xy}^2/S_{xx}}{S_{yy}}
+=
+\frac{S_{xy}^2}{S_{xx}S_{yy}}.
+$$
+
+Mas essa é exatamente a expressão de $r_{XY}^2$. Portanto,
+
+$$
+R^2=r_{XY}^2.
+$$
+
+::: {.callout-important title="Conclusão"}
+No modelo de regressão linear simples com intercepto, o coeficiente de determinação coincide com o quadrado da correlação linear amostral:
+
+$$
+R^2=r_{XY}^2.
+$$
+
+Esse resultado é específico do MRLS e fornece uma interpretação imediata de $R^2$ em termos de associação linear entre $X$ e $Y$.
+:::
+
+### Relação entre $t$, $F$ e $r_{XY}$
+
+Podemos agora reunir os resultados obtidos:
+
+1. no MRLS,
+$$
+T^2=F;
+$$
+
+2. no MRLS,
+$$
+F=\frac{R^2}{1-R^2}(n-2);
+$$
+
+3. no MRLS com intercepto,
+$$
+R^2=r_{XY}^2.
+$$
+
+Substituindo $R^2=r_{XY}^2$ na expressão de $F$, obtemos
+
+$$
+F=\frac{r_{XY}^2}{1-r_{XY}^2}(n-2).
+$$
+
+Como $T^2=F$, segue que
+
+$$
+T^2=\frac{r_{XY}^2}{1-r_{XY}^2}(n-2).
+$$
+
+Tomando raiz quadrada, podemos escrever, em valor absoluto,
+
+$$
+|T|=\sqrt{\frac{r_{XY}^2}{1-r_{XY}^2}(n-2)}.
+$$
+
+Esse resultado mostra que, no MRLS, testar a significância do coeficiente angular, testar a significância global da regressão e avaliar a correlação linear amostral são, em essência, três maneiras equivalentes de examinar o mesmo fenômeno: a presença de associação linear entre $X$ e $Y$.
+
+::: {.callout-warning title="Condição necessária"}
+As identidades
+$$
+T^2=F
+\qquad \text{e} \qquad
+R^2=r_{XY}^2
+$$
+são específicas do modelo de regressão linear simples com intercepto. Em regressão múltipla, essas relações deixam de ter essa forma simples.
+:::
+
+::: {.callout-important title="Conclusão geral"}
+No MRLS com intercepto, os principais objetos da parte de testes estão profundamente conectados:
+
+- a decomposição da soma de quadrados fundamenta a ANOVA;
+- a estatística $F$ mede a razão entre variabilidade explicada e residual;
+- a estatística $t$ para $\beta_1$ satisfaz
+$$
+T^2=F;
+$$
+- o coeficiente de determinação satisfaz
+$$
+R^2=r_{XY}^2.
+$$
+
+Esses resultados mostram que, no MRLS, diferentes abordagens inferenciais convergem para uma mesma estrutura teórica.
+:::
+
+## Propriedades dos resíduos e alavancagem no MRLS
+
+Considere o modelo de regressão linear simples
+
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i,\qquad i=1,\dots,n,
+$$
+
+com
+
+$$
+E(\varepsilon_i\mid X)=0,
+\qquad
+Var(\varepsilon_i\mid X)=\sigma^2,
+\qquad
+Cov(\varepsilon_i,\varepsilon_j\mid X)=0 \text{ para } i\neq j.
+$$
+
+Denotemos:
+
+$$
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i,
+\qquad
+\hat\varepsilon_i=Y_i-\hat Y_i.
+$$
+
+Nosso objetivo é demonstrar as principais propriedades dos resíduos no MRLS e sua relação com a alavancagem.
+
+
+### Expressão dos resíduos em função dos erros
+
+Começamos escrevendo:
+
+$$
+\hat\varepsilon_i
+=
+Y_i-\hat Y_i
+=
+(\beta_0+\beta_1X_i+\varepsilon_i)-(\hat\beta_0+\hat\beta_1X_i).
+$$
+
+Logo,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+(\hat\beta_0-\beta_0)
+-
+(\hat\beta_1-\beta_1)X_i.
+$$
+
+Sabemos que
+
+$$
+\hat\beta_1-\beta_1=\frac{1}{S_{xx}}\sum_{j=1}^n (X_j-\bar X)\varepsilon_j,
+$$
+
+e
+
+$$
+\hat\beta_0-\beta_0=\bar\varepsilon-\bar X(\hat\beta_1-\beta_1),
+$$
+
+com
+
+$$
+\bar\varepsilon=\frac{1}{n}\sum_{j=1}^n \varepsilon_j.
+$$
+
+Substituindo,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\bar\varepsilon
+-
+(\hat\beta_1-\beta_1)(X_i-\bar X).
+$$
+
+Portanto,
+
+$$
+\hat\varepsilon_i
+=
+\varepsilon_i
+-
+\frac{1}{n}\sum_{j=1}^n \varepsilon_j
+-
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)\varepsilon_j.
+$$
+
+
+::: {.callout-important title="Interpretação"}
+Cada resíduo depende de todos os erros $\varepsilon_1,\dots,\varepsilon_n$, e não apenas de $\varepsilon_i$. Isso explica por que os resíduos são correlacionados entre si.
+:::
+
+### Esperança dos resíduos
+
+Tomando esperança condicional em $X$:
+
+$$
+E(\hat\varepsilon_i\mid X)
+=
+E(\varepsilon_i\mid X)
+-
+E(\bar\varepsilon\mid X)
+-
+\frac{X_i-\bar X}{S_{xx}}
+E\left[\sum (X_j-\bar X)\varepsilon_j \mid X\right].
+$$
+
+Como todos os termos têm média zero, segue que
+
+$$
+E(\hat\varepsilon_i\mid X)=0.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+Os resíduos possuem média zero:
+
+$$
+E(\hat\varepsilon_i\mid X)=0.
+$$
+:::
+
+
+### Variância dos resíduos
+
+Usando a expressão obtida anteriormente, cada resíduo pode ser escrito como combinação linear dos erros:
+
+$$
+\hat\varepsilon_i=\sum_{j=1}^n a_{ij}\varepsilon_j.
+$$
+
+Como os erros são não correlacionados,
+
+$$
+Var(\hat\varepsilon_i\mid X)
+=
+\sigma^2\sum_{j=1}^n a_{ij}^2.
+$$
+
+Após simplificação algébrica, obtém-se:
+
+$$
+Var(\hat\varepsilon_i\mid X)
+=
+\sigma^2\left(1-h_{ii}\right),
+$$
+
+em que
+
+$$
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+A variância dos resíduos não é constante:
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}).
+$$
+:::
+
+
+### Covariância entre resíduos
+
+Para $i\neq j$,
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+\sigma^2\sum_{k=1}^n a_{ik}a_{jk}.
+$$
+
+Após manipulação algébrica, obtemos
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)
+=
+-\sigma^2 h_{ij},
+$$
+
+com
+
+$$
+h_{ij}=\frac{1}{n}+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
+$$
+
+::: {.callout-important title="Conclusão"}
+Os resíduos são correlacionados:
+
+$$
+Cov(\hat\varepsilon_i,\hat\varepsilon_j\mid X)\neq 0.
+$$
+:::
+
+
+### Demonstração da alavancagem no MRLS
+
+Sabemos que
+
+$$
+\hat Y_i=\bar Y+\hat\beta_1(X_i-\bar X).
+$$
+
+Substituindo
+
+$$
+\hat\beta_1=\frac{\sum_{j=1}^n (X_j-\bar X)Y_j}{S_{xx}},
+$$
+
+temos
+
+$$
+\hat Y_i
+=
+\frac{1}{n}\sum_{j=1}^n Y_j
++
+\frac{X_i-\bar X}{S_{xx}}
+\sum_{j=1}^n (X_j-\bar X)Y_j.
+$$
+
+Reorganizando,
+
+$$
+\hat Y_i
+=
+\sum_{j=1}^n
+\left[
+\frac{1}{n}
++
+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}
+\right]Y_j.
+$$
+
+Logo,
+
+$$
+h_{ij}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)(X_j-\bar X)}{S_{xx}}.
+$$
+
+Para $i=j$,
+
+$$
+h_{ii}
+=
+\frac{1}{n}
++
+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+A alavancagem no MRLS é dada por:
+
+$$
+h_{ii}=\frac{1}{n}+\frac{(X_i-\bar X)^2}{S_{xx}}.
+$$
+:::
+
+### Soma das alavancagens
+
+Somando em $i$,
+
+$$
+\sum_{i=1}^n h_{ii}
+=
+\sum_{i=1}^n \frac{1}{n}
++
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n h_{ii}=1+1=2.
+$$
+
+
+::: {.callout-important title="Conclusão"}
+No MRLS com intercepto,
+
+$$
+\sum_{i=1}^n h_{ii}=2,
+$$
+
+o que corresponde ao número de parâmetros estimados no modelo.
+:::
+
+
+### Relação entre variância dos resíduos e alavancagem
+
+Recordando:
+
+$$
+Var(\hat\varepsilon_i\mid X)=\sigma^2(1-h_{ii}),
+$$
+
+vemos que:
+
+- quanto maior $h_{ii}$, menor a variância do resíduo;
+- pontos extremos em $X$ têm maior alavancagem e resíduos menos variáveis.
+
+::: {.callout-important title="Interpretação"}
+Observações com alto valor de $h_{ii}$ tendem a influenciar fortemente o ajuste da reta e apresentam resíduos com menor variabilidade.
+:::
+
+### Resíduos padronizados
+
+Para corrigir a não homogeneidade da variância dos resíduos, definimos os resíduos padronizados:
+
+$$
+r_i=\frac{\hat\varepsilon_i}{\hat\sigma\sqrt{1-h_{ii}}},
+$$
+
+em que
+
+$$
+\hat\sigma^2=\frac{SQ_{Res}}{n-2}.
+$$
+
+::: {.callout-note title="Motivação"}
+Como
+
+$$
+Var(\hat\varepsilon_i)=\sigma^2(1-h_{ii}),
+$$
+
+a divisão por $\sqrt{1-h_{ii}}$ torna os resíduos comparáveis entre si, ajustando a diferença de variâncias.
+:::
+
+
+::: {.callout-important title="Conclusão final"}
+No MRLS:
+
+- os resíduos não são independentes;
+- não possuem variância constante;
+- dependem da estrutura de $X$ via alavancagem;
+- e devem ser analisados por meio de resíduos padronizados.
+
+Esses resultados fundamentam toda a análise de diagnóstico em regressão linear simples.
+:::
+
+
+## Transformações e comparação de modelos no MRLS
+
+Nesta seção, apresentamos três resultados úteis para complementar a parte de transformações e comparação de modelos no contexto do modelo de regressão linear simples.
+
+Os resultados são:
+
+1. uma justificativa, via expansão de Taylor de primeira ordem, para o uso de transformações com objetivo de **estabilizar a variância**;
+2. a demonstração da fórmula do **coeficiente de determinação ajustado**;
+3. uma interpretação formal da **comparação via soma de quadrados**, mostrando como a redução de variabilidade residual pode ser usada para comparar ajustes.
+
+### Método Delta e estabilização de variância
+
+Em muitos problemas práticos, a variância da resposta cresce com seu nível médio. Nesses casos, transformações da variável resposta podem ser úteis para tornar a variância aproximadamente constante.
+
+Um argumento clássico para isso usa a expansão de Taylor de primeira ordem, frequentemente chamada de Método Delta.
+
+Suponha que $Y$ seja uma variável aleatória com média
+
+$$
+E(Y)=\mu
+$$
+
+e variância
+
+$$
+Var(Y)=\sigma_Y^2.
+$$
+
+Seja $g$ uma função diferenciável em torno de $\mu$. Queremos aproximar a variância de $g(Y)$.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é aproximar $g(Y)$ por sua expansão de Taylor de primeira ordem em torno de $\mu$:
+
+$$
+g(Y)\approx g(\mu)+g'(\mu)(Y-\mu).
+$$
+
+Como a variância de uma constante é zero, a variância de $g(Y)$ pode ser aproximada pela variância do termo linear.
+:::
+
+**1. Expansão de Taylor de primeira ordem**
+
+Expandindo $g(Y)$ em torno de $\mu$, temos
+
+$$
+g(Y)
+=
+g(\mu)+g'(\mu)(Y-\mu)+R_2,
+$$
+
+em que $R_2$ representa o resto da expansão.
+
+Se desprezarmos, em primeira aproximação, os termos de ordem superior, obtemos
+
+$$
+g(Y)\approx g(\mu)+g'(\mu)(Y-\mu).
+$$
+
+Tomando variância em ambos os lados, segue que
+
+$$
+Var(g(Y))
+\approx
+Var\bigl(g(\mu)+g'(\mu)(Y-\mu)\bigr).
+$$
+
+Como $g(\mu)$ é constante,
+
+$$
+Var(g(Y))
+\approx
+Var\bigl(g'(\mu)(Y-\mu)\bigr).
+$$
+
+Extraindo o fator constante $g'(\mu)$,
+
+$$
+Var(g(Y))
+\approx
+[g'(\mu)]^2 Var(Y-\mu).
+$$
+
+Mas
+
+$$
+Var(Y-\mu)=Var(Y).
+$$
+
+Logo,
+
+$$
+Var(g(Y))\approx [g'(\mu)]^2 Var(Y).
+$$
+
+Portanto,
+
+$$
+Var(g(Y))\approx [g'(\mu)]^2 \sigma_Y^2.
+$$
+
+::: {.callout-important title="Conclusão"}
+Pelo método Delta de primeira ordem,
+
+$$
+Var(g(Y))\approx [g'(\mu)]^2 Var(Y).
+$$
+
+Esse resultado mostra que a variância da variável transformada depende tanto da variância original quanto da inclinação local da transformação.
+:::
+
+**2. Aplicação à estabilização de variância**
+
+Suponha agora que a variância de $Y$ dependa da média segundo uma relação do tipo
+
+$$
+Var(Y)\approx C\,V(\mu),
+$$
+
+em que $C>0$ é uma constante e $V(\mu)$ é uma função positiva da média.
+
+Queremos encontrar uma transformação $g$ tal que $Var(g(Y))$ seja aproximadamente constante.
+
+Pelo resultado anterior,
+
+$$
+Var(g(Y))
+\approx
+[g'(\mu)]^2 C\,V(\mu).
+$$
+
+Para que essa variância seja aproximadamente constante, basta escolher $g$ de forma que
+
+$$
+[g'(\mu)]^2 V(\mu)
+$$
+
+seja constante em $\mu$.
+
+Uma escolha natural é impor
+
+$$
+g'(\mu)=\frac{1}{\sqrt{V(\mu)}}.
+$$
+
+Nesse caso,
+
+$$
+[g'(\mu)]^2V(\mu)
+=
+\frac{1}{V(\mu)}V(\mu)=1,
+$$
+
+e, portanto,
+
+$$
+Var(g(Y))\approx C.
+$$
+
+Isso mostra que a transformação estabilizadora pode ser obtida, ao menos aproximadamente, resolvendo
+
+$$
+g'(\mu)=\frac{1}{\sqrt{V(\mu)}}.
+$$
+
+Integrando,
+
+$$
+g(\mu)=\int \frac{1}{\sqrt{V(\mu)}}\,d\mu.
+$$
+
+::: {.callout-note title="Passo técnico"}
+Esse argumento não fornece uma igualdade exata, mas sim uma aproximação de primeira ordem. Ainda assim, ele é extremamente útil para justificar transformações clássicas.
+:::
+
+**3. Casos particulares importantes**
+
+**Caso 1: variância proporcional ao quadrado da média**
+
+Suponha que
+
+$$
+Var(Y)\approx C\mu^2.
+$$
+
+Então
+
+$$
+V(\mu)=\mu^2.
+$$
+
+Logo,
+
+$$
+g'(\mu)=\frac{1}{\sqrt{\mu^2}}=\frac{1}{|\mu|}.
+$$
+
+Se $\mu>0$, isso se reduz a
+
+$$
+g'(\mu)=\frac{1}{\mu}.
+$$
+
+Integrando,
+
+$$
+g(\mu)=\log(\mu)+\text{constante}.
+$$
+
+Assim, a transformação logarítmica surge naturalmente como transformação estabilizadora quando a variância é aproximadamente proporcional ao quadrado da média.
+
+**Caso 2: variância proporcional à média**
+
+Se
+
+$$
+Var(Y)\approx C\mu,
+$$
+
+então
+
+$$
+V(\mu)=\mu,
+$$
+
+e
+
+$$
+g'(\mu)=\frac{1}{\sqrt{\mu}}.
+$$
+
+Integrando,
+
+$$
+g(\mu)=2\sqrt{\mu}+\text{constante}.
+$$
+
+Nesse caso, a transformação raiz quadrada é a estabilizadora natural.
+
+::: {.callout-important title="Conclusão"}
+O método Delta justifica, de forma simples e elegante, o uso de transformações como:
+
+- $\log(Y)$, quando $Var(Y)$ cresce aproximadamente como $\mu^2$;
+- $\sqrt{Y}$, quando $Var(Y)$ cresce aproximadamente como $\mu$.
+
+Essas transformações podem tornar a variância aproximadamente constante, favorecendo o uso do modelo linear clássico.
+:::
+
+### Demonstração do coeficiente de determinação ajustado
+
+No modelo de regressão linear simples com intercepto, o coeficiente de determinação é definido por
+
+$$
+R^2=\frac{SQ_{Reg}}{SQ_{Total}}
+=
+1-\frac{SQ_{Res}}{SQ_{Total}}.
+$$
+
+Entretanto, em comparação de ajustes, é comum utilizar o **coeficiente de determinação ajustado**, definido por
+
+$$
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+$$
+
+Nosso objetivo é justificar essa expressão.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A ideia é observar que $R^2$ compara somas de quadrados brutas, enquanto $R^2_{aj}$ compara **quadrados médios**, isto é, quantidades ajustadas pelos respectivos graus de liberdade.
+
+No MRLS com intercepto:
+
+- $SQ_{Total}$ tem $n-1$ graus de liberdade;
+- $SQ_{Res}$ tem $n-2$ graus de liberdade.
+:::
+
+**1. Ajuste por graus de liberdade**
+
+Sabemos que:
+
+$$
+SQ_{Total}=\sum_{i=1}^n (Y_i-\bar Y)^2
+$$
+
+mede a variabilidade total em torno da média, e como a média $\bar Y$ é estimada a partir da própria amostra, essa quantidade possui $n-1$ graus de liberdade.
+
+Por outro lado,
+
+$$
+SQ_{Res}=\sum_{i=1}^n (Y_i-\hat Y_i)^2
+$$
+
+mede a variabilidade residual após o ajuste da reta, e como dois parâmetros são estimados, $\beta_0$ e $\beta_1$, restam $n-2$ graus de liberdade.
+
+Assim, as quantidades comparáveis em termos médios são:
+
+$$
+\frac{SQ_{Total}}{n-1}
+\qquad \text{e} \qquad
+\frac{SQ_{Res}}{n-2}.
+$$
+
+A primeira representa a variabilidade total média por grau de liberdade, e a segunda representa a variabilidade residual média por grau de liberdade.
+
+**2. Construção do $R^2$ ajustado**
+
+O coeficiente $R^2$ usual mede a fração da variabilidade total explicada pelo modelo. Analogamente, podemos medir a fração da variabilidade total média que não permanece nos resíduos médios. Isso leva naturalmente a
+
+$$
+R^2_{aj}
+=
+1-\frac{\text{variabilidade residual média}}{\text{variabilidade total média}}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+$$
+
+Portanto,
+
+$$
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+$$
+
+::: {.callout-important title="Conclusão"}
+O coeficiente de determinação ajustado é dado por
+
+$$
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+$$
+
+Ele ajusta o coeficiente de determinação pelos graus de liberdade, penalizando a redução artificial da soma de quadrados residual.
+:::
+
+**3. Forma alternativa em função de $R^2$**
+
+Podemos reescrever $R^2_{aj}$ em função de $R^2$.
+
+Como
+
+$$
+R^2=1-\frac{SQ_{Res}}{SQ_{Total}},
+$$
+
+temos
+
+$$
+\frac{SQ_{Res}}{SQ_{Total}}=1-R^2.
+$$
+
+Substituindo na expressão do coeficiente ajustado,
+
+$$
+R^2_{aj}
+=
+1-
+\frac{n-1}{n-2}\frac{SQ_{Res}}{SQ_{Total}}
+=
+1-\frac{n-1}{n-2}(1-R^2).
+$$
+
+Logo,
+
+$$
+R^2_{aj}
+=
+1-\frac{n-1}{n-2}(1-R^2).
+$$
+
+Essa forma é útil para interpretação e comparação.
+
+::: {.callout-note title="Passo técnico"}
+Como
+$$
+\frac{n-1}{n-2}>1,
+$$
+segue que, no MRLS com intercepto,
+$$
+R^2_{aj}\leq R^2.
+$$
+Ou seja, o coeficiente ajustado é sempre menor ou igual ao coeficiente de determinação usual.
+:::
+
+### Interpretação formal da comparação via soma de quadrados
+
+Agora formalizaremos a ideia de que a comparação de ajustes pode ser feita examinando a redução da soma de quadrados residual.
+
+Considere dois modelos ajustados aos mesmos dados:
+
+- um modelo mais simples, com soma de quadrados residual $SQ_{Res}^{(S)}$;
+- um modelo mais flexível, com soma de quadrados residual $SQ_{Res}^{(F)}$.
+
+Suponhamos que o modelo mais simples esteja contido no mais flexível, de modo que o segundo tenha maior capacidade de ajuste.
+
+::: {.callout-important title="Estratégia da demonstração"}
+A comparação será feita observando que, ao ampliar a classe de funções candidatas ao ajuste, a soma de quadrados residual não pode aumentar.
+
+Ou seja, se o modelo mais flexível contém o mais simples como caso particular, então o melhor ajuste dentro da classe maior nunca será pior do que o melhor ajuste dentro da classe menor.
+:::
+
+**1. A soma de quadrados residual não aumenta ao ampliar o modelo**
+
+No MQO, ajustamos o modelo escolhendo os parâmetros que minimizam a soma de quadrados residual dentro de uma determinada classe.
+
+Se o modelo mais simples está contido no modelo mais flexível, então todo ajuste possível no modelo simples também é admissível no modelo flexível.
+
+Assim, o mínimo obtido no modelo flexível é calculado sobre um conjunto maior de possibilidades. Portanto,
+
+$$
+SQ_{Res}^{(F)} \leq SQ_{Res}^{(S)}.
+$$
+
+Equivalentemente,
+
+$$
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}\geq 0.
+$$
+
+Essa diferença mede o ganho de ajuste proporcionado pela maior flexibilidade do modelo.
+
+::: {.callout-important title="Conclusão"}
+Quando um modelo é ampliado, a soma de quadrados residual não aumenta:
+
+$$
+SQ_{Res}^{(F)} \leq SQ_{Res}^{(S)}.
+$$
+
+A redução
+$$
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}
+$$
+mede a parcela adicional de variabilidade explicada pelo modelo mais flexível.
+:::
+
+**2. Interpretação em termos de variabilidade explicada**
+
+Pela decomposição da soma de quadrados,
+
+$$
+SQ_{Total}=SQ_{Reg}+SQ_{Res},
+$$
+
+temos, para um mesmo conjunto de dados, $SQ_{Total}$ fixo.
+
+Logo, se a soma de quadrados residual diminui, a soma de quadrados da regressão aumenta na mesma proporção. Assim, a diferença
+
+$$
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}
+$$
+
+também pode ser interpretada como o aumento da variabilidade explicada quando passamos do modelo mais simples para o mais flexível.
+
+Se denotarmos por $SQ_{Reg}^{(S)}$ e $SQ_{Reg}^{(F)}$ as somas de quadrados de regressão dos dois modelos, então
+
+$$
+SQ_{Reg}^{(F)}-SQ_{Reg}^{(S)}
+=
+SQ_{Res}^{(S)}-SQ_{Res}^{(F)}.
+$$
+
+Isso decorre diretamente do fato de que $SQ_{Total}$ é o mesmo nos dois ajustes.
+
+**3. Caso particular: comparação com o modelo apenas com intercepto**
+
+No MRLS, o caso mais importante ocorre quando comparamos:
+
+- o modelo reduzido:
+$$
+Y_i=\beta_0+\varepsilon_i;
+$$
+
+- com o modelo completo:
+$$
+Y_i=\beta_0+\beta_1X_i+\varepsilon_i.
+$$
+
+No modelo apenas com intercepto, os valores ajustados são todos iguais a $\bar Y$, logo a soma de quadrados residual é exatamente
+
+$$
+SQ_{Total}.
+$$
+
+Já no modelo com regressão, a soma de quadrados residual é $SQ_{Res}$.
+
+Assim, a redução da soma de quadrados residual ao introduzir $X$ é
+
+$$
+SQ_{Total}-SQ_{Res}.
+$$
+
+Mas, pela decomposição da soma de quadrados,
+
+$$
+SQ_{Total}-SQ_{Res}=SQ_{Reg}.
+$$
+
+Portanto, a soma de quadrados da regressão pode ser interpretada como a redução da variabilidade residual obtida ao substituir o modelo apenas com intercepto pelo modelo com inclinação.
+
+::: {.callout-important title="Conclusão"}
+No MRLS, a soma de quadrados da regressão pode ser interpretada como o ganho de explicação obtido ao passar do modelo sem $X$ para o modelo com $X$:
+
+$$
+SQ_{Reg}=SQ_{Total}-SQ_{Res}.
+$$
+:::
+
+**4. Relação com a estatística $F$**
+
+A estatística $F$ no MRLS é dada por
+
+$$
+F=\frac{SQ_{Reg}/1}{SQ_{Res}/(n-2)}.
+$$
+
+Como $SQ_{Reg}$ representa o ganho de explicação produzido pela inclusão de $X$, a estatística $F$ compara:
+
+- a variabilidade explicada adicional por grau de liberdade;
+- com a variabilidade residual média por grau de liberdade.
+
+Assim, valores grandes de $F$ indicam que a redução de $SQ_{Res}$ obtida ao incluir $X$ é grande em relação ao ruído residual ainda presente no modelo.
+
+::: {.callout-note title="Passo técnico"}
+No MRLS, a parte explicada adicional possui $1$ grau de liberdade, pois a diferença entre os dois modelos decorre da inclusão de um único parâmetro, $\beta_1$.
+:::
+
+### Conclusão geral
+
+Os resultados desta seção mostram que dois blocos importantes da parte aplicada do MRLS possuem fundamentação analítica simples e elegante.
+
+Primeiro, o método Delta fornece uma justificativa formal para o uso de transformações com o objetivo de estabilizar a variância. Em particular, ele mostra por que transformações como logaritmo e raiz quadrada surgem naturalmente em situações onde a variância cresce com a média.
+
+Segundo, a comparação de modelos via soma de quadrados possui interpretação geométrica e algébrica clara: um modelo mais flexível nunca aumenta a soma de quadrados residual, e a redução observada mede a variabilidade adicional explicada.
+
+Por fim, o coeficiente de determinação ajustado corrige o $R^2$ usual pelos graus de liberdade, oferecendo uma medida mais adequada para comparação de ajustes.
+
+::: {.callout-important title="Conclusão final"}
+No contexto do MRLS,
+
+- transformações podem ser justificadas por argumentos aproximativos de estabilização de variância;
+- a comparação de modelos pode ser entendida pela redução da soma de quadrados residual;
+- e o coeficiente de determinação ajustado incorpora explicitamente o papel dos graus de liberdade:
+
+$$
+R^2_{aj}
+=
+1-\frac{SQ_{Res}/(n-2)}{SQ_{Total}/(n-1)}.
+$$
+:::
