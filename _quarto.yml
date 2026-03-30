@@ -32,7 +32,7 @@ book:
         - mrls_diagnostico.qmd
         - mrls_transf.qmd
         - mrls_compara.qmd
-#        - mrls_inferencia2.qmd
+#        - mrls_aplicacao.qmd
         - part2_ex.qmd
 
     

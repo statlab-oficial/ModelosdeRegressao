@@ -1,3 +1,130 @@
 # Exercícios e Atividades de Consolidação
 
-Em breve!!!
+## Exercícios conceituais
+
+Os exercícios desta seção têm como objetivo consolidar a compreensão conceitual do MRLS, enfatizando interpretação, estrutura do modelo e suas limitações. Sempre que possível, justifique suas respostas com argumentos estatísticos claros.
+
+### Modelo e interpretação
+
+1. Explique por que o MRLS é um modelo para a média condicional $E(Y\mid X)$ e não uma descrição exata dos dados. Discuta o papel do termo aleatório $\varepsilon_i$.
+
+2. No modelo
+   $$
+   Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+   $$
+   interprete cada componente e explique por que $\varepsilon_i$ não deve ser entendido apenas como “erro”.
+
+3. Discuta criticamente a diferença entre:
+   a. associação linear;  
+   b. explicação de $Y$ por $X$;  
+   c. causalidade.
+
+4. Mostre que, se $E(\varepsilon_i\mid X_i)\neq 0$, então a função linear deixa de representar corretamente a média condicional. Interprete esse resultado.
+
+5. Considere dois conjuntos de dados com mesma reta média, mas diferentes dispersões. Discuta o impacto sobre inferência e predição.
+
+### MQO e propriedades dos estimadores
+
+6. Explique por que MQO minimiza a soma de quadrados dos resíduos e não a soma simples dos resíduos.
+
+7. Mostre que a reta ajustada passa por $(\bar X,\bar Y)$.  
+
+8. Justifique conceitualmente as propriedades:
+   a. $\sum e_i = 0$;  
+   b. $\sum e_i X_i = 0$.  
+   Discuta o significado geométrico dessas relações.
+
+9. Discuta como a variância de $\hat\beta_1$ depende de:
+   a. tamanho da amostra;  
+   b. variabilidade de $X$;  
+   c. variância dos erros.  
+
+10. Explique o que significa dizer que MQO é não viesado e por que isso não garante bom desempenho em amostras pequenas.  
+
+11. Enuncie e interprete o Teorema de Gauss–Markov, destacando seus limites.  
+
+### Inferência e predição
+
+12. Explique o papel da normalidade dos erros na inferência do MRLS.  
+
+13. Diferencie claramente:
+    a. estimar $\beta_1$;  
+    b. estimar $E(Y\mid X=x_0)$;  
+    c. prever uma nova observação.
+
+14. Explique por que o intervalo de predição é mais amplo que o intervalo de confiança para a média.  
+
+15. Discuta por que intervalos são mais estreitos próximos de $\bar X$.  
+
+16. Avalie criticamente a afirmação:  
+    “Se o intervalo de confiança para $\beta_1$ contém zero, então não há relação entre $X$ e $Y$”.
+
+17. Explique o problema da extrapolação e seus riscos.
+
+### Testes e ANOVA
+
+18. Interprete o teste $H_0:\beta_1=0$ em termos práticos.
+
+19. Mostre a equivalência entre o teste $t$ e o teste $F$ no MRLS.  
+
+20. Explique a decomposição:
+    $$
+    SQT = SQR + SQE.
+    $$  
+
+21. Discuta criticamente:
+    a. limitações do teste $F$;  
+    b. interpretação de $R^2$;  
+    c. por que $R^2$ alto não implica bom modelo.
+
+22. Explique como é possível ter $R^2$ baixo e coeficiente significativo.  
+
+### Diagnóstico
+
+23. Explique o papel central dos resíduos na avaliação do modelo.
+
+24. Descreva o que indica, em gráficos de resíduos:
+    a. curvatura;  
+    b. heterocedasticidade;  
+    c. pontos extremos.
+
+25. Diferencie:
+    a. resíduo simples;  
+    b. padronizado;  
+    c. estudentizado.  
+
+26. Explique os conceitos de alavancagem e influência, destacando por que nem todo outlier é influente.  
+
+27. Discuta um cenário em que:
+    - testes são significativos  
+    - mas os resíduos indicam má especificação
+
+### Transformações e comparação de modelos
+
+28. Explique por que transformações podem ser necessárias no MRLS.
+
+29. Discuta o efeito de aplicar $\log(Y)$ quando a variância cresce com a média.  
+
+30. Diferencie:
+    a. transformar $Y$;  
+    b. transformar $X$;  
+    c. incluir termos polinomiais.
+
+31. Explique por que AIC/BIC devem ser comparados com cautela quando há transformação da resposta. 
+32. Discuta o trade-off entre:
+    - melhor ajuste numérico  
+    - melhor adequação às hipóteses
+
+### Integração conceitual
+
+33. Analise criticamente a afirmação:
+
+    “O modelo é bom porque a inclinação é significativa e o $R^2$ é alto, logo as previsões são precisas.”
+
+34. Explique a diferença entre:
+    a. modelagem;  
+    b. estimação;  
+    c. inferência;  
+    d. diagnóstico.
+
+35. Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.  

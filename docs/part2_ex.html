@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -294,8 +323,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#exercícios-conceituais" id="toc-exercícios-conceituais" class="nav-link active" data-scroll-target="#exercícios-conceituais"><span class="header-section-number">11.1</span> Exercícios conceituais</a>
+  <ul class="collapse">
+  <li><a href="#modelo-e-interpretação" id="toc-modelo-e-interpretação" class="nav-link" data-scroll-target="#modelo-e-interpretação"><span class="header-section-number">11.1.1</span> Modelo e interpretação</a></li>
+  <li><a href="#mqo-e-propriedades-dos-estimadores" id="toc-mqo-e-propriedades-dos-estimadores" class="nav-link" data-scroll-target="#mqo-e-propriedades-dos-estimadores"><span class="header-section-number">11.1.2</span> MQO e propriedades dos estimadores</a></li>
+  <li><a href="#inferência-e-predição" id="toc-inferência-e-predição" class="nav-link" data-scroll-target="#inferência-e-predição"><span class="header-section-number">11.1.3</span> Inferência e predição</a></li>
+  <li><a href="#testes-e-anova" id="toc-testes-e-anova" class="nav-link" data-scroll-target="#testes-e-anova"><span class="header-section-number">11.1.4</span> Testes e ANOVA</a></li>
+  <li><a href="#diagnóstico" id="toc-diagnóstico" class="nav-link" data-scroll-target="#diagnóstico"><span class="header-section-number">11.1.5</span> Diagnóstico</a></li>
+  <li><a href="#transformações-e-comparação-de-modelos" id="toc-transformações-e-comparação-de-modelos" class="nav-link" data-scroll-target="#transformações-e-comparação-de-modelos"><span class="header-section-number">11.1.6</span> Transformações e comparação de modelos</a></li>
+  <li><a href="#integração-conceitual" id="toc-integração-conceitual" class="nav-link" data-scroll-target="#integração-conceitual"><span class="header-section-number">11.1.7</span> Integração conceitual</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -319,9 +363,162 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Em breve!!!</p>
+<section id="exercícios-conceituais" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="exercícios-conceituais"><span class="header-section-number">11.1</span> Exercícios conceituais</h2>
+<p>Os exercícios desta seção têm como objetivo consolidar a compreensão conceitual do MRLS, enfatizando interpretação, estrutura do modelo e suas limitações. Sempre que possível, justifique suas respostas com argumentos estatísticos claros.</p>
+<section id="modelo-e-interpretação" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="modelo-e-interpretação"><span class="header-section-number">11.1.1</span> Modelo e interpretação</h3>
+<ol type="1">
+<li><p>Explique por que o MRLS é um modelo para a média condicional <span class="math inline">\(E(Y\mid X)\)</span> e não uma descrição exata dos dados. Discuta o papel do termo aleatório <span class="math inline">\(\varepsilon_i\)</span>.</p></li>
+<li><p>No modelo <span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+\]</span> interprete cada componente e explique por que <span class="math inline">\(\varepsilon_i\)</span> não deve ser entendido apenas como “erro”.</p></li>
+<li><p>Discuta criticamente a diferença entre:</p>
+<ol type="a">
+<li>associação linear;<br>
+</li>
+<li>explicação de <span class="math inline">\(Y\)</span> por <span class="math inline">\(X\)</span>;<br>
+</li>
+<li>causalidade.</li>
+</ol></li>
+<li><p>Mostre que, se <span class="math inline">\(E(\varepsilon_i\mid X_i)\neq 0\)</span>, então a função linear deixa de representar corretamente a média condicional. Interprete esse resultado.</p></li>
+<li><p>Considere dois conjuntos de dados com mesma reta média, mas diferentes dispersões. Discuta o impacto sobre inferência e predição.</p></li>
+</ol>
+</section>
+<section id="mqo-e-propriedades-dos-estimadores" class="level3" data-number="11.1.2">
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="mqo-e-propriedades-dos-estimadores"><span class="header-section-number">11.1.2</span> MQO e propriedades dos estimadores</h3>
+<ol start="6" type="1">
+<li><p>Explique por que MQO minimiza a soma de quadrados dos resíduos e não a soma simples dos resíduos.</p></li>
+<li><p>Mostre que a reta ajustada passa por <span class="math inline">\((\bar X,\bar Y)\)</span>.</p></li>
+<li><p>Justifique conceitualmente as propriedades:</p>
+<ol type="a">
+<li><span class="math inline">\(\sum e_i = 0\)</span>;<br>
+</li>
+<li><span class="math inline">\(\sum e_i X_i = 0\)</span>.<br>
+Discuta o significado geométrico dessas relações.</li>
+</ol></li>
+<li><p>Discuta como a variância de <span class="math inline">\(\hat\beta_1\)</span> depende de:</p>
+<ol type="a">
+<li>tamanho da amostra;<br>
+</li>
+<li>variabilidade de <span class="math inline">\(X\)</span>;<br>
+</li>
+<li>variância dos erros.</li>
+</ol></li>
+<li><p>Explique o que significa dizer que MQO é não viesado e por que isso não garante bom desempenho em amostras pequenas.</p></li>
+<li><p>Enuncie e interprete o Teorema de Gauss–Markov, destacando seus limites.</p></li>
+</ol>
+</section>
+<section id="inferência-e-predição" class="level3" data-number="11.1.3">
+<h3 data-number="11.1.3" class="anchored" data-anchor-id="inferência-e-predição"><span class="header-section-number">11.1.3</span> Inferência e predição</h3>
+<ol start="12" type="1">
+<li><p>Explique o papel da normalidade dos erros na inferência do MRLS.</p></li>
+<li><p>Diferencie claramente:</p>
+<ol type="a">
+<li>estimar <span class="math inline">\(\beta_1\)</span>;<br>
+</li>
+<li>estimar <span class="math inline">\(E(Y\mid X=x_0)\)</span>;<br>
+</li>
+<li>prever uma nova observação.</li>
+</ol></li>
+<li><p>Explique por que o intervalo de predição é mais amplo que o intervalo de confiança para a média.</p></li>
+<li><p>Discuta por que intervalos são mais estreitos próximos de <span class="math inline">\(\bar X\)</span>.</p></li>
+<li><p>Avalie criticamente a afirmação:<br>
+“Se o intervalo de confiança para <span class="math inline">\(\beta_1\)</span> contém zero, então não há relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>”.</p></li>
+<li><p>Explique o problema da extrapolação e seus riscos.</p></li>
+</ol>
+</section>
+<section id="testes-e-anova" class="level3" data-number="11.1.4">
+<h3 data-number="11.1.4" class="anchored" data-anchor-id="testes-e-anova"><span class="header-section-number">11.1.4</span> Testes e ANOVA</h3>
+<ol start="18" type="1">
+<li><p>Interprete o teste <span class="math inline">\(H_0:\beta_1=0\)</span> em termos práticos.</p></li>
+<li><p>Mostre a equivalência entre o teste <span class="math inline">\(t\)</span> e o teste <span class="math inline">\(F\)</span> no MRLS.</p></li>
+<li><p>Explique a decomposição: <span class="math display">\[
+SQT = SQR + SQE.
+\]</span></p></li>
+<li><p>Discuta criticamente:</p>
+<ol type="a">
+<li>limitações do teste <span class="math inline">\(F\)</span>;<br>
+</li>
+<li>interpretação de <span class="math inline">\(R^2\)</span>;<br>
+</li>
+<li>por que <span class="math inline">\(R^2\)</span> alto não implica bom modelo.</li>
+</ol></li>
+<li><p>Explique como é possível ter <span class="math inline">\(R^2\)</span> baixo e coeficiente significativo.</p></li>
+</ol>
+</section>
+<section id="diagnóstico" class="level3" data-number="11.1.5">
+<h3 data-number="11.1.5" class="anchored" data-anchor-id="diagnóstico"><span class="header-section-number">11.1.5</span> Diagnóstico</h3>
+<ol start="23" type="1">
+<li><p>Explique o papel central dos resíduos na avaliação do modelo.</p></li>
+<li><p>Descreva o que indica, em gráficos de resíduos:</p>
+<ol type="a">
+<li>curvatura;<br>
+</li>
+<li>heterocedasticidade;<br>
+</li>
+<li>pontos extremos.</li>
+</ol></li>
+<li><p>Diferencie:</p>
+<ol type="a">
+<li>resíduo simples;<br>
+</li>
+<li>padronizado;<br>
+</li>
+<li>estudentizado.</li>
+</ol></li>
+<li><p>Explique os conceitos de alavancagem e influência, destacando por que nem todo outlier é influente.</p></li>
+<li><p>Discuta um cenário em que:</p>
+<ul>
+<li>testes são significativos<br>
+</li>
+<li>mas os resíduos indicam má especificação</li>
+</ul></li>
+</ol>
+</section>
+<section id="transformações-e-comparação-de-modelos" class="level3" data-number="11.1.6">
+<h3 data-number="11.1.6" class="anchored" data-anchor-id="transformações-e-comparação-de-modelos"><span class="header-section-number">11.1.6</span> Transformações e comparação de modelos</h3>
+<ol start="28" type="1">
+<li><p>Explique por que transformações podem ser necessárias no MRLS.</p></li>
+<li><p>Discuta o efeito de aplicar <span class="math inline">\(\log(Y)\)</span> quando a variância cresce com a média.</p></li>
+<li><p>Diferencie:</p>
+<ol type="a">
+<li>transformar <span class="math inline">\(Y\)</span>;<br>
+</li>
+<li>transformar <span class="math inline">\(X\)</span>;<br>
+</li>
+<li>incluir termos polinomiais.</li>
+</ol></li>
+<li><p>Explique por que AIC/BIC devem ser comparados com cautela quando há transformação da resposta.</p></li>
+<li><p>Discuta o trade-off entre:</p>
+<ul>
+<li>melhor ajuste numérico<br>
+</li>
+<li>melhor adequação às hipóteses</li>
+</ul></li>
+</ol>
+</section>
+<section id="integração-conceitual" class="level3" data-number="11.1.7">
+<h3 data-number="11.1.7" class="anchored" data-anchor-id="integração-conceitual"><span class="header-section-number">11.1.7</span> Integração conceitual</h3>
+<ol start="33" type="1">
+<li><p>Analise criticamente a afirmação:</p>
+<p>“O modelo é bom porque a inclinação é significativa e o <span class="math inline">\(R^2\)</span> é alto, logo as previsões são precisas.”</p></li>
+<li><p>Explique a diferença entre:</p>
+<ol type="a">
+<li>modelagem;<br>
+</li>
+<li>estimação;<br>
+</li>
+<li>inferência;<br>
+</li>
+<li>diagnóstico.</li>
+</ol></li>
+<li><p>Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.</p></li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
