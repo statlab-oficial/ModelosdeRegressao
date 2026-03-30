@@ -128,3 +128,313 @@ Os exercícios desta seção têm como objetivo consolidar a compreensão concei
     d. diagnóstico.
 
 35. Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.  
+## Atividades computacionais
+
+As atividades a seguir têm como objetivo consolidar os conceitos do MRLS por meio da implementação em R, sempre conectando teoria e prática. Em aplicações reais, o analista raramente recebe dados “prontos e ideais”; por isso, além da implementação, é fundamental interpretar os resultados, questionar suposições e avaliar a adequação do modelo.
+
+Ao longo das atividades, você irá:
+- construir estimadores manualmente;
+- comparar com funções prontas;
+- simular cenários controlados;
+- analisar dados reais;
+- diagnosticar e melhorar modelos.
+
+Sempre que possível, reutilizaremos exemplos, aprofundando a análise em etapas.
+
+### Atividade 1 — Estimação por MQO (fundamentos)
+
+Nesta atividade, trabalharemos com um conjunto de dados simples e pequeno, construído artificialmente, representando o número de horas de estudo ($X$) e a nota obtida ($Y$).
+
+Embora simplificado, esse exemplo ilustra uma situação comum: entender como o desempenho varia com esforço ou exposição a algum fator.
+
+| X | Y |
+|--|--|
+| 1 | 2 |
+| 2 | 3 |
+| 3 | 5 |
+| 4 | 4 |
+| 5 | 6 |
+| 6 | 7 |
+| 7 | 8 |
+| 8 | 9 |
+| 9 | 10 |
+| 10 | 12 |
+
+1. Crie vetores em R para $X$ e $Y$.  
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+# Vetores com os dados fornecidos
+x <- c(1,2,3,4,5,6,7,8,9,10)
+y <- c(2,3,5,4,6,7,8,9,10,12)
+```
+
+2. Calcule manualmente:
+   - $\bar X$, $\bar Y$  
+   - $\hat\beta_1$  
+   - $\hat\beta_0$
+
+3. Ajuste o modelo com `lm()` e compare os resultados.  
+
+4. Interprete:
+   - o coeficiente angular (efeito médio de uma hora adicional de estudo);
+   - o intercepto (e discuta se ele tem significado prático neste contexto).
+
+5. Discuta limitações deste conjunto de dados (tamanho, variabilidade, ausência de ruído controlado).
+
+
+### Atividade 2 — Construindo o MQO do zero
+
+Em aplicações reais, utilizamos funções prontas como `lm()`. No entanto, compreender a construção do estimador é fundamental para interpretar resultados corretamente.
+
+1. Crie uma função em R chamada `emq_manual(x, y)` que retorne:
+   - $\hat\beta_0$
+   - $\hat\beta_1$
+   - valores ajustados
+   - resíduos
+
+2. Aplique a função ao conjunto da Atividade 1.
+
+3. Compare com `lm()` e verifique se os resultados coincidem.
+
+4. Verifique numericamente:
+   - $\sum e_i = 0$
+   - $\sum e_i X_i = 0$
+
+5. Interprete essas propriedades:
+   - o que significa a soma dos resíduos ser zero?
+   - qual o significado geométrico da ortogonalidade?
+
+
+### Atividade 3 — Estudo por simulação
+
+Agora passamos para um cenário mais realista: os dados são gerados a partir de um modelo com erro aleatório.
+
+Considere:
+$$
+Y_i = 2 + 0.5X_i + \varepsilon_i, \quad \varepsilon_i \sim N(0,1)
+$$
+
+Esse tipo de modelo representa situações em que existe uma tendência média (reta), mas com variabilidade natural (ruído).
+
+1. Gere uma amostra com $n=50$.  
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+# Fixar semente para reprodutibilidade
+set.seed(123)
+
+# Gerar X
+n <- 50
+x <- runif(n, 0, 10)
+
+# Gerar erro aleatório
+erro <- rnorm(n, mean = 0, sd = 1)
+
+# Gerar Y
+y <- 2 + 0.5*x + erro
+```
+
+
+2. Ajuste o modelo com sua função `emq_manual`.
+
+3. Repita o processo 1000 vezes e armazene:
+   - $\hat\beta_0$
+   - $\hat\beta_1$
+
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+# Número de repetições
+B <- 1000
+
+# Vetores para armazenar resultados
+beta0_est <- numeric(B)
+beta1_est <- numeric(B)
+
+# Loop de simulação (completar dentro)
+for(b in 1:B){
+  
+  # gerar dados (repetir lógica anterior)
+  
+  # estimar coeficientes
+  
+  # armazenar resultados
+}
+```
+
+
+4. Analise:
+   - média dos estimadores;
+   - variância;
+   - histogramas.
+
+5. Discuta:
+   - os estimadores parecem viesados?
+   - como a variabilidade muda com $n$ (repita com $n=20$ e $n=200$)?
+   - o que isso sugere sobre precisão e tamanho amostral?
+
+
+### Atividade 4 — Inferência e intervalos
+
+Nesta atividade, utilizamos o mesmo cenário simulado para introduzir inferência estatística.
+
+1. Calcule manualmente:
+   - $\hat\sigma^2$;
+   - erro padrão de $\hat\beta_1$.
+
+2. Construa um intervalo de confiança para $\beta_1$.  
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+# Ajuste do modelo
+modelo <- lm(y ~ x)
+
+# Obter coeficientes e erro padrão
+coef(modelo)
+summary(modelo)$coefficients
+```
+
+3. Compare com `confint(lm(...))`.
+
+4. Via simulação (1000 repetições):
+   - calcule a proporção de intervalos que contêm o verdadeiro valor de $\beta_1$.
+
+5. Interprete:
+   - o que significa “nível de confiança” na prática?
+   - o intervalo sempre contém o parâmetro verdadeiro?
+
+
+### Atividade 5 — Testes de hipóteses
+
+Nesta etapa, avaliamos formalmente a existência de associação linear.
+
+1. Teste:
+   $$
+   H_0:\beta_1=0
+   $$
+
+2. Construa manualmente:
+   - estatística t;
+   - valor-p.
+
+3. Compare com `summary(lm(...))`.
+
+4. Simule o erro tipo I:
+   - gere dados com $\beta_1=0$;
+   - calcule a proporção de rejeições.
+
+5. Discuta:
+   - o significado do valor-p;
+   - a interpretação do nível de significância;
+   - diferença entre significância estatística e relevância prática.
+
+
+### Atividade 6 — Diagnóstico do modelo
+
+Agora utilizamos uma base real disponível no R: `mtcars`.
+
+Essa base contém dados de automóveis (década de 1970), incluindo consumo de combustível (`mpg`) e peso (`wt`). Trata-se de um exemplo clássico em análise de regressão.
+
+1. Carregue e Ajuste (com `data(mtcars)` e `lm`):
+   $$
+   mpg \sim wt
+   $$
+
+2. Obtenha:
+   - resíduos (com `resid`);
+   - valores ajustados (com `fitted`).
+
+3. Construa:
+   - gráfico resíduos vs ajustados (com `plot`);
+   - QQ-plot (com `qqnorm` e `qqline`).
+
+
+4. Interprete:
+   - há evidência de não linearidade?
+   - há heterocedasticidade?
+   - há observações discrepantes?
+
+5. Calcule:
+   - resíduos padronizados (com `rstandard`);
+   - valores de alavancagem (com `hatvalues`).
+
+6. Discuta:
+   - possíveis pontos influentes;
+   - limitações do modelo linear simples nesse contexto.
+
+### Atividade 7 — Transformações
+
+Ainda com `mtcars`, investigaremos possíveis melhorias no modelo.
+
+1. Ajuste:
+   $$
+   mpg \sim wt
+   $$
+
+2. Ajuste:
+   $$
+   \log(mpg) \sim wt
+   $$
+
+3. Compare:
+   - gráficos de resíduos;
+   - dispersão;
+   - ajuste visual.
+
+4. Interprete:
+   - a transformação melhora o modelo?
+   - como muda a interpretação dos coeficientes?
+
+5. Discuta em quais situações transformações são recomendadas.
+
+### Atividade 8 — Comparação de modelos
+
+Agora utilizamos a base `Boston` (pacote MASS), amplamente utilizada em estudos de regressão.
+
+Essa base contém dados sobre preços de imóveis (`medv`) e características socioeconômicas de bairros em Boston.
+
+1. Ajuste:
+   - modelo 1: `medv ~ lstat`  
+   - modelo 2: `medv ~ lstat + rm`
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+# Carregar pacote
+library(MASS)
+
+# Carregar base Boston
+data(Boston)
+```
+
+2. Compare:
+   - $R^2$;
+   - AIC;
+   - BIC.
+
+3. Analise os resíduos de ambos os modelos.
+
+4. Interprete:
+   - qual modelo parece mais adequado?
+   - há ganho real ao incluir mais variáveis?
+
+5. Discuta:
+   - trade-off entre simplicidade e ajuste;
+   - por que um modelo com maior $R^2$ pode não ser o melhor.
+
+

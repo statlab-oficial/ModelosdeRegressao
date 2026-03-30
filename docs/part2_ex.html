@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -337,6 +372,14 @@ window.Quarto = {
   <li><a href="#diagnóstico" id="toc-diagnóstico" class="nav-link" data-scroll-target="#diagnóstico"><span class="header-section-number">11.1.5</span> Diagnóstico</a></li>
   <li><a href="#transformações-e-comparação-de-modelos" id="toc-transformações-e-comparação-de-modelos" class="nav-link" data-scroll-target="#transformações-e-comparação-de-modelos"><span class="header-section-number">11.1.6</span> Transformações e comparação de modelos</a></li>
   <li><a href="#integração-conceitual" id="toc-integração-conceitual" class="nav-link" data-scroll-target="#integração-conceitual"><span class="header-section-number">11.1.7</span> Integração conceitual</a></li>
+  <li><a href="#atividade-1-estimação-por-mqo-fundamentos" id="toc-atividade-1-estimação-por-mqo-fundamentos" class="nav-link" data-scroll-target="#atividade-1-estimação-por-mqo-fundamentos"><span class="header-section-number">11.1.8</span> Atividade 1 — Estimação por MQO (fundamentos)</a></li>
+  <li><a href="#atividade-2-construindo-o-mqo-do-zero" id="toc-atividade-2-construindo-o-mqo-do-zero" class="nav-link" data-scroll-target="#atividade-2-construindo-o-mqo-do-zero"><span class="header-section-number">11.1.9</span> Atividade 2 — Construindo o MQO do zero</a></li>
+  <li><a href="#atividade-3-estudo-por-simulação" id="toc-atividade-3-estudo-por-simulação" class="nav-link" data-scroll-target="#atividade-3-estudo-por-simulação"><span class="header-section-number">11.1.10</span> Atividade 3 — Estudo por simulação</a></li>
+  <li><a href="#atividade-4-inferência-e-intervalos" id="toc-atividade-4-inferência-e-intervalos" class="nav-link" data-scroll-target="#atividade-4-inferência-e-intervalos"><span class="header-section-number">11.1.11</span> Atividade 4 — Inferência e intervalos</a></li>
+  <li><a href="#atividade-5-testes-de-hipóteses" id="toc-atividade-5-testes-de-hipóteses" class="nav-link" data-scroll-target="#atividade-5-testes-de-hipóteses"><span class="header-section-number">11.1.12</span> Atividade 5 — Testes de hipóteses</a></li>
+  <li><a href="#atividade-6-diagnóstico-do-modelo" id="toc-atividade-6-diagnóstico-do-modelo" class="nav-link" data-scroll-target="#atividade-6-diagnóstico-do-modelo"><span class="header-section-number">11.1.13</span> Atividade 6 — Diagnóstico do modelo</a></li>
+  <li><a href="#atividade-7-transformações" id="toc-atividade-7-transformações" class="nav-link" data-scroll-target="#atividade-7-transformações"><span class="header-section-number">11.1.14</span> Atividade 7 — Transformações</a></li>
+  <li><a href="#atividade-8-comparação-de-modelos" id="toc-atividade-8-comparação-de-modelos" class="nav-link" data-scroll-target="#atividade-8-comparação-de-modelos"><span class="header-section-number">11.1.15</span> Atividade 8 — Comparação de modelos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -513,7 +556,347 @@ SQT = SQR + SQE.
 </li>
 <li>diagnóstico.</li>
 </ol></li>
-<li><p>Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.</p></li>
+<li><p>Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.<br>
+## Atividades computacionais</p></li>
+</ol>
+<p>As atividades a seguir têm como objetivo consolidar os conceitos do MRLS por meio da implementação em R, sempre conectando teoria e prática. Em aplicações reais, o analista raramente recebe dados “prontos e ideais”; por isso, além da implementação, é fundamental interpretar os resultados, questionar suposições e avaliar a adequação do modelo.</p>
+<p>Ao longo das atividades, você irá: - construir estimadores manualmente; - comparar com funções prontas; - simular cenários controlados; - analisar dados reais; - diagnosticar e melhorar modelos.</p>
+<p>Sempre que possível, reutilizaremos exemplos, aprofundando a análise em etapas.</p>
+</section>
+<section id="atividade-1-estimação-por-mqo-fundamentos" class="level3" data-number="11.1.8">
+<h3 data-number="11.1.8" class="anchored" data-anchor-id="atividade-1-estimação-por-mqo-fundamentos"><span class="header-section-number">11.1.8</span> Atividade 1 — Estimação por MQO (fundamentos)</h3>
+<p>Nesta atividade, trabalharemos com um conjunto de dados simples e pequeno, construído artificialmente, representando o número de horas de estudo (<span class="math inline">\(X\)</span>) e a nota obtida (<span class="math inline">\(Y\)</span>).</p>
+<p>Embora simplificado, esse exemplo ilustra uma situação comum: entender como o desempenho varia com esforço ou exposição a algum fator.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>X</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Crie vetores em R para <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vetores com os dados fornecidos</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">12</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li><p>Calcule manualmente:</p>
+<ul>
+<li><span class="math inline">\(\bar X\)</span>, <span class="math inline">\(\bar Y\)</span><br>
+</li>
+<li><span class="math inline">\(\hat\beta_1\)</span><br>
+</li>
+<li><span class="math inline">\(\hat\beta_0\)</span></li>
+</ul></li>
+<li><p>Ajuste o modelo com <code>lm()</code> e compare os resultados.</p></li>
+<li><p>Interprete:</p>
+<ul>
+<li>o coeficiente angular (efeito médio de uma hora adicional de estudo);</li>
+<li>o intercepto (e discuta se ele tem significado prático neste contexto).</li>
+</ul></li>
+<li><p>Discuta limitações deste conjunto de dados (tamanho, variabilidade, ausência de ruído controlado).</p></li>
+</ol>
+</section>
+<section id="atividade-2-construindo-o-mqo-do-zero" class="level3" data-number="11.1.9">
+<h3 data-number="11.1.9" class="anchored" data-anchor-id="atividade-2-construindo-o-mqo-do-zero"><span class="header-section-number">11.1.9</span> Atividade 2 — Construindo o MQO do zero</h3>
+<p>Em aplicações reais, utilizamos funções prontas como <code>lm()</code>. No entanto, compreender a construção do estimador é fundamental para interpretar resultados corretamente.</p>
+<ol type="1">
+<li><p>Crie uma função em R chamada <code>emq_manual(x, y)</code> que retorne:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_0\)</span></li>
+<li><span class="math inline">\(\hat\beta_1\)</span></li>
+<li>valores ajustados</li>
+<li>resíduos</li>
+</ul></li>
+<li><p>Aplique a função ao conjunto da Atividade 1.</p></li>
+<li><p>Compare com <code>lm()</code> e verifique se os resultados coincidem.</p></li>
+<li><p>Verifique numericamente:</p>
+<ul>
+<li><span class="math inline">\(\sum e_i = 0\)</span></li>
+<li><span class="math inline">\(\sum e_i X_i = 0\)</span></li>
+</ul></li>
+<li><p>Interprete essas propriedades:</p>
+<ul>
+<li>o que significa a soma dos resíduos ser zero?</li>
+<li>qual o significado geométrico da ortogonalidade?</li>
+</ul></li>
+</ol>
+</section>
+<section id="atividade-3-estudo-por-simulação" class="level3" data-number="11.1.10">
+<h3 data-number="11.1.10" class="anchored" data-anchor-id="atividade-3-estudo-por-simulação"><span class="header-section-number">11.1.10</span> Atividade 3 — Estudo por simulação</h3>
+<p>Agora passamos para um cenário mais realista: os dados são gerados a partir de um modelo com erro aleatório.</p>
+<p>Considere: <span class="math display">\[
+Y_i = 2 + 0.5X_i + \varepsilon_i, \quad \varepsilon_i \sim N(0,1)
+\]</span></p>
+<p>Esse tipo de modelo representa situações em que existe uma tendência média (reta), mas com variabilidade natural (ruído).</p>
+<ol type="1">
+<li>Gere uma amostra com <span class="math inline">\(n=50\)</span>.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixar semente para reprodutibilidade</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar X</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar erro aleatório</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>erro <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar Y</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>x <span class="sc">+</span> erro</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li><p>Ajuste o modelo com sua função <code>emq_manual</code>.</p></li>
+<li><p>Repita o processo 1000 vezes e armazene:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_0\)</span></li>
+<li><span class="math inline">\(\hat\beta_1\)</span></li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Número de repetições</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vetores para armazenar resultados</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>beta0_est <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>beta1_est <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop de simulação (completar dentro)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B){</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># gerar dados (repetir lógica anterior)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># estimar coeficientes</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># armazenar resultados</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="4" type="1">
+<li>Analise:
+<ul>
+<li>média dos estimadores;</li>
+<li>variância;</li>
+<li>histogramas.</li>
+</ul></li>
+<li>Discuta:
+<ul>
+<li>os estimadores parecem viesados?</li>
+<li>como a variabilidade muda com <span class="math inline">\(n\)</span> (repita com <span class="math inline">\(n=20\)</span> e <span class="math inline">\(n=200\)</span>)?</li>
+<li>o que isso sugere sobre precisão e tamanho amostral?</li>
+</ul></li>
+</ol>
+</section>
+<section id="atividade-4-inferência-e-intervalos" class="level3" data-number="11.1.11">
+<h3 data-number="11.1.11" class="anchored" data-anchor-id="atividade-4-inferência-e-intervalos"><span class="header-section-number">11.1.11</span> Atividade 4 — Inferência e intervalos</h3>
+<p>Nesta atividade, utilizamos o mesmo cenário simulado para introduzir inferência estatística.</p>
+<ol type="1">
+<li>Calcule manualmente:
+<ul>
+<li><span class="math inline">\(\hat\sigma^2\)</span>;</li>
+<li>erro padrão de <span class="math inline">\(\hat\beta_1\)</span>.</li>
+</ul></li>
+<li>Construa um intervalo de confiança para <span class="math inline">\(\beta_1\)</span>.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste do modelo</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obter coeficientes e erro padrão</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)           x 
+  1.8576473   0.5381745 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>coefficients</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) 1.8576473 0.27212187  6.826527 1.356762e-08
+x           0.5381745 0.04564826 11.789594 8.839296e-16</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li><p>Compare com <code>confint(lm(...))</code>.</p></li>
+<li><p>Via simulação (1000 repetições):</p>
+<ul>
+<li>calcule a proporção de intervalos que contêm o verdadeiro valor de <span class="math inline">\(\beta_1\)</span>.</li>
+</ul></li>
+<li><p>Interprete:</p>
+<ul>
+<li>o que significa “nível de confiança” na prática?</li>
+<li>o intervalo sempre contém o parâmetro verdadeiro?</li>
+</ul></li>
+</ol>
+</section>
+<section id="atividade-5-testes-de-hipóteses" class="level3" data-number="11.1.12">
+<h3 data-number="11.1.12" class="anchored" data-anchor-id="atividade-5-testes-de-hipóteses"><span class="header-section-number">11.1.12</span> Atividade 5 — Testes de hipóteses</h3>
+<p>Nesta etapa, avaliamos formalmente a existência de associação linear.</p>
+<ol type="1">
+<li><p>Teste: <span class="math display">\[
+H_0:\beta_1=0
+\]</span></p></li>
+<li><p>Construa manualmente:</p>
+<ul>
+<li>estatística t;</li>
+<li>valor-p.</li>
+</ul></li>
+<li><p>Compare com <code>summary(lm(...))</code>.</p></li>
+<li><p>Simule o erro tipo I:</p>
+<ul>
+<li>gere dados com <span class="math inline">\(\beta_1=0\)</span>;</li>
+<li>calcule a proporção de rejeições.</li>
+</ul></li>
+<li><p>Discuta:</p>
+<ul>
+<li>o significado do valor-p;</li>
+<li>a interpretação do nível de significância;</li>
+<li>diferença entre significância estatística e relevância prática.</li>
+</ul></li>
+</ol>
+</section>
+<section id="atividade-6-diagnóstico-do-modelo" class="level3" data-number="11.1.13">
+<h3 data-number="11.1.13" class="anchored" data-anchor-id="atividade-6-diagnóstico-do-modelo"><span class="header-section-number">11.1.13</span> Atividade 6 — Diagnóstico do modelo</h3>
+<p>Agora utilizamos uma base real disponível no R: <code>mtcars</code>.</p>
+<p>Essa base contém dados de automóveis (década de 1970), incluindo consumo de combustível (<code>mpg</code>) e peso (<code>wt</code>). Trata-se de um exemplo clássico em análise de regressão.</p>
+<ol type="1">
+<li><p>Carregue e Ajuste (com <code>data(mtcars)</code> e <code>lm</code>): <span class="math display">\[
+mpg \sim wt
+\]</span></p></li>
+<li><p>Obtenha:</p>
+<ul>
+<li>resíduos (com <code>resid</code>);</li>
+<li>valores ajustados (com <code>fitted</code>).</li>
+</ul></li>
+<li><p>Construa:</p>
+<ul>
+<li>gráfico resíduos vs ajustados (com <code>plot</code>);</li>
+<li>QQ-plot (com <code>qqnorm</code> e <code>qqline</code>).</li>
+</ul></li>
+<li><p>Interprete:</p>
+<ul>
+<li>há evidência de não linearidade?</li>
+<li>há heterocedasticidade?</li>
+<li>há observações discrepantes?</li>
+</ul></li>
+<li><p>Calcule:</p>
+<ul>
+<li>resíduos padronizados (com <code>rstandard</code>);</li>
+<li>valores de alavancagem (com <code>hatvalues</code>).</li>
+</ul></li>
+<li><p>Discuta:</p>
+<ul>
+<li>possíveis pontos influentes;</li>
+<li>limitações do modelo linear simples nesse contexto.</li>
+</ul></li>
+</ol>
+</section>
+<section id="atividade-7-transformações" class="level3" data-number="11.1.14">
+<h3 data-number="11.1.14" class="anchored" data-anchor-id="atividade-7-transformações"><span class="header-section-number">11.1.14</span> Atividade 7 — Transformações</h3>
+<p>Ainda com <code>mtcars</code>, investigaremos possíveis melhorias no modelo.</p>
+<ol type="1">
+<li><p>Ajuste: <span class="math display">\[
+mpg \sim wt
+\]</span></p></li>
+<li><p>Ajuste: <span class="math display">\[
+\log(mpg) \sim wt
+\]</span></p></li>
+<li><p>Compare:</p>
+<ul>
+<li>gráficos de resíduos;</li>
+<li>dispersão;</li>
+<li>ajuste visual.</li>
+</ul></li>
+<li><p>Interprete:</p>
+<ul>
+<li>a transformação melhora o modelo?</li>
+<li>como muda a interpretação dos coeficientes?</li>
+</ul></li>
+<li><p>Discuta em quais situações transformações são recomendadas.</p></li>
+</ol>
+</section>
+<section id="atividade-8-comparação-de-modelos" class="level3" data-number="11.1.15">
+<h3 data-number="11.1.15" class="anchored" data-anchor-id="atividade-8-comparação-de-modelos"><span class="header-section-number">11.1.15</span> Atividade 8 — Comparação de modelos</h3>
+<p>Agora utilizamos a base <code>Boston</code> (pacote MASS), amplamente utilizada em estudos de regressão.</p>
+<p>Essa base contém dados sobre preços de imóveis (<code>medv</code>) e características socioeconômicas de bairros em Boston.</p>
+<ol type="1">
+<li>Ajuste:
+<ul>
+<li>modelo 1: <code>medv ~ lstat</code><br>
+</li>
+<li>modelo 2: <code>medv ~ lstat + rm</code></li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar pacote</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar base Boston</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li><p>Compare:</p>
+<ul>
+<li><span class="math inline">\(R^2\)</span>;</li>
+<li>AIC;</li>
+<li>BIC.</li>
+</ul></li>
+<li><p>Analise os resíduos de ambos os modelos.</p></li>
+<li><p>Interprete:</p>
+<ul>
+<li>qual modelo parece mais adequado?</li>
+<li>há ganho real ao incluir mais variáveis?</li>
+</ul></li>
+<li><p>Discuta:</p>
+<ul>
+<li>trade-off entre simplicidade e ajuste;</li>
+<li>por que um modelo com maior <span class="math inline">\(R^2\)</span> pode não ser o melhor.</li>
+</ul></li>
 </ol>
 
 
