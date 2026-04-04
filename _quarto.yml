@@ -34,6 +34,7 @@ book:
         - mrls_compara.qmd
 #        - mrls_aplicacao.qmd
         - part2_ex.qmd
+        - part2_sim.qmd
 
     
     - part: "Parte III — Modelo de Regressão Linear Simples (MRLM)"

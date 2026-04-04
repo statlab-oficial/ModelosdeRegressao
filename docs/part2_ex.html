@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./part3_ex.html" rel="next">
+<link href="./part2_sim.html" rel="next">
 <link href="./mrls_compara.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -275,6 +275,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_sim.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -289,7 +295,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
       </ul>
@@ -306,43 +312,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ap_listas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ap_matrizes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ap_normal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Demonstrações</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Demonstrações</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./part4_ex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,14 +378,17 @@ window.Quarto = {
   <li><a href="#diagnóstico" id="toc-diagnóstico" class="nav-link" data-scroll-target="#diagnóstico"><span class="header-section-number">11.1.5</span> Diagnóstico</a></li>
   <li><a href="#transformações-e-comparação-de-modelos" id="toc-transformações-e-comparação-de-modelos" class="nav-link" data-scroll-target="#transformações-e-comparação-de-modelos"><span class="header-section-number">11.1.6</span> Transformações e comparação de modelos</a></li>
   <li><a href="#integração-conceitual" id="toc-integração-conceitual" class="nav-link" data-scroll-target="#integração-conceitual"><span class="header-section-number">11.1.7</span> Integração conceitual</a></li>
-  <li><a href="#atividade-1-estimação-por-mqo-fundamentos" id="toc-atividade-1-estimação-por-mqo-fundamentos" class="nav-link" data-scroll-target="#atividade-1-estimação-por-mqo-fundamentos"><span class="header-section-number">11.1.8</span> Atividade 1 — Estimação por MQO (fundamentos)</a></li>
-  <li><a href="#atividade-2-construindo-o-mqo-do-zero" id="toc-atividade-2-construindo-o-mqo-do-zero" class="nav-link" data-scroll-target="#atividade-2-construindo-o-mqo-do-zero"><span class="header-section-number">11.1.9</span> Atividade 2 — Construindo o MQO do zero</a></li>
-  <li><a href="#atividade-3-estudo-por-simulação" id="toc-atividade-3-estudo-por-simulação" class="nav-link" data-scroll-target="#atividade-3-estudo-por-simulação"><span class="header-section-number">11.1.10</span> Atividade 3 — Estudo por simulação</a></li>
-  <li><a href="#atividade-4-inferência-e-intervalos" id="toc-atividade-4-inferência-e-intervalos" class="nav-link" data-scroll-target="#atividade-4-inferência-e-intervalos"><span class="header-section-number">11.1.11</span> Atividade 4 — Inferência e intervalos</a></li>
-  <li><a href="#atividade-5-testes-de-hipóteses" id="toc-atividade-5-testes-de-hipóteses" class="nav-link" data-scroll-target="#atividade-5-testes-de-hipóteses"><span class="header-section-number">11.1.12</span> Atividade 5 — Testes de hipóteses</a></li>
-  <li><a href="#atividade-6-diagnóstico-do-modelo" id="toc-atividade-6-diagnóstico-do-modelo" class="nav-link" data-scroll-target="#atividade-6-diagnóstico-do-modelo"><span class="header-section-number">11.1.13</span> Atividade 6 — Diagnóstico do modelo</a></li>
-  <li><a href="#atividade-7-transformações" id="toc-atividade-7-transformações" class="nav-link" data-scroll-target="#atividade-7-transformações"><span class="header-section-number">11.1.14</span> Atividade 7 — Transformações</a></li>
-  <li><a href="#atividade-8-comparação-de-modelos" id="toc-atividade-8-comparação-de-modelos" class="nav-link" data-scroll-target="#atividade-8-comparação-de-modelos"><span class="header-section-number">11.1.15</span> Atividade 8 — Comparação de modelos</a></li>
+  </ul></li>
+  <li><a href="#atividades-computacionais" id="toc-atividades-computacionais" class="nav-link" data-scroll-target="#atividades-computacionais"><span class="header-section-number">11.2</span> Atividades computacionais</a>
+  <ul class="collapse">
+  <li><a href="#atividade-1-estimação-por-mqo-fundamentos" id="toc-atividade-1-estimação-por-mqo-fundamentos" class="nav-link" data-scroll-target="#atividade-1-estimação-por-mqo-fundamentos"><span class="header-section-number">11.2.1</span> Atividade 1 — Estimação por MQO (fundamentos)</a></li>
+  <li><a href="#atividade-2-construindo-o-mqo-do-zero" id="toc-atividade-2-construindo-o-mqo-do-zero" class="nav-link" data-scroll-target="#atividade-2-construindo-o-mqo-do-zero"><span class="header-section-number">11.2.2</span> Atividade 2 — Construindo o MQO do zero</a></li>
+  <li><a href="#atividade-3-estudo-por-simulação" id="toc-atividade-3-estudo-por-simulação" class="nav-link" data-scroll-target="#atividade-3-estudo-por-simulação"><span class="header-section-number">11.2.3</span> Atividade 3 — Estudo por simulação</a></li>
+  <li><a href="#atividade-4-inferência-e-intervalos" id="toc-atividade-4-inferência-e-intervalos" class="nav-link" data-scroll-target="#atividade-4-inferência-e-intervalos"><span class="header-section-number">11.2.4</span> Atividade 4 — Inferência e intervalos</a></li>
+  <li><a href="#atividade-5-testes-de-hipóteses" id="toc-atividade-5-testes-de-hipóteses" class="nav-link" data-scroll-target="#atividade-5-testes-de-hipóteses"><span class="header-section-number">11.2.5</span> Atividade 5 — Testes de hipóteses</a></li>
+  <li><a href="#atividade-6-diagnóstico-do-modelo" id="toc-atividade-6-diagnóstico-do-modelo" class="nav-link" data-scroll-target="#atividade-6-diagnóstico-do-modelo"><span class="header-section-number">11.2.6</span> Atividade 6 — Diagnóstico do modelo</a></li>
+  <li><a href="#atividade-7-transformações" id="toc-atividade-7-transformações" class="nav-link" data-scroll-target="#atividade-7-transformações"><span class="header-section-number">11.2.7</span> Atividade 7 — Transformações</a></li>
+  <li><a href="#atividade-8-comparação-de-modelos" id="toc-atividade-8-comparação-de-modelos" class="nav-link" data-scroll-target="#atividade-8-comparação-de-modelos"><span class="header-section-number">11.2.8</span> Atividade 8 — Comparação de modelos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -556,15 +565,17 @@ SQT = SQR + SQE.
 </li>
 <li>diagnóstico.</li>
 </ol></li>
-<li><p>Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.<br>
-## Atividades computacionais</p></li>
+<li><p>Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.</p></li>
 </ol>
+</section>
+</section>
+<section id="atividades-computacionais" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="atividades-computacionais"><span class="header-section-number">11.2</span> Atividades computacionais</h2>
 <p>As atividades a seguir têm como objetivo consolidar os conceitos do MRLS por meio da implementação em R, sempre conectando teoria e prática. Em aplicações reais, o analista raramente recebe dados “prontos e ideais”; por isso, além da implementação, é fundamental interpretar os resultados, questionar suposições e avaliar a adequação do modelo.</p>
 <p>Ao longo das atividades, você irá: - construir estimadores manualmente; - comparar com funções prontas; - simular cenários controlados; - analisar dados reais; - diagnosticar e melhorar modelos.</p>
 <p>Sempre que possível, reutilizaremos exemplos, aprofundando a análise em etapas.</p>
-</section>
-<section id="atividade-1-estimação-por-mqo-fundamentos" class="level3" data-number="11.1.8">
-<h3 data-number="11.1.8" class="anchored" data-anchor-id="atividade-1-estimação-por-mqo-fundamentos"><span class="header-section-number">11.1.8</span> Atividade 1 — Estimação por MQO (fundamentos)</h3>
+<section id="atividade-1-estimação-por-mqo-fundamentos" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="atividade-1-estimação-por-mqo-fundamentos"><span class="header-section-number">11.2.1</span> Atividade 1 — Estimação por MQO (fundamentos)</h3>
 <p>Nesta atividade, trabalharemos com um conjunto de dados simples e pequeno, construído artificialmente, representando o número de horas de estudo (<span class="math inline">\(X\)</span>) e a nota obtida (<span class="math inline">\(Y\)</span>).</p>
 <p>Embora simplificado, esse exemplo ilustra uma situação comum: entender como o desempenho varia com esforço ou exposição a algum fator.</p>
 <table class="caption-top table">
@@ -643,8 +654,8 @@ SQT = SQR + SQE.
 <li><p>Discuta limitações deste conjunto de dados (tamanho, variabilidade, ausência de ruído controlado).</p></li>
 </ol>
 </section>
-<section id="atividade-2-construindo-o-mqo-do-zero" class="level3" data-number="11.1.9">
-<h3 data-number="11.1.9" class="anchored" data-anchor-id="atividade-2-construindo-o-mqo-do-zero"><span class="header-section-number">11.1.9</span> Atividade 2 — Construindo o MQO do zero</h3>
+<section id="atividade-2-construindo-o-mqo-do-zero" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="atividade-2-construindo-o-mqo-do-zero"><span class="header-section-number">11.2.2</span> Atividade 2 — Construindo o MQO do zero</h3>
 <p>Em aplicações reais, utilizamos funções prontas como <code>lm()</code>. No entanto, compreender a construção do estimador é fundamental para interpretar resultados corretamente.</p>
 <ol type="1">
 <li><p>Crie uma função em R chamada <code>emq_manual(x, y)</code> que retorne:</p>
@@ -668,8 +679,8 @@ SQT = SQR + SQE.
 </ul></li>
 </ol>
 </section>
-<section id="atividade-3-estudo-por-simulação" class="level3" data-number="11.1.10">
-<h3 data-number="11.1.10" class="anchored" data-anchor-id="atividade-3-estudo-por-simulação"><span class="header-section-number">11.1.10</span> Atividade 3 — Estudo por simulação</h3>
+<section id="atividade-3-estudo-por-simulação" class="level3" data-number="11.2.3">
+<h3 data-number="11.2.3" class="anchored" data-anchor-id="atividade-3-estudo-por-simulação"><span class="header-section-number">11.2.3</span> Atividade 3 — Estudo por simulação</h3>
 <p>Agora passamos para um cenário mais realista: os dados são gerados a partir de um modelo com erro aleatório.</p>
 <p>Considere: <span class="math display">\[
 Y_i = 2 + 0.5X_i + \varepsilon_i, \quad \varepsilon_i \sim N(0,1)
@@ -733,8 +744,8 @@ Y_i = 2 + 0.5X_i + \varepsilon_i, \quad \varepsilon_i \sim N(0,1)
 </ul></li>
 </ol>
 </section>
-<section id="atividade-4-inferência-e-intervalos" class="level3" data-number="11.1.11">
-<h3 data-number="11.1.11" class="anchored" data-anchor-id="atividade-4-inferência-e-intervalos"><span class="header-section-number">11.1.11</span> Atividade 4 — Inferência e intervalos</h3>
+<section id="atividade-4-inferência-e-intervalos" class="level3" data-number="11.2.4">
+<h3 data-number="11.2.4" class="anchored" data-anchor-id="atividade-4-inferência-e-intervalos"><span class="header-section-number">11.2.4</span> Atividade 4 — Inferência e intervalos</h3>
 <p>Nesta atividade, utilizamos o mesmo cenário simulado para introduzir inferência estatística.</p>
 <ol type="1">
 <li>Calcule manualmente:
@@ -774,8 +785,8 @@ x           0.5381745 0.04564826 11.789594 8.839296e-16</code></pre>
 </ul></li>
 </ol>
 </section>
-<section id="atividade-5-testes-de-hipóteses" class="level3" data-number="11.1.12">
-<h3 data-number="11.1.12" class="anchored" data-anchor-id="atividade-5-testes-de-hipóteses"><span class="header-section-number">11.1.12</span> Atividade 5 — Testes de hipóteses</h3>
+<section id="atividade-5-testes-de-hipóteses" class="level3" data-number="11.2.5">
+<h3 data-number="11.2.5" class="anchored" data-anchor-id="atividade-5-testes-de-hipóteses"><span class="header-section-number">11.2.5</span> Atividade 5 — Testes de hipóteses</h3>
 <p>Nesta etapa, avaliamos formalmente a existência de associação linear.</p>
 <ol type="1">
 <li><p>Teste: <span class="math display">\[
@@ -800,8 +811,8 @@ H_0:\beta_1=0
 </ul></li>
 </ol>
 </section>
-<section id="atividade-6-diagnóstico-do-modelo" class="level3" data-number="11.1.13">
-<h3 data-number="11.1.13" class="anchored" data-anchor-id="atividade-6-diagnóstico-do-modelo"><span class="header-section-number">11.1.13</span> Atividade 6 — Diagnóstico do modelo</h3>
+<section id="atividade-6-diagnóstico-do-modelo" class="level3" data-number="11.2.6">
+<h3 data-number="11.2.6" class="anchored" data-anchor-id="atividade-6-diagnóstico-do-modelo"><span class="header-section-number">11.2.6</span> Atividade 6 — Diagnóstico do modelo</h3>
 <p>Agora utilizamos uma base real disponível no R: <code>mtcars</code>.</p>
 <p>Essa base contém dados de automóveis (década de 1970), incluindo consumo de combustível (<code>mpg</code>) e peso (<code>wt</code>). Trata-se de um exemplo clássico em análise de regressão.</p>
 <ol type="1">
@@ -836,8 +847,8 @@ mpg \sim wt
 </ul></li>
 </ol>
 </section>
-<section id="atividade-7-transformações" class="level3" data-number="11.1.14">
-<h3 data-number="11.1.14" class="anchored" data-anchor-id="atividade-7-transformações"><span class="header-section-number">11.1.14</span> Atividade 7 — Transformações</h3>
+<section id="atividade-7-transformações" class="level3" data-number="11.2.7">
+<h3 data-number="11.2.7" class="anchored" data-anchor-id="atividade-7-transformações"><span class="header-section-number">11.2.7</span> Atividade 7 — Transformações</h3>
 <p>Ainda com <code>mtcars</code>, investigaremos possíveis melhorias no modelo.</p>
 <ol type="1">
 <li><p>Ajuste: <span class="math display">\[
@@ -860,8 +871,8 @@ mpg \sim wt
 <li><p>Discuta em quais situações transformações são recomendadas.</p></li>
 </ol>
 </section>
-<section id="atividade-8-comparação-de-modelos" class="level3" data-number="11.1.15">
-<h3 data-number="11.1.15" class="anchored" data-anchor-id="atividade-8-comparação-de-modelos"><span class="header-section-number">11.1.15</span> Atividade 8 — Comparação de modelos</h3>
+<section id="atividade-8-comparação-de-modelos" class="level3" data-number="11.2.8">
+<h3 data-number="11.2.8" class="anchored" data-anchor-id="atividade-8-comparação-de-modelos"><span class="header-section-number">11.2.8</span> Atividade 8 — Comparação de modelos</h3>
 <p>Agora utilizamos a base <code>Boston</code> (pacote MASS), amplamente utilizada em estudos de regressão.</p>
 <p>Essa base contém dados sobre preços de imóveis (<code>medv</code>) e características socioeconômicas de bairros em Boston.</p>
 <ol type="1">
@@ -1311,8 +1322,8 @@ mpg \sim wt
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./part3_ex.html" class="pagination-link" aria-label="Exercícios e Atividades de Consolidação">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./part2_sim.html" class="pagination-link" aria-label="Trabalho - Estudo de Simulação">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

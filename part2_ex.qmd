@@ -6,58 +6,60 @@ Os exercícios desta seção têm como objetivo consolidar a compreensão concei
 
 ### Modelo e interpretação
 
-1. Explique por que o MRLS é um modelo para a média condicional $E(Y\mid X)$ e não uma descrição exata dos dados. Discuta o papel do termo aleatório $\varepsilon_i$.
+1.  Explique por que o MRLS é um modelo para a média condicional $E(Y\mid X)$ e não uma descrição exata dos dados. Discuta o papel do termo aleatório $\varepsilon_i$.
 
-2. No modelo
-   $$
-   Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
-   $$
-   interprete cada componente e explique por que $\varepsilon_i$ não deve ser entendido apenas como “erro”.
+2.  No modelo $$
+    Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+    $$ interprete cada componente e explique por que $\varepsilon_i$ não deve ser entendido apenas como "erro".
 
-3. Discuta criticamente a diferença entre:
-   a. associação linear;  
-   b. explicação de $Y$ por $X$;  
-   c. causalidade.
+3.  Discuta criticamente a diferença entre:
 
-4. Mostre que, se $E(\varepsilon_i\mid X_i)\neq 0$, então a função linear deixa de representar corretamente a média condicional. Interprete esse resultado.
+    a.  associação linear;\
+    b.  explicação de $Y$ por $X$;\
+    c.  causalidade.
 
-5. Considere dois conjuntos de dados com mesma reta média, mas diferentes dispersões. Discuta o impacto sobre inferência e predição.
+4.  Mostre que, se $E(\varepsilon_i\mid X_i)\neq 0$, então a função linear deixa de representar corretamente a média condicional. Interprete esse resultado.
+
+5.  Considere dois conjuntos de dados com mesma reta média, mas diferentes dispersões. Discuta o impacto sobre inferência e predição.
 
 ### MQO e propriedades dos estimadores
 
-6. Explique por que MQO minimiza a soma de quadrados dos resíduos e não a soma simples dos resíduos.
+6.  Explique por que MQO minimiza a soma de quadrados dos resíduos e não a soma simples dos resíduos.
 
-7. Mostre que a reta ajustada passa por $(\bar X,\bar Y)$.  
+7.  Mostre que a reta ajustada passa por $(\bar X,\bar Y)$.
 
-8. Justifique conceitualmente as propriedades:
-   a. $\sum e_i = 0$;  
-   b. $\sum e_i X_i = 0$.  
-   Discuta o significado geométrico dessas relações.
+8.  Justifique conceitualmente as propriedades:
 
-9. Discuta como a variância de $\hat\beta_1$ depende de:
-   a. tamanho da amostra;  
-   b. variabilidade de $X$;  
-   c. variância dos erros.  
+    a.  $\sum e_i = 0$;\
+    b.  $\sum e_i X_i = 0$.\
+        Discuta o significado geométrico dessas relações.
 
-10. Explique o que significa dizer que MQO é não viesado e por que isso não garante bom desempenho em amostras pequenas.  
+9.  Discuta como a variância de $\hat\beta_1$ depende de:
 
-11. Enuncie e interprete o Teorema de Gauss–Markov, destacando seus limites.  
+    a.  tamanho da amostra;\
+    b.  variabilidade de $X$;\
+    c.  variância dos erros.
+
+10. Explique o que significa dizer que MQO é não viesado e por que isso não garante bom desempenho em amostras pequenas.
+
+11. Enuncie e interprete o Teorema de Gauss--Markov, destacando seus limites.
 
 ### Inferência e predição
 
-12. Explique o papel da normalidade dos erros na inferência do MRLS.  
+12. Explique o papel da normalidade dos erros na inferência do MRLS.
 
 13. Diferencie claramente:
-    a. estimar $\beta_1$;  
-    b. estimar $E(Y\mid X=x_0)$;  
-    c. prever uma nova observação.
 
-14. Explique por que o intervalo de predição é mais amplo que o intervalo de confiança para a média.  
+    a.  estimar $\beta_1$;\
+    b.  estimar $E(Y\mid X=x_0)$;\
+    c.  prever uma nova observação.
 
-15. Discuta por que intervalos são mais estreitos próximos de $\bar X$.  
+14. Explique por que o intervalo de predição é mais amplo que o intervalo de confiança para a média.
 
-16. Avalie criticamente a afirmação:  
-    “Se o intervalo de confiança para $\beta_1$ contém zero, então não há relação entre $X$ e $Y$”.
+15. Discuta por que intervalos são mais estreitos próximos de $\bar X$.
+
+16. Avalie criticamente a afirmação:\
+    "Se o intervalo de confiança para $\beta_1$ contém zero, então não há relação entre $X$ e $Y$".
 
 17. Explique o problema da extrapolação e seus riscos.
 
@@ -65,102 +67,106 @@ Os exercícios desta seção têm como objetivo consolidar a compreensão concei
 
 18. Interprete o teste $H_0:\beta_1=0$ em termos práticos.
 
-19. Mostre a equivalência entre o teste $t$ e o teste $F$ no MRLS.  
+19. Mostre a equivalência entre o teste $t$ e o teste $F$ no MRLS.
 
-20. Explique a decomposição:
-    $$
+20. Explique a decomposição: $$
     SQT = SQR + SQE.
-    $$  
+    $$
 
 21. Discuta criticamente:
-    a. limitações do teste $F$;  
-    b. interpretação de $R^2$;  
-    c. por que $R^2$ alto não implica bom modelo.
 
-22. Explique como é possível ter $R^2$ baixo e coeficiente significativo.  
+    a.  limitações do teste $F$;\
+    b.  interpretação de $R^2$;\
+    c.  por que $R^2$ alto não implica bom modelo.
+
+22. Explique como é possível ter $R^2$ baixo e coeficiente significativo.
 
 ### Diagnóstico
 
 23. Explique o papel central dos resíduos na avaliação do modelo.
 
 24. Descreva o que indica, em gráficos de resíduos:
-    a. curvatura;  
-    b. heterocedasticidade;  
-    c. pontos extremos.
+
+    a.  curvatura;\
+    b.  heterocedasticidade;\
+    c.  pontos extremos.
 
 25. Diferencie:
-    a. resíduo simples;  
-    b. padronizado;  
-    c. estudentizado.  
 
-26. Explique os conceitos de alavancagem e influência, destacando por que nem todo outlier é influente.  
+    a.  resíduo simples;\
+    b.  padronizado;\
+    c.  estudentizado.
+
+26. Explique os conceitos de alavancagem e influência, destacando por que nem todo outlier é influente.
 
 27. Discuta um cenário em que:
-    - testes são significativos  
-    - mas os resíduos indicam má especificação
+
+    -   testes são significativos\
+    -   mas os resíduos indicam má especificação
 
 ### Transformações e comparação de modelos
 
 28. Explique por que transformações podem ser necessárias no MRLS.
 
-29. Discuta o efeito de aplicar $\log(Y)$ quando a variância cresce com a média.  
+29. Discuta o efeito de aplicar $\log(Y)$ quando a variância cresce com a média.
 
 30. Diferencie:
-    a. transformar $Y$;  
-    b. transformar $X$;  
-    c. incluir termos polinomiais.
 
-31. Explique por que AIC/BIC devem ser comparados com cautela quando há transformação da resposta. 
+    a.  transformar $Y$;\
+    b.  transformar $X$;\
+    c.  incluir termos polinomiais.
+
+31. Explique por que AIC/BIC devem ser comparados com cautela quando há transformação da resposta.
+
 32. Discuta o trade-off entre:
-    - melhor ajuste numérico  
-    - melhor adequação às hipóteses
+
+    -   melhor ajuste numérico\
+    -   melhor adequação às hipóteses
 
 ### Integração conceitual
 
 33. Analise criticamente a afirmação:
 
-    “O modelo é bom porque a inclinação é significativa e o $R^2$ é alto, logo as previsões são precisas.”
+    "O modelo é bom porque a inclinação é significativa e o $R^2$ é alto, logo as previsões são precisas."
 
 34. Explique a diferença entre:
-    a. modelagem;  
-    b. estimação;  
-    c. inferência;  
-    d. diagnóstico.
 
-35. Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.  
+    a.  modelagem;\
+    b.  estimação;\
+    c.  inferência;\
+    d.  diagnóstico.
+
+35. Discuta por que o MRLS deve ser entendido como estrutura fundamental para modelos mais gerais.
+
+
 ## Atividades computacionais
 
-As atividades a seguir têm como objetivo consolidar os conceitos do MRLS por meio da implementação em R, sempre conectando teoria e prática. Em aplicações reais, o analista raramente recebe dados “prontos e ideais”; por isso, além da implementação, é fundamental interpretar os resultados, questionar suposições e avaliar a adequação do modelo.
+As atividades a seguir têm como objetivo consolidar os conceitos do MRLS por meio da implementação em R, sempre conectando teoria e prática. Em aplicações reais, o analista raramente recebe dados "prontos e ideais"; por isso, além da implementação, é fundamental interpretar os resultados, questionar suposições e avaliar a adequação do modelo.
 
-Ao longo das atividades, você irá:
-- construir estimadores manualmente;
-- comparar com funções prontas;
-- simular cenários controlados;
-- analisar dados reais;
-- diagnosticar e melhorar modelos.
+Ao longo das atividades, você irá: - construir estimadores manualmente; - comparar com funções prontas; - simular cenários controlados; - analisar dados reais; - diagnosticar e melhorar modelos.
 
 Sempre que possível, reutilizaremos exemplos, aprofundando a análise em etapas.
 
-### Atividade 1 — Estimação por MQO (fundamentos)
+### Atividade 1 --- Estimação por MQO (fundamentos)
 
 Nesta atividade, trabalharemos com um conjunto de dados simples e pequeno, construído artificialmente, representando o número de horas de estudo ($X$) e a nota obtida ($Y$).
 
 Embora simplificado, esse exemplo ilustra uma situação comum: entender como o desempenho varia com esforço ou exposição a algum fator.
 
-| X | Y |
-|--|--|
-| 1 | 2 |
-| 2 | 3 |
-| 3 | 5 |
-| 4 | 4 |
-| 5 | 6 |
-| 6 | 7 |
-| 7 | 8 |
-| 8 | 9 |
-| 9 | 10 |
-| 10 | 12 |
+| X   | Y   |
+|-----|-----|
+| 1   | 2   |
+| 2   | 3   |
+| 3   | 5   |
+| 4   | 4   |
+| 5   | 6   |
+| 6   | 7   |
+| 7   | 8   |
+| 8   | 9   |
+| 9   | 10  |
+| 10  | 12  |
 
-1. Crie vetores em R para $X$ e $Y$.  
+1.  Crie vetores em R para $X$ e $Y$.
 
 ```{r}
 #| echo: true
@@ -172,55 +178,57 @@ x <- c(1,2,3,4,5,6,7,8,9,10)
 y <- c(2,3,5,4,6,7,8,9,10,12)
 ```
 
-2. Calcule manualmente:
-   - $\bar X$, $\bar Y$  
-   - $\hat\beta_1$  
-   - $\hat\beta_0$
+2.  Calcule manualmente:
 
-3. Ajuste o modelo com `lm()` e compare os resultados.  
+    -   $\bar X$, $\bar Y$\
+    -   $\hat\beta_1$\
+    -   $\hat\beta_0$
 
-4. Interprete:
-   - o coeficiente angular (efeito médio de uma hora adicional de estudo);
-   - o intercepto (e discuta se ele tem significado prático neste contexto).
+3.  Ajuste o modelo com `lm()` e compare os resultados.
 
-5. Discuta limitações deste conjunto de dados (tamanho, variabilidade, ausência de ruído controlado).
+4.  Interprete:
 
+    -   o coeficiente angular (efeito médio de uma hora adicional de estudo);
+    -   o intercepto (e discuta se ele tem significado prático neste contexto).
 
-### Atividade 2 — Construindo o MQO do zero
+5.  Discuta limitações deste conjunto de dados (tamanho, variabilidade, ausência de ruído controlado).
+
+### Atividade 2 --- Construindo o MQO do zero
 
 Em aplicações reais, utilizamos funções prontas como `lm()`. No entanto, compreender a construção do estimador é fundamental para interpretar resultados corretamente.
 
-1. Crie uma função em R chamada `emq_manual(x, y)` que retorne:
-   - $\hat\beta_0$
-   - $\hat\beta_1$
-   - valores ajustados
-   - resíduos
+1.  Crie uma função em R chamada `emq_manual(x, y)` que retorne:
 
-2. Aplique a função ao conjunto da Atividade 1.
+    -   $\hat\beta_0$
+    -   $\hat\beta_1$
+    -   valores ajustados
+    -   resíduos
 
-3. Compare com `lm()` e verifique se os resultados coincidem.
+2.  Aplique a função ao conjunto da Atividade 1.
 
-4. Verifique numericamente:
-   - $\sum e_i = 0$
-   - $\sum e_i X_i = 0$
+3.  Compare com `lm()` e verifique se os resultados coincidem.
 
-5. Interprete essas propriedades:
-   - o que significa a soma dos resíduos ser zero?
-   - qual o significado geométrico da ortogonalidade?
+4.  Verifique numericamente:
 
+    -   $\sum e_i = 0$
+    -   $\sum e_i X_i = 0$
 
-### Atividade 3 — Estudo por simulação
+5.  Interprete essas propriedades:
+
+    -   o que significa a soma dos resíduos ser zero?
+    -   qual o significado geométrico da ortogonalidade?
+
+### Atividade 3 --- Estudo por simulação
 
 Agora passamos para um cenário mais realista: os dados são gerados a partir de um modelo com erro aleatório.
 
-Considere:
-$$
+Considere: $$
 Y_i = 2 + 0.5X_i + \varepsilon_i, \quad \varepsilon_i \sim N(0,1)
 $$
 
 Esse tipo de modelo representa situações em que existe uma tendência média (reta), mas com variabilidade natural (ruído).
 
-1. Gere uma amostra com $n=50$.  
+1.  Gere uma amostra com $n=50$.
 
 ```{r}
 #| echo: true
@@ -241,13 +249,12 @@ erro <- rnorm(n, mean = 0, sd = 1)
 y <- 2 + 0.5*x + erro
 ```
 
+2.  Ajuste o modelo com sua função `emq_manual`.
 
-2. Ajuste o modelo com sua função `emq_manual`.
+3.  Repita o processo 1000 vezes e armazene:
 
-3. Repita o processo 1000 vezes e armazene:
-   - $\hat\beta_0$
-   - $\hat\beta_1$
-
+    -   $\hat\beta_0$
+    -   $\hat\beta_1$
 
 ```{r}
 #| echo: true
@@ -272,27 +279,23 @@ for(b in 1:B){
 }
 ```
 
+4.  Analise:
+    -   média dos estimadores;
+    -   variância;
+    -   histogramas.
+5.  Discuta:
+    -   os estimadores parecem viesados?
+    -   como a variabilidade muda com $n$ (repita com $n=20$ e $n=200$)?
+    -   o que isso sugere sobre precisão e tamanho amostral?
 
-4. Analise:
-   - média dos estimadores;
-   - variância;
-   - histogramas.
-
-5. Discuta:
-   - os estimadores parecem viesados?
-   - como a variabilidade muda com $n$ (repita com $n=20$ e $n=200$)?
-   - o que isso sugere sobre precisão e tamanho amostral?
-
-
-### Atividade 4 — Inferência e intervalos
+### Atividade 4 --- Inferência e intervalos
 
 Nesta atividade, utilizamos o mesmo cenário simulado para introduzir inferência estatística.
 
-1. Calcule manualmente:
-   - $\hat\sigma^2$;
-   - erro padrão de $\hat\beta_1$.
-
-2. Construa um intervalo de confiança para $\beta_1$.  
+1.  Calcule manualmente:
+    -   $\hat\sigma^2$;
+    -   erro padrão de $\hat\beta_1$.
+2.  Construa um intervalo de confiança para $\beta_1$.
 
 ```{r}
 #| echo: true
@@ -307,108 +310,113 @@ coef(modelo)
 summary(modelo)$coefficients
 ```
 
-3. Compare com `confint(lm(...))`.
+3.  Compare com `confint(lm(...))`.
 
-4. Via simulação (1000 repetições):
-   - calcule a proporção de intervalos que contêm o verdadeiro valor de $\beta_1$.
+4.  Via simulação (1000 repetições):
 
-5. Interprete:
-   - o que significa “nível de confiança” na prática?
-   - o intervalo sempre contém o parâmetro verdadeiro?
+    -   calcule a proporção de intervalos que contêm o verdadeiro valor de $\beta_1$.
 
+5.  Interprete:
 
-### Atividade 5 — Testes de hipóteses
+    -   o que significa "nível de confiança" na prática?
+    -   o intervalo sempre contém o parâmetro verdadeiro?
+
+### Atividade 5 --- Testes de hipóteses
 
 Nesta etapa, avaliamos formalmente a existência de associação linear.
 
-1. Teste:
-   $$
-   H_0:\beta_1=0
-   $$
+1.  Teste: $$
+    H_0:\beta_1=0
+    $$
 
-2. Construa manualmente:
-   - estatística t;
-   - valor-p.
+2.  Construa manualmente:
 
-3. Compare com `summary(lm(...))`.
+    -   estatística t;
+    -   valor-p.
 
-4. Simule o erro tipo I:
-   - gere dados com $\beta_1=0$;
-   - calcule a proporção de rejeições.
+3.  Compare com `summary(lm(...))`.
 
-5. Discuta:
-   - o significado do valor-p;
-   - a interpretação do nível de significância;
-   - diferença entre significância estatística e relevância prática.
+4.  Simule o erro tipo I:
 
+    -   gere dados com $\beta_1=0$;
+    -   calcule a proporção de rejeições.
 
-### Atividade 6 — Diagnóstico do modelo
+5.  Discuta:
+
+    -   o significado do valor-p;
+    -   a interpretação do nível de significância;
+    -   diferença entre significância estatística e relevância prática.
+
+### Atividade 6 --- Diagnóstico do modelo
 
 Agora utilizamos uma base real disponível no R: `mtcars`.
 
 Essa base contém dados de automóveis (década de 1970), incluindo consumo de combustível (`mpg`) e peso (`wt`). Trata-se de um exemplo clássico em análise de regressão.
 
-1. Carregue e Ajuste (com `data(mtcars)` e `lm`):
-   $$
-   mpg \sim wt
-   $$
+1.  Carregue e Ajuste (com `data(mtcars)` e `lm`): $$
+    mpg \sim wt
+    $$
 
-2. Obtenha:
-   - resíduos (com `resid`);
-   - valores ajustados (com `fitted`).
+2.  Obtenha:
 
-3. Construa:
-   - gráfico resíduos vs ajustados (com `plot`);
-   - QQ-plot (com `qqnorm` e `qqline`).
+    -   resíduos (com `resid`);
+    -   valores ajustados (com `fitted`).
 
+3.  Construa:
 
-4. Interprete:
-   - há evidência de não linearidade?
-   - há heterocedasticidade?
-   - há observações discrepantes?
+    -   gráfico resíduos vs ajustados (com `plot`);
+    -   QQ-plot (com `qqnorm` e `qqline`).
 
-5. Calcule:
-   - resíduos padronizados (com `rstandard`);
-   - valores de alavancagem (com `hatvalues`).
+4.  Interprete:
 
-6. Discuta:
-   - possíveis pontos influentes;
-   - limitações do modelo linear simples nesse contexto.
+    -   há evidência de não linearidade?
+    -   há heterocedasticidade?
+    -   há observações discrepantes?
 
-### Atividade 7 — Transformações
+5.  Calcule:
+
+    -   resíduos padronizados (com `rstandard`);
+    -   valores de alavancagem (com `hatvalues`).
+
+6.  Discuta:
+
+    -   possíveis pontos influentes;
+    -   limitações do modelo linear simples nesse contexto.
+
+### Atividade 7 --- Transformações
 
 Ainda com `mtcars`, investigaremos possíveis melhorias no modelo.
 
-1. Ajuste:
-   $$
-   mpg \sim wt
-   $$
+1.  Ajuste: $$
+    mpg \sim wt
+    $$
 
-2. Ajuste:
-   $$
-   \log(mpg) \sim wt
-   $$
+2.  Ajuste: $$
+    \log(mpg) \sim wt
+    $$
 
-3. Compare:
-   - gráficos de resíduos;
-   - dispersão;
-   - ajuste visual.
+3.  Compare:
 
-4. Interprete:
-   - a transformação melhora o modelo?
-   - como muda a interpretação dos coeficientes?
+    -   gráficos de resíduos;
+    -   dispersão;
+    -   ajuste visual.
 
-5. Discuta em quais situações transformações são recomendadas.
+4.  Interprete:
 
-### Atividade 8 — Comparação de modelos
+    -   a transformação melhora o modelo?
+    -   como muda a interpretação dos coeficientes?
+
+5.  Discuta em quais situações transformações são recomendadas.
+
+### Atividade 8 --- Comparação de modelos
 
 Agora utilizamos a base `Boston` (pacote MASS), amplamente utilizada em estudos de regressão.
 
 Essa base contém dados sobre preços de imóveis (`medv`) e características socioeconômicas de bairros em Boston.
 
-1. Ajuste:
-   - modelo 1: `medv ~ lstat`  
-   - modelo 2: `medv ~ lstat + rm`
+1.  Ajuste:
+    -   modelo 1: `medv ~ lstat`\
+    -   modelo 2: `medv ~ lstat + rm`
 
 ```{r}
 #| echo: true
@@ -422,19 +430,20 @@ library(MASS)
 data(Boston)
 ```
 
-2. Compare:
-   - $R^2$;
-   - AIC;
-   - BIC.
+2.  Compare:
 
-3. Analise os resíduos de ambos os modelos.
+    -   $R^2$;
+    -   AIC;
+    -   BIC.
 
-4. Interprete:
-   - qual modelo parece mais adequado?
-   - há ganho real ao incluir mais variáveis?
+3.  Analise os resíduos de ambos os modelos.
 
-5. Discuta:
-   - trade-off entre simplicidade e ajuste;
-   - por que um modelo com maior $R^2$ pode não ser o melhor.
+4.  Interprete:
 
+    -   qual modelo parece mais adequado?
+    -   há ganho real ao incluir mais variáveis?
 
+5.  Discuta:
+
+    -   trade-off entre simplicidade e ajuste;
+    -   por que um modelo com maior $R^2$ pode não ser o melhor.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Formas Lineares e Quadráticas na Normal Multivariada</title>
+<title>12&nbsp; Trabalho - Estudo de Simulação</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 1em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ap_tratamento.html" rel="next">
-<link href="./ap_normal.html" rel="prev">
+<link href="./part3_ex.html" rel="next">
+<link href="./part2_ex.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -132,7 +112,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_forma_linear.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrls.html">Parte II — Modelo de Regressão Linear Simples (MRLS)</a></li><li class="breadcrumb-item"><a href="./part2_sim.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -262,7 +242,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./part2_sim.html" class="sidebar-item-text sidebar-link">
+  <a href="./part2_sim.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></span></a>
   </div>
 </li>
@@ -314,7 +294,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
   </div>
 </li>
@@ -354,30 +334,23 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#preliminares-normal-multivariada-e-transformações-lineares" id="toc-preliminares-normal-multivariada-e-transformações-lineares" class="nav-link active" data-scroll-target="#preliminares-normal-multivariada-e-transformações-lineares"><span class="header-section-number">17.1</span> Preliminares: Normal multivariada e transformações lineares</a></li>
-  <li><a href="#padronização-multivariada-e-redução-ao-caso-mathbfi" id="toc-padronização-multivariada-e-redução-ao-caso-mathbfi" class="nav-link" data-scroll-target="#padronização-multivariada-e-redução-ao-caso-mathbfi"><span class="header-section-number">17.2</span> Padronização multivariada e redução ao caso <span class="math inline">\(\mathbf{I}\)</span></a></li>
-  <li><a href="#forma-linear-distribuição-interpretação-e-conexão-com-regressão" id="toc-forma-linear-distribuição-interpretação-e-conexão-com-regressão" class="nav-link" data-scroll-target="#forma-linear-distribuição-interpretação-e-conexão-com-regressão"><span class="header-section-number">17.3</span> Forma linear: distribuição, interpretação e conexão com regressão</a></li>
-  <li><a href="#forma-quadrática-definição-e-interpretação" id="toc-forma-quadrática-definição-e-interpretação" class="nav-link" data-scroll-target="#forma-quadrática-definição-e-interpretação"><span class="header-section-number">17.4</span> Forma quadrática: definição e interpretação</a></li>
-  <li><a href="#o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2" id="toc-o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2" class="nav-link" data-scroll-target="#o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2"><span class="header-section-number">17.5</span> O caso central: <span class="math inline">\(\mathbf{Z}^\top\mathbf{Z}\)</span> e a distribuição <span class="math inline">\(\chi^2\)</span></a></li>
-  <li><a href="#projeções-ortogonais-e-qui-quadrado" id="toc-projeções-ortogonais-e-qui-quadrado" class="nav-link" data-scroll-target="#projeções-ortogonais-e-qui-quadrado"><span class="header-section-number">17.6</span> Projeções ortogonais e Qui-quadrado</a></li>
-  <li><a href="#independência-via-ortogonalidade" id="toc-independência-via-ortogonalidade" class="nav-link" data-scroll-target="#independência-via-ortogonalidade"><span class="header-section-number">17.7</span> Independência via ortogonalidade</a></li>
-  <li><a href="#mrlm-normal" id="toc-mrlm-normal" class="nav-link" data-scroll-target="#mrlm-normal"><span class="header-section-number">17.8</span> MRLM Normal</a>
+  <li><a href="#objetivo-geral" id="toc-objetivo-geral" class="nav-link active" data-scroll-target="#objetivo-geral"><span class="header-section-number">12.1</span> Objetivo geral</a></li>
+  <li><a href="#estrutura-geral-dos-cenários" id="toc-estrutura-geral-dos-cenários" class="nav-link" data-scroll-target="#estrutura-geral-dos-cenários"><span class="header-section-number">12.2</span> Estrutura geral dos cenários</a>
   <ul class="collapse">
-  <li><a href="#estimador-como-forma-linear-em-mathbfy" id="toc-estimador-como-forma-linear-em-mathbfy" class="nav-link" data-scroll-target="#estimador-como-forma-linear-em-mathbfy"><span class="header-section-number">17.8.1</span> Estimador como forma linear em <span class="math inline">\(\mathbf{Y}\)</span></a></li>
-  <li><a href="#resíduos-como-transformação-linear" id="toc-resíduos-como-transformação-linear" class="nav-link" data-scroll-target="#resíduos-como-transformação-linear"><span class="header-section-number">17.8.2</span> Resíduos como transformação linear</a></li>
-  <li><a href="#soma-de-quadrados-residual-como-forma-quadrática" id="toc-soma-de-quadrados-residual-como-forma-quadrática" class="nav-link" data-scroll-target="#soma-de-quadrados-residual-como-forma-quadrática"><span class="header-section-number">17.8.3</span> Soma de quadrados residual como forma quadrática</a></li>
-  <li><a href="#decomposição-ortogonal-da-soma-de-quadrados-total" id="toc-decomposição-ortogonal-da-soma-de-quadrados-total" class="nav-link" data-scroll-target="#decomposição-ortogonal-da-soma-de-quadrados-total"><span class="header-section-number">17.8.4</span> Decomposição ortogonal da soma de quadrados total</a></li>
-  <li><a href="#surgimento-das-distribuições-t-e-f" id="toc-surgimento-das-distribuições-t-e-f" class="nav-link" data-scroll-target="#surgimento-das-distribuições-t-e-f"><span class="header-section-number">17.8.5</span> Surgimento das distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span></a></li>
+  <li><a href="#cenários" id="toc-cenários" class="nav-link" data-scroll-target="#cenários"><span class="header-section-number">12.2.1</span> Cenários</a></li>
   </ul></li>
+  <li><a href="#algoritmo-geral-da-simulação" id="toc-algoritmo-geral-da-simulação" class="nav-link" data-scroll-target="#algoritmo-geral-da-simulação"><span class="header-section-number">12.3</span> Algoritmo geral da simulação</a></li>
+  <li><a href="#etapas-do-trabalho" id="toc-etapas-do-trabalho" class="nav-link" data-scroll-target="#etapas-do-trabalho"><span class="header-section-number">12.4</span> Etapas do trabalho</a></li>
+  <li><a href="#orientações-e-observações" id="toc-orientações-e-observações" class="nav-link" data-scroll-target="#orientações-e-observações"><span class="header-section-number">12.5</span> Orientações e observações</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_forma_linear.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrls.html">Parte II — Modelo de Regressão Linear Simples (MRLS)</a></li><li class="breadcrumb-item"><a href="./part2_sim.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></h1>
 </div>
 
 
@@ -394,324 +367,304 @@ window.Quarto = {
 </header>
 
 
-<p>Em regressão linear clássica, muitos estimadores e estatísticas fundamentais são <strong>formas lineares</strong> e <strong>formas quadráticas</strong> de um vetor aleatório Normal multivariado. Essa conexão não é meramente técnica: ela é estrutural e explica por que distribuições exatas em amostras finitas podem ser obtidas sob normalidade. A fundamentação matricial e geométrica desses resultados pode ser encontrada, em diferentes níveis de formalidade <span class="citation" data-cites="harville2000 anderson2003">(<a href="references.html#ref-anderson2003" role="doc-biblioref">Anderson, 2003</a>; <a href="references.html#ref-harville2000" role="doc-biblioref">Harville, 2000</a>)</span>.</p>
-<section id="preliminares-normal-multivariada-e-transformações-lineares" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="preliminares-normal-multivariada-e-transformações-lineares"><span class="header-section-number">17.1</span> Preliminares: Normal multivariada e transformações lineares</h2>
-<p>Seja <span class="math display">\[
-\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma}),
-\]</span> com <span class="math inline">\(\boldsymbol{\Sigma}\)</span> simétrica definida positiva.</p>
-<p>Uma propriedade central da Normal multivariada é sua <strong>estabilidade por transformações lineares</strong>: se <span class="math inline">\(\mathbf{A}\)</span> é uma matriz fixa <span class="math inline">\(m\times n\)</span> e <span class="math inline">\(\mathbf{a}\in\mathbb{R}^m\)</span>, então <span class="math display">\[
-\mathbf{Z}=\mathbf{A}\mathbf{Y}+\mathbf{a}
-\sim
-N_m(\mathbf{A}\boldsymbol{\mu}+\mathbf{a},\, \mathbf{A}\boldsymbol{\Sigma}\mathbf{A}^\top).
-\]</span> Esse resultado é apresentado de forma sistemática em <span class="citation" data-cites="anderson2003">Anderson (<a href="references.html#ref-anderson2003" role="doc-biblioref">2003</a>)</span> e constitui a base probabilística da teoria da regressão linear.</p>
-<p>Como caso particular, para um vetor fixo <span class="math inline">\(\mathbf{c}\in\mathbb{R}^n\)</span>, <span class="math display">\[
-L=\mathbf{c}^\top\mathbf{Y}
-\sim
-N\!\left(\mathbf{c}^\top\boldsymbol{\mu},\, \mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}\right).
-\]</span> A dedução segue diretamente da propriedade anterior e também pode ser vista como aplicação do fato de que combinações lineares de vetores Normais permanecem Normais, como discutido em <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
-<p>Essa estrutura será aplicada diretamente a:</p>
+<section id="objetivo-geral" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="objetivo-geral"><span class="header-section-number">12.1</span> Objetivo geral</h2>
+<p>Neste trabalho, investigue, por meio de simulação, o comportamento do estimador de mínimos quadrados no modelo de regressão linear simples (MRLS) sob diferentes condições.</p>
+<p>O objetivo é compreender, de forma aplicada e crítica, em que medida o método permanece adequado quando as hipóteses do modelo são satisfeitas ou violadas.</p>
+<p>Ao longo do trabalho, faça:</p>
 <ul>
-<li><span class="math inline">\(\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}\)</span>;</li>
-<li>contrastes <span class="math inline">\(\mathbf{C}\hat{\boldsymbol{\beta}}\)</span>;</li>
-<li>predições lineares e combinações de coeficientes.</li>
+<li>a geração de dados sob diferentes cenários;</li>
+<li>o ajuste de modelos de regressão linear simples;</li>
+<li>a avaliação das propriedades dos estimadores;</li>
+<li>a análise do desempenho da inferência estatística;</li>
+<li>a análise gráfica dos resíduos;</li>
+<li>a proposição de possíveis correções do modelo.</li>
 </ul>
+<p>Desenvolva o trabalho em etapas, acompanhando o conteúdo estudado ao longo da disciplina.</p>
 </section>
-<section id="padronização-multivariada-e-redução-ao-caso-mathbfi" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="padronização-multivariada-e-redução-ao-caso-mathbfi"><span class="header-section-number">17.2</span> Padronização multivariada e redução ao caso <span class="math inline">\(\mathbf{I}\)</span></h2>
-<p>Para estudar formas quadráticas, é útil reduzir o problema ao caso esférico.</p>
-<p>Como <span class="math inline">\(\boldsymbol{\Sigma}\)</span> é definida positiva, existe uma matriz simétrica definida positiva <span class="math inline">\(\boldsymbol{\Sigma}^{1/2}\)</span> tal que <span class="math display">\[
-\boldsymbol{\Sigma}^{1/2}\boldsymbol{\Sigma}^{1/2}=\boldsymbol{\Sigma},
-\qquad
-(\boldsymbol{\Sigma}^{1/2})^{-1}=\boldsymbol{\Sigma}^{-1/2}.
-\]</span> A existência dessa raiz quadrada decorre da decomposição espectral de matrizes simétricas definidas positivas, tratada em detalhe em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
-<p>Defina</p>
+<section id="estrutura-geral-dos-cenários" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="estrutura-geral-dos-cenários"><span class="header-section-number">12.2</span> Estrutura geral dos cenários</h2>
+<p>Em todos os cenários, procure manter a mesma estrutura básica, alterando apenas o mecanismo gerador dos erros ou da variável resposta.</p>
+<p>Considere gerar:</p>
 <p><span class="math display">\[
-\mathbf{Z}=\boldsymbol{\Sigma}^{-1/2}(\mathbf{Y}-\boldsymbol{\mu}).
+X_i \sim \text{distribuição escolhida}
 \]</span></p>
-<p>Então</p>
+<p>Apenas uma vez por cenário e, definir <span class="math inline">\(Y_i\)</span> de acordo com cada cenário.</p>
+<p>Utilize, sempre que possível, os mesmos valores de <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> em todos os cenários. Isso é essencial para que as diferenças observadas sejam atribuídas ao comportamento dos erros e não a mudanças na estrutura do modelo.</p>
+<p><strong>Escolha dos parâmetros</strong></p>
+<p>A escolha dos parâmetros é parte fundamental do trabalho. Parâmetros inadequados podem gerar cenários pouco informativos ou difíceis de interpretar.</p>
+<p><strong>Parâmetros do modelo</strong></p>
+<p>Escolha valores simples e interpretáveis, por exemplo:</p>
 <p><span class="math display">\[
-\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n).
+\beta_0 \in \{0,1,2\}, \qquad \beta_1 \in \{0.5,1,2\}.
 \]</span></p>
-<p>Essa transformação separa de maneira conceitualmente limpa os papéis de média e dispersão, reduzindo a análise probabilística ao caso esférico. Além disso, ela mostra que a chamada distância de Mahalanobis <span class="math display">\[
-(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})
-\]</span> é simplesmente a norma euclidiana ao quadrado de um vetor Normal padrão: <span class="math display">\[
-(\mathbf{Y}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{Y}-\boldsymbol{\mu})
-=
-\mathbf{Z}^\top\mathbf{Z}.
-\]</span> Essa ponte entre geometria (normas e projeções) e distribuição (Qui-quadrado) é central na teoria da inferência sob normalidade.</p>
-</section>
-<section id="forma-linear-distribuição-interpretação-e-conexão-com-regressão" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="forma-linear-distribuição-interpretação-e-conexão-com-regressão"><span class="header-section-number">17.3</span> Forma linear: distribuição, interpretação e conexão com regressão</h2>
-<p>Uma <strong>forma linear</strong> de um vetor aleatório é uma expressão do tipo <span class="math display">\[
-L=\mathbf{c}^\top\mathbf{Y},
-\]</span> onde <span class="math inline">\(\mathbf{c}\)</span> é fixo.</p>
-<p>Se <span class="math inline">\(\mathbf{Y}\sim N_n(\boldsymbol{\mu},\boldsymbol{\Sigma})\)</span>, então:</p>
+<p>Evite valores muito grandes, pois podem gerar respostas em escalas pouco naturais, e evite valores muito pequenos, que dificultam a identificação da relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
+<p><strong>Distribuição de <span class="math inline">\(X\)</span></strong></p>
+<p>Garanta que <span class="math inline">\(X\)</span> apresente variabilidade suficiente. A precisão do estimador de <span class="math inline">\(\beta_1\)</span> depende diretamente da dispersão de <span class="math inline">\(X\)</span>.</p>
+<p>Possibilidades adequadas incluem:</p>
 <ul>
-<li><span class="math inline">\(L\)</span> é Normal;</li>
-<li><span class="math inline">\(\mathbb{E}(L)=\mathbf{c}^\top\boldsymbol{\mu}\)</span>;</li>
-<li><span class="math inline">\(\mathrm{Var}(L)=\mathbf{c}^\top\boldsymbol{\Sigma}\mathbf{c}\)</span>.</li>
+<li><span class="math inline">\(X_i \sim U(0,10)\)</span>;</li>
+<li><span class="math inline">\(X_i \sim N(5,2^2)\)</span>;</li>
+<li>valores fixos igualmente espaçados.</li>
 </ul>
-<p>Na regressão linear, quando se assume normalidade dos erros, tanto <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> quanto qualquer contraste <span class="math inline">\(\mathbf{C}\hat{\boldsymbol{\beta}}\)</span> são formas lineares em <span class="math inline">\(\mathbf{Y}\)</span>. Por isso, possuem distribuição Normal exata em amostras finitas.</p>
-</section>
-<section id="forma-quadrática-definição-e-interpretação" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="forma-quadrática-definição-e-interpretação"><span class="header-section-number">17.4</span> Forma quadrática: definição e interpretação</h2>
-<p>Uma <strong>forma quadrática</strong> em <span class="math inline">\(\mathbf{Y}\)</span> é uma expressão do tipo <span class="math display">\[
-Q=\mathbf{Y}^\top\mathbf{A}\mathbf{Y},
-\]</span> onde <span class="math inline">\(\mathbf{A}\)</span> é uma matriz fixa <span class="math inline">\(n\times n\)</span>.</p>
-<p>Primeira observação fundamental: apenas a parte simétrica de <span class="math inline">\(\mathbf{A}\)</span> influencia <span class="math inline">\(Q\)</span>. De fato, <span class="math display">\[
-\mathbf{Y}^\top\mathbf{A}\mathbf{Y}
-=
-\mathbf{Y}^\top\left(\frac{\mathbf{A}+\mathbf{A}^\top}{2}\right)\mathbf{Y}.
-\]</span> Logo, pode-se assumir <span class="math inline">\(\mathbf{A}\)</span> simétrica sem perda de generalidade, fato discutido na literatura matricial estatística como em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span>.</p>
-<p>Em regressão, as somas de quadrados são precisamente formas quadráticas:</p>
+<p>Utilize a mesma estrutura de <span class="math inline">\(X\)</span> em todos os cenários.</p>
+<p><strong>Variabilidade dos erros</strong></p>
+<p>Escolha valores como <span class="math inline">\(\sigma=1\)</span> ou <span class="math inline">\(\sigma=2\)</span>.</p>
+<p>Se a variabilidade for muito pequena, os dados se tornam quase determinísticos.<br>
+Se for muito grande, o ruído pode encobrir completamente a relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
+<p><strong>Tamanho da amostra</strong></p>
+<p>Utilize pelo menos dois tamanhos amostrais, por exemplo:</p>
 <p><span class="math display">\[
-\mathrm{SQReg}=\mathbf{Y}^\top\mathbf{H}\mathbf{Y},
-\qquad
-\mathrm{SQRes}=\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
+n=30 \quad \text{e} \quad n=100.
 \]</span></p>
-<p>O comportamento probabilístico de <span class="math inline">\(Q\)</span> depende criticamente das propriedades estruturais de <span class="math inline">\(\mathbf{A}\)</span>. Quando <span class="math inline">\(\mathbf{A}\)</span> é uma projeção ortogonal (simétrica e idempotente), a forma quadrática se reduz a uma soma de quadrados de componentes Normais padrão em um subespaço.</p>
-</section>
-<section id="o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="o-caso-central-mathbfztopmathbfz-e-a-distribuição-chi2"><span class="header-section-number">17.5</span> O caso central: <span class="math inline">\(\mathbf{Z}^\top\mathbf{Z}\)</span> e a distribuição <span class="math inline">\(\chi^2\)</span></h2>
-<p>Se <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span>, então suas componentes são independentes e</p>
+<p>Compare os resultados entre tamanhos diferentes e observe o efeito do aumento da amostra.</p>
+<p><strong>Número de repetições</strong></p>
+<p>Utilize um número suficientemente grande de repetições, por exemplo:</p>
 <p><span class="math display">\[
-Z_i\sim N(0,1).
+B = 1000 \quad \text{ou mais}.
 \]</span></p>
-<p>Consequentemente,</p>
+<p>Isso é essencial para que as estimativas empíricas de viés, variância e cobertura sejam estáveis.</p>
+<section id="cenários" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="cenários"><span class="header-section-number">12.2.1</span> Cenários</h3>
+<p><strong>(i) Modelo clássico normal</strong></p>
+<p>Considere:</p>
 <p><span class="math display">\[
-\mathbf{Z}^\top\mathbf{Z}
-=
-\sum_{i=1}^n Z_i^2
-\sim
-\chi^2_n.
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
 \]</span></p>
-<p>Esse resultado é a base de todas as somas de quadrados na regressão sob normalidade, como apresentado em textos de inferência como <span class="citation" data-cites="casella2002">Casella; Berger (<a href="references.html#ref-casella2002" role="doc-biblioref">2002</a>)</span>.</p>
-</section>
-<section id="projeções-ortogonais-e-qui-quadrado" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="projeções-ortogonais-e-qui-quadrado"><span class="header-section-number">17.6</span> Projeções ortogonais e Qui-quadrado</h2>
-<p>Seja <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span> e seja <span class="math inline">\(\mathbf{A}\)</span> simétrica e idempotente:</p>
+<p>com</p>
 <p><span class="math display">\[
-\mathbf{A}^\top=\mathbf{A},
-\qquad
-\mathbf{A}^2=\mathbf{A}.
+\varepsilon_i \sim \mathcal{N}(0,\sigma^2).
 \]</span></p>
-<p>Se <span class="math inline">\(r=\mathrm{rank}(\mathbf{A})=\mathrm{tr}(\mathbf{A})\)</span>, então</p>
+<p>Os erros são independentes, com média zero e variância constante.</p>
+<p>Utilize este cenário como referência. Compare todos os demais resultados com ele.</p>
+<p>Espere observar, neste caso, o comportamento mais próximo da teoria clássica do MRLS.</p>
+<p><strong>(ii) Erros com curtose elevada (caudas pesadas)</strong></p>
+<p>Considere:</p>
 <p><span class="math display">\[
-\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\sim \chi^2_r.
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
 \]</span></p>
-<p>Esse resultado pode ser deduzido via decomposição espectral de <span class="math inline">\(\mathbf{A}\)</span> e é tratado com rigor em <span class="citation" data-cites="harville2000">Harville (<a href="references.html#ref-harville2000" role="doc-biblioref">2000</a>)</span> e <span class="citation" data-cites="rencher2012">Rencher; Christensen (<a href="references.html#ref-rencher2012" role="doc-biblioref">2012</a>)</span>.</p>
-<p>Geometricamente, <span class="math inline">\(\mathbf{A}\)</span> projeta sobre um subespaço <span class="math inline">\(S\)</span> de dimensão <span class="math inline">\(r\)</span>. Assim, <span class="math inline">\(\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\)</span> mede o comprimento ao quadrado da componente projetada de <span class="math inline">\(\mathbf{Z}\)</span> em <span class="math inline">\(S\)</span>, que se comporta como soma de quadrados de <span class="math inline">\(r\)</span> Normais padrão.</p>
-<p>Esse resultado aplica-se diretamente às matrizes <span class="math inline">\(\mathbf{H}\)</span> (posto <span class="math inline">\(p+1\)</span>) e <span class="math inline">\(\mathbf{M}\)</span> (posto <span class="math inline">\(n-p-1\)</span>). Quando <span class="math inline">\(\mathbf{Z}\)</span> representa a versão padronizada do vetor de erros, as somas de quadrados do modelo e do resíduo assumem distribuições Qui-quadrado com graus de liberdade dados por esses postos.</p>
-</section>
-<section id="independência-via-ortogonalidade" class="level2" data-number="17.7">
-<h2 data-number="17.7" class="anchored" data-anchor-id="independência-via-ortogonalidade"><span class="header-section-number">17.7</span> Independência via ortogonalidade</h2>
-<p>Se <span class="math inline">\(\mathbf{Z}\sim N_n(\mathbf{0},\mathbf{I}_n)\)</span> e <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{B}\)</span> são simétricas idempotentes tais que</p>
-<p><span class="math display">\[
-\mathbf{A}\mathbf{B}=\mathbf{0},
-\]</span></p>
-<p>então</p>
-<p><span class="math display">\[
-\mathbf{Z}^\top\mathbf{A}\mathbf{Z}
-\ \perp\
-\mathbf{Z}^\top\mathbf{B}\mathbf{Z}.
-\]</span></p>
-<p>A independência decorre da decomposição ortogonal do espaço combinada com a simetria esférica da Normal padrão.</p>
-<p>Critério análogo vale para independência entre forma linear <span class="math inline">\(L=\mathbf{a}^\top\mathbf{Z}\)</span> e forma quadrática <span class="math inline">\(Q=\mathbf{Z}^\top\mathbf{A}\mathbf{Z}\)</span>: se</p>
-<p><span class="math display">\[
-\mathbf{A}\mathbf{a}=\mathbf{0},
-\]</span></p>
-<p>então <span class="math inline">\(L\)</span> e <span class="math inline">\(Q\)</span> são independentes.</p>
-</section>
-<section id="mrlm-normal" class="level2" data-number="17.8">
-<h2 data-number="17.8" class="anchored" data-anchor-id="mrlm-normal"><span class="header-section-number">17.8</span> MRLM Normal</h2>
-<p>Considere o modelo de regressão linear múltipla sob normalidade e homocedasticidade:</p>
-<p><span class="math display">\[
-\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},
-\qquad
-\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2\mathbf{I}_n).
-\]</span></p>
-<p>Como consequência direta da estabilidade da Normal multivariada por transformações lineares, tem-se</p>
-<p><span class="math display">\[
-\mathbf{Y}\sim N_n(\mathbf{X}\boldsymbol{\beta},\sigma^2\mathbf{I}_n).
-\]</span></p>
-<p>As quantidades centrais do modelo podem ser classificadas estruturalmente da seguinte forma, destacando-se suas distribuições quando há uma forma conhecida.</p>
-<section id="estimador-como-forma-linear-em-mathbfy" class="level3" data-number="17.8.1">
-<h3 data-number="17.8.1" class="anchored" data-anchor-id="estimador-como-forma-linear-em-mathbfy"><span class="header-section-number">17.8.1</span> Estimador como forma linear em <span class="math inline">\(\mathbf{Y}\)</span></h3>
-<p><span class="math display">\[
-\hat{\boldsymbol{\beta}}
-=
-(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
-\]</span></p>
-<p>Trata-se de uma transformação linear do vetor aleatório <span class="math inline">\(\mathbf{Y}\)</span>. Logo,</p>
-<p><span class="math display">\[
-\hat{\boldsymbol{\beta}}
-\sim
-N_{p+1}
-\!\left(
-\boldsymbol{\beta},
-\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
-\right).
-\]</span></p>
-<p>Em particular, para cada componente <span class="math inline">\(\hat{\beta}_j\)</span>,</p>
-<p><span class="math display">\[
-\frac{\hat{\beta}_j-\beta_j}
-{\sigma\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}
-\sim N(0,1).
-\]</span></p>
-</section>
-<section id="resíduos-como-transformação-linear" class="level3" data-number="17.8.2">
-<h3 data-number="17.8.2" class="anchored" data-anchor-id="resíduos-como-transformação-linear"><span class="header-section-number">17.8.2</span> Resíduos como transformação linear</h3>
-<p><span class="math display">\[
-\hat{\boldsymbol{\varepsilon}}
-=
-\mathbf{M}\mathbf{Y},
-\qquad
-\mathbf{M}=\mathbf{I}_n-\mathbf{H}.
-\]</span></p>
-<p>Como <span class="math inline">\(\hat{\boldsymbol{\varepsilon}}\)</span> é transformação linear de um vetor Normal multivariado, segue que</p>
-<p><span class="math display">\[
-\hat{\boldsymbol{\varepsilon}}
-\sim
-N_n\!\left(
-\mathbf{M}\mathbf{X}\boldsymbol{\beta},
-\,\sigma^2\mathbf{M}
-\right).
-\]</span></p>
-<p>Como <span class="math inline">\(\mathbf{M}\mathbf{X}=\mathbf{0}\)</span>, obtém-se</p>
-<p><span class="math display">\[
-\hat{\boldsymbol{\varepsilon}}
-\sim
-N_n(\mathbf{0},\,\sigma^2\mathbf{M}).
-\]</span></p>
-<p>Assim, os resíduos possuem estrutura Normal degenerada em um subespaço de dimensão <span class="math inline">\(n-p-1\)</span>.</p>
-</section>
-<section id="soma-de-quadrados-residual-como-forma-quadrática" class="level3" data-number="17.8.3">
-<h3 data-number="17.8.3" class="anchored" data-anchor-id="soma-de-quadrados-residual-como-forma-quadrática"><span class="header-section-number">17.8.3</span> Soma de quadrados residual como forma quadrática</h3>
-<p><span class="math display">\[
-\mathrm{SQRes}
-=
-\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}
-=
-\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
-\]</span></p>
-<p>Como <span class="math inline">\(\mathbf{M}\)</span> é simétrica idempotente com</p>
-<p><span class="math display">\[
-\mathrm{rank}(\mathbf{M})=n-p-1,
-\]</span></p>
-<p>segue que, após padronização por <span class="math inline">\(\sigma^2\)</span>,</p>
-<p><span class="math display">\[
-\frac{\mathrm{SQRes}}{\sigma^2}
-=
-\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}
-\sim
-\chi^2_{\,n-p-1}.
-\]</span></p>
-<p>Equivalentemente,</p>
-<p><span class="math display">\[
-\mathrm{SQRes}
-\sim
-\sigma^2\,\chi^2_{\,n-p-1}.
-\]</span></p>
-<p>Além disso, definindo</p>
-<p><span class="math display">\[
-\hat{\sigma}^2=\frac{\mathrm{SQRes}}{n-p-1},
-\]</span></p>
-<p>tem-se</p>
-<p><span class="math display">\[
-\frac{(n-p-1)\hat{\sigma}^2}{\sigma^2}
-\sim
-\chi^2_{\,n-p-1}.
-\]</span></p>
-</section>
-<section id="decomposição-ortogonal-da-soma-de-quadrados-total" class="level3" data-number="17.8.4">
-<h3 data-number="17.8.4" class="anchored" data-anchor-id="decomposição-ortogonal-da-soma-de-quadrados-total"><span class="header-section-number">17.8.4</span> Decomposição ortogonal da soma de quadrados total</h3>
-<p><span class="math display">\[
-\mathbf{Y}^\top\mathbf{Y}
-=
-\mathbf{Y}^\top\mathbf{H}\mathbf{Y}
-+
-\mathbf{Y}^\top\mathbf{M}\mathbf{Y}.
-\]</span></p>
-<p>Sob o modelo Normal, após padronização por <span class="math inline">\(\sigma^2\)</span>, as duas parcelas tornam-se formas quadráticas associadas a projeções ortogonais complementares.</p>
-<p>Escrevendo <span class="math inline">\(\boldsymbol{\mu}=\mathbf{X}\boldsymbol{\beta}\)</span>, obtém-se:</p>
+<p>com erros de média zero e distribuição com caudas mais pesadas que a normal, como uma distribuição t de Student com poucos graus de liberdade.</p>
+<p>Garanta que os erros tenham média zero.</p>
+<p>Observe a ocorrência de valores extremos. Em distribuições com caudas pesadas, a probabilidade de observar valores muito distantes da média é maior.</p>
+<p>Avalie:</p>
 <ul>
-<li><strong>Parte ajustada (forma quadrática não-central)</strong></li>
+<li>a estabilidade dos estimadores;</li>
+<li>a presença de observações influentes;</li>
+<li>o impacto sobre intervalos de confiança e testes.</li>
 </ul>
+<p>Compare sempre com o cenário normal.</p>
+<p><strong>(iii) Erros com assimetria</strong></p>
+<p>Considere:</p>
 <p><span class="math display">\[
-\frac{\mathbf{Y}^\top\mathbf{H}\mathbf{Y}}{\sigma^2}
-\sim
-\chi^2_{\,p+1}(\lambda),
-\qquad
-\lambda=\frac{\boldsymbol{\mu}^\top\boldsymbol{\mu}}{\sigma^2}.
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
 \]</span></p>
+<p>com erros assimétricos e média zero.</p>
+<p>Construa os erros da seguinte forma:</p>
 <ul>
-<li><strong>Parte residual (forma quadrática central)</strong></li>
+<li>gere <span class="math inline">\(U_i\)</span> de uma distribuição Gamma;</li>
+<li>defina <span class="math inline">\(\varepsilon_i = U_i - E(U_i)\)</span>.</li>
 </ul>
+<p>Assim, os erros terão média zero, mas não serão simétricos.</p>
+<p>Observe que média zero não implica simetria nem normalidade.</p>
+<p>Avalie:</p>
+<ul>
+<li>a forma da distribuição dos estimadores;</li>
+<li>possíveis distorções na inferência;</li>
+<li>o comportamento do QQ-plot.</li>
+</ul>
+<p><strong>(iv) Erros com média diferente de zero</strong></p>
+<p>Considere:</p>
 <p><span class="math display">\[
-\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}
-\sim
-\chi^2_{\,n-p-1}.
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
 \]</span></p>
-<p>Como <span class="math inline">\(\mathbf{H}\mathbf{M}=\mathbf{0}\)</span> e ambas são projeções ortogonais, essas duas formas quadráticas são independentes:</p>
+<p>com</p>
 <p><span class="math display">\[
-\frac{\mathbf{Y}^\top\mathbf{H}\mathbf{Y}}{\sigma^2}
-\ \perp\
-\frac{\mathbf{Y}^\top\mathbf{M}\mathbf{Y}}{\sigma^2}.
+\varepsilon_i \sim \mathcal{N}(\mu_\varepsilon,\sigma^2), \quad \mu_\varepsilon \neq 0.
 \]</span></p>
+<p>Observe o que ocorre com o intercepto e com o coeficiente angular.</p>
+<p>Faça uma análise cuidadosa. Quando há intercepto no modelo, uma média constante dos erros pode ser absorvida pelo intercepto. Isso significa que o impacto sobre <span class="math inline">\(\beta_1\)</span> pode não ser tão evidente nesse caso.</p>
+<p>Em seguida, considere uma situação mais geral:</p>
+<p><span class="math display">\[
+\varepsilon_i = \delta X_i + u_i, \quad u_i \sim \mathcal{N}(0,\sigma^2).
+\]</span></p>
+<p>Nesse caso:</p>
+<p><span class="math display">\[
+E(\varepsilon_i \mid X_i) \neq 0.
+\]</span></p>
+<p>Aqui há uma violação mais forte da hipótese do modelo.</p>
+<p>Compare os dois casos e avalie:</p>
+<ul>
+<li>o impacto sobre os estimadores;</li>
+<li>a presença de viés;</li>
+<li>a validade da inferência.</li>
+</ul>
+<p><strong>(v) Erros correlacionados</strong></p>
+<p>Considere:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i,
+\]</span></p>
+<p>com erros definidos por:</p>
+<p><span class="math display">\[
+\varepsilon_i = \rho \varepsilon_{i-1} + u_i, \quad u_i \sim \mathcal{N}(0,\sigma^2).
+\]</span></p>
+<p>Escolha valores como <span class="math inline">\(\rho=0.5\)</span> ou <span class="math inline">\(\rho=0.8\)</span>.</p>
+<p>Observe que os erros não são independentes.</p>
+<p>Neste cenário, o problema principal não é a média dos erros nem necessariamente sua distribuição marginal, mas a dependência entre observações.</p>
+<p>Avalie:</p>
+<ul>
+<li>a variabilidade dos estimadores;</li>
+<li>os erros-padrão estimados;</li>
+<li>a cobertura dos intervalos de confiança;</li>
+<li>o comportamento dos testes.</li>
+</ul>
+<p>Observe também padrões nos resíduos.</p>
+<p><strong>(vi) Relação exponencial com erro multiplicativo lognormal</strong></p>
+<p>Considere:</p>
+<p><span class="math display">\[
+Y_i = \exp(\beta_0 + \beta_1 X_i)\,\eta_i,
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+\eta_i \sim \log\mathcal{N}(0,\sigma^2).
+\]</span></p>
+<p>Equivalentemente:</p>
+<p><span class="math display">\[
+Y_i = \exp(\beta_0 + \beta_1 X_i + \varepsilon_i), \quad \varepsilon_i \sim \mathcal{N}(0,\sigma^2).
+\]</span></p>
+<p>Neste cenário, o modelo não é linear na escala original de <span class="math inline">\(Y\)</span>.</p>
+<p>Ajuste inicialmente um modelo linear simples entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>.</p>
+<p>Observe:</p>
+<ul>
+<li>padrões nos resíduos;</li>
+<li>possíveis desvios de linearidade;</li>
+<li>comportamento da variância.</li>
+</ul>
+<p>Em seguida, aplique a transformação:</p>
+<p><span class="math display">\[
+\log(Y_i)=\beta_0+\beta_1 X_i+\varepsilon_i.
+\]</span></p>
+<p>Ajuste novamente o modelo.</p>
+<p>Compare os resultados antes e depois da transformação e avalie a adequação do modelo em cada escala.</p>
 </section>
-<section id="surgimento-das-distribuições-t-e-f" class="level3" data-number="17.8.5">
-<h3 data-number="17.8.5" class="anchored" data-anchor-id="surgimento-das-distribuições-t-e-f"><span class="header-section-number">17.8.5</span> Surgimento das distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span></h3>
-<p>A partir dessas distribuições, emergem naturalmente as estatísticas de inferência.</p>
-<p>Para cada coeficiente,</p>
+</section>
+<section id="algoritmo-geral-da-simulação" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="algoritmo-geral-da-simulação"><span class="header-section-number">12.3</span> Algoritmo geral da simulação</h2>
+<p>Utilize a mesma estrutura em todos os cenários.</p>
+<p><strong>Passo 1</strong></p>
+<p>Defina:</p>
+<ul>
+<li>os parâmetros do modelo;</li>
+<li>a distribuição de <span class="math inline">\(X\)</span>;</li>
+<li>o tamanho da amostra <span class="math inline">\(n\)</span>;</li>
+<li>o número de repetições <span class="math inline">\(B\)</span>.</li>
+</ul>
+<p><strong>Passo 2</strong></p>
+<p>Gere os valores de <span class="math inline">\(X_1,\ldots,X_n\)</span>.</p>
+<p><strong>Passo 3</strong></p>
+<p>Gere os erros ou diretamente a variável resposta <span class="math inline">\(Y\)</span>, de acordo com o cenário.</p>
+<p><strong>Passo 4</strong></p>
+<p>Ajuste o modelo:</p>
 <p><span class="math display">\[
-T_j
-=
-\frac{\hat{\beta}_j-\beta_j}
-{\hat{\sigma}\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}
-=
-\frac{
-\displaystyle
-\frac{\hat{\beta}_j-\beta_j}
-{\sigma\sqrt{[(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}}
-}
-{
-\sqrt{\frac{\mathrm{SQRes}/\sigma^2}{\,n-p-1\,}}
-}
-\sim t_{\,n-p-1}.
+Y_i = \alpha_0 + \alpha_1 X_i + e_i.
 \]</span></p>
-<p>A estatística <span class="math inline">\(t\)</span> surge como razão entre uma Normal padrão e a raiz de uma Qui-quadrado independente dividida por seus graus de liberdade.</p>
-<p>De modo análogo, a estatística global de significância do modelo pode ser escrita como</p>
-<p><span class="math display">\[
-F
-=
-\frac{
-\left(\mathbf{Y}^\top\mathbf{H}\mathbf{Y}\right)/(p+1)
-}{
-\left(\mathbf{Y}^\top\mathbf{M}\mathbf{Y}\right)/(n-p-1)
-}
-\sim
-F_{\,p+1,\;n-p-1},
-\]</span></p>
-<p>no caso central sob a hipótese nula apropriada.</p>
-<p>Assim, as distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> não são introduzidas ad hoc: elas emergem diretamente da estrutura geométrica das projeções ortogonais combinada com a Normalidade multivariada do vetor de respostas.</p>
+<p><strong>Passo 5</strong></p>
+<p>Armazene, para cada repetição:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_0\)</span>;</li>
+<li><span class="math inline">\(\hat\beta_1\)</span>;</li>
+<li>demais quantidades de interesse.</li>
+</ul>
+<p><strong>Passo 6</strong></p>
+<p>Repita o processo <span class="math inline">\(B\)</span> vezes.</p>
+<p><strong>Passo 7</strong></p>
+<p>Calcule:</p>
+<ul>
+<li>média dos estimadores;</li>
+<li>viés;</li>
+<li>variância;</li>
+<li>erro quadrático médio;</li>
+<li>se desejar, outras quantidades.</li>
+</ul>
+<p><strong>Passo 8</strong></p>
+<p>Construa gráficos:</p>
+<ul>
+<li>histogramas;</li>
+<li>boxplots;</li>
+<li>QQ-plots.</li>
+</ul>
+<p>Analise a forma das distribuições dos estimadores.</p>
+</section>
+<section id="etapas-do-trabalho" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="etapas-do-trabalho"><span class="header-section-number">12.4</span> Etapas do trabalho</h2>
+<p><strong>Estimação</strong></p>
+<p>Repita o processo de simulação.</p>
+<p>Calcule e interprete:</p>
+<ul>
+<li>média dos estimadores;</li>
+<li>viés;</li>
+<li>variância;</li>
+<li>erro quadrático médio.</li>
+</ul>
+<p>Compare os resultados entre cenários.</p>
+<p><strong>Inferência</strong></p>
+<p>Construa intervalos de confiança para <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>.</p>
+<p>Verifique, em cada repetição, se o intervalo contém o valor verdadeiro.</p>
+<p>Calcule a cobertura e compare entre cenários.</p>
+<p><strong>Testes</strong></p>
+<p>Considere:</p>
+<ul>
+<li><span class="math inline">\(\beta_1 = 0\)</span>;</li>
+<li><span class="math inline">\(\beta_1 \neq 0\)</span>.</li>
+</ul>
+<p>Realize testes em cada repetição.</p>
+<p>Calcule:</p>
+<ul>
+<li>taxa de rejeição sob <span class="math inline">\(H_0\)</span>;</li>
+<li>poder do teste.</li>
+</ul>
+<p>Compare os resultados.</p>
+<p><strong>Diagnóstico e correção</strong></p>
+<p>Para cada cenário, gere uma única amostra.</p>
+<p>Ajuste o modelo.</p>
+<p>Construa:</p>
+<ul>
+<li>gráfico de resíduos vs ajustados;</li>
+<li>QQ-plot.</li>
+</ul>
+<p>Observe padrões e identifique violações.</p>
+<p>Proponha correções:</p>
+<ul>
+<li>transformações;</li>
+<li>reespecificação do modelo.</li>
+</ul>
+<p>Compare os modelos.</p>
+</section>
+<section id="orientações-e-observações" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="orientações-e-observações"><span class="header-section-number">12.5</span> Orientações e observações</h2>
+<p>Utilize o cenário clássico como referência.</p>
+<p>Altere apenas um aspecto por vez.</p>
+<p>Observe o efeito do tamanho da amostra.</p>
+<p>Analise cuidadosamente o cenário com média dos erros diferente de zero.</p>
+<p>No caso de erros correlacionados, concentre a análise nos erros-padrão, intervalos e testes.</p>
+<p>No cenário exponencial, compare claramente os modelos antes e depois da transformação.</p>
+<p>Explique com clareza:</p>
+<ul>
+<li>como os dados foram gerados;</li>
+<li>quais medidas foram utilizadas;</li>
+<li>o que foi observado;</li>
+<li>quais conclusões podem ser tiradas sobre o comportamento do MRLS.</li>
+</ul>
+<p><strong>Forma de entrega</strong></p>
+<p>Apresente o trabalho de forma clara, organizada e reproduzível.</p>
+<p>Você pode utilizar:</p>
+<ul>
+<li>relatório em Markdown;</li>
+<li>notebook (Google Colab, Jupyter);</li>
+<li>documento com texto, tabelas e gráficos.</li>
+</ul>
+<p>Organize o material de modo que seja possível compreender todo o processo realizado.</p>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
-<div id="ref-anderson2003" class="csl-entry" role="listitem">
-ANDERSON, T. W. <strong>An Introduction to Multivariate Statistical Analysis</strong>. 3. ed. New York: Wiley, 2003.
-</div>
-<div id="ref-casella2002" class="csl-entry" role="listitem">
-CASELLA, George; BERGER, Roger L. <strong>Statistical Inference</strong>. 2. ed. Pacific Grove: Duxbury, 2002.
-</div>
-<div id="ref-harville2000" class="csl-entry" role="listitem">
-HARVILLE, David A. <strong>Matrix Algebra from a Statistician’s Perspective</strong>. New York: Springer, 2000.
-</div>
-<div id="ref-rencher2012" class="csl-entry" role="listitem">
-RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1117,13 +1070,13 @@ RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analy
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ap_normal.html" class="pagination-link" aria-label="Distribuição Normal">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span>
+      <a href="./part2_ex.html" class="pagination-link" aria-label="Exercícios e Atividades de Consolidação">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ap_tratamento.html" class="pagination-link" aria-label="Tratamento de dados para regressão">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./part3_ex.html" class="pagination-link" aria-label="Exercícios e Atividades de Consolidação">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
