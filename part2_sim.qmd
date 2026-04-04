@@ -1,4 +1,4 @@
-# Trabalho - Estudo de Simulação 
+# Trabalho - Estudo de Simulação
 
 ## Objetivo geral
 
@@ -8,12 +8,12 @@ O objetivo é compreender, de forma aplicada e crítica, em que medida o método
 
 Ao longo do trabalho, faça:
 
-- a geração de dados sob diferentes cenários;
-- o ajuste de modelos de regressão linear simples;
-- a avaliação das propriedades dos estimadores;
-- a análise do desempenho da inferência estatística;
-- a análise gráfica dos resíduos;
-- a proposição de possíveis correções do modelo.
+-   a geração de dados sob diferentes cenários;
+-   o ajuste de modelos de regressão linear simples;
+-   a avaliação das propriedades dos estimadores;
+-   a análise do desempenho da inferência estatística;
+-   a análise gráfica dos resíduos;
+-   a proposição de possíveis correções do modelo.
 
 Desenvolva o trabalho em etapas, acompanhando o conteúdo estudado ao longo da disciplina.
 
@@ -27,10 +27,9 @@ $$
 X_i \sim \text{distribuição escolhida}
 $$
 
-Apenas uma vez por cenário e, definir $Y_i$ de acordo com cada cenário.
+Apenas uma vez e, definir $Y_i$ de acordo com cada cenário.
 
 Utilize, sempre que possível, os mesmos valores de $\beta_0$ e $\beta_1$ em todos os cenários. Isso é essencial para que as diferenças observadas sejam atribuídas ao comportamento dos erros e não a mudanças na estrutura do modelo.
-
 
 **Escolha dos parâmetros**
 
@@ -46,27 +45,24 @@ $$
 
 Evite valores muito grandes, pois podem gerar respostas em escalas pouco naturais, e evite valores muito pequenos, que dificultam a identificação da relação entre $X$ e $Y$.
 
-
-**Distribuição de $X$**
+**Distribuição de** $X$
 
 Garanta que $X$ apresente variabilidade suficiente. A precisão do estimador de $\beta_1$ depende diretamente da dispersão de $X$.
 
 Possibilidades adequadas incluem:
 
-- $X_i \sim U(0,10)$;
-- $X_i \sim N(5,2^2)$;
-- valores fixos igualmente espaçados.
+-   $X_i \sim U(0,10)$;
+-   $X_i \sim N(5,2^2)$;
+-   valores fixos igualmente espaçados.
 
 Utilize a mesma estrutura de $X$ em todos os cenários.
-
 
 **Variabilidade dos erros**
 
 Escolha valores como $\sigma=1$ ou $\sigma=2$.
 
-Se a variabilidade for muito pequena, os dados se tornam quase determinísticos.  
+Se a variabilidade for muito pequena, os dados se tornam quase determinísticos.\
 Se for muito grande, o ruído pode encobrir completamente a relação entre $X$ e $Y$.
-
 
 **Tamanho da amostra**
 
@@ -78,7 +74,6 @@ $$
 
 Compare os resultados entre tamanhos diferentes e observe o efeito do aumento da amostra.
 
-
 **Número de repetições**
 
 Utilize um número suficientemente grande de repetições, por exemplo:
@@ -88,7 +83,6 @@ B = 1000 \quad \text{ou mais}.
 $$
 
 Isso é essencial para que as estimativas empíricas de viés, variância e cobertura sejam estáveis.
-
 
 ### Cenários
 
@@ -112,7 +106,6 @@ Utilize este cenário como referência. Compare todos os demais resultados com e
 
 Espere observar, neste caso, o comportamento mais próximo da teoria clássica do MRLS.
 
-
 **(ii) Erros com curtose elevada (caudas pesadas)**
 
 Considere:
@@ -129,12 +122,11 @@ Observe a ocorrência de valores extremos. Em distribuições com caudas pesadas
 
 Avalie:
 
-- a estabilidade dos estimadores;
-- a presença de observações influentes;
-- o impacto sobre intervalos de confiança e testes.
+-   a estabilidade dos estimadores;
+-   a presença de observações influentes;
+-   o impacto sobre intervalos de confiança e testes.
 
 Compare sempre com o cenário normal.
-
 
 **(iii) Erros com assimetria**
 
@@ -148,8 +140,8 @@ com erros assimétricos e média zero.
 
 Construa os erros da seguinte forma:
 
-- gere $U_i$ de uma distribuição Gamma;
-- defina $\varepsilon_i = U_i - E(U_i)$.
+-   gere $U_i$ de uma distribuição Gamma;
+-   defina $\varepsilon_i = U_i - E(U_i)$.
 
 Assim, os erros terão média zero, mas não serão simétricos.
 
@@ -157,10 +149,9 @@ Observe que média zero não implica simetria nem normalidade.
 
 Avalie:
 
-- a forma da distribuição dos estimadores;
-- possíveis distorções na inferência;
-- o comportamento do QQ-plot.
-
+-   a forma da distribuição dos estimadores;
+-   possíveis distorções na inferência;
+-   o comportamento do QQ-plot.
 
 **(iv) Erros com média diferente de zero**
 
@@ -196,10 +187,9 @@ Aqui há uma violação mais forte da hipótese do modelo.
 
 Compare os dois casos e avalie:
 
-- o impacto sobre os estimadores;
-- a presença de viés;
-- a validade da inferência.
-
+-   o impacto sobre os estimadores;
+-   a presença de viés;
+-   a validade da inferência.
 
 **(v) Erros correlacionados**
 
@@ -223,13 +213,12 @@ Neste cenário, o problema principal não é a média dos erros nem necessariame
 
 Avalie:
 
-- a variabilidade dos estimadores;
-- os erros-padrão estimados;
-- a cobertura dos intervalos de confiança;
-- o comportamento dos testes.
+-   a variabilidade dos estimadores;
+-   os erros-padrão estimados;
+-   a cobertura dos intervalos de confiança;
+-   o comportamento dos testes.
 
 Observe também padrões nos resíduos.
-
 
 **(vi) Relação exponencial com erro multiplicativo lognormal**
 
@@ -257,9 +246,9 @@ Ajuste inicialmente um modelo linear simples entre $Y$ e $X$.
 
 Observe:
 
-- padrões nos resíduos;
-- possíveis desvios de linearidade;
-- comportamento da variância.
+-   padrões nos resíduos;
+-   possíveis desvios de linearidade;
+-   comportamento da variância.
 
 Em seguida, aplique a transformação:
 
@@ -271,8 +260,6 @@ Ajuste novamente o modelo.
 
 Compare os resultados antes e depois da transformação e avalie a adequação do modelo em cada escala.
 
-
-
 ## Algoritmo geral da simulação
 
 Utilize a mesma estrutura em todos os cenários.
@@ -281,20 +268,18 @@ Utilize a mesma estrutura em todos os cenários.
 
 Defina:
 
-- os parâmetros do modelo;
-- a distribuição de $X$;
-- o tamanho da amostra $n$;
-- o número de repetições $B$.
+-   os parâmetros do modelo;
+-   a distribuição de $X$;
+-   o tamanho da amostra $n$;
+-   o número de repetições $B$.
 
 **Passo 2**
 
 Gere os valores de $X_1,\ldots,X_n$.
 
-
 **Passo 3**
 
 Gere os erros ou diretamente a variável resposta $Y$, de acordo com o cenário.
-
 
 **Passo 4**
 
@@ -308,9 +293,9 @@ $$
 
 Armazene, para cada repetição:
 
-- $\hat\beta_0$;
-- $\hat\beta_1$;
-- demais quantidades de interesse.
+-   $\hat\beta_0$;
+-   $\hat\beta_1$;
+-   demais quantidades de interesse.
 
 **Passo 6**
 
@@ -320,23 +305,21 @@ Repita o processo $B$ vezes.
 
 Calcule:
 
-- média dos estimadores;
-- viés;
-- variância;
-- erro quadrático médio;
-- se desejar, outras quantidades.
-
+-   média dos estimadores;
+-   viés;
+-   variância;
+-   erro quadrático médio;
+-   se desejar, outras quantidades.
 
 **Passo 8**
 
 Construa gráficos:
 
-- histogramas;
-- boxplots;
-- QQ-plots.
+-   histogramas;
+-   boxplots;
+-   QQ-plots.
 
 Analise a forma das distribuições dos estimadores.
-
 
 ## Etapas do trabalho
 
@@ -346,13 +329,12 @@ Repita o processo de simulação.
 
 Calcule e interprete:
 
-- média dos estimadores;
-- viés;
-- variância;
-- erro quadrático médio.
+-   média dos estimadores;
+-   viés;
+-   variância;
+-   erro quadrático médio.
 
 Compare os resultados entre cenários.
-
 
 **Inferência**
 
@@ -362,23 +344,21 @@ Verifique, em cada repetição, se o intervalo contém o valor verdadeiro.
 
 Calcule a cobertura e compare entre cenários.
 
-
 **Testes**
 
 Considere:
 
-- $\beta_1 = 0$;
-- $\beta_1 \neq 0$.
+-   $\beta_1 = 0$;
+-   $\beta_1 \neq 0$.
 
 Realize testes em cada repetição.
 
 Calcule:
 
-- taxa de rejeição sob $H_0$;
-- poder do teste.
+-   taxa de rejeição sob $H_0$;
+-   poder do teste.
 
 Compare os resultados.
-
 
 **Diagnóstico e correção**
 
@@ -388,18 +368,17 @@ Ajuste o modelo.
 
 Construa:
 
-- gráfico de resíduos vs ajustados;
-- QQ-plot.
+-   gráfico de resíduos vs ajustados;
+-   QQ-plot.
 
 Observe padrões e identifique violações.
 
 Proponha correções:
 
-- transformações;
-- reespecificação do modelo.
+-   transformações;
+-   reespecificação do modelo.
 
 Compare os modelos.
-
 
 ## Orientações e observações
 
@@ -417,11 +396,10 @@ No cenário exponencial, compare claramente os modelos antes e depois da transfo
 
 Explique com clareza:
 
-- como os dados foram gerados;
-- quais medidas foram utilizadas;
-- o que foi observado;
-- quais conclusões podem ser tiradas sobre o comportamento do MRLS.
-
+-   como os dados foram gerados;
+-   quais medidas foram utilizadas;
+-   o que foi observado;
+-   quais conclusões podem ser tiradas sobre o comportamento do MRLS.
 
 **Forma de entrega**
 
@@ -429,8 +407,8 @@ Apresente o trabalho de forma clara, organizada e reproduzível.
 
 Você pode utilizar:
 
-- relatório em Markdown;
-- notebook (Google Colab, Jupyter);
-- documento com texto, tabelas e gráficos.
+-   relatório em Markdown;
+-   notebook (Google Colab, Jupyter);
+-   documento com texto, tabelas e gráficos.
 
 Organize o material de modo que seja possível compreender todo o processo realizado.
