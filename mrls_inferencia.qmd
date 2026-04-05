@@ -105,29 +105,27 @@ $$
 
 é a peça-chave que permite obter, de forma exata, as distribuições $t$ e $F$ usadas em intervalos de confiança e testes de hipóteses. Os $n-2$ graus de liberdade refletem a estimação de $(\beta_0,\beta_1)$ e garantem que $s^2$ seja não viesado para $\sigma^2$.
 
-## Predição pontual da média condicional
+## Estimação pontual da média condicional e de uma nova observação individual
 
-A predição pontual é o primeiro passo para inferir sobre a relação média entre $Y$ e $X$ no MRLS. Antes de introduzir intervalos, é útil explicitar que os valores ajustados são quantidades aleatórias (pois dependem da amostra) e, sob normalidade, possuem distribuição conhecida.
+A predição pontual constitui o primeiro passo para compreender como o modelo de regressão descreve a relação entre $Y$ e $X$. Antes de introduzir intervalos, é fundamental reconhecer que as quantidades estimadas no modelo não são fixas: elas dependem da amostra observada e, portanto, são **variáveis aleatórias**. Sob a hipótese de normalidade dos erros, essas quantidades possuem distribuição conhecida, o que viabiliza a construção de inferência.
 
-### Distribuição dos valores ajustados
+### Distribuição dos valores ajustados 
 
-Para um valor genérico $X_0$, definimos o valor ajustado (ou média condicional estimada) como
+Para um valor fixo $X_0$, definimos a média condicional estimada por
 
 $$
 \hat{\mu}(X_0) \;=\; \hat\beta_0 + \hat\beta_1 X_0.
 $$
 
-Sob erros normais, $\hat\beta_0$ e $\hat\beta_1$ são combinações lineares dos $Y_i$ e, portanto, $\hat{\mu}(X_0)$ também é uma combinação linear de variáveis normais. Assim, $\hat{\mu}(X_0)$ é normalmente distribuído [@montgomery2021].
+Como os estimadores $\hat\beta_0$ e $\hat\beta_1$ são combinações lineares das observações $Y_i$, segue que $\hat{\mu}(X_0)$ também é uma combinação linear dessas variáveis. Assim, sob erros normais, $\hat{\mu}(X_0)$ possui distribuição normal.
 
-Além disso, sua esperança é
+Sua esperança é
 
 $$
 E[\hat{\mu}(X_0)] = \beta_0 + \beta_1 X_0 = \mu(X_0),
 $$
 
-isto é, $\hat{\mu}(X_0)$ é **não viesado** para a média condicional.
-
-Sua variância é
+mostrando que $\hat{\mu}(X_0)$ é um estimador **não viesado** da média condicional. Sua variância é dada por
 
 $$
 Var(\hat{\mu}(X_0)) 
@@ -136,10 +134,10 @@ Var(\hat{\mu}(X_0))
 \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
 \right],
 \qquad 
-S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2.
 $$
 
-de modo que
+Portanto,
 
 $$
 \hat{\mu}(X_0)\sim 
@@ -147,26 +145,78 @@ N\!\left(\mu(X_0),\;
 \sigma^2\left[\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}\right]\right).
 $$
 
-Essa expressão evidencia um aspecto estrutural da regressão: a incerteza sobre a média ajustada é **menor perto de** $\bar X$ e aumenta à medida que $X_0$ se afasta do centro dos dados, refletindo a geometria do ajuste por mínimos quadrados [@kutner2005].
+Essa expressão evidencia um aspecto importante da regressão: a incerteza associada à média estimada é menor na vizinhança de $\bar X$ e cresce à medida que $X_0$ se afasta do centro dos dados, refletindo a concentração de informação amostral.
 
-### Predição pontual
 
-A predição pontual da resposta média em $X_0$ é, portanto,
+### Predição pontual da resposta
+
+Considere agora o problema de prever o valor de uma nova observação no ponto $X_0$. Nesse caso, o modelo gerador pode ser escrito como
 
 $$
-\hat{Y}_0 = \hat{\mu}(X_0)=\hat\beta_0+\hat\beta_1X_0,
+Y_{\text{novo}}(X_0) 
+=
+\beta_0 + \beta_1 X_0 + \varepsilon_{\text{novo}},
 $$
 
-que corresponde à função de regressão estimada avaliada em $X_0$. É importante enfatizar que $\hat{Y}_0$ se refere à **média condicional** $E[Y\mid X_0]$, e não ao valor de uma nova observação individual.
+em que $\varepsilon_{\text{novo}} \sim N(0,\sigma^2)$ é independente dos erros da amostra utilizada para ajustar o modelo.
 
-### Limitação da predição pontual
+A predição pontual natural para essa nova observação é
 
-Embora $\hat{Y}_0$ forneça uma estimativa central, ela não quantifica a incerteza associada ao ajuste. Por isso, em aplicações, a predição pontual deve ser acompanhada de:
+$$
+\hat{Y}_0 = \hat{\mu}(X_0).
+$$
 
--   um **intervalo de confiança** para $\mu(X_0)$, quando o interesse é a tendência média; ou
--   um **intervalo de predição**, quando o objetivo é prever uma nova observação individual.
+Entretanto, diferentemente do caso anterior, agora o interesse recai sobre uma **realização individual** da variável resposta, e não apenas sobre sua média. Isso implica que a incerteza associada à predição deve considerar duas fontes distintas: a incerteza na estimação dos parâmetros e a variabilidade intrínseca do erro aleatório.
 
-Essas duas construções serão desenvolvidas nas próximas subseções [@kutner2005; @montgomery2021].
+Para caracterizar essa incerteza, analisamos a variável
+
+$$
+Y_{\text{novo}}(X_0) - \hat{Y}_0.
+$$
+
+Como $Y_{\text{novo}}(X_0)$ e $\hat{Y}_0$ são combinações lineares de variáveis normais independentes, essa diferença também possui distribuição normal. Sua esperança é zero, e sua variância é
+
+$$
+Var\!\left[Y_{\text{novo}}(X_0) - \hat{Y}_0\right]
+=
+\sigma^2 +
+\sigma^2\left[
+\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
+\right].
+$$
+
+Consequentemente, podemos escrever
+
+$$
+Y_{\text{novo}}(X_0) - \hat{Y}_0
+\sim
+N\!\left(0,\;
+\sigma^2\left[
+1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
+\right]\right).
+$$
+
+De forma equivalente, isso implica que a própria predição possui distribuição normal,
+
+$$
+Y_{\text{novo}}(X_0)
+\sim
+N\!\left(\mu(X_0),\;
+\sigma^2\left[
+1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
+\right]\right).
+$$
+
+O termo adicional "$+1$" na variância reflete a presença de um novo erro aleatório, inexistente no caso da média condicional. Esse resultado evidencia que a predição de uma observação individual é necessariamente mais incerta do que a estimação da média.
+
+
+### Interpretação, implicações e limitações
+
+A distinção entre média condicional e predição individual é fundamental. Enquanto $\hat{\mu}(X_0)$ busca estimar o comportamento médio do fenômeno, a variável $Y_{\text{novo}}(X_0)$ incorpora variações aleatórias que não podem ser eliminadas pelo modelo.
+
+Essa diferença se traduz diretamente nas variâncias: a variância da predição individual é sempre maior, pois inclui tanto a incerteza da estimação quanto a variabilidade inerente ao processo gerador dos dados. Em termos práticos, isso significa que previsões individuais são naturalmente menos precisas do que estimativas da média.
+
+A predição pontual fornece apenas um valor central e não expressa a incerteza associada ao processo. Por essa razão, sua utilização isolada é insuficiente em aplicações estatísticas.
 
 Considere o seguinte gráfico, onde o ponto destacado corresponde a $\hat Y_0$, isto é, à estimativa da média condicional em $X_0$. Observe que o valor pontual não informa, por si só, o grau de incerteza associado à estimativa, questão que será tratada na próxima subseção.
 
@@ -411,40 +461,26 @@ A distinção entre inferência sobre a média condicional e previsão individua
 
 ## Intervalo de predição para nova observação
 
-Até aqui construímos intervalos de confiança para a **média condicional** $\mu(X_0)=E[Y\mid X_0]$. No entanto, muitas aplicações exigem algo diferente: prever o valor de uma **nova observação individual** associada a $X_0$.
+Enquanto o intervalo de confiança está associado à **média condicional** $\mu(X_0)$, em muitas situações o interesse recai sobre a predição do valor de uma **nova observação individual** no ponto $X_0$.
 
-Se uma nova unidade experimental for observada no mesmo valor $X_0$, seu modelo é
+Nesse contexto, a predição pontual continua sendo dada por $\hat{\mu}(X_0)$. No entanto, a incerteza associada a essa predição é maior, pois envolve não apenas a estimação dos parâmetros, mas também a variabilidade inerente a uma nova realização do erro aleatório.
 
-$$
-Y_{\text{novo}}(X_0) 
-=
-\beta_0 + \beta_1 X_0 + \varepsilon_{\text{novo}},
-$$
-
-em que $\varepsilon_{\text{novo}} \sim N(0,\sigma^2)$ e é independente dos erros da amostra original.
-
-A diferença conceitual é que agora não estamos estimando apenas a média condicional, mas prevendo uma realização específica que contém, além da incerteza na estimação dos parâmetros, a **variabilidade intrínseca do erro aleatório**.
-
-Portanto, a quantidade relevante é
+De fato, conforme discutido anteriormente, a diferença
 
 $$
-Y_{\text{novo}}(X_0) - \hat{\mu}(X_0),
+Y_{\text{novo}}(X_0) - \hat{\mu}(X_0)
 $$
 
-cuja variância é
+segue, sob normalidade dos erros, uma distribuição normal com média zero e variância
 
 $$
-Var\!\left[Y_{\text{novo}}(X_0) - \hat{\mu}(X_0)\right]
-=
 \sigma^2
 \left[
 1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
 \right].
 $$
 
-O termo adicional "$+1$" aparece porque a nova observação contém um erro próprio, independente daquele utilizado na estimação dos parâmetros. A demonstração formal dessa variância pode ser consultada no Apêndice de Demonstrações {#demo} [@kutner2005; @montgomery2021].
-
-Padronizando essa quantidade por $s$, obtemos uma estatística que segue distribuição t de Student com $n-2$ graus de liberdade ($t_{n-2}$) sob normalidade dos erros. Assim, o intervalo de predição de nível $(1-\alpha)\times 100\%$ é
+Substituindo $\sigma$ por sua estimativa $s$ e padronizando essa quantidade, obtemos uma estatística que segue distribuição $t$ de Student com $n-2$ graus de liberdade. Isso conduz ao intervalo de predição de nível $(1-\alpha)\times 100\%$:
 
 $$
 IC\!\left[Y_{\text{novo}}(X_0)\right]
@@ -458,32 +494,13 @@ s
 }.
 $$
 
-Comparando com o intervalo para a média condicional, temos
+A diferença em relação ao intervalo para a média condicional é direta: surge o termo adicional $1$ dentro da raiz, que representa a **variabilidade individual irreducível** do processo.
 
-$$
-\hat{\mu}(X_0)
-\pm
-t_{n-2;\,1-\alpha/2}\;
-s
-\sqrt{
-\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
-}.
-$$
+Essa distinção tem implicações importantes. O intervalo de predição é necessariamente mais amplo, pois incorpora uma fonte extra de incerteza. Além disso, assim como no caso da média, sua largura aumenta à medida que $X_0$ se afasta de $\bar X$, refletindo a menor disponibilidade de informação nessa região.
 
-Daí, vemos claramente a presença do termo adicional $1$ dentro da raiz. Esse termo representa a **variabilidade individual irreducível** do processo aleatório.
+Do ponto de vista interpretativo, o intervalo de predição descreve um conjunto de valores plausíveis para uma **nova observação individual**. Em termos frequentistas, se o processo fosse repetido nas mesmas condições, aproximadamente $(1-\alpha)\times 100\%$ desses intervalos conteriam o valor observado.
 
-Consequentemente:
-
--   O intervalo de predição é **sempre mais largo** que o intervalo de confiança da média.
--   A diferença entre eles é tanto maior quanto maior for $\sigma^2$.
--   Ambos se alargam quando $X_0$ se afasta de $\bar X$, refletindo a incerteza adicional associada à extrapolação.
-
-O intervalo de predição fornece um conjunto de valores plausíveis para uma **nova observação individual**, e não para a média populacional. Em termos frequentistas, se o processo fosse repetido nas mesmas condições, aproximadamente $(1-\alpha)\times 100\%$ desses intervalos conteriam a nova observação gerada pelo modelo.
-
-**Dica prática**
-
--   Use **intervalo de confiança** quando o objetivo for inferir sobre a **tendência média**.
--   Use **intervalo de predição** quando o interesse for antecipar o valor de um **novo indivíduo**.
+Em aplicações, os intervalos de confiança são apropriados para descrever o comportamento médio do fenômeno, enquanto intervalos de predição são utilizados quando o objetivo é antecipar resultados individuais.
 
 A figura a seguir ilustra simultaneamente o intervalo de confiança para a média e o intervalo de predição para nova observação. Comparando as bandas, perceba que o intervalo de predição é sempre mais largo que o de confiança. Isso ocorre porque ele incorpora a variabilidade individual das novas observações, além da incerteza da média.
 
@@ -537,7 +554,9 @@ ggplot(df, aes(x = X)) +
 
 As expressões obtidas para o intervalo de predição são válidas para qualquer valor numérico $X_0$. No entanto, é fundamental distinguir entre **interpolação** (quando $X_0$ pertence ao intervalo observado da amostra) e **extrapolação** (quando $X_0$ está fora do domínio observado de $X$).
 
-Seja o intervalo amostral observado $$
+Seja o intervalo amostral observado 
+
+$$
 X_{(min)} \leq X_i \leq X_{(max)}.
 $$
 

@@ -363,11 +363,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#distribuição-de-hatbeta_0-hatbeta_1" id="toc-distribuição-de-hatbeta_0-hatbeta_1" class="nav-link" data-scroll-target="#distribuição-de-hatbeta_0-hatbeta_1"><span class="header-section-number">6.2.1</span> Distribuição de <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span></a></li>
   </ul></li>
-  <li><a href="#predição-pontual-da-média-condicional" id="toc-predição-pontual-da-média-condicional" class="nav-link" data-scroll-target="#predição-pontual-da-média-condicional"><span class="header-section-number">6.3</span> Predição pontual da média condicional</a>
+  <li><a href="#estimação-pontual-da-média-condicional-e-de-uma-nova-observação-individual" id="toc-estimação-pontual-da-média-condicional-e-de-uma-nova-observação-individual" class="nav-link" data-scroll-target="#estimação-pontual-da-média-condicional-e-de-uma-nova-observação-individual"><span class="header-section-number">6.3</span> Estimação pontual da média condicional e de uma nova observação individual</a>
   <ul class="collapse">
   <li><a href="#distribuição-dos-valores-ajustados" id="toc-distribuição-dos-valores-ajustados" class="nav-link" data-scroll-target="#distribuição-dos-valores-ajustados"><span class="header-section-number">6.3.1</span> Distribuição dos valores ajustados</a></li>
-  <li><a href="#predição-pontual" id="toc-predição-pontual" class="nav-link" data-scroll-target="#predição-pontual"><span class="header-section-number">6.3.2</span> Predição pontual</a></li>
-  <li><a href="#limitação-da-predição-pontual" id="toc-limitação-da-predição-pontual" class="nav-link" data-scroll-target="#limitação-da-predição-pontual"><span class="header-section-number">6.3.3</span> Limitação da predição pontual</a></li>
+  <li><a href="#predição-pontual-da-resposta" id="toc-predição-pontual-da-resposta" class="nav-link" data-scroll-target="#predição-pontual-da-resposta"><span class="header-section-number">6.3.2</span> Predição pontual da resposta</a></li>
+  <li><a href="#interpretação-implicações-e-limitações" id="toc-interpretação-implicações-e-limitações" class="nav-link" data-scroll-target="#interpretação-implicações-e-limitações"><span class="header-section-number">6.3.3</span> Interpretação, implicações e limitações</a></li>
   </ul></li>
   <li><a href="#intervalos-de-confiança-no-mrls" id="toc-intervalos-de-confiança-no-mrls" class="nav-link" data-scroll-target="#intervalos-de-confiança-no-mrls"><span class="header-section-number">6.4</span> Intervalos de confiança no MRLS</a>
   <ul class="collapse">
@@ -478,22 +478,21 @@ SQRes = \sum_{i=1}^n (Y_i - \hat Y_i)^2,
 <p>é a peça-chave que permite obter, de forma exata, as distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> usadas em intervalos de confiança e testes de hipóteses. Os <span class="math inline">\(n-2\)</span> graus de liberdade refletem a estimação de <span class="math inline">\((\beta_0,\beta_1)\)</span> e garantem que <span class="math inline">\(s^2\)</span> seja não viesado para <span class="math inline">\(\sigma^2\)</span>.</p>
 </section>
 </section>
-<section id="predição-pontual-da-média-condicional" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="predição-pontual-da-média-condicional"><span class="header-section-number">6.3</span> Predição pontual da média condicional</h2>
-<p>A predição pontual é o primeiro passo para inferir sobre a relação média entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> no MRLS. Antes de introduzir intervalos, é útil explicitar que os valores ajustados são quantidades aleatórias (pois dependem da amostra) e, sob normalidade, possuem distribuição conhecida.</p>
+<section id="estimação-pontual-da-média-condicional-e-de-uma-nova-observação-individual" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="estimação-pontual-da-média-condicional-e-de-uma-nova-observação-individual"><span class="header-section-number">6.3</span> Estimação pontual da média condicional e de uma nova observação individual</h2>
+<p>A predição pontual constitui o primeiro passo para compreender como o modelo de regressão descreve a relação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>. Antes de introduzir intervalos, é fundamental reconhecer que as quantidades estimadas no modelo não são fixas: elas dependem da amostra observada e, portanto, são <strong>variáveis aleatórias</strong>. Sob a hipótese de normalidade dos erros, essas quantidades possuem distribuição conhecida, o que viabiliza a construção de inferência.</p>
 <section id="distribuição-dos-valores-ajustados" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="distribuição-dos-valores-ajustados"><span class="header-section-number">6.3.1</span> Distribuição dos valores ajustados</h3>
-<p>Para um valor genérico <span class="math inline">\(X_0\)</span>, definimos o valor ajustado (ou média condicional estimada) como</p>
+<p>Para um valor fixo <span class="math inline">\(X_0\)</span>, definimos a média condicional estimada por</p>
 <p><span class="math display">\[
 \hat{\mu}(X_0) \;=\; \hat\beta_0 + \hat\beta_1 X_0.
 \]</span></p>
-<p>Sob erros normais, <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são combinações lineares dos <span class="math inline">\(Y_i\)</span> e, portanto, <span class="math inline">\(\hat{\mu}(X_0)\)</span> também é uma combinação linear de variáveis normais. Assim, <span class="math inline">\(\hat{\mu}(X_0)\)</span> é normalmente distribuído <span class="citation" data-cites="montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
-<p>Além disso, sua esperança é</p>
+<p>Como os estimadores <span class="math inline">\(\hat\beta_0\)</span> e <span class="math inline">\(\hat\beta_1\)</span> são combinações lineares das observações <span class="math inline">\(Y_i\)</span>, segue que <span class="math inline">\(\hat{\mu}(X_0)\)</span> também é uma combinação linear dessas variáveis. Assim, sob erros normais, <span class="math inline">\(\hat{\mu}(X_0)\)</span> possui distribuição normal.</p>
+<p>Sua esperança é</p>
 <p><span class="math display">\[
 E[\hat{\mu}(X_0)] = \beta_0 + \beta_1 X_0 = \mu(X_0),
 \]</span></p>
-<p>isto é, <span class="math inline">\(\hat{\mu}(X_0)\)</span> é <strong>não viesado</strong> para a média condicional.</p>
-<p>Sua variância é</p>
+<p>mostrando que <span class="math inline">\(\hat{\mu}(X_0)\)</span> é um estimador <strong>não viesado</strong> da média condicional. Sua variância é dada por</p>
 <p><span class="math display">\[
 Var(\hat{\mu}(X_0))
 =
@@ -501,32 +500,68 @@ Var(\hat{\mu}(X_0))
 \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
 \right],
 \qquad
-S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2,
+S_{xx}=\sum_{i=1}^n (X_i-\bar X)^2.
 \]</span></p>
-<p>de modo que</p>
+<p>Portanto,</p>
 <p><span class="math display">\[
 \hat{\mu}(X_0)\sim
 N\!\left(\mu(X_0),\;
 \sigma^2\left[\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}\right]\right).
 \]</span></p>
-<p>Essa expressão evidencia um aspecto estrutural da regressão: a incerteza sobre a média ajustada é <strong>menor perto de</strong> <span class="math inline">\(\bar X\)</span> e aumenta à medida que <span class="math inline">\(X_0\)</span> se afasta do centro dos dados, refletindo a geometria do ajuste por mínimos quadrados <span class="citation" data-cites="kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>)</span>.</p>
+<p>Essa expressão evidencia um aspecto importante da regressão: a incerteza associada à média estimada é menor na vizinhança de <span class="math inline">\(\bar X\)</span> e cresce à medida que <span class="math inline">\(X_0\)</span> se afasta do centro dos dados, refletindo a concentração de informação amostral.</p>
 </section>
-<section id="predição-pontual" class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="predição-pontual"><span class="header-section-number">6.3.2</span> Predição pontual</h3>
-<p>A predição pontual da resposta média em <span class="math inline">\(X_0\)</span> é, portanto,</p>
+<section id="predição-pontual-da-resposta" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="predição-pontual-da-resposta"><span class="header-section-number">6.3.2</span> Predição pontual da resposta</h3>
+<p>Considere agora o problema de prever o valor de uma nova observação no ponto <span class="math inline">\(X_0\)</span>. Nesse caso, o modelo gerador pode ser escrito como</p>
 <p><span class="math display">\[
-\hat{Y}_0 = \hat{\mu}(X_0)=\hat\beta_0+\hat\beta_1X_0,
+Y_{\text{novo}}(X_0)
+=
+\beta_0 + \beta_1 X_0 + \varepsilon_{\text{novo}},
 \]</span></p>
-<p>que corresponde à função de regressão estimada avaliada em <span class="math inline">\(X_0\)</span>. É importante enfatizar que <span class="math inline">\(\hat{Y}_0\)</span> se refere à <strong>média condicional</strong> <span class="math inline">\(E[Y\mid X_0]\)</span>, e não ao valor de uma nova observação individual.</p>
+<p>em que <span class="math inline">\(\varepsilon_{\text{novo}} \sim N(0,\sigma^2)\)</span> é independente dos erros da amostra utilizada para ajustar o modelo.</p>
+<p>A predição pontual natural para essa nova observação é</p>
+<p><span class="math display">\[
+\hat{Y}_0 = \hat{\mu}(X_0).
+\]</span></p>
+<p>Entretanto, diferentemente do caso anterior, agora o interesse recai sobre uma <strong>realização individual</strong> da variável resposta, e não apenas sobre sua média. Isso implica que a incerteza associada à predição deve considerar duas fontes distintas: a incerteza na estimação dos parâmetros e a variabilidade intrínseca do erro aleatório.</p>
+<p>Para caracterizar essa incerteza, analisamos a variável</p>
+<p><span class="math display">\[
+Y_{\text{novo}}(X_0) - \hat{Y}_0.
+\]</span></p>
+<p>Como <span class="math inline">\(Y_{\text{novo}}(X_0)\)</span> e <span class="math inline">\(\hat{Y}_0\)</span> são combinações lineares de variáveis normais independentes, essa diferença também possui distribuição normal. Sua esperança é zero, e sua variância é</p>
+<p><span class="math display">\[
+Var\!\left[Y_{\text{novo}}(X_0) - \hat{Y}_0\right]
+=
+\sigma^2 +
+\sigma^2\left[
+\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
+\right].
+\]</span></p>
+<p>Consequentemente, podemos escrever</p>
+<p><span class="math display">\[
+Y_{\text{novo}}(X_0) - \hat{Y}_0
+\sim
+N\!\left(0,\;
+\sigma^2\left[
+1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
+\right]\right).
+\]</span></p>
+<p>De forma equivalente, isso implica que a própria predição possui distribuição normal,</p>
+<p><span class="math display">\[
+Y_{\text{novo}}(X_0)
+\sim
+N\!\left(\mu(X_0),\;
+\sigma^2\left[
+1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
+\right]\right).
+\]</span></p>
+<p>O termo adicional “<span class="math inline">\(+1\)</span>” na variância reflete a presença de um novo erro aleatório, inexistente no caso da média condicional. Esse resultado evidencia que a predição de uma observação individual é necessariamente mais incerta do que a estimação da média.</p>
 </section>
-<section id="limitação-da-predição-pontual" class="level3" data-number="6.3.3">
-<h3 data-number="6.3.3" class="anchored" data-anchor-id="limitação-da-predição-pontual"><span class="header-section-number">6.3.3</span> Limitação da predição pontual</h3>
-<p>Embora <span class="math inline">\(\hat{Y}_0\)</span> forneça uma estimativa central, ela não quantifica a incerteza associada ao ajuste. Por isso, em aplicações, a predição pontual deve ser acompanhada de:</p>
-<ul>
-<li>um <strong>intervalo de confiança</strong> para <span class="math inline">\(\mu(X_0)\)</span>, quando o interesse é a tendência média; ou</li>
-<li>um <strong>intervalo de predição</strong>, quando o objetivo é prever uma nova observação individual.</li>
-</ul>
-<p>Essas duas construções serão desenvolvidas nas próximas subseções <span class="citation" data-cites="kutner2005 montgomery2021">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
+<section id="interpretação-implicações-e-limitações" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="interpretação-implicações-e-limitações"><span class="header-section-number">6.3.3</span> Interpretação, implicações e limitações</h3>
+<p>A distinção entre média condicional e predição individual é fundamental. Enquanto <span class="math inline">\(\hat{\mu}(X_0)\)</span> busca estimar o comportamento médio do fenômeno, a variável <span class="math inline">\(Y_{\text{novo}}(X_0)\)</span> incorpora variações aleatórias que não podem ser eliminadas pelo modelo.</p>
+<p>Essa diferença se traduz diretamente nas variâncias: a variância da predição individual é sempre maior, pois inclui tanto a incerteza da estimação quanto a variabilidade inerente ao processo gerador dos dados. Em termos práticos, isso significa que previsões individuais são naturalmente menos precisas do que estimativas da média.</p>
+<p>A predição pontual fornece apenas um valor central e não expressa a incerteza associada ao processo. Por essa razão, sua utilização isolada é insuficiente em aplicações estatísticas.</p>
 <p>Considere o seguinte gráfico, onde o ponto destacado corresponde a <span class="math inline">\(\hat Y_0\)</span>, isto é, à estimativa da média condicional em <span class="math inline">\(X_0\)</span>. Observe que o valor pontual não informa, por si só, o grau de incerteza associado à estimativa, questão que será tratada na próxima subseção.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -679,30 +714,20 @@ s \sqrt{\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}},
 </section>
 <section id="intervalo-de-predição-para-nova-observação" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="intervalo-de-predição-para-nova-observação"><span class="header-section-number">6.5</span> Intervalo de predição para nova observação</h2>
-<p>Até aqui construímos intervalos de confiança para a <strong>média condicional</strong> <span class="math inline">\(\mu(X_0)=E[Y\mid X_0]\)</span>. No entanto, muitas aplicações exigem algo diferente: prever o valor de uma <strong>nova observação individual</strong> associada a <span class="math inline">\(X_0\)</span>.</p>
-<p>Se uma nova unidade experimental for observada no mesmo valor <span class="math inline">\(X_0\)</span>, seu modelo é</p>
+<p>Enquanto o intervalo de confiança está associado à <strong>média condicional</strong> <span class="math inline">\(\mu(X_0)\)</span>, em muitas situações o interesse recai sobre a predição do valor de uma <strong>nova observação individual</strong> no ponto <span class="math inline">\(X_0\)</span>.</p>
+<p>Nesse contexto, a predição pontual continua sendo dada por <span class="math inline">\(\hat{\mu}(X_0)\)</span>. No entanto, a incerteza associada a essa predição é maior, pois envolve não apenas a estimação dos parâmetros, mas também a variabilidade inerente a uma nova realização do erro aleatório.</p>
+<p>De fato, conforme discutido anteriormente, a diferença</p>
 <p><span class="math display">\[
-Y_{\text{novo}}(X_0)
-=
-\beta_0 + \beta_1 X_0 + \varepsilon_{\text{novo}},
+Y_{\text{novo}}(X_0) - \hat{\mu}(X_0)
 \]</span></p>
-<p>em que <span class="math inline">\(\varepsilon_{\text{novo}} \sim N(0,\sigma^2)\)</span> e é independente dos erros da amostra original.</p>
-<p>A diferença conceitual é que agora não estamos estimando apenas a média condicional, mas prevendo uma realização específica que contém, além da incerteza na estimação dos parâmetros, a <strong>variabilidade intrínseca do erro aleatório</strong>.</p>
-<p>Portanto, a quantidade relevante é</p>
+<p>segue, sob normalidade dos erros, uma distribuição normal com média zero e variância</p>
 <p><span class="math display">\[
-Y_{\text{novo}}(X_0) - \hat{\mu}(X_0),
-\]</span></p>
-<p>cuja variância é</p>
-<p><span class="math display">\[
-Var\!\left[Y_{\text{novo}}(X_0) - \hat{\mu}(X_0)\right]
-=
 \sigma^2
 \left[
 1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
 \right].
 \]</span></p>
-<p>O termo adicional “<span class="math inline">\(+1\)</span>” aparece porque a nova observação contém um erro próprio, independente daquele utilizado na estimação dos parâmetros. A demonstração formal dessa variância pode ser consultada no Apêndice de Demonstrações {#demo} <span class="citation" data-cites="kutner2005 montgomery2021">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
-<p>Padronizando essa quantidade por <span class="math inline">\(s\)</span>, obtemos uma estatística que segue distribuição t de Student com <span class="math inline">\(n-2\)</span> graus de liberdade (<span class="math inline">\(t_{n-2}\)</span>) sob normalidade dos erros. Assim, o intervalo de predição de nível <span class="math inline">\((1-\alpha)\times 100\%\)</span> é</p>
+<p>Substituindo <span class="math inline">\(\sigma\)</span> por sua estimativa <span class="math inline">\(s\)</span> e padronizando essa quantidade, obtemos uma estatística que segue distribuição <span class="math inline">\(t\)</span> de Student com <span class="math inline">\(n-2\)</span> graus de liberdade. Isso conduz ao intervalo de predição de nível <span class="math inline">\((1-\alpha)\times 100\%\)</span>:</p>
 <p><span class="math display">\[
 IC\!\left[Y_{\text{novo}}(X_0)\right]
 =
@@ -714,29 +739,10 @@ s
 1 + \frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
 }.
 \]</span></p>
-<p>Comparando com o intervalo para a média condicional, temos</p>
-<p><span class="math display">\[
-\hat{\mu}(X_0)
-\pm
-t_{n-2;\,1-\alpha/2}\;
-s
-\sqrt{
-\frac{1}{n} + \frac{(X_0-\bar X)^2}{S_{xx}}
-}.
-\]</span></p>
-<p>Daí, vemos claramente a presença do termo adicional <span class="math inline">\(1\)</span> dentro da raiz. Esse termo representa a <strong>variabilidade individual irreducível</strong> do processo aleatório.</p>
-<p>Consequentemente:</p>
-<ul>
-<li>O intervalo de predição é <strong>sempre mais largo</strong> que o intervalo de confiança da média.</li>
-<li>A diferença entre eles é tanto maior quanto maior for <span class="math inline">\(\sigma^2\)</span>.</li>
-<li>Ambos se alargam quando <span class="math inline">\(X_0\)</span> se afasta de <span class="math inline">\(\bar X\)</span>, refletindo a incerteza adicional associada à extrapolação.</li>
-</ul>
-<p>O intervalo de predição fornece um conjunto de valores plausíveis para uma <strong>nova observação individual</strong>, e não para a média populacional. Em termos frequentistas, se o processo fosse repetido nas mesmas condições, aproximadamente <span class="math inline">\((1-\alpha)\times 100\%\)</span> desses intervalos conteriam a nova observação gerada pelo modelo.</p>
-<p><strong>Dica prática</strong></p>
-<ul>
-<li>Use <strong>intervalo de confiança</strong> quando o objetivo for inferir sobre a <strong>tendência média</strong>.</li>
-<li>Use <strong>intervalo de predição</strong> quando o interesse for antecipar o valor de um <strong>novo indivíduo</strong>.</li>
-</ul>
+<p>A diferença em relação ao intervalo para a média condicional é direta: surge o termo adicional <span class="math inline">\(1\)</span> dentro da raiz, que representa a <strong>variabilidade individual irreducível</strong> do processo.</p>
+<p>Essa distinção tem implicações importantes. O intervalo de predição é necessariamente mais amplo, pois incorpora uma fonte extra de incerteza. Além disso, assim como no caso da média, sua largura aumenta à medida que <span class="math inline">\(X_0\)</span> se afasta de <span class="math inline">\(\bar X\)</span>, refletindo a menor disponibilidade de informação nessa região.</p>
+<p>Do ponto de vista interpretativo, o intervalo de predição descreve um conjunto de valores plausíveis para uma <strong>nova observação individual</strong>. Em termos frequentistas, se o processo fosse repetido nas mesmas condições, aproximadamente <span class="math inline">\((1-\alpha)\times 100\%\)</span> desses intervalos conteriam o valor observado.</p>
+<p>Em aplicações, os intervalos de confiança são apropriados para descrever o comportamento médio do fenômeno, enquanto intervalos de predição são utilizados quando o objetivo é antecipar resultados individuais.</p>
 <p>A figura a seguir ilustra simultaneamente o intervalo de confiança para a média e o intervalo de predição para nova observação. Comparando as bandas, perceba que o intervalo de predição é sempre mais largo que o de confiança. Isso ocorre porque ele incorpora a variabilidade individual das novas observações, além da incerteza da média.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -750,7 +756,8 @@ s
 </div>
 <p><strong>Advertência sobre extrapolação</strong></p>
 <p>As expressões obtidas para o intervalo de predição são válidas para qualquer valor numérico <span class="math inline">\(X_0\)</span>. No entanto, é fundamental distinguir entre <strong>interpolação</strong> (quando <span class="math inline">\(X_0\)</span> pertence ao intervalo observado da amostra) e <strong>extrapolação</strong> (quando <span class="math inline">\(X_0\)</span> está fora do domínio observado de <span class="math inline">\(X\)</span>).</p>
-<p>Seja o intervalo amostral observado <span class="math display">\[
+<p>Seja o intervalo amostral observado</p>
+<p><span class="math display">\[
 X_{(min)} \leq X_i \leq X_{(max)}.
 \]</span></p>
 <p>Quando <span class="math inline">\(X_0 \in [X_{(min)}, X_{(max)}]\)</span>, o modelo está sendo utilizado em uma região sustentada pelos dados. Nesse caso, embora o intervalo possa se alargar à medida que <span class="math inline">\(X_0\)</span> se afasta de <span class="math inline">\(\bar X\)</span>, a inferência permanece ancorada na informação empírica disponível.</p>
