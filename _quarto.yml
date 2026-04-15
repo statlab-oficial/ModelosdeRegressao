@@ -32,7 +32,7 @@ book:
         - mrls_diagnostico.qmd
         - mrls_transf.qmd
         - mrls_compara.qmd
-#        - mrls_aplicacao.qmd
+#        - mrls_aplica.qmd
         - part2_ex.qmd
         - part2_sim.qmd
 
@@ -70,7 +70,10 @@ csl: https://www.zotero.org/styles/associacao-brasileira-de-normas-tecnicas # Op
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: flatly
+      dark: darkly
+    css: styles.css
   pdf:
     documentclass: scrreprt
     include-in-header: cover-header.tex

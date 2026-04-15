@@ -9,3 +9,26 @@ p, li, figcaption {
 main { max-width: 72ch; }      /* largura de linha ideal */
 p, li { text-align: justify; hyphens: auto; }  /* texto justificado */
 
+
+/* styles.css */
+.blue {
+  color: blue;
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+.green {
+  color: green;
+  font-weight: bold;
+}
+/* styles.css */
+
+
+
+.prop-blue { border-left: 6px solid #1f77b4; }
+.prop-red  { border-left: 6px solid #d62728; }
+.callout > .callout-header h2 { margin: 0; }
