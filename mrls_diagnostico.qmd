@@ -421,7 +421,8 @@ Antes da inspeção gráfica, é possível realizar **testes estatísticos forma
 
 ### Teste para Assimetria (Skewness)
 
-A estatística de assimetria é definida por
+
+A estatística de assimetria que utilizaremos aqui é chamada de assimetria de Fisher-Pearson e é definida por
 
 $$
 S = \frac{\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^3}
@@ -431,7 +432,9 @@ $$
 cujo valores de referência são:
 
 -   $S=0$ → simetria;
+
 -   $S>0$ → cauda longa à direita;
+
 -   $S<0$ → cauda longa à esquerda.
 
 Sob a hipótese de normalidade dos resíduos, podemos formular as seguintes hipóteses:
@@ -448,15 +451,20 @@ Para amostras grandes, vale a aproximação assintótica:
 
 $$
 Z_S = \sqrt{\frac{n}{6}}\, S \sim N(0,1).
-$$ Esse teste verifica se há evidência estatística de assimetria na distribuição residual. Valores positivos indicam cauda longa à direita; valores negativos indicam cauda longa à esquerda.
+$$ 
 
-Assimetria residual pode indicar: - variável resposta naturalmente assimétrica (ex.: tempos, rendas); - necessidade de transformação; - presença de outliers em apenas um lado da distribuição.
+Esse teste verifica se há evidência estatística de assimetria na distribuição residual. Valores positivos indicam cauda longa à direita; valores negativos indicam cauda longa à esquerda.
+
+Assimetria residual pode indicar: 
+
+- variável resposta naturalmente assimétrica (ex.: tempos, rendas); 
+- necessidade de transformação; - presença de outliers em apenas um lado da distribuição.
 
 A assimetria detectada estatisticamente pode ser irrelevante do ponto de vista prático se o impacto sobre estimativas e previsões for pequeno. Por isso, a análise gráfica (histograma e QQ-plot) é complementar e essencial [@weisberg2005; @montgomery2021].
 
 ### Teste para Curtose (Kurtosis)
 
-A curtose é definida por
+A curtose, chamada de coeficiente de Curtose de Pearson, é definida por
 
 $$
 K = \frac{\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^4}
@@ -466,7 +474,9 @@ $$
 com os seguinte valores de referência:
 
 -   $K=3$ → normal (mesocúrtica);
+
 -   $K>3$ → caudas pesadas (leptocúrtica);
+
 -   $K<3$ → caudas leves (platicúrtica).
 
 Sob a hipótese de normalidade dos resíduos, podemos formular as seguintes hipóteses:
@@ -553,6 +563,8 @@ O JB mede a distância conjunta entre a distribuição empírica dos resíduos e
 
 Note que rejeitar normalidade não implica que o modelo linear esteja incorreto, isso pode indicar apenas que os erros não são gaussianos. A relevância prática depende do objetivo (estimação, teste, previsão) e do tamanho da amostra [@casella2002; @kutner2005]. \
 
+Embora o Jarque-Bera seja mais famoso na econometria, o teste Omnibus de D'Agostino-Pearson é frequentemente preferido em estatística, pois tende a ser mais robusto e preciso para amostras de tamanho moderado (a partir de 20 ou 50), enquanto o Jarque-Bera exige amostras bem grandes para ser confiável.
+
 ### 5. Durbin--Watson (DW)
 
 O teste de Durbin--Watson verifica autocorrelação serial:
@@ -574,8 +586,11 @@ $$
 
 A interpretação usual é:
 
+
 -   $DW \approx 2$ → ausência de autocorrelação;
+
 -   $DW < 2$ → autocorrelação positiva;
+
 -   $DW > 2$ → autocorrelação negativa.
 
 O DW mede o quanto os resíduos consecutivos diferem entre si. Se $e_t$ e $e_{t-1}$ forem semelhantes (dependência positiva), o numerador será pequeno e $DW$ ficará abaixo de 2.

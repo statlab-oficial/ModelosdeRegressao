@@ -45,7 +45,7 @@ Nas seções seguintes, analisaremos separadamente as transformações aplicadas
 
 As transformações na variável resposta têm como objetivo principal modificar a **estrutura probabilística condicional de** $Y$ dado $X$. Em muitos contextos aplicados, a violação das hipóteses do MRLS decorre não da forma funcional da média, mas do comportamento da variância ou da distribuição dos erros.
 
-Recordando que o MRLS assume $Var(Y \mid X) = \sigma^2$,qualquer evidência de que
+Recordando que o MRLS assume $Var(Y \mid X) = \sigma^2$, qualquer evidência de que
 
 $$
 Var(Y \mid X) \neq \text{constante}
@@ -73,7 +73,11 @@ $$
 
 Esse princípio é conhecido como **estabilização da variância**, e sua justificativa formal pode ser obtida por expansão de Taylor de primeira ordem (ver Apêndice de Demonstrações {#demo}).
 
-É importante destacar que transformar $Y$ altera simultaneamente: - a escala da resposta; - a forma da distribuição condicional; - a interpretação dos coeficientes.
+É importante destacar que transformar $Y$ altera simultaneamente: 
+
+- a escala da resposta; 
+- a forma da distribuição condicional; 
+- a interpretação dos coeficientes.
 
 Portanto, não estamos apenas "melhorando resíduos", mas redefinindo o modelo estatístico.
 
@@ -100,7 +104,7 @@ Essa mudança tem implicações importantes para:
 -   construção de intervalos de confiança;
 -   previsão na escala original.
 
-Ao transformar $Y$, a hipótese de normalidade passa a ser avaliada na nova escala. Isso significa que testes $t$, testes $F$ e intervalos de confiança são válidos sob a suposição de normalidade dos erros na escala transformada, não necessariamente na escala original (@kutner2005).
+Ao transformar $Y$, a hipótese de normalidade passa a ser avaliada na nova escala. Isso significa que testes $t$, testes $F$ e intervalos de confiança são válidos sob a suposição de normalidade dos erros na escala transformada, não necessariamente na escala original [@kutner2005].
 
 Nas subseções seguintes, discutiremos transformações específicas, a saber, logaritmo, raiz quadrada, inverso e potência.
 
@@ -341,18 +345,18 @@ Essa estratégia é coerente com o princípio geral de modelagem estatística: *
 
 ### Logaritmo ($X^* = \log X$)
 
-A transformação logarítmica em $X$ é apropriada quando a relação entre $Y$ e $X$ apresenta comportamento de crescimento proporcional ou lei de potência.
+A transformação logarítmica em $X$ é apropriada quando a relação entre $E(Y \mid X)$ e $X$ apresenta comportamento de crescimento proporcional ou lei de potência.
 
 Suponha que a relação verdadeira seja
 
 $$
-Y = \alpha X^\beta + \varepsilon.
+E(Y \mid X) = \alpha X^\beta.
 $$
 
-Tomando logaritmo em ambos os lados (desconsiderando momentaneamente o erro),
+Tomando logaritmo em ambos os lados,
 
 $$
-\log Y = \log \alpha + \beta \log X.
+\log E(Y \mid X) = \log \alpha + \beta \log X.
 $$
 
 Se também transformarmos $Y$, obtemos o chamado modelo **log-log**, amplamente utilizado em econometria.
@@ -492,7 +496,7 @@ A transformação deve responder a um padrão empírico específico observado no
 Alguns padrões típicos e suas possíveis soluções:
 
 | Padrão observado                        | Possível causa                                               | Transformação sugerida  |
-|-----------------------|--------------------|------------------------------|
+|-----------------------|--------------------|-----------------------------|
 | Funil (variância cresce com média)      | $Var(Y \mid X)$ proporcional à média ou ao quadrado da média | $\log(Y)$ ou $\sqrt{Y}$ |
 | Curvatura em arco                       | Relação não linear entre $Y$ e $X$                           | $X^2$ ou $\log(X)$      |
 | Assimetria à direita                    | Distribuição assimétrica positiva                            | $\log(Y)$               |

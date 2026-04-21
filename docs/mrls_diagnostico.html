@@ -972,16 +972,16 @@ D_i = \frac{t_i^{*2}}{2} \cdot \frac{h_{ii}}{1 - h_{ii}},
 <p>É fundamental compreender que tais testes avaliam hipóteses específicas do modelo (por exemplo, normalidade dos erros), e não a “qualidade geral” da regressão. A interpretação correta exige articulação entre teoria, estatística e contexto <span class="citation" data-cites="kutner2005 montgomery2021 weisberg2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span>.</p>
 <section id="teste-para-assimetria-skewness" class="level3" data-number="8.4.1">
 <h3 data-number="8.4.1" class="anchored" data-anchor-id="teste-para-assimetria-skewness"><span class="header-section-number">8.4.1</span> Teste para Assimetria (Skewness)</h3>
-<p>A estatística de assimetria é definida por</p>
+<p>A estatística de assimetria que utilizaremos aqui é chamada de assimetria de Fisher-Pearson e é definida por</p>
 <p><span class="math display">\[
 S = \frac{\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^3}
 {\left(\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^2\right)^{3/2}},
 \]</span></p>
 <p>cujo valores de referência são:</p>
 <ul>
-<li><span class="math inline">\(S=0\)</span> → simetria;</li>
-<li><span class="math inline">\(S&gt;0\)</span> → cauda longa à direita;</li>
-<li><span class="math inline">\(S&lt;0\)</span> → cauda longa à esquerda.</li>
+<li><p><span class="math inline">\(S=0\)</span> → simetria;</p></li>
+<li><p><span class="math inline">\(S&gt;0\)</span> → cauda longa à direita;</p></li>
+<li><p><span class="math inline">\(S&lt;0\)</span> → cauda longa à esquerda.</p></li>
 </ul>
 <p>Sob a hipótese de normalidade dos resíduos, podemos formular as seguintes hipóteses:</p>
 <p><span class="math display">\[
@@ -993,22 +993,27 @@ H_1: \text{Distribuição assimétrica (} S \neq 0\text{)}
 <p>Para amostras grandes, vale a aproximação assintótica:</p>
 <p><span class="math display">\[
 Z_S = \sqrt{\frac{n}{6}}\, S \sim N(0,1).
-\]</span> Esse teste verifica se há evidência estatística de assimetria na distribuição residual. Valores positivos indicam cauda longa à direita; valores negativos indicam cauda longa à esquerda.</p>
-<p>Assimetria residual pode indicar: - variável resposta naturalmente assimétrica (ex.: tempos, rendas); - necessidade de transformação; - presença de outliers em apenas um lado da distribuição.</p>
+\]</span></p>
+<p>Esse teste verifica se há evidência estatística de assimetria na distribuição residual. Valores positivos indicam cauda longa à direita; valores negativos indicam cauda longa à esquerda.</p>
+<p>Assimetria residual pode indicar:</p>
+<ul>
+<li>variável resposta naturalmente assimétrica (ex.: tempos, rendas);</li>
+<li>necessidade de transformação; - presença de outliers em apenas um lado da distribuição.</li>
+</ul>
 <p>A assimetria detectada estatisticamente pode ser irrelevante do ponto de vista prático se o impacto sobre estimativas e previsões for pequeno. Por isso, a análise gráfica (histograma e QQ-plot) é complementar e essencial <span class="citation" data-cites="weisberg2005 montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-weisberg2005" role="doc-biblioref">Weisberg, 2005</a>)</span>.</p>
 </section>
 <section id="teste-para-curtose-kurtosis" class="level3" data-number="8.4.2">
 <h3 data-number="8.4.2" class="anchored" data-anchor-id="teste-para-curtose-kurtosis"><span class="header-section-number">8.4.2</span> Teste para Curtose (Kurtosis)</h3>
-<p>A curtose é definida por</p>
+<p>A curtose, chamada de coeficiente de Curtose de Pearson, é definida por</p>
 <p><span class="math display">\[
 K = \frac{\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^4}
 {\left(\frac{1}{n}\sum_{i=1}^n (e_i - \bar e)^2\right)^2},
 \]</span></p>
 <p>com os seguinte valores de referência:</p>
 <ul>
-<li><span class="math inline">\(K=3\)</span> → normal (mesocúrtica);</li>
-<li><span class="math inline">\(K&gt;3\)</span> → caudas pesadas (leptocúrtica);</li>
-<li><span class="math inline">\(K&lt;3\)</span> → caudas leves (platicúrtica).</li>
+<li><p><span class="math inline">\(K=3\)</span> → normal (mesocúrtica);</p></li>
+<li><p><span class="math inline">\(K&gt;3\)</span> → caudas pesadas (leptocúrtica);</p></li>
+<li><p><span class="math inline">\(K&lt;3\)</span> → caudas leves (platicúrtica).</p></li>
 </ul>
 <p>Sob a hipótese de normalidade dos resíduos, podemos formular as seguintes hipóteses:</p>
 <p><span class="math display">\[
@@ -1070,6 +1075,7 @@ JB \sim \chi^2_{(2)}.
 <p>O JB mede a distância conjunta entre a distribuição empírica dos resíduos e a normal, considerando forma (assimetria) e peso de caudas (curtose).</p>
 <p>Note que rejeitar normalidade não implica que o modelo linear esteja incorreto, isso pode indicar apenas que os erros não são gaussianos. A relevância prática depende do objetivo (estimação, teste, previsão) e do tamanho da amostra <span class="citation" data-cites="casella2002 kutner2005">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>; <a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>)</span>.<br>
 </p>
+<p>Embora o Jarque-Bera seja mais famoso na econometria, o teste Omnibus de D’Agostino-Pearson é frequentemente preferido em estatística, pois tende a ser mais robusto e preciso para amostras de tamanho moderado (a partir de 20 ou 50), enquanto o Jarque-Bera exige amostras bem grandes para ser confiável.</p>
 </section>
 <section id="durbinwatson-dw" class="level3" data-number="8.4.5">
 <h3 data-number="8.4.5" class="anchored" data-anchor-id="durbinwatson-dw"><span class="header-section-number">8.4.5</span> 5. Durbin–Watson (DW)</h3>
@@ -1087,9 +1093,9 @@ H_1: \rho \neq 0 \quad (\text{autocorrelação})
 \]</span></p>
 <p>A interpretação usual é:</p>
 <ul>
-<li><span class="math inline">\(DW \approx 2\)</span> → ausência de autocorrelação;</li>
-<li><span class="math inline">\(DW &lt; 2\)</span> → autocorrelação positiva;</li>
-<li><span class="math inline">\(DW &gt; 2\)</span> → autocorrelação negativa.</li>
+<li><p><span class="math inline">\(DW \approx 2\)</span> → ausência de autocorrelação;</p></li>
+<li><p><span class="math inline">\(DW &lt; 2\)</span> → autocorrelação positiva;</p></li>
+<li><p><span class="math inline">\(DW &gt; 2\)</span> → autocorrelação negativa.</p></li>
 </ul>
 <p>O DW mede o quanto os resíduos consecutivos diferem entre si. Se <span class="math inline">\(e_t\)</span> e <span class="math inline">\(e_{t-1}\)</span> forem semelhantes (dependência positiva), o numerador será pequeno e <span class="math inline">\(DW\)</span> ficará abaixo de 2.</p>
 <p>Este teste é especialmente relevante em dados ordenados temporalmente (econometria, séries temporais). Em dados sem ordem natural, sua aplicação é menos informativa (<span class="citation" data-cites="gujarati2006">Gujarati (<a href="references.html#ref-gujarati2006" role="doc-biblioref">2006</a>)</span>).</p>

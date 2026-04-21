@@ -647,7 +647,7 @@ Var(Y \mid X) = \sigma^2,
 <section id="transformações-na-variável-resposta-y" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="transformações-na-variável-resposta-y"><span class="header-section-number">9.2</span> Transformações na variável resposta (<span class="math inline">\(Y\)</span>)</h2>
 <p>As transformações na variável resposta têm como objetivo principal modificar a <strong>estrutura probabilística condicional de</strong> <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>. Em muitos contextos aplicados, a violação das hipóteses do MRLS decorre não da forma funcional da média, mas do comportamento da variância ou da distribuição dos erros.</p>
-<p>Recordando que o MRLS assume <span class="math inline">\(Var(Y \mid X) = \sigma^2\)</span>,qualquer evidência de que</p>
+<p>Recordando que o MRLS assume <span class="math inline">\(Var(Y \mid X) = \sigma^2\)</span>, qualquer evidência de que</p>
 <p><span class="math display">\[
 Var(Y \mid X) \neq \text{constante}
 \]</span></p>
@@ -667,7 +667,12 @@ Var(Y \mid X) = g\big(E(Y \mid X)\big),
 Var(Y^* \mid X) \approx \text{constante}.
 \]</span></p>
 <p>Esse princípio é conhecido como <strong>estabilização da variância</strong>, e sua justificativa formal pode ser obtida por expansão de Taylor de primeira ordem (ver Apêndice de Demonstrações {#demo}).</p>
-<p>É importante destacar que transformar <span class="math inline">\(Y\)</span> altera simultaneamente: - a escala da resposta; - a forma da distribuição condicional; - a interpretação dos coeficientes.</p>
+<p>É importante destacar que transformar <span class="math inline">\(Y\)</span> altera simultaneamente:</p>
+<ul>
+<li>a escala da resposta;</li>
+<li>a forma da distribuição condicional;</li>
+<li>a interpretação dos coeficientes.</li>
+</ul>
 <p>Portanto, não estamos apenas “melhorando resíduos”, mas redefinindo o modelo estatístico.</p>
 <section id="transformação-e-distribuição-implícita" class="level3" data-number="9.2.1">
 <h3 data-number="9.2.1" class="anchored" data-anchor-id="transformação-e-distribuição-implícita"><span class="header-section-number">9.2.1</span> Transformação e distribuição implícita</h3>
@@ -689,7 +694,7 @@ Y_i^* = h(Y_i) = \beta_0^* + \beta_1^* X_i + \varepsilon_i,
 <li>construção de intervalos de confiança;</li>
 <li>previsão na escala original.</li>
 </ul>
-<p>Ao transformar <span class="math inline">\(Y\)</span>, a hipótese de normalidade passa a ser avaliada na nova escala. Isso significa que testes <span class="math inline">\(t\)</span>, testes <span class="math inline">\(F\)</span> e intervalos de confiança são válidos sob a suposição de normalidade dos erros na escala transformada, não necessariamente na escala original (<span class="citation" data-cites="kutner2005">Kutner et al. (<a href="references.html#ref-kutner2005" role="doc-biblioref">2005</a>)</span>).</p>
+<p>Ao transformar <span class="math inline">\(Y\)</span>, a hipótese de normalidade passa a ser avaliada na nova escala. Isso significa que testes <span class="math inline">\(t\)</span>, testes <span class="math inline">\(F\)</span> e intervalos de confiança são válidos sob a suposição de normalidade dos erros na escala transformada, não necessariamente na escala original <span class="citation" data-cites="kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>)</span>.</p>
 <p>Nas subseções seguintes, discutiremos transformações específicas, a saber, logaritmo, raiz quadrada, inverso e potência.</p>
 </section>
 <section id="logaritmo-y-log-y" class="level3" data-number="9.2.2">
@@ -868,14 +873,14 @@ E(Y \mid X^*) = \beta_0 + \beta_1 X^*
 </section>
 <section id="logaritmo-x-log-x" class="level3" data-number="9.3.2">
 <h3 data-number="9.3.2" class="anchored" data-anchor-id="logaritmo-x-log-x"><span class="header-section-number">9.3.2</span> Logaritmo (<span class="math inline">\(X^* = \log X\)</span>)</h3>
-<p>A transformação logarítmica em <span class="math inline">\(X\)</span> é apropriada quando a relação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> apresenta comportamento de crescimento proporcional ou lei de potência.</p>
+<p>A transformação logarítmica em <span class="math inline">\(X\)</span> é apropriada quando a relação entre <span class="math inline">\(E(Y \mid X)\)</span> e <span class="math inline">\(X\)</span> apresenta comportamento de crescimento proporcional ou lei de potência.</p>
 <p>Suponha que a relação verdadeira seja</p>
 <p><span class="math display">\[
-Y = \alpha X^\beta + \varepsilon.
+E(Y \mid X) = \alpha X^\beta.
 \]</span></p>
-<p>Tomando logaritmo em ambos os lados (desconsiderando momentaneamente o erro),</p>
+<p>Tomando logaritmo em ambos os lados,</p>
 <p><span class="math display">\[
-\log Y = \log \alpha + \beta \log X.
+\log E(Y \mid X) = \log \alpha + \beta \log X.
 \]</span></p>
 <p>Se também transformarmos <span class="math inline">\(Y\)</span>, obtemos o chamado modelo <strong>log-log</strong>, amplamente utilizado em econometria.</p>
 <p>No entanto, mesmo sem transformar <span class="math inline">\(Y\)</span>, pode ser apropriado modelar</p>
@@ -987,7 +992,7 @@ Y_i = \beta_0 + \beta_1 X_i + e_i.
 <colgroup>
 <col style="width: 31%">
 <col style="width: 27%">
-<col style="width: 41%">
+<col style="width: 40%">
 </colgroup>
 <thead>
 <tr class="header">
