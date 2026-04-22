@@ -537,7 +537,7 @@ Um modelo com menor $R^2$ pode ser preferível se satisfaz melhor as hipóteses 
 
 ## Exemplo ilustrativo: antes e depois da transformação
 
-Para consolidar as ideias discutidas até aqui, apresentamos um exemplo ilustrativo que mostra, de forma integrada, a **necessidade estatística** e a **eficácia inferencial** de uma transformação na variável resposta.
+Para consolidar as ideias discutidas até aqui, apresentamos um exemplo ilustrativo que mostra, de forma integrada, a necessidade estatística e a eficácia inferencial de uma transformação na variável resposta.
 
 ### Cenário e especificação dos modelos
 
