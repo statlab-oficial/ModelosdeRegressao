@@ -2,14 +2,14 @@
 
 ## Motivação e princípios de comparação
 
-Após discutir a análise de resíduos, surge uma questão natural: **como escolher entre diferentes modelos candidatos?** Nem sempre um único modelo é suficiente; muitas vezes ajustamos **várias alternativas** e precisamos compará-las.
+Após discutir a análise de resíduos, surge uma questão natural: **como escolher entre diferentes modelos candidatos?** Nem sempre um único modelo é suficiente; muitas vezes ajustamos várias alternativas e precisamos compará-las.
 
-A comparação de modelos, porém, não é um "campeonato de métricas". Ela deve ser entendida como uma decisão estatística guiada por três ideias centrais: **adequação**, **parcimônia** e **finalidade** (explicar vs prever). Em particular, comparar modelos significa avaliar **trocas (trade-offs)**: um modelo pode ajustar melhor os dados, mas à custa de maior complexidade e menor estabilidade, especialmente em amostras moderadas/pequenas.
+A comparação de modelos, porém, não é um "campeonato de métricas". Ela deve ser entendida como uma decisão estatística guiada por três ideias centrais: **adequação**, **parcimônia** e **finalidade** (explicar vs prever). Em particular, comparar modelos significa avaliar trocas (trade-offs): um modelo pode ajustar melhor os dados, mas à custa de maior complexidade e menor estabilidade, especialmente em amostras moderadas/pequenas.
 
 A comparação de modelos envolve duas dimensões principais:
 
 1.  **Qualidade estatística do ajuste** -- medida por critérios formais (ex.: $R^2$, teste $F$, AIC, BIC).\
-2.  **Pertinência substantiva** -- se o modelo faz sentido em relação ao fenômeno estudado, é parcimonioso e interpretável.
+2.  **coerência com a realidade** -- se o modelo faz sentido em relação ao fenômeno estudado, é parcimonioso e interpretável.
 
 Em regressão, "modelo melhor" **não significa** "modelo com o maior ajuste numérico". O ponto é: um modelo é um **compromisso** entre (i) representar a estrutura sistemática de $Y$ explicada por $X$ e (ii) não incorporar estrutura espúria (ruído) como se fosse sinal. Critérios como AIC e BIC foram propostos justamente para explicitar essa troca: melhorar o ajuste (via log-verossimilhança) **custa** complexidade (número de parâmetros), e essa penalização é uma maneira de desencorajar sobreajuste [@akaike1974; @schwarz1978; @burnham2002].
 
