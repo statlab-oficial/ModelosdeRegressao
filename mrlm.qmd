@@ -1,6 +1,6 @@
 # Regressão Múltipla
 
-O **Modelo de Regressão Linear Múltipla (MRLM)** é a generalização natural do Modelo de Regressão Linear Simples (MRLS). Enquanto no MRLS investigamos a relação entre uma única variável explicativa $X$ e a resposta $Y$, no MRLM é possível incluir **duas ou mais variáveis explicativas simultaneamente**, ampliando a capacidade de representar relações mais complexas entre os fatores que influenciam a variável de interesse.
+O **Modelo de Regressão Linear Múltipla (MRLM)** é a generalização natural do Modelo de Regressão Linear Simples (MRLS), conforme apresentado na literatura clássica de modelos lineares [@montgomery2021; @kutner2005]. Enquanto no MRLS investigamos a relação entre uma única variável explicativa $X$ e a resposta $Y$, no MRLM é possível incluir **duas ou mais variáveis explicativas simultaneamente**, ampliando a capacidade de representar relações mais complexas entre os fatores que influenciam a variável de interesse.
 
 Na prática, raramente um único fator explica um fenômeno. Considere os seguintes exemplos ilustrativos:
 
@@ -10,7 +10,7 @@ Na prática, raramente um único fator explica um fenômeno. Considere os seguin
 - **Comércio eletrônico:** o valor médio gasto por cliente pode ser influenciado por preço, tempo de entrega e avaliações de outros consumidores.
 - **Ciências ambientais:** a qualidade do ar em uma cidade pode ser afetada pelo tráfego de veículos, pela direção e intensidade do vento e pelas condições de umidade.
 
-Esses exemplos mostram que considerar apenas uma variável explicativa pode levar a interpretações incompletas. O MRLM permite **avaliar o efeito parcial** de cada fator **mantendo os demais constantes**, o que é fundamental para análises mais realistas e para o controle de variáveis potencialmente confundidoras.
+Esses exemplos mostram que considerar apenas uma variável explicativa pode levar a interpretações incompletas. O MRLM permite **avaliar o efeito parcial** de cada fator *mantendo os demais constantes**, conceito central na análise de regressão múltipla [@kutner2005; @montgomery2021], sendo fundamental para análises mais realistas e para o controle de variáveis potencialmente confundidoras.
 
 Além disso, o MRLM fornece uma estrutura estatística que possibilita:
 
@@ -38,9 +38,9 @@ O Modelo de Regressão Linear Múltipla (MRLM) é uma extensão natural do model
 
 No caso do MRLS, trabalhávamos com apenas uma variável explicativa, o que servia como porta de entrada para compreender a lógica de sinal + ruído, a estimação por mínimos quadrados e a interpretação de uma reta ajustada. Contudo, na prática, a realidade raramente se resume a uma única dimensão: quase sempre há múltiplas variáveis que, combinadas, ajudam a explicar e/ou prever o comportamento da variável de interesse.
 
-Suponha que tenhamos $n$ observações de um fenômeno. Para cada observação $i$ (com $i \in \{1,2,\dots,n\}$) dispomos de um valor $y_i$ da variável resposta, de um conjunto de $p$ variáveis explicativas $\{x_{i1}, x_{i2}, \dots, x_{ip}\}$, e de um termo de erro $\varepsilon_i$ que representa a parte da variação não captada pelo modelo.
+Suponha que tenhamos $n$ observações de um fenômeno. Para cada observação $i$ (com $i \in \{1,2,\dots,n\}$) dispomos de um valor $y_i$ da variável resposta, de um conjunto de $p$ variáveis explicativas $\{x_{i1}, x_{i2}, \dots, x_{ip}\}$, e o termo $\varepsilon_i$ representa a parte da variação de $Y_i$ não explicada pelas variáveis incluídas no modelo, interpretação padrão na modelagem linear [@kutner2005].
 
-A formulação algébrica do modelo populacional é então:
+A formulação algébrica do modelo populacional é então dada por [@montgomery2021]:
 
 $$
 y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p} x_{ip} + \varepsilon_i.
@@ -59,9 +59,9 @@ $$
 
 sendo $\mathbf{x}_i = (x_{i1}, x_{i2}, \ldots, x_{ip})$ o vetor de covariáveis da $i$-ésima observação.
 
-A formulação em termos da média condicional é importante porque explicita que o modelo descreve o comportamento médio da variável resposta dado o conjunto de variáveis explicativas. Essa forma de escrever o modelo será retomada em outros contextos mais gerais, como nos Modelos Lineares Generalizados, em que a ideia de média condicional permanece central, mas a ligação entre a média e os preditores pode assumir formas mais flexíveis do que a linearidade direta. Neste capítulo, entretanto, manteremos a notação clássica de "sinal + ruído", que é a mais intuitiva para introduzir os conceitos fundamentais do modelo de regressão linear múltipla.
+A formulação em termos da média condicional é importante porque explicita que o modelo descreve o comportamento médio da variável resposta dado o conjunto de covariáveis, interpretação fundamental nos modelos lineares [@montgomery2021]. Essa forma de escrever o modelo será retomada em outros contextos mais gerais, como nos Modelos Lineares Generalizados, em que a ideia de média condicional permanece central, mas a ligação entre a média e os preditores pode assumir formas mais flexíveis do que a linearidade direta. Neste capítulo, entretanto, manteremos a notação clássica de "sinal + ruído", que é a mais intuitiva para introduzir os conceitos fundamentais do modelo de regressão linear múltipla.
 
-Embora a formulação escalar seja transparente quando há poucos preditores, ela rapidamente se torna pouco prática à medida que o número de variáveis cresce. Para ganhar clareza e concisão e, sobretudo, para evidenciar a estrutura geométrica do problema, adotamos a notação matricial. Nessa linguagem, o modelo passa a ser escrito como
+Embora a formulação escalar seja transparente quando há poucos preditores, ela rapidamente se torna pouco prática à medida que o número de variáveis cresce. Para ganhar clareza e concisão e, sobretudo, para evidenciar a estrutura geométrica do problema, adotamos a notação matricial. Nessa linguagem, o modelo passa a ser escrito como, conforme a formulação clássica em modelos lineares [@seber2003]:
 
 $$
 \mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}.
@@ -126,7 +126,7 @@ $$
 
 Essa notação matricial não apenas simplifica a escrita, mas também evidencia a estrutura do modelo. A expressão $\mathbf{X}\boldsymbol{\beta}$ corresponde a uma combinação linear das variáveis explicativas, ou seja, a todos os valores que podem ser obtidos pelo modelo a partir dos preditores.
 
-Em outras palavras, dado o conjunto de variáveis explicativas, o modelo é capaz de produzir apenas certos padrões de valores para a resposta. O conjunto de todos esses valores possíveis forma um subespaço do espaço $\mathbb{R}^n$, denominado espaço coluna de $\mathbf{X}$, pois é gerado pelas colunas da matriz de covariáveis.
+Em outras palavras, dado o conjunto de variáveis explicativas, o modelo é capaz de produzir apenas certos padrões de valores para a resposta. O conjunto de todos esses valores possíveis forma um subespaço do espaço $\mathbb{R}^n$, denominado espaço coluna de $\mathbf{X}$, pois é gerado pelas colunas da matriz de covariáveis, conceito fundamental na interpretação geométrica da regressão [@seber2003]
 
 Assim, o vetor de respostas observadas $\mathbf{Y}$ pode ser visto como a soma de duas partes: uma componente sistemática, $\mathbf{X}\boldsymbol{\beta}$, que representa aquilo que o modelo consegue explicar a partir das variáveis disponíveis, e uma componente $\boldsymbol{\varepsilon}$, que representa a diferença entre os valores observados e aqueles que podem ser descritos pelo modelo.
 
@@ -150,15 +150,15 @@ $$
 \mathbf{Y}\sim N_n(\mathbf{X}\boldsymbol{\beta},\,\sigma^2 I_n),
 $$
 
-o que explicita que $\mathbf{Y}$ possui média $\mathbf{X}\boldsymbol{\beta}$ e matriz de covariâncias $\sigma^2 I_n$. Essa formulação é conhecida como **Modelo de Regressão Linear Múltipla Normal (MRLM Normal)** e fornece a base probabilística para os procedimentos de inferência.
+o que explicita que $\mathbf{Y}$ possui média $\mathbf{X}\boldsymbol{\beta}$ e matriz de covariâncias $\sigma^2 I_n$. Essa formulação é conhecida como **Modelo de Regressão Linear Múltipla Normal (MRLM Normal)**, base da inferência clássica em regressão [@montgomery2021; @kutner2005].
 
 É importante destacar que a suposição de normalidade não é necessária para obter o estimador de mínimos quadrados (EMQ/OLS), nem para garantir várias de suas propriedades fundamentais. A normalidade torna-se relevante quando se desejam resultados exatos em amostras finitas, como as distribuições $t$ e $F$ utilizadas em testes e intervalos de confiança. Na ausência dessa hipótese, esses resultados permanecem válidos de forma aproximada, especialmente em amostras grandes.
 
-Assim, sob as condições de média zero dos erros, variância constante e matriz de regressoras de posto completo, o estimador de mínimos quadrados é não viesado e, pelo Teorema de Gauss--Markov, é o melhor estimador linear não viesado (BLUE).
+Assim, sob as condições de média zero dos erros, variância constante e matriz de regressoras de posto completo, o estimador de mínimos quadrados é não viesado e, pelo Teorema de Gauss--Markov, é o melhor estimador linear não viesado (BLUE) [@seber2003; @montgomery2021].
 
 ### Interpretação dos coeficientes
 
-No MRLM, a interpretação dos coeficientes está associada ao conceito de efeito parcial. Cada coeficiente $\beta_j$ ($j=1,\dots,p$) mede a variação média esperada em $Y$ associada a um aumento unitário em $x_j$, **mantendo as demais variáveis fixas**.
+No MRLM, a interpretação dos coeficientes está associada ao conceito de efeito parcial. Cada coeficiente $\beta_j$ ($j=1,\dots,p$) mede a variação média esperada em $Y$ associada a um aumento unitário em $x_j$, mantendo as demais variáveis fixas, interpretação padrão em regressão múltipla [@kutner2005]
 
 Essa condição é importante: ao manter fixas as demais variáveis, conseguimos avaliar o efeito de $x_j$ de forma isolada, isto é, sem a interferência dos outros fatores incluídos no modelo. Dessa forma, o MRLM permite separar o papel de cada variável explicativa em um contexto no qual todas atuam simultaneamente.
 

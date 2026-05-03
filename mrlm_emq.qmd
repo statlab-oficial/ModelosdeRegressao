@@ -1,10 +1,10 @@
 # Mínimos Quadrados Ordinários no MRLM
 
-O objetivo da estimação em regressão é obter valores para os parâmetros desconhecidos $\beta_0,\beta_1,\dots,\beta_{p}$ de modo que o modelo represente, da forma mais adequada possível, a relação entre a resposta $Y$ e as variáveis explicativas $X_1,\dots,X_{p}$.
+O objetivo da estimação em regressão é escolher valores para os parâmetros desconhecidos $\beta_0,\beta_1,\dots,\beta_{p}$ que representem, da forma mais fiel possível, a relação entre a resposta $Y$ e as variáveis explicativas $X_1,\dots,X_{p}$, conforme a formulação clássica dos modelos lineares [@montgomery2021; @kutner2005].
 
-Assim como no MRLS, a estratégia no MRLM é minimizar a soma dos quadrados dos resíduos. Em outras palavras, buscamos os coeficientes que tornam pequena, no conjunto dos dados observados, a diferença entre os valores observados e os valores ajustados pelo modelo.
+Assim como no MRLS, a estratégia no MRLM é minimizar a soma dos quadrados dos resíduos, critério fundamental introduzido na teoria de regressão linear clássica [@seber2003; @montgomery2021]. Em outras palavras, buscamos os coeficientes que tornam pequena, no conjunto dos dados observados, a diferença entre os valores observados e os valores ajustados pelo modelo.
 
-Do ponto de vista algébrico, os resíduos são definidos por
+Do ponto de vista algébrico, definimos os resíduos por, conforme a construção usual em modelos lineares [@kutner2005],
 
 $$
 \hat{\varepsilon}_i = y_i - \hat{y}_i
@@ -25,7 +25,7 @@ S(\boldsymbol{\beta}) =
 \bigl[y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip})\bigr]^2.
 $$
 
-Em notação matricial, o vetor de resíduos ajustados é dado por
+Escrevendo em notação matricial, como é padrão na formulação geral do problema de mínimos quadrados [@seber2003], o vetor de resíduos ajustados é dado por
 
 $$
 \hat{\boldsymbol{\varepsilon}} = \mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}.
@@ -41,7 +41,7 @@ S(\boldsymbol{\beta}) =
 $$
 ## Interpretação Geométrica do MQO
 
-A minimização da soma de quadrados também pode ser interpretada geometricamente: ao escolher $\hat{\boldsymbol{\beta}}$ que torna $S(\boldsymbol{\beta})$ mínimo, estamos selecionando, entre todos os vetores do espaço coluna de $\mathbf{X}$, aquele que fica mais próximo de $\mathbf{Y}$ em norma euclidiana. Em outras palavras, o problema de MQO equivale a projetar $\mathbf{Y}$ ortogonalmente sobre $\operatorname{col}(\mathbf{X})$, produzindo o vetor ajustado 
+A minimização da soma de quadrados também pode ser interpretada geometricamente: ao escolher $\hat{\boldsymbol{\beta}}$ que torna $S(\boldsymbol{\beta})$ mínimo, estamos selecionando, entre todos os vetores do espaço coluna de $\mathbf{X}$, aquele que fica mais próximo de $\mathbf{Y}$ em norma euclidiana. Em outras palavras, o problema de MQO equivale a projetar $\mathbf{Y}$ ortogonalmente sobre $\operatorname{col}(\mathbf{X})$, resultado fundamental da interpretação geométrica dos mínimos quadrados [@seber2003], produzindo o vetor ajustado 
 
 $$
 \hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}},
@@ -170,13 +170,13 @@ S(\boldsymbol{\beta})
 = (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
 $$
 
-leva ao sistema de equações normais:
+leva ao sistema de equações normais, resultado central na teoria de mínimos quadrados [@montgomery2021; @seber2003]:
 
 $$
 \mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y},
 $$
 
-as quais são equivalentes à condição de ortogonalidade dos resíduos.
+as quais são equivalentes à condição de ortogonalidade dos resíduos, característica essencial da solução de mínimos quadrados [@seber2003].
 
 Essa condição significa que os resíduos são ortogonais a todas as colunas de $\mathbf{X}$, isto é, não apresentam associação linear com nenhuma das variáveis explicativas. Em outras palavras, não há mais informação linear disponível nas variáveis que possa ser usada para reduzir os erros do modelo.
 
@@ -184,7 +184,7 @@ $$
 \mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0}.
 $$
 
-Quando $\operatorname{rank}(\mathbf{X})=p+1$, a matriz $\mathbf{X}^\top\mathbf{X}$ é inversível e obtemos a solução única dada por
+Quando $\operatorname{rank}(\mathbf{X})=p+1$, a matriz $\mathbf{X}^\top\mathbf{X}$ é inversível e obtemos a solução única, conhecida como solução de mínimos quadrados ordinários [@montgomery2021]: 
 
 $$
 \hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
@@ -196,14 +196,14 @@ Assim, o problema de estimação no MRLM se resume a resolver um sistema linear 
 
 ## Matrizes de Projeção
 
-Os valores ajustados e os resíduos podem ser escritos de forma natural usando projeções:
+Os valores ajustados e os resíduos escrevem-se naturalmente em termos de projeções, interpretação padrão na abordagem matricial da regressão [@seber2003]:
 
 $$
 \hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}} = H\,\mathbf{Y},\qquad
 \hat{\boldsymbol{\varepsilon}} = \mathbf{Y} - \hat{\mathbf{Y}}= (I_n-H)\,\mathbf{Y},
 $$
 
-em que
+onde $H$ é a matriz de projeção ortogonal sobre o espaço coluna de $\mathbf{X}$ [@seber2003] e $M$ é a matriz de projeção sobre o complemento ortogonal,
 
 $$
 H = \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
@@ -271,7 +271,7 @@ abline(h = 0, col = "black", lwd = 2)
 par(op)
 ```
 
-Observação (caso singular). Se $\mathbf{X}^\top\mathbf{X}$ não for inversível, por exemplo na presença de multicolinearidade perfeita, as equações normais admitem infinitas soluções. Uma alternativa é adotar a solução de mínima norma por meio da inversa generalizada de Moore–Penrose, $\hat{\boldsymbol{\beta}}=\mathbf{X}^+\mathbf{Y}$. Esse ponto será retomado ao discutir multicolinearidade e métodos de regularização.
+Observação (caso singular). Se $\mathbf{X}^\top\mathbf{X}$ não for inversível, por exemplo na presença de multicolinearidade perfeita, as equações normais admitem infinitas soluções. Uma alternativa é adotar a solução de mínima norma por meio da inversa generalizada de Moore–Penrose, $\hat{\boldsymbol{\beta}}=\mathbf{X}^+\mathbf{Y}$, abordagem clássica para problemas com multicolinearidade perfeita [@seber2003]. Esse ponto será retomado ao discutir multicolinearidade e métodos de regularização.
 
 
 ::: {.callout-important title="Teorema — Estimador de MQO no MRLM"}
