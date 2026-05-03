@@ -1,53 +1,67 @@
 # Mínimos Quadrados Ordinários no MRLM
 
-O objetivo da estimação em regressão é escolher valores para os parâmetros desconhecidos $\beta_0,\beta_1,\dots,\beta_{p}$ que representem, da forma mais fiel possível, a relação entre a resposta $Y$ e as variáveis explicativas $X_1,\dots,X_{p}$. 
+O objetivo da estimação em regressão é obter valores para os parâmetros desconhecidos $\beta_0,\beta_1,\dots,\beta_{p}$ de modo que o modelo represente, da forma mais adequada possível, a relação entre a resposta $Y$ e as variáveis explicativas $X_1,\dots,X_{p}$.
 
-Assim como no MRLS, a estratégia no MRLM é **minimizar a soma dos quadrados dos resíduos**: buscamos os coeficientes que tornam “pequena”, em média, a distância entre os valores observados e os valores ajustados pelo modelo.
+Assim como no MRLS, a estratégia no MRLM é minimizar a soma dos quadrados dos resíduos. Em outras palavras, buscamos os coeficientes que tornam pequena, no conjunto dos dados observados, a diferença entre os valores observados e os valores ajustados pelo modelo.
 
-Do ponto de vista algébrico, definimos os **resíduos** por
+Do ponto de vista algébrico, os resíduos são definidos por
+
 $$
-\hat{\varepsilon}_i \;=\; y_i - \hat{y}_i
-\;=\; y_i - \big(\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip}\big),
+\hat{\varepsilon}_i = y_i - \hat{y}_i
+= y_i - \big(\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip}\big).
 $$
 
 ## Critério de Mínimos Quadrados
 
-O **critério de mínimos quadrados** escolhe $\hat\beta_0,\hat\beta_1,\dots,\hat\beta_{p}$ que **minimize**:
+O critério de mínimos quadrados escolhe os valores $\hat\beta_0,\hat\beta_1,\dots,\hat\beta_{p}$ que minimizam a soma dos quadrados dos resíduos:
+
 $$
-S(\boldsymbol{\beta}) \;=\; \sum_{i=1}^n\hat\varepsilon_i^{\,2}=\sum_{i=1}^n\bigl(y_i-\hat y_i\bigr)^2 = \sum_{i=1}^n\bigl[y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip})\bigr]^2.
+S(\boldsymbol{\beta}) =
+\sum_{i=1}^n \hat\varepsilon_i^{\,2}
+=
+\sum_{i=1}^n \bigl(y_i-\hat y_i\bigr)^2
+=
+\sum_{i=1}^n
+\bigl[y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip})\bigr]^2.
 $$
 
-que, escrevendo em notação matricial,
+Em notação matricial, o vetor de resíduos ajustados é dado por
+
 $$
-\hat{\boldsymbol{\varepsilon}} \;=\; \mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}.
-$$
-temos o **soma de mínimos quadrados** dada por
-$$
-S(\boldsymbol{\beta}) \;=\; \hat{\boldsymbol{\varepsilon}}^\top \hat{\boldsymbol{\varepsilon}}
-\;=\; (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\hat{\boldsymbol{\varepsilon}} = \mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}.
 $$
 
+Assim, a soma de quadrados dos resíduos pode ser escrita como
 
+$$
+S(\boldsymbol{\beta}) =
+\hat{\boldsymbol{\varepsilon}}^\top \hat{\boldsymbol{\varepsilon}}
+=
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
 ## Interpretação Geométrica do MQO
 
-Visto por outro ângulo, a minimização acima admite uma leitura geométrica direta: ao escolher $\hat{\boldsymbol{\beta}}$ que torna $S(\boldsymbol{\beta})$ mínimo, estamos selecionando, dentre todos os vetores do **espaço coluna** de $\mathbf{X}$, aquele que fica mais próximo de $\mathbf{Y}$ em norma euclidiana. Em outras palavras, o problema de MQO equivale a projetar $\mathbf{Y}$ **ortogonalmente** sobre $\operatorname{col}(\mathbf{X})$, produzindo o vetor ajustado
+A minimização da soma de quadrados também pode ser interpretada geometricamente: ao escolher $\hat{\boldsymbol{\beta}}$ que torna $S(\boldsymbol{\beta})$ mínimo, estamos selecionando, entre todos os vetores do espaço coluna de $\mathbf{X}$, aquele que fica mais próximo de $\mathbf{Y}$ em norma euclidiana. Em outras palavras, o problema de MQO equivale a projetar $\mathbf{Y}$ ortogonalmente sobre $\operatorname{col}(\mathbf{X})$, produzindo o vetor ajustado 
+
 $$
 \hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}},
-$$
-enquanto o **resíduo**
+$$ 
+
+enquanto o resíduo
+
 $$
 \hat{\boldsymbol{\varepsilon}}=\mathbf{Y}-\hat{\mathbf{Y}}
-$$
-é exatamente a componente **perpendicular** a esse subespaço. Assim, obtemos a decomposição
+$$ 
+
+é exatamente a componente perpendicular a esse subespaço. Assim, obtemos a decomposição 
+
 $$
 \mathbf{Y}
 \;=\;
 \underbrace{\hat{\mathbf{Y}}}_{\text{projeção em }\operatorname{col}(\mathbf{X})}
 \;+\;
 \underbrace{\hat{\boldsymbol{\varepsilon}}}_{\text{complemento ortogonal}},
-$$
-que resume a essência geométrica do MQO.
-
+$$ que resume a essência geométrica do MQO.
 
 ```{r}
 #| echo: false
@@ -78,11 +92,11 @@ res   <- y_vec - yhat
 X <- model.matrix(mod)  # [1, x1, x2]
 ```
 
+A Figura 3.4 apresenta um caso com duas variáveis explicativas ($x_1$ e $x_2$), de modo que possamos visualizar tudo em três dimensões.
 
-A Figura 3.4 apresenta um caso com duas variáveis explicativas ($x_1$ e $x_2$), de modo que possamos visualizar tudo em **três dimensões**.  
-- Os **pontos azuis** são as observações $(x_{i1},x_{i2},y_i)$.  
-- O **plano vermelho** representa o hiperplano ajustado pelo modelo, $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_{i1}+\hat{\beta}_2 x_{i2}$.  
-- As **linhas pretas verticais** ligam cada ponto observado ao plano e correspondem aos **resíduos** $\hat{\varepsilon}_i = y_i-\hat{y}_i$. 
+- Os pontos azuis são as observações $(x_{i1},x_{i2},y_i)$.
+- O plano vermelho representa o plano ajustado pelo modelo, $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_{i1}+\hat{\beta}_2 x_{i2}$.
+- As linhas pretas verticais ligam cada ponto observado ao plano e correspondem aos resíduos $\hat{\varepsilon}_i = y_i-\hat{y}_i$.
 
 ```{r}
 #| echo: false
@@ -143,56 +157,83 @@ for (k in seq_along(idx)) {
 }
 ```
 
+Essa figura ajuda a entender a ideia do MQO: minimizar a soma dos quadrados das distâncias verticais entre os pontos observados e o plano ajustado. Observe que, nessa representação, não minimizamos a distância perpendicular ao plano, mas sim a distância na direção da variável resposta $y$, coerente com o fato de que modelamos a esperança condicional $E(Y \mid \mathbf{X})$
 
-Essa figura torna visível a essência do MQO: **minimizar a soma dos quadrados das distâncias verticais** entre os pontos observados e o plano ajustado. Observe que não minimizamos distância ortogonal ao plano, e sim distância na direção de $y$, coerente com o fato de que modelamos a esperença condicional $E(Y \mid \mathbf{X})$ 
+Em linguagem de espaços vetoriais, a figura ilustra que a parte "explicada" ($\hat{\mathbf{Y}}$) pertence a $\operatorname{col}(\mathbf{X})$, e a parte "não explicada" ($\hat{\boldsymbol{\varepsilon}}$) é **ortogonal** a esse espaço, reforçando a interpretação do MQO como uma operação de projeção.
 
-Em linguagem de espaços vetoriais, a figura ilustra que a parte “explicada” ($\hat{\mathbf{Y}}$) vive em $\operatorname{col}(\mathbf{X})$, e a parte “não explicada” ($\hat{\boldsymbol{\varepsilon}}$) é **ortogonal** a esse espaço, reforçando a interpretação de MQO como uma operação de projeção.
+## Equações Normais e Estimação dos Parâmetros
 
-## Equações Normais e Solução Fechada
+A minimização da função
 
-A minimização de
 $$
 S(\boldsymbol{\beta})
 = (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
 $$
-leva (ver Seção 3.11) ao **sistema de equações normais**:
+
+leva ao sistema de equações normais:
+
 $$
 \mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y},
 $$
-as quais são equivalentes à condição de **ortogonalidade dos resíduos**:
+
+as quais são equivalentes à condição de ortogonalidade dos resíduos.
+
+Essa condição significa que os resíduos são ortogonais a todas as colunas de $\mathbf{X}$, isto é, não apresentam associação linear com nenhuma das variáveis explicativas. Em outras palavras, não há mais informação linear disponível nas variáveis que possa ser usada para reduzir os erros do modelo.
+
 $$
 \mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0}.
 $$
-Quando $\operatorname{rank}(\mathbf{X})=p$, a matriz $\mathbf{X}^\top\mathbf{X}$ é inversível e obtemos a solução única
+
+Quando $\operatorname{rank}(\mathbf{X})=p+1$, a matriz $\mathbf{X}^\top\mathbf{X}$ é inversível e obtemos a solução única dada por
+
 $$
 \hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
 $$
 
+Essa expressão mostra que os coeficientes estimados são obtidos a partir de combinações lineares das observações da variável resposta, ponderadas pela estrutura das variáveis explicativas. Embora a fórmula envolva operações matriciais, sua interpretação permanece a mesma: encontrar os coeficientes que melhor ajustam o modelo aos dados observados.
+
+Assim, o problema de estimação no MRLM se resume a resolver um sistema linear bem definido, cuja solução fornece diretamente os coeficientes do modelo ajustado.
+
 ## Matrizes de Projeção
 
-Os **valores ajustados** e os **resíduos** escrevem-se naturalmente em termos de projeções:
+Os valores ajustados e os resíduos podem ser escritos de forma natural usando projeções:
+
 $$
-\hat{\mathbf{Y}} \;=\; \mathbf{X}\hat{\boldsymbol{\beta}} = H\,\mathbf{Y},\qquad
-\hat{\boldsymbol{\varepsilon}} \;=\; \mathbf{Y} - \hat{\mathbf{Y}}= (I_n-H)\,\mathbf{Y},
+\hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}} = H\,\mathbf{Y},\qquad
+\hat{\boldsymbol{\varepsilon}} = \mathbf{Y} - \hat{\mathbf{Y}}= (I_n-H)\,\mathbf{Y},
 $$
+
 em que
+
 $$
-H \;=\; \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+H = \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
 \quad\text{e}\quad
-M \;=\; I_n-H
+M = I_n-H
 $$
-são, respectivamente, a **matriz “chapéu”** (projeção ortogonal sobre $\operatorname{col}(\mathbf{X})$) e a **matriz dos resíduos** (projeção ortogonal sobre o complemento). Ambas são simétricas e idempotentes, e satisfazem $HM=\mathbf{0}$ e $\operatorname{rank}(H)=p+1$, $\operatorname{rank}(M)=n-p-1$. Em termos geométricos,
-$$
-\mathbf{Y} \;=\; H\mathbf{Y} \;+\; M\mathbf{Y}
-\;=\; \hat{\mathbf{Y}} \;+\; \hat{\boldsymbol{\varepsilon}},
-$$
-isto é, a resposta observada decompõe-se em **parte explicada** (no espaço gerado pelas explicativas) e **parte não explicada** (ortogonal a esse espaço).
-As matrizes $H$ e $M$ são projeções (simétricas e idempotentes), e seus papéis serão explorados nos diagnósticos e nas demonstrações.
 
+são, respectivamente, a matriz chapéu e a matriz dos resíduos. A matriz $H$ projeta o vetor $\mathbf{Y}$ sobre o espaço gerado pelas variáveis explicativas, enquanto $M$ projeta sobre a parte que não é explicada pelo modelo.
 
-A Figura 3.5 reúne dois painéis complementares.  
-- **Painel (a)**: $y$ versus $\hat{y}$, com a linha de $45^\circ$. Pontos próximos da diagonal indicam bom ajuste local; dispersão maior em torno da linha sugere variabilidade residual mais alta.  
-- **Painel (b)**: série dos resíduos $\hat{\varepsilon}_i$ ao longo do índice $i$. A linha horizontal em zero ajuda a identificar assimetrias e padrões. A ausência de estrutura sistemática (tendências, blocos ou alargamento do espalhamento) é consistente com as suposições de média zero e homocedasticidade. Em conjunto, os dois painéis **visualizam** a decomposição $\mathbf{Y}=H\mathbf{Y}+M\mathbf{Y}$: o primeiro destaca a aderência dos ajustados, o segundo evidencia o que “sobrou” para os resíduos.
+Ambas as matrizes são simétricas e idempotentes, e satisfazem $HM=\mathbf{0}$ e $\operatorname{rank}(H)=p+1$, $\operatorname{rank}(M)=n-p-1$.
+
+Em termos geométricos,
+
+$$
+\mathbf{Y} = H\mathbf{Y} + M\mathbf{Y}
+= \hat{\mathbf{Y}} + \hat{\boldsymbol{\varepsilon}},
+$$
+
+isto é, a resposta observada pode ser decomposta em duas partes: uma parte explicada pelo modelo, que está no espaço gerado pelas variáveis explicativas, e uma parte não explicada, que é ortogonal a esse espaço.
+
+Essa decomposição ajuda a entender o papel dos valores ajustados e dos resíduos. Os valores ajustados representam aquilo que o modelo consegue reproduzir a partir das variáveis disponíveis, enquanto os resíduos correspondem ao que não foi capturado.
+
+A Figura 3.5 reúne dois painéis complementares.
+
+- Painel (a): gráfico de $y$ em função de $\hat{y}$, com a linha de $45^\circ$. Pontos próximos da diagonal indicam bom ajuste local, enquanto maior dispersão em torno da linha sugere maior variabilidade residual.
+- Painel (b): gráfico dos resíduos $\hat{\varepsilon}_i$ ao longo do índice $i$. A linha horizontal em zero ajuda a identificar assimetrias e possíveis padrões.
+
+A ausência de estrutura sistemática nos resíduos, como tendências ou mudanças no nível de variabilidade, é compatível com as hipóteses de média zero e variância constante.
+
+Em conjunto, os dois gráficos ajudam a visualizar a decomposição $\mathbf{Y}=H\mathbf{Y}+M\mathbf{Y}$: o primeiro destaca o comportamento dos valores ajustados, enquanto o segundo evidencia a parte não explicada pelo modelo.
 
 ```{r}
 #| echo: false
@@ -230,155 +271,178 @@ abline(h = 0, col = "black", lwd = 2)
 par(op)
 ```
 
+Observação (caso singular). Se $\mathbf{X}^\top\mathbf{X}$ não for inversível, por exemplo na presença de multicolinearidade perfeita, as equações normais admitem infinitas soluções. Uma alternativa é adotar a solução de mínima norma por meio da inversa generalizada de Moore–Penrose, $\hat{\boldsymbol{\beta}}=\mathbf{X}^+\mathbf{Y}$. Esse ponto será retomado ao discutir multicolinearidade e métodos de regularização.
 
 
-> **Observação (caso singular).** Se $\mathbf{X}^\top\mathbf{X}$ não for inversível — por exemplo, em presença de **multicolinearidade perfeita** — as equações normais admitem infinitas soluções. Uma convenção útil é adotar a solução de **mínima norma** via inversa generalizada de Moore–Penrose, $\hat{\boldsymbol{\beta}}=\mathbf{X}^+\mathbf{Y}$. Voltaremos a esse ponto ao discutir multicolinearidade e estratégias de regularização.
+::: {.callout-important title="Teorema — Estimador de MQO no MRLM"}
 
-## Teorema do Hiperplano de Regressão
+No modelo de regressão linear múltipla
 
-> **Teorema.** O estimador de MQO do vetor de parâmetros $\boldsymbol{\beta}$ do Modelo de Regressão Linear Múltipla
-> $$
-> \mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \qquad
-> E(\boldsymbol{\varepsilon})=\mathbf{0}, \qquad
-> \text{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n,
-> $$
-> é dada por
-> $$
-> \hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
-> $$
-> Essa expressão define o **hiperplano de regressão** no espaço gerado pelas variáveis explicativas, que minimiza a soma dos quadrados das distâncias verticais entre os pontos observados $(x_{i1},\dots,x_{ip},y_i)$ e o hiperplano ajustado.
+$$
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \qquad
+E(\boldsymbol{\varepsilon})=\mathbf{0}, \qquad
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n,
+$$
 
-**Interpretação geométrica.**  
-- Para $p=1$ (caso do MRLS), o hiperplano reduz-se a uma **reta** no plano $(x_1,y)$.  
-- Para $p=2$ (duas explicativas), temos um **plano** em 3D no espaço $(x_1,x_2,y)$.  
-- Para $p>2$, a construção é um **hiperplano** em dimensão superior, que não pode ser visualizado diretamente, mas obedece à mesma lógica: é a melhor aproximação linear à nuvem de pontos.  
+o estimador de mínimos quadrados ordinários (MQO) de $\boldsymbol{\beta}$ é dado por
 
-Em todos os casos, o ajuste é feito minimizando as discrepâncias na direção de $y$, isto é, as diferenças verticais entre observado e ajustado.  
+$$
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
+$$
 
+Essa expressão fornece os coeficientes do modelo que minimizam a soma dos quadrados dos resíduos.
 
-**Ideia da demonstração**
+:::
 
-A prova formal será apresentada na Seção 3.11. Aqui indicamos apenas a rota principal:
+A expressão acima define o hiperplano de regressão no espaço gerado pelas variáveis explicativas. Esse hiperplano corresponde à melhor aproximação linear aos dados observados, no sentido de mínimos quadrados.
 
-1. **Critério de otimização.** Define-se a função de mínimos quadrados
-   $$
-   S(\boldsymbol{\beta}) = (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
-   $$
-   O problema é encontrar o vetor $\hat{\boldsymbol{\beta}}$ que minimiza $S(\boldsymbol{\beta})$.  
+No caso de uma única variável explicativa, o modelo corresponde a uma reta no plano $(x_1,y)$. Com duas variáveis explicativas, obtemos um plano no espaço tridimensional $(x_1,x_2,y)$. Em dimensões mais altas, a construção resulta em um hiperplano, que segue a mesma lógica geométrica.
 
-2. **Condição de primeira ordem.** Diferenciando $S(\boldsymbol{\beta})$ em relação a $\boldsymbol{\beta}$ e igualando a zero, obtêm-se as **equações normais**:
-   $$
-   \mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y}.
-   $$
+Em todos os casos, o ajuste é realizado minimizando as discrepâncias na direção da variável resposta, isto é, as diferenças verticais entre os valores observados e os valores ajustados.
 
-3. **Convexidade e unicidade.** A matriz Hessiana de $S(\boldsymbol{\beta})$ é $2\mathbf{X}^\top\mathbf{X}$. Se $\operatorname{rank}(\mathbf{X})=p+1$, trata-se de uma matriz definida positiva, o que garante que a solução obtida é um **mínimo global único**.
+A demonstração completa será apresentada no apêndice. De forma resumida, o resultado é obtido a partir dos seguintes passos:
 
+1. Define-se a função de mínimos quadrados
+
+$$
+S(\boldsymbol{\beta}) = (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+2. Diferencia-se essa função em relação a $\boldsymbol{\beta}$ e iguala-se a zero, obtendo-se as equações normais
+
+$$
+\mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y}.
+$$
+
+3. Sob a condição de posto completo da matriz $\mathbf{X}$, a solução é única e corresponde a um mínimo global.
 
 ## Propriedades dos Estimadores de MQO
 
-Uma vez estabelecida a forma fechada do estimador, podemos investigar suas principais **propriedades estatísticas**, as quais formam a base da inferência em regressão, justificam a confiança no método dos mínimos quadrados e explicam suas limitações em determinadas situações práticas.  
+Uma vez estabelecida a forma fechada do estimador, podemos investigar suas principais propriedades estatísticas. Essas propriedades formam a base da inferência em regressão, justificam o uso do método dos mínimos quadrados e ajudam a compreender suas limitações em situações práticas.
 
-Deste modo, considere o estimador de mínimos quadrados
+Considere o estimador de mínimos quadrados
+
 $$
 \hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
 $$
 
 Assumindo as hipóteses clássicas do modelo linear
+
 $$
 \mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \qquad
 E(\boldsymbol{\varepsilon})=\mathbf{0}, \qquad
-\text{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n,
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n,
 $$
+
 temos os seguintes resultados.
 
 ### Não-viesamento
 
-**Proposição 1 (Não-viesamento).**  
+**Proposição 1 (Não-viesamento).**
+
 $$
 E(\hat{\boldsymbol{\beta}} \mid \mathbf{X}) = \boldsymbol{\beta}.
 $$
 
-Isso significa que, em média, o estimador de MQO atinge o verdadeiro valor dos parâmetros do modelo. Ou seja, se pudéssemos repetir o experimento inúmeras vezes, a média das estimativas seria exatamente o vetor de parâmetros populacionais.  
+Esse resultado indica que, em média, o estimador de MQO recupera o verdadeiro valor dos parâmetros do modelo. Em termos práticos, se o processo de amostragem pudesse ser repetido muitas vezes sob as mesmas condições, a média das estimativas obtidas coincidiria com o vetor de parâmetros populacionais.
 
-O não-viesamento garante que não estamos introduzindo erros sistemáticos ao usar o MQO. Portanto, mesmo que a variabilidade das estimativas possa ser grande em amostras pequenas, não existe tendência persistente de super ou subestimação dos coeficientes.
+O não-viesamento garante que o método não introduz erro sistemático na estimação. Assim, eventuais diferenças entre estimativas e valores reais decorrem apenas da variabilidade amostral e não de algum viés estrutural do estimador.
 
+*Demonstração (esboço).*
 
-*Demonstração (esboço).*  
 $$
-E(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top E(\mathbf{Y}\mid \mathbf{X})
+E(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) 
+= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top E(\mathbf{Y}\mid \mathbf{X})
 = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}
 = \boldsymbol{\beta}.
 $$
 
-### Matriz de Variância–Covariância
+### Matriz de variância-covariância
 
-**Proposição 2 (Matriz de variância-covariância).**  
+**Proposição 2 (Matriz de variância-covariância).**
+
 $$
-\text{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
 $$
 
-Essa matriz descreve como as estimativas se dispersam em torno dos valores verdadeiros. O elemento da diagonal $j$ fornece a variância de $\hat{\beta}_j$, e os elementos fora da diagonal expressam a covariância entre estimadores.  
+Essa matriz descreve como as estimativas se dispersam em torno dos valores verdadeiros. Cada elemento da diagonal corresponde à variância de um coeficiente estimado, enquanto os elementos fora da diagonal representam a covariância entre diferentes estimadores.
 
-*Demonstração (esboço).*  
+Essa estrutura é importante porque mostra que a precisão das estimativas depende tanto da variabilidade dos erros quanto da forma como as variáveis explicativas estão organizadas na matriz $\mathbf{X}$. Em particular, situações de forte dependência entre variáveis explicativas podem aumentar a variância dos estimadores.
+
+*Demonstração (esboço).*
+
 Seja $A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$. Então
+
 $$
 \hat{\boldsymbol{\beta}} = A\mathbf{Y}, \qquad
-\text{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) = A\,\text{Var}(\mathbf{Y}\mid \mathbf{X})\,A^\top
+\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) 
+= A\,\operatorname{Var}(\mathbf{Y}\mid \mathbf{X})\,A^\top
 = A (\sigma^2 I_n) A^\top
 = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
 $$
 
+### Distribuição amostral (caso normal)
 
-### Distribuição Amostral (caso normal)
+**Proposição 3 (Distribuição amostral).**
 
-**Proposição 3 (Distribuição amostral).** 
+Se admitirmos normalidade para os erros, isto é, $\boldsymbol{\varepsilon}\sim N_n(0,\sigma^2 I_n)$, então
 
-Se admitirmos normalidade para os erros, isto é, $\boldsymbol{\varepsilon}\sim N_n(0,\sigma^2 I_n)$, então  
 $$
-\hat{\boldsymbol{\beta}}\mid \mathbf{X} \sim N_{p+1}\!\left(\boldsymbol{\beta}, \;\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\right).
+\hat{\boldsymbol{\beta}}\mid \mathbf{X} 
+\sim N_{p+1}\!\left(\boldsymbol{\beta}, \;\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\right).
 $$
 
-Esse resultado é consequência direta de $\hat{\boldsymbol{\beta}}$ ser uma **combinação linear** de $\mathbf{Y}$ e $\mathbf{Y}$ seguir uma normal multivariada. Como combinações lineares de vetores normais também são normais, temos normalidade exata para os estimadores.  
+Esse resultado decorre do fato de que $\hat{\boldsymbol{\beta}}$ é uma combinação linear de $\mathbf{Y}$. Como $\mathbf{Y}$ possui distribuição normal multivariada, qualquer combinação linear de suas componentes também terá distribuição normal.
 
-A normalidade de $\hat{\boldsymbol{\beta}}$ é o que permite usar **testes $t$ e $F$ exatos** em regressão. Destaca-se que, sem a hipótese de normalidade para os erros aleatórios, podemos continuar usando o MQO (que ainda será BLUE), mas as distribuições dos testes passam a ser apenas **aproximações assintóticas**.  
+A normalidade dos estimadores permite a construção de testes estatísticos e intervalos de confiança exatos em amostras finitas. Sem essa hipótese, esses procedimentos continuam sendo utilizados, mas passam a ter validade aproximada, especialmente em amostras grandes.
 
+*Ideia da demonstração.*
 
-*Ideia para demonstração* Como $\hat{\boldsymbol{\beta}}=A\mathbf{Y}$ com $A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e $\mathbf{Y}\mid \mathbf{X}\sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2 I_n)$, segue que $\hat{\boldsymbol{\beta}}$ é normal multivariada.
+Como $\hat{\boldsymbol{\beta}}=A\mathbf{Y}$ com $A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e $\mathbf{Y}\mid \mathbf{X}\sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2 I_n)$, segue que $\hat{\boldsymbol{\beta}}$ também possui distribuição normal multivariada.
 
+### Estimador da variância dos erros
 
-### Estimador da Variância dos Erros
+**Proposição 4 (Estimador da variância dos erros).**
 
+A variância populacional $\sigma^2$ é desconhecida. O estimador clássico é
 
-**Proposição 4 (Estimador da variância dos erros).**  
-
-A variância populacional $\sigma^2$ é desconhecida. O estimador clássico é  
 $$
 \hat{\sigma}^2 = \frac{\hat{\boldsymbol{\varepsilon}}^\top \hat{\boldsymbol{\varepsilon}}}{n-p-1}
 = \frac{\mathbf{Y}^\top (I_n-H)\mathbf{Y}}{n-p-1},
 $$
+
 onde $H=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ é a matriz chapéu.
 
-O numerador é a soma dos quadrados dos resíduos, e o denominador $n-p-1$ representa os **graus de liberdade** restantes após a estimação de $p+1$ parâmetros.  
+O numerador corresponde à soma dos quadrados dos resíduos, enquanto o denominador $n-p-1$ representa o número de graus de liberdade disponíveis após a estimação dos parâmetros.
 
-A correção por $n-p-1$ (em vez de $n$) garante que $\hat{\sigma}^2$ seja não-viesado. Esse estimador é fundamental porque alimenta a matriz de variância-covariância de $\hat{\boldsymbol{\beta}}$, permitindo calcular erros-padrão consistentes com a variabilidade real dos dados.  
+Essa correção é necessária para que o estimador seja não-viesado. Esse resultado está relacionado ao fato de que parte da variabilidade dos dados já foi utilizada para estimar os parâmetros do modelo.
 
-### Teorema de Gauss–Markov (BLUE)
+Além disso, $\hat{\sigma}^2$ desempenha papel central na inferência, pois é utilizado no cálculo dos erros-padrão dos coeficientes estimados e, consequentemente, na construção de intervalos de confiança e testes de hipóteses.
 
-**Teorema (Gauss–Markov).** 
+### Teorema de Gauss–Markov
 
-Sob as hipóteses clássicas (modelo linear correto, $E(\varepsilon)=0$, variância constante $\sigma^2$, ausência de colinearidade perfeita), temos o seguinte resultado:
+::: {.callout-important title="Teorema — Gauss–Markov"}
 
-Entre todos os estimadores lineares não-viesados da forma $\tilde{\boldsymbol{\beta}}=C\mathbf{Y}$ com $C\mathbf{X}=I_{p+1}$, o estimador de MQO $\hat{\boldsymbol{\beta}}$ apresenta a menor matriz de variância-covariância:
+Sob as hipóteses clássicas do modelo linear, o estimador de mínimos quadrados $\hat{\boldsymbol{\beta}}$ é o melhor estimador linear não-viesado.
+
+Mais precisamente, entre todos os estimadores da forma $\tilde{\boldsymbol{\beta}}=C\mathbf{Y}$ tais que $C\mathbf{X}=I_{p+1}$, o estimador de MQO apresenta a menor matriz de variância-covariância:
+
 $$
-\text{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X}) - \text{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) \;\; \text{é semidefinida positiva}.
+\operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X}) - \operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X})
+\;\text{é semidefinida positiva}.
 $$
 
-Esse resultado justifica o lugar central do MQO na análise de regressão. Mesmo sem normalidade, não existe outro estimador linear não-viesado que seja mais preciso. Em aplicações, esse teorema garante que o MQO é um ponto de partida sólido e eficiente, desde que as hipóteses sejam plausíveis.  
+:::
 
-As demonstrações completas serão apresentadas em uma subseção específica, para manter o fluxo do texto principal mais leve.  
+Esse resultado justifica o papel central do MQO na análise de regressão. Mesmo sem assumir normalidade, não existe outro estimador linear não-viesado que seja mais preciso.
 
-**Resumo formal:**  
-- $\hat{\boldsymbol{\beta}}$ é **não-viesado**.  
-- $\hat{\boldsymbol{\beta}}$ tem variância mínima entre os estimadores lineares não-viesados (é **BLUE**).  
-- Se $\boldsymbol{\varepsilon}\sim N_n(0,\sigma^2 I_n)$, então $\hat{\boldsymbol{\beta}}$ é exatamente **normal multivariado**.  
-- $\hat{\sigma}^2$ é um estimador não-viesado de $\sigma^2$, baseado na soma de quadrados dos resíduos.  
+Na prática, isso significa que, sob as hipóteses do modelo, o MQO oferece um método eficiente para estimar os parâmetros, combinando simplicidade e boas propriedades estatísticas.
+
+As demonstrações completas serão apresentadas no apêndice, de modo a manter o fluxo do texto principal mais leve.
+
+**Resumo formal**
+
+- $\hat{\boldsymbol{\beta}}$ é não-viesado.
+- $\hat{\boldsymbol{\beta}}$ possui variância mínima entre estimadores lineares não-viesados.
+- Sob normalidade, $\hat{\boldsymbol{\beta}}$ tem distribuição normal multivariada.
+- $\hat{\sigma}^2$ é um estimador não-viesado de $\sigma^2$.

@@ -40,7 +40,7 @@ book:
     - part: "Parte III — Modelo de Regressão Linear Múltipla (MRLM)"
       chapters:
         - mrlm.qmd
-#        - mrlm_emq.qmd
+        - mrlm_emq.qmd
 #        - mrlm_inferencia.qmd
 #        - mrlm_dummies.qmd
 #        - mrlm_ancova.qmd
@@ -48,7 +48,7 @@ book:
 #        - mrlm_diagnostico.qmd
 #        - mrlm_transf.qmd
 #        - mrlm_aplica.qmd
-        - part3_ex.qmd
+#        - part3_ex.qmd
         
         
     - part: "Parte IV — Apêndices"

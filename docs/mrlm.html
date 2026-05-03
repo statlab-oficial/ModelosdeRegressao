@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./part3_ex.html" rel="next">
+<link href="./mrlm_emq.html" rel="next">
 <link href="./part2_sim.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -435,8 +435,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  <a href="./mrlm_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></span></a>
   </div>
 </li>
       </ul>
@@ -510,9 +510,12 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#hipóteses-usuais-para-mrlm" id="toc-hipóteses-usuais-para-mrlm" class="nav-link active" data-scroll-target="#hipóteses-usuais-para-mrlm"><span class="header-section-number">13.0.1</span> Hipóteses usuais para MRLM</a></li>
-  <li><a href="#interpretação-dos-coeficientes" id="toc-interpretação-dos-coeficientes" class="nav-link" data-scroll-target="#interpretação-dos-coeficientes"><span class="header-section-number">13.0.2</span> Interpretação dos coeficientes</a></li>
-  <li><a href="#caso-particular-duas-variáveis-explicativas" id="toc-caso-particular-duas-variáveis-explicativas" class="nav-link" data-scroll-target="#caso-particular-duas-variáveis-explicativas"><span class="header-section-number">13.0.3</span> Caso particular: duas variáveis explicativas</a></li>
+  <li><a href="#forma-matricial-do-mrlm" id="toc-forma-matricial-do-mrlm" class="nav-link active" data-scroll-target="#forma-matricial-do-mrlm"><span class="header-section-number">13.1</span> Forma Matricial do MRLM</a>
+  <ul class="collapse">
+  <li><a href="#hipóteses-usuais-para-mrlm" id="toc-hipóteses-usuais-para-mrlm" class="nav-link" data-scroll-target="#hipóteses-usuais-para-mrlm"><span class="header-section-number">13.1.1</span> Hipóteses usuais para MRLM</a></li>
+  <li><a href="#interpretação-dos-coeficientes" id="toc-interpretação-dos-coeficientes" class="nav-link" data-scroll-target="#interpretação-dos-coeficientes"><span class="header-section-number">13.1.2</span> Interpretação dos coeficientes</a></li>
+  <li><a href="#caso-particular-duas-variáveis-explicativas" id="toc-caso-particular-duas-variáveis-explicativas" class="nav-link" data-scroll-target="#caso-particular-duas-variáveis-explicativas"><span class="header-section-number">13.1.3</span> Caso particular: duas variáveis explicativas</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -556,20 +559,22 @@ window.Quarto = {
 <li><strong>Testes de hipóteses individuais e conjuntos</strong> sobre os parâmetros do modelo.</li>
 <li><strong>Comparação entre modelos alternativos</strong>, avaliando qual conjunto de variáveis explica melhor a resposta.</li>
 </ul>
-<p>Assim, o estudo do MRLM constitui o próximo passo na formação em modelos lineares, servindo também como base para métodos mais gerais, como os Modelos Lineares Generalizados (<strong>GLM</strong>), os Modelos Aditivos Generalizados (<strong>GAM</strong>) e os Modelos Aditivos Generalizados para Localização, Escala e Forma (<strong>GAMLSS</strong>).</p>
-<p><strong>Estrutura do Capítulo</strong></p>
-<p>Neste capítulo, apresentamos o Modelo de Regressão Linear Múltipla como extensão natural do MRLS. Inicialmente, discutimos sua motivação e seus principais usos em diferentes áreas do conhecimento.</p>
+<p>Com isso, o MRLM surge naturalmente como uma extensão do modelo simples, permitindo incorporar múltiplos fatores na análise.</p>
+<p><strong>Estrutura da Parte III — Modelo de Regressão Linear Múltipla (MRLM)</strong></p>
+<p>Nesta parte, apresentamos o Modelo de Regressão Linear Múltipla como extensão natural do MRLS. Inicialmente, discutimos sua motivação e seus principais usos em diferentes áreas do conhecimento.</p>
 <p>Em seguida, introduzimos a formulação do modelo em suas formas algébrica e matricial, destacando a interpretação dos coeficientes como efeitos parciais.</p>
 <p>Também são apresentados os estimadores de mínimos quadrados ordinários, suas propriedades básicas, bem como os principais procedimentos de inferência estatística e avaliação da qualidade de ajuste.</p>
-<p>Por fim, discutimos aspectos relacionados à análise de resíduos, diagnóstico do modelo e algumas extensões importantes, como o uso de variáveis qualitativas, interações e critérios de comparação entre modelos, preparando o terreno para desenvolvimentos posteriores. ## Forma Matricial do MRLM</p>
-<p>O <strong>Modelo de Regressão Linear Múltipla (MRLM)</strong> é uma extensão natural do modelo simples, concebida para situações em que a variável resposta depende simultaneamente de vários fatores explicativos.</p>
+<p>Por fim, discutimos aspectos relacionados à análise de resíduos, diagnóstico do modelo e algumas extensões importantes, como o uso de variáveis qualitativas, interações e critérios de comparação entre modelos, preparando o terreno para desenvolvimentos posteriores.</p>
+<section id="forma-matricial-do-mrlm" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="forma-matricial-do-mrlm"><span class="header-section-number">13.1</span> Forma Matricial do MRLM</h2>
+<p>O Modelo de Regressão Linear Múltipla (MRLM) é uma extensão natural do modelo simples, concebida para situações em que a variável resposta depende simultaneamente de vários fatores explicativos.</p>
 <p>No caso do MRLS, trabalhávamos com apenas uma variável explicativa, o que servia como porta de entrada para compreender a lógica de sinal + ruído, a estimação por mínimos quadrados e a interpretação de uma reta ajustada. Contudo, na prática, a realidade raramente se resume a uma única dimensão: quase sempre há múltiplas variáveis que, combinadas, ajudam a explicar e/ou prever o comportamento da variável de interesse.</p>
-<p>Suponha que tenhamos <span class="math inline">\(n\)</span> observações de um fenômeno. Para cada observação <span class="math inline">\(i\)</span> (com <span class="math inline">\(i \in \{1,2,\dots,n\}\)</span>) dispomos de um valor <span class="math inline">\(y_i\)</span> da variável resposta, de um conjunto de <span class="math inline">\(p\)</span> variáveis explicativas <span class="math inline">\(\{x_{i1}, x_{i2}, \dots, x_{i,p}\}\)</span>, e de um termo de erro <span class="math inline">\(\varepsilon_i\)</span> que representa a parte da variação não captada pelo modelo.</p>
+<p>Suponha que tenhamos <span class="math inline">\(n\)</span> observações de um fenômeno. Para cada observação <span class="math inline">\(i\)</span> (com <span class="math inline">\(i \in \{1,2,\dots,n\}\)</span>) dispomos de um valor <span class="math inline">\(y_i\)</span> da variável resposta, de um conjunto de <span class="math inline">\(p\)</span> variáveis explicativas <span class="math inline">\(\{x_{i1}, x_{i2}, \dots, x_{ip}\}\)</span>, e de um termo de erro <span class="math inline">\(\varepsilon_i\)</span> que representa a parte da variação não captada pelo modelo.</p>
 <p>A formulação algébrica do modelo populacional é então:</p>
 <p><span class="math display">\[
-y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p} x_{i,p} + \varepsilon_i.
+y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p} x_{ip} + \varepsilon_i.
 \]</span></p>
-<p>Nessa equação, <span class="math inline">\(\beta_0\)</span> é o intercepto, ou seja, o valor médio esperado da resposta quando todas as variáveis explicativas são iguais a zero. Os parâmetros <span class="math inline">\(\beta_j\)</span> (<span class="math inline">\(j\in \{1,2,\dots,p\}\)</span>) são os coeficientes da regressão que mensuram a contribuição de cada variável explicativa, e o termo <span class="math inline">\(\varepsilon_i\)</span> agrega os efeitos aleatórios, fatores omitidos e ruído inerente ao processo.</p>
+<p>Nessa equação, <span class="math inline">\(\beta_0\)</span> é o intercepto, ou seja, o valor médio esperado da resposta quando todas as variáveis explicativas são iguais a zero. Os parâmetros <span class="math inline">\(\beta_j\)</span> (<span class="math inline">\(j\in \{1,2,\dots,p\}\)</span>) são os coeficientes da regressão que mensuram a contribuição de cada variável explicativa, e o termo <span class="math inline">\(\varepsilon_i\)</span> representa a parte da variação de <span class="math inline">\(Y_i\)</span> não explicada pelas variáveis incluídas no modelo, incorporando fatores não observados e a variabilidade inerente ao fenômeno.</p>
 <p>De forma equivalente, podemos escrever o modelo em termos da <strong>média condicional</strong>:</p>
 <p><span class="math display">\[
 \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p} x_{ip},
@@ -639,38 +644,43 @@ y_n
 \varepsilon_n
 \end{bmatrix}.
 \]</span></p>
-<p>Essa notação matricial não apenas simplifica a escrita, mas também evidencia a natureza geométrica do problema: <span class="math inline">\(\mathbf{Y}\)</span> é representado como a soma de uma componente sistemática, <span class="math inline">\(\mathbf{X}\boldsymbol{\beta}\)</span>, que pertence ao espaço coluna de <span class="math inline">\(\mathbf{X}\)</span> (o subespaço gerado pelas variáveis explicativas), e uma componente aleatória <span class="math inline">\(\boldsymbol{\varepsilon}\)</span>, que representa o desvio da resposta em relação a esse subespaço.</p>
-<section id="hipóteses-usuais-para-mrlm" class="level3" data-number="13.0.1">
-<h3 data-number="13.0.1" class="anchored" data-anchor-id="hipóteses-usuais-para-mrlm"><span class="header-section-number">13.0.1</span> Hipóteses usuais para MRLM</h3>
-<p>Para desenvolver a inferência clássica, é comum impor condições sobre o vetor de erros <span class="math inline">\(\boldsymbol{\varepsilon}\)</span>:</p>
+<p>Essa notação matricial não apenas simplifica a escrita, mas também evidencia a estrutura do modelo. A expressão <span class="math inline">\(\mathbf{X}\boldsymbol{\beta}\)</span> corresponde a uma combinação linear das variáveis explicativas, ou seja, a todos os valores que podem ser obtidos pelo modelo a partir dos preditores.</p>
+<p>Em outras palavras, dado o conjunto de variáveis explicativas, o modelo é capaz de produzir apenas certos padrões de valores para a resposta. O conjunto de todos esses valores possíveis forma um subespaço do espaço <span class="math inline">\(\mathbb{R}^n\)</span>, denominado espaço coluna de <span class="math inline">\(\mathbf{X}\)</span>, pois é gerado pelas colunas da matriz de covariáveis.</p>
+<p>Assim, o vetor de respostas observadas <span class="math inline">\(\mathbf{Y}\)</span> pode ser visto como a soma de duas partes: uma componente sistemática, <span class="math inline">\(\mathbf{X}\boldsymbol{\beta}\)</span>, que representa aquilo que o modelo consegue explicar a partir das variáveis disponíveis, e uma componente <span class="math inline">\(\boldsymbol{\varepsilon}\)</span>, que representa a diferença entre os valores observados e aqueles que podem ser descritos pelo modelo.</p>
+<section id="hipóteses-usuais-para-mrlm" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="hipóteses-usuais-para-mrlm"><span class="header-section-number">13.1.1</span> Hipóteses usuais para MRLM</h3>
+<p>Para desenvolver a inferência clássica no MRLM, é necessário impor algumas condições sobre o comportamento dos erros <span class="math inline">\(\boldsymbol{\varepsilon}\)</span>. Essas hipóteses estabelecem como a parte não explicada do modelo deve se comportar e são fundamentais para garantir a validade dos resultados inferenciais.</p>
+<p>De forma intuitiva, queremos que os erros representem apenas variações aleatórias, sem padrões sistemáticos e com comportamento estável ao longo das observações.</p>
+<p>Formalmente, assumimos:</p>
 <ol type="1">
-<li><p><span class="math inline">\(E(\boldsymbol{\varepsilon})=\mathbf{0}\)</span>: os erros têm esperança nula, de modo que, em média, o componente aleatório não desloca sistematicamente a resposta.</p></li>
-<li><p><span class="math inline">\(\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n\)</span>: os erros possuem variância constante (homocedasticidade) e são não correlacionados entre si (na presença de normalidade, “não correlacionados” implica independência).</p></li>
-<li><p><span class="math inline">\(\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2 I_n)\)</span>: hipótese de normalidade, utilizada quando se deseja validade <strong>exata</strong> das distribuições de teste e dos intervalos de confiança no tamanho amostral finito.</p></li>
+<li><p><span class="math inline">\(E(\boldsymbol{\varepsilon})=\mathbf{0}\)</span>: os erros têm esperança nula. Isso significa que, em média, o modelo está corretamente especificado, isto é, não há tendência sistemática de superestimar ou subestimar a variável resposta.</p></li>
+<li><p><span class="math inline">\(\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n\)</span>: os erros possuem variância constante (homocedasticidade) e não apresentam correlação entre si. Em termos práticos, isso indica que a variabilidade da resposta em torno do modelo é aproximadamente a mesma para todas as observações e que os erros de diferentes unidades não se influenciam.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\varepsilon}\sim N_n(\mathbf{0},\sigma^2 I_n)\)</span>: hipótese de normalidade dos erros. Essa condição não é necessária para a estimação do modelo, mas é importante quando se deseja obter resultados <strong>exatos</strong> para testes de hipóteses e intervalos de confiança em amostras finitas.</p></li>
 </ol>
-<p>Sob essas condições, a variável resposta admite a representação <strong>(MRLM Normal)</strong></p>
+<p>Sob essas condições, a variável resposta admite a representação</p>
 <p><span class="math display">\[
 \mathbf{Y}\sim N_n(\mathbf{X}\boldsymbol{\beta},\,\sigma^2 I_n),
 \]</span></p>
-<p>o que fornece a base probabilística para os resultados de inferência que apresentaremos ao longo do capítulo. Essa representação é denominada <strong>Modelo de Regressão Linear Múltipla Normal (MRLM Normal)</strong>.</p>
-<p>Adicionalmente, assim como no MRLS, a suposição de normalidade não é requisito para obter o estimador de mínimos quadrados (EMQ/OLS) no MRLM, nem para assegurar várias de suas propriedades. A normalidade passa a ser conveniente quando se desejam resultados exatos em amostras finitas (distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span>, construção precisa de testes e intervalos); sem ela, esses procedimentos permanecem válidos em sentido assintótico, mas deixam de ser exatos no nível finito.</p>
-<p>Temos, portanto, sob as condições usuais de média zero dos erros, variância constante e matriz de regressoras de posto completo, que o EMQ é não viesado e, pelo Teorema de Gauss–Markov, é BLUE (melhor estimador linear não viesado).</p>
+<p>o que explicita que <span class="math inline">\(\mathbf{Y}\)</span> possui média <span class="math inline">\(\mathbf{X}\boldsymbol{\beta}\)</span> e matriz de covariâncias <span class="math inline">\(\sigma^2 I_n\)</span>. Essa formulação é conhecida como <strong>Modelo de Regressão Linear Múltipla Normal (MRLM Normal)</strong> e fornece a base probabilística para os procedimentos de inferência.</p>
+<p>É importante destacar que a suposição de normalidade não é necessária para obter o estimador de mínimos quadrados (EMQ/OLS), nem para garantir várias de suas propriedades fundamentais. A normalidade torna-se relevante quando se desejam resultados exatos em amostras finitas, como as distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> utilizadas em testes e intervalos de confiança. Na ausência dessa hipótese, esses resultados permanecem válidos de forma aproximada, especialmente em amostras grandes.</p>
+<p>Assim, sob as condições de média zero dos erros, variância constante e matriz de regressoras de posto completo, o estimador de mínimos quadrados é não viesado e, pelo Teorema de Gauss–Markov, é o melhor estimador linear não viesado (BLUE).</p>
 </section>
-<section id="interpretação-dos-coeficientes" class="level3" data-number="13.0.2">
-<h3 data-number="13.0.2" class="anchored" data-anchor-id="interpretação-dos-coeficientes"><span class="header-section-number">13.0.2</span> Interpretação dos coeficientes</h3>
-<p>O ponto central na interpretação do MRLM é o conceito de <strong>efeito parcial</strong>. Cada coeficiente <span class="math inline">\(\beta_j\)</span> (<span class="math inline">\(j=1,\dots,p\)</span>) mede a variação média esperada em <span class="math inline">\(Y\)</span> associada a um aumento unitário em <span class="math inline">\(x_j\)</span>, <strong>mantendo as demais variáveis constantes</strong>. Diferentemente do caso simples, aqui a análise considera o contexto conjunto das variáveis, isolando o papel de cada uma.</p>
-<p>O intercepto <span class="math inline">\(\beta_0\)</span>, por sua vez, corresponde ao valor esperado da resposta quando todas as variáveis explicativas assumem valor zero, embora, em muitas aplicações, esse valor não possua interpretação prática direta.</p>
+<section id="interpretação-dos-coeficientes" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="interpretação-dos-coeficientes"><span class="header-section-number">13.1.2</span> Interpretação dos coeficientes</h3>
+<p>No MRLM, a interpretação dos coeficientes está associada ao conceito de efeito parcial. Cada coeficiente <span class="math inline">\(\beta_j\)</span> (<span class="math inline">\(j=1,\dots,p\)</span>) mede a variação média esperada em <span class="math inline">\(Y\)</span> associada a um aumento unitário em <span class="math inline">\(x_j\)</span>, <strong>mantendo as demais variáveis fixas</strong>.</p>
+<p>Essa condição é importante: ao manter fixas as demais variáveis, conseguimos avaliar o efeito de <span class="math inline">\(x_j\)</span> de forma isolada, isto é, sem a interferência dos outros fatores incluídos no modelo. Dessa forma, o MRLM permite separar o papel de cada variável explicativa em um contexto no qual todas atuam simultaneamente.</p>
+<p>O intercepto <span class="math inline">\(\beta_0\)</span>, por sua vez, corresponde ao valor esperado da resposta quando todas as variáveis explicativas assumem valor zero. Embora, em muitas aplicações, essa situação não tenha significado prático direto, o intercepto é necessário para ajustar corretamente o nível do modelo.</p>
 </section>
-<section id="caso-particular-duas-variáveis-explicativas" class="level3" data-number="13.0.3">
-<h3 data-number="13.0.3" class="anchored" data-anchor-id="caso-particular-duas-variáveis-explicativas"><span class="header-section-number">13.0.3</span> Caso particular: duas variáveis explicativas</h3>
+<section id="caso-particular-duas-variáveis-explicativas" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="caso-particular-duas-variáveis-explicativas"><span class="header-section-number">13.1.3</span> Caso particular: duas variáveis explicativas</h3>
 <p>Um caso especialmente instrutivo ocorre quando o modelo contém apenas duas variáveis explicativas. Nesse cenário, a equação do modelo é dada por</p>
 <p><span class="math display">\[
 y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i.
 \]</span></p>
-<p>Aqui, a relação entre a variável resposta e os preditores pode ser interpretada geometricamente como uma <strong>superfície em três dimensões</strong>. O eixo vertical corresponde ao valor da variável resposta <span class="math inline">\(y\)</span>, enquanto os dois eixos horizontais representam as variáveis explicativas <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>. O intercepto <span class="math inline">\(\beta_0\)</span> desloca a superfície verticalmente, e os coeficientes <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\beta_2\)</span> definem a inclinação dessa superfície em relação a cada uma das variáveis.</p>
-<p>De maneira intuitiva, <span class="math inline">\(\beta_1\)</span> mede a variação média em <span class="math inline">\(y\)</span> associada a um aumento unitário em <span class="math inline">\(x_1\)</span>, mantendo <span class="math inline">\(x_2\)</span> constante, e <span class="math inline">\(\beta_2\)</span> mensura o efeito de <span class="math inline">\(x_2\)</span> quando <span class="math inline">\(x_1\)</span> é mantido fixo. Essa noção de <strong>efeito parcial</strong> é um dos pilares interpretativos do MRLM.</p>
-<p>Na Figura 3.1, vemos o <strong>plano de regressão ajustado</strong> em 3D sobre os pontos observados. Esse gráfico é útil para perceber como a combinação linear dos preditores busca aproximar, em média, os valores de <span class="math inline">\(y\)</span> no espaço tridimensional.</p>
-<p>Na Figura 3.2, apresentamos <strong>cortes seccionais</strong> da superfície: fixamos valores de <span class="math inline">\(x_2\)</span> e representamos as retas ajustadas de <span class="math inline">\(y\)</span> em função de <span class="math inline">\(x_1\)</span> (e, em gráfico análogo, fixamos <span class="math inline">\(x_1\)</span> e variamos <span class="math inline">\(x_2\)</span>). Esse recurso evidencia como cada preditor influencia a resposta quando o outro permanece constante.</p>
+<p>Aqui, a relação entre a variável resposta e os preditores pode ser interpretada geometricamente como uma <strong>superfície em três dimensões</strong>, especificamente um plano. O eixo vertical corresponde ao valor da variável resposta <span class="math inline">\(y\)</span>, enquanto os dois eixos horizontais representam as variáveis explicativas <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>. O intercepto <span class="math inline">\(\beta_0\)</span> desloca a superfície verticalmente, e os coeficientes <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\beta_2\)</span> definem a inclinação dessa superfície em relação a cada uma das variáveis.</p>
+<p>De maneira intuitiva, <span class="math inline">\(\beta_1\)</span> mede a variação média em <span class="math inline">\(y\)</span> associada a um aumento unitário em <span class="math inline">\(x_1\)</span>, mantendo <span class="math inline">\(x_2\)</span> fixo, e <span class="math inline">\(\beta_2\)</span> mensura o efeito de <span class="math inline">\(x_2\)</span> quando <span class="math inline">\(x_1\)</span> é mantido fixo. Essa noção de efeito parcial é um dos pilares interpretativos do MRLM.</p>
+<p>Na Figura 3.1, vemos o <strong>plano de regressão ajustado</strong> em 3D sobre os pontos observados. Esse gráfico permite visualizar como a combinação linear dos preditores define um plano que aproxima, em média, os valores de <span class="math inline">\(y\)</span> no espaço tridimensional.</p>
+<p>Na Figura 3.2, apresentamos <strong>cortes seccionais</strong> da superfície: fixamos valores de <span class="math inline">\(x_2\)</span> e representamos as retas ajustadas de <span class="math inline">\(y\)</span> em função de <span class="math inline">\(x_1\)</span> (e, em gráfico análogo, fixamos <span class="math inline">\(x_1\)</span> e variamos <span class="math inline">\(x_2\)</span>). Esse recurso evidencia como cada preditor influencia a resposta quando o outro é mantido constante, tornando explícita a ideia de efeito parcial.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -681,7 +691,7 @@ y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i.
 </div>
 </div>
 </div>
-<p>Na Figura 3.3 apresentamos os <strong>gráficos de dispersão usuais</strong>: um mostrando <span class="math inline">\(y\)</span> em função de <span class="math inline">\(x_1\)</span> e outro mostrando <span class="math inline">\(y\)</span> em função de <span class="math inline">\(x_2\)</span>. Esses gráficos permitem observar a associação bruta entre a variável resposta e cada preditor separadamente, sem levar em conta a influência da outra variável explicativa.</p>
+<p>Na Figura 3.3 apresentamos os <strong>gráficos de dispersão usuais</strong>: um mostrando <span class="math inline">\(y\)</span> em função de <span class="math inline">\(x_1\)</span> e outro mostrando <span class="math inline">\(y\)</span> em função de <span class="math inline">\(x_2\)</span>. Esses gráficos permitem observar a associação bruta entre a variável resposta e cada preditor separadamente, isto é, sem controlar o efeito da outra variável explicativa.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -702,12 +712,13 @@ y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i.
 </div>
 </div>
 </div>
-<p>É importante notar que, nesses gráficos, a inclinação da reta de regressão simples reflete apenas a relação direta entre duas variáveis, podendo estar inflada ou atenuada em função da correlação com a outra variável explicativa. Esse ponto reforça a motivação para o MRLM: somente ao considerar os dois preditores em conjunto conseguimos estimar os <strong>efeitos parciais</strong>, isolando a contribuição de cada um.</p>
-<p>No momento, o objetivo é apenas visualizar como cada variável explicativa, individualmente, se relaciona com a resposta. Ferramentas gráficas mais sofisticadas, capazes de mostrar os efeitos isolados após controlar as demais variáveis, serão apresentadas em seções posteriores.</p>
+<p>É importante notar que, nesses gráficos, a inclinação da reta de regressão simples reflete apenas a relação direta entre duas variáveis, podendo estar inflada ou atenuada em função da correlação entre os preditores. Esse ponto reforça a motivação para o MRLM: somente ao considerar os dois preditores em conjunto conseguimos estimar os <strong>efeitos parciais</strong>, isolando a contribuição de cada um.</p>
+<p>Neste momento, o objetivo é apenas visualizar como cada variável explicativa, individualmente, se relaciona com a resposta. Ferramentas gráficas mais sofisticadas, capazes de mostrar os efeitos isolados após controlar as demais variáveis, serão apresentadas em seções posteriores.</p>
 <p>Essas representações visuais desempenham papel fundamental na aprendizagem: não apenas ilustram a formulação matemática, mas também reforçam a interpretação prática dos coeficientes. Ao trabalhar com dados reais, recomenda-se sempre produzir tais visualizações como complemento à análise numérica.</p>
-<p>Portanto, com essa formulação algébrica e matricial, bem como com a interpretação geométrica do modelo, temos a base necessária para avançar ao estudo das propriedades do estimador de mínimos quadrados ordinários, tema da próxima seção.</p>
+<p>Com essa formulação algébrica e matricial, juntamente com a interpretação geométrica do modelo, temos a base necessária para avançar ao estudo das propriedades do estimador de mínimos quadrados ordinários, tema da próxima seção.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1131,8 +1142,8 @@ y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i.
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./part3_ex.html" class="pagination-link" aria-label="Exercícios e Atividades de Consolidação">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mrlm_emq.html" class="pagination-link" aria-label="Mínimos Quadrados Ordinários no MRLM">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

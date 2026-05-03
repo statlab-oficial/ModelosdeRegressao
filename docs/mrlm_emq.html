@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Exercícios e Atividades de Consolidação</title>
+<title>14&nbsp; Mínimos Quadrados Ordinários no MRLM</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -250,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./part3_ex.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./mrlm_emq.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -406,8 +435,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  <a href="./mrlm_emq.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></span></a>
   </div>
 </li>
       </ul>
@@ -476,16 +505,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#critério-de-mínimos-quadrados" id="toc-critério-de-mínimos-quadrados" class="nav-link active" data-scroll-target="#critério-de-mínimos-quadrados"><span class="header-section-number">14.1</span> Critério de Mínimos Quadrados</a></li>
+  <li><a href="#equações-normais-e-estimação-dos-parâmetros" id="toc-equações-normais-e-estimação-dos-parâmetros" class="nav-link" data-scroll-target="#equações-normais-e-estimação-dos-parâmetros"><span class="header-section-number">14.2</span> Equações Normais e Estimação dos Parâmetros</a></li>
+  <li><a href="#matrizes-de-projeção" id="toc-matrizes-de-projeção" class="nav-link" data-scroll-target="#matrizes-de-projeção"><span class="header-section-number">14.3</span> Matrizes de Projeção</a></li>
+  <li><a href="#propriedades-dos-estimadores-de-mqo" id="toc-propriedades-dos-estimadores-de-mqo" class="nav-link" data-scroll-target="#propriedades-dos-estimadores-de-mqo"><span class="header-section-number">14.4</span> Propriedades dos Estimadores de MQO</a>
+  <ul class="collapse">
+  <li><a href="#não-viesamento" id="toc-não-viesamento" class="nav-link" data-scroll-target="#não-viesamento"><span class="header-section-number">14.4.1</span> Não-viesamento</a></li>
+  <li><a href="#matriz-de-variância-covariância" id="toc-matriz-de-variância-covariância" class="nav-link" data-scroll-target="#matriz-de-variância-covariância"><span class="header-section-number">14.4.2</span> Matriz de variância-covariância</a></li>
+  <li><a href="#distribuição-amostral-caso-normal" id="toc-distribuição-amostral-caso-normal" class="nav-link" data-scroll-target="#distribuição-amostral-caso-normal"><span class="header-section-number">14.4.3</span> Distribuição amostral (caso normal)</a></li>
+  <li><a href="#estimador-da-variância-dos-erros" id="toc-estimador-da-variância-dos-erros" class="nav-link" data-scroll-target="#estimador-da-variância-dos-erros"><span class="header-section-number">14.4.4</span> Estimador da variância dos erros</a></li>
+  <li><a href="#teorema-de-gaussmarkov" id="toc-teorema-de-gaussmarkov" class="nav-link" data-scroll-target="#teorema-de-gaussmarkov"><span class="header-section-number">14.4.5</span> Teorema de Gauss–Markov</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./part3_ex.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./mrlm_emq.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></h1>
 </div>
 
 
@@ -502,9 +547,285 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Em breve!!!</p>
+<p>O objetivo da estimação em regressão é obter valores para os parâmetros desconhecidos <span class="math inline">\(\beta_0,\beta_1,\dots,\beta_{p}\)</span> de modo que o modelo represente, da forma mais adequada possível, a relação entre a resposta <span class="math inline">\(Y\)</span> e as variáveis explicativas <span class="math inline">\(X_1,\dots,X_{p}\)</span>.</p>
+<p>Assim como no MRLS, a estratégia no MRLM é minimizar a soma dos quadrados dos resíduos. Em outras palavras, buscamos os coeficientes que tornam pequena, no conjunto dos dados observados, a diferença entre os valores observados e os valores ajustados pelo modelo.</p>
+<p>Do ponto de vista algébrico, os resíduos são definidos por</p>
+<p><span class="math display">\[
+\hat{\varepsilon}_i = y_i - \hat{y}_i
+= y_i - \big(\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip}\big).
+\]</span></p>
+<section id="critério-de-mínimos-quadrados" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="critério-de-mínimos-quadrados"><span class="header-section-number">14.1</span> Critério de Mínimos Quadrados</h2>
+<p>O critério de mínimos quadrados escolhe os valores <span class="math inline">\(\hat\beta_0,\hat\beta_1,\dots,\hat\beta_{p}\)</span> que minimizam a soma dos quadrados dos resíduos:</p>
+<p><span class="math display">\[
+S(\boldsymbol{\beta}) =
+\sum_{i=1}^n \hat\varepsilon_i^{\,2}
+=
+\sum_{i=1}^n \bigl(y_i-\hat y_i\bigr)^2
+=
+\sum_{i=1}^n
+\bigl[y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \cdots + \hat{\beta}_{p} x_{ip})\bigr]^2.
+\]</span></p>
+<p>Em notação matricial, o vetor de resíduos ajustados é dado por</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\varepsilon}} = \mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}.
+\]</span></p>
+<p>Assim, a soma de quadrados dos resíduos pode ser escrita como</p>
+<p><span class="math display">\[
+S(\boldsymbol{\beta}) =
+\hat{\boldsymbol{\varepsilon}}^\top \hat{\boldsymbol{\varepsilon}}
+=
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span> ## Interpretação Geométrica do MQO</p>
+<p>A minimização da soma de quadrados também pode ser interpretada geometricamente: ao escolher <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> que torna <span class="math inline">\(S(\boldsymbol{\beta})\)</span> mínimo, estamos selecionando, entre todos os vetores do espaço coluna de <span class="math inline">\(\mathbf{X}\)</span>, aquele que fica mais próximo de <span class="math inline">\(\mathbf{Y}\)</span> em norma euclidiana. Em outras palavras, o problema de MQO equivale a projetar <span class="math inline">\(\mathbf{Y}\)</span> ortogonalmente sobre <span class="math inline">\(\operatorname{col}(\mathbf{X})\)</span>, produzindo o vetor ajustado</p>
+<p><span class="math display">\[
+\hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol{\beta}},
+\]</span></p>
+<p>enquanto o resíduo</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\varepsilon}}=\mathbf{Y}-\hat{\mathbf{Y}}
+\]</span></p>
+<p>é exatamente a componente perpendicular a esse subespaço. Assim, obtemos a decomposição</p>
+<p><span class="math display">\[
+\mathbf{Y}
+\;=\;
+\underbrace{\hat{\mathbf{Y}}}_{\text{projeção em }\operatorname{col}(\mathbf{X})}
+\;+\;
+\underbrace{\hat{\boldsymbol{\varepsilon}}}_{\text{complemento ortogonal}},
+\]</span> que resume a essência geométrica do MQO.</p>
+<p>A Figura 3.4 apresenta um caso com duas variáveis explicativas (<span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>), de modo que possamos visualizar tudo em três dimensões.</p>
+<ul>
+<li>Os pontos azuis são as observações <span class="math inline">\((x_{i1},x_{i2},y_i)\)</span>.</li>
+<li>O plano vermelho representa o plano ajustado pelo modelo, <span class="math inline">\(\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_{i1}+\hat{\beta}_2 x_{i2}\)</span>.</li>
+<li>As linhas pretas verticais ligam cada ponto observado ao plano e correspondem aos resíduos <span class="math inline">\(\hat{\varepsilon}_i = y_i-\hat{y}_i\)</span>.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrlm_emq_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>Figura 3.4 – Plano de regressão em 3D com resíduos verticais.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Essa figura ajuda a entender a ideia do MQO: minimizar a soma dos quadrados das distâncias verticais entre os pontos observados e o plano ajustado. Observe que, nessa representação, não minimizamos a distância perpendicular ao plano, mas sim a distância na direção da variável resposta <span class="math inline">\(y\)</span>, coerente com o fato de que modelamos a esperança condicional <span class="math inline">\(E(Y \mid \mathbf{X})\)</span></p>
+<p>Em linguagem de espaços vetoriais, a figura ilustra que a parte “explicada” (<span class="math inline">\(\hat{\mathbf{Y}}\)</span>) pertence a <span class="math inline">\(\operatorname{col}(\mathbf{X})\)</span>, e a parte “não explicada” (<span class="math inline">\(\hat{\boldsymbol{\varepsilon}}\)</span>) é <strong>ortogonal</strong> a esse espaço, reforçando a interpretação do MQO como uma operação de projeção.</p>
+</section>
+<section id="equações-normais-e-estimação-dos-parâmetros" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="equações-normais-e-estimação-dos-parâmetros"><span class="header-section-number">14.2</span> Equações Normais e Estimação dos Parâmetros</h2>
+<p>A minimização da função</p>
+<p><span class="math display">\[
+S(\boldsymbol{\beta})
+= (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+\]</span></p>
+<p>leva ao sistema de equações normais:</p>
+<p><span class="math display">\[
+\mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y},
+\]</span></p>
+<p>as quais são equivalentes à condição de ortogonalidade dos resíduos.</p>
+<p>Essa condição significa que os resíduos são ortogonais a todas as colunas de <span class="math inline">\(\mathbf{X}\)</span>, isto é, não apresentam associação linear com nenhuma das variáveis explicativas. Em outras palavras, não há mais informação linear disponível nas variáveis que possa ser usada para reduzir os erros do modelo.</p>
+<p><span class="math display">\[
+\mathbf{X}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{0}.
+\]</span></p>
+<p>Quando <span class="math inline">\(\operatorname{rank}(\mathbf{X})=p+1\)</span>, a matriz <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> é inversível e obtemos a solução única dada por</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<p>Essa expressão mostra que os coeficientes estimados são obtidos a partir de combinações lineares das observações da variável resposta, ponderadas pela estrutura das variáveis explicativas. Embora a fórmula envolva operações matriciais, sua interpretação permanece a mesma: encontrar os coeficientes que melhor ajustam o modelo aos dados observados.</p>
+<p>Assim, o problema de estimação no MRLM se resume a resolver um sistema linear bem definido, cuja solução fornece diretamente os coeficientes do modelo ajustado.</p>
+</section>
+<section id="matrizes-de-projeção" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="matrizes-de-projeção"><span class="header-section-number">14.3</span> Matrizes de Projeção</h2>
+<p>Os valores ajustados e os resíduos podem ser escritos de forma natural usando projeções:</p>
+<p><span class="math display">\[
+\hat{\mathbf{Y}} = \mathbf{X}\hat{\boldsymbol{\beta}} = H\,\mathbf{Y},\qquad
+\hat{\boldsymbol{\varepsilon}} = \mathbf{Y} - \hat{\mathbf{Y}}= (I_n-H)\,\mathbf{Y},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+H = \mathbf{X}(\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top
+\quad\text{e}\quad
+M = I_n-H
+\]</span></p>
+<p>são, respectivamente, a matriz chapéu e a matriz dos resíduos. A matriz <span class="math inline">\(H\)</span> projeta o vetor <span class="math inline">\(\mathbf{Y}\)</span> sobre o espaço gerado pelas variáveis explicativas, enquanto <span class="math inline">\(M\)</span> projeta sobre a parte que não é explicada pelo modelo.</p>
+<p>Ambas as matrizes são simétricas e idempotentes, e satisfazem <span class="math inline">\(HM=\mathbf{0}\)</span> e <span class="math inline">\(\operatorname{rank}(H)=p+1\)</span>, <span class="math inline">\(\operatorname{rank}(M)=n-p-1\)</span>.</p>
+<p>Em termos geométricos,</p>
+<p><span class="math display">\[
+\mathbf{Y} = H\mathbf{Y} + M\mathbf{Y}
+= \hat{\mathbf{Y}} + \hat{\boldsymbol{\varepsilon}},
+\]</span></p>
+<p>isto é, a resposta observada pode ser decomposta em duas partes: uma parte explicada pelo modelo, que está no espaço gerado pelas variáveis explicativas, e uma parte não explicada, que é ortogonal a esse espaço.</p>
+<p>Essa decomposição ajuda a entender o papel dos valores ajustados e dos resíduos. Os valores ajustados representam aquilo que o modelo consegue reproduzir a partir das variáveis disponíveis, enquanto os resíduos correspondem ao que não foi capturado.</p>
+<p>A Figura 3.5 reúne dois painéis complementares.</p>
+<ul>
+<li>Painel (a): gráfico de <span class="math inline">\(y\)</span> em função de <span class="math inline">\(\hat{y}\)</span>, com a linha de <span class="math inline">\(45^\circ\)</span>. Pontos próximos da diagonal indicam bom ajuste local, enquanto maior dispersão em torno da linha sugere maior variabilidade residual.</li>
+<li>Painel (b): gráfico dos resíduos <span class="math inline">\(\hat{\varepsilon}_i\)</span> ao longo do índice <span class="math inline">\(i\)</span>. A linha horizontal em zero ajuda a identificar assimetrias e possíveis padrões.</li>
+</ul>
+<p>A ausência de estrutura sistemática nos resíduos, como tendências ou mudanças no nível de variabilidade, é compatível com as hipóteses de média zero e variância constante.</p>
+<p>Em conjunto, os dois gráficos ajudam a visualizar a decomposição <span class="math inline">\(\mathbf{Y}=H\mathbf{Y}+M\mathbf{Y}\)</span>: o primeiro destaca o comportamento dos valores ajustados, enquanto o segundo evidencia a parte não explicada pelo modelo.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mrlm_emq_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1440"></p>
+<figcaption>Figura 3.5 – (a) y vs ŷ (linha de 45°) e (b) resíduos ao longo das observações.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Observação (caso singular). Se <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> não for inversível, por exemplo na presença de multicolinearidade perfeita, as equações normais admitem infinitas soluções. Uma alternativa é adotar a solução de mínima norma por meio da inversa generalizada de Moore–Penrose, <span class="math inline">\(\hat{\boldsymbol{\beta}}=\mathbf{X}^+\mathbf{Y}\)</span>. Esse ponto será retomado ao discutir multicolinearidade e métodos de regularização.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Teorema — Estimador de MQO no MRLM">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Teorema — Estimador de MQO no MRLM
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No modelo de regressão linear múltipla</p>
+<p><span class="math display">\[
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \qquad
+E(\boldsymbol{\varepsilon})=\mathbf{0}, \qquad
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n,
+\]</span></p>
+<p>o estimador de mínimos quadrados ordinários (MQO) de <span class="math inline">\(\boldsymbol{\beta}\)</span> é dado por</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<p>Essa expressão fornece os coeficientes do modelo que minimizam a soma dos quadrados dos resíduos.</p>
+</div>
+</div>
+<p>A expressão acima define o hiperplano de regressão no espaço gerado pelas variáveis explicativas. Esse hiperplano corresponde à melhor aproximação linear aos dados observados, no sentido de mínimos quadrados.</p>
+<p>No caso de uma única variável explicativa, o modelo corresponde a uma reta no plano <span class="math inline">\((x_1,y)\)</span>. Com duas variáveis explicativas, obtemos um plano no espaço tridimensional <span class="math inline">\((x_1,x_2,y)\)</span>. Em dimensões mais altas, a construção resulta em um hiperplano, que segue a mesma lógica geométrica.</p>
+<p>Em todos os casos, o ajuste é realizado minimizando as discrepâncias na direção da variável resposta, isto é, as diferenças verticais entre os valores observados e os valores ajustados.</p>
+<p>A demonstração completa será apresentada no apêndice. De forma resumida, o resultado é obtido a partir dos seguintes passos:</p>
+<ol type="1">
+<li>Define-se a função de mínimos quadrados</li>
+</ol>
+<p><span class="math display">\[
+S(\boldsymbol{\beta}) = (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span></p>
+<ol start="2" type="1">
+<li>Diferencia-se essa função em relação a <span class="math inline">\(\boldsymbol{\beta}\)</span> e iguala-se a zero, obtendo-se as equações normais</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<ol start="3" type="1">
+<li>Sob a condição de posto completo da matriz <span class="math inline">\(\mathbf{X}\)</span>, a solução é única e corresponde a um mínimo global.</li>
+</ol>
+</section>
+<section id="propriedades-dos-estimadores-de-mqo" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="propriedades-dos-estimadores-de-mqo"><span class="header-section-number">14.4</span> Propriedades dos Estimadores de MQO</h2>
+<p>Uma vez estabelecida a forma fechada do estimador, podemos investigar suas principais propriedades estatísticas. Essas propriedades formam a base da inferência em regressão, justificam o uso do método dos mínimos quadrados e ajudam a compreender suas limitações em situações práticas.</p>
+<p>Considere o estimador de mínimos quadrados</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<p>Assumindo as hipóteses clássicas do modelo linear</p>
+<p><span class="math display">\[
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \qquad
+E(\boldsymbol{\varepsilon})=\mathbf{0}, \qquad
+\operatorname{Var}(\boldsymbol{\varepsilon})=\sigma^2 I_n,
+\]</span></p>
+<p>temos os seguintes resultados.</p>
+<section id="não-viesamento" class="level3" data-number="14.4.1">
+<h3 data-number="14.4.1" class="anchored" data-anchor-id="não-viesamento"><span class="header-section-number">14.4.1</span> Não-viesamento</h3>
+<p><strong>Proposição 1 (Não-viesamento).</strong></p>
+<p><span class="math display">\[
+E(\hat{\boldsymbol{\beta}} \mid \mathbf{X}) = \boldsymbol{\beta}.
+\]</span></p>
+<p>Esse resultado indica que, em média, o estimador de MQO recupera o verdadeiro valor dos parâmetros do modelo. Em termos práticos, se o processo de amostragem pudesse ser repetido muitas vezes sob as mesmas condições, a média das estimativas obtidas coincidiria com o vetor de parâmetros populacionais.</p>
+<p>O não-viesamento garante que o método não introduz erro sistemático na estimação. Assim, eventuais diferenças entre estimativas e valores reais decorrem apenas da variabilidade amostral e não de algum viés estrutural do estimador.</p>
+<p><em>Demonstração (esboço).</em></p>
+<p><span class="math display">\[
+E(\hat{\boldsymbol{\beta}}\mid \mathbf{X})
+= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top E(\mathbf{Y}\mid \mathbf{X})
+= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top \mathbf{X}\boldsymbol{\beta}
+= \boldsymbol{\beta}.
+\]</span></p>
+</section>
+<section id="matriz-de-variância-covariância" class="level3" data-number="14.4.2">
+<h3 data-number="14.4.2" class="anchored" data-anchor-id="matriz-de-variância-covariância"><span class="header-section-number">14.4.2</span> Matriz de variância-covariância</h3>
+<p><strong>Proposição 2 (Matriz de variância-covariância).</strong></p>
+<p><span class="math display">\[
+\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Essa matriz descreve como as estimativas se dispersam em torno dos valores verdadeiros. Cada elemento da diagonal corresponde à variância de um coeficiente estimado, enquanto os elementos fora da diagonal representam a covariância entre diferentes estimadores.</p>
+<p>Essa estrutura é importante porque mostra que a precisão das estimativas depende tanto da variabilidade dos erros quanto da forma como as variáveis explicativas estão organizadas na matriz <span class="math inline">\(\mathbf{X}\)</span>. Em particular, situações de forte dependência entre variáveis explicativas podem aumentar a variância dos estimadores.</p>
+<p><em>Demonstração (esboço).</em></p>
+<p>Seja <span class="math inline">\(A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span>. Então</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}} = A\mathbf{Y}, \qquad
+\operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X})
+= A\,\operatorname{Var}(\mathbf{Y}\mid \mathbf{X})\,A^\top
+= A (\sigma^2 I_n) A^\top
+= \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+</section>
+<section id="distribuição-amostral-caso-normal" class="level3" data-number="14.4.3">
+<h3 data-number="14.4.3" class="anchored" data-anchor-id="distribuição-amostral-caso-normal"><span class="header-section-number">14.4.3</span> Distribuição amostral (caso normal)</h3>
+<p><strong>Proposição 3 (Distribuição amostral).</strong></p>
+<p>Se admitirmos normalidade para os erros, isto é, <span class="math inline">\(\boldsymbol{\varepsilon}\sim N_n(0,\sigma^2 I_n)\)</span>, então</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}\mid \mathbf{X}
+\sim N_{p+1}\!\left(\boldsymbol{\beta}, \;\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\right).
+\]</span></p>
+<p>Esse resultado decorre do fato de que <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> é uma combinação linear de <span class="math inline">\(\mathbf{Y}\)</span>. Como <span class="math inline">\(\mathbf{Y}\)</span> possui distribuição normal multivariada, qualquer combinação linear de suas componentes também terá distribuição normal.</p>
+<p>A normalidade dos estimadores permite a construção de testes estatísticos e intervalos de confiança exatos em amostras finitas. Sem essa hipótese, esses procedimentos continuam sendo utilizados, mas passam a ter validade aproximada, especialmente em amostras grandes.</p>
+<p><em>Ideia da demonstração.</em></p>
+<p>Como <span class="math inline">\(\hat{\boldsymbol{\beta}}=A\mathbf{Y}\)</span> com <span class="math inline">\(A=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span> e <span class="math inline">\(\mathbf{Y}\mid \mathbf{X}\sim N_n(\mathbf{X}\boldsymbol{\beta}, \sigma^2 I_n)\)</span>, segue que <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> também possui distribuição normal multivariada.</p>
+</section>
+<section id="estimador-da-variância-dos-erros" class="level3" data-number="14.4.4">
+<h3 data-number="14.4.4" class="anchored" data-anchor-id="estimador-da-variância-dos-erros"><span class="header-section-number">14.4.4</span> Estimador da variância dos erros</h3>
+<p><strong>Proposição 4 (Estimador da variância dos erros).</strong></p>
+<p>A variância populacional <span class="math inline">\(\sigma^2\)</span> é desconhecida. O estimador clássico é</p>
+<p><span class="math display">\[
+\hat{\sigma}^2 = \frac{\hat{\boldsymbol{\varepsilon}}^\top \hat{\boldsymbol{\varepsilon}}}{n-p-1}
+= \frac{\mathbf{Y}^\top (I_n-H)\mathbf{Y}}{n-p-1},
+\]</span></p>
+<p>onde <span class="math inline">\(H=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span> é a matriz chapéu.</p>
+<p>O numerador corresponde à soma dos quadrados dos resíduos, enquanto o denominador <span class="math inline">\(n-p-1\)</span> representa o número de graus de liberdade disponíveis após a estimação dos parâmetros.</p>
+<p>Essa correção é necessária para que o estimador seja não-viesado. Esse resultado está relacionado ao fato de que parte da variabilidade dos dados já foi utilizada para estimar os parâmetros do modelo.</p>
+<p>Além disso, <span class="math inline">\(\hat{\sigma}^2\)</span> desempenha papel central na inferência, pois é utilizado no cálculo dos erros-padrão dos coeficientes estimados e, consequentemente, na construção de intervalos de confiança e testes de hipóteses.</p>
+</section>
+<section id="teorema-de-gaussmarkov" class="level3" data-number="14.4.5">
+<h3 data-number="14.4.5" class="anchored" data-anchor-id="teorema-de-gaussmarkov"><span class="header-section-number">14.4.5</span> Teorema de Gauss–Markov</h3>
+<div class="callout callout-style-default callout-important callout-titled" title="Teorema — Gauss–Markov">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Teorema — Gauss–Markov
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sob as hipóteses clássicas do modelo linear, o estimador de mínimos quadrados <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> é o melhor estimador linear não-viesado.</p>
+<p>Mais precisamente, entre todos os estimadores da forma <span class="math inline">\(\tilde{\boldsymbol{\beta}}=C\mathbf{Y}\)</span> tais que <span class="math inline">\(C\mathbf{X}=I_{p+1}\)</span>, o estimador de MQO apresenta a menor matriz de variância-covariância:</p>
+<p><span class="math display">\[
+\operatorname{Var}(\tilde{\boldsymbol{\beta}}\mid \mathbf{X}) - \operatorname{Var}(\hat{\boldsymbol{\beta}}\mid \mathbf{X})
+\;\text{é semidefinida positiva}.
+\]</span></p>
+</div>
+</div>
+<p>Esse resultado justifica o papel central do MQO na análise de regressão. Mesmo sem assumir normalidade, não existe outro estimador linear não-viesado que seja mais preciso.</p>
+<p>Na prática, isso significa que, sob as hipóteses do modelo, o MQO oferece um método eficiente para estimar os parâmetros, combinando simplicidade e boas propriedades estatísticas.</p>
+<p>As demonstrações completas serão apresentadas no apêndice, de modo a manter o fluxo do texto principal mais leve.</p>
+<p><strong>Resumo formal</strong></p>
+<ul>
+<li><span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> é não-viesado.</li>
+<li><span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> possui variância mínima entre estimadores lineares não-viesados.</li>
+<li>Sob normalidade, <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> tem distribuição normal multivariada.</li>
+<li><span class="math inline">\(\hat{\sigma}^2\)</span> é um estimador não-viesado de <span class="math inline">\(\sigma^2\)</span>.</li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
