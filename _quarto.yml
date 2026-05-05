@@ -41,7 +41,7 @@ book:
       chapters:
         - mrlm.qmd
         - mrlm_emq.qmd
-#        - mrlm_inferencia.qmd
+        - mrlm_inferencia.qmd
 #        - mrlm_dummies.qmd
 #        - mrlm_ancova.qmd
 #        - mrlm_qualidade.qmd
@@ -57,8 +57,8 @@ book:
         - ap_matrizes.qmd
         - ap_normal.qmd
         - ap_forma_linear.qmd
-#        - ap_estimadores.qmd
-#        - ap_inferencia.qmd
+        - ap_estimadores.qmd
+        - ap_inferencia.qmd
         - ap_tratamento.qmd
         - demo.qmd
         - part4_ex.qmd

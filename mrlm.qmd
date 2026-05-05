@@ -93,10 +93,10 @@ $$
 \end{bmatrix}
 =
 \begin{bmatrix}
-1 & \mathbf{x}_{1}^\top \\
-1 & \mathbf{x}_{2}^\top \\
-\vdots & \vdots  \\
-1 & \mathbf{x}_{n}^\top
+\mathbf{x}_{1}^\top \\
+ \mathbf{x}_{2}^\top \\
+\vdots  \\
+ \mathbf{x}_{n}^\top
 \end{bmatrix};
 $$
 

@@ -2,15 +2,15 @@
 
 ## Base inferencial do MRLM Normal
 
-Com os parâmetros estimados por MQO, passamos naturalmente do ajuste para a inferência. Em regressão múltipla, a análise inferencial costuma girar em torno de três questões principais.
+Com os parâmetros estimados por MQO, passamos naturalmente do ajuste para a inferência. Em regressão múltipla, a análise inferencial costuma girar em torno de três questões principais [@kutner2005; @montgomery2021].
 
 A primeira diz respeito aos efeitos individuais: dado todo o restante do modelo, o coeficiente associado a $x_j$ é compatível com a hipótese de ser igual a zero? Essa é a interpretação condicional típica do MRLM, na qual buscamos isolar o efeito de cada variável mantendo as demais fixas.
 
 A segunda envolve efeitos conjuntos: grupos de variáveis, como um conjunto de indicadores econômicos ou um bloco de variáveis categóricas, contribuem de forma relevante para explicar a variável resposta quando considerados em conjunto?
 
-A terceira questão está ligada à precisão e à previsão: qual é o grau de incerteza associado aos coeficientes estimados, quão precisa é a média condicional $E(Y \mid x_0)$ em um novo ponto $x_0$, e qual deve ser a amplitude de um intervalo para uma nova observação $Y_0$ gerada sob as mesmas condições?
+A terceira questão está ligada à precisão das estimativas e à previsão: qual é o grau de incerteza associado aos coeficientes estimados, quão precisa é a média condicional $E(Y \mid x_0)$ em um novo ponto $x_0$, e qual deve ser a amplitude de um intervalo para uma nova observação $Y_0$ gerada sob as mesmas condições?
 
-Para responder a essas perguntas, trabalharemos no contexto do Modelo de Regressão Linear Múltipla Normal (MRLM Normal), em que
+Para responder a essas perguntas, trabalharemos no contexto do Modelo de Regressão Linear Múltipla Normal (MRLM Normal) [@seber2003], em que
 
 $$
 \mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}, \qquad
@@ -36,7 +36,7 @@ $$
 \hat{\boldsymbol{\varepsilon}}=\mathbf{M}\mathbf{Y},
 $$
 
-em que $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ é a matriz chapéu e $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$ é a matriz dos resíduos. Essas matrizes são simétricas, idempotentes e ortogonais entre si.
+em que $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ é a matriz chapéu e $\mathbf{M}=\mathbf{I}_n-\mathbf{H}$ é a matriz dos resíduos. Essas matrizes são simétricas, idempotentes e ortogonais entre si, propriedades fundamentais na interpretação geométrica do modelo.
 
 De forma expandida, a matriz $\mathbf{H}$ pode ser escrita como
 
@@ -76,7 +76,7 @@ $$
 h_{ii} = \mathbf{x}_i^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_i.
 $$
 
-Essas quantidades medem a influência potencial da observação $i$ sobre o seu próprio valor ajustado.
+Essas quantidades medem a influência potencial da observação $i$ sobre o respectivo valor ajustado.
 
 As diagonais da matriz $\mathbf{M}$ são dadas por $m_{ii}=1-h_{ii}$ e, por construção,
 
@@ -134,7 +134,7 @@ H_0:\ \beta_j=0
 H_1:\ \beta_j\neq 0,
 $$
 
-para $j=1,\dots,p$. O intercepto $\beta_0$ pode ser testado pela mesma lógica, embora sua interpretação seja particular. Para o intercepto, o raciocínio é o mesmo, embora sua interpretação seja particular.
+para $j=1,\dots,p$. O intercepto $\beta_0$ pode ser testado pela mesma lógica, embora sua interpretação seja particular. 
 
 O parâmetro $\beta_0$ representa o valor esperado de $Y$ quando todas as variáveis explicativas são iguais a zero. Em alguns contextos, isso pode ser informativo, como quando zero tem significado natural. Em outros, pode não ter interpretação prática direta.
 
@@ -186,7 +186,7 @@ Quando a variável $x_j$ apresenta forte colinearidade com outras variáveis exp
 
 No uso mais comum, aplicamos um teste bicaudal e rejeitamos $H_0$ se $|t_j|>t_{\alpha/2,\,n-p-1}$ ou, de forma equivalente, se o valor-$p$ for menor que $\alpha$.
 
-Esse teste deve ser interpretado de forma condicional. Ele avalia o efeito de $x_j$ mantendo as demais variáveis fixas. Essa interpretação difere da regressão simples entre $Y$ e $x_j$, na qual não há controle para outros fatores.
+Esse teste deve ser interpretado de forma condicional às demais variáveis do modelo. Ele avalia o efeito de $x_j$ mantendo as demais variáveis fixas. Essa interpretação difere da regressão simples entre $Y$ e $x_j$, na qual não há controle para outros fatores.
 
 Na regressão simples, se $x_j$ estiver correlacionado com variáveis omitidas que também influenciam $Y$, o efeito estimado pode aparecer inflado ou atenuado. No MRLM, o objetivo é isolar o efeito de $x_j$ dentro do conjunto de variáveis consideradas.
 
@@ -267,7 +267,7 @@ $$
 
 onde $C$ é uma matriz $q\times (p+1)$ de posto $q$, cujas linhas representam restrições independentes, e $\mathbf{d}$ é um vetor fixo de dimensão $q$.
 
-Alguns exemplos ajudam a fixar a ideia.
+Alguns exemplos ajudam a compreender a construção.
 
 Bloco nulo. Queremos testar se um grupo de coeficientes é nulo, por exemplo
 
@@ -362,11 +362,11 @@ C=
 \end{bmatrix}.
 $$
 
-A matriz $C$ seleciona ou combina os coeficientes de interesse, enquanto $\mathbf{d}$ representa o valor esperado sob $H_0$. Essa formulação abrange desde hipóteses simples até combinações mais complexas de parâmetros.
+A matriz $C$ seleciona ou combina linearmente os coeficientes de interesse, enquanto $\mathbf{d}$ representa o valor esperado sob $H_0$. Essa formulação abrange desde hipóteses simples até combinações mais complexas de parâmetros.
 
 **(b) Estatística de Wald.**
 
-A estatística de teste generaliza a lógica do teste $t$. Sob o MRLM Normal,
+A estatística de teste generaliza a lógica do teste $t$, sendo conhecida como estatística de Wald [@rencher2012]. Sob o MRLM Normal,
 
 $$
 F=\frac{\big(C\hat{\boldsymbol{\beta}}-\mathbf{d}\big)^\top
@@ -405,7 +405,7 @@ $$
 
 Esse quociente compara o ganho de explicação ao incluir o bloco de variáveis com a variabilidade residual do modelo completo.
 
-Em termos matriciais,
+Em termos matriciais, utilizando projeções ortogonais [@seber2003],
 
 $$
 SQ_R = \mathbf{Y}^\top H\mathbf{Y}, \quad
@@ -429,7 +429,7 @@ $$
 H_0:\ \beta_1=\cdots=\beta_p=0.
 $$
 
-A estatística é
+A estatística de teste é
 
 $$
 F=\frac{SQ_R/p}{SQ_{Res}/(n-p-1)}.
@@ -483,7 +483,7 @@ Para $q=1$, o $R^2$ parcial coincide com o quadrado da correlação parcial entr
 
 ## ANOVA em regressão múltipla e teste global
 
-A análise de variância (ANOVA) em regressão múltipla organiza a variabilidade da resposta $Y$ em duas parcelas: a parte explicada pelo modelo e a parte não explicada, associada aos resíduos. Essa decomposição, além de oferecer um retrato sintético do ajuste, fornece a base para o teste global do modelo.
+A análise de variância (ANOVA) em regressão múltipla organiza a variabilidade da resposta $Y$ em duas parcelas: a parte explicada pelo modelo e a parte não explicada, associada aos resíduos. Essa decomposição, além de oferecer um retrato sintético do ajuste do modelo, fornece a base para o teste global do modelo.
 
 Em termos práticos, trata-se de avaliar se pelo menos um coeficiente, além do intercepto, é diferente de zero. Se isso ocorrer, o modelo de regressão fornece mais informação do que simplesmente usar a média $\bar{y}$ como preditor.
 
@@ -561,11 +561,11 @@ $$
 F \sim F_{p,\;n-p-1}.
 $$
 
-Se $F$ assume valores elevados, ou se o valor-$p$ é pequeno, concluímos que o modelo como um todo contribui para explicar a variabilidade de $Y$.
+Se $F$ assume valores suficientemente elevados, ou se o valor-$p$ é pequeno, concluímos que o modelo como um todo contribui para explicar a variabilidade de $Y$.
 
 **(e) Relação com $R^2$ e tamanho do modelo.**
 
-O coeficiente de determinação é
+O coeficiente de determinação, usualmente denotado por $R^2$, é
 
 $$
 R^2=\frac{SQ_R}{SQ_T}.
@@ -781,7 +781,7 @@ $$
 
 Para conjuntos de variáveis, o raciocínio é análogo, e o $R^2$ parcial pode ser relacionado à estatística $F$ dos testes conjuntos.
 
-Para complementar essa análise, são frequentemente utilizadas medidas padronizadas de tamanho de efeito. Uma das mais conhecidas é o $f^2$ de Cohen, definido por
+Para complementar essa análise, são frequentemente utilizadas medidas padronizadas de tamanho de efeito [@cohen1988]. Uma das mais conhecidas é o $f^2$ de Cohen, definido por
 $$
 f^2 = \frac{R^2_{\text{parcial}}}{1 - R^2_{\text{parcial}}},
 $$
@@ -807,4 +807,4 @@ O tamanho da amostra também influencia fortemente a inferência. Amostras peque
 
 Finalmente, previsões fora da região observada dos dados devem ser tratadas com cautela. A extrapolação aumenta a incerteza e pode invalidar as conclusões, especialmente quando associada a altos valores de alavancagem.
 
-Em síntese, a inferência no MRLM deve ser entendida como um processo que combina ferramentas matemáticas com interpretação crítica. O uso adequado dessas ferramentas depende não apenas de sua formulação teórica, mas também da compreensão de suas limitações e do contexto em que são aplicadas.
+Em síntese, A inferência no MRLM deve ser entendida como um processo que combina ferramentas matemáticas com interpretação crítica, sempre contextualizada no problema em análise. O uso adequado dessas ferramentas depende não apenas de sua formulação teórica, mas também da compreensão de suas limitações e do contexto em que são aplicadas.

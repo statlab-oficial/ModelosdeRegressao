@@ -577,7 +577,7 @@ Essa condição é exatamente a forma matricial das equações normais.
 
 ### Interpretação Ortogonal e Soma Direta
 
-Seja $V = \mathbb{R}^n$ equipado com o produto interno usual 
+Seja $V = \mathbb{R}^n$ equipado com o produto interno usual
 
 $$
 \langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^\top \mathbf{y}.
@@ -907,7 +907,7 @@ A matriz de projeção sintetiza, portanto, três dimensões fundamentais do mod
 2.  Estrutura algébrica (idempotência e posto);
 3.  Estrutura estatística (somas de quadrados e graus de liberdade).
 
-## Diferenciação Matricial e Estimação por Mínimos Quadrados
+## Diferenciação Matricial e Estimação por Mínimos Quadrados {#derivadas-eqm}
 
 A estimação por mínimos quadrados consiste na minimização da soma de quadrados dos resíduos,
 

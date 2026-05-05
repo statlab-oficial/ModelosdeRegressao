@@ -61,7 +61,8 @@ $$
 \underbrace{\hat{\mathbf{Y}}}_{\text{projeção em }\operatorname{col}(\mathbf{X})}
 \;+\;
 \underbrace{\hat{\boldsymbol{\varepsilon}}}_{\text{complemento ortogonal}},
-$$ que resume a essência geométrica do MQO.
+$$ 
+que resume a essência geométrica do MQO.
 
 ```{r}
 #| echo: false
@@ -170,7 +171,7 @@ S(\boldsymbol{\beta})
 = (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
 $$
 
-leva ao sistema de equações normais, resultado central na teoria de mínimos quadrados [@montgomery2021; @seber2003]:
+leva ao sistema de equações normais, resultado central na teoria de mínimos quadrados [@montgomery2021]. A dedução analítica dessa minimização, via diferenciação matricial, pode ser encontrada no [Apêndice de Diferenciação Matricial](#derivadas-eqm).
 
 $$
 \mathbf{X}^\top\mathbf{X}\,\hat{\boldsymbol{\beta}}=\mathbf{X}^\top\mathbf{Y},
