@@ -58,6 +58,7 @@ book:
         - ap_normal.qmd
         - ap_forma_linear.qmd
         - ap_estimadores.qmd
+        - ap_limitesEMQ.qmd
         - ap_inferencia.qmd
         - ap_tratamento.qmd
         - demo.qmd

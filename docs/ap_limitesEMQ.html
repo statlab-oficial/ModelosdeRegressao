@@ -1,0 +1,2789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>21&nbsp; Eficiência Estatística, Distribuição dos Erros e os Limites do MQO</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ap_inferencia.html" rel="next">
+<link href="./ap_estimadores.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2641b481724464e61c86985d8c912b6f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-4c6d65c679321d81af7ec8b61b1d5a24.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2641b481724464e61c86985d8c912b6f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_limitesEMQ.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Eficiência Estatística, Distribuição dos Erros e os Limites do MQO</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./identifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identificação da Disciplina</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Modelagem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução e Panorama dos Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelagem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelagem Estatística e Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Modelo de Regressão Linear Simples (MRLS)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">O MRLS como Modelo para a Média Condicional</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Inferência no MRLS com erros normais</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_testes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses e ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_diagnostico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_transf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Transformações nas Variáveis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_compara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Comparação de Modelos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_sim.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regressão Múltipla</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Inferência Estatística no MRLM</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Apêndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_matrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_estimadores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Estimadores de Máxima Verossimilhança em Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_limitesEMQ.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Eficiência Estatística, Distribuição dos Erros e os Limites do MQO</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inferência Clássica no Modelo de Regressão Linear Múltipla Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Demonstrações</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part4_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#a-provocação-de-gauss-markov" id="toc-a-provocação-de-gauss-markov" class="nav-link active" data-scroll-target="#a-provocação-de-gauss-markov"><span class="header-section-number">21.1</span> A Provocação de Gauss-Markov</a></li>
+  <li><a href="#estrutura-geral-da-inferência-sob-uma-distribuição-arbitrária-dos-erros" id="toc-estrutura-geral-da-inferência-sob-uma-distribuição-arbitrária-dos-erros" class="nav-link" data-scroll-target="#estrutura-geral-da-inferência-sob-uma-distribuição-arbitrária-dos-erros"><span class="header-section-number">21.2</span> Estrutura Geral da Inferência sob uma Distribuição Arbitrária dos Erros</a>
+  <ul class="collapse">
+  <li><a href="#função-densidade-e-características-gerais" id="toc-função-densidade-e-características-gerais" class="nav-link" data-scroll-target="#função-densidade-e-características-gerais"><span class="header-section-number">21.2.1</span> Função densidade e características gerais</a></li>
+  <li><a href="#verossimilhança" id="toc-verossimilhança" class="nav-link" data-scroll-target="#verossimilhança"><span class="header-section-number">21.2.2</span> Verossimilhança</a></li>
+  <li><a href="#função-escore" id="toc-função-escore" class="nav-link" data-scroll-target="#função-escore"><span class="header-section-number">21.2.3</span> Função escore</a></li>
+  <li><a href="#estimação-de-boldsymbolbeta" id="toc-estimação-de-boldsymbolbeta" class="nav-link" data-scroll-target="#estimação-de-boldsymbolbeta"><span class="header-section-number">21.2.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+  <li><a href="#informação-de-fisher-e-limite-inferior-de-cramér-rao" id="toc-informação-de-fisher-e-limite-inferior-de-cramér-rao" class="nav-link" data-scroll-target="#informação-de-fisher-e-limite-inferior-de-cramér-rao"><span class="header-section-number">21.2.5</span> Informação de Fisher e Limite Inferior de Cramér-Rao</a></li>
+  <li><a href="#eficiência-estatística" id="toc-eficiência-estatística" class="nav-link" data-scroll-target="#eficiência-estatística"><span class="header-section-number">21.2.6</span> Eficiência estatística</a></li>
+  </ul></li>
+  <li><a href="#cenário-gaussiano-a-distribuição-normal-e-a-optimalidade-do-mqo" id="toc-cenário-gaussiano-a-distribuição-normal-e-a-optimalidade-do-mqo" class="nav-link" data-scroll-target="#cenário-gaussiano-a-distribuição-normal-e-a-optimalidade-do-mqo"><span class="header-section-number">21.3</span> Cenário Gaussiano: A Distribuição Normal e a Optimalidade do MQO</a>
+  <ul class="collapse">
+  <li><a href="#função-densidade-e-características-importantes" id="toc-função-densidade-e-características-importantes" class="nav-link" data-scroll-target="#função-densidade-e-características-importantes"><span class="header-section-number">21.3.1</span> Função densidade e características importantes</a></li>
+  <li><a href="#verossimilhança-1" id="toc-verossimilhança-1" class="nav-link" data-scroll-target="#verossimilhança-1"><span class="header-section-number">21.3.2</span> Verossimilhança</a></li>
+  <li><a href="#função-escore-1" id="toc-função-escore-1" class="nav-link" data-scroll-target="#função-escore-1"><span class="header-section-number">21.3.3</span> Função escore</a></li>
+  <li><a href="#estimação-de-boldsymbolbeta-1" id="toc-estimação-de-boldsymbolbeta-1" class="nav-link" data-scroll-target="#estimação-de-boldsymbolbeta-1"><span class="header-section-number">21.3.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+  <li><a href="#informação-de-fisher-e-licr" id="toc-informação-de-fisher-e-licr" class="nav-link" data-scroll-target="#informação-de-fisher-e-licr"><span class="header-section-number">21.3.5</span> Informação de Fisher e LICR</a></li>
+  <li><a href="#eficiência" id="toc-eficiência" class="nav-link" data-scroll-target="#eficiência"><span class="header-section-number">21.3.6</span> Eficiência</a></li>
+  </ul></li>
+  <li><a href="#cenário-laplace-perda-absoluta-mediana-e-regressão-lad" id="toc-cenário-laplace-perda-absoluta-mediana-e-regressão-lad" class="nav-link" data-scroll-target="#cenário-laplace-perda-absoluta-mediana-e-regressão-lad"><span class="header-section-number">21.4</span> Cenário Laplace: Perda Absoluta, Mediana e Regressão LAD</a>
+  <ul class="collapse">
+  <li><a href="#função-densidade-e-características-importantes-1" id="toc-função-densidade-e-características-importantes-1" class="nav-link" data-scroll-target="#função-densidade-e-características-importantes-1"><span class="header-section-number">21.4.1</span> Função densidade e características importantes</a></li>
+  <li><a href="#verossimilhança-2" id="toc-verossimilhança-2" class="nav-link" data-scroll-target="#verossimilhança-2"><span class="header-section-number">21.4.2</span> Verossimilhança</a></li>
+  <li><a href="#função-escore-2" id="toc-função-escore-2" class="nav-link" data-scroll-target="#função-escore-2"><span class="header-section-number">21.4.3</span> Função escore</a></li>
+  <li><a href="#estimação-de-boldsymbolbeta-2" id="toc-estimação-de-boldsymbolbeta-2" class="nav-link" data-scroll-target="#estimação-de-boldsymbolbeta-2"><span class="header-section-number">21.4.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+  <li><a href="#informação-de-fisher-e-licr-1" id="toc-informação-de-fisher-e-licr-1" class="nav-link" data-scroll-target="#informação-de-fisher-e-licr-1"><span class="header-section-number">21.4.5</span> Informação de Fisher e LICR</a></li>
+  <li><a href="#eficiência-1" id="toc-eficiência-1" class="nav-link" data-scroll-target="#eficiência-1"><span class="header-section-number">21.4.6</span> Eficiência</a></li>
+  </ul></li>
+  <li><a href="#cenário-t-student-caudas-pesadas-e-robustez-probabilística" id="toc-cenário-t-student-caudas-pesadas-e-robustez-probabilística" class="nav-link" data-scroll-target="#cenário-t-student-caudas-pesadas-e-robustez-probabilística"><span class="header-section-number">21.5</span> Cenário t-Student: Caudas Pesadas e Robustez Probabilística</a>
+  <ul class="collapse">
+  <li><a href="#função-densidade-e-características-importantes-2" id="toc-função-densidade-e-características-importantes-2" class="nav-link" data-scroll-target="#função-densidade-e-características-importantes-2"><span class="header-section-number">21.5.1</span> Função densidade e características importantes</a></li>
+  <li><a href="#verossimilhança-3" id="toc-verossimilhança-3" class="nav-link" data-scroll-target="#verossimilhança-3"><span class="header-section-number">21.5.2</span> Verossimilhança</a></li>
+  <li><a href="#função-escore-3" id="toc-função-escore-3" class="nav-link" data-scroll-target="#função-escore-3"><span class="header-section-number">21.5.3</span> Função escore</a></li>
+  <li><a href="#estimação-de-boldsymbolbeta-3" id="toc-estimação-de-boldsymbolbeta-3" class="nav-link" data-scroll-target="#estimação-de-boldsymbolbeta-3"><span class="header-section-number">21.5.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+  <li><a href="#informação-de-fisher-e-licr-2" id="toc-informação-de-fisher-e-licr-2" class="nav-link" data-scroll-target="#informação-de-fisher-e-licr-2"><span class="header-section-number">21.5.5</span> Informação de Fisher e LICR</a></li>
+  <li><a href="#eficiência-2" id="toc-eficiência-2" class="nav-link" data-scroll-target="#eficiência-2"><span class="header-section-number">21.5.6</span> Eficiência</a></li>
+  </ul></li>
+  <li><a href="#m-estimadores-e-a-unificação-da-estimação-robusta" id="toc-m-estimadores-e-a-unificação-da-estimação-robusta" class="nav-link" data-scroll-target="#m-estimadores-e-a-unificação-da-estimação-robusta"><span class="header-section-number">21.6</span> M-estimadores e a Unificação da Estimação Robusta</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ap_listas.html">Parte IV — Apêndices</a></li><li class="breadcrumb-item"><a href="./ap_limitesEMQ.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Eficiência Estatística, Distribuição dos Erros e os Limites do MQO</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Eficiência Estatística, Distribuição dos Erros e os Limites do MQO</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="a-provocação-de-gauss-markov" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="a-provocação-de-gauss-markov"><span class="header-section-number">21.1</span> A Provocação de Gauss-Markov</h2>
+<p>O estimador de Mínimos Quadrados Ordinários (MQO) ocupa posição central na teoria clássica da regressão linear. Em grande parte dos cursos introdutórios, o MQO é apresentado como solução natural e praticamente definitiva para o problema de estimação dos parâmetros do modelo linear. Essa percepção é fortemente influenciada pelo Teorema de Gauss-Markov, um dos resultados mais importantes da Estatística clássica <span class="citation" data-cites="seber2003 montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>Em sua formulação tradicional, o teorema estabelece que, sob determinadas hipóteses, o estimador de MQO é BLUE (<em>Best Linear Unbiased Estimator</em>), isto é, o melhor estimador linear não-viesado.</p>
+<p>Essa afirmação, embora correta, frequentemente produz uma interpretação equivocada: a ideia de que o MQO seria o “melhor estimador possível” para regressão linear. Entretanto, essa conclusão ultrapassa o alcance real do resultado de Gauss-Markov.</p>
+<p>Considere o Modelo de Regressão Linear Múltipla (MRLM):</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\]</span></p>
+<p>em que: - <span class="math inline">\(\mathbf{Y}\)</span> representa o vetor <span class="math inline">\(n\times1\)</span> das observações da variável resposta; - <span class="math inline">\(\mathbf{X}\)</span> é a matriz de planejamento de dimensão <span class="math inline">\(n\times p\)</span>; - <span class="math inline">\(\boldsymbol{\beta}\)</span> é o vetor dos parâmetros desconhecidos; - <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> representa o vetor aleatório dos erros.</p>
+<p>Ao longo dos capítulos anteriores, vimos que o estimador de MQO é obtido pela minimização da soma dos quadrados dos resíduos:</p>
+<p><span class="math display">\[
+S(\boldsymbol{\beta})
+=
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span></p>
+<p>A solução desse problema conduz às equações normais:</p>
+<p><span class="math display">\[
+\mathbf{X}^\top\mathbf{X}
+\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top\mathbf{Y},
+\]</span></p>
+<p>cuja solução é:</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}_{MQO}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y},
+\]</span></p>
+<p>assumindo que a matriz <span class="math inline">\(\mathbf{X}\)</span> possui posto completo <span class="citation" data-cites="rencher2012">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>)</span>.</p>
+<p>A importância do MQO decorre não apenas da simplicidade algébrica da solução, mas também de suas propriedades estatísticas. Sob as hipóteses clássicas: - linearidade do modelo nos parâmetros; - exogeneidade dos erros; - homocedasticidade; - ausência de autocorrelação; - e posto completo da matriz de planejamento,</p>
+<p>o estimador de MQO possui variância mínima dentro da classe dos estimadores lineares não-viesados <span class="citation" data-cites="seber2003 greene2018">(<a href="references.html#ref-greene2018" role="doc-biblioref">Greene, 2018</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>A hipótese de linearidade exige que o modelo seja linear em relação aos parâmetros, e não necessariamente em relação às covariáveis. Assim, o modelo</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1x_i
++
+\beta_2x_i^2
++
+\varepsilon_i
+\]</span></p>
+<p>continua sendo linear, pois os parâmetros aparecem linearmente.</p>
+<p>A condição de exogeneidade estabelece que:</p>
+<p><span class="math display">\[
+E(\boldsymbol{\varepsilon}\mid\mathbf{X})
+=
+\mathbf{0},
+\]</span></p>
+<p>o que implica:</p>
+<p><span class="math display">\[
+E(\mathbf{Y}\mid\mathbf{X})
+=
+\mathbf{X}\boldsymbol{\beta}.
+\]</span></p>
+<p>Já a hipótese de homocedasticidade e ausência de correlação entre os erros pode ser escrita como:</p>
+<p><span class="math display">\[
+Var(\boldsymbol{\varepsilon}\mid\mathbf{X})
+=
+\sigma^2\mathbf{I}_n.
+\]</span></p>
+<p>Sob essas condições, o Teorema de Gauss-Markov afirma que, para qualquer estimador linear não-viesado da forma</p>
+<p><span class="math display">\[
+\tilde{\boldsymbol{\beta}}
+=
+\mathbf{A}\mathbf{Y},
+\]</span></p>
+<p>vale:</p>
+<p><span class="math display">\[
+Var(\tilde{\boldsymbol{\beta}})
+-
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+\succeq
+0,
+\]</span></p>
+<p>isto é, a diferença entre as matrizes de variância-covariância é semidefinida positiva <span class="citation" data-cites="seber2003">(<a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>Esse ponto merece atenção especial.</p>
+<p>O resultado de Gauss-Markov não afirma que o MQO é o melhor estimador entre todos os estimadores possíveis. A optimalidade está restrita explicitamente à classe dos estimadores lineares não-viesados.</p>
+<p>A palavra “linear” é, portanto, central.</p>
+<p>No contexto do teorema, linearidade refere-se ao fato de o estimador poder ser escrito como combinação linear das observações:</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}
+=
+\mathbf{A}\mathbf{Y}.
+\]</span></p>
+<p>Nada impede, ao menos teoricamente, que existam estimadores: - não lineares; - não viesados; - e mais eficientes que o MQO.</p>
+<p>Essa possibilidade torna-se particularmente importante quando a distribuição dos erros deixa de ser gaussiana.</p>
+<p>Esse ponto costuma gerar confusão porque muitos estudantes associam incorretamente o Teorema de Gauss-Markov à hipótese de normalidade. Entretanto, a normalidade dos erros não é necessária para que o MQO seja BLUE <span class="citation" data-cites="greene2018">(<a href="references.html#ref-greene2018" role="doc-biblioref">Greene, 2018</a>)</span>.</p>
+<p>O resultado depende apenas: - das hipóteses sobre média e variância; - da estrutura linear do modelo; - e das propriedades da matriz de planejamento.</p>
+<p>Contudo, quando os erros seguem distribuição Normal,</p>
+<p><span class="math display">\[
+\boldsymbol{\varepsilon}
+\sim
+N(\mathbf{0},\sigma^2\mathbf{I}_n),
+\]</span></p>
+<p>surge uma propriedade substancialmente mais forte.</p>
+<p>Nesse cenário: - o MQO coincide com o Estimador de Máxima Verossimilhança; - atinge o Limite Inferior de Cramér-Rao; - e torna-se eficiente em sentido global <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>.</p>
+<p>Sob normalidade, portanto, o MQO não é apenas o melhor estimador linear não-viesado. Ele passa a ser o estimador não-viesado de menor variância dentro de uma classe muito mais ampla.</p>
+<p>A distinção entre esses dois resultados é fundamental.</p>
+<p>O Teorema de Gauss-Markov fornece optimalidade dentro de uma classe restrita de estimadores. Já a eficiência associada à normalidade decorre da geometria probabilística específica da distribuição gaussiana.</p>
+<p>Quando a distribuição dos erros muda, muda também a geometria da inferência.</p>
+<p>Cada distribuição induz: - uma função de verossimilhança específica; - uma função escore particular; - uma determinada curvatura da log-verossimilhança; - uma quantidade distinta de informação estatística; - e uma noção própria de eficiência.</p>
+<p>No caso Normal, a geometria probabilística conduz naturalmente à perda quadrática:</p>
+<p><span class="math display">\[
+\rho(e)=e^2.
+\]</span></p>
+<p>Essa perda penaliza fortemente grandes resíduos. Um resíduo de magnitude <span class="math inline">\(10\)</span>, por exemplo, produz impacto cem vezes maior que um resíduo de magnitude <span class="math inline">\(1\)</span>.</p>
+<p>Sob normalidade, essa característica é coerente com a estrutura da distribuição. Observações extremas possuem probabilidade muito pequena e carregam forte evidência de incompatibilidade com o modelo.</p>
+<p>Entretanto, quando os erros apresentam: - caudas mais pesadas; - maior frequência de observações extremas; - ou estruturas probabilísticas não gaussianas,</p>
+<p>a perda quadrática pode tornar-se excessivamente sensível.</p>
+<p>Nesses cenários: - poucos resíduos extremos podem dominar completamente o ajuste; - a variância do estimador pode aumentar substancialmente; - e métodos alternativos passam a explorar de maneira mais eficiente a informação presente nos dados.</p>
+<p>A limitação fundamental do Teorema de Gauss-Markov surge precisamente nesse ponto. O resultado permanece correto, mas sua noção de optimalidade deixa de coincidir com a eficiência estatística global.</p>
+<p>Compreender essa diferença exige desenvolver uma teoria mais geral da inferência, capaz de relacionar: - distribuição dos erros; - geometria da verossimilhança; - quantidade de informação; - e eficiência dos estimadores.</p>
+<p>Essa estrutura será construída inicialmente para uma distribuição arbitrária dos erros e, posteriormente, particularizada para diferentes cenários probabilísticos.</p>
+</section>
+<section id="estrutura-geral-da-inferência-sob-uma-distribuição-arbitrária-dos-erros" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="estrutura-geral-da-inferência-sob-uma-distribuição-arbitrária-dos-erros"><span class="header-section-number">21.2</span> Estrutura Geral da Inferência sob uma Distribuição Arbitrária dos Erros</h2>
+<p>A discussão desenvolvida na seção anterior revela uma mudança importante de perspectiva. O problema da estimação deixa de ser exclusivamente algébrico e passa a depender profundamente da estrutura probabilística assumida para os erros do modelo.</p>
+<p>O MQO surge naturalmente quando a distribuição Normal governa o comportamento dos resíduos. Entretanto, se outras distribuições forem assumidas, novas geometrias inferenciais emergem, produzindo diferentes funções de perda, diferentes funções escore e diferentes noções de eficiência estatística.</p>
+<p>Para compreender esse fenômeno de forma unificada, desenvolveremos inicialmente a teoria geral da inferência considerando uma distribuição arbitrária para os erros.</p>
+<p>Considere novamente o Modelo de Regressão Linear Múltipla:</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\]</span></p>
+<p>em que: - <span class="math inline">\(\mathbf{Y}\)</span> é o vetor das observações; - <span class="math inline">\(\mathbf{X}\)</span> é a matriz de planejamento; - <span class="math inline">\(\boldsymbol{\beta}\)</span> representa o vetor de parâmetros desconhecidos; - e <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> é o vetor aleatório dos erros.</p>
+<p>Assumiremos que os erros são independentes e identicamente distribuídos segundo uma densidade genérica:</p>
+<p><span class="math display">\[
+f(\varepsilon).
+\]</span></p>
+<p>Essa formulação é extremamente importante porque permite estudar simultaneamente: - modelos gaussianos; - modelos com caudas pesadas; - distribuições robustas; - e diferentes estruturas inferenciais</p>
+<p>dentro de uma mesma teoria geral <span class="citation" data-cites="huber2009 lehmann1998">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>; <a href="references.html#ref-lehmann1998" role="doc-biblioref">Lehmann; Casella, 1998</a>)</span>.</p>
+<section id="função-densidade-e-características-gerais" class="level3" data-number="21.2.1">
+<h3 data-number="21.2.1" class="anchored" data-anchor-id="função-densidade-e-características-gerais"><span class="header-section-number">21.2.1</span> Função densidade e características gerais</h3>
+<p>Para cada observação do modelo,</p>
+<p><span class="math display">\[
+Y_i
+=
+\mathbf{x}_i^\top\boldsymbol{\beta}
++
+\varepsilon_i,
+\]</span></p>
+<p>podemos escrever:</p>
+<p><span class="math display">\[
+\varepsilon_i
+=
+Y_i
+-
+\mathbf{x}_i^\top\boldsymbol{\beta}.
+\]</span></p>
+<p>Assim, a densidade da variável resposta torna-se:</p>
+<p><span class="math display">\[
+f_Y(y_i;\boldsymbol{\beta})
+=
+f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
+\]</span></p>
+<p>Observe cuidadosamente a interpretação dessa expressão.</p>
+<p>A distribuição da resposta depende diretamente: - da distribuição dos erros; - da estrutura da matriz de planejamento; - e do vetor paramétrico <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+<p>Mudanças na densidade dos erros alteram imediatamente: - a forma da verossimilhança; - a curvatura inferencial; - a influência dos resíduos; - e o comportamento dos estimadores.</p>
+<p>Esse ponto é central na teoria moderna da inferência.</p>
+<p>A distribuição dos erros não constitui apenas hipótese técnica auxiliar. Ela determina a própria geometria estatística do problema inferencial.</p>
+</section>
+<section id="verossimilhança" class="level3" data-number="21.2.2">
+<h3 data-number="21.2.2" class="anchored" data-anchor-id="verossimilhança"><span class="header-section-number">21.2.2</span> Verossimilhança</h3>
+<p>Assumindo independência entre as observações, a função de verossimilhança pode ser escrita como:</p>
+<p><span class="math display">\[
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
+\]</span></p>
+<p>Após observar os dados, os valores <span class="math inline">\(y_i\)</span> tornam-se fixos. A verossimilhança passa então a ser interpretada como função dos parâmetros desconhecidos.</p>
+<p>Em outras palavras, investigamos quais valores de <span class="math inline">\(\boldsymbol{\beta}\)</span> tornam os dados observados mais plausíveis sob a estrutura probabilística assumida.</p>
+<p>Trabalhar diretamente com produtos de densidades costuma ser analiticamente inconveniente. Por isso, utiliza-se a log-verossimilhança:</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+\ln
+L(\boldsymbol{\beta}).
+\]</span></p>
+<p>Aplicando propriedades do logaritmo,</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\ln
+f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
+\]</span></p>
+<p>Essa transformação possui enorme importância prática: - produtos tornam-se somas; - derivações tornam-se mais simples; - e a estabilidade numérica melhora substancialmente.</p>
+<p>Além disso, o logaritmo preserva os pontos de máximo da verossimilhança, pois é função estritamente crescente.</p>
+<p>A log-verossimilhança também possui interpretação geométrica fundamental.</p>
+<p>Ela define uma superfície sobre o espaço paramétrico. Em problemas unidimensionais, essa superfície reduz-se a uma curva. Em espaços paramétricos maiores, surge uma hipersuperfície cuja forma determina: - precisão inferencial; - estabilidade da estimação; - e quantidade de informação disponível.</p>
+<p>Superfícies muito “pontiagudas” indicam alta sensibilidade da plausibilidade em relação aos parâmetros. Pequenas alterações paramétricas reduzem rapidamente a verossimilhança, produzindo estimativas mais precisas.</p>
+<p>Superfícies mais planas indicam maior incerteza inferencial.</p>
+<p>A inferência estatística pode ser interpretada, portanto, como estudo da geometria da log-verossimilhança.</p>
+</section>
+<section id="função-escore" class="level3" data-number="21.2.3">
+<h3 data-number="21.2.3" class="anchored" data-anchor-id="função-escore"><span class="header-section-number">21.2.3</span> Função escore</h3>
+<p>Para localizar máximos da log-verossimilhança, derivamos a função em relação aos parâmetros.</p>
+<p>No caso vetorial, define-se a Função Escore como:</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ell(\boldsymbol{\beta}).
+\]</span></p>
+<p>Expandindo coordenadamente,</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\begin{bmatrix}
+\dfrac{\partial\ell}{\partial\beta_1}
+\\
+\vdots
+\\
+\dfrac{\partial\ell}{\partial\beta_p}
+\end{bmatrix}.
+\]</span></p>
+<p>A Função Escore mede a inclinação local da log-verossimilhança. O estimador de máxima verossimilhança é obtido resolvendo:</p>
+<p><span class="math display">\[
+\mathbf{U}(\hat{\boldsymbol{\beta}})
+=
+\mathbf{0}.
+\]</span></p>
+<p>Para derivar explicitamente o escore, definimos:</p>
+<p><span class="math display">\[
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
+\]</span></p>
+<p>A log-verossimilhança torna-se:</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\ln f(e_i).
+\]</span></p>
+<p>Aplicando regra da cadeia,</p>
+<p><span class="math display">\[
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln f(e_i)
+=
+\frac{f'(e_i)}{f(e_i)}
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}.
+\]</span></p>
+<p>Como:</p>
+<p><span class="math display">\[
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}
+=
+-\mathbf{x}_i,
+\]</span></p>
+<p>segue que:</p>
+<p><span class="math display">\[
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln f(e_i)
+=
+-
+\frac{f'(e_i)}{f(e_i)}
+\mathbf{x}_i.
+\]</span></p>
+<p>Somando sobre todas as observações,</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+-
+\sum_{i=1}^n
+\frac{f'(e_i)}{f(e_i)}
+\mathbf{x}_i.
+\]</span></p>
+<p>Essa expressão possui enorme importância conceitual porque mostra que cada distribuição induz naturalmente uma função escore distinta.</p>
+<p>Definindo:</p>
+<p><span class="math display">\[
+\psi(e)
+=
+-
+\frac{f'(e)}{f(e)},
+\]</span></p>
+<p>obtemos:</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i.
+\]</span></p>
+<p>A função <span class="math inline">\(\psi\)</span> desempenha papel central em inferência robusta e em teoria de M-estimadores <span class="citation" data-cites="huber2009 maronna2019">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>; <a href="references.html#ref-maronna2019" role="doc-biblioref">Maronna et al., 2019</a>)</span>.</p>
+<p>Ela controla diretamente: - a influência dos resíduos; - a sensibilidade do estimador; - e o comportamento da estimação diante de observações extremas.</p>
+<p>Cada distribuição gera uma função <span class="math inline">\(\psi\)</span> diferente.</p>
+<p>No caso Normal, <span class="math inline">\(\psi(e)\)</span> será linear. Em distribuições robustas, poderá: - crescer lentamente; - saturar; - ou até reduzir a influência de grandes resíduos.</p>
+<p>A geometria inferencial está profundamente conectada a esse comportamento.</p>
+</section>
+<section id="estimação-de-boldsymbolbeta" class="level3" data-number="21.2.4">
+<h3 data-number="21.2.4" class="anchored" data-anchor-id="estimação-de-boldsymbolbeta"><span class="header-section-number">21.2.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
+<p>As equações de máxima verossimilhança podem agora ser escritas na forma geral:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i
+=
+0.
+\]</span></p>
+<p>Essa expressão unifica uma enorme variedade de métodos de estimação.</p>
+<p>Dependendo da escolha da densidade dos erros, obtemos: - MQO (Mínimos Quadrados Ordinários); - LAD (<em>Least Absolute Deviations</em> ou Mínimos Desvios Absolutos); - regressão robusta; - estimadores adaptativos; - e diferentes classes de M-estimadores.</p>
+<p>A função de perda associada ao problema pode ser obtida integrando <span class="math inline">\(\psi(e)\)</span>:</p>
+<p><span class="math display">\[
+\rho(e)
+=
+\int
+\psi(e)\,de.
+\]</span></p>
+<p>Assim, cada distribuição dos erros induz naturalmente: - uma função de perda; - uma geometria de otimização; - e um estimador eficiente específico.</p>
+<p>A estimação deixa então de ser mero problema algébrico de minimização quadrática e passa a ser consequência direta da estrutura probabilística assumida para os dados.</p>
+</section>
+<section id="informação-de-fisher-e-limite-inferior-de-cramér-rao" class="level3" data-number="21.2.5">
+<h3 data-number="21.2.5" class="anchored" data-anchor-id="informação-de-fisher-e-limite-inferior-de-cramér-rao"><span class="header-section-number">21.2.5</span> Informação de Fisher e Limite Inferior de Cramér-Rao</h3>
+<p>A curvatura da log-verossimilhança é descrita pela Hessiana:</p>
+<p><span class="math display">\[
+\mathbf{H}(\boldsymbol{\beta})
+=
+\frac{\partial^2}
+{\partial\boldsymbol{\beta}
+\partial\boldsymbol{\beta}^\top}
+\ell(\boldsymbol{\beta}).
+\]</span></p>
+<p>A Hessiana generaliza a segunda derivada para o caso multivariado e mede a curvatura local da log-verossimilhança.</p>
+<p>Curvaturas elevadas produzem: - verossimilhanças mais concentradas; - maior sensibilidade paramétrica; - e menor variabilidade dos estimadores.</p>
+<p>Curvaturas pequenas produzem: - superfícies relativamente planas; - maior incerteza; - e menor precisão inferencial.</p>
+<p>A Informação de Fisher formaliza essa ideia <span class="citation" data-cites="casella2002 lehmann1998">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>; <a href="references.html#ref-lehmann1998" role="doc-biblioref">Lehmann; Casella, 1998</a>)</span>:</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+E
+\left[
+-
+\mathbf{H}(\boldsymbol{\beta})
+\right].
+\]</span></p>
+<p>Sob condições regulares, também vale:</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+E
+\left[
+\mathbf{U}(\boldsymbol{\beta})
+\mathbf{U}(\boldsymbol{\beta})^\top
+\right].
+\]</span></p>
+<p>A Informação de Fisher mede a quantidade de informação disponível nos dados sobre os parâmetros desconhecidos.</p>
+<p>Quanto maior: - a curvatura da log-verossimilhança; - a sensibilidade paramétrica; - e a concentração da distribuição,</p>
+<p>maior tende a ser a Informação de Fisher.</p>
+<p>O Limite Inferior de Cramér-Rao estabelece então que, para qualquer estimador não-viesado,</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}})
+\succeq
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+\]</span></p>
+<p>Nenhum estimador não-viesado pode possuir matriz de variância-covariância menor que o inverso da Informação de Fisher <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>.</p>
+<p>Esse resultado estabelece uma barreira teórica universal para a precisão da estimação.</p>
+<p>Quando um estimador satisfaz:</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}})
+=
+\mathbf{I}(\boldsymbol{\beta})^{-1},
+\]</span></p>
+<p>dizemos que ele é eficiente.</p>
+<p>Nesse caso: - toda a informação disponível nos dados foi extraída; - nenhuma redução adicional de variância é possível sem introdução de viés; - e o estimador atinge a máxima precisão teoricamente admissível.</p>
+</section>
+<section id="eficiência-estatística" class="level3" data-number="21.2.6">
+<h3 data-number="21.2.6" class="anchored" data-anchor-id="eficiência-estatística"><span class="header-section-number">21.2.6</span> Eficiência estatística</h3>
+<p>A eficiência estatística depende profundamente da distribuição assumida para os erros.</p>
+<p>Cada distribuição produz: - uma geometria distinta da log-verossimilhança; - uma função escore específica; - uma curvatura própria; - e uma quantidade diferente de informação estatística.</p>
+<p>Consequentemente, diferentes distribuições induzem diferentes estimadores eficientes.</p>
+<p>Essa observação possui enorme importância conceitual.</p>
+<p>Não existe estimador universalmente ótimo independentemente do modelo probabilístico assumido.</p>
+<p>A noção de eficiência estatística está diretamente conectada: - à distribuição dos erros; - à estrutura das caudas; - à geometria da verossimilhança; - e à forma como resíduos são penalizados.</p>
+<p>Nos próximos cenários, particularizaremos essa estrutura geral para diferentes distribuições dos erros e veremos como: - o MQO emerge naturalmente sob normalidade; - o LAD surge sob distribuição de Laplace; - e estimadores robustos aparecem naturalmente sob distribuições com caudas pesadas.</p>
+</section>
+</section>
+<section id="cenário-gaussiano-a-distribuição-normal-e-a-optimalidade-do-mqo" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="cenário-gaussiano-a-distribuição-normal-e-a-optimalidade-do-mqo"><span class="header-section-number">21.3</span> Cenário Gaussiano: A Distribuição Normal e a Optimalidade do MQO</h2>
+<section id="função-densidade-e-características-importantes" class="level3" data-number="21.3.1">
+<h3 data-number="21.3.1" class="anchored" data-anchor-id="função-densidade-e-características-importantes"><span class="header-section-number">21.3.1</span> Função densidade e características importantes</h3>
+<p>A distribuição Normal ocupa posição central na teoria estatística moderna. Grande parte da inferência clássica foi construída sob hipóteses gaussianas, não apenas por conveniência matemática, mas porque a geometria probabilística da distribuição Normal produz propriedades inferenciais particularmente elegantes <span class="citation" data-cites="casella2002 lehmann1998">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>; <a href="references.html#ref-lehmann1998" role="doc-biblioref">Lehmann; Casella, 1998</a>)</span>.</p>
+<p>No contexto da regressão linear, a hipótese gaussiana conduz a um resultado extremamente importante: o estimador de Mínimos Quadrados Ordinários coincide exatamente com o Estimador de Máxima Verossimilhança e atinge o Limite Inferior de Cramér-Rao.</p>
+<p>Considere novamente o modelo:</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\]</span></p>
+<p>e suponha agora que:</p>
+<p><span class="math display">\[
+\boldsymbol{\varepsilon}
+\sim
+N(\mathbf{0},\sigma^2\mathbf{I}_n).
+\]</span></p>
+<p>Essa hipótese implica: - média zero para os erros; - variância constante; - independência; - e distribuição Normal.</p>
+<p>Consequentemente,</p>
+<p><span class="math display">\[
+\mathbf{Y}
+\sim
+N(\mathbf{X}\boldsymbol{\beta},
+\sigma^2\mathbf{I}_n).
+\]</span></p>
+<p>A distribuição da resposta passa então a ser completamente caracterizada por: - sua média; - e sua matriz de variância-covariância.</p>
+<p>Esse ponto possui enorme importância. A hipótese gaussiana fornece muito mais informação do que simples condições sobre média e variância. Ela especifica integralmente a estrutura probabilística dos dados.</p>
+<p>Para uma observação individual,</p>
+<p><span class="math display">\[
+Y_i
+=
+\mathbf{x}_i^\top\boldsymbol{\beta}
++
+\varepsilon_i,
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+\varepsilon_i
+\sim
+N(0,\sigma^2),
+\]</span></p>
+<p>a densidade é dada por:</p>
+<p><span class="math display">\[
+f(\varepsilon_i)
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp
+\left(
+-
+\frac{\varepsilon_i^2}{2\sigma^2}
+\right).
+\]</span></p>
+<p>A forma exponencial quadrática da densidade é a característica central da geometria gaussiana.</p>
+<p>A distribuição Normal possui: - caudas leves; - elevada suavidade analítica; - curvatura regular da log-verossimilhança; - e rápida redução da plausibilidade de grandes desvios.</p>
+<p>Observações extremas tornam-se rapidamente improváveis à medida que se afastam da média.</p>
+<p>Essa característica explica por que a distribuição Normal conduz naturalmente à perda quadrática.</p>
+</section>
+<section id="verossimilhança-1" class="level3" data-number="21.3.2">
+<h3 data-number="21.3.2" class="anchored" data-anchor-id="verossimilhança-1"><span class="header-section-number">21.3.2</span> Verossimilhança</h3>
+<p>Substituindo</p>
+<p><span class="math display">\[
+\varepsilon_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+\]</span></p>
+<p>obtemos:</p>
+<p><span class="math display">\[
+f(y_i;\boldsymbol{\beta})
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp
+\left[
+-
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+2\sigma^2
+}
+\right].
+\]</span></p>
+<p>Assumindo independência das observações,</p>
+<p><span class="math display">\[
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+f(y_i;\boldsymbol{\beta}).
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+L(\boldsymbol{\beta})
+=
+(2\pi\sigma^2)^{-n/2}
+\exp
+\left[
+-
+\frac{1}{2\sigma^2}
+\sum_{i=1}^n
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+\right].
+\]</span></p>
+<p>Aplicando logaritmo,</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+-\frac{n}{2}\ln(2\pi\sigma^2)
+-
+\frac{1}{2\sigma^2}
+\sum_{i=1}^n
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2.
+\]</span></p>
+<p>Observe cuidadosamente a estrutura da log-verossimilhança.</p>
+<p>O termo</p>
+<p><span class="math display">\[
+-\frac{n}{2}\ln(2\pi\sigma^2)
+\]</span></p>
+<p>não depende dos parâmetros. Assim, maximizar a log-verossimilhança equivale a minimizar:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2.
+\]</span></p>
+<p>A perda quadrática emerge, portanto, diretamente da geometria da distribuição Normal.</p>
+<p>Esse resultado é conceitualmente profundo. A minimização da soma dos quadrados dos resíduos não constitui apenas escolha algébrica conveniente. Ela é consequência natural da estrutura probabilística gaussiana.</p>
+<p>A perda quadrática pode ser escrita como:</p>
+<p><span class="math display">\[
+\rho(e)=e^2.
+\]</span></p>
+<p>Seu crescimento é extremamente rápido.</p>
+<p>Resíduos pequenos produzem penalizações moderadas, enquanto resíduos grandes recebem peso desproporcionalmente elevado. Um resíduo de magnitude <span class="math inline">\(10\)</span>, por exemplo, produz perda cem vezes maior que um resíduo de magnitude <span class="math inline">\(1\)</span>.</p>
+<p>Sob normalidade, essa característica é coerente com a distribuição dos dados. Grandes desvios possuem probabilidade extremamente pequena e carregam forte evidência de incompatibilidade com o modelo.</p>
+</section>
+<section id="função-escore-1" class="level3" data-number="21.3.3">
+<h3 data-number="21.3.3" class="anchored" data-anchor-id="função-escore-1"><span class="header-section-number">21.3.3</span> Função escore</h3>
+<p>Em notação matricial, a log-verossimilhança pode ser escrita como:</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+-\frac{n}{2}\ln(2\pi\sigma^2)
+-
+\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span></p>
+<p>Para obter a Função Escore, derivamos a log-verossimilhança em relação a <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+<p>O primeiro termo é constante. Assim, basta derivar:</p>
+<p><span class="math display">\[
+-\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span></p>
+<p>Usando resultados de diferenciação matricial <span class="citation" data-cites="seber2003">(<a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>,</p>
+<p><span class="math display">\[
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\left[
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+\right]
+=
+-2\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+\]</span></p>
+<p>A estrutura do escore gaussiano é linear nos resíduos.</p>
+<p>Escrevendo:</p>
+<p><span class="math display">\[
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+\]</span></p>
+<p>podemos representar o escore na forma geral:</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i,
+\]</span></p>
+<p>em que:</p>
+<p><span class="math display">\[
+\psi(e)=\frac{e}{\sigma^2}.
+\]</span></p>
+<p>A função <span class="math inline">\(\psi\)</span> cresce linearmente com o resíduo.</p>
+<p>Consequentemente: - resíduos grandes exercem forte influência; - observações extremas possuem elevado impacto inferencial; - e pequenas contaminações podem alterar substancialmente o ajuste do modelo.</p>
+<p>Esse comportamento está diretamente ligado à geometria da perda quadrática.</p>
+</section>
+<section id="estimação-de-boldsymbolbeta-1" class="level3" data-number="21.3.4">
+<h3 data-number="21.3.4" class="anchored" data-anchor-id="estimação-de-boldsymbolbeta-1"><span class="header-section-number">21.3.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
+<p>O estimador de máxima verossimilhança é obtido resolvendo:</p>
+<p><span class="math display">\[
+\mathbf{U}(\hat{\boldsymbol{\beta}})
+=
+\mathbf{0}.
+\]</span></p>
+<p>Assim,</p>
+<p><span class="math display">\[
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})
+=
+0.
+\]</span></p>
+<p>Multiplicando ambos os lados por <span class="math inline">\(\sigma^2\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{X}^\top\mathbf{Y}
+-
+\mathbf{X}^\top\mathbf{X}
+\hat{\boldsymbol{\beta}}
+=
+0.
+\]</span></p>
+<p>Reorganizando os termos,</p>
+<p><span class="math display">\[
+\mathbf{X}^\top\mathbf{X}
+\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<p>Chegamos novamente às equações normais.</p>
+<p>Assumindo que <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> seja invertível,</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}_{EMV}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}_{EMV}
+=
+\hat{\boldsymbol{\beta}}_{MQO}.
+\]</span></p>
+<p>Esse resultado é um dos mais importantes da regressão clássica. Sob normalidade, o estimador de máxima verossimilhança coincide exatamente com o estimador de mínimos quadrados.</p>
+<p>A estrutura quadrática da log-verossimilhança produz: - solução explícita; - convexidade global; - unicidade do estimador; - e grande simplicidade computacional.</p>
+</section>
+<section id="informação-de-fisher-e-licr" class="level3" data-number="21.3.5">
+<h3 data-number="21.3.5" class="anchored" data-anchor-id="informação-de-fisher-e-licr"><span class="header-section-number">21.3.5</span> Informação de Fisher e LICR</h3>
+<p>A Hessiana da log-verossimilhança é dada por:</p>
+<p><span class="math display">\[
+\mathbf{H}(\boldsymbol{\beta})
+=
+\frac{\partial}
+{\partial\boldsymbol{\beta}^\top}
+\mathbf{U}(\boldsymbol{\beta}).
+\]</span></p>
+<p>Como:</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}),
+\]</span></p>
+<p>segue que:</p>
+<p><span class="math display">\[
+\mathbf{H}(\boldsymbol{\beta})
+=
+-
+\frac{1}{\sigma^2}
+\mathbf{X}^\top\mathbf{X}.
+\]</span></p>
+<p>A Hessiana gaussiana possui característica particularmente importante: ela não depende dos dados observados nem dos parâmetros desconhecidos.</p>
+<p>A curvatura da log-verossimilhança é inteiramente determinada: - pela variância dos erros; - e pela geometria da matriz de planejamento.</p>
+<p>A Informação de Fisher é:</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+E[-\mathbf{H}(\boldsymbol{\beta})].
+\]</span></p>
+<p>Como a Hessiana já é determinística,</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top\mathbf{X}.
+\]</span></p>
+<p>A quantidade de informação cresce: - quando a variabilidade das covariáveis aumenta; - quando há menor colinearidade; - e quando a variância dos erros diminui.</p>
+<p>O Limite Inferior de Cramér-Rao estabelece então que:</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}})
+\succeq
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Esse é o menor limite teoricamente possível para a variância de um estimador não-viesado sob normalidade.</p>
+</section>
+<section id="eficiência" class="level3" data-number="21.3.6">
+<h3 data-number="21.3.6" class="anchored" data-anchor-id="eficiência"><span class="header-section-number">21.3.6</span> Eficiência</h3>
+<p>Pela teoria clássica do MQO <span class="citation" data-cites="seber2003 rencher2012">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>,</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Consequentemente,</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+\]</span></p>
+<p>O MQO atinge exatamente o Limite Inferior de Cramér-Rao.</p>
+<p>Esse resultado implica que: - toda a informação disponível nos dados foi extraída; - nenhuma redução adicional de variância é possível sem introdução de viés; - e o MQO torna-se eficiente em sentido global.</p>
+<p>Sob normalidade, portanto: - o MQO é BLUE; - coincide com o estimador de máxima verossimilhança; - e atinge a máxima eficiência estatística teoricamente admissível.</p>
+<p>A optimalidade do MQO, entretanto, depende profundamente da geometria gaussiana.</p>
+<p>A perda quadrática: - penaliza fortemente observações extremas; - produz influência linear dos resíduos; - e pressupõe que grandes desvios sejam altamente improváveis.</p>
+<p>Quando a distribuição dos erros muda: - muda a forma da verossimilhança; - muda a função escore; - muda a Informação de Fisher; - e pode mudar completamente o estimador eficiente.</p>
+</section>
+</section>
+<section id="cenário-laplace-perda-absoluta-mediana-e-regressão-lad" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="cenário-laplace-perda-absoluta-mediana-e-regressão-lad"><span class="header-section-number">21.4</span> Cenário Laplace: Perda Absoluta, Mediana e Regressão LAD</h2>
+<section id="função-densidade-e-características-importantes-1" class="level3" data-number="21.4.1">
+<h3 data-number="21.4.1" class="anchored" data-anchor-id="função-densidade-e-características-importantes-1"><span class="header-section-number">21.4.1</span> Função densidade e características importantes</h3>
+<p>Considere novamente o modelo</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\]</span></p>
+<p>mas suponha agora que os erros seguem distribuição de Laplace com parâmetro de localização zero e escala <span class="math inline">\(b&gt;0\)</span>:</p>
+<p><span class="math display">\[
+\varepsilon_i
+\sim
+Laplace(0,b).
+\]</span></p>
+<p>A função densidade é dada por</p>
+<p><span class="math display">\[
+f(\varepsilon_i)
+=
+\frac{1}{2b}
+\exp
+\left(
+-\frac{|\varepsilon_i|}{b}
+\right).
+\]</span></p>
+<p>A distribuição de Laplace é simétrica em torno de zero, assim como a Normal, mas possui uma geometria bastante diferente. Ela apresenta maior concentração de probabilidade ao redor da origem e caudas mais pesadas que as da distribuição Normal. Além disso, sua densidade possui um ponto angular em <span class="math inline">\(\varepsilon_i=0\)</span>, produzido pela presença do valor absoluto.</p>
+<p>Essa característica tem consequência direta sobre a inferência. Enquanto a Normal conduz a uma log-verossimilhança suave e quadrática, a Laplace conduz a uma log-verossimilhança baseada em desvios absolutos. A geometria deixa de ser quadrática e passa a ser angular.</p>
+<p>A média da distribuição é</p>
+<p><span class="math display">\[
+E(\varepsilon_i)=0,
+\]</span></p>
+<p>e sua variância é</p>
+<p><span class="math display">\[
+Var(\varepsilon_i)=2b^2.
+\]</span></p>
+<p>Se quisermos escrever a variância dos erros como <span class="math inline">\(\sigma^2\)</span>, então</p>
+<p><span class="math display">\[
+\sigma^2=2b^2,
+\]</span></p>
+<p>ou, equivalentemente,</p>
+<p><span class="math display">\[
+b^2=\frac{\sigma^2}{2}.
+\]</span></p>
+<p>Essa relação será útil na comparação entre a variância do MQO e o limite de eficiência associado à distribuição de Laplace.</p>
+</section>
+<section id="verossimilhança-2" class="level3" data-number="21.4.2">
+<h3 data-number="21.4.2" class="anchored" data-anchor-id="verossimilhança-2"><span class="header-section-number">21.4.2</span> Verossimilhança</h3>
+<p>Como</p>
+<p><span class="math display">\[
+\varepsilon_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+\]</span></p>
+<p>a densidade de <span class="math inline">\(Y_i\)</span> pode ser escrita como</p>
+<p><span class="math display">\[
+f(y_i;\boldsymbol{\beta})
+=
+\frac{1}{2b}
+\exp
+\left(
+-
+\frac{
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|
+}{b}
+\right).
+\]</span></p>
+<p>Assumindo independência das observações,</p>
+<p><span class="math display">\[
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+\frac{1}{2b}
+\exp
+\left(
+-
+\frac{
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|
+}{b}
+\right).
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+L(\boldsymbol{\beta})
+=
+\left(
+\frac{1}{2b}
+\right)^n
+\exp
+\left[
+-
+\frac{1}{b}
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|
+\right].
+\]</span></p>
+<p>Aplicando logaritmo,</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+-n\ln(2b)
+-
+\frac{1}{b}
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|.
+\]</span></p>
+<p>O termo</p>
+<p><span class="math display">\[
+-n\ln(2b)
+\]</span></p>
+<p>não depende de <span class="math inline">\(\boldsymbol{\beta}\)</span>. Portanto, maximizar a log-verossimilhança equivale a minimizar</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|.
+\]</span></p>
+<p>A distribuição de Laplace induz naturalmente a perda absoluta</p>
+<p><span class="math display">\[
+\rho(e)=|e|.
+\]</span></p>
+<p>Assim, o estimador associado à distribuição de Laplace é o estimador de Mínimos Desvios Absolutos, usualmente chamado de LAD, do inglês <em>Least Absolute Deviations</em> <span class="citation" data-cites="seber2003">(<a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+</section>
+<section id="função-escore-2" class="level3" data-number="21.4.3">
+<h3 data-number="21.4.3" class="anchored" data-anchor-id="função-escore-2"><span class="header-section-number">21.4.3</span> Função escore</h3>
+<p>Defina</p>
+<p><span class="math display">\[
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
+\]</span></p>
+<p>A log-verossimilhança pode ser escrita como</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+-n\ln(2b)
+-
+\frac{1}{b}
+\sum_{i=1}^n
+|e_i|.
+\]</span></p>
+<p>Para derivar essa expressão, precisamos lidar com a função valor absoluto. Para <span class="math inline">\(e_i\neq 0\)</span>,</p>
+<p><span class="math display">\[
+\frac{d}{de_i}|e_i|
+=
+\operatorname{sgn}(e_i),
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\operatorname{sgn}(e_i)
+=
+\begin{cases}
+1, &amp; e_i&gt;0,\\
+-1, &amp; e_i&lt;0.
+\end{cases}
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+\frac{\partial e_i}{\partial\boldsymbol{\beta}}
+=
+-\mathbf{x}_i,
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+\frac{\partial |e_i|}{\partial\boldsymbol{\beta}}
+=
+-
+\operatorname{sgn}(e_i)\mathbf{x}_i.
+\]</span></p>
+<p>Logo, para pontos em que <span class="math inline">\(e_i\neq 0\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{b}
+\sum_{i=1}^n
+\operatorname{sgn}(e_i)\mathbf{x}_i.
+\]</span></p>
+<p>Ou seja,</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{b}
+\sum_{i=1}^n
+\operatorname{sgn}
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})
+\mathbf{x}_i.
+\]</span></p>
+<p>Comparando com o caso gaussiano, a diferença é profunda. Na Normal, o escore é proporcional ao próprio resíduo. Na Laplace, o escore depende do sinal do resíduo, não de sua magnitude.</p>
+<p>Isso significa que um resíduo positivo muito pequeno e um resíduo positivo muito grande contribuem na mesma direção. O mesmo ocorre para resíduos negativos. A magnitude extrema deixa de dominar a equação de estimação.</p>
+<p>Há, porém, uma sutileza importante. A função <span class="math inline">\(|e|\)</span> não é diferenciável em <span class="math inline">\(e=0\)</span>. Nesse ponto, a derivada pela esquerda é <span class="math inline">\(-1\)</span> e a derivada pela direita é <span class="math inline">\(1\)</span>. Por isso, a equação de escore deve ser entendida com cuidado quando há resíduos exatamente iguais a zero.</p>
+<p>Em termos de otimização convexa, utiliza-se o subgradiente. Para a função valor absoluto,</p>
+<p><span class="math display">\[
+\partial |e|
+=
+[-1,1],
+\quad
+\text{quando } e=0.
+\]</span></p>
+<p>Essa observação é importante porque mostra que a ausência de derivada clássica em um ponto não impede a estimação. O problema continua bem definido e convexo.</p>
+</section>
+<section id="estimação-de-boldsymbolbeta-2" class="level3" data-number="21.4.4">
+<h3 data-number="21.4.4" class="anchored" data-anchor-id="estimação-de-boldsymbolbeta-2"><span class="header-section-number">21.4.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
+<p>O estimador de máxima verossimilhança sob erros Laplace é</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}_{LAD}
+=
+\arg\min_{\boldsymbol{\beta}}
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|.
+\]</span></p>
+<p>No caso geral de regressão, isto é, quando há covariáveis na matriz <span class="math inline">\(\mathbf{X}\)</span>, esse problema normalmente não possui uma forma fechada simples análoga a</p>
+<p><span class="math display">\[
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}.
+\]</span></p>
+<p>A razão é que a função objetivo é convexa, mas não quadrática. Portanto, não se obtém um sistema linear de equações normais como no MQO.</p>
+<p>Em geral, a estimação LAD é feita por métodos de otimização convexa, como programação linear, métodos de pontos interiores ou algoritmos relacionados à regressão quantílica.</p>
+<p>Entretanto, há um caso particular muito importante e didático: o modelo de localização, ou seja, o modelo apenas com intercepto.</p>
+<p>Nesse caso,</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta
++
+\varepsilon_i,
+\]</span></p>
+<p>e o problema de máxima verossimilhança torna-se</p>
+<p><span class="math display">\[
+\hat{\beta}
+=
+\arg\min_{\beta}
+\sum_{i=1}^n
+|y_i-\beta|.
+\]</span></p>
+<p>Esse problema não exige métodos de pesquisa operacional. Sua solução é a mediana amostral.</p>
+<p>Para entender por quê, considere a função</p>
+<p><span class="math display">\[
+Q(\beta)
+=
+\sum_{i=1}^n
+|y_i-\beta|.
+\]</span></p>
+<p>Quando <span class="math inline">\(\beta\)</span> se desloca ao longo da reta real, cada observação <span class="math inline">\(y_i\)</span> à esquerda de <span class="math inline">\(\beta\)</span> contribui com inclinação positiva, enquanto cada observação à direita contribui com inclinação negativa. O mínimo ocorre quando há equilíbrio entre o número de observações à esquerda e à direita.</p>
+<p>Mais formalmente, para pontos em que <span class="math inline">\(\beta\neq y_i\)</span> para todo <span class="math inline">\(i\)</span>,</p>
+<p><span class="math display">\[
+\frac{d}{d\beta}
+\sum_{i=1}^n
+|y_i-\beta|
+=
+\#\{i:y_i&lt;\beta\}
+-
+\#\{i:y_i&gt;\beta\}.
+\]</span></p>
+<p>O mínimo ocorre quando essa derivada muda de sinal, isto é, quando <span class="math inline">\(\beta\)</span> deixa pelo menos metade das observações à esquerda e pelo menos metade à direita. Essa é exatamente a definição de mediana.</p>
+<p>Assim, no modelo apenas com intercepto,</p>
+<p><span class="math display">\[
+\hat{\beta}_{EMV}
+=
+\operatorname{Mediana}(Y_1,\ldots,Y_n).
+\]</span></p>
+<p>Esse resultado oferece uma interpretação estatística poderosa. Enquanto a média amostral é o estimador natural de localização sob normalidade, a mediana amostral é o estimador natural de localização sob Laplace <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>.</p>
+<p>Portanto, a diferença entre MQO e LAD pode ser entendida como generalização, para regressão, da diferença entre média e mediana em problemas de localização, conexão fundamental na literatura de regressão quantílica <span class="citation" data-cites="koenker2005">(<a href="references.html#ref-koenker2005" role="doc-biblioref">Koenker, 2005</a>)</span>.</p>
+</section>
+<section id="informação-de-fisher-e-licr-1" class="level3" data-number="21.4.5">
+<h3 data-number="21.4.5" class="anchored" data-anchor-id="informação-de-fisher-e-licr-1"><span class="header-section-number">21.4.5</span> Informação de Fisher e LICR</h3>
+<p>Para calcular a Informação de Fisher, usamos a contribuição individual do escore:</p>
+<p><span class="math display">\[
+\mathbf{U}_i(\boldsymbol{\beta})
+=
+\frac{1}{b}
+\operatorname{sgn}(\varepsilon_i)
+\mathbf{x}_i.
+\]</span></p>
+<p>Então,</p>
+<p><span class="math display">\[
+\mathbf{U}_i(\boldsymbol{\beta})
+\mathbf{U}_i(\boldsymbol{\beta})^\top
+=
+\frac{1}{b^2}
+\operatorname{sgn}(\varepsilon_i)^2
+\mathbf{x}_i\mathbf{x}_i^\top.
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+\operatorname{sgn}(\varepsilon_i)^2=1
+\]</span></p>
+<p>com probabilidade um, pois a distribuição é contínua e <span class="math inline">\(P(\varepsilon_i=0)=0\)</span>, segue que</p>
+<p><span class="math display">\[
+E[
+\mathbf{U}_i(\boldsymbol{\beta})
+\mathbf{U}_i(\boldsymbol{\beta})^\top
+]
+=
+\frac{1}{b^2}
+\mathbf{x}_i\mathbf{x}_i^\top.
+\]</span></p>
+<p>Somando sobre todas as observações,</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{1}{b^2}
+\mathbf{X}^\top\mathbf{X}.
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+b^2=\frac{\sigma^2}{2},
+\]</span></p>
+<p>obtemos</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{2}{\sigma^2}
+\mathbf{X}^\top\mathbf{X}.
+\]</span></p>
+<p>O Limite Inferior de Cramér-Rao é dado por</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\frac{\sigma^2}{2}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Esse é o limite inferior teórico para a variância de estimadores não-viesados sob erros Laplace, respeitadas as condições regulares apropriadas.</p>
+</section>
+<section id="eficiência-1" class="level3" data-number="21.4.6">
+<h3 data-number="21.4.6" class="anchored" data-anchor-id="eficiência-1"><span class="header-section-number">21.4.6</span> Eficiência</h3>
+<p>Sob as hipóteses clássicas de Gauss-Markov, o MQO continua sendo BLUE mesmo quando os erros seguem distribuição de Laplace. Portanto, ele permanece sendo o melhor estimador linear não-viesado.</p>
+<p>Sua variância é</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Entretanto, sob Laplace, o limite eficiente é</p>
+<p><span class="math display">\[
+\frac{\sigma^2}{2}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Assim,</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+2
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+\]</span></p>
+<p>O MQO possui, portanto, variância duas vezes maior que o limite eficiente.</p>
+<p>A eficiência relativa assintótica do MQO, em comparação com o estimador eficiente sob Laplace, é</p>
+<p><span class="math display">\[
+ERA(MQO)
+=
+\frac{
+\text{variância eficiente}
+}{
+\text{variância do MQO}
+}
+=
+\frac{1}{2}.
+\]</span></p>
+<p>Em termos percentuais, o MQO utiliza apenas <span class="math inline">\(50\%\)</span> da eficiência estatística disponível nesse cenário.</p>
+<p>Esse resultado não contradiz o Teorema de Gauss-Markov. O MQO continua sendo o melhor dentro da classe dos estimadores lineares não-viesados. A questão é que, sob Laplace, o estimador eficiente não pertence, em geral, a essa classe linear.</p>
+<p>A distribuição de Laplace mostra, portanto, que a eficiência global pode exigir abandonar a linearidade do estimador e adotar uma função de perda mais compatível com a geometria probabilística dos erros <span class="citation" data-cites="koenker2005">(<a href="references.html#ref-koenker2005" role="doc-biblioref">Koenker, 2005</a>)</span>.</p>
+<p>Nesse cenário, a perda absoluta não é apenas alternativa robusta. Ela é a perda naturalmente induzida pela verossimilhança de Laplace.</p>
+</section>
+</section>
+<section id="cenário-t-student-caudas-pesadas-e-robustez-probabilística" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="cenário-t-student-caudas-pesadas-e-robustez-probabilística"><span class="header-section-number">21.5</span> Cenário t-Student: Caudas Pesadas e Robustez Probabilística</h2>
+<section id="função-densidade-e-características-importantes-2" class="level3" data-number="21.5.1">
+<h3 data-number="21.5.1" class="anchored" data-anchor-id="função-densidade-e-características-importantes-2"><span class="header-section-number">21.5.1</span> Função densidade e características importantes</h3>
+<p>Considere novamente o modelo</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+\]</span></p>
+<p>mas suponha agora que os erros seguem uma distribuição t-Student com <span class="math inline">\(\nu&gt;0\)</span> graus de liberdade, centro zero e parâmetro de escala <span class="math inline">\(\sigma&gt;0\)</span>:</p>
+<p><span class="math display">\[
+\varepsilon_i
+\sim
+t_\nu(0,\sigma^2).
+\]</span></p>
+<p>A densidade é dada por</p>
+<p><span class="math display">\[
+f(\varepsilon_i)
+=
+\frac{
+\Gamma\left(\frac{\nu+1}{2}\right)
+}{
+\Gamma\left(\frac{\nu}{2}\right)
+\sqrt{\nu\pi}\sigma
+}
+\left[
+1+
+\frac{\varepsilon_i^2}{\nu\sigma^2}
+\right]^{-(\nu+1)/2}.
+\]</span></p>
+<p>O parâmetro <span class="math inline">\(\nu\)</span> controla o peso das caudas. Quando <span class="math inline">\(\nu\)</span> é grande, a distribuição t-Student aproxima-se da Normal. Quando <span class="math inline">\(\nu\)</span> é pequeno, as caudas tornam-se mais pesadas, permitindo a ocorrência de observações extremas com frequência muito maior do que seria esperado sob normalidade <span class="citation" data-cites="casella2002 lange1989">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>; <a href="references.html#ref-lange1989" role="doc-biblioref">Lange; Little; Taylor, 1989</a>)</span>.</p>
+<p>A Normal aparece como caso limite:</p>
+<p><span class="math display">\[
+t_\nu(0,\sigma^2)
+\longrightarrow
+N(0,\sigma^2)
+\quad
+\text{quando}
+\quad
+\nu\to\infty.
+\]</span></p>
+<p>Esse fato torna a distribuição t-Student especialmente interessante em regressão. Ela permite representar situações intermediárias entre o caso gaussiano idealizado e cenários com presença frequente de valores extremos.</p>
+<p>A média da distribuição existe para</p>
+<p><span class="math display">\[
+\nu&gt;1,
+\]</span></p>
+<p>e é igual a zero. A variância existe apenas para</p>
+<p><span class="math display">\[
+\nu&gt;2.
+\]</span></p>
+<p>Quando existe, temos</p>
+<p><span class="math display">\[
+Var(\varepsilon_i)
+=
+\frac{\nu}{\nu-2}\sigma^2.
+\]</span></p>
+<p>Portanto, à medida que <span class="math inline">\(\nu\)</span> se aproxima de <span class="math inline">\(2\)</span>, a variância cresce rapidamente. Para <span class="math inline">\(\nu\leq 2\)</span>, a variância deixa de existir. O caso <span class="math inline">\(\nu=1\)</span> corresponde à distribuição de Cauchy, uma distribuição simétrica, mas sem média e sem variância definidas.</p>
+<p>Essa característica evidencia uma diferença fundamental em relação ao cenário gaussiano. Sob caudas pesadas, observações extremas não devem ser automaticamente tratadas como eventos praticamente impossíveis. Elas fazem parte da própria estrutura probabilística do modelo.</p>
+</section>
+<section id="verossimilhança-3" class="level3" data-number="21.5.2">
+<h3 data-number="21.5.2" class="anchored" data-anchor-id="verossimilhança-3"><span class="header-section-number">21.5.2</span> Verossimilhança</h3>
+<p>Como</p>
+<p><span class="math display">\[
+\varepsilon_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+\]</span></p>
+<p>a densidade de <span class="math inline">\(Y_i\)</span> pode ser escrita como</p>
+<p><span class="math display">\[
+f(y_i;\boldsymbol{\beta})
+=
+c_\nu
+\left[
+1+
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+\nu\sigma^2
+}
+\right]^{-(\nu+1)/2},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+c_\nu
+=
+\frac{
+\Gamma\left(\frac{\nu+1}{2}\right)
+}{
+\Gamma\left(\frac{\nu}{2}\right)
+\sqrt{\nu\pi}\sigma
+}.
+\]</span></p>
+<p>Assumindo independência,</p>
+<p><span class="math display">\[
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+c_\nu
+\left[
+1+
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+\nu\sigma^2
+}
+\right]^{-(\nu+1)/2}.
+\]</span></p>
+<p>Aplicando logaritmo,</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+n\ln(c_\nu)
+-
+\frac{\nu+1}{2}
+\sum_{i=1}^n
+\ln
+\left[
+1+
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+\nu\sigma^2
+}
+\right].
+\]</span></p>
+<p>Como o primeiro termo não depende de <span class="math inline">\(\boldsymbol{\beta}\)</span>, maximizar a log-verossimilhança equivale a minimizar</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+\ln
+\left[
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right],
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
+\]</span></p>
+<p>A função de perda induzida pela distribuição t-Student é, portanto,</p>
+<p><span class="math display">\[
+\rho(e)
+=
+\ln
+\left(
+1+
+\frac{e^2}{\nu\sigma^2}
+\right).
+\]</span></p>
+<p>Essa perda cresce muito mais lentamente que a perda quadrática. Para resíduos pequenos, seu comportamento se aproxima do quadrático. Para resíduos grandes, o crescimento torna-se logarítmico, reduzindo substancialmente a influência de observações extremas.</p>
+<p>Esse é o ponto em que a robustez aparece como consequência direta da modelagem probabilística.</p>
+</section>
+<section id="função-escore-3" class="level3" data-number="21.5.3">
+<h3 data-number="21.5.3" class="anchored" data-anchor-id="função-escore-3"><span class="header-section-number">21.5.3</span> Função escore</h3>
+<p>A log-verossimilhança, ignorando constantes que não dependem de <span class="math inline">\(\boldsymbol{\beta}\)</span>, é</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+-
+\frac{\nu+1}{2}
+\sum_{i=1}^n
+\ln
+\left(
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right).
+\]</span></p>
+<p>Derivando em relação a <span class="math inline">\(\boldsymbol{\beta}\)</span>,</p>
+<p><span class="math display">\[
+\frac{\partial\ell(\boldsymbol{\beta})}
+{\partial\boldsymbol{\beta}}
+=
+-
+\frac{\nu+1}{2}
+\sum_{i=1}^n
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln
+\left(
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right).
+\]</span></p>
+<p>Pela regra da cadeia,</p>
+<p><span class="math display">\[
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln
+\left(
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right)
+=
+\frac{
+1
+}{
+1+\frac{e_i^2}{\nu\sigma^2}
+}
+\cdot
+\frac{
+2e_i
+}{
+\nu\sigma^2
+}
+\cdot
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}.
+\]</span></p>
+<p>Como</p>
+<p><span class="math display">\[
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}
+=
+-\mathbf{x}_i,
+\]</span></p>
+<p>temos</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\frac{
+\nu+1
+}{
+\nu\sigma^2+e_i^2
+}
+e_i\mathbf{x}_i.
+\]</span></p>
+<p>Na forma geral,</p>
+<p><span class="math display">\[
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i,
+\]</span></p>
+<p>com</p>
+<p><span class="math display">\[
+\psi(e)
+=
+\frac{
+(\nu+1)e
+}{
+\nu\sigma^2+e^2
+}.
+\]</span></p>
+<p>Essa função <span class="math inline">\(\psi\)</span> possui comportamento muito diferente do caso gaussiano.</p>
+<p>No MQO, a função <span class="math inline">\(\psi(e)\)</span> cresce linearmente com <span class="math inline">\(e\)</span>. Na distribuição t-Student, a função <span class="math inline">\(\psi(e)\)</span> cresce inicialmente, mas depois passa a diminuir quando <span class="math inline">\(|e|\)</span> se torna muito grande.</p>
+<p>De fato, para resíduos muito grandes,</p>
+<p><span class="math display">\[
+\psi(e)
+\approx
+\frac{\nu+1}{e}.
+\]</span></p>
+<p>Assim, a influência de observações extremas não apenas deixa de crescer indefinidamente, mas pode diminuir à medida que o resíduo aumenta. Esse comportamento é chamado, na literatura de robustez, de influência redescendente <span class="citation" data-cites="hampel1986 maronna2019">(<a href="references.html#ref-hampel1986" role="doc-biblioref">Hampel et al., 1986</a>; <a href="references.html#ref-maronna2019" role="doc-biblioref">Maronna et al., 2019</a>)</span>.</p>
+<p>Essa propriedade distingue a t-Student tanto da Normal quanto da Laplace. A Normal atribui influência crescente aos resíduos. A Laplace limita a influência pelo sinal. A t-Student reduz a influência de resíduos muito grandes.</p>
+</section>
+<section id="estimação-de-boldsymbolbeta-3" class="level3" data-number="21.5.4">
+<h3 data-number="21.5.4" class="anchored" data-anchor-id="estimação-de-boldsymbolbeta-3"><span class="header-section-number">21.5.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
+<p>O Estimador de Máxima Verossimilhança é obtido resolvendo</p>
+<p><span class="math display">\[
+\mathbf{U}(\hat{\boldsymbol{\beta}})
+=
+\mathbf{0}.
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+\frac{
+\nu+1
+}{
+\nu\sigma^2+
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})^2
+}
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})
+\mathbf{x}_i
+=
+\mathbf{0}.
+\]</span></p>
+<p>Essa equação pode ser reescrita como</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+w_i
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})
+\mathbf{x}_i
+=
+\mathbf{0},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+w_i
+=
+\frac{
+\nu+1
+}{
+\nu\sigma^2+
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})^2
+}.
+\]</span></p>
+<p>A dificuldade é que os pesos dependem dos próprios resíduos, e os resíduos dependem de <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>. Portanto, não obtemos uma solução explícita como no MQO.</p>
+<p>A estimação é feita por métodos iterativos. Um procedimento natural é o IRLS, do inglês <em>Iteratively Reweighted Least Squares</em> <span class="citation" data-cites="lange1989">(<a href="references.html#ref-lange1989" role="doc-biblioref">Lange; Little; Taylor, 1989</a>)</span>.</p>
+<p>A ideia é começar com uma estimativa inicial, frequentemente o próprio MQO,</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}^{(0)},
+\]</span></p>
+<p>calcular os resíduos</p>
+<p><span class="math display">\[
+e_i^{(0)}
+=
+y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}}^{(0)},
+\]</span></p>
+<p>definir os pesos</p>
+<p><span class="math display">\[
+w_i^{(0)}
+=
+\frac{
+\nu+1
+}{
+\nu\sigma^2+
+(e_i^{(0)})^2
+},
+\]</span></p>
+<p>e então resolver um problema de mínimos quadrados ponderados:</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}^{(1)}
+=
+(\mathbf{X}^\top\mathbf{W}^{(0)}\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{W}^{(0)}\mathbf{Y},
+\]</span></p>
+<p>em que <span class="math inline">\(\mathbf{W}^{(0)}\)</span> é a matriz diagonal com elementos <span class="math inline">\(w_i^{(0)}\)</span>.</p>
+<p>O processo é repetido até convergência.</p>
+<p>A cada iteração, observações com resíduos grandes recebem pesos menores. Assim, o algoritmo ajusta progressivamente a contribuição de cada observação de acordo com sua compatibilidade com o modelo t-Student.</p>
+<p>Se <span class="math inline">\(\sigma^2\)</span> e <span class="math inline">\(\nu\)</span> forem desconhecidos, podem ser estimados juntamente com <span class="math inline">\(\boldsymbol{\beta}\)</span>. Nesse caso, o problema torna-se mais amplo e envolve maximização conjunta da verossimilhança. Para os objetivos desta seção, o foco está em compreender como a estrutura da t-Student modifica a estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+</section>
+<section id="informação-de-fisher-e-licr-2" class="level3" data-number="21.5.5">
+<h3 data-number="21.5.5" class="anchored" data-anchor-id="informação-de-fisher-e-licr-2"><span class="header-section-number">21.5.5</span> Informação de Fisher e LICR</h3>
+<p>Para a distribuição t-Student com escala <span class="math inline">\(\sigma\)</span> conhecida e <span class="math inline">\(\nu\)</span> fixo, a Informação de Fisher para o parâmetro de localização, no contexto da regressão linear, é dada por</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{
+\nu+1
+}{
+(\nu+3)\sigma^2
+}
+\mathbf{X}^\top\mathbf{X}.
+\]</span></p>
+<p>Essa expressão mostra como o peso das caudas afeta a informação disponível sobre os parâmetros.</p>
+<p>Quando <span class="math inline">\(\nu\)</span> cresce, a distribuição t aproxima-se da Normal. Nesse caso,</p>
+<p><span class="math display">\[
+\frac{\nu+1}{\nu+3}
+\longrightarrow
+1,
+\]</span></p>
+<p>e a Informação de Fisher aproxima-se de</p>
+<p><span class="math display">\[
+\frac{1}{\sigma^2}
+\mathbf{X}^\top\mathbf{X},
+\]</span></p>
+<p>que é exatamente a Informação de Fisher do cenário gaussiano.</p>
+<p>Quando <span class="math inline">\(\nu\)</span> é pequeno, o fator</p>
+<p><span class="math display">\[
+\frac{\nu+1}{\nu+3}
+\]</span></p>
+<p>diminui, refletindo menor informação local sobre os parâmetros em razão das caudas mais pesadas.</p>
+<p>O Limite Inferior de Cramér-Rao é</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\sigma^2
+\frac{
+\nu+3
+}{
+\nu+1
+}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Esse limite representa a menor variância teoricamente admissível para estimadores não-viesados sob o cenário t-Student, considerando <span class="math inline">\(\nu\)</span> e <span class="math inline">\(\sigma^2\)</span> fixos.</p>
+</section>
+<section id="eficiência-2" class="level3" data-number="21.5.6">
+<h3 data-number="21.5.6" class="anchored" data-anchor-id="eficiência-2"><span class="header-section-number">21.5.6</span> Eficiência</h3>
+<p>A variância do MQO depende da variância dos erros. No cenário t-Student, quando <span class="math inline">\(\nu&gt;2\)</span>,</p>
+<p><span class="math display">\[
+Var(\varepsilon_i)
+=
+\frac{\nu}{\nu-2}\sigma^2.
+\]</span></p>
+<p>Assim,</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\frac{\nu}{\nu-2}
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>Já o limite eficiente é</p>
+<p><span class="math display">\[
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\sigma^2
+\frac{
+\nu+3
+}{
+\nu+1
+}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>A eficiência relativa assintótica do MQO em relação ao estimador eficiente do cenário t pode ser escrita como</p>
+<p><span class="math display">\[
+ERA(MQO)
+=
+\frac{
+\sigma^2
+\frac{\nu+3}{\nu+1}
+}{
+\sigma^2
+\frac{\nu}{\nu-2}
+}
+=
+\frac{
+(\nu+3)(\nu-2)
+}{
+\nu(\nu+1)
+}.
+\]</span></p>
+<p>Para <span class="math inline">\(\nu=5\)</span>, por exemplo,</p>
+<p><span class="math display">\[
+ERA(MQO)
+=
+\frac{
+(5+3)(5-2)
+}{
+5(5+1)
+}
+=
+\frac{24}{30}
+=
+0{,}8.
+\]</span></p>
+<p>Nesse caso, o MQO possui aproximadamente <span class="math inline">\(80\%\)</span> da eficiência do estimador eficiente sob erros t-Student.</p>
+<p>Quando <span class="math inline">\(\nu\)</span> cresce, temos</p>
+<p><span class="math display">\[
+ERA(MQO)
+\longrightarrow
+1.
+\]</span></p>
+<p>Isso é coerente com o fato de que a distribuição t se aproxima da Normal.</p>
+<p>Quando <span class="math inline">\(\nu\)</span> se aproxima de <span class="math inline">\(2\)</span>, a eficiência relativa do MQO tende a zero, pois a variância dos erros cresce sem limite. Para <span class="math inline">\(\nu\leq 2\)</span>, a variância da distribuição dos erros não existe, e a variância clássica do MQO deixa de ser definida.</p>
+<p>Esse resultado é central para compreender o papel das caudas na regressão.</p>
+<p>Sob caudas leves, como no caso Normal, o MQO é eficiente. Sob caudas pesadas, como no cenário t-Student com poucos graus de liberdade, o MQO pode tornar-se altamente ineficiente ou até inadequado sob critérios baseados em variância.</p>
+<p>O estimador baseado na verossimilhança t-Student, por outro lado, adapta automaticamente os pesos das observações. Ele reduz a influência de resíduos extremos e, por isso, torna-se mais compatível com dados em que grandes desvios fazem parte da estrutura probabilística do fenômeno.</p>
+<p>Os próximos cenários mostrarão precisamente como distribuições com caudas mais pesadas alteram a geometria da inferência e produzem estimadores mais robustos que o MQO.</p>
+</section>
+</section>
+<section id="m-estimadores-e-a-unificação-da-estimação-robusta" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="m-estimadores-e-a-unificação-da-estimação-robusta"><span class="header-section-number">21.6</span> M-estimadores e a Unificação da Estimação Robusta</h2>
+<p>Os cenários estudados nas seções anteriores revelam uma estrutura inferencial comum. Em todos os casos: - parte-se de uma distribuição para os erros; - constrói-se a verossimilhança; - deriva-se a função escore; - e obtém-se um estimador associado à geometria probabilística do modelo.</p>
+<p>Essa observação possui enorme importância conceitual porque mostra que MQO, LAD e regressão robusta não devem ser vistos como técnicas desconectadas. Todos podem ser compreendidos dentro de uma mesma estrutura geral de estimação.</p>
+<p>Essa estrutura é fornecida pelos M-estimadores <span class="citation" data-cites="huber2009">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>)</span>.</p>
+<p>O termo “M” foi introduzido por Huber em analogia aos estimadores de máxima verossimilhança (<em>maximum likelihood estimators</em>), pois os M-estimadores generalizam muitas das ideias associadas à máxima verossimilhança clássica.</p>
+<p>Considere novamente o modelo</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon}.
+\]</span></p>
+<p>Um M-estimador define <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> como solução do problema</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}
+=
+\arg\min_{\boldsymbol{\beta}}
+\sum_{i=1}^n
+\rho
+\left(
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}
+\right),
+\]</span></p>
+<p>em que <span class="math inline">\(\rho(\cdot)\)</span> é uma função de perda.</p>
+<p>Essa formulação unifica uma ampla variedade de métodos de estimação.</p>
+<p>Quando</p>
+<p><span class="math display">\[
+\rho(e)=e^2,
+\]</span></p>
+<p>obtemos o MQO.</p>
+<p>Quando</p>
+<p><span class="math display">\[
+\rho(e)=|e|,
+\]</span></p>
+<p>obtemos o estimador LAD.</p>
+<p>Quando</p>
+<p><span class="math display">\[
+\rho(e)
+=
+\ln
+\left(
+1+\frac{e^2}{\nu\sigma^2}
+\right),
+\]</span></p>
+<p>obtemos o estimador associado à distribuição t-Student.</p>
+<p>Assim, diferentes métodos de regressão podem ser interpretados simplesmente como diferentes escolhas para a função de perda.</p>
+<p>A derivada da função <span class="math inline">\(\rho\)</span> define a função escore associada:</p>
+<p><span class="math display">\[
+\psi(e)
+=
+\frac{d}{de}\rho(e).
+\]</span></p>
+<p>As equações de estimação tornam-se então</p>
+<p><span class="math display">\[
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i
+=
+0.
+\]</span></p>
+<p>Essa expressão mostra que a função <span class="math inline">\(\psi\)</span> controla diretamente a influência dos resíduos sobre o processo de estimação.</p>
+<p>No MQO,</p>
+<p><span class="math display">\[
+\rho(e)=e^2,
+\]</span></p>
+<p>e portanto</p>
+<p><span class="math display">\[
+\psi(e)=2e.
+\]</span></p>
+<p>A influência cresce linearmente com o resíduo. Consequentemente, observações extremas podem dominar completamente o ajuste.</p>
+<p>No LAD,</p>
+<p><span class="math display">\[
+\rho(e)=|e|,
+\]</span></p>
+<p>e temos</p>
+<p><span class="math display">\[
+\psi(e)=\operatorname{sgn}(e).
+\]</span></p>
+<p>Nesse caso, a influência deixa de crescer com a magnitude do resíduo. O efeito de um resíduo extremamente grande torna-se semelhante ao efeito de um resíduo moderado de mesmo sinal.</p>
+<p>Na distribuição t-Student,</p>
+<p><span class="math display">\[
+\rho(e)
+=
+\ln
+\left(
+1+\frac{e^2}{\nu\sigma^2}
+\right),
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+\psi(e)
+=
+\frac{
+2e
+}{
+\nu\sigma^2+e^2
+}.
+\]</span></p>
+<p>Para resíduos grandes,</p>
+<p><span class="math display">\[
+\psi(e)
+\approx
+\frac{2}{e},
+\]</span></p>
+<p>de modo que a influência tende a diminuir quando o resíduo cresce muito.</p>
+<p>Esse comportamento é extremamente importante em inferência robusta. Observações extremas deixam de dominar o ajuste e passam a receber influência limitada ou até decrescente.</p>
+<p>A robustez de um estimador está diretamente ligada ao comportamento da função <span class="math inline">\(\psi\)</span>.</p>
+<p>Funções <span class="math inline">\(\psi\)</span> não limitadas, como no MQO, produzem alta sensibilidade a observações extremas.</p>
+<p>Funções <span class="math inline">\(\psi\)</span> limitadas reduzem a influência de grandes resíduos.</p>
+<p>Funções <span class="math inline">\(\psi\)</span> redescendentes diminuem explicitamente a influência de observações extremamente discrepantes, característica central da teoria clássica de robustez baseada em funções de influência <span class="citation" data-cites="hampel1986">(<a href="references.html#ref-hampel1986" role="doc-biblioref">Hampel et al., 1986</a>)</span>.</p>
+<p>Essa estrutura permite interpretar muitos métodos robustos modernos como escolhas específicas de funções de perda e funções escore.</p>
+<p>Um dos exemplos mais importantes é o estimador de Huber <span class="citation" data-cites="huber2009">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>)</span>.</p>
+<p>A função de perda de Huber combina: - comportamento quadrático próximo da origem; - e comportamento linear para resíduos grandes.</p>
+<p>Ela pode ser escrita como</p>
+<p><span class="math display">\[
+\rho_H(e)
+=
+\begin{cases}
+\dfrac{e^2}{2},
+&amp;
+|e|\leq c,
+\\
+c|e|
+-
+\dfrac{c^2}{2},
+&amp;
+|e|&gt;c,
+\end{cases}
+\]</span></p>
+<p>em que <span class="math inline">\(c&gt;0\)</span> é uma constante de ajuste.</p>
+<p>A função escore correspondente é</p>
+<p><span class="math display">\[
+\psi_H(e)
+=
+\begin{cases}
+e,
+&amp;
+|e|\leq c,
+\\
+c\,\operatorname{sgn}(e),
+&amp;
+|e|&gt;c.
+\end{cases}
+\]</span></p>
+<p>Esse estimador possui interpretação particularmente elegante.</p>
+<p>Para resíduos pequenos, o comportamento é semelhante ao MQO.</p>
+<p>Para resíduos grandes, o crescimento da influência é interrompido, aproximando-se do comportamento do LAD.</p>
+<p>O estimador de Huber busca justamente equilibrar: - eficiência sob quase-normalidade; - e robustez diante de contaminações e outliers <span class="citation" data-cites="huber2009 hampel1986">(<a href="references.html#ref-hampel1986" role="doc-biblioref">Hampel et al., 1986</a>; <a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>)</span>.</p>
+<p>Esse ponto evidencia uma característica importante da inferência estatística moderna: eficiência e robustez frequentemente envolvem compromisso (<em>trade-off</em>).</p>
+<p>Estimadores extremamente eficientes sob normalidade podem tornar-se excessivamente sensíveis sob pequenas violações do modelo.</p>
+<p>Estimadores muito robustos, por outro lado, podem perder eficiência quando a hipótese gaussiana é aproximadamente válida.</p>
+<p>A escolha do estimador depende então: - da estrutura probabilística dos dados; - da presença de observações extremas; - da estabilidade desejada; - e dos objetivos inferenciais da análise.</p>
+<p>Os M-estimadores fornecem precisamente essa flexibilidade.</p>
+<p>Mais importante ainda, eles revelam uma unificação conceitual profunda: - diferentes distribuições; - diferentes funções de perda; - diferentes funções escore; - e diferentes métodos robustos</p>
+<p>podem ser compreendidos dentro de uma mesma estrutura inferencial.</p>
+<p>Sob essa perspectiva, a regressão linear deixa de ser apenas um problema algébrico de minimização quadrática.</p>
+<p>Ela passa a ser entendida como problema geométrico e probabilístico no qual: - a distribuição dos erros; - a geometria da verossimilhança; - a curvatura inferencial; - a robustez; - e a eficiência estatística</p>
+<p>estão profundamente conectadas.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-casella2002" class="csl-entry" role="listitem">
+CASELLA, George; BERGER, Roger L. <strong>Statistical Inference</strong>. 2. ed. Pacific Grove: Duxbury, 2002.
+</div>
+<div id="ref-greene2018" class="csl-entry" role="listitem">
+GREENE, William H. <strong>Econometric Analysis</strong>. 8. ed. <em>[S.l.]</em>: Pearson, 2018.
+</div>
+<div id="ref-hampel1986" class="csl-entry" role="listitem">
+HAMPEL, Frank R. <em>et al.</em> <strong>Robust Statistics: The Approach Based on Influence Functions</strong>. <em>[S.l.]</em>: Wiley, 1986.
+</div>
+<div id="ref-huber2009" class="csl-entry" role="listitem">
+HUBER, Peter J.; RONCHETTI, Elvezio M. <strong>Robust Statistics</strong>. 2. ed. <em>[S.l.]</em>: Wiley, 2009.
+</div>
+<div id="ref-koenker2005" class="csl-entry" role="listitem">
+KOENKER, Roger. <strong>Quantile Regression</strong>. <em>[S.l.]</em>: Cambridge University Press, 2005.
+</div>
+<div id="ref-lange1989" class="csl-entry" role="listitem">
+LANGE, Kenneth L.; LITTLE, Roderick J. A.; TAYLOR, Jeremy M. G. Robust Statistical Modeling Using the t Distribution. <strong>Journal of the American Statistical Association</strong>, v. 84, n. 408, p. 881–896, 1989.
+</div>
+<div id="ref-lehmann1998" class="csl-entry" role="listitem">
+LEHMANN, Erich L.; CASELLA, George. <strong>Theory of Point Estimation</strong>. 2. ed. <em>[S.l.]</em>: Springer, 1998.
+</div>
+<div id="ref-maronna2019" class="csl-entry" role="listitem">
+MARONNA, Ricardo A. <em>et al.</em> <strong>Robust Statistics: Theory and Methods (with R)</strong>. 2. ed. <em>[S.l.]</em>: Wiley, 2019.
+</div>
+<div id="ref-montgomery2021" class="csl-entry" role="listitem">
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
+</div>
+<div id="ref-rencher2012" class="csl-entry" role="listitem">
+RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.
+</div>
+<div id="ref-seber2003" class="csl-entry" role="listitem">
+SEBER, George A. F.; LEE, Alan J. <strong>Linear Regression Analysis</strong>. 2. ed. Hoboken, NJ: Wiley, 2003.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./ap_estimadores.html" class="pagination-link" aria-label="Estimadores de Máxima Verossimilhança em Modelos de Regressão">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Estimadores de Máxima Verossimilhança em Modelos de Regressão</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ap_inferencia.html" class="pagination-link" aria-label="Inferência Clássica no Modelo de Regressão Linear Múltipla Normal">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inferência Clássica no Modelo de Regressão Linear Múltipla Normal</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

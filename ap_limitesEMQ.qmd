@@ -1,0 +1,2374 @@
+# Eficiência Estatística, Distribuição dos Erros e os Limites do MQO
+
+## A Provocação de Gauss-Markov
+
+O estimador de Mínimos Quadrados Ordinários (MQO) ocupa posição central na teoria clássica da regressão linear. Em grande parte dos cursos introdutórios, o MQO é apresentado como solução natural e praticamente definitiva para o problema de estimação dos parâmetros do modelo linear. Essa percepção é fortemente influenciada pelo Teorema de Gauss-Markov, um dos resultados mais importantes da Estatística clássica [@seber2003; @montgomery2021].
+
+Em sua formulação tradicional, o teorema estabelece que, sob determinadas hipóteses, o estimador de MQO é BLUE (*Best Linear Unbiased Estimator*), isto é, o melhor estimador linear não-viesado.
+
+Essa afirmação, embora correta, frequentemente produz uma interpretação equivocada: a ideia de que o MQO seria o “melhor estimador possível” para regressão linear. Entretanto, essa conclusão ultrapassa o alcance real do resultado de Gauss-Markov.
+
+Considere o Modelo de Regressão Linear Múltipla (MRLM):
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+$$
+
+em que:
+- $\mathbf{Y}$ representa o vetor $n\times1$ das observações da variável resposta;
+- $\mathbf{X}$ é a matriz de planejamento de dimensão $n\times p$;
+- $\boldsymbol{\beta}$ é o vetor dos parâmetros desconhecidos;
+- $\boldsymbol{\varepsilon}$ representa o vetor aleatório dos erros.
+
+Ao longo dos capítulos anteriores, vimos que o estimador de MQO é obtido pela minimização da soma dos quadrados dos resíduos:
+
+$$
+S(\boldsymbol{\beta})
+=
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+A solução desse problema conduz às equações normais:
+
+$$
+\mathbf{X}^\top\mathbf{X}
+\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top\mathbf{Y},
+$$
+
+cuja solução é:
+
+$$
+\hat{\boldsymbol{\beta}}_{MQO}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y},
+$$
+
+assumindo que a matriz $\mathbf{X}$ possui posto completo [@rencher2012].
+
+A importância do MQO decorre não apenas da simplicidade algébrica da solução, mas também de suas propriedades estatísticas. Sob as hipóteses clássicas:
+- linearidade do modelo nos parâmetros;
+- exogeneidade dos erros;
+- homocedasticidade;
+- ausência de autocorrelação;
+- e posto completo da matriz de planejamento,
+
+o estimador de MQO possui variância mínima dentro da classe dos estimadores lineares não-viesados [@seber2003; @greene2018].
+
+A hipótese de linearidade exige que o modelo seja linear em relação aos parâmetros, e não necessariamente em relação às covariáveis. Assim, o modelo
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1x_i
++
+\beta_2x_i^2
++
+\varepsilon_i
+$$
+
+continua sendo linear, pois os parâmetros aparecem linearmente.
+
+A condição de exogeneidade estabelece que:
+
+$$
+E(\boldsymbol{\varepsilon}\mid\mathbf{X})
+=
+\mathbf{0},
+$$
+
+o que implica:
+
+$$
+E(\mathbf{Y}\mid\mathbf{X})
+=
+\mathbf{X}\boldsymbol{\beta}.
+$$
+
+Já a hipótese de homocedasticidade e ausência de correlação entre os erros pode ser escrita como:
+
+$$
+Var(\boldsymbol{\varepsilon}\mid\mathbf{X})
+=
+\sigma^2\mathbf{I}_n.
+$$
+
+Sob essas condições, o Teorema de Gauss-Markov afirma que, para qualquer estimador linear não-viesado da forma
+
+$$
+\tilde{\boldsymbol{\beta}}
+=
+\mathbf{A}\mathbf{Y},
+$$
+
+vale:
+
+$$
+Var(\tilde{\boldsymbol{\beta}})
+-
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+\succeq
+0,
+$$
+
+isto é, a diferença entre as matrizes de variância-covariância é semidefinida positiva [@seber2003].
+
+Esse ponto merece atenção especial.
+
+O resultado de Gauss-Markov não afirma que o MQO é o melhor estimador entre todos os estimadores possíveis. A optimalidade está restrita explicitamente à classe dos estimadores lineares não-viesados.
+
+A palavra “linear” é, portanto, central.
+
+No contexto do teorema, linearidade refere-se ao fato de o estimador poder ser escrito como combinação linear das observações:
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+\mathbf{A}\mathbf{Y}.
+$$
+
+Nada impede, ao menos teoricamente, que existam estimadores:
+- não lineares;
+- não viesados;
+- e mais eficientes que o MQO.
+
+Essa possibilidade torna-se particularmente importante quando a distribuição dos erros deixa de ser gaussiana.
+
+Esse ponto costuma gerar confusão porque muitos estudantes associam incorretamente o Teorema de Gauss-Markov à hipótese de normalidade. Entretanto, a normalidade dos erros não é necessária para que o MQO seja BLUE [@greene2018].
+
+O resultado depende apenas:
+- das hipóteses sobre média e variância;
+- da estrutura linear do modelo;
+- e das propriedades da matriz de planejamento.
+
+Contudo, quando os erros seguem distribuição Normal,
+
+$$
+\boldsymbol{\varepsilon}
+\sim
+N(\mathbf{0},\sigma^2\mathbf{I}_n),
+$$
+
+surge uma propriedade substancialmente mais forte.
+
+Nesse cenário:
+- o MQO coincide com o Estimador de Máxima Verossimilhança;
+- atinge o Limite Inferior de Cramér-Rao;
+- e torna-se eficiente em sentido global [@casella2002].
+
+Sob normalidade, portanto, o MQO não é apenas o melhor estimador linear não-viesado. Ele passa a ser o estimador não-viesado de menor variância dentro de uma classe muito mais ampla.
+
+A distinção entre esses dois resultados é fundamental.
+
+O Teorema de Gauss-Markov fornece optimalidade dentro de uma classe restrita de estimadores. Já a eficiência associada à normalidade decorre da geometria probabilística específica da distribuição gaussiana.
+
+Quando a distribuição dos erros muda, muda também a geometria da inferência.
+
+Cada distribuição induz:
+- uma função de verossimilhança específica;
+- uma função escore particular;
+- uma determinada curvatura da log-verossimilhança;
+- uma quantidade distinta de informação estatística;
+- e uma noção própria de eficiência.
+
+No caso Normal, a geometria probabilística conduz naturalmente à perda quadrática:
+
+$$
+\rho(e)=e^2.
+$$
+
+Essa perda penaliza fortemente grandes resíduos. Um resíduo de magnitude $10$, por exemplo, produz impacto cem vezes maior que um resíduo de magnitude $1$.
+
+Sob normalidade, essa característica é coerente com a estrutura da distribuição. Observações extremas possuem probabilidade muito pequena e carregam forte evidência de incompatibilidade com o modelo.
+
+Entretanto, quando os erros apresentam:
+- caudas mais pesadas;
+- maior frequência de observações extremas;
+- ou estruturas probabilísticas não gaussianas,
+
+a perda quadrática pode tornar-se excessivamente sensível.
+
+Nesses cenários:
+- poucos resíduos extremos podem dominar completamente o ajuste;
+- a variância do estimador pode aumentar substancialmente;
+- e métodos alternativos passam a explorar de maneira mais eficiente a informação presente nos dados.
+
+A limitação fundamental do Teorema de Gauss-Markov surge precisamente nesse ponto. O resultado permanece correto, mas sua noção de optimalidade deixa de coincidir com a eficiência estatística global.
+
+Compreender essa diferença exige desenvolver uma teoria mais geral da inferência, capaz de relacionar:
+- distribuição dos erros;
+- geometria da verossimilhança;
+- quantidade de informação;
+- e eficiência dos estimadores.
+
+Essa estrutura será construída inicialmente para uma distribuição arbitrária dos erros e, posteriormente, particularizada para diferentes cenários probabilísticos.
+
+## Estrutura Geral da Inferência sob uma Distribuição Arbitrária dos Erros
+
+A discussão desenvolvida na seção anterior revela uma mudança importante de perspectiva. O problema da estimação deixa de ser exclusivamente algébrico e passa a depender profundamente da estrutura probabilística assumida para os erros do modelo.
+
+O MQO surge naturalmente quando a distribuição Normal governa o comportamento dos resíduos. Entretanto, se outras distribuições forem assumidas, novas geometrias inferenciais emergem, produzindo diferentes funções de perda, diferentes funções escore e diferentes noções de eficiência estatística.
+
+Para compreender esse fenômeno de forma unificada, desenvolveremos inicialmente a teoria geral da inferência considerando uma distribuição arbitrária para os erros.
+
+Considere novamente o Modelo de Regressão Linear Múltipla:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+$$
+
+em que:
+- $\mathbf{Y}$ é o vetor das observações;
+- $\mathbf{X}$ é a matriz de planejamento;
+- $\boldsymbol{\beta}$ representa o vetor de parâmetros desconhecidos;
+- e $\boldsymbol{\varepsilon}$ é o vetor aleatório dos erros.
+
+Assumiremos que os erros são independentes e identicamente distribuídos segundo uma densidade genérica:
+
+$$
+f(\varepsilon).
+$$
+
+Essa formulação é extremamente importante porque permite estudar simultaneamente:
+- modelos gaussianos;
+- modelos com caudas pesadas;
+- distribuições robustas;
+- e diferentes estruturas inferenciais
+
+dentro de uma mesma teoria geral [@huber2009; @lehmann1998].
+
+### Função densidade e características gerais
+
+Para cada observação do modelo,
+
+$$
+Y_i
+=
+\mathbf{x}_i^\top\boldsymbol{\beta}
++
+\varepsilon_i,
+$$
+
+podemos escrever:
+
+$$
+\varepsilon_i
+=
+Y_i
+-
+\mathbf{x}_i^\top\boldsymbol{\beta}.
+$$
+
+Assim, a densidade da variável resposta torna-se:
+
+$$
+f_Y(y_i;\boldsymbol{\beta})
+=
+f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
+$$
+
+Observe cuidadosamente a interpretação dessa expressão.
+
+A distribuição da resposta depende diretamente:
+- da distribuição dos erros;
+- da estrutura da matriz de planejamento;
+- e do vetor paramétrico $\boldsymbol{\beta}$.
+
+Mudanças na densidade dos erros alteram imediatamente:
+- a forma da verossimilhança;
+- a curvatura inferencial;
+- a influência dos resíduos;
+- e o comportamento dos estimadores.
+
+Esse ponto é central na teoria moderna da inferência.
+
+A distribuição dos erros não constitui apenas hipótese técnica auxiliar. Ela determina a própria geometria estatística do problema inferencial.
+
+### Verossimilhança
+
+Assumindo independência entre as observações, a função de verossimilhança pode ser escrita como:
+
+$$
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
+$$
+
+Após observar os dados, os valores $y_i$ tornam-se fixos. A verossimilhança passa então a ser interpretada como função dos parâmetros desconhecidos.
+
+Em outras palavras, investigamos quais valores de $\boldsymbol{\beta}$ tornam os dados observados mais plausíveis sob a estrutura probabilística assumida.
+
+Trabalhar diretamente com produtos de densidades costuma ser analiticamente inconveniente. Por isso, utiliza-se a log-verossimilhança:
+
+$$
+\ell(\boldsymbol{\beta})
+=
+\ln
+L(\boldsymbol{\beta}).
+$$
+
+Aplicando propriedades do logaritmo,
+
+$$
+\ell(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\ln
+f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
+$$
+
+Essa transformação possui enorme importância prática:
+- produtos tornam-se somas;
+- derivações tornam-se mais simples;
+- e a estabilidade numérica melhora substancialmente.
+
+Além disso, o logaritmo preserva os pontos de máximo da verossimilhança, pois é função estritamente crescente.
+
+A log-verossimilhança também possui interpretação geométrica fundamental.
+
+Ela define uma superfície sobre o espaço paramétrico. Em problemas unidimensionais, essa superfície reduz-se a uma curva. Em espaços paramétricos maiores, surge uma hipersuperfície cuja forma determina:
+- precisão inferencial;
+- estabilidade da estimação;
+- e quantidade de informação disponível.
+
+Superfícies muito “pontiagudas” indicam alta sensibilidade da plausibilidade em relação aos parâmetros. Pequenas alterações paramétricas reduzem rapidamente a verossimilhança, produzindo estimativas mais precisas.
+
+Superfícies mais planas indicam maior incerteza inferencial.
+
+A inferência estatística pode ser interpretada, portanto, como estudo da geometria da log-verossimilhança.
+
+### Função escore
+
+Para localizar máximos da log-verossimilhança, derivamos a função em relação aos parâmetros.
+
+No caso vetorial, define-se a Função Escore como:
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ell(\boldsymbol{\beta}).
+$$
+
+Expandindo coordenadamente,
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\begin{bmatrix}
+\dfrac{\partial\ell}{\partial\beta_1}
+\\
+\vdots
+\\
+\dfrac{\partial\ell}{\partial\beta_p}
+\end{bmatrix}.
+$$
+
+A Função Escore mede a inclinação local da log-verossimilhança. O estimador de máxima verossimilhança é obtido resolvendo:
+
+$$
+\mathbf{U}(\hat{\boldsymbol{\beta}})
+=
+\mathbf{0}.
+$$
+
+Para derivar explicitamente o escore, definimos:
+
+$$
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
+$$
+
+A log-verossimilhança torna-se:
+
+$$
+\ell(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\ln f(e_i).
+$$
+
+Aplicando regra da cadeia,
+
+$$
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln f(e_i)
+=
+\frac{f'(e_i)}{f(e_i)}
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}.
+$$
+
+Como:
+
+$$
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}
+=
+-\mathbf{x}_i,
+$$
+
+segue que:
+
+$$
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln f(e_i)
+=
+-
+\frac{f'(e_i)}{f(e_i)}
+\mathbf{x}_i.
+$$
+
+Somando sobre todas as observações,
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+-
+\sum_{i=1}^n
+\frac{f'(e_i)}{f(e_i)}
+\mathbf{x}_i.
+$$
+
+Essa expressão possui enorme importância conceitual porque mostra que cada distribuição induz naturalmente uma função escore distinta.
+
+Definindo:
+
+$$
+\psi(e)
+=
+-
+\frac{f'(e)}{f(e)},
+$$
+
+obtemos:
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i.
+$$
+
+A função $\psi$ desempenha papel central em inferência robusta e em teoria de M-estimadores [@huber2009; @maronna2019].
+
+Ela controla diretamente:
+- a influência dos resíduos;
+- a sensibilidade do estimador;
+- e o comportamento da estimação diante de observações extremas.
+
+Cada distribuição gera uma função $\psi$ diferente.
+
+No caso Normal, $\psi(e)$ será linear. Em distribuições robustas, poderá:
+- crescer lentamente;
+- saturar;
+- ou até reduzir a influência de grandes resíduos.
+
+A geometria inferencial está profundamente conectada a esse comportamento.
+
+### Estimação de $\boldsymbol{\beta}$
+
+As equações de máxima verossimilhança podem agora ser escritas na forma geral:
+
+$$
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i
+=
+0.
+$$
+
+Essa expressão unifica uma enorme variedade de métodos de estimação.
+
+Dependendo da escolha da densidade dos erros, obtemos:
+- MQO (Mínimos Quadrados Ordinários);
+- LAD (*Least Absolute Deviations* ou Mínimos Desvios Absolutos);
+- regressão robusta;
+- estimadores adaptativos;
+- e diferentes classes de M-estimadores.
+
+A função de perda associada ao problema pode ser obtida integrando $\psi(e)$:
+
+$$
+\rho(e)
+=
+\int
+\psi(e)\,de.
+$$
+
+Assim, cada distribuição dos erros induz naturalmente:
+- uma função de perda;
+- uma geometria de otimização;
+- e um estimador eficiente específico.
+
+A estimação deixa então de ser mero problema algébrico de minimização quadrática e passa a ser consequência direta da estrutura probabilística assumida para os dados.
+
+### Informação de Fisher e Limite Inferior de Cramér-Rao
+
+A curvatura da log-verossimilhança é descrita pela Hessiana:
+
+$$
+\mathbf{H}(\boldsymbol{\beta})
+=
+\frac{\partial^2}
+{\partial\boldsymbol{\beta}
+\partial\boldsymbol{\beta}^\top}
+\ell(\boldsymbol{\beta}).
+$$
+
+A Hessiana generaliza a segunda derivada para o caso multivariado e mede a curvatura local da log-verossimilhança.
+
+Curvaturas elevadas produzem:
+- verossimilhanças mais concentradas;
+- maior sensibilidade paramétrica;
+- e menor variabilidade dos estimadores.
+
+Curvaturas pequenas produzem:
+- superfícies relativamente planas;
+- maior incerteza;
+- e menor precisão inferencial.
+
+A Informação de Fisher formaliza essa ideia [@casella2002; @lehmann1998]:
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+E
+\left[
+-
+\mathbf{H}(\boldsymbol{\beta})
+\right].
+$$
+
+Sob condições regulares, também vale:
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+E
+\left[
+\mathbf{U}(\boldsymbol{\beta})
+\mathbf{U}(\boldsymbol{\beta})^\top
+\right].
+$$
+
+A Informação de Fisher mede a quantidade de informação disponível nos dados sobre os parâmetros desconhecidos.
+
+Quanto maior:
+- a curvatura da log-verossimilhança;
+- a sensibilidade paramétrica;
+- e a concentração da distribuição,
+
+maior tende a ser a Informação de Fisher.
+
+O Limite Inferior de Cramér-Rao estabelece então que, para qualquer estimador não-viesado,
+
+$$
+Var(\hat{\boldsymbol{\beta}})
+\succeq
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+$$
+
+Nenhum estimador não-viesado pode possuir matriz de variância-covariância menor que o inverso da Informação de Fisher [@casella2002].
+
+Esse resultado estabelece uma barreira teórica universal para a precisão da estimação.
+
+Quando um estimador satisfaz:
+
+$$
+Var(\hat{\boldsymbol{\beta}})
+=
+\mathbf{I}(\boldsymbol{\beta})^{-1},
+$$
+
+dizemos que ele é eficiente.
+
+Nesse caso:
+- toda a informação disponível nos dados foi extraída;
+- nenhuma redução adicional de variância é possível sem introdução de viés;
+- e o estimador atinge a máxima precisão teoricamente admissível.
+
+### Eficiência estatística
+
+A eficiência estatística depende profundamente da distribuição assumida para os erros.
+
+Cada distribuição produz:
+- uma geometria distinta da log-verossimilhança;
+- uma função escore específica;
+- uma curvatura própria;
+- e uma quantidade diferente de informação estatística.
+
+Consequentemente, diferentes distribuições induzem diferentes estimadores eficientes.
+
+Essa observação possui enorme importância conceitual.
+
+Não existe estimador universalmente ótimo independentemente do modelo probabilístico assumido.
+
+A noção de eficiência estatística está diretamente conectada:
+- à distribuição dos erros;
+- à estrutura das caudas;
+- à geometria da verossimilhança;
+- e à forma como resíduos são penalizados.
+
+Nos próximos cenários, particularizaremos essa estrutura geral para diferentes distribuições dos erros e veremos como:
+- o MQO emerge naturalmente sob normalidade;
+- o LAD surge sob distribuição de Laplace;
+- e estimadores robustos aparecem naturalmente sob distribuições com caudas pesadas.
+
+## Cenário Gaussiano: A Distribuição Normal e a Optimalidade do MQO
+
+### Função densidade e características importantes
+
+A distribuição Normal ocupa posição central na teoria estatística moderna. Grande parte da inferência clássica foi construída sob hipóteses gaussianas, não apenas por conveniência matemática, mas porque a geometria probabilística da distribuição Normal produz propriedades inferenciais particularmente elegantes [@casella2002; @lehmann1998].
+
+No contexto da regressão linear, a hipótese gaussiana conduz a um resultado extremamente importante: o estimador de Mínimos Quadrados Ordinários coincide exatamente com o Estimador de Máxima Verossimilhança e atinge o Limite Inferior de Cramér-Rao.
+
+Considere novamente o modelo:
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+$$
+
+e suponha agora que:
+
+$$
+\boldsymbol{\varepsilon}
+\sim
+N(\mathbf{0},\sigma^2\mathbf{I}_n).
+$$
+
+Essa hipótese implica:
+- média zero para os erros;
+- variância constante;
+- independência;
+- e distribuição Normal.
+
+Consequentemente,
+
+$$
+\mathbf{Y}
+\sim
+N(\mathbf{X}\boldsymbol{\beta},
+\sigma^2\mathbf{I}_n).
+$$
+
+A distribuição da resposta passa então a ser completamente caracterizada por:
+- sua média;
+- e sua matriz de variância-covariância.
+
+Esse ponto possui enorme importância. A hipótese gaussiana fornece muito mais informação do que simples condições sobre média e variância. Ela especifica integralmente a estrutura probabilística dos dados.
+
+Para uma observação individual,
+
+$$
+Y_i
+=
+\mathbf{x}_i^\top\boldsymbol{\beta}
++
+\varepsilon_i,
+$$
+
+com
+
+$$
+\varepsilon_i
+\sim
+N(0,\sigma^2),
+$$
+
+a densidade é dada por:
+
+$$
+f(\varepsilon_i)
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp
+\left(
+-
+\frac{\varepsilon_i^2}{2\sigma^2}
+\right).
+$$
+
+A forma exponencial quadrática da densidade é a característica central da geometria gaussiana.
+
+A distribuição Normal possui:
+- caudas leves;
+- elevada suavidade analítica;
+- curvatura regular da log-verossimilhança;
+- e rápida redução da plausibilidade de grandes desvios.
+
+Observações extremas tornam-se rapidamente improváveis à medida que se afastam da média.
+
+Essa característica explica por que a distribuição Normal conduz naturalmente à perda quadrática.
+
+### Verossimilhança
+
+Substituindo
+
+$$
+\varepsilon_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+$$
+
+obtemos:
+
+$$
+f(y_i;\boldsymbol{\beta})
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp
+\left[
+-
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+2\sigma^2
+}
+\right].
+$$
+
+Assumindo independência das observações,
+
+$$
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+f(y_i;\boldsymbol{\beta}).
+$$
+
+Logo,
+
+$$
+L(\boldsymbol{\beta})
+=
+(2\pi\sigma^2)^{-n/2}
+\exp
+\left[
+-
+\frac{1}{2\sigma^2}
+\sum_{i=1}^n
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+\right].
+$$
+
+Aplicando logaritmo,
+
+$$
+\ell(\boldsymbol{\beta})
+=
+-\frac{n}{2}\ln(2\pi\sigma^2)
+-
+\frac{1}{2\sigma^2}
+\sum_{i=1}^n
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2.
+$$
+
+Observe cuidadosamente a estrutura da log-verossimilhança.
+
+O termo
+
+$$
+-\frac{n}{2}\ln(2\pi\sigma^2)
+$$
+
+não depende dos parâmetros. Assim, maximizar a log-verossimilhança equivale a minimizar:
+
+$$
+\sum_{i=1}^n
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2.
+$$
+
+A perda quadrática emerge, portanto, diretamente da geometria da distribuição Normal.
+
+Esse resultado é conceitualmente profundo. A minimização da soma dos quadrados dos resíduos não constitui apenas escolha algébrica conveniente. Ela é consequência natural da estrutura probabilística gaussiana.
+
+A perda quadrática pode ser escrita como:
+
+$$
+\rho(e)=e^2.
+$$
+
+Seu crescimento é extremamente rápido.
+
+Resíduos pequenos produzem penalizações moderadas, enquanto resíduos grandes recebem peso desproporcionalmente elevado. Um resíduo de magnitude $10$, por exemplo, produz perda cem vezes maior que um resíduo de magnitude $1$.
+
+Sob normalidade, essa característica é coerente com a distribuição dos dados. Grandes desvios possuem probabilidade extremamente pequena e carregam forte evidência de incompatibilidade com o modelo.
+
+### Função escore
+
+Em notação matricial, a log-verossimilhança pode ser escrita como:
+
+$$
+\ell(\boldsymbol{\beta})
+=
+-\frac{n}{2}\ln(2\pi\sigma^2)
+-
+\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Para obter a Função Escore, derivamos a log-verossimilhança em relação a $\boldsymbol{\beta}$.
+
+O primeiro termo é constante. Assim, basta derivar:
+
+$$
+-\frac{1}{2\sigma^2}
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Usando resultados de diferenciação matricial [@seber2003],
+
+$$
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\left[
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
+\right]
+=
+-2\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+Portanto,
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}).
+$$
+
+A estrutura do escore gaussiano é linear nos resíduos.
+
+Escrevendo:
+
+$$
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+$$
+
+podemos representar o escore na forma geral:
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i,
+$$
+
+em que:
+
+$$
+\psi(e)=\frac{e}{\sigma^2}.
+$$
+
+A função $\psi$ cresce linearmente com o resíduo.
+
+Consequentemente:
+- resíduos grandes exercem forte influência;
+- observações extremas possuem elevado impacto inferencial;
+- e pequenas contaminações podem alterar substancialmente o ajuste do modelo.
+
+Esse comportamento está diretamente ligado à geometria da perda quadrática.
+
+### Estimação de $\boldsymbol{\beta}$
+
+O estimador de máxima verossimilhança é obtido resolvendo:
+
+$$
+\mathbf{U}(\hat{\boldsymbol{\beta}})
+=
+\mathbf{0}.
+$$
+
+Assim,
+
+$$
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})
+=
+0.
+$$
+
+Multiplicando ambos os lados por $\sigma^2$,
+
+$$
+\mathbf{X}^\top\mathbf{Y}
+-
+\mathbf{X}^\top\mathbf{X}
+\hat{\boldsymbol{\beta}}
+=
+0.
+$$
+
+Reorganizando os termos,
+
+$$
+\mathbf{X}^\top\mathbf{X}
+\hat{\boldsymbol{\beta}}
+=
+\mathbf{X}^\top\mathbf{Y}.
+$$
+
+Chegamos novamente às equações normais.
+
+Assumindo que $\mathbf{X}^\top\mathbf{X}$ seja invertível,
+
+$$
+\hat{\boldsymbol{\beta}}_{EMV}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}.
+$$
+
+Portanto,
+
+$$
+\hat{\boldsymbol{\beta}}_{EMV}
+=
+\hat{\boldsymbol{\beta}}_{MQO}.
+$$
+
+Esse resultado é um dos mais importantes da regressão clássica. Sob normalidade, o estimador de máxima verossimilhança coincide exatamente com o estimador de mínimos quadrados.
+
+A estrutura quadrática da log-verossimilhança produz:
+- solução explícita;
+- convexidade global;
+- unicidade do estimador;
+- e grande simplicidade computacional.
+
+### Informação de Fisher e LICR
+
+A Hessiana da log-verossimilhança é dada por:
+
+$$
+\mathbf{H}(\boldsymbol{\beta})
+=
+\frac{\partial}
+{\partial\boldsymbol{\beta}^\top}
+\mathbf{U}(\boldsymbol{\beta}).
+$$
+
+Como:
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top
+(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta}),
+$$
+
+segue que:
+
+$$
+\mathbf{H}(\boldsymbol{\beta})
+=
+-
+\frac{1}{\sigma^2}
+\mathbf{X}^\top\mathbf{X}.
+$$
+
+A Hessiana gaussiana possui característica particularmente importante:
+ela não depende dos dados observados nem dos parâmetros desconhecidos.
+
+A curvatura da log-verossimilhança é inteiramente determinada:
+- pela variância dos erros;
+- e pela geometria da matriz de planejamento.
+
+A Informação de Fisher é:
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+E[-\mathbf{H}(\boldsymbol{\beta})].
+$$
+
+Como a Hessiana já é determinística,
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{1}{\sigma^2}
+\mathbf{X}^\top\mathbf{X}.
+$$
+
+A quantidade de informação cresce:
+- quando a variabilidade das covariáveis aumenta;
+- quando há menor colinearidade;
+- e quando a variância dos erros diminui.
+
+O Limite Inferior de Cramér-Rao estabelece então que:
+
+$$
+Var(\hat{\boldsymbol{\beta}})
+\succeq
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+$$
+
+Logo,
+
+$$
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Esse é o menor limite teoricamente possível para a variância de um estimador não-viesado sob normalidade.
+
+### Eficiência
+
+Pela teoria clássica do MQO [@seber2003; @rencher2012],
+
+$$
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Consequentemente,
+
+$$
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+$$
+
+O MQO atinge exatamente o Limite Inferior de Cramér-Rao.
+
+Esse resultado implica que:
+- toda a informação disponível nos dados foi extraída;
+- nenhuma redução adicional de variância é possível sem introdução de viés;
+- e o MQO torna-se eficiente em sentido global.
+
+Sob normalidade, portanto:
+- o MQO é BLUE;
+- coincide com o estimador de máxima verossimilhança;
+- e atinge a máxima eficiência estatística teoricamente admissível.
+
+A optimalidade do MQO, entretanto, depende profundamente da geometria gaussiana.
+
+A perda quadrática:
+- penaliza fortemente observações extremas;
+- produz influência linear dos resíduos;
+- e pressupõe que grandes desvios sejam altamente improváveis.
+
+Quando a distribuição dos erros muda:
+- muda a forma da verossimilhança;
+- muda a função escore;
+- muda a Informação de Fisher;
+- e pode mudar completamente o estimador eficiente.
+
+## Cenário Laplace: Perda Absoluta, Mediana e Regressão LAD
+
+### Função densidade e características importantes
+
+Considere novamente o modelo
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+$$
+
+mas suponha agora que os erros seguem distribuição de Laplace com parâmetro de localização zero e escala $b>0$:
+
+$$
+\varepsilon_i
+\sim
+Laplace(0,b).
+$$
+
+A função densidade é dada por
+
+$$
+f(\varepsilon_i)
+=
+\frac{1}{2b}
+\exp
+\left(
+-\frac{|\varepsilon_i|}{b}
+\right).
+$$
+
+A distribuição de Laplace é simétrica em torno de zero, assim como a Normal, mas possui uma geometria bastante diferente. Ela apresenta maior concentração de probabilidade ao redor da origem e caudas mais pesadas que as da distribuição Normal. Além disso, sua densidade possui um ponto angular em $\varepsilon_i=0$, produzido pela presença do valor absoluto.
+
+Essa característica tem consequência direta sobre a inferência. Enquanto a Normal conduz a uma log-verossimilhança suave e quadrática, a Laplace conduz a uma log-verossimilhança baseada em desvios absolutos. A geometria deixa de ser quadrática e passa a ser angular.
+
+A média da distribuição é
+
+$$
+E(\varepsilon_i)=0,
+$$
+
+e sua variância é
+
+$$
+Var(\varepsilon_i)=2b^2.
+$$
+
+Se quisermos escrever a variância dos erros como $\sigma^2$, então
+
+$$
+\sigma^2=2b^2,
+$$
+
+ou, equivalentemente,
+
+$$
+b^2=\frac{\sigma^2}{2}.
+$$
+
+Essa relação será útil na comparação entre a variância do MQO e o limite de eficiência associado à distribuição de Laplace.
+
+### Verossimilhança
+
+Como
+
+$$
+\varepsilon_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+$$
+
+a densidade de $Y_i$ pode ser escrita como
+
+$$
+f(y_i;\boldsymbol{\beta})
+=
+\frac{1}{2b}
+\exp
+\left(
+-
+\frac{
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|
+}{b}
+\right).
+$$
+
+Assumindo independência das observações,
+
+$$
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+\frac{1}{2b}
+\exp
+\left(
+-
+\frac{
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|
+}{b}
+\right).
+$$
+
+Logo,
+
+$$
+L(\boldsymbol{\beta})
+=
+\left(
+\frac{1}{2b}
+\right)^n
+\exp
+\left[
+-
+\frac{1}{b}
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|
+\right].
+$$
+
+Aplicando logaritmo,
+
+$$
+\ell(\boldsymbol{\beta})
+=
+-n\ln(2b)
+-
+\frac{1}{b}
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|.
+$$
+
+O termo
+
+$$
+-n\ln(2b)
+$$
+
+não depende de $\boldsymbol{\beta}$. Portanto, maximizar a log-verossimilhança equivale a minimizar
+
+$$
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|.
+$$
+
+A distribuição de Laplace induz naturalmente a perda absoluta
+
+$$
+\rho(e)=|e|.
+$$
+
+Assim, o estimador associado à distribuição de Laplace é o estimador de Mínimos Desvios Absolutos, usualmente chamado de LAD, do inglês *Least Absolute Deviations* [@seber2003].
+
+### Função escore
+
+Defina
+
+$$
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
+$$
+
+A log-verossimilhança pode ser escrita como
+
+$$
+\ell(\boldsymbol{\beta})
+=
+-n\ln(2b)
+-
+\frac{1}{b}
+\sum_{i=1}^n
+|e_i|.
+$$
+
+Para derivar essa expressão, precisamos lidar com a função valor absoluto. Para $e_i\neq 0$,
+
+$$
+\frac{d}{de_i}|e_i|
+=
+\operatorname{sgn}(e_i),
+$$
+
+em que
+
+$$
+\operatorname{sgn}(e_i)
+=
+\begin{cases}
+1, & e_i>0,\\
+-1, & e_i<0.
+\end{cases}
+$$
+
+Como
+
+$$
+\frac{\partial e_i}{\partial\boldsymbol{\beta}}
+=
+-\mathbf{x}_i,
+$$
+
+temos
+
+$$
+\frac{\partial |e_i|}{\partial\boldsymbol{\beta}}
+=
+-
+\operatorname{sgn}(e_i)\mathbf{x}_i.
+$$
+
+Logo, para pontos em que $e_i\neq 0$,
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{b}
+\sum_{i=1}^n
+\operatorname{sgn}(e_i)\mathbf{x}_i.
+$$
+
+Ou seja,
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\frac{1}{b}
+\sum_{i=1}^n
+\operatorname{sgn}
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})
+\mathbf{x}_i.
+$$
+
+Comparando com o caso gaussiano, a diferença é profunda. Na Normal, o escore é proporcional ao próprio resíduo. Na Laplace, o escore depende do sinal do resíduo, não de sua magnitude.
+
+Isso significa que um resíduo positivo muito pequeno e um resíduo positivo muito grande contribuem na mesma direção. O mesmo ocorre para resíduos negativos. A magnitude extrema deixa de dominar a equação de estimação.
+
+Há, porém, uma sutileza importante. A função $|e|$ não é diferenciável em $e=0$. Nesse ponto, a derivada pela esquerda é $-1$ e a derivada pela direita é $1$. Por isso, a equação de escore deve ser entendida com cuidado quando há resíduos exatamente iguais a zero.
+
+Em termos de otimização convexa, utiliza-se o subgradiente. Para a função valor absoluto,
+
+$$
+\partial |e|
+=
+[-1,1],
+\quad
+\text{quando } e=0.
+$$
+
+Essa observação é importante porque mostra que a ausência de derivada clássica em um ponto não impede a estimação. O problema continua bem definido e convexo.
+
+### Estimação de $\boldsymbol{\beta}$
+
+O estimador de máxima verossimilhança sob erros Laplace é
+
+$$
+\hat{\boldsymbol{\beta}}_{LAD}
+=
+\arg\min_{\boldsymbol{\beta}}
+\sum_{i=1}^n
+|y_i-\mathbf{x}_i^\top\boldsymbol{\beta}|.
+$$
+
+No caso geral de regressão, isto é, quando há covariáveis na matriz $\mathbf{X}$, esse problema normalmente não possui uma forma fechada simples análoga a
+
+$$
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}.
+$$
+
+A razão é que a função objetivo é convexa, mas não quadrática. Portanto, não se obtém um sistema linear de equações normais como no MQO.
+
+Em geral, a estimação LAD é feita por métodos de otimização convexa, como programação linear, métodos de pontos interiores ou algoritmos relacionados à regressão quantílica.
+
+Entretanto, há um caso particular muito importante e didático: o modelo de localização, ou seja, o modelo apenas com intercepto.
+
+Nesse caso,
+
+$$
+Y_i
+=
+\beta
++
+\varepsilon_i,
+$$
+
+e o problema de máxima verossimilhança torna-se
+
+$$
+\hat{\beta}
+=
+\arg\min_{\beta}
+\sum_{i=1}^n
+|y_i-\beta|.
+$$
+
+Esse problema não exige métodos de pesquisa operacional. Sua solução é a mediana amostral.
+
+Para entender por quê, considere a função
+
+$$
+Q(\beta)
+=
+\sum_{i=1}^n
+|y_i-\beta|.
+$$
+
+Quando $\beta$ se desloca ao longo da reta real, cada observação $y_i$ à esquerda de $\beta$ contribui com inclinação positiva, enquanto cada observação à direita contribui com inclinação negativa. O mínimo ocorre quando há equilíbrio entre o número de observações à esquerda e à direita.
+
+Mais formalmente, para pontos em que $\beta\neq y_i$ para todo $i$,
+
+$$
+\frac{d}{d\beta}
+\sum_{i=1}^n
+|y_i-\beta|
+=
+\#\{i:y_i<\beta\}
+-
+\#\{i:y_i>\beta\}.
+$$
+
+O mínimo ocorre quando essa derivada muda de sinal, isto é, quando $\beta$ deixa pelo menos metade das observações à esquerda e pelo menos metade à direita. Essa é exatamente a definição de mediana.
+
+Assim, no modelo apenas com intercepto,
+
+$$
+\hat{\beta}_{EMV}
+=
+\operatorname{Mediana}(Y_1,\ldots,Y_n).
+$$
+
+Esse resultado oferece uma interpretação estatística poderosa. Enquanto a média amostral é o estimador natural de localização sob normalidade, a mediana amostral é o estimador natural de localização sob Laplace [@casella2002].
+
+Portanto, a diferença entre MQO e LAD pode ser entendida como generalização, para regressão, da diferença entre média e mediana em problemas de localização, conexão fundamental na literatura de regressão quantílica [@koenker2005].
+
+
+### Informação de Fisher e LICR
+
+Para calcular a Informação de Fisher, usamos a contribuição individual do escore:
+
+$$
+\mathbf{U}_i(\boldsymbol{\beta})
+=
+\frac{1}{b}
+\operatorname{sgn}(\varepsilon_i)
+\mathbf{x}_i.
+$$
+
+Então,
+
+$$
+\mathbf{U}_i(\boldsymbol{\beta})
+\mathbf{U}_i(\boldsymbol{\beta})^\top
+=
+\frac{1}{b^2}
+\operatorname{sgn}(\varepsilon_i)^2
+\mathbf{x}_i\mathbf{x}_i^\top.
+$$
+
+Como
+
+$$
+\operatorname{sgn}(\varepsilon_i)^2=1
+$$
+
+com probabilidade um, pois a distribuição é contínua e $P(\varepsilon_i=0)=0$, segue que
+
+$$
+E[
+\mathbf{U}_i(\boldsymbol{\beta})
+\mathbf{U}_i(\boldsymbol{\beta})^\top
+]
+=
+\frac{1}{b^2}
+\mathbf{x}_i\mathbf{x}_i^\top.
+$$
+
+Somando sobre todas as observações,
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{1}{b^2}
+\mathbf{X}^\top\mathbf{X}.
+$$
+
+Como
+
+$$
+b^2=\frac{\sigma^2}{2},
+$$
+
+obtemos
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{2}{\sigma^2}
+\mathbf{X}^\top\mathbf{X}.
+$$
+
+O Limite Inferior de Cramér-Rao é dado por
+
+$$
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+$$
+
+Logo,
+
+$$
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\frac{\sigma^2}{2}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Esse é o limite inferior teórico para a variância de estimadores não-viesados sob erros Laplace, respeitadas as condições regulares apropriadas.
+
+### Eficiência
+
+Sob as hipóteses clássicas de Gauss-Markov, o MQO continua sendo BLUE mesmo quando os erros seguem distribuição de Laplace. Portanto, ele permanece sendo o melhor estimador linear não-viesado.
+
+Sua variância é
+
+$$
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Entretanto, sob Laplace, o limite eficiente é
+
+$$
+\frac{\sigma^2}{2}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Assim,
+
+$$
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+2
+\mathbf{I}(\boldsymbol{\beta})^{-1}.
+$$
+
+O MQO possui, portanto, variância duas vezes maior que o limite eficiente.
+
+A eficiência relativa assintótica do MQO, em comparação com o estimador eficiente sob Laplace, é
+
+$$
+ERA(MQO)
+=
+\frac{
+\text{variância eficiente}
+}{
+\text{variância do MQO}
+}
+=
+\frac{1}{2}.
+$$
+
+Em termos percentuais, o MQO utiliza apenas $50\%$ da eficiência estatística disponível nesse cenário.
+
+Esse resultado não contradiz o Teorema de Gauss-Markov. O MQO continua sendo o melhor dentro da classe dos estimadores lineares não-viesados. A questão é que, sob Laplace, o estimador eficiente não pertence, em geral, a essa classe linear.
+
+A distribuição de Laplace mostra, portanto, que a eficiência global pode exigir abandonar a linearidade do estimador e adotar uma função de perda mais compatível com a geometria probabilística dos erros [@koenker2005].
+
+Nesse cenário, a perda absoluta não é apenas alternativa robusta. Ela é a perda naturalmente induzida pela verossimilhança de Laplace.
+
+## Cenário t-Student: Caudas Pesadas e Robustez Probabilística
+
+### Função densidade e características importantes
+
+Considere novamente o modelo
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+$$
+
+mas suponha agora que os erros seguem uma distribuição t-Student com $\nu>0$ graus de liberdade, centro zero e parâmetro de escala $\sigma>0$:
+
+$$
+\varepsilon_i
+\sim
+t_\nu(0,\sigma^2).
+$$
+
+A densidade é dada por
+
+$$
+f(\varepsilon_i)
+=
+\frac{
+\Gamma\left(\frac{\nu+1}{2}\right)
+}{
+\Gamma\left(\frac{\nu}{2}\right)
+\sqrt{\nu\pi}\sigma
+}
+\left[
+1+
+\frac{\varepsilon_i^2}{\nu\sigma^2}
+\right]^{-(\nu+1)/2}.
+$$
+
+O parâmetro $\nu$ controla o peso das caudas. Quando $\nu$ é grande, a distribuição t-Student aproxima-se da Normal. Quando $\nu$ é pequeno, as caudas tornam-se mais pesadas, permitindo a ocorrência de observações extremas com frequência muito maior do que seria esperado sob normalidade [@casella2002; @lange1989].
+
+A Normal aparece como caso limite:
+
+$$
+t_\nu(0,\sigma^2)
+\longrightarrow
+N(0,\sigma^2)
+\quad
+\text{quando}
+\quad
+\nu\to\infty.
+$$
+
+Esse fato torna a distribuição t-Student especialmente interessante em regressão. Ela permite representar situações intermediárias entre o caso gaussiano idealizado e cenários com presença frequente de valores extremos.
+
+A média da distribuição existe para
+
+$$
+\nu>1,
+$$
+
+e é igual a zero. A variância existe apenas para
+
+$$
+\nu>2.
+$$
+
+Quando existe, temos
+
+$$
+Var(\varepsilon_i)
+=
+\frac{\nu}{\nu-2}\sigma^2.
+$$
+
+Portanto, à medida que $\nu$ se aproxima de $2$, a variância cresce rapidamente. Para $\nu\leq 2$, a variância deixa de existir. O caso $\nu=1$ corresponde à distribuição de Cauchy, uma distribuição simétrica, mas sem média e sem variância definidas.
+
+Essa característica evidencia uma diferença fundamental em relação ao cenário gaussiano. Sob caudas pesadas, observações extremas não devem ser automaticamente tratadas como eventos praticamente impossíveis. Elas fazem parte da própria estrutura probabilística do modelo.
+
+### Verossimilhança
+
+Como
+
+$$
+\varepsilon_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta},
+$$
+
+a densidade de $Y_i$ pode ser escrita como
+
+$$
+f(y_i;\boldsymbol{\beta})
+=
+c_\nu
+\left[
+1+
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+\nu\sigma^2
+}
+\right]^{-(\nu+1)/2},
+$$
+
+em que
+
+$$
+c_\nu
+=
+\frac{
+\Gamma\left(\frac{\nu+1}{2}\right)
+}{
+\Gamma\left(\frac{\nu}{2}\right)
+\sqrt{\nu\pi}\sigma
+}.
+$$
+
+Assumindo independência,
+
+$$
+L(\boldsymbol{\beta})
+=
+\prod_{i=1}^n
+c_\nu
+\left[
+1+
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+\nu\sigma^2
+}
+\right]^{-(\nu+1)/2}.
+$$
+
+Aplicando logaritmo,
+
+$$
+\ell(\boldsymbol{\beta})
+=
+n\ln(c_\nu)
+-
+\frac{\nu+1}{2}
+\sum_{i=1}^n
+\ln
+\left[
+1+
+\frac{
+(y_i-\mathbf{x}_i^\top\boldsymbol{\beta})^2
+}{
+\nu\sigma^2
+}
+\right].
+$$
+
+Como o primeiro termo não depende de $\boldsymbol{\beta}$, maximizar a log-verossimilhança equivale a minimizar
+
+$$
+\sum_{i=1}^n
+\ln
+\left[
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right],
+$$
+
+em que
+
+$$
+e_i
+=
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
+$$
+
+A função de perda induzida pela distribuição t-Student é, portanto,
+
+$$
+\rho(e)
+=
+\ln
+\left(
+1+
+\frac{e^2}{\nu\sigma^2}
+\right).
+$$
+
+Essa perda cresce muito mais lentamente que a perda quadrática. Para resíduos pequenos, seu comportamento se aproxima do quadrático. Para resíduos grandes, o crescimento torna-se logarítmico, reduzindo substancialmente a influência de observações extremas.
+
+Esse é o ponto em que a robustez aparece como consequência direta da modelagem probabilística.
+
+### Função escore
+
+A log-verossimilhança, ignorando constantes que não dependem de $\boldsymbol{\beta}$, é
+
+$$
+\ell(\boldsymbol{\beta})
+=
+-
+\frac{\nu+1}{2}
+\sum_{i=1}^n
+\ln
+\left(
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right).
+$$
+
+Derivando em relação a $\boldsymbol{\beta}$,
+
+$$
+\frac{\partial\ell(\boldsymbol{\beta})}
+{\partial\boldsymbol{\beta}}
+=
+-
+\frac{\nu+1}{2}
+\sum_{i=1}^n
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln
+\left(
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right).
+$$
+
+Pela regra da cadeia,
+
+$$
+\frac{\partial}
+{\partial\boldsymbol{\beta}}
+\ln
+\left(
+1+
+\frac{e_i^2}{\nu\sigma^2}
+\right)
+=
+\frac{
+1
+}{
+1+\frac{e_i^2}{\nu\sigma^2}
+}
+\cdot
+\frac{
+2e_i
+}{
+\nu\sigma^2
+}
+\cdot
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}.
+$$
+
+Como
+
+$$
+\frac{\partial e_i}
+{\partial\boldsymbol{\beta}}
+=
+-\mathbf{x}_i,
+$$
+
+temos
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\frac{
+\nu+1
+}{
+\nu\sigma^2+e_i^2
+}
+e_i\mathbf{x}_i.
+$$
+
+Na forma geral,
+
+$$
+\mathbf{U}(\boldsymbol{\beta})
+=
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i,
+$$
+
+com
+
+$$
+\psi(e)
+=
+\frac{
+(\nu+1)e
+}{
+\nu\sigma^2+e^2
+}.
+$$
+
+Essa função $\psi$ possui comportamento muito diferente do caso gaussiano.
+
+No MQO, a função $\psi(e)$ cresce linearmente com $e$. Na distribuição t-Student, a função $\psi(e)$ cresce inicialmente, mas depois passa a diminuir quando $|e|$ se torna muito grande.
+
+De fato, para resíduos muito grandes,
+
+$$
+\psi(e)
+\approx
+\frac{\nu+1}{e}.
+$$
+
+Assim, a influência de observações extremas não apenas deixa de crescer indefinidamente, mas pode diminuir à medida que o resíduo aumenta. Esse comportamento é chamado, na literatura de robustez, de influência redescendente [@hampel1986; @maronna2019].
+
+Essa propriedade distingue a t-Student tanto da Normal quanto da Laplace. A Normal atribui influência crescente aos resíduos. A Laplace limita a influência pelo sinal. A t-Student reduz a influência de resíduos muito grandes.
+
+### Estimação de $\boldsymbol{\beta}$
+
+O Estimador de Máxima Verossimilhança é obtido resolvendo
+
+$$
+\mathbf{U}(\hat{\boldsymbol{\beta}})
+=
+\mathbf{0}.
+$$
+
+Logo,
+
+$$
+\sum_{i=1}^n
+\frac{
+\nu+1
+}{
+\nu\sigma^2+
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})^2
+}
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})
+\mathbf{x}_i
+=
+\mathbf{0}.
+$$
+
+Essa equação pode ser reescrita como
+
+$$
+\sum_{i=1}^n
+w_i
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})
+\mathbf{x}_i
+=
+\mathbf{0},
+$$
+
+em que
+
+$$
+w_i
+=
+\frac{
+\nu+1
+}{
+\nu\sigma^2+
+(y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}})^2
+}.
+$$
+
+A dificuldade é que os pesos dependem dos próprios resíduos, e os resíduos dependem de $\hat{\boldsymbol{\beta}}$. Portanto, não obtemos uma solução explícita como no MQO.
+
+A estimação é feita por métodos iterativos. Um procedimento natural é o IRLS, do inglês *Iteratively Reweighted Least Squares* [@lange1989].
+
+A ideia é começar com uma estimativa inicial, frequentemente o próprio MQO,
+
+$$
+\hat{\boldsymbol{\beta}}^{(0)},
+$$
+
+calcular os resíduos
+
+$$
+e_i^{(0)}
+=
+y_i-\mathbf{x}_i^\top\hat{\boldsymbol{\beta}}^{(0)},
+$$
+
+definir os pesos
+
+$$
+w_i^{(0)}
+=
+\frac{
+\nu+1
+}{
+\nu\sigma^2+
+(e_i^{(0)})^2
+},
+$$
+
+e então resolver um problema de mínimos quadrados ponderados:
+
+$$
+\hat{\boldsymbol{\beta}}^{(1)}
+=
+(\mathbf{X}^\top\mathbf{W}^{(0)}\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{W}^{(0)}\mathbf{Y},
+$$
+
+em que $\mathbf{W}^{(0)}$ é a matriz diagonal com elementos $w_i^{(0)}$.
+
+O processo é repetido até convergência.
+
+A cada iteração, observações com resíduos grandes recebem pesos menores. Assim, o algoritmo ajusta progressivamente a contribuição de cada observação de acordo com sua compatibilidade com o modelo t-Student.
+
+Se $\sigma^2$ e $\nu$ forem desconhecidos, podem ser estimados juntamente com $\boldsymbol{\beta}$. Nesse caso, o problema torna-se mais amplo e envolve maximização conjunta da verossimilhança. Para os objetivos desta seção, o foco está em compreender como a estrutura da t-Student modifica a estimação de $\boldsymbol{\beta}$.
+
+### Informação de Fisher e LICR
+
+Para a distribuição t-Student com escala $\sigma$ conhecida e $\nu$ fixo, a Informação de Fisher para o parâmetro de localização, no contexto da regressão linear, é dada por
+
+$$
+\mathbf{I}(\boldsymbol{\beta})
+=
+\frac{
+\nu+1
+}{
+(\nu+3)\sigma^2
+}
+\mathbf{X}^\top\mathbf{X}.
+$$
+
+Essa expressão mostra como o peso das caudas afeta a informação disponível sobre os parâmetros.
+
+Quando $\nu$ cresce, a distribuição t aproxima-se da Normal. Nesse caso,
+
+$$
+\frac{\nu+1}{\nu+3}
+\longrightarrow
+1,
+$$
+
+e a Informação de Fisher aproxima-se de
+
+$$
+\frac{1}{\sigma^2}
+\mathbf{X}^\top\mathbf{X},
+$$
+
+que é exatamente a Informação de Fisher do cenário gaussiano.
+
+Quando $\nu$ é pequeno, o fator
+
+$$
+\frac{\nu+1}{\nu+3}
+$$
+
+diminui, refletindo menor informação local sobre os parâmetros em razão das caudas mais pesadas.
+
+O Limite Inferior de Cramér-Rao é
+
+$$
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\sigma^2
+\frac{
+\nu+3
+}{
+\nu+1
+}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Esse limite representa a menor variância teoricamente admissível para estimadores não-viesados sob o cenário t-Student, considerando $\nu$ e $\sigma^2$ fixos.
+
+### Eficiência
+
+A variância do MQO depende da variância dos erros. No cenário t-Student, quando $\nu>2$,
+
+$$
+Var(\varepsilon_i)
+=
+\frac{\nu}{\nu-2}\sigma^2.
+$$
+
+Assim,
+
+$$
+Var(\hat{\boldsymbol{\beta}}_{MQO})
+=
+\frac{\nu}{\nu-2}
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+Já o limite eficiente é
+
+$$
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+=
+\sigma^2
+\frac{
+\nu+3
+}{
+\nu+1
+}
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+$$
+
+A eficiência relativa assintótica do MQO em relação ao estimador eficiente do cenário t pode ser escrita como
+
+$$
+ERA(MQO)
+=
+\frac{
+\sigma^2
+\frac{\nu+3}{\nu+1}
+}{
+\sigma^2
+\frac{\nu}{\nu-2}
+}
+=
+\frac{
+(\nu+3)(\nu-2)
+}{
+\nu(\nu+1)
+}.
+$$
+
+Para $\nu=5$, por exemplo,
+
+$$
+ERA(MQO)
+=
+\frac{
+(5+3)(5-2)
+}{
+5(5+1)
+}
+=
+\frac{24}{30}
+=
+0{,}8.
+$$
+
+Nesse caso, o MQO possui aproximadamente $80\%$ da eficiência do estimador eficiente sob erros t-Student.
+
+Quando $\nu$ cresce, temos
+
+$$
+ERA(MQO)
+\longrightarrow
+1.
+$$
+
+Isso é coerente com o fato de que a distribuição t se aproxima da Normal.
+
+Quando $\nu$ se aproxima de $2$, a eficiência relativa do MQO tende a zero, pois a variância dos erros cresce sem limite. Para $\nu\leq 2$, a variância da distribuição dos erros não existe, e a variância clássica do MQO deixa de ser definida.
+
+Esse resultado é central para compreender o papel das caudas na regressão.
+
+Sob caudas leves, como no caso Normal, o MQO é eficiente. Sob caudas pesadas, como no cenário t-Student com poucos graus de liberdade, o MQO pode tornar-se altamente ineficiente ou até inadequado sob critérios baseados em variância.
+
+O estimador baseado na verossimilhança t-Student, por outro lado, adapta automaticamente os pesos das observações. Ele reduz a influência de resíduos extremos e, por isso, torna-se mais compatível com dados em que grandes desvios fazem parte da estrutura probabilística do fenômeno.
+
+
+Os próximos cenários mostrarão precisamente como distribuições com caudas mais pesadas alteram a geometria da inferência e produzem estimadores mais robustos que o MQO.
+
+## M-estimadores e a Unificação da Estimação Robusta
+
+Os cenários estudados nas seções anteriores revelam uma estrutura inferencial comum. Em todos os casos:
+- parte-se de uma distribuição para os erros;
+- constrói-se a verossimilhança;
+- deriva-se a função escore;
+- e obtém-se um estimador associado à geometria probabilística do modelo.
+
+Essa observação possui enorme importância conceitual porque mostra que MQO, LAD e regressão robusta não devem ser vistos como técnicas desconectadas. Todos podem ser compreendidos dentro de uma mesma estrutura geral de estimação.
+
+Essa estrutura é fornecida pelos M-estimadores [@huber2009].
+
+O termo “M” foi introduzido por Huber em analogia aos estimadores de máxima verossimilhança (*maximum likelihood estimators*), pois os M-estimadores generalizam muitas das ideias associadas à máxima verossimilhança clássica.
+
+Considere novamente o modelo
+
+$$
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon}.
+$$
+
+Um M-estimador define $\hat{\boldsymbol{\beta}}$ como solução do problema
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+\arg\min_{\boldsymbol{\beta}}
+\sum_{i=1}^n
+\rho
+\left(
+y_i-\mathbf{x}_i^\top\boldsymbol{\beta}
+\right),
+$$
+
+em que $\rho(\cdot)$ é uma função de perda.
+
+Essa formulação unifica uma ampla variedade de métodos de estimação.
+
+Quando
+
+$$
+\rho(e)=e^2,
+$$
+
+obtemos o MQO.
+
+Quando
+
+$$
+\rho(e)=|e|,
+$$
+
+obtemos o estimador LAD.
+
+Quando
+
+$$
+\rho(e)
+=
+\ln
+\left(
+1+\frac{e^2}{\nu\sigma^2}
+\right),
+$$
+
+obtemos o estimador associado à distribuição t-Student.
+
+Assim, diferentes métodos de regressão podem ser interpretados simplesmente como diferentes escolhas para a função de perda.
+
+A derivada da função $\rho$ define a função escore associada:
+
+$$
+\psi(e)
+=
+\frac{d}{de}\rho(e).
+$$
+
+As equações de estimação tornam-se então
+
+$$
+\sum_{i=1}^n
+\psi(e_i)\mathbf{x}_i
+=
+0.
+$$
+
+Essa expressão mostra que a função $\psi$ controla diretamente a influência dos resíduos sobre o processo de estimação.
+
+No MQO,
+
+$$
+\rho(e)=e^2,
+$$
+
+e portanto
+
+$$
+\psi(e)=2e.
+$$
+
+A influência cresce linearmente com o resíduo. Consequentemente, observações extremas podem dominar completamente o ajuste.
+
+No LAD,
+
+$$
+\rho(e)=|e|,
+$$
+
+e temos
+
+$$
+\psi(e)=\operatorname{sgn}(e).
+$$
+
+Nesse caso, a influência deixa de crescer com a magnitude do resíduo. O efeito de um resíduo extremamente grande torna-se semelhante ao efeito de um resíduo moderado de mesmo sinal.
+
+Na distribuição t-Student,
+
+$$
+\rho(e)
+=
+\ln
+\left(
+1+\frac{e^2}{\nu\sigma^2}
+\right),
+$$
+
+e
+
+$$
+\psi(e)
+=
+\frac{
+2e
+}{
+\nu\sigma^2+e^2
+}.
+$$
+
+Para resíduos grandes,
+
+$$
+\psi(e)
+\approx
+\frac{2}{e},
+$$
+
+de modo que a influência tende a diminuir quando o resíduo cresce muito.
+
+Esse comportamento é extremamente importante em inferência robusta. Observações extremas deixam de dominar o ajuste e passam a receber influência limitada ou até decrescente.
+
+A robustez de um estimador está diretamente ligada ao comportamento da função $\psi$.
+
+Funções $\psi$ não limitadas, como no MQO, produzem alta sensibilidade a observações extremas.
+
+Funções $\psi$ limitadas reduzem a influência de grandes resíduos.
+
+Funções $\psi$ redescendentes diminuem explicitamente a influência de observações extremamente discrepantes, característica central da teoria clássica de robustez baseada em funções de influência [@hampel1986].
+
+
+Essa estrutura permite interpretar muitos métodos robustos modernos como escolhas específicas de funções de perda e funções escore.
+
+Um dos exemplos mais importantes é o estimador de Huber [@huber2009].
+
+A função de perda de Huber combina:
+- comportamento quadrático próximo da origem;
+- e comportamento linear para resíduos grandes.
+
+Ela pode ser escrita como
+
+$$
+\rho_H(e)
+=
+\begin{cases}
+\dfrac{e^2}{2},
+&
+|e|\leq c,
+\\
+c|e|
+-
+\dfrac{c^2}{2},
+&
+|e|>c,
+\end{cases}
+$$
+
+em que $c>0$ é uma constante de ajuste.
+
+A função escore correspondente é
+
+$$
+\psi_H(e)
+=
+\begin{cases}
+e,
+&
+|e|\leq c,
+\\
+c\,\operatorname{sgn}(e),
+&
+|e|>c.
+\end{cases}
+$$
+
+Esse estimador possui interpretação particularmente elegante.
+
+Para resíduos pequenos, o comportamento é semelhante ao MQO.
+
+Para resíduos grandes, o crescimento da influência é interrompido, aproximando-se do comportamento do LAD.
+
+O estimador de Huber busca justamente equilibrar:
+- eficiência sob quase-normalidade;
+- e robustez diante de contaminações e outliers [@huber2009; @hampel1986].
+
+Esse ponto evidencia uma característica importante da inferência estatística moderna: eficiência e robustez frequentemente envolvem compromisso (*trade-off*).
+
+Estimadores extremamente eficientes sob normalidade podem tornar-se excessivamente sensíveis sob pequenas violações do modelo.
+
+Estimadores muito robustos, por outro lado, podem perder eficiência quando a hipótese gaussiana é aproximadamente válida.
+
+A escolha do estimador depende então:
+- da estrutura probabilística dos dados;
+- da presença de observações extremas;
+- da estabilidade desejada;
+- e dos objetivos inferenciais da análise.
+
+Os M-estimadores fornecem precisamente essa flexibilidade.
+
+Mais importante ainda, eles revelam uma unificação conceitual profunda:
+- diferentes distribuições;
+- diferentes funções de perda;
+- diferentes funções escore;
+- e diferentes métodos robustos
+
+podem ser compreendidos dentro de uma mesma estrutura inferencial.
+
+Sob essa perspectiva, a regressão linear deixa de ser apenas um problema algébrico de minimização quadrática.
+
+Ela passa a ser entendida como problema geométrico e probabilístico no qual:
+- a distribuição dos erros;
+- a geometria da verossimilhança;
+- a curvatura inferencial;
+- a robustez;
+- e a eficiência estatística
+
+estão profundamente conectadas.
