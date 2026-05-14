@@ -620,7 +620,7 @@ window.Quarto = {
 
 <section id="a-provocação-de-gauss-markov" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="a-provocação-de-gauss-markov"><span class="header-section-number">21.1</span> A Provocação de Gauss-Markov</h2>
-<p>O estimador de Mínimos Quadrados Ordinários (MQO) ocupa posição central na teoria clássica da regressão linear. Em grande parte dos cursos introdutórios, o MQO é apresentado como solução natural e praticamente definitiva para o problema de estimação dos parâmetros do modelo linear. Essa percepção é fortemente influenciada pelo Teorema de Gauss-Markov, um dos resultados mais importantes da Estatística clássica <span class="citation" data-cites="seber2003 montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>O estimador de Mínimos Quadrados Ordinários (MQO) ocupa posição central na teoria clássica da regressão linear. Em grande parte dos cursos introdutórios, o MQO é apresentado como solução natural e praticamente definitiva para o problema de estimação dos parâmetros. Essa percepção é fortemente influenciada pelo Teorema de Gauss-Markov, um dos resultados mais importantes da Estatística clássica <span class="citation" data-cites="seber2003 montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 <p>Em sua formulação tradicional, o teorema estabelece que, sob determinadas hipóteses, o estimador de MQO é BLUE (<em>Best Linear Unbiased Estimator</em>), isto é, o melhor estimador linear não-viesado.</p>
 <p>Essa afirmação, embora correta, frequentemente produz uma interpretação equivocada: a ideia de que o MQO seria o “melhor estimador possível” para regressão linear. Entretanto, essa conclusão ultrapassa o alcance real do resultado de Gauss-Markov.</p>
 <p>Considere o Modelo de Regressão Linear Múltipla (MRLM):</p>
@@ -631,7 +631,12 @@ window.Quarto = {
 +
 \boldsymbol{\varepsilon},
 \]</span></p>
-<p>em que: - <span class="math inline">\(\mathbf{Y}\)</span> representa o vetor <span class="math inline">\(n\times1\)</span> das observações da variável resposta; - <span class="math inline">\(\mathbf{X}\)</span> é a matriz de planejamento de dimensão <span class="math inline">\(n\times p\)</span>; - <span class="math inline">\(\boldsymbol{\beta}\)</span> é o vetor dos parâmetros desconhecidos; - <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> representa o vetor aleatório dos erros.</p>
+<p>em que: - <span class="math inline">\(\mathbf{Y}\)</span> representa o vetor <span class="math inline">\(n\times1\)</span> das observações da variável resposta;</p>
+<ul>
+<li><p><span class="math inline">\(\mathbf{X}\)</span> é a matriz de planejamento de dimensão <span class="math inline">\(n\times p\)</span>;</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\beta}\)</span> é o vetor dos parâmetros desconhecidos;</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\varepsilon}\)</span> representa o vetor aleatório dos erros.</p></li>
+</ul>
 <p>Ao longo dos capítulos anteriores, vimos que o estimador de MQO é obtido pela minimização da soma dos quadrados dos resíduos:</p>
 <p><span class="math display">\[
 S(\boldsymbol{\beta})
@@ -654,7 +659,8 @@ S(\boldsymbol{\beta})
 \mathbf{X}^\top\mathbf{Y},
 \]</span></p>
 <p>assumindo que a matriz <span class="math inline">\(\mathbf{X}\)</span> possui posto completo <span class="citation" data-cites="rencher2012">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>)</span>.</p>
-<p>A importância do MQO decorre não apenas da simplicidade algébrica da solução, mas também de suas propriedades estatísticas. Sob as hipóteses clássicas:</p>
+<p>A importância do MQO decorre não apenas da simplicidade algébrica da solução, mas também de suas propriedades estatísticas.</p>
+<p>Sob as hipóteses clássicas:</p>
 <ul>
 <li><p>linearidade do modelo nos parâmetros;</p></li>
 <li><p>exogeneidade dos erros;</p></li>
@@ -662,7 +668,7 @@ S(\boldsymbol{\beta})
 <li><p>ausência de autocorrelação;</p></li>
 <li><p>e posto completo da matriz de planejamento,</p></li>
 </ul>
-<p>o estimador de MQO possui variância mínima dentro da classe dos estimadores lineares não-viesados <span class="citation" data-cites="seber2003 greene2018">(<a href="references.html#ref-greene2018" role="doc-biblioref">Greene, 2018</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>o estimador de MQO possui variância mínima dentro da classe dos estimadores lineares não-viesados.</p>
 <p>A hipótese de linearidade exige que o modelo seja linear em relação aos parâmetros, e não necessariamente em relação às covariáveis. Assim, o modelo</p>
 <p><span class="math display">\[
 Y_i
@@ -708,10 +714,8 @@ Var(\hat{\boldsymbol{\beta}}_{MQO})
 \succeq
 0,
 \]</span></p>
-<p>isto é, a diferença entre as matrizes de variância-covariância é semidefinida positiva <span class="citation" data-cites="seber2003">(<a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
-<p>Esse ponto merece atenção especial.</p>
-<p>O resultado de Gauss-Markov não afirma que o MQO é o melhor estimador entre todos os estimadores possíveis. A optimalidade está restrita explicitamente à classe dos estimadores lineares não-viesados.</p>
-<p>A palavra “linear” é, portanto, central.</p>
+<p>isto é, a diferença entre as matrizes de variância-covariância é semidefinida positiva <span class="citation" data-cites="seber2003">(<a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>. Esse ponto merece atenção especial.</p>
+<p>O resultado de Gauss-Markov não afirma que o MQO é o melhor estimador entre todos os estimadores possíveis. A optimalidade está restrita explicitamente à <strong>classe dos estimadores lineares</strong> não-viesados.</p>
 <p>No contexto do teorema, linearidade refere-se ao fato de o estimador poder ser escrito como combinação linear das observações:</p>
 <p><span class="math display">\[
 \hat{\boldsymbol{\beta}}
@@ -746,9 +750,7 @@ N(\mathbf{0},\sigma^2\mathbf{I}_n),
 <li><p>e torna-se eficiente em sentido global <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>.</p></li>
 </ul>
 <p>Sob normalidade, portanto, o MQO não é apenas o melhor estimador linear não-viesado. Ele passa a ser o estimador não-viesado de menor variância dentro de uma classe muito mais ampla.</p>
-<p>A distinção entre esses dois resultados é fundamental.</p>
-<p>O Teorema de Gauss-Markov fornece optimalidade dentro de uma classe restrita de estimadores. Já a eficiência associada à normalidade decorre da geometria probabilística específica da distribuição gaussiana.</p>
-<p>Quando a distribuição dos erros muda, muda também a geometria da inferência.</p>
+<p>O Teorema de Gauss-Markov fornece optimalidade dentro de uma classe restrita de estimadores. Já a eficiência associada à normalidade decorre da geometria probabilística específica da distribuição gaussiana. Quando a distribuição dos erros muda, muda também a geometria da inferência.</p>
 <p>Cada distribuição induz:</p>
 <ul>
 <li><p>uma função de verossimilhança específica;</p></li>
@@ -776,7 +778,7 @@ N(\mathbf{0},\sigma^2\mathbf{I}_n),
 <li><p>a variância do estimador pode aumentar substancialmente;</p></li>
 <li><p>e métodos alternativos passam a explorar de maneira mais eficiente a informação presente nos dados.</p></li>
 </ul>
-<p>A limitação fundamental do Teorema de Gauss-Markov surge precisamente nesse ponto. O resultado permanece correto, mas sua noção de optimalidade deixa de coincidir com a eficiência estatística global.</p>
+<p>Uma limitação importante do Teorema de Gauss-Markov surge precisamente nesse ponto. O resultado permanece correto, mas sua noção de optimalidade deixa de coincidir com a eficiência estatística global.</p>
 <p>Compreender essa diferença exige desenvolver uma teoria mais geral da inferência, capaz de relacionar:</p>
 <ul>
 <li><p>distribuição dos erros;</p></li>
@@ -815,9 +817,8 @@ f(\varepsilon).
 <li><p>modelos gaussianos;</p></li>
 <li><p>modelos com caudas pesadas;</p></li>
 <li><p>distribuições robustas;</p></li>
-<li><p>e diferentes estruturas inferenciais</p></li>
+<li><p>e diferentes estruturas inferenciais dentro de uma mesma teoria geral <span class="citation" data-cites="huber2009 lehmann1998">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>; <a href="references.html#ref-lehmann1998" role="doc-biblioref">Lehmann; Casella, 1998</a>)</span>.</p></li>
 </ul>
-<p>dentro de uma mesma teoria geral <span class="citation" data-cites="huber2009 lehmann1998">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>; <a href="references.html#ref-lehmann1998" role="doc-biblioref">Lehmann; Casella, 1998</a>)</span>.</p>
 <section id="função-densidade-e-características-gerais" class="level3" data-number="21.2.1">
 <h3 data-number="21.2.1" class="anchored" data-anchor-id="função-densidade-e-características-gerais"><span class="header-section-number">21.2.1</span> Função densidade e características gerais</h3>
 <p>Para cada observação do modelo,</p>
@@ -856,8 +857,7 @@ f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
 <li><p>a influência dos resíduos;</p></li>
 <li><p>e o comportamento dos estimadores.</p></li>
 </ul>
-<p>Esse ponto é central na teoria moderna da inferência.</p>
-<p>A distribuição dos erros não constitui apenas hipótese técnica auxiliar. Ela determina a própria geometria estatística do problema inferencial.</p>
+<p>A distribuição dos erros determina a própria geometria estatística do problema inferencial.</p>
 </section>
 <section id="verossimilhança" class="level3" data-number="21.2.2">
 <h3 data-number="21.2.2" class="anchored" data-anchor-id="verossimilhança"><span class="header-section-number">21.2.2</span> Verossimilhança</h3>
@@ -868,8 +868,7 @@ L(\boldsymbol{\beta})
 \prod_{i=1}^n
 f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
 \]</span></p>
-<p>Após observar os dados, os valores <span class="math inline">\(y_i\)</span> tornam-se fixos. A verossimilhança passa então a ser interpretada como função dos parâmetros desconhecidos.</p>
-<p>Em outras palavras, investigamos quais valores de <span class="math inline">\(\boldsymbol{\beta}\)</span> tornam os dados observados mais plausíveis sob a estrutura probabilística assumida.</p>
+<p>Após observar os dados, os valores <span class="math inline">\(y_i\)</span> tornam-se fixos. A verossimilhança passa então a ser interpretada como função dos parâmetros desconhecidos. Em outras palavras, investigamos quais valores de <span class="math inline">\(\boldsymbol{\beta}\)</span> tornam os dados observados mais plausíveis sob a estrutura probabilística assumida.</p>
 <p>Trabalhar diretamente com produtos de densidades costuma ser analiticamente inconveniente. Por isso, utiliza-se a log-verossimilhança:</p>
 <p><span class="math display">\[
 \ell(\boldsymbol{\beta})
@@ -891,22 +890,18 @@ f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
 <li><p>derivações tornam-se mais simples;</p></li>
 <li><p>e a estabilidade numérica melhora substancialmente.</p></li>
 </ul>
-<p>Além disso, o logaritmo preserva os pontos de máximo da verossimilhança, pois é função estritamente crescente.</p>
-<p>A log-verossimilhança também possui interpretação geométrica fundamental.</p>
+<p>Além disso, o logaritmo preserva os pontos de máximo da verossimilhança, pois é função estritamente crescente. A log-verossimilhança também possui interpretação geométrica fundamental.</p>
 <p>Ela define uma superfície sobre o espaço paramétrico. Em problemas unidimensionais, essa superfície reduz-se a uma curva. Em espaços paramétricos maiores, surge uma hipersuperfície cuja forma determina:</p>
 <ul>
 <li><p>precisão inferencial;</p></li>
 <li><p>estabilidade da estimação;</p></li>
 <li><p>e quantidade de informação disponível.</p></li>
 </ul>
-<p>Superfícies muito “pontiagudas” indicam alta sensibilidade da plausibilidade em relação aos parâmetros. Pequenas alterações paramétricas reduzem rapidamente a verossimilhança, produzindo estimativas mais precisas.</p>
-<p>Superfícies mais planas indicam maior incerteza inferencial.</p>
-<p>A inferência estatística pode ser interpretada, portanto, como estudo da geometria da log-verossimilhança.</p>
+<p>Superfícies muito “pontiagudas” indicam alta sensibilidade da plausibilidade em relação aos parâmetros. Pequenas alterações paramétricas reduzem rapidamente a verossimilhança, produzindo estimativas mais precisas. Superfícies mais planas indicam maior incerteza inferencial. A inferência estatística pode ser interpretada, portanto, como estudo da geometria da log-verossimilhança.</p>
 </section>
 <section id="função-escore" class="level3" data-number="21.2.3">
 <h3 data-number="21.2.3" class="anchored" data-anchor-id="função-escore"><span class="header-section-number">21.2.3</span> Função escore</h3>
-<p>Para localizar máximos da log-verossimilhança, derivamos a função em relação aos parâmetros.</p>
-<p>No caso vetorial, define-se a Função Escore como:</p>
+<p>Para localizar máximos da log-verossimilhança, derivamos a função em relação aos parâmetros. No caso vetorial, define-se a Função Escore como:</p>
 <p><span class="math display">\[
 \mathbf{U}(\boldsymbol{\beta})
 =
@@ -996,7 +991,7 @@ y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
 \sum_{i=1}^n
 \psi(e_i)\mathbf{x}_i.
 \]</span></p>
-<p>A função <span class="math inline">\(\psi\)</span> desempenha papel central em inferência robusta e em teoria de estimadores M <span class="citation" data-cites="huber2009 maronna2019">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>; <a href="references.html#ref-maronna2019" role="doc-biblioref">Maronna et al., 2019</a>)</span>.</p>
+<p>A função <span class="math inline">\(\psi\)</span> corresponde à derivada da função de perda <span class="math inline">\(\rho\)</span> na teoria dos estimadores M <span class="citation" data-cites="huber2009 maronna2019">(<a href="references.html#ref-huber2009" role="doc-biblioref">Huber; Ronchetti, 2009</a>; <a href="references.html#ref-maronna2019" role="doc-biblioref">Maronna et al., 2019</a>)</span>.</p>
 <p>Ela controla diretamente:</p>
 <ul>
 <li><p>a influência dos resíduos;</p></li>
@@ -1010,7 +1005,7 @@ y_i-\mathbf{x}_i^\top\boldsymbol{\beta}.
 <li><p>saturar;</p></li>
 <li><p>ou até reduzir a influência de grandes resíduos.</p></li>
 </ul>
-<p>A geometria inferencial está profundamente conectada a esse comportamento.</p>
+<p>A geometria inferencial está associada a esse comportamento.</p>
 </section>
 <section id="estimação-de-boldsymbolbeta" class="level3" data-number="21.2.4">
 <h3 data-number="21.2.4" class="anchored" data-anchor-id="estimação-de-boldsymbolbeta"><span class="header-section-number">21.2.4</span> Estimação de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
@@ -1103,7 +1098,54 @@ Var(\hat{\boldsymbol{\beta}})
 \succeq
 \mathbf{I}(\boldsymbol{\beta})^{-1}.
 \]</span></p>
-<p>Nenhum estimador não-viesado pode possuir matriz de variância-covariância menor que o inverso da Informação de Fisher <span class="citation" data-cites="casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>)</span>.</p>
+<p>A desigualdade matricial acima não deve ser interpretada elemento a elemento. Quando escrevemos</p>
+<p><span class="math display">\[
+\mathbf{A} \succeq \mathbf{B},
+\]</span></p>
+<p>estamos dizendo que a matriz</p>
+<p><span class="math display">\[
+\mathbf{A}-\mathbf{B}
+\]</span></p>
+<p>é semidefinida positiva.</p>
+<p>Equivalentemente, para qualquer vetor não nulo <span class="math inline">\(\mathbf{c}\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{c}^\top(\mathbf{A}-\mathbf{B})\mathbf{c}\geq 0.
+\]</span></p>
+<p>No contexto do Limite de Cramér-Rao, isso significa que</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}})
+-
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+\]</span></p>
+<p>é semidefinida positiva.</p>
+<p>A interpretação prática é importante: nenhuma combinação linear dos parâmetros pode possuir variância menor do que aquela determinada pelo inverso da Informação de Fisher.</p>
+<p>De fato, para qualquer vetor <span class="math inline">\(\mathbf{c}\)</span>,</p>
+<p><span class="math display">\[
+Var(\mathbf{c}^\top\hat{\boldsymbol{\beta}})
+\geq
+\mathbf{c}^\top
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+\mathbf{c}.
+\]</span></p>
+<p>Portanto, a desigualdade matricial resume simultaneamente um conjunto inteiro de desigualdades envolvendo todas as possíveis combinações lineares dos parâmetros.</p>
+<p>Uma forma prática de verificar se uma matriz <span class="math inline">\(\mathbf{M}\)</span> é semidefinida positiva consiste em analisar seus autovalores. Se todos os autovalores satisfazem</p>
+<p><span class="math display">\[
+\lambda_i \geq 0,
+\]</span></p>
+<p>então <span class="math inline">\(\mathbf{M}\)</span> é semidefinida positiva. Caso todos sejam estritamente positivos,</p>
+<p><span class="math display">\[
+\lambda_i &gt; 0,
+\]</span></p>
+<p>a matriz é dita definida positiva.</p>
+<p>Assim, para verificar a desigualdade</p>
+<p><span class="math display">\[
+\mathbf{A}\succeq \mathbf{B},
+\]</span></p>
+<p>pode-se calcular os autovalores de</p>
+<p><span class="math display">\[
+\mathbf{A}-\mathbf{B}.
+\]</span></p>
+<p>Se todos forem não negativos, a desigualdade matricial é satisfeita <span class="citation" data-cites="seber2003 casella2002">(<a href="references.html#ref-casella2002" role="doc-biblioref">Casella; Berger, 2002</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 <p>Esse resultado estabelece uma barreira teórica universal para a precisão da estimação.</p>
 <p>Quando um estimador satisfaz:</p>
 <p><span class="math display">\[
@@ -1130,7 +1172,6 @@ Var(\hat{\boldsymbol{\beta}})
 <li><p>e uma quantidade diferente de informação estatística.</p></li>
 </ul>
 <p>Consequentemente, diferentes distribuições induzem diferentes estimadores eficientes.</p>
-<p>Essa observação possui enorme importância conceitual.</p>
 <p>Não existe estimador universalmente ótimo independentemente do modelo probabilístico assumido.</p>
 <p>A noção de eficiência estatística está diretamente conectada:</p>
 <ul>

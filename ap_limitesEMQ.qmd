@@ -2,7 +2,7 @@
 
 ## A Provocação de Gauss-Markov
 
-O estimador de Mínimos Quadrados Ordinários (MQO) ocupa posição central na teoria clássica da regressão linear. Em grande parte dos cursos introdutórios, o MQO é apresentado como solução natural e praticamente definitiva para o problema de estimação dos parâmetros do modelo linear. Essa percepção é fortemente influenciada pelo Teorema de Gauss-Markov, um dos resultados mais importantes da Estatística clássica [@seber2003; @montgomery2021].
+O estimador de Mínimos Quadrados Ordinários (MQO) ocupa posição central na teoria clássica da regressão linear. Em grande parte dos cursos introdutórios, o MQO é apresentado como solução natural e praticamente definitiva para o problema de estimação dos parâmetros. Essa percepção é fortemente influenciada pelo Teorema de Gauss-Markov, um dos resultados mais importantes da Estatística clássica [@seber2003; @montgomery2021].
 
 Em sua formulação tradicional, o teorema estabelece que, sob determinadas hipóteses, o estimador de MQO é BLUE (*Best Linear Unbiased Estimator*), isto é, o melhor estimador linear não-viesado.
 
@@ -18,7 +18,13 @@ $$
 \boldsymbol{\varepsilon},
 $$
 
-em que: - $\mathbf{Y}$ representa o vetor $n\times1$ das observações da variável resposta; - $\mathbf{X}$ é a matriz de planejamento de dimensão $n\times p$; - $\boldsymbol{\beta}$ é o vetor dos parâmetros desconhecidos; - $\boldsymbol{\varepsilon}$ representa o vetor aleatório dos erros.
+em que: - $\mathbf{Y}$ representa o vetor $n\times1$ das observações da variável resposta;
+
+-   $\mathbf{X}$ é a matriz de planejamento de dimensão $n\times p$;
+
+-   $\boldsymbol{\beta}$ é o vetor dos parâmetros desconhecidos;
+
+-   $\boldsymbol{\varepsilon}$ representa o vetor aleatório dos erros.
 
 Ao longo dos capítulos anteriores, vimos que o estimador de MQO é obtido pela minimização da soma dos quadrados dos resíduos:
 
@@ -49,19 +55,21 @@ $$
 
 assumindo que a matriz $\mathbf{X}$ possui posto completo [@rencher2012].
 
-A importância do MQO decorre não apenas da simplicidade algébrica da solução, mas também de suas propriedades estatísticas. Sob as hipóteses clássicas: 
+A importância do MQO decorre não apenas da simplicidade algébrica da solução, mas também de suas propriedades estatísticas.
 
-- linearidade do modelo nos parâmetros; 
+Sob as hipóteses clássicas:
 
-- exogeneidade dos erros; 
+-   linearidade do modelo nos parâmetros;
 
-- homocedasticidade; 
+-   exogeneidade dos erros;
 
-- ausência de autocorrelação; 
+-   homocedasticidade;
 
-- e posto completo da matriz de planejamento,
+-   ausência de autocorrelação;
 
-o estimador de MQO possui variância mínima dentro da classe dos estimadores lineares não-viesados [@seber2003; @greene2018].
+-   e posto completo da matriz de planejamento,
+
+o estimador de MQO possui variância mínima dentro da classe dos estimadores lineares não-viesados.
 
 A hipótese de linearidade exige que o modelo seja linear em relação aos parâmetros, e não necessariamente em relação às covariáveis. Assim, o modelo
 
@@ -121,13 +129,9 @@ Var(\hat{\boldsymbol{\beta}}_{MQO})
 0,
 $$
 
-isto é, a diferença entre as matrizes de variância-covariância é semidefinida positiva [@seber2003].
+isto é, a diferença entre as matrizes de variância-covariância é semidefinida positiva [@seber2003]. Esse ponto merece atenção especial.
 
-Esse ponto merece atenção especial.
-
-O resultado de Gauss-Markov não afirma que o MQO é o melhor estimador entre todos os estimadores possíveis. A optimalidade está restrita explicitamente à classe dos estimadores lineares não-viesados.
-
-A palavra “linear” é, portanto, central.
+O resultado de Gauss-Markov não afirma que o MQO é o melhor estimador entre todos os estimadores possíveis. A optimalidade está restrita explicitamente à **classe dos estimadores lineares** não-viesados.
 
 No contexto do teorema, linearidade refere-se ao fato de o estimador poder ser escrito como combinação linear das observações:
 
@@ -137,25 +141,25 @@ $$
 \mathbf{A}\mathbf{Y}.
 $$
 
-Nada impede, ao menos teoricamente, que existam estimadores: 
+Nada impede, ao menos teoricamente, que existam estimadores:
 
-- não lineares; 
+-   não lineares;
 
-- não viesados; 
+-   não viesados;
 
-- e mais eficientes que o MQO.
+-   e mais eficientes que o MQO.
 
 Essa possibilidade torna-se particularmente importante quando a distribuição dos erros deixa de ser gaussiana.
 
 Esse ponto costuma gerar confusão porque muitos estudantes associam incorretamente o Teorema de Gauss-Markov à hipótese de normalidade. Entretanto, a normalidade dos erros não é necessária para que o MQO seja BLUE [@greene2018].
 
-O resultado depende apenas: 
+O resultado depende apenas:
 
-- das hipóteses sobre média e variância; 
+-   das hipóteses sobre média e variância;
 
-- da estrutura linear do modelo; 
+-   da estrutura linear do modelo;
 
-- e das propriedades da matriz de planejamento.
+-   e das propriedades da matriz de planejamento.
 
 Contudo, quando os erros seguem distribuição Normal,
 
@@ -167,33 +171,29 @@ $$
 
 surge uma propriedade substancialmente mais forte.
 
-Nesse cenário: 
+Nesse cenário:
 
-- o MQO coincide com o Estimador de Máxima Verossimilhança; 
+-   o MQO coincide com o Estimador de Máxima Verossimilhança;
 
-- atinge o Limite Inferior de Cramér-Rao; 
+-   atinge o Limite Inferior de Cramér-Rao;
 
-- e torna-se eficiente em sentido global [@casella2002].
+-   e torna-se eficiente em sentido global [@casella2002].
 
 Sob normalidade, portanto, o MQO não é apenas o melhor estimador linear não-viesado. Ele passa a ser o estimador não-viesado de menor variância dentro de uma classe muito mais ampla.
 
-A distinção entre esses dois resultados é fundamental.
+O Teorema de Gauss-Markov fornece optimalidade dentro de uma classe restrita de estimadores. Já a eficiência associada à normalidade decorre da geometria probabilística específica da distribuição gaussiana. Quando a distribuição dos erros muda, muda também a geometria da inferência.
 
-O Teorema de Gauss-Markov fornece optimalidade dentro de uma classe restrita de estimadores. Já a eficiência associada à normalidade decorre da geometria probabilística específica da distribuição gaussiana.
+Cada distribuição induz:
 
-Quando a distribuição dos erros muda, muda também a geometria da inferência.
+-   uma função de verossimilhança específica;
 
-Cada distribuição induz: 
+-   uma função escore particular;
 
-- uma função de verossimilhança específica; 
+-   uma determinada curvatura da log-verossimilhança;
 
-- uma função escore particular; 
+-   uma quantidade distinta de informação estatística;
 
-- uma determinada curvatura da log-verossimilhança; 
-
-- uma quantidade distinta de informação estatística; 
-
-- e uma noção própria de eficiência.
+-   e uma noção própria de eficiência.
 
 No caso Normal, a geometria probabilística conduz naturalmente à perda quadrática:
 
@@ -205,35 +205,35 @@ Essa perda penaliza fortemente grandes resíduos. Um resíduo de magnitude $10$,
 
 Sob normalidade, essa característica é coerente com a estrutura da distribuição. Observações extremas possuem probabilidade muito pequena e carregam forte evidência de incompatibilidade com o modelo.
 
-Entretanto, quando os erros apresentam: 
+Entretanto, quando os erros apresentam:
 
-- caudas mais pesadas; 
+-   caudas mais pesadas;
 
-- maior frequência de observações extremas; 
+-   maior frequência de observações extremas;
 
-- ou estruturas probabilísticas não gaussianas,
+-   ou estruturas probabilísticas não gaussianas,
 
 a perda quadrática pode tornar-se excessivamente sensível.
 
-Nesses cenários: 
+Nesses cenários:
 
-- poucos resíduos extremos podem dominar completamente o ajuste; 
+-   poucos resíduos extremos podem dominar completamente o ajuste;
 
-- a variância do estimador pode aumentar substancialmente; 
+-   a variância do estimador pode aumentar substancialmente;
 
-- e métodos alternativos passam a explorar de maneira mais eficiente a informação presente nos dados.
+-   e métodos alternativos passam a explorar de maneira mais eficiente a informação presente nos dados.
 
-A limitação fundamental do Teorema de Gauss-Markov surge precisamente nesse ponto. O resultado permanece correto, mas sua noção de optimalidade deixa de coincidir com a eficiência estatística global.
+Uma limitação importante do Teorema de Gauss-Markov surge precisamente nesse ponto. O resultado permanece correto, mas sua noção de optimalidade deixa de coincidir com a eficiência estatística global.
 
-Compreender essa diferença exige desenvolver uma teoria mais geral da inferência, capaz de relacionar: 
+Compreender essa diferença exige desenvolver uma teoria mais geral da inferência, capaz de relacionar:
 
-- distribuição dos erros; 
+-   distribuição dos erros;
 
-- geometria da verossimilhança; 
+-   geometria da verossimilhança;
 
-- quantidade de informação; 
+-   quantidade de informação;
 
-- e eficiência dos estimadores.
+-   e eficiência dos estimadores.
 
 Essa estrutura será construída inicialmente para uma distribuição arbitrária dos erros e, posteriormente, particularizada para diferentes cenários probabilísticos.
 
@@ -255,15 +255,15 @@ $$
 \boldsymbol{\varepsilon},
 $$
 
-em que: 
+em que:
 
-- $\mathbf{Y}$ é o vetor das observações; 
+-   $\mathbf{Y}$ é o vetor das observações;
 
-- $\mathbf{X}$ é a matriz de planejamento; 
+-   $\mathbf{X}$ é a matriz de planejamento;
 
-- $\boldsymbol{\beta}$ representa o vetor de parâmetros desconhecidos; 
+-   $\boldsymbol{\beta}$ representa o vetor de parâmetros desconhecidos;
 
-- e $\boldsymbol{\varepsilon}$ é o vetor aleatório dos erros.
+-   e $\boldsymbol{\varepsilon}$ é o vetor aleatório dos erros.
 
 Assumiremos que os erros são independentes e identicamente distribuídos segundo uma densidade genérica:
 
@@ -271,17 +271,15 @@ $$
 f(\varepsilon).
 $$
 
-Essa formulação é extremamente importante porque permite estudar simultaneamente: 
+Essa formulação é extremamente importante porque permite estudar simultaneamente:
 
-- modelos gaussianos; 
+-   modelos gaussianos;
 
-- modelos com caudas pesadas; 
+-   modelos com caudas pesadas;
 
-- distribuições robustas; 
+-   distribuições robustas;
 
-- e diferentes estruturas inferenciais
-
-dentro de uma mesma teoria geral [@huber2009; @lehmann1998].
+-   e diferentes estruturas inferenciais dentro de uma mesma teoria geral [@huber2009; @lehmann1998].
 
 ### Função densidade e características gerais
 
@@ -315,27 +313,25 @@ $$
 
 Observe cuidadosamente a interpretação dessa expressão.
 
-A distribuição da resposta depende diretamente: 
+A distribuição da resposta depende diretamente:
 
-- da distribuição dos erros; 
+-   da distribuição dos erros;
 
-- da estrutura da matriz de planejamento; 
+-   da estrutura da matriz de planejamento;
 
-- e do vetor paramétrico $\boldsymbol{\beta}$.
+-   e do vetor paramétrico $\boldsymbol{\beta}$.
 
-Mudanças na densidade dos erros alteram imediatamente: 
+Mudanças na densidade dos erros alteram imediatamente:
 
-- a forma da verossimilhança; 
+-   a forma da verossimilhança;
 
-- a curvatura inferencial; 
+-   a curvatura inferencial;
 
-- a influência dos resíduos; 
+-   a influência dos resíduos;
 
-- e o comportamento dos estimadores.
+-   e o comportamento dos estimadores.
 
-Esse ponto é central na teoria moderna da inferência.
-
-A distribuição dos erros não constitui apenas hipótese técnica auxiliar. Ela determina a própria geometria estatística do problema inferencial.
+A distribuição dos erros determina a própria geometria estatística do problema inferencial.
 
 ### Verossimilhança
 
@@ -348,9 +344,7 @@ L(\boldsymbol{\beta})
 f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
 $$
 
-Após observar os dados, os valores $y_i$ tornam-se fixos. A verossimilhança passa então a ser interpretada como função dos parâmetros desconhecidos.
-
-Em outras palavras, investigamos quais valores de $\boldsymbol{\beta}$ tornam os dados observados mais plausíveis sob a estrutura probabilística assumida.
+Após observar os dados, os valores $y_i$ tornam-se fixos. A verossimilhança passa então a ser interpretada como função dos parâmetros desconhecidos. Em outras palavras, investigamos quais valores de $\boldsymbol{\beta}$ tornam os dados observados mais plausíveis sob a estrutura probabilística assumida.
 
 Trabalhar diretamente com produtos de densidades costuma ser analiticamente inconveniente. Por isso, utiliza-se a log-verossimilhança:
 
@@ -371,37 +365,29 @@ $$
 f(y_i-\mathbf{x}_i^\top\boldsymbol{\beta}).
 $$
 
-Essa transformação possui enorme importância prática: 
+Essa transformação possui enorme importância prática:
 
-- produtos tornam-se somas; 
+-   produtos tornam-se somas;
 
-- derivações tornam-se mais simples; 
+-   derivações tornam-se mais simples;
 
-- e a estabilidade numérica melhora substancialmente.
+-   e a estabilidade numérica melhora substancialmente.
 
-Além disso, o logaritmo preserva os pontos de máximo da verossimilhança, pois é função estritamente crescente.
+Além disso, o logaritmo preserva os pontos de máximo da verossimilhança, pois é função estritamente crescente. A log-verossimilhança também possui interpretação geométrica fundamental.
 
-A log-verossimilhança também possui interpretação geométrica fundamental.
+Ela define uma superfície sobre o espaço paramétrico. Em problemas unidimensionais, essa superfície reduz-se a uma curva. Em espaços paramétricos maiores, surge uma hipersuperfície cuja forma determina:
 
-Ela define uma superfície sobre o espaço paramétrico. Em problemas unidimensionais, essa superfície reduz-se a uma curva. Em espaços paramétricos maiores, surge uma hipersuperfície cuja forma determina: 
+-   precisão inferencial;
 
-- precisão inferencial; 
+-   estabilidade da estimação;
 
-- estabilidade da estimação;
+-   e quantidade de informação disponível.
 
-- e quantidade de informação disponível.
-
-Superfícies muito “pontiagudas” indicam alta sensibilidade da plausibilidade em relação aos parâmetros. Pequenas alterações paramétricas reduzem rapidamente a verossimilhança, produzindo estimativas mais precisas.
-
-Superfícies mais planas indicam maior incerteza inferencial.
-
-A inferência estatística pode ser interpretada, portanto, como estudo da geometria da log-verossimilhança.
+Superfícies muito “pontiagudas” indicam alta sensibilidade da plausibilidade em relação aos parâmetros. Pequenas alterações paramétricas reduzem rapidamente a verossimilhança, produzindo estimativas mais precisas. Superfícies mais planas indicam maior incerteza inferencial. A inferência estatística pode ser interpretada, portanto, como estudo da geometria da log-verossimilhança.
 
 ### Função escore
 
-Para localizar máximos da log-verossimilhança, derivamos a função em relação aos parâmetros.
-
-No caso vetorial, define-se a Função Escore como:
+Para localizar máximos da log-verossimilhança, derivamos a função em relação aos parâmetros. No caso vetorial, define-se a Função Escore como:
 
 $$
 \mathbf{U}(\boldsymbol{\beta})
@@ -514,27 +500,27 @@ $$
 \psi(e_i)\mathbf{x}_i.
 $$
 
-A função $\psi$ desempenha papel central em inferência robusta e em teoria de estimadores M [@huber2009; @maronna2019].
+A função $\psi$ corresponde à derivada da função de perda $\rho$ na teoria dos estimadores M [@huber2009; @maronna2019].
 
-Ela controla diretamente: 
+Ela controla diretamente:
 
-- a influência dos resíduos; 
+-   a influência dos resíduos;
 
-- a sensibilidade do estimador; 
+-   a sensibilidade do estimador;
 
-- e o comportamento da estimação diante de observações extremas.
+-   e o comportamento da estimação diante de observações extremas.
 
 Cada distribuição gera uma função $\psi$ diferente.
 
-No caso Normal, $\psi(e)$ será linear. Em distribuições robustas, poderá: 
+No caso Normal, $\psi(e)$ será linear. Em distribuições robustas, poderá:
 
-- crescer lentamente; 
+-   crescer lentamente;
 
-- saturar; 
+-   saturar;
 
-- ou até reduzir a influência de grandes resíduos.
+-   ou até reduzir a influência de grandes resíduos.
 
-A geometria inferencial está profundamente conectada a esse comportamento.
+A geometria inferencial está associada a esse comportamento.
 
 ### Estimação de $\boldsymbol{\beta}$
 
@@ -549,17 +535,17 @@ $$
 
 Essa expressão unifica uma enorme variedade de métodos de estimação.
 
-Dependendo da escolha da densidade dos erros, obtemos: 
+Dependendo da escolha da densidade dos erros, obtemos:
 
-- MQO (Mínimos Quadrados Ordinários); 
+-   MQO (Mínimos Quadrados Ordinários);
 
-- LAD (*Least Absolute Deviations* ou Mínimos Desvios Absolutos); 
+-   LAD (*Least Absolute Deviations* ou Mínimos Desvios Absolutos);
 
-- regressão robusta; 
+-   regressão robusta;
 
-- estimadores adaptativos; 
+-   estimadores adaptativos;
 
-- e diferentes classes de estimadores M.
+-   e diferentes classes de estimadores M.
 
 A função de perda associada ao problema pode ser obtida integrando $\psi(e)$:
 
@@ -570,13 +556,13 @@ $$
 \psi(e)\,de.
 $$
 
-Assim, cada distribuição dos erros induz naturalmente: 
+Assim, cada distribuição dos erros induz naturalmente:
 
-- uma função de perda; 
+-   uma função de perda;
 
-- uma geometria de otimização; 
+-   uma geometria de otimização;
 
-- e um estimador eficiente específico.
+-   e um estimador eficiente específico.
 
 A estimação deixa então de ser mero problema algébrico de minimização quadrática e passa a ser consequência direta da estrutura probabilística assumida para os dados.
 
@@ -595,21 +581,21 @@ $$
 
 A Hessiana generaliza a segunda derivada para o caso multivariado e mede a curvatura local da log-verossimilhança.
 
-Curvaturas elevadas produzem: 
+Curvaturas elevadas produzem:
 
-- verossimilhanças mais concentradas; 
+-   verossimilhanças mais concentradas;
 
-- maior sensibilidade paramétrica; 
+-   maior sensibilidade paramétrica;
 
-- e menor variabilidade dos estimadores.
+-   e menor variabilidade dos estimadores.
 
-Curvaturas pequenas produzem: 
+Curvaturas pequenas produzem:
 
-- superfícies relativamente planas; 
+-   superfícies relativamente planas;
 
-- maior incerteza; 
+-   maior incerteza;
 
-- e menor precisão inferencial.
+-   e menor precisão inferencial.
 
 A Informação de Fisher formaliza essa ideia [@casella2002; @lehmann1998]:
 
@@ -637,13 +623,13 @@ $$
 
 A Informação de Fisher mede a quantidade de informação disponível nos dados sobre os parâmetros desconhecidos.
 
-Quanto maior: 
+Quanto maior:
 
-- a curvatura da log-verossimilhança; 
+-   a curvatura da log-verossimilhança;
 
-- a sensibilidade paramétrica; 
+-   a sensibilidade paramétrica;
 
-- e a concentração da distribuição,
+-   e a concentração da distribuição,
 
 maior tende a ser a Informação de Fisher.
 
@@ -655,7 +641,77 @@ Var(\hat{\boldsymbol{\beta}})
 \mathbf{I}(\boldsymbol{\beta})^{-1}.
 $$
 
-Nenhum estimador não-viesado pode possuir matriz de variância-covariância menor que o inverso da Informação de Fisher [@casella2002].
+A desigualdade matricial acima não deve ser interpretada elemento a elemento. Quando escrevemos
+
+$$
+\mathbf{A} \succeq \mathbf{B},
+$$
+
+estamos dizendo que a matriz
+
+$$
+\mathbf{A}-\mathbf{B}
+$$
+
+é semidefinida positiva.
+
+Equivalentemente, para qualquer vetor não nulo $\mathbf{c}$,
+
+$$
+\mathbf{c}^\top(\mathbf{A}-\mathbf{B})\mathbf{c}\geq 0.
+$$
+
+No contexto do Limite de Cramér-Rao, isso significa que
+
+$$
+Var(\hat{\boldsymbol{\beta}})
+-
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+$$
+
+é semidefinida positiva.
+
+A interpretação prática é importante: nenhuma combinação linear dos parâmetros pode possuir variância menor do que aquela determinada pelo inverso da Informação de Fisher.
+
+De fato, para qualquer vetor $\mathbf{c}$,
+
+$$
+Var(\mathbf{c}^\top\hat{\boldsymbol{\beta}})
+\geq
+\mathbf{c}^\top
+\mathbf{I}(\boldsymbol{\beta})^{-1}
+\mathbf{c}.
+$$
+
+Portanto, a desigualdade matricial resume simultaneamente um conjunto inteiro de desigualdades envolvendo todas as possíveis combinações lineares dos parâmetros.
+
+Uma forma prática de verificar se uma matriz $\mathbf{M}$ é semidefinida positiva consiste em analisar seus autovalores. Se todos os autovalores satisfazem
+
+$$
+\lambda_i \geq 0,
+$$
+
+então $\mathbf{M}$ é semidefinida positiva. Caso todos sejam estritamente positivos,
+
+$$
+\lambda_i > 0,
+$$
+
+a matriz é dita definida positiva.
+
+Assim, para verificar a desigualdade
+
+$$
+\mathbf{A}\succeq \mathbf{B},
+$$
+
+pode-se calcular os autovalores de
+
+$$
+\mathbf{A}-\mathbf{B}.
+$$
+
+Se todos forem não negativos, a desigualdade matricial é satisfeita [@seber2003; @casella2002].
 
 Esse resultado estabelece uma barreira teórica universal para a precisão da estimação.
 
@@ -669,51 +725,49 @@ $$
 
 dizemos que ele é eficiente.
 
-Nesse caso: 
+Nesse caso:
 
-- toda a informação disponível nos dados foi extraída; 
+-   toda a informação disponível nos dados foi extraída;
 
-- nenhuma redução adicional de variância é possível sem introdução de viés; 
+-   nenhuma redução adicional de variância é possível sem introdução de viés;
 
-- e o estimador atinge a máxima precisão teoricamente admissível.
+-   e o estimador atinge a máxima precisão teoricamente admissível.
 
 ### Eficiência estatística
 
 A eficiência estatística depende profundamente da distribuição assumida para os erros.
 
-Cada distribuição produz: 
+Cada distribuição produz:
 
-- uma geometria distinta da log-verossimilhança; 
+-   uma geometria distinta da log-verossimilhança;
 
-- uma função escore específica; 
+-   uma função escore específica;
 
-- uma curvatura própria; 
+-   uma curvatura própria;
 
-- e uma quantidade diferente de informação estatística.
+-   e uma quantidade diferente de informação estatística.
 
 Consequentemente, diferentes distribuições induzem diferentes estimadores eficientes.
 
-Essa observação possui enorme importância conceitual.
-
 Não existe estimador universalmente ótimo independentemente do modelo probabilístico assumido.
 
-A noção de eficiência estatística está diretamente conectada: 
+A noção de eficiência estatística está diretamente conectada:
 
-- à distribuição dos erros; 
+-   à distribuição dos erros;
 
-- à estrutura das caudas; 
+-   à estrutura das caudas;
 
-- à geometria da verossimilhança; 
+-   à geometria da verossimilhança;
 
-- e à forma como resíduos são penalizados.
+-   e à forma como resíduos são penalizados.
 
-Nos próximos cenários, particularizaremos essa estrutura geral para diferentes distribuições dos erros e veremos como: 
+Nos próximos cenários, particularizaremos essa estrutura geral para diferentes distribuições dos erros e veremos como:
 
-- o MQO emerge naturalmente sob normalidade; 
+-   o MQO emerge naturalmente sob normalidade;
 
-- o LAD surge sob distribuição de Laplace; 
+-   o LAD surge sob distribuição de Laplace;
 
-- e estimadores robustos aparecem naturalmente sob distribuições com caudas pesadas.
+-   e estimadores robustos aparecem naturalmente sob distribuições com caudas pesadas.
 
 ## Cenário Gaussiano: A Distribuição Normal e a Optimalidade do MQO
 
@@ -741,15 +795,15 @@ $$
 N(\mathbf{0},\sigma^2\mathbf{I}_n).
 $$
 
-Essa hipótese implica: 
+Essa hipótese implica:
 
-- média zero para os erros; 
+-   média zero para os erros;
 
-- variância constante; 
+-   variância constante;
 
-- independência; 
+-   independência;
 
-- e distribuição Normal.
+-   e distribuição Normal.
 
 Consequentemente,
 
@@ -760,11 +814,11 @@ N(\mathbf{X}\boldsymbol{\beta},
 \sigma^2\mathbf{I}_n).
 $$
 
-A distribuição da resposta passa então a ser completamente caracterizada por: 
+A distribuição da resposta passa então a ser completamente caracterizada por:
 
-- sua média; 
+-   sua média;
 
-- e sua matriz de variância-covariância.
+-   e sua matriz de variância-covariância.
 
 Esse ponto possui enorme importância. A hipótese gaussiana fornece muito mais informação do que simples condições sobre média e variância. Ela especifica integralmente a estrutura probabilística dos dados.
 
@@ -801,15 +855,15 @@ $$
 
 A forma exponencial quadrática da densidade é a característica central da geometria gaussiana.
 
-A distribuição Normal possui: 
+A distribuição Normal possui:
 
-- caudas leves; 
+-   caudas leves;
 
-- elevada suavidade analítica; 
+-   elevada suavidade analítica;
 
-- curvatura regular da log-verossimilhança; 
+-   curvatura regular da log-verossimilhança;
 
-- e rápida redução da plausibilidade de grandes desvios.
+-   e rápida redução da plausibilidade de grandes desvios.
 
 Observações extremas tornam-se rapidamente improváveis à medida que se afastam da média.
 
@@ -984,13 +1038,13 @@ $$
 
 A função $\psi$ cresce linearmente com o resíduo.
 
-Consequentemente: 
+Consequentemente:
 
-- resíduos grandes exercem forte influência; 
+-   resíduos grandes exercem forte influência;
 
-- observações extremas possuem elevado impacto inferencial; 
+-   observações extremas possuem elevado impacto inferencial;
 
-- e pequenas contaminações podem alterar substancialmente o ajuste do modelo.
+-   e pequenas contaminações podem alterar substancialmente o ajuste do modelo.
 
 Esse comportamento está diretamente ligado à geometria da perda quadrática.
 
@@ -1055,15 +1109,15 @@ $$
 
 Esse resultado é um dos mais importantes da regressão clássica. Sob normalidade, o estimador de máxima verossimilhança coincide exatamente com o estimador de mínimos quadrados.
 
-A estrutura quadrática da log-verossimilhança produz: 
+A estrutura quadrática da log-verossimilhança produz:
 
-- solução explícita; 
+-   solução explícita;
 
-- convexidade global; 
+-   convexidade global;
 
-- unicidade do estimador; 
+-   unicidade do estimador;
 
-- e grande simplicidade computacional.
+-   e grande simplicidade computacional.
 
 ### Informação de Fisher e LICR
 
@@ -1099,11 +1153,11 @@ $$
 
 A Hessiana gaussiana possui característica particularmente importante: ela não depende dos dados observados nem dos parâmetros desconhecidos.
 
-A curvatura da log-verossimilhança é inteiramente determinada: 
+A curvatura da log-verossimilhança é inteiramente determinada:
 
-- pela variância dos erros; 
+-   pela variância dos erros;
 
-- e pela geometria da matriz de planejamento.
+-   e pela geometria da matriz de planejamento.
 
 A Informação de Fisher é:
 
@@ -1122,13 +1176,13 @@ $$
 \mathbf{X}^\top\mathbf{X}.
 $$
 
-A quantidade de informação cresce: 
+A quantidade de informação cresce:
 
-- quando a variabilidade das covariáveis aumenta; 
+-   quando a variabilidade das covariáveis aumenta;
 
-- quando há menor colinearidade; 
+-   quando há menor colinearidade;
 
-- e quando a variância dos erros diminui.
+-   e quando a variância dos erros diminui.
 
 O Limite Inferior de Cramér-Rao estabelece então que:
 
@@ -1170,41 +1224,41 @@ $$
 
 O MQO atinge exatamente o Limite Inferior de Cramér-Rao.
 
-Esse resultado implica que: 
+Esse resultado implica que:
 
-- toda a informação disponível nos dados foi extraída; 
+-   toda a informação disponível nos dados foi extraída;
 
-- nenhuma redução adicional de variância é possível sem introdução de viés; 
+-   nenhuma redução adicional de variância é possível sem introdução de viés;
 
-- e o MQO torna-se eficiente em sentido global.
+-   e o MQO torna-se eficiente em sentido global.
 
-Sob normalidade, portanto: 
+Sob normalidade, portanto:
 
-- o MQO é BLUE; 
+-   o MQO é BLUE;
 
-- coincide com o estimador de máxima verossimilhança; 
+-   coincide com o estimador de máxima verossimilhança;
 
-- e atinge a máxima eficiência estatística teoricamente admissível.
+-   e atinge a máxima eficiência estatística teoricamente admissível.
 
 A optimalidade do MQO, entretanto, depende profundamente da geometria gaussiana.
 
-A perda quadrática: 
+A perda quadrática:
 
-- penaliza fortemente observações extremas; 
+-   penaliza fortemente observações extremas;
 
-- produz influência linear dos resíduos; 
+-   produz influência linear dos resíduos;
 
-- e pressupõe que grandes desvios sejam altamente improváveis.
+-   e pressupõe que grandes desvios sejam altamente improváveis.
 
-Quando a distribuição dos erros muda: 
+Quando a distribuição dos erros muda:
 
-- muda a forma da verossimilhança; 
+-   muda a forma da verossimilhança;
 
-- muda a função escore; 
+-   muda a função escore;
 
-- muda a Informação de Fisher; 
+-   muda a Informação de Fisher;
 
-- e pode mudar completamente o estimador eficiente.
+-   e pode mudar completamente o estimador eficiente.
 
 ## Cenário Laplace: Perda Absoluta, Mediana e Regressão LAD
 
@@ -2240,15 +2294,15 @@ Os próximos cenários mostrarão precisamente como distribuições com caudas m
 
 ## Estimadores M e a Unificação da Estimação Robusta
 
-Os cenários estudados nas seções anteriores revelam uma estrutura inferencial comum. Em todos os casos: 
+Os cenários estudados nas seções anteriores revelam uma estrutura inferencial comum. Em todos os casos:
 
-- parte-se de uma distribuição para os erros; 
+-   parte-se de uma distribuição para os erros;
 
-- constrói-se a verossimilhança; 
+-   constrói-se a verossimilhança;
 
-- deriva-se a função escore; 
+-   deriva-se a função escore;
 
-- e obtém-se um estimador associado à geometria probabilística do modelo.
+-   e obtém-se um estimador associado à geometria probabilística do modelo.
 
 Essa observação possui enorme importância conceitual porque mostra que MQO, LAD e regressão robusta não devem ser vistos como técnicas desconectadas. Todos podem ser compreendidos dentro de uma mesma estrutura geral de estimação.
 
@@ -2408,11 +2462,11 @@ Essa estrutura permite interpretar muitos métodos robustos modernos como escolh
 
 Um dos exemplos mais importantes é o estimador de Huber [@huber2009].
 
-A função de perda de Huber combina: 
+A função de perda de Huber combina:
 
-- comportamento quadrático próximo da origem; 
+-   comportamento quadrático próximo da origem;
 
-- e comportamento linear para resíduos grandes.
+-   e comportamento linear para resíduos grandes.
 
 Ela pode ser escrita como
 
@@ -2456,11 +2510,11 @@ Para resíduos pequenos, o comportamento é semelhante ao MQO.
 
 Para resíduos grandes, o crescimento da influência é interrompido, aproximando-se do comportamento do LAD.
 
-O estimador de Huber busca justamente equilibrar: 
+O estimador de Huber busca justamente equilibrar:
 
-- eficiência sob quase-normalidade; 
+-   eficiência sob quase-normalidade;
 
-- e robustez diante de contaminações e outliers [@huber2009; @hampel1986].
+-   e robustez diante de contaminações e outliers [@huber2009; @hampel1986].
 
 Esse ponto evidencia uma característica importante da inferência estatística moderna: eficiência e robustez frequentemente envolvem compromisso (*trade-off*).
 
@@ -2468,42 +2522,42 @@ Estimadores extremamente eficientes sob normalidade podem tornar-se excessivamen
 
 Estimadores muito robustos, por outro lado, podem perder eficiência quando a hipótese gaussiana é aproximadamente válida.
 
-A escolha do estimador depende então: 
+A escolha do estimador depende então:
 
-- da estrutura probabilística dos dados; 
+-   da estrutura probabilística dos dados;
 
-- da presença de observações extremas; 
+-   da presença de observações extremas;
 
-- da estabilidade desejada; 
+-   da estabilidade desejada;
 
-- e dos objetivos inferenciais da análise.
+-   e dos objetivos inferenciais da análise.
 
 Os estimadores M fornecem precisamente essa flexibilidade.
 
-Mais importante ainda, eles revelam uma unificação conceitual profunda: 
+Mais importante ainda, eles revelam uma unificação conceitual profunda:
 
-- diferentes distribuições; 
+-   diferentes distribuições;
 
-- diferentes funções de perda; 
+-   diferentes funções de perda;
 
-- diferentes funções escore; 
+-   diferentes funções escore;
 
-- e diferentes métodos robustos
+-   e diferentes métodos robustos
 
 podem ser compreendidos dentro de uma mesma estrutura inferencial.
 
 Sob essa perspectiva, a regressão linear deixa de ser apenas um problema algébrico de minimização quadrática.
 
-Ela passa a ser entendida como problema geométrico e probabilístico no qual: 
+Ela passa a ser entendida como problema geométrico e probabilístico no qual:
 
-- a distribuição dos erros; 
+-   a distribuição dos erros;
 
-- a geometria da verossimilhança; 
+-   a geometria da verossimilhança;
 
-- a curvatura inferencial; 
+-   a curvatura inferencial;
 
-- a robustez; 
+-   a robustez;
 
-- e a eficiência estatística
+-   e a eficiência estatística
 
 estão profundamente conectadas.
