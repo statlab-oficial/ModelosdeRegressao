@@ -90,7 +90,7 @@ Assim como a matriz $\mathbf{X}$ organiza as variáveis explicativas, as matrize
 
 A partir desses resultados, obtemos três propriedades fundamentais.
 
-1. Estimadores dos coeficientes normalmente distribuídos
+1.  Estimadores dos coeficientes normalmente distribuídos
 
 $$
 \hat{\boldsymbol{\beta}} \mid \mathbf{X} \sim N_{p+1}\!\big(\boldsymbol{\beta},\,\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\big).
@@ -98,7 +98,7 @@ $$
 
 Cada coeficiente estimado segue uma distribuição normal centrada no valor verdadeiro, com variância determinada pela variabilidade dos erros e pela estrutura das variáveis explicativas.
 
-2. A soma de quadrados dos resíduos segue uma distribuição qui-quadrado
+2.  A soma de quadrados dos resíduos segue uma distribuição qui-quadrado
 
 $$
 SQ_{Res}=\hat{\boldsymbol{\varepsilon}}^\top\hat{\boldsymbol{\varepsilon}}=\mathbf{Y}^\top \mathbf{M}\mathbf{Y},
@@ -110,15 +110,15 @@ $$
 \frac{SQ_{Res}}{\sigma^2}\sim \chi^2_{n-p-1}.
 $$
 
-3. Independência entre estimadores e variância dos erros
+3.  Independência entre estimadores e variância dos erros
 
 O vetor $\hat{\boldsymbol{\beta}}$ e a soma de quadrados dos resíduos $SQ_{Res}$ são independentes. Esse resultado decorre da ortogonalidade entre o espaço gerado pelas variáveis explicativas e o seu complemento.
 
 Esses três resultados constituem a base da inferência estatística no MRLM. Eles permitem
 
-- construir estatísticas $t$ e $F$ com distribuições exatas em amostras finitas
-- obter intervalos de confiança para coeficientes e para a média condicional
-- construir intervalos de predição para novas observações
+-   construir estatísticas $t$ e $F$ com distribuições exatas em amostras finitas
+-   obter intervalos de confiança para coeficientes e para a média condicional
+-   construir intervalos de predição para novas observações
 
 Todas essas conclusões devem ser interpretadas condicionalmente às variáveis incluídas no modelo. Em particular, dizer que um coeficiente é significativo significa que, mantendo as demais variáveis fixas, a variação em $x_j$ está associada a uma mudança média em $Y$ que dificilmente pode ser atribuída apenas ao acaso. Isso difere da análise de correlação simples, que não controla o efeito das demais variáveis explicativas.
 
@@ -134,18 +134,18 @@ H_0:\ \beta_j=0
 H_1:\ \beta_j\neq 0,
 $$
 
-para $j=1,\dots,p$. O intercepto $\beta_0$ pode ser testado pela mesma lógica, embora sua interpretação seja particular. 
+para $j=1,\dots,p$. O intercepto $\beta_0$ pode ser testado pela mesma lógica, embora sua interpretação seja particular.
 
 O parâmetro $\beta_0$ representa o valor esperado de $Y$ quando todas as variáveis explicativas são iguais a zero. Em alguns contextos, isso pode ser informativo, como quando zero tem significado natural. Em outros, pode não ter interpretação prática direta.
 
 Uma prática comum é centrar as variáveis explicativas, subtraindo suas médias. Nesse caso, o intercepto passa a representar a média condicional de $Y$ no ponto central do espaço das covariáveis. Essa transformação melhora a interpretação, sem alterar testes, previsões ou a qualidade do ajuste.
 
-### Construção da estatística t
+### Construção da estatística de teste marginal
 
-Considere $c_{jj}$ o elemento da diagonal de $(\mathbf{X}^\top\mathbf{X})^{-1}$ associado ao coeficiente $\beta_j$. Sob o MRLM Normal,
+Considere $v_{jj}$ o elemento da diagonal de $(\mathbf{X}^\top\mathbf{X})^{-1}$ associado ao coeficiente $\beta_j$. Sob o MRLM Normal,
 
 $$
-\operatorname{Var}(\hat{\beta}_j\mid \mathbf{X})=\sigma^2 c_{jj}.
+\operatorname{Var}(\hat{\beta}_j\mid \mathbf{X})=\sigma^2 v_{jj}.
 $$
 
 Como $\sigma^2$ é desconhecido, utilizamos o estimador
@@ -158,21 +158,18 @@ $$
 Assim, o erro-padrão de $\hat{\beta}_j$ é
 
 $$
-\operatorname{EP}(\hat{\beta}_j)=\hat{\sigma}\sqrt{c_{jj}}.
+\operatorname{EP}(\hat{\beta}_j)=\hat{\sigma}\sqrt{v_{jj}}.
 $$
 
-A estatística de teste é dada por
+A estatística de teste para o teste $H_0: \beta_j = \beta_{j,0}$ vs $H_0: \beta_j \neq \beta_{j,0}$ é dada por
 
 $$
-t_j=\frac{\hat{\beta}_j-\beta_{j,0}}{\hat{\sigma}\sqrt{c_{jj}}}.
-$$
-No teste usual $H_0: \beta_{j}=0$, logo temos $\beta_{j,0}=0$ e
+t_j=\frac{\hat{\beta}_j-\beta_{j,0}}{\hat{\sigma}\sqrt{v_{jj}}}.
+$$ No teste usual $H_0: \beta_{j}=0$, logo temos $\beta_{j,0}=0$ e
 
 $$
-t_j=\frac{\hat{\beta}_j}{\hat{\sigma}\sqrt{c_{jj}}}.
-$$
-
-Se $H_0$ é verdadeira e as hipóteses do MRLM Normal são satisfeitas, então
+t_j=\frac{\hat{\beta}_j}{\hat{\sigma}\sqrt{v_{jj}}}.
+$$vSe $H_0$ é verdadeira e as hipóteses do MRLM Normal são satisfeitas, então
 
 $$
 t_j\sim t_{n-p-1}.
@@ -180,7 +177,7 @@ $$
 
 O denominador dessa estatística mede a incerteza associada ao coeficiente estimado e depende diretamente da estrutura da matriz $\mathbf{X}$.
 
-Quando a variável $x_j$ apresenta forte colinearidade com outras variáveis explicativas, a matriz $(\mathbf{X}^\top\mathbf{X})^{-1}$ tende a amplificar $c_{jj}$, aumentando o erro-padrão. Como consequência, a estatística $t_j$ diminui, reduzindo o poder do teste e dificultando a detecção de efeitos reais.
+Quando a variável $x_j$ apresenta forte colinearidade com outras variáveis explicativas, a matriz $(\mathbf{X}^\top\mathbf{X})^{-1}$ tende a amplificar $v_{jj}$, aumentando o erro-padrão. Como consequência, a estatística $t_j$ diminui, reduzindo o poder do teste e dificultando a detecção de efeitos reais.
 
 ### Interpretação e decisão
 
@@ -203,14 +200,14 @@ $$
 A estatística de teste é
 
 $$
-t_j=\frac{\hat{\beta}_j-d_j}{\hat{\sigma}\sqrt{c_{jj}}}.
+t_j=\frac{\hat{\beta}_j-d_j}{\hat{\sigma}\sqrt{v_{jj}}}.
 $$
 
 Elevando ao quadrado, obtemos
 
 $$
 F_j=t_j^2
-= \frac{(\hat{\beta}_j-d_j)\left(c_{jj}\right)^{-1}(\hat{\beta}_j-d_j)}{\widehat{\sigma^2}}.
+= \frac{(\hat{\beta}_j-d_j)\left(v_{jj}\right)^{-1}(\hat{\beta}_j-d_j)}{\widehat{\sigma^2}}.
 $$
 
 Sob $H_0$,
@@ -223,15 +220,15 @@ Essa equivalência entre $t^2$ e $F$ no caso unidimensional será útil ao conec
 
 ### Cuidados essenciais
 
-- Multicolinearidade pode aumentar erros-padrão e dificultar a identificação de efeitos relevantes.
-- Omissão de variáveis importantes pode introduzir viés nas estimativas e afetar a significância estatística.
-- Testes múltiplos sem controle adequado aumentam o risco de conclusões equivocadas.
+-   Multicolinearidade pode aumentar erros-padrão e dificultar a identificação de efeitos relevantes.
+-   Omissão de variáveis importantes pode introduzir viés nas estimativas e afetar a significância estatística.
+-   Testes múltiplos sem controle adequado aumentam o risco de conclusões equivocadas.
 
 Esses pontos mostram a importância de complementar a análise com diagnóstico de resíduos e avaliação do modelo.
 
 ### Ideias de demonstração
 
-(i) De $\hat{\boldsymbol{\beta}}\mid \mathbf{X}\sim N_{p+1}(\boldsymbol{\beta},\,\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1})$ segue $\hat{\beta}_j\sim N(\beta_j,\sigma^2 c_{jj})$.
+(i) De $\hat{\boldsymbol{\beta}}\mid \mathbf{X}\sim N_{p+1}(\boldsymbol{\beta},\,\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1})$ segue $\hat{\beta}_j\sim N(\beta_j,\sigma^2 v_{jj})$.
 
 (ii) $SQ_{Res}/\sigma^2=\mathbf{Y}^\top(\mathbf{I}_n-\mathbf{H})\mathbf{Y}/\sigma^2\sim \chi^2_{n-p-1}$.
 
@@ -240,7 +237,7 @@ Esses pontos mostram a importância de complementar a análise com diagnóstico 
 (iv) O pivô
 
 $$
-\frac{\hat{\beta}_j-\beta_j}{\sigma\sqrt{c_{jj}}}\sim N(0,1),
+\frac{\hat{\beta}_j-\beta_j}{\sigma\sqrt{v_{jj}}}\sim N(0,1),
 \qquad
 \frac{SQ_{Res}}{\sigma^2}\sim \chi^2_{n-p-1}
 $$
@@ -265,7 +262,7 @@ H_0:\ C\boldsymbol{\beta}=\mathbf{d}
 H_1:\ C\boldsymbol{\beta}\neq \mathbf{d},
 $$
 
-onde $C$ é uma matriz $q\times (p+1)$ de posto $q$, cujas linhas representam restrições independentes, e $\mathbf{d}$ é um vetor fixo de dimensão $q$.
+em que $C$ é uma matriz $q\times (p+1)$ de posto $q$, cujas linhas representam restrições independentes, e $\mathbf{d}$ é um vetor fixo de dimensão $q$.
 
 Alguns exemplos ajudam a compreender a construção.
 
@@ -394,8 +391,8 @@ Quando $q=1$, recuperamos o caso individual, pois $t_j^2=F_{1,\,n-p-1}$. Para $q
 
 Uma interpretação bastante intuitiva é obtida comparando dois modelos aninhados:
 
-- Modelo completo: inclui todas as variáveis.
-- Modelo reduzido: impõe as restrições de $H_0$.
+-   Modelo completo: inclui todas as variáveis.
+-   Modelo reduzido: impõe as restrições de $H_0$.
 
 Denotando por $SQ_R$ a soma de quadrados da regressão do modelo completo e por $SQ_R^\ast$ a do modelo reduzido, temos
 
@@ -449,7 +446,7 @@ Valores elevados de $F$ indicam que o bloco de variáveis contribui para explica
 
 Na prática, é importante reportar o valor de $F$, os graus de liberdade, o valor-$p$ e, principalmente, quais restrições estão sendo testadas.
 
-**(f) $R^2$ parcial e medidas de efeito.**
+**(f)** $R^2$ parcial e medidas de efeito.
 
 Para um bloco de $q$ variáveis, definimos
 
@@ -469,17 +466,17 @@ Para $q=1$, o $R^2$ parcial coincide com o quadrado da correlação parcial entr
 
 **(g) Pressupostos e robustez.**
 
-- Sob normalidade, a distribuição $F$ é exata em amostras finitas.
-- Em amostras grandes, a aproximação continua válida mesmo sem normalidade.
-- Na presença de heterocedasticidade, devem-se usar versões robustas dos erros-padrão.
-- Em séries temporais, métodos como HAC ou GLS são mais adequados.
+-   Sob normalidade, a distribuição $F$ é exata em amostras finitas.
+-   Em amostras grandes, a aproximação continua válida mesmo sem normalidade.
+-   Na presença de heterocedasticidade, devem-se usar versões robustas dos erros-padrão.
+-   Em séries temporais, métodos como HAC ou GLS são mais adequados.
 
 **(h) Ideias de demonstração.**
 
-1. Sob $H_0$, $C\hat{\boldsymbol{\beta}}-\mathbf{d}$ tem distribuição normal multivariada.
-2. A forma quadrática correspondente segue uma distribuição qui-quadrado com $q$ graus de liberdade.
-3. Essa quantidade é independente de $SQ_{Res}$.
-4. O quociente dessas quantidades leva à distribuição $F_{q,n-p-1}$.
+1.  Sob $H_0$, $C\hat{\boldsymbol{\beta}}-\mathbf{d}$ tem distribuição normal multivariada.
+2.  A forma quadrática correspondente segue uma distribuição qui-quadrado com $q$ graus de liberdade.
+3.  Essa quantidade é independente de $SQ_{Res}$.
+4.  O quociente dessas quantidades leva à distribuição $F_{q,n-p-1}$.
 
 ## ANOVA em regressão múltipla e teste global
 
@@ -509,7 +506,7 @@ mostra que a variabilidade total se decompõe em uma parte explicada pelo modelo
 
 Essa decomposição também pode ser expressa em notação matricial.
 
-Definindo $J=\mathbf{1}\mathbf{1}^\top/n$, que projeta no subespaço gerado pelo vetor de uns, $H=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e $M=I_n-H$, temos
+Definindo $J=\mathbf{1}\mathbf{1}^\top/n$, que projeta no subespaço gerado pelo vetor de uns, $\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ e $M=I_n-H$, temos
 
 $$
 SQ_T=\mathbf{Y}^\top(I_n-J)\mathbf{Y},\qquad
@@ -525,9 +522,9 @@ Geometricamente, $(H-J)\mathbf{Y}$ representa a parte de $\mathbf{Y}$ explicada 
 
 Com intercepto no modelo, temos $\operatorname{rank}(\mathbf{X})=p+1$:
 
-- $SQ_T$: $gl_T=n-1$
-- $SQ_R$: $gl_R=p$
-- $SQ_{Res}$: $gl_{Res}=n-p-1$
+-   $SQ_T$: $gl_T=n-1$
+-   $SQ_R$: $gl_R=p$
+-   $SQ_{Res}$: $gl_{Res}=n-p-1$
 
 As médias quadráticas são
 
@@ -539,7 +536,7 @@ $$
 
 e a comparação entre elas constitui a base do teste global.
 
-**(d) Teste global da regressão (estatística $F$).**
+**(d) Teste global da regressão (estatística** $F$).
 
 Hipóteses:
 
@@ -563,7 +560,7 @@ $$
 
 Se $F$ assume valores suficientemente elevados, ou se o valor-$p$ é pequeno, concluímos que o modelo como um todo contribui para explicar a variabilidade de $Y$.
 
-**(e) Relação com $R^2$ e tamanho do modelo.**
+**(e) Relação com** $R^2$ e tamanho do modelo.
 
 O coeficiente de determinação, usualmente denotado por $R^2$, é
 
@@ -589,23 +586,23 @@ Quando há apenas uma variável explicativa, a equivalência $F_{1,n-2}=t_{n-2}^
 
 **(g) Questões práticas e variações.**
 
-- Modelo sem intercepto: a decomposição padrão muda e a interpretação de $SQ_R$ e $R^2$ deve ser ajustada.
+-   Modelo sem intercepto: a decomposição padrão muda e a interpretação de $SQ_R$ e $R^2$ deve ser ajustada.
 
-- Multicolinearidade: o teste global pode ser significativo mesmo quando testes individuais não são, pois avalia a contribuição conjunta das variáveis.
+-   Multicolinearidade: o teste global pode ser significativo mesmo quando testes individuais não são, pois avalia a contribuição conjunta das variáveis.
 
-**(h) O que o $F$ global testa e o que não testa.**
+**(h) O que o** $F$ global testa e o que não testa.
 
-- O teste global responde se o modelo, como um todo, é útil.
+-   O teste global responde se o modelo, como um todo, é útil.
 
-- Ele não identifica quais variáveis são relevantes individualmente; para isso utilizamos os testes $t$ e testes conjuntos específicos.
+-   Ele não identifica quais variáveis são relevantes individualmente; para isso utilizamos os testes $t$ e testes conjuntos específicos.
 
-- É possível obter um $F$ significativo com coeficientes individuais não significativos, especialmente na presença de multicolinearidade.
+-   É possível obter um $F$ significativo com coeficientes individuais não significativos, especialmente na presença de multicolinearidade.
 
 **(i) Ideias de demonstração.**
 
-1. Sob o MRLM Normal, $(H-J)\mathbf{Y}$ e $M\mathbf{Y}$ são projeções ortogonais e, portanto, independentes.
+1.  Sob o MRLM Normal, $(H-J)\mathbf{Y}$ e $M\mathbf{Y}$ são projeções ortogonais e, portanto, independentes.
 
-2. Assim,
+2.  Assim,
 
 $$
 \frac{SQ_R}{\sigma^2}\sim \chi^2_{p},
@@ -613,9 +610,9 @@ $$
 \frac{SQ_{Res}}{\sigma^2}\sim \chi^2_{n-p-1}.
 $$
 
-3. O quociente das médias quadráticas leva à distribuição $F_{p,n-p-1}$.
+3.  O quociente das médias quadráticas leva à distribuição $F_{p,n-p-1}$.
 
-4. A identidade $SQ_T=SQ_R+SQ_{Res}$ decorre de $I_n-J=(H-J)+M$ e da ortogonalidade das projeções.
+4.  A identidade $SQ_T=SQ_R+SQ_{Res}$ decorre de $I_n-J=(H-J)+M$ e da ortogonalidade das projeções.
 
 ## Intervalos de confiança para coeficientes e região conjunta
 
@@ -627,7 +624,7 @@ Enquanto os testes levam a uma decisão pontual, os intervalos fornecem uma faix
 
 Para construir intervalos de confiança individuais para $\beta_j$, é necessário estimar a variância do estimador $\hat{\beta}_j$.
 
-Seja $c_{jj}$ o elemento da diagonal de $\mathbf{C}=(\mathbf{X}^\top\mathbf{X})^{-1}$ correspondente a $\beta_j$. A variância teórica de $\hat{\beta}_j$ é $\sigma^2 c_{jj}$, sendo estimada por $\hat{\sigma}^2 c_{jj}$, onde
+Seja $v_{jj}$ o elemento da diagonal de $(\mathbf{X}^\top\mathbf{X})^{-1}$ correspondente a $\beta_j$. A variância teórica de $\hat{\beta}_j$ é $\sigma^2 v_{jj}$, sendo estimada por $\hat{\sigma}^2 v_{jj}$, onde
 
 $$
 \hat{\sigma}^2 = \frac{SQ_{Res}}{n-p-1}
@@ -637,7 +634,7 @@ $$
 Pela distribuição amostral de $\hat{\beta}_j$, o intervalo de confiança de nível $(1-\alpha)$ para $\beta_j$ é dado por
 
 $$
-IC_{1-\alpha}(\beta_j) = \Big( \hat{\beta}_j - t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{c_{jj}} \ ; \ \hat{\beta}_j + t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{c_{jj}} \Big).
+IC_{1-\alpha}(\beta_j) = \Big( \hat{\beta}_j - t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{v_{jj}} \ ; \ \hat{\beta}_j + t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{v_{jj}} \Big).
 $$
 
 Esse intervalo indica a faixa de valores plausíveis para $\beta_j$ considerando a incerteza amostral. Se o intervalo contém o valor zero, isso sugere que o efeito de $x_j$ pode não ser estatisticamente distinto de nulo, embora a decisão formal deva ser feita por meio de um teste de hipóteses.
@@ -669,7 +666,7 @@ Uma forma simples de controlar esse erro é a correção de Bonferroni. Se desej
 
 $$
 IC_{1-\alpha'}(\beta_j):\quad
-\hat{\beta}_j \pm t_{\alpha'/2,\,n-p-1}\,\hat{\sigma}\sqrt{c_{jj}}, 
+\hat{\beta}_j \pm t_{\alpha'/2,\,n-p-1}\,\hat{\sigma}\sqrt{v_{jj}}, 
 \qquad j=0,1,\dots,p.
 $$
 
@@ -679,15 +676,15 @@ Essa correção é conservadora, pois produz intervalos mais largos. Em contrapa
 
 Em termos práticos:
 
-- Intervalos individuais são adequados quando o número de parâmetros é pequeno ou quando o foco é interpretação direta.
-- Correções de Bonferroni ou regiões conjuntas são preferíveis quando há múltiplas inferências simultâneas.
-- Intervalos mais largos refletem maior cautela na inferência, e não necessariamente falta de qualidade do modelo.
+-   Intervalos individuais são adequados quando o número de parâmetros é pequeno ou quando o foco é interpretação direta.
+-   Correções de Bonferroni ou regiões conjuntas são preferíveis quando há múltiplas inferências simultâneas.
+-   Intervalos mais largos refletem maior cautela na inferência, e não necessariamente falta de qualidade do modelo.
 
 A escolha entre essas abordagens envolve um equilíbrio entre precisão estatística, clareza interpretativa e objetivo da análise.
 
 ### Ideias de demonstração
 
-1. Sob o MRLM Normal,
+1.  Sob o MRLM Normal,
 
 $$
 \hat{\boldsymbol{\beta}}\mid \mathbf{X}\sim N_{p+1}\!\big(\boldsymbol{\beta},\,\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\big),
@@ -702,7 +699,7 @@ $$
 \sim \chi^2_{p+1}.
 $$
 
-2. Como $\hat{\sigma}^2$ é independente de $\hat{\boldsymbol{\beta}}$ sob normalidade, o quociente entre as duas quantidades leva à distribuição
+2.  Como $\hat{\sigma}^2$ é independente de $\hat{\boldsymbol{\beta}}$ sob normalidade, o quociente entre as duas quantidades leva à distribuição
 
 $$
 F_{p+1,\,n-p-1},
@@ -710,7 +707,7 @@ $$
 
 o que justifica a desigualdade que define a região elipsoidal conjunta.
 
-3. Os intervalos marginais individuais são obtidos como projeções unidimensionais dessa região multidimensional.
+3.  Os intervalos marginais individuais são obtidos como projeções unidimensionais dessa região multidimensional.
 
 ## Intervalos para a média condicional e para predição
 
@@ -718,47 +715,35 @@ Em muitas aplicações, não basta apenas testar se um efeito existe. É igualme
 
 No contexto do MRLM Normal, essas duas questões levam a construções distintas. Por um lado, temos o intervalo para a média condicional $E(Y\mid x_0)$, que reflete apenas a incerteza na estimação da média. Por outro, temos o intervalo de predição para uma nova observação $Y_0$, que incorpora tanto a incerteza da média quanto a variabilidade intrínseca do erro aleatório.
 
-Seja $x_0=(1, x_{01},x_{02},\dots,x_{0p})^\top$ o vetor de covariáveis associado ao ponto de interesse. O valor ajustado pelo modelo é dado por
-$$
+Seja $x_0=(1, x_{01},x_{02},\dots,x_{0p})^\top$ o vetor de covariáveis associado ao ponto de interesse. O valor ajustado pelo modelo é dado por $$
 \hat{y}_0 = x_0^\top \hat{\boldsymbol{\beta}}.
 $$
 
-A variância de $\hat{y}_0$, condicionalmente à matriz de regressoras, é
-$$
+A variância de $\hat{y}_0$, condicionalmente à matriz de regressoras, é $$
 \operatorname{Var}(\hat{y}_0\mid \mathbf{X}) = \sigma^2\, x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0,
-$$
-sendo estimada por $\hat{\sigma}^2 x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0$, onde
-$$
+$$ sendo estimada por $\hat{\sigma}^2 x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0$, onde $$
 \hat{\sigma}^2=\frac{SQ_{Res}}{n-(p+1)}.
 $$
 
-Assim, o intervalo de confiança para a média condicional é
-$$
+Assim, o intervalo de confiança para a média condicional é $$
 \hat{y}_0 \;\pm\; t_{\alpha/2,\,n-(p+1)}\;\hat{\sigma}\,\sqrt{x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0}.
 $$
 
 Esse intervalo tende a ser relativamente estreito, pois reflete apenas a incerteza associada à estimação da média.
 
-Para uma nova observação $Y_0$ no ponto $x_0$, temos
-$$
+Para uma nova observação $Y_0$ no ponto $x_0$, temos $$
 Y_0 = x_0^\top \boldsymbol{\beta} + \varepsilon_0,
-$$
-com $\varepsilon_0\sim N(0,\sigma^2)$ independente de $\hat{\boldsymbol{\beta}}$. Nesse caso, a variância do erro de predição é
-$$
+$$ com $\varepsilon_0\sim N(0,\sigma^2)$ independente de $\hat{\boldsymbol{\beta}}$. Nesse caso, a variância do erro de predição é $$
 \operatorname{Var}(Y_0-\hat{y}_0\mid \mathbf{X}) = \sigma^2\Big(1 + x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0\Big),
-$$
-o que leva ao intervalo de predição
-$$
+$$ o que leva ao intervalo de predição $$
 \hat{y}_0 \;\pm\; t_{\alpha/2,\,n-(p+1)}\;\hat{\sigma}\,\sqrt{1 + x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0}.
 $$
 
 Esse intervalo é sempre mais amplo que o anterior, pois incorpora a variabilidade de uma nova realização do processo.
 
-Um aspecto importante nesses resultados é o papel do termo
-$$
+Um aspecto importante nesses resultados é o papel do termo $$
 h_0 = x_0^\top (\mathbf{X}^\top \mathbf{X})^{-1} x_0,
-$$
-que pode ser interpretado como uma medida de alavancagem do ponto $x_0$. Valores elevados de $h_0$ indicam que o ponto está distante da região central dos dados, o que aumenta a incerteza das estimativas. Em particular, previsões feitas fora da região observada tendem a apresentar intervalos muito mais largos, refletindo o risco associado à extrapolação.
+$$ que pode ser interpretado como uma medida de alavancagem do ponto $x_0$. Valores elevados de $h_0$ indicam que o ponto está distante da região central dos dados, o que aumenta a incerteza das estimativas. Em particular, previsões feitas fora da região observada tendem a apresentar intervalos muito mais largos, refletindo o risco associado à extrapolação.
 
 Do ponto de vista prático, a distinção entre esses dois tipos de intervalo é essencial. O intervalo da média é apropriado quando o interesse está no comportamento médio da resposta, enquanto o intervalo de predição deve ser utilizado quando o objetivo é antecipar o valor de uma nova observação individual.
 
@@ -768,24 +753,19 @@ Os testes de hipóteses discutidos anteriormente permitem avaliar se um efeito �
 
 Cada coeficiente $\beta_j$ representa um efeito parcial: ele descreve a variação média em $Y$ associada a uma mudança unitária em $x_j$, mantendo as demais variáveis constantes. Essa interpretação é central no MRLM, pois distingue o efeito isolado de cada variável daquele observado em análises bivariadas.
 
-Além da interpretação direta dos coeficientes, é útil quantificar quanto cada variável contribui para a explicação da variabilidade de $Y$. Isso é feito por meio do $R^2$ parcial, definido como
-$$
+Além da interpretação direta dos coeficientes, é útil quantificar quanto cada variável contribui para a explicação da variabilidade de $Y$. Isso é feito por meio do $R^2$ parcial, definido como $$
 R^2_{\text{parcial},j} = \frac{SQ_R - SQ_R^\ast}{SQ_T - SQ_R^\ast},
-$$
-em que o modelo reduzido não inclui a variável $x_j$. Essa medida indica o ganho de explicação proporcionado por $x_j$, após controlar as demais variáveis do modelo.
+$$ em que o modelo reduzido não inclui a variável $x_j$. Essa medida indica o ganho de explicação proporcionado por $x_j$, após controlar as demais variáveis do modelo.
 
-Existe uma relação direta entre o $R^2$ parcial e a estatística $t$ associada ao coeficiente:
-$$
+Existe uma relação direta entre o $R^2$ parcial e a estatística $t$ associada ao coeficiente: $$
 R^2_{\text{parcial},j} = \frac{t_j^2}{t_j^2 + (n - p - 1)}.
 $$
 
 Para conjuntos de variáveis, o raciocínio é análogo, e o $R^2$ parcial pode ser relacionado à estatística $F$ dos testes conjuntos.
 
-Para complementar essa análise, são frequentemente utilizadas medidas padronizadas de tamanho de efeito [@cohen1988]. Uma das mais conhecidas é o $f^2$ de Cohen, definido por
-$$
+Para complementar essa análise, são frequentemente utilizadas medidas padronizadas de tamanho de efeito [@cohen1988]. Uma das mais conhecidas é o $f^2$ de Cohen, definido por $$
 f^2 = \frac{R^2_{\text{parcial}}}{1 - R^2_{\text{parcial}}},
-$$
-que permite classificar efeitos como pequenos, médios ou grandes. Essas medidas são úteis para comparar resultados entre estudos e para avaliar a importância prática dos efeitos.
+$$ que permite classificar efeitos como pequenos, médios ou grandes. Essas medidas são úteis para comparar resultados entre estudos e para avaliar a importância prática dos efeitos.
 
 É importante ressaltar que significância estatística e magnitude do efeito são conceitos distintos. Um efeito pode ser estatisticamente detectável e, ainda assim, irrelevante do ponto de vista prático, especialmente em amostras grandes.
 

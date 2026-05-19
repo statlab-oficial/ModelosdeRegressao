@@ -557,7 +557,7 @@ window.Quarto = {
   <li><a href="#base-inferencial-do-mrlm-normal" id="toc-base-inferencial-do-mrlm-normal" class="nav-link active" data-scroll-target="#base-inferencial-do-mrlm-normal"><span class="header-section-number">15.1</span> Base inferencial do MRLM Normal</a></li>
   <li><a href="#testes-individuais-para-coeficientes" id="toc-testes-individuais-para-coeficientes" class="nav-link" data-scroll-target="#testes-individuais-para-coeficientes"><span class="header-section-number">15.2</span> Testes individuais para coeficientes</a>
   <ul class="collapse">
-  <li><a href="#construção-da-estatística-t" id="toc-construção-da-estatística-t" class="nav-link" data-scroll-target="#construção-da-estatística-t"><span class="header-section-number">15.2.1</span> Construção da estatística t</a></li>
+  <li><a href="#construção-da-estatística-de-teste-marginal" id="toc-construção-da-estatística-de-teste-marginal" class="nav-link" data-scroll-target="#construção-da-estatística-de-teste-marginal"><span class="header-section-number">15.2.1</span> Construção da estatística de teste marginal</a></li>
   <li><a href="#interpretação-e-decisão" id="toc-interpretação-e-decisão" class="nav-link" data-scroll-target="#interpretação-e-decisão"><span class="header-section-number">15.2.2</span> Interpretação e decisão</a></li>
   <li><a href="#testes-individuais-gerais-e-relação-com-a-distribuição-f" id="toc-testes-individuais-gerais-e-relação-com-a-distribuição-f" class="nav-link" data-scroll-target="#testes-individuais-gerais-e-relação-com-a-distribuição-f"><span class="header-section-number">15.2.3</span> Testes individuais gerais e relação com a distribuição F</a></li>
   <li><a href="#cuidados-essenciais" id="toc-cuidados-essenciais" class="nav-link" data-scroll-target="#cuidados-essenciais"><span class="header-section-number">15.2.4</span> Cuidados essenciais</a></li>
@@ -706,11 +706,11 @@ H_1:\ \beta_j\neq 0,
 <p>para <span class="math inline">\(j=1,\dots,p\)</span>. O intercepto <span class="math inline">\(\beta_0\)</span> pode ser testado pela mesma lógica, embora sua interpretação seja particular.</p>
 <p>O parâmetro <span class="math inline">\(\beta_0\)</span> representa o valor esperado de <span class="math inline">\(Y\)</span> quando todas as variáveis explicativas são iguais a zero. Em alguns contextos, isso pode ser informativo, como quando zero tem significado natural. Em outros, pode não ter interpretação prática direta.</p>
 <p>Uma prática comum é centrar as variáveis explicativas, subtraindo suas médias. Nesse caso, o intercepto passa a representar a média condicional de <span class="math inline">\(Y\)</span> no ponto central do espaço das covariáveis. Essa transformação melhora a interpretação, sem alterar testes, previsões ou a qualidade do ajuste.</p>
-<section id="construção-da-estatística-t" class="level3" data-number="15.2.1">
-<h3 data-number="15.2.1" class="anchored" data-anchor-id="construção-da-estatística-t"><span class="header-section-number">15.2.1</span> Construção da estatística t</h3>
-<p>Considere <span class="math inline">\(c_{jj}\)</span> o elemento da diagonal de <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> associado ao coeficiente <span class="math inline">\(\beta_j\)</span>. Sob o MRLM Normal,</p>
+<section id="construção-da-estatística-de-teste-marginal" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="construção-da-estatística-de-teste-marginal"><span class="header-section-number">15.2.1</span> Construção da estatística de teste marginal</h3>
+<p>Considere <span class="math inline">\(v_{jj}\)</span> o elemento da diagonal de <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> associado ao coeficiente <span class="math inline">\(\beta_j\)</span>. Sob o MRLM Normal,</p>
 <p><span class="math display">\[
-\operatorname{Var}(\hat{\beta}_j\mid \mathbf{X})=\sigma^2 c_{jj}.
+\operatorname{Var}(\hat{\beta}_j\mid \mathbf{X})=\sigma^2 v_{jj}.
 \]</span></p>
 <p>Como <span class="math inline">\(\sigma^2\)</span> é desconhecido, utilizamos o estimador</p>
 <p><span class="math display">\[
@@ -719,21 +719,20 @@ H_1:\ \beta_j\neq 0,
 \]</span></p>
 <p>Assim, o erro-padrão de <span class="math inline">\(\hat{\beta}_j\)</span> é</p>
 <p><span class="math display">\[
-\operatorname{EP}(\hat{\beta}_j)=\hat{\sigma}\sqrt{c_{jj}}.
+\operatorname{EP}(\hat{\beta}_j)=\hat{\sigma}\sqrt{v_{jj}}.
 \]</span></p>
-<p>A estatística de teste é dada por</p>
+<p>A estatística de teste para o teste <span class="math inline">\(H_0: \beta_j = \beta_{j,0}\)</span> vs <span class="math inline">\(H_0: \beta_j \neq \beta_{j,0}\)</span> é dada por</p>
 <p><span class="math display">\[
-t_j=\frac{\hat{\beta}_j-\beta_{j,0}}{\hat{\sigma}\sqrt{c_{jj}}}.
+t_j=\frac{\hat{\beta}_j-\beta_{j,0}}{\hat{\sigma}\sqrt{v_{jj}}}.
 \]</span> No teste usual <span class="math inline">\(H_0: \beta_{j}=0\)</span>, logo temos <span class="math inline">\(\beta_{j,0}=0\)</span> e</p>
 <p><span class="math display">\[
-t_j=\frac{\hat{\beta}_j}{\hat{\sigma}\sqrt{c_{jj}}}.
-\]</span></p>
-<p>Se <span class="math inline">\(H_0\)</span> é verdadeira e as hipóteses do MRLM Normal são satisfeitas, então</p>
+t_j=\frac{\hat{\beta}_j}{\hat{\sigma}\sqrt{v_{jj}}}.
+\]</span>vSe <span class="math inline">\(H_0\)</span> é verdadeira e as hipóteses do MRLM Normal são satisfeitas, então</p>
 <p><span class="math display">\[
 t_j\sim t_{n-p-1}.
 \]</span></p>
 <p>O denominador dessa estatística mede a incerteza associada ao coeficiente estimado e depende diretamente da estrutura da matriz <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<p>Quando a variável <span class="math inline">\(x_j\)</span> apresenta forte colinearidade com outras variáveis explicativas, a matriz <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> tende a amplificar <span class="math inline">\(c_{jj}\)</span>, aumentando o erro-padrão. Como consequência, a estatística <span class="math inline">\(t_j\)</span> diminui, reduzindo o poder do teste e dificultando a detecção de efeitos reais.</p>
+<p>Quando a variável <span class="math inline">\(x_j\)</span> apresenta forte colinearidade com outras variáveis explicativas, a matriz <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> tende a amplificar <span class="math inline">\(v_{jj}\)</span>, aumentando o erro-padrão. Como consequência, a estatística <span class="math inline">\(t_j\)</span> diminui, reduzindo o poder do teste e dificultando a detecção de efeitos reais.</p>
 </section>
 <section id="interpretação-e-decisão" class="level3" data-number="15.2.2">
 <h3 data-number="15.2.2" class="anchored" data-anchor-id="interpretação-e-decisão"><span class="header-section-number">15.2.2</span> Interpretação e decisão</h3>
@@ -751,12 +750,12 @@ H_1:\ \beta_j\neq d_j.
 \]</span></p>
 <p>A estatística de teste é</p>
 <p><span class="math display">\[
-t_j=\frac{\hat{\beta}_j-d_j}{\hat{\sigma}\sqrt{c_{jj}}}.
+t_j=\frac{\hat{\beta}_j-d_j}{\hat{\sigma}\sqrt{v_{jj}}}.
 \]</span></p>
 <p>Elevando ao quadrado, obtemos</p>
 <p><span class="math display">\[
 F_j=t_j^2
-= \frac{(\hat{\beta}_j-d_j)\left(c_{jj}\right)^{-1}(\hat{\beta}_j-d_j)}{\widehat{\sigma^2}}.
+= \frac{(\hat{\beta}_j-d_j)\left(v_{jj}\right)^{-1}(\hat{\beta}_j-d_j)}{\widehat{\sigma^2}}.
 \]</span></p>
 <p>Sob <span class="math inline">\(H_0\)</span>,</p>
 <p><span class="math display">\[
@@ -776,13 +775,13 @@ F_j \sim F_{1,\,n-p-1}.
 <section id="ideias-de-demonstração" class="level3" data-number="15.2.5">
 <h3 data-number="15.2.5" class="anchored" data-anchor-id="ideias-de-demonstração"><span class="header-section-number">15.2.5</span> Ideias de demonstração</h3>
 <ol type="i">
-<li><p>De <span class="math inline">\(\hat{\boldsymbol{\beta}}\mid \mathbf{X}\sim N_{p+1}(\boldsymbol{\beta},\,\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1})\)</span> segue <span class="math inline">\(\hat{\beta}_j\sim N(\beta_j,\sigma^2 c_{jj})\)</span>.</p></li>
+<li><p>De <span class="math inline">\(\hat{\boldsymbol{\beta}}\mid \mathbf{X}\sim N_{p+1}(\boldsymbol{\beta},\,\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1})\)</span> segue <span class="math inline">\(\hat{\beta}_j\sim N(\beta_j,\sigma^2 v_{jj})\)</span>.</p></li>
 <li><p><span class="math inline">\(SQ_{Res}/\sigma^2=\mathbf{Y}^\top(\mathbf{I}_n-\mathbf{H})\mathbf{Y}/\sigma^2\sim \chi^2_{n-p-1}\)</span>.</p></li>
 <li><p>Sob normalidade, as projeções associadas a <span class="math inline">\(\mathbf{H}\)</span> e <span class="math inline">\(\mathbf{M}\)</span> são independentes, o que implica independência entre <span class="math inline">\(\hat{\beta}_j\)</span> e <span class="math inline">\(SQ_{Res}\)</span>.</p></li>
 <li><p>O pivô</p></li>
 </ol>
 <p><span class="math display">\[
-\frac{\hat{\beta}_j-\beta_j}{\sigma\sqrt{c_{jj}}}\sim N(0,1),
+\frac{\hat{\beta}_j-\beta_j}{\sigma\sqrt{v_{jj}}}\sim N(0,1),
 \qquad
 \frac{SQ_{Res}}{\sigma^2}\sim \chi^2_{n-p-1}
 \]</span></p>
@@ -801,7 +800,7 @@ H_0:\ C\boldsymbol{\beta}=\mathbf{d}
 \qquad \text{vs.}\qquad
 H_1:\ C\boldsymbol{\beta}\neq \mathbf{d},
 \]</span></p>
-<p>onde <span class="math inline">\(C\)</span> é uma matriz <span class="math inline">\(q\times (p+1)\)</span> de posto <span class="math inline">\(q\)</span>, cujas linhas representam restrições independentes, e <span class="math inline">\(\mathbf{d}\)</span> é um vetor fixo de dimensão <span class="math inline">\(q\)</span>.</p>
+<p>em que <span class="math inline">\(C\)</span> é uma matriz <span class="math inline">\(q\times (p+1)\)</span> de posto <span class="math inline">\(q\)</span>, cujas linhas representam restrições independentes, e <span class="math inline">\(\mathbf{d}\)</span> é um vetor fixo de dimensão <span class="math inline">\(q\)</span>.</p>
 <p>Alguns exemplos ajudam a compreender a construção.</p>
 <p>Bloco nulo. Queremos testar se um grupo de coeficientes é nulo, por exemplo</p>
 <p><span class="math display">\[
@@ -936,7 +935,7 @@ F=\frac{SQ_R/p}{SQ_{Res}/(n-p-1)}.
 <p>Rejeitamos <span class="math inline">\(H_0\)</span> se <span class="math inline">\(F&gt;F_{\alpha;\,q,n-p-1}\)</span> ou se o valor-<span class="math inline">\(p\)</span> for menor que <span class="math inline">\(\alpha\)</span>.</p>
 <p>Valores elevados de <span class="math inline">\(F\)</span> indicam que o bloco de variáveis contribui para explicar <span class="math inline">\(Y\)</span>, condicionalmente às demais variáveis do modelo.</p>
 <p>Na prática, é importante reportar o valor de <span class="math inline">\(F\)</span>, os graus de liberdade, o valor-<span class="math inline">\(p\)</span> e, principalmente, quais restrições estão sendo testadas.</p>
-<p><strong>(f) <span class="math inline">\(R^2\)</span> parcial e medidas de efeito.</strong></p>
+<p><strong>(f)</strong> <span class="math inline">\(R^2\)</span> parcial e medidas de efeito.</p>
 <p>Para um bloco de <span class="math inline">\(q\)</span> variáveis, definimos</p>
 <p><span class="math display">\[
 R^2_{\text{parcial}}=\frac{SQ_R - SQ_R^\ast}{SQ_T - SQ_R^\ast}.
@@ -980,7 +979,7 @@ SQ_T = SQ_R + SQ_{Res}
 <p>mostra que a variabilidade total se decompõe em uma parte explicada pelo modelo e uma parte residual.</p>
 <p><strong>(b) Forma matricial e papel das projeções.</strong></p>
 <p>Essa decomposição também pode ser expressa em notação matricial.</p>
-<p>Definindo <span class="math inline">\(J=\mathbf{1}\mathbf{1}^\top/n\)</span>, que projeta no subespaço gerado pelo vetor de uns, <span class="math inline">\(H=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span> e <span class="math inline">\(M=I_n-H\)</span>, temos</p>
+<p>Definindo <span class="math inline">\(J=\mathbf{1}\mathbf{1}^\top/n\)</span>, que projeta no subespaço gerado pelo vetor de uns, <span class="math inline">\(\mathbf{H}=\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span> e <span class="math inline">\(M=I_n-H\)</span>, temos</p>
 <p><span class="math display">\[
 SQ_T=\mathbf{Y}^\top(I_n-J)\mathbf{Y},\qquad
 SQ_R=\mathbf{Y}^\top(H-J)\mathbf{Y},\qquad
@@ -1002,7 +1001,7 @@ MQ_R=\frac{SQ_R}{p}
 MQ_{Res}=\frac{SQ_{Res}}{n-p-1},
 \]</span></p>
 <p>e a comparação entre elas constitui a base do teste global.</p>
-<p><strong>(d) Teste global da regressão (estatística <span class="math inline">\(F\)</span>).</strong></p>
+<p><strong>(d) Teste global da regressão (estatística</strong> <span class="math inline">\(F\)</span>).</p>
 <p>Hipóteses:</p>
 <p><span class="math display">\[
 H_0:\ \beta_1=\cdots=\beta_p=0
@@ -1018,7 +1017,7 @@ F=\frac{MQ_R}{MQ_{Res}}=\frac{SQ_R/p}{SQ_{Res}/(n-p-1)}.
 F \sim F_{p,\;n-p-1}.
 \]</span></p>
 <p>Se <span class="math inline">\(F\)</span> assume valores suficientemente elevados, ou se o valor-<span class="math inline">\(p\)</span> é pequeno, concluímos que o modelo como um todo contribui para explicar a variabilidade de <span class="math inline">\(Y\)</span>.</p>
-<p><strong>(e) Relação com <span class="math inline">\(R^2\)</span> e tamanho do modelo.</strong></p>
+<p><strong>(e) Relação com</strong> <span class="math inline">\(R^2\)</span> e tamanho do modelo.</p>
 <p>O coeficiente de determinação, usualmente denotado por <span class="math inline">\(R^2\)</span>, é</p>
 <p><span class="math display">\[
 R^2=\frac{SQ_R}{SQ_T}.
@@ -1037,7 +1036,7 @@ F=\frac{R^2/p}{(1-R^2)/(n-p-1)}.
 <li><p>Modelo sem intercepto: a decomposição padrão muda e a interpretação de <span class="math inline">\(SQ_R\)</span> e <span class="math inline">\(R^2\)</span> deve ser ajustada.</p></li>
 <li><p>Multicolinearidade: o teste global pode ser significativo mesmo quando testes individuais não são, pois avalia a contribuição conjunta das variáveis.</p></li>
 </ul>
-<p><strong>(h) O que o <span class="math inline">\(F\)</span> global testa e o que não testa.</strong></p>
+<p><strong>(h) O que o</strong> <span class="math inline">\(F\)</span> global testa e o que não testa.</p>
 <ul>
 <li><p>O teste global responde se o modelo, como um todo, é útil.</p></li>
 <li><p>Ele não identifica quais variáveis são relevantes individualmente; para isso utilizamos os testes <span class="math inline">\(t\)</span> e testes conjuntos específicos.</p></li>
@@ -1065,14 +1064,14 @@ F=\frac{R^2/p}{(1-R^2)/(n-p-1)}.
 <section id="intervalo-individual-para-um-coeficiente" class="level3" data-number="15.5.1">
 <h3 data-number="15.5.1" class="anchored" data-anchor-id="intervalo-individual-para-um-coeficiente"><span class="header-section-number">15.5.1</span> Intervalo individual para um coeficiente</h3>
 <p>Para construir intervalos de confiança individuais para <span class="math inline">\(\beta_j\)</span>, é necessário estimar a variância do estimador <span class="math inline">\(\hat{\beta}_j\)</span>.</p>
-<p>Seja <span class="math inline">\(c_{jj}\)</span> o elemento da diagonal de <span class="math inline">\(\mathbf{C}=(\mathbf{X}^\top\mathbf{X})^{-1}\)</span> correspondente a <span class="math inline">\(\beta_j\)</span>. A variância teórica de <span class="math inline">\(\hat{\beta}_j\)</span> é <span class="math inline">\(\sigma^2 c_{jj}\)</span>, sendo estimada por <span class="math inline">\(\hat{\sigma}^2 c_{jj}\)</span>, onde</p>
+<p>Seja <span class="math inline">\(v_{jj}\)</span> o elemento da diagonal de <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> correspondente a <span class="math inline">\(\beta_j\)</span>. A variância teórica de <span class="math inline">\(\hat{\beta}_j\)</span> é <span class="math inline">\(\sigma^2 v_{jj}\)</span>, sendo estimada por <span class="math inline">\(\hat{\sigma}^2 v_{jj}\)</span>, onde</p>
 <p><span class="math display">\[
 \hat{\sigma}^2 = \frac{SQ_{Res}}{n-p-1}
 = \frac{\mathbf{Y}^\top \mathbf{M}\mathbf{Y}}{n-p-1}.
 \]</span></p>
 <p>Pela distribuição amostral de <span class="math inline">\(\hat{\beta}_j\)</span>, o intervalo de confiança de nível <span class="math inline">\((1-\alpha)\)</span> para <span class="math inline">\(\beta_j\)</span> é dado por</p>
 <p><span class="math display">\[
-IC_{1-\alpha}(\beta_j) = \Big( \hat{\beta}_j - t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{c_{jj}} \ ; \ \hat{\beta}_j + t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{c_{jj}} \Big).
+IC_{1-\alpha}(\beta_j) = \Big( \hat{\beta}_j - t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{v_{jj}} \ ; \ \hat{\beta}_j + t_{\alpha/2,\,n-p-1}\,\hat{\sigma}\sqrt{v_{jj}} \Big).
 \]</span></p>
 <p>Esse intervalo indica a faixa de valores plausíveis para <span class="math inline">\(\beta_j\)</span> considerando a incerteza amostral. Se o intervalo contém o valor zero, isso sugere que o efeito de <span class="math inline">\(x_j\)</span> pode não ser estatisticamente distinto de nulo, embora a decisão formal deva ser feita por meio de um teste de hipóteses.</p>
 <p>Cada intervalo individual pode ser visto como a projeção, sobre o eixo de <span class="math inline">\(\beta_j\)</span>, da região conjunta de confiança em <span class="math inline">\(\mathbb{R}^{p+1}\)</span>, apresentada a seguir.</p>
@@ -1096,7 +1095,7 @@ IC_{1-\alpha}(\beta_j) = \Big( \hat{\beta}_j - t_{\alpha/2,\,n-p-1}\,\hat{\sigma
 <p>Uma forma simples de controlar esse erro é a correção de Bonferroni. Se desejamos manter o nível global de significância em <span class="math inline">\(\alpha\)</span>, utilizamos um nível individual <span class="math inline">\(\alpha'=\alpha/(p+1)\)</span> e construímos os intervalos como</p>
 <p><span class="math display">\[
 IC_{1-\alpha'}(\beta_j):\quad
-\hat{\beta}_j \pm t_{\alpha'/2,\,n-p-1}\,\hat{\sigma}\sqrt{c_{jj}},
+\hat{\beta}_j \pm t_{\alpha'/2,\,n-p-1}\,\hat{\sigma}\sqrt{v_{jj}},
 \qquad j=0,1,\dots,p.
 \]</span></p>
 <p>Com esse ajuste, garantimos que a probabilidade de todos os intervalos conterem simultaneamente os valores verdadeiros dos parâmetros seja, no mínimo, <span class="math inline">\((1-\alpha)\)</span>.</p>
