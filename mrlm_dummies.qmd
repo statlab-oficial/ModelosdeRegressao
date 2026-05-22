@@ -90,6 +90,7 @@ o coeficiente $\beta_1$ representa a diferença média entre os grupos, mantendo
 Essa frase é essencial. Com variáveis fictícias, a expressão “mantendo as demais variáveis constantes” significa comparar indivíduos ou unidades que possuem o mesmo valor das variáveis quantitativas, mas pertencem a categorias diferentes.
 
 ```{r}
+```{r}
 #| label: fig-dummy-retas-paralelas
 #| fig-cap: "Efeito de uma variável dummy binária: deslocamento no intercepto com inclinação comum."
 #| warning: false
@@ -97,44 +98,54 @@ Essa frase é essencial. Com variáveis fictícias, a expressão “mantendo as 
 #| echo: false
 
 library(ggplot2)
+library(dplyr)
 
-dados_mtcars <- mtcars
+dados_iris_dummy <- iris |>
+  filter(Species %in% c("versicolor", "virginica")) |>
+  mutate(
+    Species = factor(Species)
+  )
 
-dados_mtcars$am <- factor(
-  dados_mtcars$am,
-  levels = c(0, 1),
-  labels = c("Automática", "Manual")
+modelo_paralelo <- lm(
+  Sepal.Length ~ Petal.Length + Species,
+  data = dados_iris_dummy
 )
-
-modelo_paralelo <- lm(mpg ~ wt + am, data = dados_mtcars)
 
 grid_pred <- expand.grid(
-  wt = seq(
-    min(dados_mtcars$wt),
-    max(dados_mtcars$wt),
+  Petal.Length = seq(
+    min(dados_iris_dummy$Petal.Length),
+    max(dados_iris_dummy$Petal.Length),
     length.out = 100
   ),
-  am = levels(dados_mtcars$am)
+  Species = levels(dados_iris_dummy$Species)
 )
 
-grid_pred$mpg_pred <- predict(
+grid_pred$Sepal_Length_pred <- predict(
   modelo_paralelo,
   newdata = grid_pred
 )
 
-ggplot(dados_mtcars, aes(x = wt, y = mpg, color = am)) +
+ggplot(
+  dados_iris_dummy,
+  aes(x = Petal.Length, y = Sepal.Length, color = Species)
+) +
   geom_point(size = 2.4, alpha = 0.8) +
   geom_line(
     data = grid_pred,
-    aes(x = wt, y = mpg_pred, color = am),
+    aes(
+      x = Petal.Length,
+      y = Sepal_Length_pred,
+      color = Species
+    ),
     linewidth = 1.1
   ) +
   labs(
-    x = "Peso do automóvel",
-    y = "Consumo (milhas por galão)",
-    color = "Transmissão"
+    x = "Comprimento da pétala",
+    y = "Comprimento da sépala",
+    color = "Espécie"
   ) +
   theme_minimal(base_size = 13)
+```
 ```
 
 
@@ -410,6 +421,18 @@ Esse tipo de modelo é a base da ANCOVA, pois combina comparação entre grupos 
 #| echo: false
 
 library(ggplot2)
+
+
+dados_mtcars <- mtcars
+
+dados_mtcars$am <- factor(
+  dados_mtcars$am,
+  levels = c(0, 1),
+  labels = c("Automática", "Manual")
+)
+
+modelo_paralelo <- lm(mpg ~ wt + am, data = dados_mtcars)
+
 
 mod_paralelo <- lm(mpg ~ wt + am, data = dados_mtcars)
 
