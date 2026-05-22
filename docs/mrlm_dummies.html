@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -580,7 +600,7 @@ window.Quarto = {
 <h2 data-number="16.1" class="anchored" data-anchor-id="introdução-e-motivação"><span class="header-section-number">16.1</span> Introdução e motivação</h2>
 <p>Até este ponto, o Modelo de Regressão Linear Múltipla foi apresentado principalmente a partir de variáveis explicativas quantitativas. Variáveis como renda, idade, temperatura, distância, tempo de estudo ou consumo de energia possuem uma escala numérica natural. Nesses casos, a interpretação dos coeficientes costuma ser feita em termos de variação média na resposta associada ao aumento de uma unidade na variável explicativa, mantendo as demais variáveis constantes.</p>
 <p>Entretanto, em muitas aplicações, parte importante da explicação de um fenômeno não está em variáveis quantitativas, mas em características qualitativas. Indivíduos podem pertencer a grupos distintos; empresas podem atuar em setores diferentes; produtos podem ser classificados em categorias; regiões podem apresentar condições estruturais diversas; tratamentos podem ser comparados com grupos de controle.</p>
-<p>Essas informações são categóricas. Elas não possuem, em geral, uma escala numérica natural, mas podem alterar substancialmente a média da variável resposta. O objetivo das variáveis fictícias, também chamadas de <em>dummies</em>, é incorporar essas informações qualitativas ao modelo linear sem abandonar a estrutura do MRLM.</p>
+<p>Essas informações são categóricas. Elas não possuem, em geral, uma escala numérica natural, mas podem alterar substancialmente a média da variável resposta. O objetivo das variáveis fictícias, também chamadas de <em>dummies</em>, é incorporar essas informações qualitativas ao modelo linear sem abandonar a estrutura do MRLM <span class="citation" data-cites="montgomery2021 seber2003">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 <p>O ponto mais importante é que o modelo não muda em sua essência. Continuamos trabalhando com</p>
 <p><span class="math display">\[
 \mathbf{Y}
@@ -590,7 +610,7 @@ window.Quarto = {
 \boldsymbol{\varepsilon}.
 \]</span></p>
 <p>O que muda é a forma como algumas colunas da matriz <span class="math inline">\(\mathbf{X}\)</span> são construídas. Em vez de conter apenas variáveis quantitativas, a matriz de planejamento passa a conter também colunas formadas por zeros e uns, indicando a presença ou ausência de determinada característica.</p>
-<p>Essa observação é importante porque mostra que as variáveis fictícias não são um procedimento externo à regressão linear. Elas são parte natural da estrutura matricial do MRLM.</p>
+<p>Essa observação é importante porque mostra que as variáveis fictícias não são um procedimento externo à regressão linear. Elas são parte natural da estrutura matricial do MRLM <span class="citation" data-cites="rencher2012 seber2003">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 </section>
 <section id="variáveis-indicadoras-e-interpretação-básica" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="variáveis-indicadoras-e-interpretação-básica"><span class="header-section-number">16.2</span> Variáveis indicadoras e interpretação básica</h2>
@@ -627,7 +647,7 @@ E(Y_i\mid D_i=1)
 =
 \beta_0+\beta_1.
 \]</span></p>
-<p>Portanto, <span class="math inline">\(\beta_0\)</span> representa a média do grupo de referência, isto é, o grupo codificado com <span class="math inline">\(D_i=0\)</span>. Já <span class="math inline">\(\beta_1\)</span> representa a diferença média entre o grupo codificado com <span class="math inline">\(D_i=1\)</span> e o grupo de referência.</p>
+<p>Portanto, <span class="math inline">\(\beta_0\)</span> representa a média do grupo de referência, isto é, o grupo codificado com <span class="math inline">\(D_i=0\)</span>. Já <span class="math inline">\(\beta_1\)</span> representa a diferença média entre o grupo codificado com <span class="math inline">\(D_i=1\)</span> e o grupo de referência <span class="citation" data-cites="montgomery2021 greene2018">(<a href="references.html#ref-greene2018" role="doc-biblioref">Greene, 2018</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p>Essa interpretação é direta, mas merece cuidado. O coeficiente de uma dummy não deve ser lido como “aumento de uma unidade na variável”, no mesmo sentido de uma variável quantitativa. Como a dummy só assume os valores 0 e 1, seu coeficiente representa uma mudança de grupo.</p>
 <p>Quando há outras variáveis no modelo, a interpretação é condicional. No modelo</p>
 <p><span class="math display">\[
@@ -661,7 +681,7 @@ Figura&nbsp;16.1: Efeito de uma variável dummy binária: deslocamento no interc
 </section>
 <section id="fatores-com-múltiplas-categorias" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="fatores-com-múltiplas-categorias"><span class="header-section-number">16.3</span> Fatores com múltiplas categorias</h2>
-<p>Quando uma variável categórica possui apenas duas categorias, uma única dummy é suficiente. Entretanto, quando há <span class="math inline">\(k\)</span> categorias, usamos <span class="math inline">\(k-1\)</span> variáveis fictícias.</p>
+<p>Quando uma variável categórica possui apenas duas categorias, uma única dummy é suficiente. Entretanto, quando há <span class="math inline">\(k\)</span> categorias, usamos <span class="math inline">\(k-1\)</span> variáveis fictícias para evitar dependência linear perfeita entre as colunas da matriz de planejamento <span class="citation" data-cites="seber2003 rencher2012">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 <p>A categoria omitida torna-se a categoria de referência. Seus efeitos são incorporados ao intercepto.</p>
 <p>Considere uma variável Região com cinco categorias: Norte, Nordeste, Centro-Oeste, Sudeste e Sul. Se a categoria Norte for escolhida como referência, podemos definir</p>
 <p><span class="math display">\[
@@ -788,12 +808,12 @@ D_{ki}
 \mathbf{X}^\top\mathbf{Y}
 \]</span></p>
 <p>não está definida.</p>
-<p>Esse problema é conhecido como armadilha das variáveis fictícias, ou <em>dummy variable trap</em>. A solução usual é omitir uma categoria, que passa a ser a referência.</p>
+<p>Esse problema é conhecido como armadilha das variáveis fictícias, ou <em>dummy variable trap</em>. A solução usual é omitir uma categoria, que passa a ser a referência <span class="citation" data-cites="greene2018 montgomery2021">(<a href="references.html#ref-greene2018" role="doc-biblioref">Greene, 2018</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p>Essa discussão mostra que o uso de dummies está diretamente ligado à estrutura matricial do MRLM. Não se trata apenas de uma escolha de codificação. Trata-se de garantir identificabilidade dos parâmetros e posto completo da matriz de planejamento.</p>
 </section>
 <section id="relação-com-anova" class="level2" data-number="16.5">
 <h2 data-number="16.5" class="anchored" data-anchor-id="relação-com-anova"><span class="header-section-number">16.5</span> Relação com ANOVA</h2>
-<p>Um modelo de regressão contendo apenas variáveis fictícias para representar os níveis de um fator é equivalente a uma ANOVA de um fator.</p>
+<p>Um modelo de regressão contendo apenas variáveis fictícias para representar os níveis de um fator é equivalente a uma ANOVA de um fator <span class="citation" data-cites="montgomery2021 seber2003">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 <p>Na ANOVA, comparamos médias entre grupos. Na regressão com dummies, fazemos a mesma comparação por meio de coeficientes associados a categorias.</p>
 <p>Por exemplo, se queremos comparar a média de uma variável resposta entre três espécies de flores, podemos ajustar um modelo com dummies para representar as espécies. O intercepto corresponderá à média da espécie de referência, e os demais coeficientes representarão diferenças médias em relação a essa espécie.</p>
 <div class="cell">
@@ -841,7 +861,7 @@ E(Y_i\mid x_i,D_i=1)
 (\beta_0+\beta_2)+\beta_1x_i.
 \]</span></p>
 <p>As duas retas possuem a mesma inclinação <span class="math inline">\(\beta_1\)</span>, mas interceptos diferentes. Portanto, o modelo assume que o efeito de <span class="math inline">\(x_i\)</span> sobre <span class="math inline">\(Y_i\)</span> é o mesmo nos dois grupos, mas permite diferença média entre os grupos.</p>
-<p>Esse tipo de modelo é a base da ANCOVA, pois combina comparação entre grupos com ajuste por variáveis quantitativas.</p>
+<p>Esse tipo de modelo é a base da ANCOVA, pois combina comparação entre grupos com ajuste por variáveis quantitativas <span class="citation" data-cites="montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-ancova-retas-paralelas" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -906,7 +926,7 @@ Figura&nbsp;16.5: Modelo com interação: retas com interceptos e inclinações 
 </div>
 </div>
 <p>A interpretação de interações exige cuidado. O coeficiente da dummy isolada representa a diferença entre grupos quando <span class="math inline">\(x_i=0\)</span>. Se esse valor não fizer sentido substantivo, pode ser útil centralizar a variável quantitativa antes de ajustar o modelo.</p>
-<p>A centralização consiste em substituir</p>
+<p>A centralização consiste em substituir <span class="math inline">\(x_i\)</span> por <span class="math inline">\(x_i-\bar{x}\)</span>, tornando a interpretação do intercepto e dos efeitos principais mais informativa em modelos com interação <span class="citation" data-cites="montgomery2021 greene2018">(<a href="references.html#ref-greene2018" role="doc-biblioref">Greene, 2018</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p><span class="math display">\[
 x_i
 \]</span></p>
@@ -924,7 +944,7 @@ x_i-\bar{x}.
 H_0:\beta_j=0
 \]</span></p>
 <p>testa se a categoria associada à dummy <span class="math inline">\(D_j\)</span> apresenta média igual à da categoria de referência, mantendo as demais variáveis constantes.</p>
-<p>Quando uma variável categórica possui várias categorias, é comum testar o efeito conjunto do fator. Nesse caso, usamos um teste F para avaliar simultaneamente se todos os coeficientes das dummies associadas ao fator são iguais a zero.</p>
+<p>Quando uma variável categórica possui várias categorias, é comum testar o efeito conjunto do fator por meio de um teste <span class="math inline">\(F\)</span> envolvendo simultaneamente os coeficientes das dummies associadas ao fator <span class="citation" data-cites="seber2003 montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 <p>Por exemplo, para uma variável com quatro dummies, podemos testar</p>
 <p><span class="math display">\[
 H_0:
@@ -968,7 +988,7 @@ Var(\hat{\boldsymbol{\beta}})
 \sigma^2
 (\mathbf{X}^\top\mathbf{X})^{-1}.
 \]</span></p>
-<p>O uso de dummies, portanto, não cria uma nova teoria de estimação. Ele amplia a capacidade interpretativa do MRLM ao permitir que fatores qualitativos sejam incorporados à matriz de planejamento.</p>
+<p>O uso de dummies, portanto, não cria uma nova teoria de estimação. Ele amplia a capacidade interpretativa do MRLM ao permitir que fatores qualitativos sejam incorporados à matriz de planejamento <span class="citation" data-cites="rencher2012 seber2003">(<a href="references.html#ref-rencher2012" role="doc-biblioref">Rencher; Christensen, 2012</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
 </section>
 <section id="ilustrações-em-r" class="level2" data-number="16.10">
 <h2 data-number="16.10" class="anchored" data-anchor-id="ilustrações-em-r"><span class="header-section-number">16.10</span> Ilustrações em R</h2>
@@ -978,6 +998,20 @@ Var(\hat{\boldsymbol{\beta}})
 <p>Essas bases são utilizadas apenas para visualização. A análise completa, com tratamento de dados, diagnóstico e interpretação aplicada, será desenvolvida em atividade própria.</p>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-greene2018" class="csl-entry" role="listitem">
+GREENE, William H. <strong>Econometric Analysis</strong>. 8. ed. <em>[S.l.]</em>: Pearson, 2018.
+</div>
+<div id="ref-montgomery2021" class="csl-entry" role="listitem">
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
+</div>
+<div id="ref-rencher2012" class="csl-entry" role="listitem">
+RENCHER, Alvin C.; CHRISTENSEN, William F. <strong>Methods of Multivariate Analysis</strong>. 3. ed. Hoboken: Wiley, 2012.
+</div>
+<div id="ref-seber2003" class="csl-entry" role="listitem">
+SEBER, George A. F.; LEE, Alan J. <strong>Linear Regression Analysis</strong>. 2. ed. Hoboken, NJ: Wiley, 2003.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

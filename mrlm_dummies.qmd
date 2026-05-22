@@ -6,7 +6,7 @@ Até este ponto, o Modelo de Regressão Linear Múltipla foi apresentado princip
 
 Entretanto, em muitas aplicações, parte importante da explicação de um fenômeno não está em variáveis quantitativas, mas em características qualitativas. Indivíduos podem pertencer a grupos distintos; empresas podem atuar em setores diferentes; produtos podem ser classificados em categorias; regiões podem apresentar condições estruturais diversas; tratamentos podem ser comparados com grupos de controle.
 
-Essas informações são categóricas. Elas não possuem, em geral, uma escala numérica natural, mas podem alterar substancialmente a média da variável resposta. O objetivo das variáveis fictícias, também chamadas de *dummies*, é incorporar essas informações qualitativas ao modelo linear sem abandonar a estrutura do MRLM.
+Essas informações são categóricas. Elas não possuem, em geral, uma escala numérica natural, mas podem alterar substancialmente a média da variável resposta. O objetivo das variáveis fictícias, também chamadas de *dummies*, é incorporar essas informações qualitativas ao modelo linear sem abandonar a estrutura do MRLM [@montgomery2021; @seber2003].
 
 O ponto mais importante é que o modelo não muda em sua essência. Continuamos trabalhando com
 
@@ -20,7 +20,7 @@ $$
 
 O que muda é a forma como algumas colunas da matriz $\mathbf{X}$ são construídas. Em vez de conter apenas variáveis quantitativas, a matriz de planejamento passa a conter também colunas formadas por zeros e uns, indicando a presença ou ausência de determinada característica.
 
-Essa observação é importante porque mostra que as variáveis fictícias não são um procedimento externo à regressão linear. Elas são parte natural da estrutura matricial do MRLM.
+Essa observação é importante porque mostra que as variáveis fictícias não são um procedimento externo à regressão linear. Elas são parte natural da estrutura matricial do MRLM [@rencher2012; @seber2003].
 
 ## Variáveis indicadoras e interpretação básica
 
@@ -67,7 +67,7 @@ E(Y_i\mid D_i=1)
 \beta_0+\beta_1.
 $$
 
-Portanto, $\beta_0$ representa a média do grupo de referência, isto é, o grupo codificado com $D_i=0$. Já $\beta_1$ representa a diferença média entre o grupo codificado com $D_i=1$ e o grupo de referência.
+Portanto, $\beta_0$ representa a média do grupo de referência, isto é, o grupo codificado com $D_i=0$. Já $\beta_1$ representa a diferença média entre o grupo codificado com $D_i=1$ e o grupo de referência [@montgomery2021; @greene2018].
 
 Essa interpretação é direta, mas merece cuidado. O coeficiente de uma dummy não deve ser lido como “aumento de uma unidade na variável”, no mesmo sentido de uma variável quantitativa. Como a dummy só assume os valores 0 e 1, seu coeficiente representa uma mudança de grupo.
 
@@ -120,7 +120,7 @@ Na representação gráfica, uma dummy binária sem interação desloca a reta p
 
 ## Fatores com múltiplas categorias
 
-Quando uma variável categórica possui apenas duas categorias, uma única dummy é suficiente. Entretanto, quando há $k$ categorias, usamos $k-1$ variáveis fictícias.
+Quando uma variável categórica possui apenas duas categorias, uma única dummy é suficiente. Entretanto, quando há $k$ categorias, usamos $k-1$ variáveis fictícias para evitar dependência linear perfeita entre as colunas da matriz de planejamento [@seber2003; @rencher2012].
 
 A categoria omitida torna-se a categoria de referência. Seus efeitos são incorporados ao intercepto.
 
@@ -286,13 +286,13 @@ $$
 
 não está definida.
 
-Esse problema é conhecido como armadilha das variáveis fictícias, ou *dummy variable trap*. A solução usual é omitir uma categoria, que passa a ser a referência.
+Esse problema é conhecido como armadilha das variáveis fictícias, ou *dummy variable trap*. A solução usual é omitir uma categoria, que passa a ser a referência [@greene2018; @montgomery2021].
 
 Essa discussão mostra que o uso de dummies está diretamente ligado à estrutura matricial do MRLM. Não se trata apenas de uma escolha de codificação. Trata-se de garantir identificabilidade dos parâmetros e posto completo da matriz de planejamento.
 
 ## Relação com ANOVA
 
-Um modelo de regressão contendo apenas variáveis fictícias para representar os níveis de um fator é equivalente a uma ANOVA de um fator.
+Um modelo de regressão contendo apenas variáveis fictícias para representar os níveis de um fator é equivalente a uma ANOVA de um fator [@montgomery2021; @seber2003].
 
 Na ANOVA, comparamos médias entre grupos. Na regressão com dummies, fazemos a mesma comparação por meio de coeficientes associados a categorias.
 
@@ -367,7 +367,7 @@ $$
 
 As duas retas possuem a mesma inclinação $\beta_1$, mas interceptos diferentes. Portanto, o modelo assume que o efeito de $x_i$ sobre $Y_i$ é o mesmo nos dois grupos, mas permite diferença média entre os grupos.
 
-Esse tipo de modelo é a base da ANCOVA, pois combina comparação entre grupos com ajuste por variáveis quantitativas.
+Esse tipo de modelo é a base da ANCOVA, pois combina comparação entre grupos com ajuste por variáveis quantitativas [@montgomery2021].
 
 ```{r}
 #| label: fig-ancova-retas-paralelas
@@ -481,7 +481,7 @@ ggplot(dados_mtcars, aes(x = wt, y = mpg, color = am)) +
 
 A interpretação de interações exige cuidado. O coeficiente da dummy isolada representa a diferença entre grupos quando $x_i=0$. Se esse valor não fizer sentido substantivo, pode ser útil centralizar a variável quantitativa antes de ajustar o modelo.
 
-A centralização consiste em substituir
+A centralização consiste em substituir $x_i$ por $x_i-\bar{x}$, tornando a interpretação do intercepto e dos efeitos principais mais informativa em modelos com interação [@montgomery2021; @greene2018].
 
 $$
 x_i
@@ -507,7 +507,7 @@ $$
 
 testa se a categoria associada à dummy $D_j$ apresenta média igual à da categoria de referência, mantendo as demais variáveis constantes.
 
-Quando uma variável categórica possui várias categorias, é comum testar o efeito conjunto do fator. Nesse caso, usamos um teste F para avaliar simultaneamente se todos os coeficientes das dummies associadas ao fator são iguais a zero.
+Quando uma variável categórica possui várias categorias, é comum testar o efeito conjunto do fator por meio de um teste $F$ envolvendo simultaneamente os coeficientes das dummies associadas ao fator [@seber2003; @montgomery2021].
 
 Por exemplo, para uma variável com quatro dummies, podemos testar
 
@@ -566,7 +566,7 @@ Var(\hat{\boldsymbol{\beta}})
 (\mathbf{X}^\top\mathbf{X})^{-1}.
 $$
 
-O uso de dummies, portanto, não cria uma nova teoria de estimação. Ele amplia a capacidade interpretativa do MRLM ao permitir que fatores qualitativos sejam incorporados à matriz de planejamento.
+O uso de dummies, portanto, não cria uma nova teoria de estimação. Ele amplia a capacidade interpretativa do MRLM ao permitir que fatores qualitativos sejam incorporados à matriz de planejamento [@rencher2012; @seber2003].
 
 ## Ilustrações em R
 
