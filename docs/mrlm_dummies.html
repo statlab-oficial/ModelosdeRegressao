@@ -762,7 +762,6 @@ E(Y_i\mid Sul)
 \beta_0+\beta_4.
 \]</span></p>
 <p>Assim, cada coeficiente compara uma categoria com a categoria de referência. Se <span class="math inline">\(\beta_3&gt;0\)</span>, por exemplo, a média da região Sudeste é maior que a média da região Norte, considerando o modelo especificado. Se <span class="math inline">\(\beta_3&lt;0\)</span>, a média da região Sudeste é menor que a média da região Norte.</p>
-<p>A escolha da categoria de referência não altera o ajuste do modelo nem os valores ajustados. O que muda é a interpretação dos coeficientes. Por isso, a categoria de referência deve ser escolhida de modo a facilitar a interpretação substantiva.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-dummies-multiplas-categorias" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -778,6 +777,12 @@ Figura&nbsp;16.2: Médias por categoria: representação visual de um fator com 
 </div>
 </div>
 <p>A figura com múltiplas categorias ajuda a visualizar que o modelo com dummies permite comparar médias entre grupos. A diferença entre categorias aparece como diferença vertical entre médias ajustadas.</p>
+<p>Importante notar que a escolha da categoria de referência não altera o ajuste do modelo nem os valores ajustados. O que muda é a interpretação dos coeficientes. Por isso, a categoria de referência deve ser escolhida de modo a facilitar a interpretação.</p>
+<p>Embora a codificação por categoria de referência seja a forma mais comum em regressão aplicada, ela não é a única maneira de representar uma variável categórica. A escolha da codificação depende do objetivo da análise e da interpretação desejada para os coeficientes.</p>
+<p>Na codificação por referência, uma categoria é omitida e passa a ser incorporada ao intercepto. Os coeficientes das demais categorias representam diferenças médias em relação a essa categoria. Essa forma é especialmente adequada quando existe um grupo de comparação natural, como um grupo controle em estudos experimentais, uma região de referência em estudos geográficos ou uma categoria padrão em aplicações econômicas e sociais.</p>
+<p>Outra possibilidade é usar contrastes por soma. Nesse caso, os coeficientes são interpretados como desvios em relação à média geral, e não como diferenças em relação a uma categoria específica. Essa codificação pode ser útil quando nenhuma categoria deve ser tratada como referência natural ou quando o interesse está em comparar cada grupo com o comportamento médio global.</p>
+<p>Também existem contrastes ortogonais, frequentemente utilizados em experimentos planejados e em análises de fatores com níveis ordenados ou estruturados. Nesses casos, os contrastes podem ser escolhidos para representar comparações específicas, como tendência linear, tendência quadrática ou diferenças entre grupos previamente definidos.</p>
+<p>Portanto, a codificação escolhida não altera o espaço gerado pelas colunas associadas ao fator, nem os valores ajustados do modelo quando as parametrizações são equivalentes. O que muda é a forma como os coeficientes são apresentados e interpretados. Em aplicações introdutórias e em grande parte dos modelos aplicados, a codificação por referência é a mais direta; em análises experimentais ou em situações nas quais o interesse recai sobre comparações específicas entre grupos, outras codificações podem ser mais informativas.</p>
 </section>
 <section id="a-armadilha-das-dummies-e-o-posto-da-matriz" class="level2" data-number="16.4">
 <h2 data-number="16.4" class="anchored" data-anchor-id="a-armadilha-das-dummies-e-o-posto-da-matriz"><span class="header-section-number">16.4</span> A armadilha das dummies e o posto da matriz</h2>
@@ -992,9 +997,8 @@ Var(\hat{\boldsymbol{\beta}})
 </section>
 <section id="ilustrações-em-r" class="level2" data-number="16.10">
 <h2 data-number="16.10" class="anchored" data-anchor-id="ilustrações-em-r"><span class="header-section-number">16.10</span> Ilustrações em R</h2>
-<p>As figuras deste capítulo têm apenas finalidade didática. O objetivo não é realizar uma análise de dados aplicada, mas visualizar como variáveis fictícias alteram a interpretação geométrica do modelo.</p>
-<p>A base <code>mtcars</code>, disponível no R, será usada para ilustrar dummies binárias e interações. A variável <code>am</code> indica o tipo de transmissão do automóvel, sendo usualmente interpretada como automática ou manual.</p>
-<p>A base <code>iris</code>, também disponível no R, será usada para ilustrar fatores com múltiplas categorias. A variável <code>Species</code> identifica três espécies de flores.</p>
+<p>A base <code>mtcars</code>, disponível no R, foi utilizada para ilustrar dummies binárias e interações. A variável <code>am</code> indica o tipo de transmissão do automóvel, sendo usualmente interpretada como automática ou manual.</p>
+<p>A base <code>iris</code>, também disponível no R, foi usada para ilustrar fatores com múltiplas categorias. A variável <code>Species</code> identifica três espécies de flores.</p>
 <p>Essas bases são utilizadas apenas para visualização. A análise completa, com tratamento de dados, diagnóstico e interpretação aplicada, será desenvolvida em atividade própria.</p>
 
 

@@ -99,15 +99,36 @@ Essa frase é essencial. Com variáveis fictícias, a expressão “mantendo as 
 library(ggplot2)
 
 dados_mtcars <- mtcars
+
 dados_mtcars$am <- factor(
   dados_mtcars$am,
   levels = c(0, 1),
   labels = c("Automática", "Manual")
 )
 
+modelo_paralelo <- lm(mpg ~ wt + am, data = dados_mtcars)
+
+grid_pred <- expand.grid(
+  wt = seq(
+    min(dados_mtcars$wt),
+    max(dados_mtcars$wt),
+    length.out = 100
+  ),
+  am = levels(dados_mtcars$am)
+)
+
+grid_pred$mpg_pred <- predict(
+  modelo_paralelo,
+  newdata = grid_pred
+)
+
 ggplot(dados_mtcars, aes(x = wt, y = mpg, color = am)) +
   geom_point(size = 2.4, alpha = 0.8) +
-  geom_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  geom_line(
+    data = grid_pred,
+    aes(x = wt, y = mpg_pred, color = am),
+    linewidth = 1.1
+  ) +
   labs(
     x = "Peso do automóvel",
     y = "Consumo (milhas por galão)",
@@ -115,6 +136,7 @@ ggplot(dados_mtcars, aes(x = wt, y = mpg, color = am)) +
   ) +
   theme_minimal(base_size = 13)
 ```
+
 
 Na representação gráfica, uma dummy binária sem interação desloca a reta para cima ou para baixo. As retas possuem a mesma inclinação, mas interceptos diferentes. Isso significa que o efeito da variável quantitativa é assumido igual nos dois grupos, enquanto a diferença entre os grupos aparece como uma diferença vertical.
 
@@ -220,7 +242,6 @@ $$
 
 Assim, cada coeficiente compara uma categoria com a categoria de referência. Se $\beta_3>0$, por exemplo, a média da região Sudeste é maior que a média da região Norte, considerando o modelo especificado. Se $\beta_3<0$, a média da região Sudeste é menor que a média da região Norte.
 
-A escolha da categoria de referência não altera o ajuste do modelo nem os valores ajustados. O que muda é a interpretação dos coeficientes. Por isso, a categoria de referência deve ser escolhida de modo a facilitar a interpretação substantiva.
 
 ```{r}
 #| label: fig-dummies-multiplas-categorias
@@ -246,6 +267,18 @@ ggplot(iris, aes(x = Species, y = Sepal.Length)) +
 ```
 
 A figura com múltiplas categorias ajuda a visualizar que o modelo com dummies permite comparar médias entre grupos. A diferença entre categorias aparece como diferença vertical entre médias ajustadas.
+
+Importante notar que a escolha da categoria de referência não altera o ajuste do modelo nem os valores ajustados. O que muda é a interpretação dos coeficientes. Por isso, a categoria de referência deve ser escolhida de modo a facilitar a interpretação.
+
+Embora a codificação por categoria de referência seja a forma mais comum em regressão aplicada, ela não é a única maneira de representar uma variável categórica. A escolha da codificação depende do objetivo da análise e da interpretação desejada para os coeficientes. 
+
+Na codificação por referência, uma categoria é omitida e passa a ser incorporada ao intercepto. Os coeficientes das demais categorias representam diferenças médias em relação a essa categoria. Essa forma é especialmente adequada quando existe um grupo de comparação natural, como um grupo controle em estudos experimentais, uma região de referência em estudos geográficos ou uma categoria padrão em aplicações econômicas e sociais.
+
+Outra possibilidade é usar contrastes por soma. Nesse caso, os coeficientes são interpretados como desvios em relação à média geral, e não como diferenças em relação a uma categoria específica. Essa codificação pode ser útil quando nenhuma categoria deve ser tratada como referência natural ou quando o interesse está em comparar cada grupo com o comportamento médio global.
+
+Também existem contrastes ortogonais, frequentemente utilizados em experimentos planejados e em análises de fatores com níveis ordenados ou estruturados. Nesses casos, os contrastes podem ser escolhidos para representar comparações específicas, como tendência linear, tendência quadrática ou diferenças entre grupos previamente definidos.
+
+Portanto, a codificação escolhida não altera o espaço gerado pelas colunas associadas ao fator, nem os valores ajustados do modelo quando as parametrizações são equivalentes. O que muda é a forma como os coeficientes são apresentados e interpretados. Em aplicações introdutórias e em grande parte dos modelos aplicados, a codificação por referência é a mais direta; em análises experimentais ou em situações nas quais o interesse recai sobre comparações específicas entre grupos, outras codificações podem ser mais informativas.
 
 ## A armadilha das dummies e o posto da matriz
 
@@ -570,10 +603,8 @@ O uso de dummies, portanto, não cria uma nova teoria de estimação. Ele amplia
 
 ## Ilustrações em R
 
-As figuras deste capítulo têm apenas finalidade didática. O objetivo não é realizar uma análise de dados aplicada, mas visualizar como variáveis fictícias alteram a interpretação geométrica do modelo.
+A base `mtcars`, disponível no R, foi utilizada para ilustrar dummies binárias e interações. A variável `am` indica o tipo de transmissão do automóvel, sendo usualmente interpretada como automática ou manual.
 
-A base `mtcars`, disponível no R, será usada para ilustrar dummies binárias e interações. A variável `am` indica o tipo de transmissão do automóvel, sendo usualmente interpretada como automática ou manual.
-
-A base `iris`, também disponível no R, será usada para ilustrar fatores com múltiplas categorias. A variável `Species` identifica três espécies de flores.
+A base `iris`, também disponível no R, foi usada para ilustrar fatores com múltiplas categorias. A variável `Species` identifica três espécies de flores.
 
 Essas bases são utilizadas apenas para visualização. A análise completa, com tratamento de dados, diagnóstico e interpretação aplicada, será desenvolvida em atividade própria.
