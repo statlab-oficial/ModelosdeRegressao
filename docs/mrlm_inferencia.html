@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -569,8 +604,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#intervalo-individual-para-um-coeficiente" id="toc-intervalo-individual-para-um-coeficiente" class="nav-link" data-scroll-target="#intervalo-individual-para-um-coeficiente"><span class="header-section-number">15.5.1</span> Intervalo individual para um coeficiente</a></li>
   <li><a href="#intervalos-simultâneos-e-região-conjunta" id="toc-intervalos-simultâneos-e-região-conjunta" class="nav-link" data-scroll-target="#intervalos-simultâneos-e-região-conjunta"><span class="header-section-number">15.5.2</span> Intervalos simultâneos e região conjunta</a></li>
-  <li><a href="#correções-simultâneas-e-observações-práticas" id="toc-correções-simultâneas-e-observações-práticas" class="nav-link" data-scroll-target="#correções-simultâneas-e-observações-práticas"><span class="header-section-number">15.5.3</span> Correções simultâneas e observações práticas</a></li>
-  <li><a href="#ideias-de-demonstração-1" id="toc-ideias-de-demonstração-1" class="nav-link" data-scroll-target="#ideias-de-demonstração-1"><span class="header-section-number">15.5.4</span> Ideias de demonstração</a></li>
+  <li><a href="#visualização-geométrica-da-região-conjunta-de-confiança" id="toc-visualização-geométrica-da-região-conjunta-de-confiança" class="nav-link" data-scroll-target="#visualização-geométrica-da-região-conjunta-de-confiança"><span class="header-section-number">15.5.3</span> Visualização geométrica da região conjunta de confiança</a></li>
+  <li><a href="#curvas-de-nível-da-distribuição-aproximada-de-dois-estimadores" id="toc-curvas-de-nível-da-distribuição-aproximada-de-dois-estimadores" class="nav-link" data-scroll-target="#curvas-de-nível-da-distribuição-aproximada-de-dois-estimadores"><span class="header-section-number">15.5.4</span> Curvas de nível da distribuição aproximada de dois estimadores</a></li>
+  <li><a href="#superfície-da-densidade-normal-bivariada" id="toc-superfície-da-densidade-normal-bivariada" class="nav-link" data-scroll-target="#superfície-da-densidade-normal-bivariada"><span class="header-section-number">15.5.5</span> Superfície da densidade Normal bivariada</a></li>
+  <li><a href="#correções-simultâneas-e-observações-práticas" id="toc-correções-simultâneas-e-observações-práticas" class="nav-link" data-scroll-target="#correções-simultâneas-e-observações-práticas"><span class="header-section-number">15.5.6</span> Correções simultâneas e observações práticas</a></li>
+  <li><a href="#ideias-de-demonstração-1" id="toc-ideias-de-demonstração-1" class="nav-link" data-scroll-target="#ideias-de-demonstração-1"><span class="header-section-number">15.5.7</span> Ideias de demonstração</a></li>
   </ul></li>
   <li><a href="#intervalos-para-a-média-condicional-e-para-predição" id="toc-intervalos-para-a-média-condicional-e-para-predição" class="nav-link" data-scroll-target="#intervalos-para-a-média-condicional-e-para-predição"><span class="header-section-number">15.6</span> Intervalos para a média condicional e para predição</a></li>
   <li><a href="#efeitos-parciais-r2-parcial-e-tamanho-de-efeito" id="toc-efeitos-parciais-r2-parcial-e-tamanho-de-efeito" class="nav-link" data-scroll-target="#efeitos-parciais-r2-parcial-e-tamanho-de-efeito"><span class="header-section-number">15.7</span> Efeitos parciais, <span class="math inline">\(R^2\)</span> parcial e tamanho de efeito</a></li>
@@ -1088,9 +1126,205 @@ IC_{1-\alpha}(\beta_j) = \Big( \hat{\beta}_j - t_{\alpha/2,\,n-p-1}\,\hat{\sigma
 <p>Essa desigualdade descreve um elipsoide centrado em <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>, cuja forma e orientação dependem da matriz <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span>. Dentro desse elipsoide encontram-se, com probabilidade <span class="math inline">\((1-\alpha)\)</span>, os vetores de parâmetros plausíveis à luz dos dados.</p>
 <p>Enquanto os intervalos individuais tratam cada parâmetro separadamente, a região conjunta incorpora as covariâncias entre os estimadores. Isso é particularmente relevante em situações de multicolinearidade, nas quais o elipsoide tende a se alongar em determinadas direções, refletindo que diferentes combinações de coeficientes podem produzir ajustes semelhantes.</p>
 <p>Geometricamente, essa construção é a contrapartida, no espaço dos parâmetros, do princípio de decomposição da variância visto na ANOVA: a comparação entre variabilidade explicada e variabilidade residual, agora em um contexto multivariado.</p>
+<p>A construção computacional dessa região pode ser entendida geometricamente a partir da matriz de variância-covariância dos estimadores. No caso bidimensional, queremos construir os pontos da elipse associados à região conjunta de confiança. Para isso, começamos com um círculo unitário parametrizado por</p>
+<p><span class="math display">\[
+\mathbf{u}(\theta)
+=
+\begin{bmatrix}
+\cos(\theta)\\
+\sin(\theta)
+\end{bmatrix},
+\quad
+0\le\theta\le2\pi.
+\]</span></p>
+<p>Esse círculo é então transformado pela estrutura de covariâncias dos estimadores. Se</p>
+<p><span class="math display">\[
+\mathbf{\Sigma}
+=
+Var
+\left(
+\begin{bmatrix}
+\hat{\beta}_1\\
+\hat{\beta}_2
+\end{bmatrix}
+\right),
+\]</span></p>
+<p>uma decomposição de Cholesky produz uma matriz <span class="math inline">\(\mathbf{A}\)</span> tal que</p>
+<p><span class="math display">\[
+\mathbf{\Sigma}
+=
+\mathbf{A}\mathbf{A}^\top.
+\]</span></p>
+<p>A transformação</p>
+<p><span class="math display">\[
+\mathbf{A}\mathbf{u}(\theta)
+\]</span> transforma o círculo unitário em uma elipse centrada na origem.</p>
+<p>Finalmente, multiplicamos essa transformação por um fator associado ao nível de confiança e transladamos a figura para o centro <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>. Assim, os pontos da região conjunta podem ser escritos como</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}
++
+c\,
+\mathbf{A}\mathbf{u}(\theta),
+\]</span></p>
+<p>onde <span class="math inline">\(c\)</span> depende do nível de confiança escolhido. Quando usamos a distribuição <span class="math inline">\(F\)</span>,</p>
+<p><span class="math display">\[
+c
+=
+\sqrt{
+q\,
+F_{1-\alpha;\,q,\,n-p-1}
+},
+\]</span></p>
+<p>em que <span class="math inline">\(q\)</span> representa o número de parâmetros considerados conjuntamente.</p>
+<p>No código a seguir:</p>
+<ul>
+<li><p><code>circulo</code> representa os pontos do círculo unitário;</p></li>
+<li><p><code>chol(V_beta)</code> realiza a decomposição de Cholesky da matriz de covariância;</p></li>
+<li><p>e <code>raio</code> controla o tamanho da região de confiança.</p></li>
+</ul>
 </section>
-<section id="correções-simultâneas-e-observações-práticas" class="level3" data-number="15.5.3">
-<h3 data-number="15.5.3" class="anchored" data-anchor-id="correções-simultâneas-e-observações-práticas"><span class="header-section-number">15.5.3</span> Correções simultâneas e observações práticas</h3>
+<section id="visualização-geométrica-da-região-conjunta-de-confiança" class="level3" data-number="15.5.3">
+<h3 data-number="15.5.3" class="anchored" data-anchor-id="visualização-geométrica-da-região-conjunta-de-confiança"><span class="header-section-number">15.5.3</span> Visualização geométrica da região conjunta de confiança</h3>
+<p>A região conjunta de confiança pode ser visualizada de forma mais simples quando observamos apenas dois coeficientes por vez. Nesse caso, o elipsoide em dimensão maior reduz-se a uma elipse no plano.</p>
+<p>O objetivo da figura é ilustrar graficamente a diferença entre intervalos marginais e região conjunta.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fl">0.6</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">0.8</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>x1 <span class="sc">-</span> <span class="fl">1.0</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">1.2</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>dados_demo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>mod_demo <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> dados_demo)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>beta_hat <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod_demo)[<span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>)]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>V_beta <span class="ot">&lt;-</span> <span class="fu">vcov</span>(mod_demo)[<span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>), <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>)]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>gl <span class="ot">&lt;-</span> <span class="fu">df.residual</span>(mod_demo)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>Fcrit <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> q, <span class="at">df2 =</span> gl)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>raio <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(q <span class="sc">*</span> Fcrit)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="at">length.out =</span> <span class="dv">300</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>circulo <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">cos</span>(theta), <span class="fu">sin</span>(theta))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">chol</span>(V_beta)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>elipse <span class="ot">&lt;-</span> <span class="fu">sweep</span>(circulo <span class="sc">%*%</span> A <span class="sc">*</span> raio, <span class="dv">2</span>, beta_hat, <span class="st">"+"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>elipse <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(elipse)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(elipse) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"beta1"</span>, <span class="st">"beta2"</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>tcrit <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> gl)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>ic_beta1 <span class="ot">&lt;-</span> beta_hat[<span class="st">"x1"</span>] <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> tcrit <span class="sc">*</span> <span class="fu">sqrt</span>(V_beta[<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>ic_beta2 <span class="ot">&lt;-</span> beta_hat[<span class="st">"x2"</span>] <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> tcrit <span class="sc">*</span> <span class="fu">sqrt</span>(V_beta[<span class="dv">2</span>, <span class="dv">2</span>])</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>retangulo_ic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta1 =</span> <span class="fu">c</span>(ic_beta1[<span class="dv">1</span>], ic_beta1[<span class="dv">2</span>], ic_beta1[<span class="dv">2</span>], ic_beta1[<span class="dv">1</span>], ic_beta1[<span class="dv">1</span>]),</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta2 =</span> <span class="fu">c</span>(ic_beta2[<span class="dv">1</span>], ic_beta2[<span class="dv">1</span>], ic_beta2[<span class="dv">2</span>], ic_beta2[<span class="dv">2</span>], ic_beta2[<span class="dv">1</span>])</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> elipse,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> beta1, <span class="at">y =</span> beta2),</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.1</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> retangulo_ic,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> beta1, <span class="at">y =</span> beta2),</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="dv">2</span>,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> beta_hat[<span class="st">"x1"</span>], <span class="at">y =</span> beta_hat[<span class="st">"x2"</span>]),</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(beta[<span class="dv">1</span>]),</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta[<span class="dv">2</span>]),</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Região conjunta e intervalos marginais"</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-regiao-conjunta-beta1-beta2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-regiao-conjunta-beta1-beta2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_inferencia_files/figure-html/fig-regiao-conjunta-beta1-beta2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regiao-conjunta-beta1-beta2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;15.1: Intervalos marginais e região conjunta de confiança para dois coeficientes.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Na figura, a elipse representa a região conjunta de confiança para <span class="math inline">\((\beta_1,\beta_2)\)</span>. O retângulo tracejado representa a combinação dos intervalos marginais individuais de <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\beta_2\)</span>.</p>
+<p>A comparação visual mostra que a região conjunta não é simplesmente a justaposição dos intervalos individuais. A elipse incorpora a covariância entre os estimadores, enquanto os intervalos marginais analisam cada coeficiente separadamente.</p>
+<p>Quando há correlação entre <span class="math inline">\(\hat{\beta}_1\)</span> e <span class="math inline">\(\hat{\beta}_2\)</span>, a elipse tende a ficar inclinada. Essa inclinação indica que certas combinações dos coeficientes são mais plausíveis do que outras.</p>
+</section>
+<section id="curvas-de-nível-da-distribuição-aproximada-de-dois-estimadores" class="level3" data-number="15.5.4">
+<h3 data-number="15.5.4" class="anchored" data-anchor-id="curvas-de-nível-da-distribuição-aproximada-de-dois-estimadores"><span class="header-section-number">15.5.4</span> Curvas de nível da distribuição aproximada de dois estimadores</h3>
+<p>Sob o MRLM Normal,</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}\mid\mathbf{X}
+\sim
+N_{p+1}
+\left(
+\boldsymbol{\beta},
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
+\right).
+\]</span></p>
+<p>Para visualizar essa ideia, podemos representar a distribuição aproximada de dois coeficientes estimados. As curvas de nível da densidade Normal bivariada ajudam a compreender por que as regiões de confiança conjuntas assumem forma elíptica.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-contornos-normal-bivariada-beta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-contornos-normal-bivariada-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_inferencia_files/figure-html/fig-contornos-normal-bivariada-beta-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contornos-normal-bivariada-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;15.2: Curvas de nível da distribuição Normal bivariada aproximada de dois estimadores.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As curvas de nível representam pontos com a mesma densidade. A forma elíptica aparece porque estamos visualizando uma distribuição Normal bivariada. Quanto mais concentradas as curvas em torno de <span class="math inline">\((\hat{\beta}_1,\hat{\beta}_2)\)</span>, menor é a incerteza associada às estimativas.</p>
+</section>
+<section id="superfície-da-densidade-normal-bivariada" class="level3" data-number="15.5.5">
+<h3 data-number="15.5.5" class="anchored" data-anchor-id="superfície-da-densidade-normal-bivariada"><span class="header-section-number">15.5.5</span> Superfície da densidade Normal bivariada</h3>
+<p>A mesma distribuição pode ser representada como uma superfície tridimensional. Essa visualização destaca o ponto de maior densidade, localizado em torno das estimativas dos coeficientes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-superficie-normal-bivariada-beta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-superficie-normal-bivariada-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_inferencia_files/figure-html/fig-superficie-normal-bivariada-beta-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-superficie-normal-bivariada-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;15.3: Superfície da densidade Normal bivariada aproximada de dois estimadores.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A superfície mostra a mesma informação das curvas de nível, mas em três dimensões. A região mais alta corresponde aos valores mais plausíveis para os coeficientes, enquanto regiões mais afastadas apresentam menor densidade.</p>
+</section>
+<section id="correções-simultâneas-e-observações-práticas" class="level3" data-number="15.5.6">
+<h3 data-number="15.5.6" class="anchored" data-anchor-id="correções-simultâneas-e-observações-práticas"><span class="header-section-number">15.5.6</span> Correções simultâneas e observações práticas</h3>
 <p>Ao construir intervalos de confiança individuais para vários coeficientes, cada intervalo possui nível de confiança <span class="math inline">\((1-\alpha)\)</span>. No entanto, ao considerar todos simultaneamente, a probabilidade de que pelo menos um deles não contenha o valor verdadeiro aumenta. Esse fenômeno é conhecido como erro tipo I global.</p>
 <p>Uma forma simples de controlar esse erro é a correção de Bonferroni. Se desejamos manter o nível global de significância em <span class="math inline">\(\alpha\)</span>, utilizamos um nível individual <span class="math inline">\(\alpha'=\alpha/(p+1)\)</span> e construímos os intervalos como</p>
 <p><span class="math display">\[
@@ -1108,8 +1342,8 @@ IC_{1-\alpha'}(\beta_j):\quad
 </ul>
 <p>A escolha entre essas abordagens envolve um equilíbrio entre precisão estatística, clareza interpretativa e objetivo da análise.</p>
 </section>
-<section id="ideias-de-demonstração-1" class="level3" data-number="15.5.4">
-<h3 data-number="15.5.4" class="anchored" data-anchor-id="ideias-de-demonstração-1"><span class="header-section-number">15.5.4</span> Ideias de demonstração</h3>
+<section id="ideias-de-demonstração-1" class="level3" data-number="15.5.7">
+<h3 data-number="15.5.7" class="anchored" data-anchor-id="ideias-de-demonstração-1"><span class="header-section-number">15.5.7</span> Ideias de demonstração</h3>
 <ol type="1">
 <li>Sob o MRLM Normal,</li>
 </ol>

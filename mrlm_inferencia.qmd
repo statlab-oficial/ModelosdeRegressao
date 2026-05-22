@@ -658,6 +658,272 @@ Enquanto os intervalos individuais tratam cada parâmetro separadamente, a regi�
 
 Geometricamente, essa construção é a contrapartida, no espaço dos parâmetros, do princípio de decomposição da variância visto na ANOVA: a comparação entre variabilidade explicada e variabilidade residual, agora em um contexto multivariado.
 
+A construção computacional dessa região pode ser entendida geometricamente a partir da matriz de variância-covariância dos estimadores. No caso bidimensional, queremos construir os pontos da elipse associados à região conjunta de confiança. Para isso, começamos com um círculo unitário parametrizado por
+
+$$
+\mathbf{u}(\theta)
+=
+\begin{bmatrix}
+\cos(\theta)\\
+\sin(\theta)
+\end{bmatrix},
+\quad
+0\le\theta\le2\pi.
+$$
+
+Esse círculo é então transformado pela estrutura de covariâncias dos estimadores. Se
+
+$$
+\mathbf{\Sigma}
+=
+Var
+\left(
+\begin{bmatrix}
+\hat{\beta}_1\\
+\hat{\beta}_2
+\end{bmatrix}
+\right),
+$$
+
+uma decomposição de Cholesky produz uma matriz $\mathbf{A}$ tal que
+
+$$
+\mathbf{\Sigma}
+=
+\mathbf{A}\mathbf{A}^\top.
+$$
+
+A transformação
+
+$$
+\mathbf{A}\mathbf{u}(\theta)
+$$
+transforma o círculo unitário em uma elipse centrada na origem.
+
+Finalmente, multiplicamos essa transformação por um fator associado ao nível de confiança e transladamos a figura para o centro $\hat{\boldsymbol{\beta}}$. Assim, os pontos da região conjunta podem ser escritos como
+
+$$
+\hat{\boldsymbol{\beta}}
++
+c\,
+\mathbf{A}\mathbf{u}(\theta),
+$$
+
+onde $c$ depende do nível de confiança escolhido. Quando usamos a distribuição $F$,
+
+$$
+c
+=
+\sqrt{
+q\,
+F_{1-\alpha;\,q,\,n-p-1}
+},
+$$
+
+em que $q$ representa o número de parâmetros considerados conjuntamente.
+
+No código a seguir:
+
+- `circulo` representa os pontos do círculo unitário;
+
+- `chol(V_beta)` realiza a decomposição de Cholesky da matriz de covariância;
+
+- e `raio` controla o tamanho da região de confiança.
+
+
+### Visualização geométrica da região conjunta de confiança
+
+A região conjunta de confiança pode ser visualizada de forma mais simples quando observamos apenas dois coeficientes por vez. Nesse caso, o elipsoide em dimensão maior reduz-se a uma elipse no plano.
+
+O objetivo da figura é ilustrar graficamente a diferença entre intervalos marginais e região conjunta.
+
+```{r}
+#| label: fig-regiao-conjunta-beta1-beta2
+#| fig-cap: "Intervalos marginais e região conjunta de confiança para dois coeficientes."
+#| warning: false
+#| message: false
+
+library(ggplot2)
+set.seed(123)
+
+n <- 80
+
+x1 <- rnorm(n)
+x2 <- 0.6*x1 + rnorm(n, sd = 0.8)
+
+y <- 2 + 1.5*x1 - 1.0*x2 + rnorm(n, sd = 1.2)
+
+dados_demo <- data.frame(y, x1, x2)
+
+mod_demo <- lm(y ~ x1 + x2, data = dados_demo)
+
+beta_hat <- coef(mod_demo)[c("x1", "x2")]
+
+V_beta <- vcov(mod_demo)[c("x1", "x2"), c("x1", "x2")]
+
+gl <- df.residual(mod_demo)
+
+alpha <- 0.05
+q <- 2
+
+Fcrit <- qf(1 - alpha, df1 = q, df2 = gl)
+
+raio <- sqrt(q * Fcrit)
+
+theta <- seq(0, 2*pi, length.out = 300)
+
+circulo <- cbind(cos(theta), sin(theta))
+
+A <- chol(V_beta)
+
+elipse <- sweep(circulo %*% A * raio, 2, beta_hat, "+")
+
+elipse <- as.data.frame(elipse)
+names(elipse) <- c("beta1", "beta2")
+
+tcrit <- qt(1 - alpha/2, df = gl)
+
+ic_beta1 <- beta_hat["x1"] + c(-1, 1) * tcrit * sqrt(V_beta[1, 1])
+ic_beta2 <- beta_hat["x2"] + c(-1, 1) * tcrit * sqrt(V_beta[2, 2])
+
+retangulo_ic <- data.frame(
+  beta1 = c(ic_beta1[1], ic_beta1[2], ic_beta1[2], ic_beta1[1], ic_beta1[1]),
+  beta2 = c(ic_beta2[1], ic_beta2[1], ic_beta2[2], ic_beta2[2], ic_beta2[1])
+)
+
+ggplot() +
+  geom_path(
+    data = elipse,
+    aes(x = beta1, y = beta2),
+    linewidth = 1.1
+  ) +
+  geom_path(
+    data = retangulo_ic,
+    aes(x = beta1, y = beta2),
+    linetype = 2,
+    linewidth = 1
+  ) +
+  geom_point(
+    aes(x = beta_hat["x1"], y = beta_hat["x2"]),
+    size = 3
+  ) +
+  labs(
+    x = expression(beta[1]),
+    y = expression(beta[2]),
+    title = "Região conjunta e intervalos marginais"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+Na figura, a elipse representa a região conjunta de confiança para $(\beta_1,\beta_2)$. O retângulo tracejado representa a combinação dos intervalos marginais individuais de $\beta_1$ e $\beta_2$.
+
+A comparação visual mostra que a região conjunta não é simplesmente a justaposição dos intervalos individuais. A elipse incorpora a covariância entre os estimadores, enquanto os intervalos marginais analisam cada coeficiente separadamente.
+
+Quando há correlação entre $\hat{\beta}_1$ e $\hat{\beta}_2$, a elipse tende a ficar inclinada. Essa inclinação indica que certas combinações dos coeficientes são mais plausíveis do que outras.
+
+### Curvas de nível da distribuição aproximada de dois estimadores
+
+Sob o MRLM Normal,
+
+$$
+\hat{\boldsymbol{\beta}}\mid\mathbf{X}
+\sim
+N_{p+1}
+\left(
+\boldsymbol{\beta},
+\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}
+\right).
+$$
+
+Para visualizar essa ideia, podemos representar a distribuição aproximada de dois coeficientes estimados. As curvas de nível da densidade Normal bivariada ajudam a compreender por que as regiões de confiança conjuntas assumem forma elíptica.
+
+```{r}
+#| label: fig-contornos-normal-bivariada-beta
+#| fig-cap: "Curvas de nível da distribuição Normal bivariada aproximada de dois estimadores."
+#| warning: false
+#| message: false
+#| echo: false
+
+dens_biv <- function(x, mu, Sigma){
+  p <- length(mu)
+  dif <- as.matrix(x) - matrix(mu, nrow = nrow(x), ncol = p, byrow = TRUE)
+  expo <- rowSums((dif %*% solve(Sigma)) * dif)
+  const <- 1 / sqrt((2*pi)^p * det(Sigma))
+  const * exp(-0.5 * expo)
+}
+
+grid_beta <- expand.grid(
+  beta1 = seq(
+    beta_hat["x1"] - 4*sqrt(V_beta[1, 1]),
+    beta_hat["x1"] + 4*sqrt(V_beta[1, 1]),
+    length.out = 150
+  ),
+  beta2 = seq(
+    beta_hat["x2"] - 4*sqrt(V_beta[2, 2]),
+    beta_hat["x2"] + 4*sqrt(V_beta[2, 2]),
+    length.out = 150
+  )
+)
+
+grid_beta$densidade <- dens_biv(
+  x = grid_beta[, c("beta1", "beta2")],
+  mu = beta_hat,
+  Sigma = V_beta
+)
+
+ggplot(grid_beta, aes(x = beta1, y = beta2, z = densidade)) +
+  geom_contour_filled() +
+  geom_point(
+    aes(x = beta_hat["x1"], y = beta_hat["x2"]),
+    size = 3
+  ) +
+  labs(
+    x = expression(beta[1]),
+    y = expression(beta[2]),
+    title = "Curvas de nível da distribuição aproximada dos estimadores"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+As curvas de nível representam pontos com a mesma densidade. A forma elíptica aparece porque estamos visualizando uma distribuição Normal bivariada. Quanto mais concentradas as curvas em torno de $(\hat{\beta}_1,\hat{\beta}_2)$, menor é a incerteza associada às estimativas.
+
+### Superfície da densidade Normal bivariada
+
+A mesma distribuição pode ser representada como uma superfície tridimensional. Essa visualização destaca o ponto de maior densidade, localizado em torno das estimativas dos coeficientes.
+
+```{r}
+#| label: fig-superficie-normal-bivariada-beta
+#| fig-cap: "Superfície da densidade Normal bivariada aproximada de dois estimadores."
+#| warning: false
+#| message: false
+#| echo: false
+
+z <- matrix(
+  grid_beta$densidade,
+  nrow = 150,
+  ncol = 150
+)
+
+x_seq <- sort(unique(grid_beta$beta1))
+y_seq <- sort(unique(grid_beta$beta2))
+
+persp(
+  x = x_seq,
+  y = y_seq,
+  z = z,
+  theta = 35,
+  phi = 25,
+  expand = 0.7,
+  ticktype = "detailed",
+  xlab = expression(beta[1]),
+  ylab = expression(beta[2]),
+  zlab = "densidade"
+)
+```
+
+A superfície mostra a mesma informação das curvas de nível, mas em três dimensões. A região mais alta corresponde aos valores mais plausíveis para os coeficientes, enquanto regiões mais afastadas apresentam menor densidade.
+
+
 ### Correções simultâneas e observações práticas
 
 Ao construir intervalos de confiança individuais para vários coeficientes, cada intervalo possui nível de confiança $(1-\alpha)$. No entanto, ao considerar todos simultaneamente, a probabilidade de que pelo menos um deles não contenha o valor verdadeiro aumenta. Esse fenômeno é conhecido como erro tipo I global.
