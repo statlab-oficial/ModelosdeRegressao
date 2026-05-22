@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index</title>
+<title>16&nbsp; Variáveis Fictícias (Dummies)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./prefacio.html" rel="next">
+<link href="./ap_listas.html" rel="next">
+<link href="./mrlm_inferencia.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -74,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -249,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Informações Legais e Declaração de Uso de Inteligência Artificial</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./mrlm_dummies.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variáveis Fictícias (<em>Dummies</em>)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -278,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
   </div>
 </li>
@@ -417,7 +447,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mrlm_dummies.html" class="sidebar-item-text sidebar-link">
+  <a href="./mrlm_dummies.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variáveis Fictícias (<em>Dummies</em>)</span></span></a>
   </div>
 </li>
@@ -510,43 +540,444 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#informações-legais-e-declaração-de-uso-de-inteligência-artificial" id="toc-informações-legais-e-declaração-de-uso-de-inteligência-artificial" class="nav-link active" data-scroll-target="#informações-legais-e-declaração-de-uso-de-inteligência-artificial">Informações Legais e Declaração de Uso de Inteligência Artificial</a>
-  <ul class="collapse">
-  <li><a href="#direitos-autorais-e-uso-da-obra" id="toc-direitos-autorais-e-uso-da-obra" class="nav-link" data-scroll-target="#direitos-autorais-e-uso-da-obra">Direitos Autorais e Uso da Obra</a></li>
-  <li><a href="#declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial" id="toc-declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial" class="nav-link" data-scroll-target="#declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial">Declaração sobre o Uso de Ferramentas de Inteligência Artificial</a></li>
-  </ul></li>
+  <li><a href="#introdução-e-motivação" id="toc-introdução-e-motivação" class="nav-link active" data-scroll-target="#introdução-e-motivação"><span class="header-section-number">16.1</span> Introdução e motivação</a></li>
+  <li><a href="#variáveis-indicadoras-e-interpretação-básica" id="toc-variáveis-indicadoras-e-interpretação-básica" class="nav-link" data-scroll-target="#variáveis-indicadoras-e-interpretação-básica"><span class="header-section-number">16.2</span> Variáveis indicadoras e interpretação básica</a></li>
+  <li><a href="#fatores-com-múltiplas-categorias" id="toc-fatores-com-múltiplas-categorias" class="nav-link" data-scroll-target="#fatores-com-múltiplas-categorias"><span class="header-section-number">16.3</span> Fatores com múltiplas categorias</a></li>
+  <li><a href="#a-armadilha-das-dummies-e-o-posto-da-matriz" id="toc-a-armadilha-das-dummies-e-o-posto-da-matriz" class="nav-link" data-scroll-target="#a-armadilha-das-dummies-e-o-posto-da-matriz"><span class="header-section-number">16.4</span> A armadilha das dummies e o posto da matriz</a></li>
+  <li><a href="#relação-com-anova" id="toc-relação-com-anova" class="nav-link" data-scroll-target="#relação-com-anova"><span class="header-section-number">16.5</span> Relação com ANOVA</a></li>
+  <li><a href="#variáveis-quantitativas-dummies-e-ancova" id="toc-variáveis-quantitativas-dummies-e-ancova" class="nav-link" data-scroll-target="#variáveis-quantitativas-dummies-e-ancova"><span class="header-section-number">16.6</span> Variáveis quantitativas, dummies e ANCOVA</a></li>
+  <li><a href="#interações-entre-dummies-e-variáveis-quantitativas" id="toc-interações-entre-dummies-e-variáveis-quantitativas" class="nav-link" data-scroll-target="#interações-entre-dummies-e-variáveis-quantitativas"><span class="header-section-number">16.7</span> Interações entre dummies e variáveis quantitativas</a></li>
+  <li><a href="#inferência-com-variáveis-fictícias" id="toc-inferência-com-variáveis-fictícias" class="nav-link" data-scroll-target="#inferência-com-variáveis-fictícias"><span class="header-section-number">16.8</span> Inferência com variáveis fictícias</a></li>
+  <li><a href="#formulação-matricial" id="toc-formulação-matricial" class="nav-link" data-scroll-target="#formulação-matricial"><span class="header-section-number">16.9</span> Formulação matricial</a></li>
+  <li><a href="#ilustrações-em-r" id="toc-ilustrações-em-r" class="nav-link" data-scroll-target="#ilustrações-em-r"><span class="header-section-number">16.10</span> Ilustrações em R</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./mrlm_dummies.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variáveis Fictícias (<em>Dummies</em>)</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variáveis Fictícias (<em>Dummies</em>)</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/capa.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</header>
+
+
+<section id="introdução-e-motivação" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="introdução-e-motivação"><span class="header-section-number">16.1</span> Introdução e motivação</h2>
+<p>Até este ponto, o Modelo de Regressão Linear Múltipla foi apresentado principalmente a partir de variáveis explicativas quantitativas. Variáveis como renda, idade, temperatura, distância, tempo de estudo ou consumo de energia possuem uma escala numérica natural. Nesses casos, a interpretação dos coeficientes costuma ser feita em termos de variação média na resposta associada ao aumento de uma unidade na variável explicativa, mantendo as demais variáveis constantes.</p>
+<p>Entretanto, em muitas aplicações, parte importante da explicação de um fenômeno não está em variáveis quantitativas, mas em características qualitativas. Indivíduos podem pertencer a grupos distintos; empresas podem atuar em setores diferentes; produtos podem ser classificados em categorias; regiões podem apresentar condições estruturais diversas; tratamentos podem ser comparados com grupos de controle.</p>
+<p>Essas informações são categóricas. Elas não possuem, em geral, uma escala numérica natural, mas podem alterar substancialmente a média da variável resposta. O objetivo das variáveis fictícias, também chamadas de <em>dummies</em>, é incorporar essas informações qualitativas ao modelo linear sem abandonar a estrutura do MRLM.</p>
+<p>O ponto mais importante é que o modelo não muda em sua essência. Continuamos trabalhando com</p>
+<p><span class="math display">\[
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon}.
+\]</span></p>
+<p>O que muda é a forma como algumas colunas da matriz <span class="math inline">\(\mathbf{X}\)</span> são construídas. Em vez de conter apenas variáveis quantitativas, a matriz de planejamento passa a conter também colunas formadas por zeros e uns, indicando a presença ou ausência de determinada característica.</p>
+<p>Essa observação é importante porque mostra que as variáveis fictícias não são um procedimento externo à regressão linear. Elas são parte natural da estrutura matricial do MRLM.</p>
+</section>
+<section id="variáveis-indicadoras-e-interpretação-básica" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="variáveis-indicadoras-e-interpretação-básica"><span class="header-section-number">16.2</span> Variáveis indicadoras e interpretação básica</h2>
+<p>Uma variável fictícia é uma variável binária, isto é, uma variável que assume apenas os valores 0 e 1. O valor 1 indica a presença de uma característica, enquanto o valor 0 indica sua ausência.</p>
+<p>Por exemplo, para representar se um automóvel possui transmissão automática ou manual, podemos definir</p>
+<p><span class="math display">\[
+D_i
+=
+\begin{cases}
+1, &amp; \text{se o automóvel possui transmissão automática},\\
+0, &amp; \text{se o automóvel possui transmissão manual}.
+\end{cases}
+\]</span></p>
+<p>A variável <span class="math inline">\(D_i\)</span> funciona como um indicador. Ela não mede quantidade. Ela classifica a observação em um grupo.</p>
+<p>Considere o modelo simples</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1D_i
++
+\varepsilon_i.
+\]</span></p>
+<p>Se <span class="math inline">\(D_i=0\)</span>, temos</p>
+<p><span class="math display">\[
+E(Y_i\mid D_i=0)
+=
+\beta_0.
+\]</span></p>
+<p>Se <span class="math inline">\(D_i=1\)</span>, temos</p>
+<p><span class="math display">\[
+E(Y_i\mid D_i=1)
+=
+\beta_0+\beta_1.
+\]</span></p>
+<p>Portanto, <span class="math inline">\(\beta_0\)</span> representa a média do grupo de referência, isto é, o grupo codificado com <span class="math inline">\(D_i=0\)</span>. Já <span class="math inline">\(\beta_1\)</span> representa a diferença média entre o grupo codificado com <span class="math inline">\(D_i=1\)</span> e o grupo de referência.</p>
+<p>Essa interpretação é direta, mas merece cuidado. O coeficiente de uma dummy não deve ser lido como “aumento de uma unidade na variável”, no mesmo sentido de uma variável quantitativa. Como a dummy só assume os valores 0 e 1, seu coeficiente representa uma mudança de grupo.</p>
+<p>Quando há outras variáveis no modelo, a interpretação é condicional. No modelo</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1D_i
++
+\beta_2x_i
++
+\varepsilon_i,
+\]</span></p>
+<p>o coeficiente <span class="math inline">\(\beta_1\)</span> representa a diferença média entre os grupos, mantendo <span class="math inline">\(x_i\)</span> constante.</p>
+<p>Essa frase é essencial. Com variáveis fictícias, a expressão “mantendo as demais variáveis constantes” significa comparar indivíduos ou unidades que possuem o mesmo valor das variáveis quantitativas, mas pertencem a categorias diferentes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dummy-retas-paralelas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dummy-retas-paralelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_dummies_files/figure-html/fig-dummy-retas-paralelas-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dummy-retas-paralelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.1: Efeito de uma variável dummy binária: deslocamento no intercepto com inclinação comum.
+</figcaption>
 </figure>
 </div>
-<section id="informações-legais-e-declaração-de-uso-de-inteligência-artificial" class="level1 unnumbered">
-<h1 class="unnumbered">Informações Legais e Declaração de Uso de Inteligência Artificial</h1>
-<section id="direitos-autorais-e-uso-da-obra" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="direitos-autorais-e-uso-da-obra">Direitos Autorais e Uso da Obra</h2>
-<p>© 2026 — Os autores.</p>
-<p>Todos os direitos reservados. Esta obra é protegida pela legislação brasileira de direitos autorais (Lei nº 9.610/1998). É vedada a reprodução, distribuição, armazenamento ou transmissão total ou parcial deste livro, por qualquer meio ou processo, eletrônico ou mecânico, sem autorização expressa e por escrito dos autores, salvo nos casos permitidos pela legislação vigente para fins exclusivamente acadêmicos e não comerciais, com a devida citação da fonte.</p>
-<p>A utilização do material em ambientes de ensino é permitida desde que preservada a integridade do conteúdo, mencionada a autoria e respeitados os princípios de uso responsável da informação científica. A reprodução para fins comerciais, bem como a modificação substancial do conteúdo sem autorização, constitui violação de direitos autorais.</p>
+</div>
+</div>
+<p>Na representação gráfica, uma dummy binária sem interação desloca a reta para cima ou para baixo. As retas possuem a mesma inclinação, mas interceptos diferentes. Isso significa que o efeito da variável quantitativa é assumido igual nos dois grupos, enquanto a diferença entre os grupos aparece como uma diferença vertical.</p>
 </section>
-<section id="declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial">Declaração sobre o Uso de Ferramentas de Inteligência Artificial</h2>
-<p>Durante a elaboração deste livro foram utilizadas ferramentas de Inteligência Artificial, em especial sistemas de apoio à escrita e organização textual, como recurso complementar no processo de produção acadêmica.</p>
-<p>O uso de IA teve caráter <strong>estritamente assistivo</strong>, não substituindo o desenvolvimento conceitual, a formulação matemática, a interpretação estatística nem as decisões pedagógicas da obra. Todo conteúdo foi cuidadosamente revisado, validado e adaptado pelos autores, que assumem integral responsabilidade científica e intelectual pelo texto final.</p>
-<p>Não foram delegadas à IA decisões metodológicas, inferenciais ou conclusões analíticas. A elaboração teórica, a seleção de exemplos, a validação matemática e a coerência didática resultam da experiência acadêmica e da atuação dos autores na área de Modelos de Regressão.</p>
-<p>Reafirmamos que o uso responsável de tecnologias emergentes deve sempre preservar o rigor científico, a integridade acadêmica e o protagonismo intelectual humano.</p>
+<section id="fatores-com-múltiplas-categorias" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="fatores-com-múltiplas-categorias"><span class="header-section-number">16.3</span> Fatores com múltiplas categorias</h2>
+<p>Quando uma variável categórica possui apenas duas categorias, uma única dummy é suficiente. Entretanto, quando há <span class="math inline">\(k\)</span> categorias, usamos <span class="math inline">\(k-1\)</span> variáveis fictícias.</p>
+<p>A categoria omitida torna-se a categoria de referência. Seus efeitos são incorporados ao intercepto.</p>
+<p>Considere uma variável Região com cinco categorias: Norte, Nordeste, Centro-Oeste, Sudeste e Sul. Se a categoria Norte for escolhida como referência, podemos definir</p>
+<p><span class="math display">\[
+D_{NE,i}
+=
+\begin{cases}
+1, &amp; \text{se a região é Nordeste},\\
+0, &amp; \text{caso contrário},
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+D_{CO,i}
+=
+\begin{cases}
+1, &amp; \text{se a região é Centro-Oeste},\\
+0, &amp; \text{caso contrário},
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+D_{SE,i}
+=
+\begin{cases}
+1, &amp; \text{se a região é Sudeste},\\
+0, &amp; \text{caso contrário},
+\end{cases}
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+D_{S,i}
+=
+\begin{cases}
+1, &amp; \text{se a região é Sul},\\
+0, &amp; \text{caso contrário}.
+\end{cases}
+\]</span></p>
+<p>O modelo fica</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1D_{NE,i}
++
+\beta_2D_{CO,i}
++
+\beta_3D_{SE,i}
++
+\beta_4D_{S,i}
++
+\varepsilon_i.
+\]</span></p>
+<p>A média esperada para a região Norte é</p>
+<p><span class="math display">\[
+E(Y_i\mid Norte)
+=
+\beta_0.
+\]</span></p>
+<p>Para as demais regiões, temos</p>
+<p><span class="math display">\[
+E(Y_i\mid Nordeste)
+=
+\beta_0+\beta_1,
+\]</span></p>
+<p><span class="math display">\[
+E(Y_i\mid Centro\text{-}Oeste)
+=
+\beta_0+\beta_2,
+\]</span></p>
+<p><span class="math display">\[
+E(Y_i\mid Sudeste)
+=
+\beta_0+\beta_3,
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+E(Y_i\mid Sul)
+=
+\beta_0+\beta_4.
+\]</span></p>
+<p>Assim, cada coeficiente compara uma categoria com a categoria de referência. Se <span class="math inline">\(\beta_3&gt;0\)</span>, por exemplo, a média da região Sudeste é maior que a média da região Norte, considerando o modelo especificado. Se <span class="math inline">\(\beta_3&lt;0\)</span>, a média da região Sudeste é menor que a média da região Norte.</p>
+<p>A escolha da categoria de referência não altera o ajuste do modelo nem os valores ajustados. O que muda é a interpretação dos coeficientes. Por isso, a categoria de referência deve ser escolhida de modo a facilitar a interpretação substantiva.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dummies-multiplas-categorias" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dummies-multiplas-categorias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_dummies_files/figure-html/fig-dummies-multiplas-categorias-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dummies-multiplas-categorias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.2: Médias por categoria: representação visual de um fator com múltiplos níveis.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A figura com múltiplas categorias ajuda a visualizar que o modelo com dummies permite comparar médias entre grupos. A diferença entre categorias aparece como diferença vertical entre médias ajustadas.</p>
+</section>
+<section id="a-armadilha-das-dummies-e-o-posto-da-matriz" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="a-armadilha-das-dummies-e-o-posto-da-matriz"><span class="header-section-number">16.4</span> A armadilha das dummies e o posto da matriz</h2>
+<p>Uma questão importante surge quando tentamos incluir uma dummy para cada categoria da variável qualitativa.</p>
+<p>Se uma variável possui <span class="math inline">\(k\)</span> categorias e criamos <span class="math inline">\(k\)</span> dummies, então, para cada observação,</p>
+<p><span class="math display">\[
+D_{1i}
++
+D_{2i}
++
+\cdots
++
+D_{ki}
+=
+1.
+\]</span></p>
+<p>Mas, se o modelo já possui intercepto, a coluna de intercepto também é uma coluna de uns. Assim, uma das colunas da matriz de dummies pode ser escrita como combinação linear das demais e da coluna de intercepto.</p>
+<p>Isso gera dependência linear exata entre colunas da matriz <span class="math inline">\(\mathbf{X}\)</span>. Em termos matriciais, a matriz <span class="math inline">\(\mathbf{X}\)</span> perde posto completo.</p>
+<p>Quando isso ocorre,</p>
+<p><span class="math display">\[
+\mathbf{X}^\top\mathbf{X}
+\]</span></p>
+<p>torna-se singular, e a solução clássica</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y}
+\]</span></p>
+<p>não está definida.</p>
+<p>Esse problema é conhecido como armadilha das variáveis fictícias, ou <em>dummy variable trap</em>. A solução usual é omitir uma categoria, que passa a ser a referência.</p>
+<p>Essa discussão mostra que o uso de dummies está diretamente ligado à estrutura matricial do MRLM. Não se trata apenas de uma escolha de codificação. Trata-se de garantir identificabilidade dos parâmetros e posto completo da matriz de planejamento.</p>
+</section>
+<section id="relação-com-anova" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="relação-com-anova"><span class="header-section-number">16.5</span> Relação com ANOVA</h2>
+<p>Um modelo de regressão contendo apenas variáveis fictícias para representar os níveis de um fator é equivalente a uma ANOVA de um fator.</p>
+<p>Na ANOVA, comparamos médias entre grupos. Na regressão com dummies, fazemos a mesma comparação por meio de coeficientes associados a categorias.</p>
+<p>Por exemplo, se queremos comparar a média de uma variável resposta entre três espécies de flores, podemos ajustar um modelo com dummies para representar as espécies. O intercepto corresponderá à média da espécie de referência, e os demais coeficientes representarão diferenças médias em relação a essa espécie.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-anova-como-regressao" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-anova-como-regressao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_dummies_files/figure-html/fig-anova-como-regressao-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova-como-regressao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.3: Comparação de médias entre grupos: interpretação da ANOVA como modelo linear com dummies.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A conexão com ANOVA é importante porque mostra que regressão linear e comparação de médias não são ferramentas separadas. Ambas podem ser vistas dentro da mesma estrutura geral de modelos lineares.</p>
+<p>A vantagem da formulação via regressão é que ela permite combinar variáveis categóricas e quantitativas no mesmo modelo. Isso conduz naturalmente à ANCOVA.</p>
+</section>
+<section id="variáveis-quantitativas-dummies-e-ancova" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="variáveis-quantitativas-dummies-e-ancova"><span class="header-section-number">16.6</span> Variáveis quantitativas, dummies e ANCOVA</h2>
+<p>Quando combinamos uma variável quantitativa com uma variável fictícia, o modelo pode representar diferenças entre grupos ajustadas por uma covariável.</p>
+<p>Considere</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1x_i
++
+\beta_2D_i
++
+\varepsilon_i.
+\]</span></p>
+<p>Nesse modelo, se <span class="math inline">\(D_i=0\)</span>,</p>
+<p><span class="math display">\[
+E(Y_i\mid x_i,D_i=0)
+=
+\beta_0+\beta_1x_i.
+\]</span></p>
+<p>Se <span class="math inline">\(D_i=1\)</span>,</p>
+<p><span class="math display">\[
+E(Y_i\mid x_i,D_i=1)
+=
+(\beta_0+\beta_2)+\beta_1x_i.
+\]</span></p>
+<p>As duas retas possuem a mesma inclinação <span class="math inline">\(\beta_1\)</span>, mas interceptos diferentes. Portanto, o modelo assume que o efeito de <span class="math inline">\(x_i\)</span> sobre <span class="math inline">\(Y_i\)</span> é o mesmo nos dois grupos, mas permite diferença média entre os grupos.</p>
+<p>Esse tipo de modelo é a base da ANCOVA, pois combina comparação entre grupos com ajuste por variáveis quantitativas.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ancova-retas-paralelas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ancova-retas-paralelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_dummies_files/figure-html/fig-ancova-retas-paralelas-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ancova-retas-paralelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.4: Modelo com dummy e variável quantitativa: retas paralelas entre grupos.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Essa representação é especialmente útil para mostrar que a dummy altera o intercepto, mas não altera a inclinação quando não há interação.</p>
+</section>
+<section id="interações-entre-dummies-e-variáveis-quantitativas" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="interações-entre-dummies-e-variáveis-quantitativas"><span class="header-section-number">16.7</span> Interações entre dummies e variáveis quantitativas</h2>
+<p>Em muitos problemas, pode ser inadequado assumir que a inclinação é igual em todos os grupos. O efeito de uma variável quantitativa pode depender da categoria.</p>
+<p>Para permitir isso, incluímos uma interação entre a dummy e a variável quantitativa:</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1x_i
++
+\beta_2D_i
++
+\beta_3(x_iD_i)
++
+\varepsilon_i.
+\]</span></p>
+<p>Se <span class="math inline">\(D_i=0\)</span>, temos</p>
+<p><span class="math display">\[
+E(Y_i\mid x_i,D_i=0)
+=
+\beta_0+\beta_1x_i.
+\]</span></p>
+<p>Se <span class="math inline">\(D_i=1\)</span>, temos</p>
+<p><span class="math display">\[
+E(Y_i\mid x_i,D_i=1)
+=
+(\beta_0+\beta_2)
++
+(\beta_1+\beta_3)x_i.
+\]</span></p>
+<p>Nesse caso, <span class="math inline">\(\beta_2\)</span> representa a diferença entre os interceptos dos grupos, enquanto <span class="math inline">\(\beta_3\)</span> representa a diferença entre as inclinações.</p>
+<p>Portanto, a interação permite que os grupos tenham retas não paralelas.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-interacao-dummy-quantitativa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-interacao-dummy-quantitativa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_dummies_files/figure-html/fig-interacao-dummy-quantitativa-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-interacao-dummy-quantitativa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.5: Modelo com interação: retas com interceptos e inclinações diferentes entre grupos.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A interpretação de interações exige cuidado. O coeficiente da dummy isolada representa a diferença entre grupos quando <span class="math inline">\(x_i=0\)</span>. Se esse valor não fizer sentido substantivo, pode ser útil centralizar a variável quantitativa antes de ajustar o modelo.</p>
+<p>A centralização consiste em substituir</p>
+<p><span class="math display">\[
+x_i
+\]</span></p>
+<p>por</p>
+<p><span class="math display">\[
+x_i-\bar{x}.
+\]</span></p>
+<p>Com isso, o intercepto e o coeficiente da dummy passam a ser interpretados no valor médio da variável quantitativa, o que muitas vezes torna a interpretação mais informativa.</p>
+</section>
+<section id="inferência-com-variáveis-fictícias" class="level2" data-number="16.8">
+<h2 data-number="16.8" class="anchored" data-anchor-id="inferência-com-variáveis-fictícias"><span class="header-section-number">16.8</span> Inferência com variáveis fictícias</h2>
+<p>A inferência com dummies segue os mesmos princípios já estudados no MRLM.</p>
+<p>Um teste t individual pode ser usado para avaliar se uma categoria difere da categoria de referência. Por exemplo,</p>
+<p><span class="math display">\[
+H_0:\beta_j=0
+\]</span></p>
+<p>testa se a categoria associada à dummy <span class="math inline">\(D_j\)</span> apresenta média igual à da categoria de referência, mantendo as demais variáveis constantes.</p>
+<p>Quando uma variável categórica possui várias categorias, é comum testar o efeito conjunto do fator. Nesse caso, usamos um teste F para avaliar simultaneamente se todos os coeficientes das dummies associadas ao fator são iguais a zero.</p>
+<p>Por exemplo, para uma variável com quatro dummies, podemos testar</p>
+<p><span class="math display">\[
+H_0:
+\beta_1=\beta_2=\beta_3=\beta_4=0.
+\]</span></p>
+<p>Esse teste avalia se o fator categórico contribui para explicar a variável resposta.</p>
+<p>Assim, enquanto os testes t avaliam comparações individuais com a referência, o teste F avalia o efeito global da variável categórica no modelo.</p>
+</section>
+<section id="formulação-matricial" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="formulação-matricial"><span class="header-section-number">16.9</span> Formulação matricial</h2>
+<p>Do ponto de vista matricial, a inclusão de dummies apenas acrescenta colunas à matriz de planejamento.</p>
+<p>Por exemplo, em um modelo com intercepto, uma variável quantitativa <span class="math inline">\(x_i\)</span> e uma dummy <span class="math inline">\(D_i\)</span>, a linha da matriz <span class="math inline">\(\mathbf{X}\)</span> associada à observação <span class="math inline">\(i\)</span> é</p>
+<p><span class="math display">\[
+\mathbf{x}_i^\top
+=
+\begin{bmatrix}
+1 &amp; x_i &amp; D_i
+\end{bmatrix}.
+\]</span></p>
+<p>Com interação, a linha passa a ser</p>
+<p><span class="math display">\[
+\mathbf{x}_i^\top
+=
+\begin{bmatrix}
+1 &amp; x_i &amp; D_i &amp; x_iD_i
+\end{bmatrix}.
+\]</span></p>
+<p>Portanto, a estrutura matricial permanece a mesma. A diferença é que algumas colunas representam características categóricas e outras representam produtos entre variáveis.</p>
+<p>A estimação continua sendo feita por</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbf{Y},
+\]</span></p>
+<p>desde que <span class="math inline">\(\mathbf{X}\)</span> tenha posto completo.</p>
+<p>A inferência também permanece a mesma. A matriz de variância-covariância dos estimadores continua sendo</p>
+<p><span class="math display">\[
+Var(\hat{\boldsymbol{\beta}})
+=
+\sigma^2
+(\mathbf{X}^\top\mathbf{X})^{-1}.
+\]</span></p>
+<p>O uso de dummies, portanto, não cria uma nova teoria de estimação. Ele amplia a capacidade interpretativa do MRLM ao permitir que fatores qualitativos sejam incorporados à matriz de planejamento.</p>
+</section>
+<section id="ilustrações-em-r" class="level2" data-number="16.10">
+<h2 data-number="16.10" class="anchored" data-anchor-id="ilustrações-em-r"><span class="header-section-number">16.10</span> Ilustrações em R</h2>
+<p>As figuras deste capítulo têm apenas finalidade didática. O objetivo não é realizar uma análise de dados aplicada, mas visualizar como variáveis fictícias alteram a interpretação geométrica do modelo.</p>
+<p>A base <code>mtcars</code>, disponível no R, será usada para ilustrar dummies binárias e interações. A variável <code>am</code> indica o tipo de transmissão do automóvel, sendo usualmente interpretada como automática ou manual.</p>
+<p>A base <code>iris</code>, também disponível no R, será usada para ilustrar fatores com múltiplas categorias. A variável <code>Species</code> identifica três espécies de flores.</p>
+<p>Essas bases são utilizadas apenas para visualização. A análise completa, com tratamento de dados, diagnóstico e interpretação aplicada, será desenvolvida em atividade própria.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -965,10 +1396,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./mrlm_inferencia.html" class="pagination-link" aria-label="Inferência Estatística no MRLM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Inferência Estatística no MRLM</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./prefacio.html" class="pagination-link" aria-label="Prefácio">
-        <span class="nav-page-text">Prefácio</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ap_listas.html" class="pagination-link" aria-label="Lista de Siglas e Símbolos">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

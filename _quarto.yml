@@ -42,7 +42,7 @@ book:
         - mrlm.qmd
         - mrlm_emq.qmd
         - mrlm_inferencia.qmd
-#        - mrlm_dummies.qmd
+        - mrlm_dummies.qmd
 #        - mrlm_ancova.qmd
 #        - mrlm_qualidade.qmd
 #        - mrlm_diagnostico.qmd
