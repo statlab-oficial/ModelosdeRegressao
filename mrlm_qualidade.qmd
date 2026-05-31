@@ -1,249 +1,891 @@
-# Medidas de Qualidade de Ajuste e Seleção de Modelos  
+# Qualidade de Ajuste e Comparação de Modelos
 
-Ao estimar um modelo de regressão linear múltipla, não basta obter os coeficientes de MQO: é fundamental avaliar **quão bem o modelo explica a variabilidade de $Y$**, **se é parcimonioso** e **se as variáveis incluídas fazem sentido estatístico e substantivo**.  
+## Introdução e motivação
 
-Nesta seção, distinguimos dois eixos complementares:  
-1. **Medidas de qualidade de ajuste**, que avaliam o desempenho de um modelo dado.  
-2. **Critérios e métodos de seleção**, que ajudam a escolher, entre diferentes modelos, aquele que equilibra explicação e simplicidade.  
+Após ajustar um modelo de regressão, surge uma questão natural: quão bem esse modelo descreve os dados observados?
 
-Para evitar ambiguidade, usaremos a convenção:  
-- $p$ = número de **variáveis explicativas** (sem contar o intercepto);  
-- $k=p+1$ = número total de **parâmetros** (inclui o intercepto).
+Em situações simples, essa pergunta pode parecer fácil de responder. Um modelo que produz resíduos menores ou previsões mais próximas dos valores observados parece, intuitivamente, superior a outro. Entretanto, a avaliação de um modelo envolve aspectos adicionais.
 
+Considere dois modelos ajustados para a mesma variável resposta. O primeiro utiliza apenas uma variável explicativa, enquanto o segundo incorpora diversas covariáveis adicionais. Em geral, o modelo mais complexo apresentará melhor ajuste aos dados observados, pois possui maior flexibilidade para acomodar padrões presentes na amostra. Isso não significa, necessariamente, que ele seja mais útil ou mais adequado [@montgomery2021; @kutner2005].
 
-## Medidas de Qualidade de Ajuste  
+Modelos excessivamente complexos podem capturar flutuações específicas da amostra em vez de representar relações sistemáticas do fenômeno estudado. Esse comportamento é conhecido como sobreajuste (*overfitting*) e pode comprometer a capacidade preditiva do modelo em novos conjuntos de dados [@james2021].
 
-Essas medidas quantificam o grau de aderência do modelo aos dados observados. Em linhas gerais, comparam a **variabilidade explicada** (devida às regressoras) e a **variabilidade residual** (não explicada).
+Por outro lado, modelos excessivamente simples podem deixar de incorporar variáveis relevantes, produzindo estimativas viesadas, menor poder explicativo ou previsões pouco precisas.
 
-### Coeficiente de Determinação ($R^2$)  
+A comparação entre modelos envolve, portanto, um equilíbrio entre qualidade de ajuste, complexidade e interpretabilidade. Em alguns contextos, o objetivo principal é explicar relações entre variáveis. Em outros, o interesse está na previsão de novas observações. Há ainda situações em que modelos distintos representam hipóteses científicas concorrentes.
 
-O **coeficiente de determinação $R^2$** mede a proporção da variabilidade total da resposta que é explicada pelo modelo:
+Por essa razão, a escolha de um modelo não deve ser baseada em um único indicador numérico. Diferentes medidas avaliam diferentes aspectos do ajuste e podem conduzir a conclusões distintas [@burnham2002].
+
+Neste capítulo, estudaremos algumas das medidas mais utilizadas para avaliar a qualidade de ajuste e comparar modelos de regressão, incluindo o coeficiente de determinação, o coeficiente de determinação ajustado, a variância residual, testes para comparação de modelos aninhados e critérios de informação como AIC e BIC.
+
+### Coeficiente de determinação
+
+A medida mais conhecida de qualidade de ajuste é o coeficiente de determinação, denotado por
+
 $$
-R^2 = \frac{SQ_{Reg}}{SQ_T} = 1 - \frac{SQ_{Res}}{SQ_T}.
+R^2.
 $$
-- $SQ_{Reg}$: soma de quadrados da regressão (explicada pelo modelo).  
-- $SQ_T$: soma de quadrados total (em torno da média).  
-- $SQ_{Res}$: soma de quadrados dos resíduos.  
 
-Valores de $R^2$ próximos de 1 indicam bom ajuste; valores próximos de 0 indicam fraca explicação.
+Ele é definido por
 
-**Limitações:**  
-- O $R^2$ **sempre aumenta** quando se adicionam variáveis, mesmo que irrelevantes.  
-- Não há penalização direta pela complexidade.  
-- Não mede causalidade.
-
-### Coeficiente de Determinação Ajustado ($\bar{R}^2$)  
-
-Corrige a tendência inflacionada de $R^2$ ao considerar o número de parâmetros estimados ($k$):
 $$
-\bar{R}^2 = 1 - \frac{SQ_{Res}/(n-k)}{SQ_T/(n-1)} = 1 - \frac{SQ_{Res}/(n-p-1)}{SQ_T/(n-1)}.
+R^2
+=
+\frac{SQ_R}{SQ_T}
+=
+1-\frac{SQ_{Res}}{SQ_T}.
 $$
-- Penaliza a inclusão de variáveis desnecessárias.  
-- Pode **diminuir** quando uma variável é incluída sem ganho real.
 
-É mais confiável que $R^2$ para comparar modelos de tamanhos diferentes; ainda assim, não substitui o julgamento substantivo.
+Como
 
-### Critério de Informação de Akaike (AIC)  
-
-Mede o compromisso ajuste–complexidade (via verossimilhança):
 $$
-AIC = -2\log L(\hat{\boldsymbol{\beta}}) + 2k.
+0
+\le
+SQ_{Res}
+\le
+SQ_T,
 $$
-- **Menor AIC** → melhor equilíbrio.  
-- Compara modelos inclusive **não aninhados**.  
-- Favorece predição, penalizando menos que o BIC.
 
-No MRLM Normal: $-2\log L(\hat{\boldsymbol{\beta}})$ é monotônico em $SQ_{Res}$, de modo que
+segue que
+
 $$
-AIC = n\log\!\Big(\frac{SQ_{Res}}{n}\Big) + 2k + \text{constante},
+0
+\le
+R^2
+\le
+1.
 $$
-o que evidencia a troca entre **ajuste** (via $SQ_{Res}$) e **complexidade** (via $k$).
 
-### Critério de Informação Bayesiano (BIC)  
+O coeficiente de determinação representa a proporção da variabilidade observada em $Y$ que é explicada pelo modelo.
 
-Semelhante ao AIC, porém com penalização mais forte:
+Por exemplo, um valor
+
 $$
-BIC = -2\log L(\hat{\boldsymbol{\beta}}) + k\log n.
+R^2=0{,}80
 $$
-- **Menor BIC** → melhor; tende a modelos mais **parcimoniosos**.  
-- Em amostras grandes, pune fortemente a complexidade.  
-- Útil para escolhas com foco inferencial.
 
-**Comparação resumida:**
+indica que aproximadamente 80% da variabilidade observada na variável resposta é explicada pelas variáveis incluídas no modelo.
 
-| Critério | Penalização | Favorece | Uso comum |
-|-----------|-------------|----------|-----------|
-| $R^2$ | Nenhuma | Ajuste puro | Descritivo/explicação |
-| $\bar{R}^2$ | Moderada ($k$) | Parcimônia relativa | Comparar tamanhos distintos |
-| AIC | $2k$ | Predição | Seleção automática |
-| BIC | $k\log n$ | Simplicidade | Inferência/parcimônia |
+Essa interpretação tornou o $R^2$ uma das medidas mais utilizadas em regressão. Entretanto, ele possui limitações importantes.
 
-### Diagnóstico de Multicolinearidade  
+A principal delas é que o coeficiente de determinação nunca diminui quando novas variáveis são adicionadas ao modelo. Mesmo que uma variável tenha pouca ou nenhuma relação com a resposta, sua inclusão tende a produzir um pequeno aumento em $R^2$.
 
-A **multicolinearidade** aparece quando preditores são altamente correlacionados, dificultando isolar efeitos parciais. O **Fator de Inflação da Variância (VIF)** é dado por:
+Consequentemente, valores elevados de $R^2$ não garantem que o modelo seja adequado nem que as variáveis incluídas sejam relevantes [@kutner2005].
+
+Além disso, o significado de um valor elevado ou reduzido de $R^2$ depende fortemente do contexto de aplicação. Em algumas áreas experimentais, valores próximos de 0,90 podem ser comuns. Em estudos observacionais envolvendo fenômenos complexos, valores muito menores podem ainda ser considerados satisfatórios. Por essa razão, o coeficiente de determinação deve ser interpretado em conjunto com outras medidas de ajuste e com o conhecimento substantivo do problema.
+
+### Coeficiente de determinação ajustado
+
+Uma forma de corrigir a tendência de crescimento artificial do coeficiente de determinação consiste em levar em consideração o número de parâmetros presentes no modelo.
+
+O coeficiente de determinação ajustado é definido por
+
 $$
-VIF_j = \frac{1}{1 - R_j^2},
+R^2_{aj}
+=
+1
+-
+\frac{SQ_{Res}/(n-p-1)}
+{SQ_T/(n-1)}.
 $$
-onde $R_j^2$ é o $R^2$ da regressão de $x_j$ nas demais.  $VIF\!\approx\!1$: sem problema; $>5$: atenção; $>10$: forte colinearidade.  
 
-Consequências: erros-padrão inflados, sinais instáveis, interpretação difícil.  
-Possíveis ações: remover/combinar variáveis redundantes; avaliar regularização (ridge/LASSO); centrar variáveis; respeitar hierarquia de termos (interações vs. principais).
+Utilizando a estimativa da variância residual,
 
-### Estimativa da Variância do Erro ($\hat{\sigma}^2$)
-
-A variância do erro $\sigma^2$ é central para **inferência** e **comparação de modelos**.  Para um modelo candidato $m$ com $k_m$ parâmetros, a estimativa usual (não viesada sob MRLM Normal) é:
 $$
-\hat{\sigma}^2_m = \frac{SQ_{Res,m}}{n-k_m}.
+\hat\sigma^2
+=
+\frac{SQ_{Res}}{n-p-1},
 $$
-Em seleção de modelos, é comum adotar também uma **estimativa de referência** (externa) $\hat{\sigma}^2_{\text{ref}}$, tipicamente obtida do **modelo completo** com todas as variáveis:
+
+podemos interpretar o $R^2$ ajustado como uma versão penalizada do coeficiente de determinação.
+
+Diferentemente de $R^2$, o valor de
+
 $$
-\hat{\sigma}^2_{\text{ref}} = \frac{SQ_{Res,\text{completo}}}{n-k_{\text{completo}}}.
+R^2_{aj}
 $$
-Essa estimativa externa entra em critérios como o $C_p$ de Mallows e em thresholds baseados em **mudança de $SQ_{Res}$** ou **$F$**. O $\hat{\sigma}^2_m$ reflete “quanto erro sobra” no modelo $m$. Valores pequeno para $\hat{\sigma}^2_m$ com $k_m$ grande pode ser sobreajuste; por isso, combinamos com penalizações (AIC/BIC) ou com **$C_p$**.
 
-### Critério $C_p$ de Mallows  
+pode diminuir quando uma nova variável é incorporada ao modelo.
 
-O **$C_p$ de Mallows** equilibra **viés** e **variância** em modelos candidatos sob MRLM Normal. Para um modelo $m$:
+Isso ocorre porque a inclusão de um novo parâmetro reduz os graus de liberdade residuais. Assim, para que o $R^2$ ajustado aumente, a redução em $SQ_{Res}$ precisa ser suficientemente grande para compensar a maior complexidade do modelo.
+
+Essa característica torna o $R^2$ ajustado mais apropriado para comparar modelos com diferentes números de parâmetros.
+
+Apesar dessa vantagem, ele continua sendo uma medida baseada exclusivamente no ajuste aos dados observados. Portanto, não avalia diretamente a capacidade preditiva do modelo nem garante que as variáveis selecionadas sejam cientificamente relevantes [@montgomery2021; @burnham2002].
+
+Em aplicações práticas, é comum observar situações em que dois modelos apresentam valores muito próximos de $R^2$ ajustado. Nesses casos, critérios adicionais podem ser necessários para decidir entre eles.
+
+### Estimativa da variância residual
+
+Outra medida frequentemente utilizada para avaliar a qualidade de ajuste é a variância residual estimada,
+
 $$
-C_p(m) = \frac{SQ_{Res,m}}{\hat{\sigma}^2_{\text{ref}}} - \big(n - 2k_m\big).
+\hat\sigma^2
+=
+\frac{SQ_{Res}}{n-p-1}.
 $$
-- $k_m$ = número de parâmetros do modelo $m$ (inclui intercepto).  
-- $\hat{\sigma}^2_{\text{ref}}$ = estimativa “boa” de $\sigma^2$ (tipicamente a do modelo completo).
 
-Valores de $C_p(m)$ **próximos de $k_m$** sugerem **pouco viés** (modelo adequado). Enquanto que- $C_p(m) \gg k_m$ indica **subajuste** (viés alto, deixou explicação “na mesa”). Adicionalmente, entre dois modelos com $C_p$ semelhantes, prefira o de **menor $k_m$** (parcimônia).
+Sua raiz quadrada,
 
-**Uso prático:**  
-- Gráfico $C_p$ vs. $k_m$; pontos próximos da **diagonal** ($C_p\approx k_m$) são atraentes.  
-- O $C_p$ está intimamente relacionado a AIC/BIC em MRLM Normal: todos comparam **$SQ_{Res}$** e **complexidade**.  
-- Útil como **critério de parada** e como **ranking** de modelos quando se explora subconjuntos.
+$$
+\hat\sigma,
+$$
 
+é conhecida como erro padrão residual.
 
+Essa quantidade fornece uma medida da dispersão média dos resíduos em torno dos valores ajustados pelo modelo.
 
-## Seleção de Modelos  
+Como possui a mesma unidade de medida da variável resposta, o erro padrão residual costuma ser mais fácil de interpretar do que o coeficiente de determinação. Por exemplo, se a variável resposta for medida em quilogramas, então $\hat\sigma$ também estará expresso em quilogramas.
 
-Há muitas combinações possíveis de variáveis explicativas e, portanto, precisamos decidir **quais permanecem** no modelo final. O objetivo é equilibrar **precisão**, **parcimônia** e **coerência substantiva**.
+Valores menores de $\hat\sigma$ indicam que os resíduos tendem a permanecer mais próximos da superfície de regressão ajustada.
 
-### Estratégias Gerais e Critérios Possíveis  
+Assim como ocorre com $SQ_{Res}$, a estimativa da variância residual tende a diminuir quando variáveis relevantes são incorporadas ao modelo. Entretanto, diferentemente do erro quadrático residual bruto, a divisão pelos graus de liberdade introduz uma correção para o número de parâmetros estimados.
 
-A seleção de modelos envolve o trade-off:  
-- Modelos **simples** podem subajustar;  
-- Modelos **complexos** podem sobreajustar.
+Por essa razão, $\hat\sigma^2$ e $\hat\sigma$ são frequentemente utilizados como medidas complementares ao $R^2$ ajustado na comparação entre modelos [@seber2003; @kutner2005].
 
-Além de $AIC$, $BIC$ e $\bar{R}^2$, é perfeitamente legítimo basear inclusões/remoções em:
+## Medidas de qualidade de ajuste
 
-- **Estatísticas $F$ parciais** (ganho em $SQ_R$, ou queda em $SQ_{Res}$, dado o custo em $k$);  
-- **$\hat{\sigma}^2_m$** (não deve crescer com inclusões que realmente ajudam);  
-- **$C_p$ de Mallows** (procurar $C_p \approx k_m$).  
+### Decomposição da variabilidade
 
-Combinar um critério principal (p.ex., AIC/BIC ou $C_p$) com **checagens** por $F$ parcial e coerência substantiva é uma boa prática da modelagem.
+O coeficiente de determinação e diversas outras medidas de qualidade de ajuste estão fundamentados na decomposição da variabilidade da variável resposta.
 
+Considere o modelo
 
-### Todas as Regressões Possíveis (*Best Subsets*)  
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_{i1}
++
+\cdots
++
+\beta_pX_{ip}
++
+\varepsilon_i.
+$$
 
-Essa técnica avalia **todos** os subconjuntos de preditores (total $2^p-1$).  Para cada modelo $m$, compute $R^2$, $\bar{R}^2$, AIC, BIC, $C_p$, $\hat{\sigma}^2_m$ e estatísticas $F$ onde fizer sentido.
+Para cada observação, a diferença entre o valor observado e a média amostral pode ser escrita como
 
-**Vantagens:** encontra o “melhor” segundo o critério escolhido; compara modelos **não aninhados**.  
-**Limitações:** custo exponencial; risco de p-hacking; exige disciplina analítica.  
-**Dica:** use quando $p$ é pequeno (até 10–12). Prefira critérios penalizados e verifique **hierarquia** (não inclua interações sem os efeitos principais).
+$$
+Y_i-\bar Y
+=
+(\hat Y_i-\bar Y)
++
+(Y_i-\hat Y_i).
+$$
 
+Essa expressão mostra que o desvio total em relação à média pode ser decomposto em duas parcelas:
 
-### Seleção Passo a frente (*Forward Selection*)  
+-   uma associada ao modelo ajustado;
+-   outra associada aos resíduos.
 
-No Forward, inicia-se com o **modelo mais simples** (apenas o intercepto) e adicionam-se variáveis **uma a uma**, escolhendo em cada passo a que mais melhora o ajuste segundo um critério.
+Elevando ambos os lados ao quadrado e somando sobre todas as observações, obtemos a decomposição clássica
 
-**Etapas:**  
-1) Modelo inicial: $Y=\beta_0+\varepsilon$.  
-2) Para cada variável candidata ainda fora, avalie o **ganho marginal** por:  
-   - $F$ **parcial** (valor-$p$ < nível de entrada, esse nível costuma ser 0,05 ou 0,10);  
-   - **queda em $AIC$** ou **$BIC$**;  
-   - **aumento de $\bar{R}^2$**;  
-   - **queda em $C_p$** (aproximando-se de $k_m$);  
-   - **redução de $\hat{\sigma}^2_m$**.  
-3) Inclua a “melhor” segundo o(s) critério(s).  
-4) Reestime e repita até **nenhuma** atender o critério de entrada.
+$$
+SQ_T
+=
+SQ_R
++
+SQ_{Res},
+$$
 
-**Vantagens:**
+em que
 
-- Simples e intuitivo.  
-- Boa opção quando há muitas variáveis candidatas.  
-- Requer menos tempo computacional que todas as regressões possíveis.
+$$
+SQ_T
+=
+\sum_{i=1}^{n}
+(Y_i-\bar Y)^2
+$$
 
-**Limitações:**
+é a Soma de Quadrados Total,
 
-- Uma vez incluída, uma variável raramente é removida. O processo pode “travar” em soluções locais.  
-- Pode ignorar combinações de variáveis que só são úteis em conjunto.  
-- Sensível à multicolinearidade.
+$$
+SQ_R
+=
+\sum_{i=1}^{n}
+(\hat Y_i-\bar Y)^2
+$$
 
-**Dicas:** use **$F$ parcial** em conjunto com $AIC/BIC$ ou $C_p$; respeite hierarquia (se incluir interação, inclua os principais).
+é a Soma de Quadrados da Regressão,
 
+e
 
+$$
+SQ_{Res}
+=
+\sum_{i=1}^{n}
+(Y_i-\hat Y_i)^2
+$$
 
-### Seleção Passo para trás (*Backward Elimination*)  
+é a Soma de Quadrados dos Resíduos.
 
-O método Backward inicia-se com o **modelo completo**, contendo todas as variáveis candidatas, e elimina-se uma a uma as menos relevantes.
+Geometricamente, essa decomposição decorre da ortogonalidade entre os resíduos e o espaço gerado pelas colunas da matriz $\mathbf{X}$, resultado já discutido nos capítulos anteriores [@seber2003; @montgomery2021].
 
-**Etapas:**  
-1) Ajuste o modelo com todos os preditores (requer $n>k$).  
-2) Identifique o pior candidato para remoção por:  
-   - $F$ **parcial** (valor-$p$ > nível de permanência, esse nível costuma ser 0,05);  
-   - **aumento mínimo em AIC** (ou menor queda em BIC ao remover);  
-   - **menor impacto em $\bar{R}^2$**;  
-   - **melhora de $C_p$**;  
-   - **queda (ou não aumento) de $\hat{\sigma}^2_m$**.  
-3) Remova e reestime até que **todas** as variáveis remanescentes atendam ao critério de permanência.
+A interpretação é direta:
 
-**Vantagens:**
+-   $SQ_T$ mede a variabilidade total observada em $Y$;
+-   $SQ_R$ mede a parcela explicada pelo modelo;
+-   $SQ_{Res}$ mede a parcela não explicada.
 
-- Útil quando há razoável confiança de que a maioria das variáveis é relevante.  
-- Geralmente mais estável que o forward.  
+Quanto menor for $SQ_Res$, melhor tende a ser o ajuste aos dados observados.
 
-**Limitações:**
+Essa observação, entretanto, deve ser interpretada com cautela. À medida que novas variáveis são incorporadas ao modelo, a soma de quadrados residual nunca aumenta. Em outras palavras, modelos mais complexos quase sempre produzem valores menores de $SQ_{Res}$.
 
-- Exige $n > p+1$ (modelo completo deve ser estimável).  
-- Pode remover variáveis que seriam importantes quando combinadas com outras.  
-- Também sensível à multicolinearidade.
+Por essa razão, medidas de qualidade de ajuste precisam considerar não apenas a redução dos resíduos, mas também a complexidade do modelo.
 
-**Dica:** verifique se as variáveis excluídas alteram substancialmente os coeficientes das restantes. Isso pode indicar interdependência forte entre preditores.
+## Comparação de modelos
 
+Em muitas aplicações, o interesse não está apenas em avaliar a qualidade de ajuste de um único modelo, mas em comparar modelos concorrentes.
 
-### Seleção Passo a Passo (*Stepwise Selection*)  
+Considere, por exemplo, os modelos
 
-Método híbrido que combina *forward* e *backward*:
+$$
+M_1:
+\quad
+Y
+=
+\beta_0
++
+\beta_1X_1
++
+\varepsilon
+$$
 
-**Etapas:**  
-1) Comece com modelo inicial: $Y=\beta_0+\varepsilon$  
-2) Teste inclusões via $F$ parcial (valor-$p$ < nível de entrada), **AIC/BIC**, **$C_p$**, **$\bar{R}^2$** ou **$\hat{\sigma}^2_m$**.  
-3) Após incluir, teste remoções via valor-$p$ > nível de permanência (ou critério de piora em AIC/BIC ou $C_p$).  
-4) Pare quando **nenhuma** inclusão/remoção atende aos limiares.
+e
 
+$$
+M_2:
+\quad
+Y
+=
+\beta_0
++
+\beta_1X_1
++
+\beta_2X_2
++
+\varepsilon.
+$$
 
-**Vantagens:**
+O segundo modelo contém todas as variáveis do primeiro e acrescenta uma nova covariável. Nesse caso, dizemos que os modelos são aninhados (*nested models*), pois $M_1$ pode ser obtido impondo
 
-- Equilibra os pontos fortes de *forward* e *backward*.  
-- Tende a ser mais parcimonioso.  
-- Funciona bem quando há moderada correlação entre preditores.
+$$
+\beta_2=0
+$$
 
-**Limitações:**
+em $M_2$.
 
-- Altamente dependente da ordem das variáveis e do critério adotado.  
-- Instabilidade (pequenas variações nos dados → solução diferente); dependência de limiares (nível de entrada/nível de saída) e do critério (pequenas mudanças nos dados → modelo diferente).  
-- Não substitui o julgamento teórico.
+A comparação entre modelos aninhados constitui uma das situações mais frequentes em regressão, pois permite avaliar se a inclusão de novos parâmetros produz uma melhora suficientemente grande no ajuste para justificar o aumento da complexidade do modelo.
 
-**Dicas práticas:**
+### Comparação de modelos aninhados
 
-- Compare o modelo final com o completo e o nulo; verifique coerência de sinais e magnitudes.  
-- Use critérios penalizados ($AIC$, $BIC$, $\bar{R}^2$) para evitar sobreajuste.  
-- Sempre interprete à luz do contexto: variáveis excluídas podem ser relevantes teoricamente.
+Considere dois modelos aninhados:
 
+$$
+M_R
+\subset
+M_C,
+$$
 
-### Reflexões finais sobre seleção de modelos  
+em que:
 
-- Não existe “o” modelo verdadeiro; buscamos **modelos úteis**: claros, parcimoniosos e coerentes. 
-- Combine critério **primário** (AIC, BIC, $C_p$, $\bar{R}^2$) com **checagens** ($F$ parcial, $\hat{\sigma}^2_m$) e **fundamentação teórica**.  
-- Evite tratar nível de entrada/nível de saída como regras fixas (0,05 ou 0,10); use-os como ferramentas heurísticas.
-- Prefira critérios de informação (AIC, BIC, $C_p$) quando possível, pois são menos sensíveis a flutuações amostrais.
-- Mesmo quando usar nível de entrada e nível de saída, combine com critérios adicionais (mudança em $\hat{\sigma}^2$, $R^2$ ajustado, ou coerência teórica).
-- Respeite a **hierarquia**: não inclua termos de interação sem os principais correspondentes.  
-- Atenção a **multicolinearidade** e **diagnósticos** (Seção 3.8). 
-- Sempre discuta **magnitude** (efeitos parciais, $R^2$ parcial, $f^2$) além da significância.
-- O melhor modelo é aquele que **explica com clareza, prevê com razoável precisão e faz sentido dentro do contexto da pesquisa**.
+-   $M_R$ representa o modelo reduzido;
+-   $M_C$ representa o modelo completo.
+
+O modelo reduzido é obtido impondo restrições sobre parâmetros presentes no modelo completo.
+
+De forma geral, queremos testar
+
+$$
+H_0:
+\beta_{j_1}
+=
+\beta_{j_2}
+=
+\cdots
+=
+\beta_{j_q}
+=
+0
+$$
+
+contra
+
+$$
+H_1:
+\text{pelo menos um desses parâmetros é diferente de zero}.
+$$
+
+A estatística de teste é dada por
+
+$$
+F
+=
+\frac{
+[SQ_{Res}(R)-SQ_{Res}(C)]/q
+}{
+SQ_{Res}(C)/(n-p_C-1)
+},
+$$
+
+em que:
+
+-   $SQ_{Res}(R)$ é a soma de quadrados residual do modelo reduzido;
+-   $SQ_{Res}(C)$ é a soma de quadrados residual do modelo completo;
+-   $q$ é o número de restrições impostas;
+-   $p_C$ é o número de covariáveis do modelo completo.
+
+Sob a hipótese nula,
+
+$$
+F
+\sim
+F_{q,n-p_C-1}.
+$$
+
+Valores elevados da estatística indicam que a redução obtida em $SQ_{Res}$ é grande em relação à variabilidade residual, fornecendo evidências favoráveis à inclusão dos parâmetros adicionais [@montgomery2021; @kutner2005].
+
+Essa formulação generaliza o teste global de significância do modelo discutido anteriormente. Na prática, ela permite avaliar a contribuição conjunta de grupos de variáveis, interações, polinômios ou quaisquer outros termos adicionais.
+
+### Exemplo de interpretação
+
+Suponha que desejamos comparar os modelos
+
+$$
+M_1:
+\quad
+Balance
+=
+\beta_0
++
+\beta_1Income
++
+\varepsilon
+$$
+
+e
+
+$$
+M_2:
+\quad
+Balance
+=
+\beta_0
++
+\beta_1Income
++
+\beta_2Rating
++
+\varepsilon.
+$$
+
+Se o teste indicar rejeição de
+
+$$
+H_0:\beta_2=0,
+$$
+
+concluímos que a variável `Rating` fornece informação adicional para explicar a variabilidade de `Balance`, além daquela já fornecida por `Income`.
+
+Caso contrário, a inclusão dessa variável pode não ser justificada sob a perspectiva inferencial.
+
+Embora os testes para modelos aninhados sejam amplamente utilizados, eles não constituem o único critério de comparação. Em muitos problemas, o interesse está menos associado à significância estatística e mais relacionado ao equilíbrio entre ajuste e complexidade. Esse é o contexto em que surgem os critérios de informação.
+
+### Critério de Informação de Akaike
+
+O Critério de Informação de Akaike (AIC) foi proposto por @akaike1974 como uma medida para comparar modelos ajustados aos mesmos dados.
+
+Sua forma geral é
+
+$$
+AIC
+=
+-2\log(L)
++
+2k,
+$$
+
+em que:
+
+-   $L$ representa a função de verossimilhança maximizada;
+-   $k$ representa o número de parâmetros estimados.
+
+O primeiro termo recompensa modelos que se ajustam bem aos dados. O segundo termo penaliza modelos excessivamente complexos.
+
+Assim, o AIC procura equilibrar qualidade de ajuste e número de parâmetros.
+
+Para modelos lineares normais, uma forma equivalente pode ser escrita como
+
+$$
+AIC
+=
+n\log\left(\frac{SQ_{Res}}{n}\right)
++
+2k
++
+C,
+$$
+
+em que $C$ é uma constante comum aos modelos comparados.
+
+A interpretação é simples:
+
+> Entre modelos ajustados aos mesmos dados, valores menores de AIC indicam modelos preferíveis.
+
+É importante destacar que o AIC não possui interpretação absoluta. Seu valor isoladamente não informa se um modelo é bom ou ruim. O interesse está na comparação entre modelos concorrentes ajustados ao mesmo conjunto de dados [@burnham2002].
+
+Uma característica importante do AIC é sua orientação para desempenho preditivo. Em geral, ele tende a favorecer modelos ligeiramente mais complexos do que outros critérios de seleção.
+
+### Critério de Informação Bayesiano
+
+O Critério de Informação Bayesiano (BIC), proposto por @schwarz1978, possui estrutura semelhante ao AIC:
+
+$$
+BIC
+=
+-2\log(L)
++
+k\log(n).
+$$
+
+A principal diferença está no termo de penalização.
+
+Enquanto o AIC utiliza
+
+$$
+2k,
+$$
+
+o BIC utiliza
+
+$$
+k\log(n).
+$$
+
+Como
+
+$$
+\log(n)>2
+$$
+
+para amostras moderadas e grandes, o BIC geralmente impõe penalização mais severa à complexidade do modelo.
+
+Consequentemente, o BIC tende a selecionar modelos mais parcimoniosos.
+
+Assim como ocorre com o AIC, valores menores são preferíveis.
+
+Em muitas aplicações, AIC e BIC conduzem à mesma conclusão. Entretanto, não é raro que produzam recomendações distintas.
+
+Quando isso ocorre, o AIC costuma favorecer modelos com maior capacidade preditiva, enquanto o BIC tende a favorecer modelos menores e mais simples [@burnham2002; @montgomery2021].
+
+Por essa razão, a escolha entre AIC e BIC deve considerar os objetivos da análise e não apenas o valor numérico produzido por cada critério.
+
+### Critério $C_p$ de Mallows
+
+Outra medida clássica para comparação de modelos é o critério $C_p$ de Mallows.
+
+Seu objetivo é avaliar simultaneamente viés e precisão de modelos candidatos, especialmente em problemas de seleção de variáveis.
+
+Uma forma comum de escrevê-lo é
+
+$$
+C_p
+=
+\frac{SQ_{Res}(p)}{\hat\sigma_F^2}
+-
+(n-2p),
+$$
+
+em que:
+
+-   $SQ_{Res}(p)$ corresponde à soma de quadrados residual do modelo candidato;
+-   $\hat\sigma_F^2$ corresponde à variância residual estimada a partir de um modelo considerado completo;
+-   $p$ representa o número de parâmetros do modelo candidato.
+
+Valores de $C_p$ próximos de $p$ costumam indicar modelos adequados [@montgomery2021; @kutner2005].
+
+Na prática, o critério é frequentemente utilizado em conjunto com outras medidas, como AIC, BIC e $R^2$ ajustado.
+
+Nenhuma dessas medidas deve ser interpretada isoladamente. É relativamente comum que modelos distintos apresentem desempenhos semelhantes segundo um critério e resultados diferentes segundo outro.
+
+Por essa razão, a comparação de modelos geralmente envolve a análise conjunta de múltiplos indicadores.
+
+## Multicolinearidade e estabilidade dos modelos
+
+A inclusão de novas variáveis em um modelo nem sempre resulta em estimativas mais precisas ou interpretações mais claras. Quando duas ou mais covariáveis apresentam forte associação linear entre si, surge o fenômeno conhecido como multicolinearidade [@montgomery2021; @kutner2005].
+
+Considere, por exemplo, um modelo que utiliza simultaneamente renda anual, patrimônio acumulado e limite de crédito para explicar uma variável resposta financeira. Como essas variáveis tendem a estar fortemente relacionadas, torna-se difícil separar suas contribuições individuais.
+
+Do ponto de vista da estimação, a multicolinearidade afeta diretamente a matriz
+
+$$
+\mathbf{X}^{\top}\mathbf{X}.
+$$
+
+À medida que as colunas de $\mathbf{X}$ se tornam mais próximas de combinações lineares entre si, a inversão dessa matriz torna-se numericamente menos estável.
+
+Como consequência:
+
+-   os erros padrão dos coeficientes aumentam;
+-   intervalos de confiança tornam-se mais amplos;
+-   testes individuais podem perder poder;
+-   pequenas alterações nos dados podem produzir mudanças consideráveis nas estimativas.
+
+Nessas situações, não é incomum observar modelos com elevado $R^2$ e, simultaneamente, coeficientes individuais não significativos.
+
+Esse comportamento não indica necessariamente ausência de relação entre as variáveis explicativas e a resposta. Muitas vezes ele reflete apenas a dificuldade de distinguir os efeitos individuais das covariáveis.
+
+Uma medida frequentemente utilizada para avaliar multicolinearidade é o Fator de Inflação da Variância (*Variance Inflation Factor*), definido por
+
+$$
+VIF_j
+=
+\frac{1}{1-R_j^2},
+$$
+
+em que $R_j^2$ corresponde ao coeficiente de determinação obtido ao regredir a variável $X_j$ sobre as demais covariáveis do modelo.
+
+Valores elevados de $VIF_j$ indicam que a variância do estimador de $\beta_j$ está sendo inflacionada pela presença de correlação entre as variáveis explicativas.
+
+Embora não exista um limite universalmente aceito, valores acima de 5 ou 10 são frequentemente utilizados como sinais de possível multicolinearidade [@montgomery2021].
+
+A presença de multicolinearidade não invalida o modelo nem afeta diretamente sua capacidade preditiva. O principal impacto ocorre sobre a interpretação individual dos coeficientes e sobre a precisão das inferências.
+
+Por essa razão, a escolha de um modelo não deve ser baseada exclusivamente em medidas de ajuste. Um modelo ligeiramente mais simples pode produzir estimativas mais estáveis e interpretações mais claras do que um modelo excessivamente complexo.
+
+## Seleção de modelos
+
+Em aplicações com muitas covariáveis, frequentemente surgem diversas especificações plausíveis para o mesmo problema. Nesses casos, torna-se necessário definir quais variáveis permanecerão no modelo final.
+
+A seleção de modelos procura identificar subconjuntos de variáveis que produzam um equilíbrio adequado entre qualidade de ajuste, estabilidade das estimativas e simplicidade de interpretação [@kutner2005; @montgomery2021].
+
+Os métodos de seleção automática mais conhecidos são:
+
+-   *Forward Selection*;
+-   *Backward Elimination*;
+-   *Stepwise Selection*;
+-   *Best Subsets*.
+
+Embora amplamente utilizados, esses procedimentos devem ser vistos como ferramentas auxiliares e não como mecanismos automáticos de descoberta científica.
+
+### Forward Selection
+
+O método *Forward Selection* inicia com um modelo contendo apenas o intercepto.
+
+A cada etapa, avalia-se qual variável produz a maior melhoria segundo um critério previamente definido, como:
+
+-   redução de $SQ_{Res}$;
+-   aumento de $R^2_{aj}$;
+-   redução de AIC;
+-   redução de BIC.
+
+A variável escolhida é incorporada ao modelo e o processo continua até que nenhuma inclusão adicional seja considerada vantajosa.
+
+A principal vantagem desse procedimento é sua simplicidade computacional, especialmente quando o número de covariáveis é grande.
+
+Entretanto, uma variável excluída nas etapas iniciais dificilmente será reconsiderada posteriormente, o que pode levar à perda de combinações potencialmente relevantes.
+
+### Backward Elimination
+
+O procedimento *Backward Elimination* segue a lógica oposta.
+
+O processo inicia com o modelo mais completo disponível:
+
+$$
+Y
+=
+\beta_0
++
+\beta_1X_1
++
+\cdots
++
+\beta_pX_p
++
+\varepsilon.
+$$
+
+Em cada etapa, remove-se a variável cuja exclusão produz a menor perda de informação segundo o critério adotado.
+
+O procedimento continua até que todas as variáveis remanescentes satisfaçam os critérios estabelecidos.
+
+Esse método costuma funcionar bem quando o número de observações é suficientemente grande para permitir o ajuste do modelo completo.
+
+### Stepwise Selection
+
+O método *Stepwise* combina características dos dois procedimentos anteriores.
+
+Após cada inclusão de variável, o algoritmo reavalia as variáveis já presentes no modelo e verifica se alguma delas deve ser removida.
+
+Esse mecanismo permite corrigir decisões tomadas em etapas anteriores e geralmente produz maior flexibilidade do que os métodos puramente forward ou backward.
+
+Apesar disso, continua sujeito às limitações inerentes aos procedimentos automáticos de seleção.
+
+### Best Subsets
+
+O método *Best Subsets* considera explicitamente diferentes combinações de variáveis.
+
+Para cada tamanho de modelo, busca-se o subconjunto que produz o melhor desempenho segundo um critério escolhido.
+
+Por exemplo, pode-se identificar:
+
+-   o melhor modelo com uma variável;
+-   o melhor modelo com duas variáveis;
+-   o melhor modelo com três variáveis;
+-   e assim sucessivamente.
+
+Esse procedimento fornece uma visão mais abrangente do espaço de modelos possíveis.
+
+Sua principal limitação é o custo computacional, que cresce rapidamente com o número de covariáveis.
+
+Para um conjunto com $p$ variáveis explicativas, existem
+
+$$
+2^p
+$$
+
+submodelos possíveis.
+
+Assim, o método torna-se inviável para valores muito elevados de $p$.
+
+## Sobreajuste, parcimônia e capacidade preditiva
+
+Uma característica comum dos procedimentos de seleção é a busca por equilíbrio entre ajuste e complexidade.
+
+À medida que novas variáveis são incorporadas ao modelo, o ajuste aos dados observados tende a melhorar. Entretanto, parte dessa melhoria pode corresponder apenas à adaptação a particularidades da amostra utilizada.
+
+Esse fenômeno é conhecido como sobreajuste (*overfitting*) [@james2021; @burnham2002].
+
+Modelos sobreajustados frequentemente apresentam:
+
+-   elevado $R^2$;
+-   resíduos reduzidos;
+-   excelente desempenho na amostra utilizada para estimação.
+
+Entretanto, quando aplicados a novos dados, seu desempenho pode deteriorar-se substancialmente.
+
+Por esse motivo, o melhor modelo nem sempre é aquele que produz o maior valor de $R^2$ ou o menor valor de $SQ_{Res}$.
+
+A ideia de parcimônia consiste em preferir modelos mais simples sempre que eles apresentem desempenho semelhante ao de alternativas mais complexas.
+
+Esse princípio está presente em diversos critérios discutidos anteriormente, especialmente no AIC, no BIC e no critério $C_p$.
+
+Em aplicações preditivas, a avaliação do modelo pode ser complementada por técnicas de validação, como:
+
+-   divisão entre amostras de treinamento e teste;
+-   validação cruzada;
+-   reamostragem.
+
+Esses procedimentos avaliam o comportamento do modelo em observações que não participaram do processo de estimação, fornecendo uma medida mais realista de sua capacidade preditiva.
+
+Em síntese, a comparação de modelos envolve múltiplos critérios. Medidas de ajuste, critérios de informação, estabilidade das estimativas, interpretabilidade e capacidade preditiva devem ser analisados conjuntamente. Nenhum indicador isolado é suficiente para determinar qual modelo deve ser adotado em todas as situações.
+
+## Exemplo ilustrativo
+
+Para ilustrar algumas das medidas discutidas neste capítulo, utilizaremos a base `Credit`, disponível no pacote `ISLR`.
+
+Essa base contém informações financeiras de clientes e é frequentemente utilizada em exemplos de regressão múltipla. A variável resposta será o saldo devedor do cartão de crédito (`Balance`), enquanto algumas características dos clientes serão utilizadas como variáveis explicativas.
+
+Inicialmente, consideremos os modelos
+
+$$
+M_1:
+\quad
+Balance
+=
+\beta_0
++
+\beta_1Income
++
+\varepsilon
+$$
+
+e
+
+$$
+M_2:
+\quad
+Balance
+=
+\beta_0
++
+\beta_1Income
++
+\beta_2Rating
++
+\varepsilon.
+$$
+
+O segundo modelo incorpora a variável `Rating`, associada à classificação de crédito do cliente.
+
+A figura a seguir apresenta os valores observados e ajustados para ambos os modelos.
+
+```{r}
+#| label: fig-comparacao-modelos-credit
+#| fig-cap: "Comparação entre modelos ajustados à base Credit."
+#| warning: false
+#| message: false
+#| echo: false
+
+library(ISLR)
+library(tidyverse)
+library(patchwork)
+
+dados_credit <- Credit
+
+mod1 <- lm(
+  Balance ~ Income,
+  data = dados_credit
+)
+
+mod2 <- lm(
+  Balance ~ Income + Rating,
+  data = dados_credit
+)
+
+dados_credit <- dados_credit |>
+  mutate(
+    ajuste_m1 = fitted(mod1),
+    ajuste_m2 = fitted(mod2)
+  )
+
+g1 <- ggplot(
+  dados_credit,
+  aes(
+    x = Balance,
+    y = ajuste_m1
+  )
+) +
+  geom_point(alpha = 0.6) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    linetype = 2
+  ) +
+  labs(
+    x = "Observado",
+    y = "Ajustado",
+    title = "Modelo M1"
+  ) +
+  theme_minimal(base_size = 13)
+
+g2 <- ggplot(
+  dados_credit,
+  aes(
+    x = Balance,
+    y = ajuste_m2
+  )
+) +
+  geom_point(alpha = 0.6) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    linetype = 2
+  ) +
+  labs(
+    x = "Observado",
+    y = "Ajustado",
+    title = "Modelo M2"
+  ) +
+  theme_minimal(base_size = 13)
+
+g1 + g2
+```
+
+A inspeção visual sugere que o modelo contendo `Rating` acompanha mais de perto os valores observados. Entretanto, a comparação formal exige medidas quantitativas.
+
+A tabela seguinte resume alguns indicadores de qualidade de ajuste.
+
+```{r}
+#| label: tbl-medidas-ajuste-credit
+#| tbl-cap: "Medidas de qualidade de ajuste para os modelos comparados."
+#| warning: false
+#| message: false
+#| echo: false
+
+library(broom)
+library(knitr)
+
+comparacao <- tibble(
+  Modelo = c("M1", "M2"),
+  `R²` = c(
+    summary(mod1)$r.squared,
+    summary(mod2)$r.squared
+  ),
+  `R² ajustado` = c(
+    summary(mod1)$adj.r.squared,
+    summary(mod2)$adj.r.squared
+  ),
+  AIC = c(
+    AIC(mod1),
+    AIC(mod2)
+  ),
+  BIC = c(
+    BIC(mod1),
+    BIC(mod2)
+  ),
+  `Erro padrão residual` = c(
+    summary(mod1)$sigma,
+    summary(mod2)$sigma
+  )
+) |>
+  mutate(
+    across(
+      where(is.numeric),
+      ~round(.x, 3)
+    )
+  )
+
+kable(comparacao)
+```
+
+A análise conjunta dessas medidas permite avaliar se a melhora obtida pelo modelo mais complexo é suficientemente grande para justificar a inclusão da variável adicional.
+
+Também podemos realizar uma comparação formal entre os dois modelos por meio do teste $F$ para modelos aninhados.
+
+```{r}
+#| label: tbl-teste-modelos-aninhados
+#| tbl-cap: "Comparação entre modelos aninhados por meio do teste F."
+#| warning: false
+#| message: false
+#| echo: false
+
+comparacao_f <- anova(
+  mod1,
+  mod2
+)
+
+comparacao_f |>
+  broom::tidy() |>
+  mutate(
+    across(where(is.numeric), ~round(.x, 2))
+  ) |>
+  knitr::kable()
+```
+
+Nesse caso, a hipótese nula afirma que, após considerar a variável `Income`, a variável `Rating` não fornece informação adicional para explicar a variabilidade de `Balance`.
+
+A estatística $F$ compara a redução observada na soma de quadrados residual com a variabilidade residual do modelo completo. Valores elevados dessa estatística indicam que a inclusão da nova variável produz uma melhora substancial no ajuste.
+
+Observa-se que a inclusão de `Rating` reduz a soma de quadrados residual de aproximadamente 66,2 milhões para 10,5 milhões, produzindo uma estatística
+
+$$
+F \approx 2098{,}6.
+$$
+
+Como o valor-$p$ é extremamente pequeno ($p < 0{,}001$), rejeitamos a hipótese nula e concluímos que `Rating` contribui significativamente para explicar a variabilidade de `Balance`, mesmo após considerar o efeito de `Income`.
+
+Esse resultado ilustra uma situação em que diferentes critérios de comparação conduzem à mesma conclusão: o modelo que incorpora `Rating` apresenta melhor ajuste e fornece evidências de que a variável adicionada contribui efetivamente para a explicação da resposta.
+
+A decisão final não precisa ser baseada exclusivamente em um único critério. Em aplicações reais, é comum considerar simultaneamente:
+
+-   significância estatística;
+-   qualidade de ajuste;
+-   critérios de informação;
+-   estabilidade das estimativas;
+-   facilidade de interpretação;
+-   objetivo da análise.
+
+Modelos com desempenho semelhante frequentemente levam à escolha da alternativa mais simples, especialmente quando a perda de ajuste é pequena. Em contrapartida, quando a inclusão de novas variáveis produz ganhos substanciais de explicação ou previsão, modelos mais complexos podem ser preferíveis.
