@@ -1,310 +1,1047 @@
 # Análise de Covariância (ANCOVA)
 
-## Conceito geral
+## Introdução e motivação
 
-A **Análise de Covariância (ANCOVA)** amplia o Modelo de Regressão Linear Múltipla (MRLM) ao integrar, no mesmo modelo, **variáveis quantitativas** (covariáveis) e **variáveis qualitativas** (representadas por dummies).  Essa combinação permite comparar grupos **ajustando as médias** por eventuais diferenças em variáveis contínuas de controle.
+No capítulo anterior, vimos que variáveis qualitativas podem ser incorporadas ao Modelo de Regressão Linear Múltipla por meio de variáveis fictícias, também chamadas de *dummies* ou *flags*. Essa construção permite comparar grupos dentro da mesma estrutura matricial dos modelos lineares.
 
-Em termos práticos, a ANCOVA busca responder perguntas como:  “Os grupos diferem entre si, mesmo depois de considerar o efeito de uma variável contínua que também influencia o resultado?”
+Em muitas aplicações, entretanto, os grupos que desejamos comparar também diferem em relação a variáveis quantitativas que influenciam a resposta. Nesses casos, comparar apenas as médias observadas pode confundir o efeito do grupo com o efeito dessas covariáveis.
 
+Por exemplo, ao comparar o desempenho de estudantes submetidos a diferentes métodos de ensino, diferenças no tempo prévio de estudo podem influenciar o resultado. Em estudos clínicos, tratamentos podem ser comparados após ajustar idade, peso ou medida basal. Em estudos econômicos, grupos podem ser comparados após controlar renda, experiência profissional ou porte da empresa.
 
-## Motivação
+A ANCOVA (*Analysis of Covariance*) corresponde ao caso em que fatores categóricos e covariáveis quantitativas aparecem simultaneamente em um modelo linear. Seu principal objetivo é comparar grupos após ajustar o efeito de variáveis contínuas que também influenciam a resposta [@montgomery2021; @kutner2005].
 
-Imagine um estudo sobre salário ($Y$), experiência profissional ($X$) e gênero ($D$).  
+Essa abordagem permite avaliar se as diferenças entre grupos permanecem mesmo após controlar fatores contínuos relevantes. Em consequência, as comparações passam a ser realizadas por meio de médias ajustadas, isto é, médias obtidas após considerar simultaneamente os efeitos das covariáveis e dos fatores categóricos [@seber2003; @rencher2012].
 
-- Se ajustarmos apenas uma regressão simples entre salário e experiência, podemos ignorar diferenças sistemáticas entre homens e mulheres.  
-- Se considerarmos apenas o gênero, sem controlar a experiência, a comparação será enviesada — já que a média de experiência pode diferir entre os grupos.  
+Neste capítulo, estudaremos como a ANCOVA pode ser formulada dentro da estrutura do Modelo de Regressão Linear Múltipla, como interpretar seus coeficientes, como realizar inferência sobre diferenças ajustadas entre grupos e como incorporar interações entre fatores e covariáveis.
 
-A ANCOVA resolve esse problema ao **ajustar as médias de $Y$ pelas diferenças na covariável $X$**, de modo que as comparações entre grupos se tornem mais justas e interpretáveis.
+## Relação entre ANOVA, regressão e ANCOVA
 
+A ANOVA, a regressão linear e a ANCOVA são geralmente apresentadas como técnicas distintas. Historicamente, elas foram desenvolvidas para responder a problemas diferentes: comparação de médias, modelagem de relações entre variáveis quantitativas e comparação de grupos ajustada por covariáveis. Entretanto, sob a perspectiva dos modelos lineares, essas técnicas compartilham a mesma estrutura matemática [@seber2003; @rencher2012; @kutner2005].
 
-
-## Modelo básico (retas paralelas)
-
-O modelo mais simples da ANCOVA assume que as inclinações das retas são iguais para todos os grupos. Isto é, o efeito de $X$ é o mesmo, independentemente do grupo. Nesse caso, o modelo é:
+Em todos os casos, o modelo pode ser escrito como
 
 $$
-Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \varepsilon_i,
+\mathbf{Y}
+=
+\mathbf{X}\boldsymbol{\beta}
++
+\boldsymbol{\varepsilon},
+$$
+
+em que a diferença principal está na forma como a matriz de planejamento $\mathbf{X}$ é construída.
+
+Quando $\mathbf{X}$ contém apenas colunas associadas a fatores categóricos, obtemos os modelos tradicionalmente estudados em ANOVA. Quando $\mathbf{X}$ contém apenas variáveis quantitativas, obtemos os modelos de regressão linear. Quando fatores e covariáveis quantitativas aparecem simultaneamente, obtemos os modelos usualmente classificados como ANCOVA.
+
+Essa distinção é útil para fins didáticos e interpretativos, mas não implica métodos de estimação diferentes. Em todos os casos, os parâmetros são estimados pelos mesmos princípios de mínimos quadrados, e os procedimentos inferenciais baseiam-se nas mesmas distribuições de referência e nas mesmas decomposições da variabilidade [@montgomery2021; @kutner2005].
+
+Por essa razão, muitos autores tratam ANOVA, regressão e ANCOVA como casos particulares de uma estrutura mais geral conhecida como Modelo Linear Geral (*General Linear Model*) [@seber2003; @rencher2012].
+
+Neste capítulo, manteremos o termo ANCOVA porque nosso interesse está na combinação de fatores categóricos e covariáveis quantitativas, com ênfase na interpretação de médias ajustadas e na comparação entre grupos após o controle de variáveis contínuas.
+
+## Médias ajustadas
+
+Considere inicialmente a comparação entre dois grupos sem o uso de covariáveis. Se $D_i$ é uma variável dummy indicando o grupo ao qual a observação pertence, podemos escrever
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1D_i
++
+\varepsilon_i.
+$$
+
+Nesse caso,
+
+$$
+E(Y_i\mid D_i=0)
+=
+\beta_0
+$$
+
+e
+
+$$
+E(Y_i\mid D_i=1)
+=
+\beta_0+\beta_1.
+$$
+
+A diferença entre os grupos é dada por
+
+$$
+\beta_1.
+$$
+
+Essa comparação utiliza apenas as médias observadas dos grupos.
+
+Agora suponha que exista uma covariável quantitativa $X_i$ associada à resposta. O modelo ANCOVA sem interação pode ser escrito como
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
+$$
+
+Nesse caso, para o grupo de referência ($D_i=0$),
+
+$$
+E(Y_i\mid X_i=x,D_i=0)
+=
+\beta_0+\beta_1x.
+$$
+
+Para o grupo indicado pela dummy ($D_i=1$),
+
+$$
+E(Y_i\mid X_i=x,D_i=1)
+=
+\beta_0+\beta_1x+\beta_2.
+$$
+
+A diferença entre os grupos, para um mesmo valor da covariável, é
+
+$$
+E(Y_i\mid X_i=x,D_i=1)
+-
+E(Y_i\mid X_i=x,D_i=0)
+=
+\beta_2.
+$$
+
+Portanto, a ANCOVA compara grupos em um mesmo valor da covariável $X$. Por essa razão, $\beta_2$ é frequentemente interpretado como uma diferença ajustada entre os grupos. Enquanto as médias observadas refletem simultaneamente diferenças entre grupos e diferenças na covariável, as médias ajustadas representam comparações realizadas após controlar o efeito de $X$.
+
+Essa interpretação é particularmente importante quando os grupos apresentam distribuições distintas da covariável. Nesses casos, parte das diferenças observadas pode ser consequência dessas diferenças iniciais e não necessariamente do fator de interesse [@montgomery2021; @kutner2005].
+
+Do ponto de vista gráfico, a ANCOVA compara grupos ao longo de uma mesma reta de ajuste ou, mais geralmente, para um mesmo valor da covariável. Assim, a comparação deixa de depender apenas das médias amostrais e passa a considerar simultaneamente a informação contida nas variáveis quantitativas e qualitativas.
+
+## Modelo ANCOVA com retas paralelas
+
+O modelo ANCOVA mais simples assume que o efeito da covariável é o mesmo em todos os grupos. Nesse caso, a variável categórica afeta apenas o intercepto, produzindo retas paralelas.
+
+Para dois grupos, o modelo pode ser escrito como
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
 $$
 
 em que:
 
-- $X_i$ é a covariável contínua (ex.: experiência),
+-   $Y_i$ representa a variável resposta;
+-   $X_i$ é a covariável quantitativa;
+-   $D_i$ é uma variável dummy que identifica o grupo;
+-   $\varepsilon_i$ representa o erro aleatório.
 
-- $D_i$ é uma dummy indicadora do grupo (ex.: 1 = feminino, 0 = masculino).
-
-As médias condicionais são:
-$$
-E(Y|X, D=0) = \beta_0 + \beta_1 X, \qquad 
-E(Y|X, D=1) = (\beta_0 + \beta_2) + \beta_1 X.
-$$
-
-Interpretação dos parâmetros:
-
-- $\beta_0$: média do grupo de referência ($D=0$) quando $X=0$;  
-- $\beta_1$: efeito médio da covariável $X$, **comum aos grupos**;  
-- $\beta_2$: diferença média entre os grupos **após controlar $X$**.  
-
-Esse modelo é chamado de **ANCOVA com retas paralelas**, pois as inclinações ($\beta_1$) são as mesmas para todos os grupos.
-
-
-
-## Modelo com interação (retas não paralelas)
-
-Caso se queira permitir que o efeito da covariável varie entre os grupos, adiciona-se o termo de interação $X_i D_i$:
+As médias condicionais são
 
 $$
-Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \beta_3 (X_i D_i) + \varepsilon_i.
+E(Y_i\mid X_i=x,D_i=0)
+=
+\beta_0+\beta_1x
 $$
 
-Agora, as médias condicionais tornam-se:
-$$
-E(Y|X, D=0) = \beta_0 + \beta_1 X, \qquad
-E(Y|X, D=1) = (\beta_0 + \beta_2) + (\beta_1 + \beta_3)X.
-$$
-
-Interpretação:
-- $\beta_1$: inclinação do grupo de referência ($D=0$);
-- $\beta_1 + \beta_3$: inclinação do grupo $D=1$;
-- $\beta_3$: diferença entre as inclinações das retas (efeito de **interação**).
-
-> Quando $\beta_3 = 0$, as retas são paralelas e o modelo reduz-se ao caso anterior.  
-> Quando $\beta_3 \neq 0$, as inclinações diferem, indicando que o efeito da covariável depende do grupo.
-
-
-- **Sem interação (paralelas):**  
-  As médias dos grupos diferem em um valor constante ($\beta_2$), independentemente de $X$.  
-  Exemplo: homens e mulheres com a mesma experiência têm diferença média constante de salário.
-
-- **Com interação (não paralelas):**  
-  As diferenças entre grupos **mudam com $X$**.  
-  Exemplo: o ganho salarial por ano de experiência é maior em um grupo que no outro.
-  
-
-## Exemplo ilustrativo
-
-Para consolidar as ideias, vejamos um exemplo aplicado que combina uma variável **quantitativa** e uma **dummy**.  Suponha que queremos analisar o **salário mensal ($Y$)** de trabalhadores em função de sua **experiência profissional ($x$)** e do **gênero ($D$)**.  
-
-Definimos:
-
-- $Y_i$: salário mensal do indivíduo $i$ (em reais);  
-- $x_i$: anos de experiência;  
-- $D_i = 1$ se o indivíduo é **mulher**, $0$ se é **homem** (categoria de referência).
-
-Nosso interesse é investigar se há diferença entre os salários médios de homens e mulheres, **controlando pela experiência**, e se o **efeito da experiência** é o mesmo nos dois grupos.
-
-
-### Modelo sem interação: retas paralelas
-
-Começamos com o modelo:
+e
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 D_i + \varepsilon_i.
+E(Y_i\mid X_i=x,D_i=1)
+=
+(\beta_0+\beta_2)+\beta_1x.
 $$
 
-- $\beta_0$: salário médio esperado dos **homens** com $x=0$;  
-- $\beta_1$: aumento médio no salário por ano de experiência, **comum** a ambos os gêneros;  
-- $\beta_2$: diferença média entre mulheres e homens, **mantida a mesma inclinação** para $x$.  
+Observe que ambas as expressões possuem a mesma inclinação $\beta_1$. A única diferença entre as retas é o deslocamento vertical dado por $\beta_2$.
 
-As retas são **paralelas**. Isto é, mesmo crescimento com $x$, mas níveis diferentes de $Y$ para cada grupo.  
-Se $\beta_2 < 0$, por exemplo, o modelo indicaria que, em média, mulheres recebem menos que homens com o mesmo nível de experiência.  
-
-Em termos de expectativa condicional:
-$$
-E(Y|x,D=0) = \beta_0 + \beta_1 x, \qquad
-E(Y|x,D=1) = (\beta_0 + \beta_2) + \beta_1 x.
-$$
-
-
-### Modelo com interação: inclinações diferentes
-
-Agora, relaxamos a hipótese de paralelismo e permitimos que o efeito da experiência seja diferente entre os grupos:
+Consequentemente,
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 D_i + \beta_3 (x_i \cdot D_i) + \varepsilon_i.
+E(Y_i\mid X_i=x,D_i=1)
+-
+E(Y_i\mid X_i=x,D_i=0)
+=
+\beta_2,
 $$
 
-- $\beta_3$: **termo de interação**, que mede a diferença entre as inclinações das retas.  
-- Para homens ($D=0$):  
-  $$
-  E(Y|x, D=0) = \beta_0 + \beta_1 x.
-  $$
-- Para mulheres ($D=1$):  
-  $$
-  E(Y|x, D=1) = (\beta_0 + \beta_2) + (\beta_1 + \beta_3)x.
-  $$
+independentemente do valor de $x$.
 
-Aqui, as retas **não precisam ser paralelas**. Se $\beta_3 > 0$, o efeito da experiência sobre o salário é mais acentuado entre mulheres; se $\beta_3 < 0$, o ganho de experiência é menor para elas.
+Esse resultado mostra que a diferença entre os grupos é constante ao longo de toda a faixa da covariável. Por essa razão, esse modelo é conhecido como modelo ANCOVA com retas paralelas.
 
+A interpretação dos coeficientes é direta:
 
-### Interpretação gráfica
+-   $\beta_0$ representa o valor esperado da resposta para o grupo de referência quando $X=0$;
+-   $\beta_1$ representa a variação média da resposta associada ao aumento de uma unidade em $X$;
+-   $\beta_2$ representa a diferença ajustada entre os grupos.
 
-- **Sem interação (paralelas):**  
-  Ambas as retas têm a mesma inclinação; o efeito de $x$ é idêntico, mas há um deslocamento vertical de $\beta_2$ entre os grupos.  
+Quando existem mais de dois grupos, a interpretação permanece a mesma. A única diferença é que várias dummies passam a ser incluídas no modelo, produzindo múltiplos deslocamentos verticais em relação à categoria de referência.
 
-- **Com interação:**  
-  As inclinações diferem. O impacto da experiência depende do gênero, e o efeito de $D$ sobre $Y$ muda ao longo de $x$. Em alguns casos, as retas podem até se cruzar, indicando inversão de vantagem entre grupos em diferentes níveis de experiência.
+Geometricamente, a ANCOVA com retas paralelas descreve um conjunto de retas com a mesma inclinação e interceptos distintos. A covariável determina a inclinação comum, enquanto as variáveis dummy deslocam as retas verticalmente.
 
-Essas duas configurações ilustram o papel central das dummies e de suas interações:
+A Figura a seguir ilustra essa situação utilizando a base `iris`.
 
-- sem interação, comparam-se médias ajustadas **mantendo o mesmo efeito de $x$**;
+### Ilustração com a base `iris`
 
-- com interação, comparam-se **padrões distintos de associação** entre $x$ e $Y$ entre grupos.
+A base `iris`, disponível no R, contém medidas morfológicas de flores pertencentes a três espécies: *setosa*, *versicolor* e *virginica*. Neste capítulo, ela será utilizada apenas para ilustrar conceitos da ANCOVA.
 
+Consideraremos:
 
-**Figura 3.6 – Efeito de dummy e interação (retas paralelas vs. inclinações diferentes)**
+-   `Sepal.Length` como variável resposta;
+-   `Petal.Length` como covariável quantitativa;
+-   `Species` como fator categórico.
+
+O modelo ajustado possui a forma
+
+$$
+Sepal.Length_i
+=
+\beta_0
++
+\beta_1 Petal.Length_i
++
+\text{efeitos de }Species_i
++
+\varepsilon_i.
+$$
+
+A figura a seguir apresenta as observações observadas e as retas ajustadas pelo modelo ANCOVA sem interação.
 
 ```{r}
-#| echo: false
+#| label: fig-ancova-iris-retas-paralelas
+#| fig-cap: "Modelo ANCOVA com retas paralelas utilizando a base iris."
 #| warning: false
 #| message: false
-#| fig-cap: "Efeito de dummy e interação (retas paralelas vs. inclinações diferentes)"
-#| fig-width: 12
-#| fig-height: 4.6
-#| dpi: 150
+#| echo: false
 
-suppressPackageStartupMessages({
-  library(dplyr)
-  library(ggplot2)
-  library(patchwork)
-})
+library(ggplot2)
+library(dplyr)
 
-set.seed(42)
+dados_iris <- iris |>
+  mutate(
+    Species = factor(Species)
+  )
 
-n <- 220
-x <- seq(0, 20, length.out = n)
-D <- rbinom(n, 1, 0.5)
-
-# Parâmetros (iguais ao Python)
-b0 <- 2000; b1 <- 300; b2 <- -2500; sigma <- 600
-y_sem <- b0 + b1*x + b2*D + rnorm(n, 0, sigma)
-
-b0i <- 2000; b1i <- 300; b2i <- -2500; b3i <- 220
-y_int <- b0i + b1i*x + b2i*D + b3i*(x*D) + rnorm(n, 0, sigma)
-
-df <- tibble(
-  x = x,
-  D = factor(D, levels = c(0, 1), labels = c("D=0", "D=1")),
-  y_sem = y_sem,
-  y_int = y_int
+mod_ancova_paralelo <- lm(
+  Sepal.Length ~ Petal.Length + Species,
+  data = dados_iris
 )
 
-# Malha p/ linhas "teóricas"
-xg <- seq(0, 20, length.out = 200)
-
-lin_sem <- tibble(
-  x = rep(xg, 2),
-  D = factor(rep(c(0, 1), each = length(xg)), levels = c(0, 1), labels = c("D=0", "D=1")),
-  y = c(b0 + b1*xg, b0 + b1*xg + b2)
+grid_iris <- expand.grid(
+  Petal.Length = seq(
+    min(dados_iris$Petal.Length),
+    max(dados_iris$Petal.Length),
+    length.out = 150
+  ),
+  Species = levels(dados_iris$Species)
 )
 
-lin_int <- tibble(
-  x = rep(xg, 2),
-  D = factor(rep(c(0, 1), each = length(xg)), levels = c(0, 1), labels = c("D=0", "D=1")),
-  y = c(b0i + b1i*xg, b0i + (b1i + b3i)*xg + b2i)
+grid_iris$ajustado <- predict(
+  mod_ancova_paralelo,
+  newdata = grid_iris
 )
 
-# Cores (sem tab:orange)
-col_D0 <- "#1f77b4"  # azul
-col_D1 <- "#E69F00"  # laranja (válida no R)
-
-# --- Painel (a): sem interação (paralelas)
-x_ref <- 10
-y0_ref <- b0 + b1*x_ref
-y1_ref <- b0 + b1*x_ref + b2
-
-pA <- ggplot(df, aes(x = x, y = y_sem, color = D)) +
-  geom_point(size = 1.6, alpha = 0.6) +
-  geom_line(data = lin_sem, aes(y = y, color = D), linewidth = 1.2) +
-  # "seta" dupla (β2)
-  geom_segment(x = x_ref, xend = x_ref, y = y0_ref, yend = y1_ref,
-               inherit.aes = FALSE,
-               arrow = arrow(ends = "both", type = "open", length = unit(0.12, "in")),
-               linewidth = 0.6, color = "black") +
-  annotate("text", x = x_ref + 0.8, y = (y0_ref + y1_ref)/2,
-           label = expression(beta[2]~"(deslocamento)"),
-           size = 3.2, vjust = 0.5) +
-  scale_color_manual(values = c("D=0" = col_D0, "D=1" = col_D1)) +
-  labs(title = "Sem interação (retas paralelas)", x = "x (contínua)", y = "Y") +
-  theme_minimal(base_size = 12) +
-  theme(legend.position = c(0.12, 0.88),
-        legend.background = element_rect(fill = "white", color = "grey70"),
-        legend.title = element_blank())
-
-# --- Painel (b): com interação (inclinações diferentes)
-# anotações do "gap" em dois pontos
-gap_marks <- tibble(
-  x = c(5, 18),
-  y0 = b0i + b1i*c(5, 18),
-  y1 = b0i + (b1i + b3i)*c(5, 18) + b2i
-)
-
-# "réguas" de inclinação (curtas, como no Python)
-slope_seg <- tibble(
-  grp = c("D=0","D=0","D=1","D=1"),
-  x   = c(2, 4, 2, 4),
-  y   = c(b0i + b1i*2, b0i + b1i*4,
-          b0i + (b1i+b3i)*2 + b2i, b0i + (b1i+b3i)*4 + b2i)
-)
-
-pB <- ggplot(df, aes(x = x, y = y_int, color = D)) +
-  geom_point(size = 1.6, alpha = 0.6) +
-  geom_line(data = lin_int, aes(y = y, color = D), linewidth = 1.2) +
-  # gaps em x=5 e x=18
-  geom_segment(data = gap_marks,
-               aes(x = x, xend = x, y = y0, yend = y1),
-               inherit.aes = FALSE,
-               arrow = arrow(ends = "both", type = "open", length = unit(0.11, "in")),
-               linewidth = 0.6, color = "black") +
-  annotate("text", x = gap_marks$x + 1.0, y = (gap_marks$y0 + gap_marks$y1)/2,
-           label = expression(beta[3] != 0), size = 3.0, vjust = 0.5) +
-  # réguas de inclinação
-  geom_line(data = slope_seg, aes(x = x, y = y, color = grp),
-            inherit.aes = FALSE, linewidth = 2.2) +
-  scale_color_manual(values = c("D=0" = col_D0, "D=1" = col_D1)) +
-  labs(title = "Com interação (inclinações diferentes)", x = "x (contínua)", y = NULL) +
-  theme_minimal(base_size = 12) +
-  theme(legend.position = c(0.12, 0.88),
-        legend.background = element_rect(fill = "white", color = "grey70"),
-        legend.title = element_blank())
-
-pA + pB
+ggplot(
+  dados_iris,
+  aes(
+    x = Petal.Length,
+    y = Sepal.Length,
+    color = Species
+  )
+) +
+  geom_point(
+    alpha = 0.75,
+    size = 2.2
+  ) +
+  geom_line(
+    data = grid_iris,
+    aes(
+      x = Petal.Length,
+      y = ajustado,
+      color = Species
+    ),
+    linewidth = 1.1
+  ) +
+  labs(
+    x = "Comprimento da pétala",
+    y = "Comprimento da sépala",
+    color = "Espécie"
+  ) +
+  theme_minimal(base_size = 13)
 ```
 
+Na figura, as retas são paralelas porque o modelo não inclui interação entre `Petal.Length` e `Species`. Assim, o efeito de `Petal.Length` é assumido comum às três espécies, enquanto as diferenças entre espécies aparecem como deslocamentos verticais entre as retas.
 
-## Hipóteses e testes na ANCOVA
+A inclinação comum representa a variação média de `Sepal.Length` associada ao aumento de `Petal.Length`, independentemente da espécie. Já as diferenças verticais entre as retas representam diferenças ajustadas entre as espécies, isto é, diferenças observadas após controlar o efeito da covariável.
 
-A ANCOVA pode ser usada para testar hipóteses específicas sobre covariáveis e efeitos de grupo:
+Os coeficientes estimados pelo modelo são apresentados na tabela a seguir.
 
-1. **Efeito da covariável:**  
-   $$
-   H_0: \beta_1 = 0 \quad \text{(a covariável não influencia $Y$)}.
-   $$
+```{r}
+#| label: tbl-ancova-coeficientes-paralelo
+#| tbl-cap: "Coeficientes estimados do modelo ANCOVA com retas paralelas."
+#| warning: false
+#| message: false
+#| echo: false
 
-2. **Diferença entre grupos (ajustada pela covariável):**  
-   $$
-   H_0: \beta_2 = 0 \quad \text{(os grupos têm a mesma média ajustada)}.
-   $$
+library(broom)
+library(knitr)
 
-3. **Interação covariável × grupo:**  
-   $$
-   H_0: \beta_3 = 0 \quad \text{(as inclinações das retas são iguais)}.
-   $$
+tab_coef_paralelo <- broom::tidy(
+  mod_ancova_paralelo,
+  conf.int = TRUE
+) |>
+  mutate(
+    estimate = round(estimate, 4),
+    std.error = round(std.error, 4),
+    statistic = round(statistic, 4),
+    p.value = round(p.value, 4),
+    conf.low = round(conf.low, 4),
+    conf.high = round(conf.high, 4)
+  )
 
-Esses testes seguem a estrutura discutida na Seção 3.3: estatísticas $t$ e $F$, conforme o número de parâmetros envolvidos ($q=1$ ou $q>1$).
+knitr::kable(
+  tab_coef_paralelo,
+  col.names = c(
+    "Termo",
+    "Estimativa",
+    "Erro padrão",
+    "Estatística t",
+    "Valor-p",
+    "IC inferior",
+    "IC superior"
+  )
+)
+```
 
+Por padrão, o R utiliza uma categoria de referência para representar o fator. Nesse caso, os coeficientes associados às espécies representam diferenças em relação à categoria de referência, mantendo constante o valor de `Petal.Length`.
 
+O coeficiente associado à covariável representa a inclinação comum das retas. Os coeficientes associados às espécies representam diferenças ajustadas entre os grupos. Como o modelo não contém interação, essas diferenças permanecem constantes ao longo de toda a faixa observada da covariável.
 
-## Aplicações e boas práticas
+## Hipóteses no modelo com retas paralelas
 
-- A ANCOVA é amplamente utilizada em **ensaios experimentais**, **pesquisas educacionais** e **ciências da saúde**, onde grupos são comparados após ajustar diferenças pré-existentes.  
-- A suposição central é o **paralelismo das retas**: se ele não for plausível, deve-se incluir a interação ou segmentar a análise.  
-- Recomenda-se **centrar a covariável $X$** (subtrair sua média), para que o intercepto ($\beta_0$) represente a média ajustada em um ponto de referência significativo (tipicamente a média amostral).
+Uma vez ajustado o modelo ANCOVA, o próximo passo é avaliar quais componentes realmente contribuem para explicar a variabilidade da resposta.
 
-A ANCOVA une o raciocínio da regressão e da ANOVA sob o mesmo arcabouço do MRLM. Ela permite:
+No modelo
 
-- Comparar médias ajustadas entre grupos;  
-- Controlar variáveis contínuas de confusão;  
-- Testar se os efeitos da covariável são homogêneos ou específicos por grupo.  
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i,
+$$
 
-Apesar da aparência mais sofisticada, do ponto de vista matricial a ANCOVA é apenas uma **regressão linear múltipla com dummies e interações**. As demonstrações formais e a derivação dos testes via projeções no espaço de colunas de $\mathbf{X}$ serão apresentadas em uma subseção posterior, mantendo a clareza e fluidez da leitura principal.
+existem dois efeitos principais de interesse: o efeito da covariável e o efeito do grupo.
 
+### Efeito da covariável
+
+A primeira hipótese avalia se a covariável está associada à variável resposta:
+
+$$
+H_0:\beta_1=0
+$$
+
+contra
+
+$$
+H_1:\beta_1\neq0.
+$$
+
+A rejeição de $H_0$ indica que a covariável contribui para explicar a variabilidade de $Y$, mesmo após considerar as diferenças entre os grupos.
+
+### Efeito do grupo
+
+Quando existem apenas dois grupos, o efeito do fator pode ser avaliado por
+
+$$
+H_0:\beta_2=0
+$$
+
+contra
+
+$$
+H_1:\beta_2\neq0.
+$$
+
+Nesse caso, a hipótese nula afirma que não existe diferença ajustada entre os grupos.
+
+A rejeição de $H_0$ sugere que os grupos apresentam médias distintas mesmo após controlar o efeito da covariável.
+
+### Fatores com múltiplas categorias
+
+Quando o fator possui mais de duas categorias, sua contribuição não pode ser avaliada por um único coeficiente. Nesses casos, a hipótese envolve simultaneamente todos os parâmetros associados ao fator.
+
+Se houver três grupos, por exemplo, o modelo contém duas dummies e a hipótese passa a ser
+
+$$
+H_0:
+\beta_2=\beta_3=0.
+$$
+
+De forma geral, para um fator com $k$ categorias,
+
+$$
+H_0:
+\beta_2=\beta_3=\cdots=\beta_k=0.
+$$
+
+Essa hipótese é normalmente avaliada por meio de um teste $F$, pois envolve mais de um parâmetro.
+
+No contexto da ANCOVA, a rejeição dessa hipótese indica que pelo menos um grupo difere dos demais após o ajuste pela covariável.
+
+### Exemplo com a base `iris`
+
+No modelo ajustado anteriormente,
+
+$$
+Sepal.Length_i
+=
+\beta_0
++
+\beta_1 Petal.Length_i
++
+\text{efeitos de }Species_i
++
+\varepsilon_i,
+$$
+
+podemos avaliar simultaneamente o efeito da covariável `Petal.Length` e o efeito do fator `Species`.
+
+A tabela a seguir apresenta a decomposição da soma de quadrados associada ao modelo.
+
+```{r}
+#| label: tbl-ancova-anova-paralelo
+#| tbl-cap: "Tabela de análise de variância para o modelo ANCOVA com retas paralelas."
+#| warning: false
+#| message: false
+#| echo: false
+
+tab_anova_paralelo <- anova(
+  mod_ancova_paralelo
+)
+
+knitr::kable(
+  round(tab_anova_paralelo, 4)
+)
+```
+
+A interpretação da tabela deve ser feita em conjunto com a estrutura do modelo.
+
+O teste associado a `Petal.Length` avalia se a covariável está relacionada à resposta após considerar as diferenças entre espécies.
+
+O teste associado a `Species` avalia se existem diferenças entre espécies após controlar o efeito de `Petal.Length`.
+
+Essas hipóteses constituem o núcleo inferencial da ANCOVA: avaliar simultaneamente o papel das covariáveis quantitativas e dos fatores categóricos na explicação da variável resposta [@montgomery2021; @kutner2005].
+
+## Modelo ANCOVA com interação
+
+O modelo de retas paralelas assume que o efeito da covariável é o mesmo em todos os grupos. Em muitas aplicações, entretanto, essa hipótese pode ser excessivamente restritiva.
+
+Para permitir que o efeito da covariável varie entre os grupos, adiciona-se um termo de interação ao modelo:
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3(X_iD_i)
++
+\varepsilon_i.
+$$
+
+Nesse caso,
+
+$$
+E(Y_i\mid X_i=x,D_i=0)
+=
+\beta_0+\beta_1x
+$$
+
+e
+
+$$
+E(Y_i\mid X_i=x,D_i=1)
+=
+(\beta_0+\beta_2)
++
+(\beta_1+\beta_3)x.
+$$
+
+A inclinação da reta associada ao grupo de referência é dada por $\beta_1$.
+
+A inclinação da reta associada ao grupo indicado pela dummy é dada por
+
+$$
+\beta_1+\beta_3.
+$$
+
+O parâmetro $\beta_3$ quantifica a diferença entre as inclinações.
+
+Quando
+
+$$
+\beta_3=0,
+$$
+
+as inclinações são iguais e o modelo se reduz ao caso de retas paralelas.
+
+Quando
+
+$$
+\beta_3\neq0,
+$$
+
+o efeito da covariável depende do grupo.
+
+Nesse cenário, a diferença entre os grupos deixa de ser constante. Para um valor genérico da covariável,
+
+$$
+\Delta(x)
+=
+E(Y\mid X=x,D=1)
+-
+E(Y\mid X=x,D=0)
+=
+\beta_2+\beta_3x.
+$$
+
+Portanto, a magnitude e até mesmo o sinal da diferença entre grupos podem variar ao longo da faixa de valores de $X$.
+
+Em aplicações práticas, isso significa que um grupo pode apresentar valores maiores da resposta em determinadas regiões da covariável e valores menores em outras regiões. Em casos extremos, as retas podem se cruzar.
+
+Essa possibilidade torna a interpretação mais rica, mas também mais complexa. Enquanto o modelo de retas paralelas produz uma única diferença ajustada entre grupos, o modelo com interação produz diferenças que dependem do valor considerado para a covariável.
+
+### Visualização do modelo com interação
+
+A base `iris` também pode ser utilizada para ilustrar o modelo ANCOVA com interação. Nesse caso, permitimos que o efeito de `Petal.Length` varie entre as espécies.
+
+O modelo ajustado é
+
+$$
+Sepal.Length_i
+=
+\beta_0
++
+\beta_1 Petal.Length_i
++
+\text{efeitos de }Species_i
++
+\text{interações}
++
+\varepsilon_i.
+$$
+
+A figura a seguir apresenta as retas ajustadas pelo modelo com interação.
+
+```{r}
+#| label: fig-ancova-iris-interacao
+#| fig-cap: "Modelo ANCOVA com interação utilizando a base iris."
+#| warning: false
+#| message: false
+#| echo: false
+
+mod_ancova_interacao <- lm(
+  Sepal.Length ~ Petal.Length * Species,
+  data = dados_iris
+)
+
+grid_iris_int <- expand.grid(
+  Petal.Length = seq(
+    min(dados_iris$Petal.Length),
+    max(dados_iris$Petal.Length),
+    length.out = 150
+  ),
+  Species = levels(dados_iris$Species)
+)
+
+grid_iris_int$ajustado <- predict(
+  mod_ancova_interacao,
+  newdata = grid_iris_int
+)
+
+ggplot(
+  dados_iris,
+  aes(
+    x = Petal.Length,
+    y = Sepal.Length,
+    color = Species
+  )
+) +
+  geom_point(
+    alpha = 0.75,
+    size = 2.2
+  ) +
+  geom_line(
+    data = grid_iris_int,
+    aes(
+      x = Petal.Length,
+      y = ajustado,
+      color = Species
+    ),
+    linewidth = 1.1
+  ) +
+  labs(
+    x = "Comprimento da pétala",
+    y = "Comprimento da sépala",
+    color = "Espécie"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+Diferentemente do modelo anterior, as retas não precisam possuir a mesma inclinação. Cada espécie pode apresentar uma relação própria entre `Petal.Length` e `Sepal.Length`.
+
+Quando os termos de interação são estatisticamente relevantes, a interpretação das diferenças entre grupos passa a depender do valor da covariável. Nessa situação, comparar grupos apenas por meio dos coeficientes principais pode ser insuficiente, sendo frequentemente mais informativo utilizar gráficos, médias ajustadas ou contrastes avaliados em valores específicos da covariável.
+
+Os coeficientes estimados pelo modelo são apresentados na tabela a seguir.
+
+```{r}
+#| label: tbl-ancova-coeficientes-interacao
+#| tbl-cap: "Coeficientes estimados do modelo ANCOVA com interação."
+#| warning: false
+#| message: false
+#| echo: false
+
+tab_coef_interacao <- broom::tidy(
+  mod_ancova_interacao,
+  conf.int = TRUE
+) |>
+  mutate(
+    estimate = round(estimate, 4),
+    std.error = round(std.error, 4),
+    statistic = round(statistic, 4),
+    p.value = round(p.value, 4),
+    conf.low = round(conf.low, 4),
+    conf.high = round(conf.high, 4)
+  )
+
+knitr::kable(
+  tab_coef_interacao,
+  col.names = c(
+    "Termo",
+    "Estimativa",
+    "Erro padrão",
+    "Estatística t",
+    "Valor-p",
+    "IC inferior",
+    "IC superior"
+  )
+)
+```
+
+## Comparação entre modelos com e sem interação
+
+Uma questão recorrente em ANCOVA é determinar se a hipótese de retas paralelas é compatível com os dados. Essa avaliação pode ser realizada comparando o modelo sem interação ao modelo com interação.
+
+No caso mais simples, envolvendo dois grupos, essa comparação equivale ao teste
+
+$$
+H_0:\beta_3=0.
+$$
+
+Quando existem múltiplas categorias, a hipótese envolve simultaneamente todos os coeficientes associados às interações:
+
+$$
+H_0:
+\gamma_1=\gamma_2=\cdots=\gamma_r=0,
+$$
+
+em que $\gamma_j$ representa um coeficiente associado aos termos de interação.
+
+Sob essa hipótese, o modelo com interação reduz-se ao modelo de retas paralelas.
+
+Como os modelos são encaixados, a comparação pode ser realizada por meio de um teste $F$.
+
+```{r}
+#| label: tbl-comparacao-modelos-ancova
+#| tbl-cap: "Comparação entre o modelo ANCOVA com retas paralelas e o modelo com interação."
+#| warning: false
+#| message: false
+#| echo: false
+
+comparacao_modelos <- anova(
+  mod_ancova_paralelo,
+  mod_ancova_interacao
+)
+
+knitr::kable(
+  round(comparacao_modelos, 4)
+)
+```
+
+A hipótese nula afirma que todas as inclinações são iguais. A rejeição dessa hipótese fornece evidências de que a relação entre a covariável e a resposta varia entre os grupos.
+
+A escolha entre os modelos deve considerar o resultado do teste de interação, a plausibilidade do paralelismo, a qualidade do ajuste e a interpretação substantiva do problema.
+
+Em muitas aplicações, o modelo sem interação é preferido quando produz ajuste semelhante ao modelo mais complexo, pois fornece uma interpretação mais simples das diferenças ajustadas entre grupos. Quando a interação é relevante, entretanto, o modelo de retas paralelas pode mascarar diferenças importantes na relação entre a covariável e a resposta.
+
+## Formulação matricial da ANCOVA
+
+A ANCOVA pode ser representada diretamente na forma matricial do MRLM.
+
+Considere inicialmente o modelo sem interação envolvendo uma covariável contínua $X_i$ e uma variável dummy $D_i$.
+
+Nesse caso,
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
+$$
+
+A linha $i$ da matriz de planejamento é dada por
+
+$$
+\mathbf{x}_i^\top
+=
+\begin{bmatrix}
+1 & X_i & D_i
+\end{bmatrix}.
+$$
+
+Logo,
+
+$$
+\mathbf{X}
+=
+\begin{bmatrix}
+1 & X_1 & D_1\\
+1 & X_2 & D_2\\
+\vdots & \vdots & \vdots\\
+1 & X_n & D_n
+\end{bmatrix}.
+$$
+
+Quando o modelo inclui interação, acrescentamos uma nova coluna correspondente ao produto entre a covariável e a dummy:
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3(X_iD_i)
++
+\varepsilon_i.
+$$
+
+Nesse caso,
+
+$$
+\mathbf{x}_i^\top
+=
+\begin{bmatrix}
+1 & X_i & D_i & X_iD_i
+\end{bmatrix},
+$$
+
+e a matriz de planejamento torna-se
+
+$$
+\mathbf{X}
+=
+\begin{bmatrix}
+1 & X_1 & D_1 & X_1D_1\\
+1 & X_2 & D_2 & X_2D_2\\
+\vdots & \vdots & \vdots & \vdots\\
+1 & X_n & D_n & X_nD_n
+\end{bmatrix}.
+$$
+
+A inclusão da interação não altera o procedimento de estimação. Ela apenas acrescenta uma nova direção ao espaço gerado pelas colunas de $\mathbf{X}$.
+
+Assim, os estimadores continuam sendo obtidos por
+
+$$
+\hat{\boldsymbol{\beta}}
+=
+(\mathbf{X}^{\top}\mathbf{X})^{-1}
+\mathbf{X}^{\top}\mathbf{Y},
+$$
+
+e sua matriz de variância-covariância permanece dada por
+
+$$
+Var(\hat{\boldsymbol{\beta}})
+=
+\sigma^2
+(\mathbf{X}^{\top}\mathbf{X})^{-1}.
+$$
+
+Essa observação reforça que a ANCOVA não constitui um método distinto de estimação. Ela permanece um caso particular do MRLM, diferindo apenas pela composição da matriz de planejamento [@seber2003; @rencher2012].
+
+## Inferência em ANCOVA
+
+A inferência em ANCOVA segue os mesmos princípios apresentados para o MRLM. A diferença está na interpretação das hipóteses, que agora podem envolver simultaneamente covariáveis quantitativas, fatores categóricos e interações.
+
+No modelo sem interação,
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i,
+$$
+
+as hipóteses mais comuns são:
+
+### Associação entre a covariável e a resposta
+
+$$
+H_0:\beta_1=0
+$$
+
+contra
+
+$$
+H_1:\beta_1\neq0.
+$$
+
+A rejeição de $H_0$ sugere que a covariável contribui para explicar a variabilidade da resposta após considerar as diferenças entre grupos.
+
+### Diferença ajustada entre grupos
+
+$$
+H_0:\beta_2=0
+$$
+
+contra
+
+$$
+H_1:\beta_2\neq0.
+$$
+
+Nesse caso, a hipótese nula afirma que não existe diferença entre os grupos após controlar o efeito da covariável.
+
+Quando o fator possui mais de duas categorias, a hipótese passa a envolver simultaneamente todos os coeficientes associados ao fator. Se houver três grupos, por exemplo,
+
+$$
+H_0:
+\beta_2=\beta_3=0.
+$$
+
+Em geral, tais hipóteses são avaliadas por meio de testes $F$, pois envolvem mais de um parâmetro.
+
+### Interação entre covariável e grupo
+
+No modelo com interação,
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3(X_iD_i)
++
+\varepsilon_i,
+$$
+
+a hipótese
+
+$$
+H_0:\beta_3=0
+$$
+
+avalia se as inclinações são iguais.
+
+A rejeição dessa hipótese indica que o efeito da covariável depende do grupo, tornando inadequada a interpretação baseada em uma única diferença ajustada.
+
+Em modelos com múltiplas categorias, a hipótese envolve simultaneamente todos os coeficientes associados às interações.
+
+### Intervalos de confiança
+
+Além dos testes de hipóteses, os intervalos de confiança permitem avaliar a magnitude e a precisão dos efeitos estimados.
+
+Para um coeficiente genérico $\beta_j$, o intervalo de confiança com nível $(1-\alpha)$ é dado por
+
+$$
+\hat{\beta}_j
+\pm
+t_{\alpha/2,n-p-1}
+\sqrt{\widehat{Var}(\hat{\beta}_j)}.
+$$
+
+Esses intervalos fornecem uma faixa de valores plausíveis para cada parâmetro do modelo.
+
+Na ANCOVA, eles são particularmente úteis para avaliar:
+
+-   o efeito da covariável;
+-   as diferenças ajustadas entre grupos;
+-   e as diferenças entre inclinações quando há interação.
+
+A interpretação dos intervalos deve sempre considerar a parametrização adotada e a categoria de referência utilizada para representar os fatores.
+
+## Centralização da covariável
+
+Em muitos modelos ANCOVA, especialmente quando há interação, a interpretação do intercepto e dos efeitos principais pode ser pouco informativa.
+
+Considere o modelo
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3(X_iD_i)
++
+\varepsilon_i.
+$$
+
+Nesse modelo, o coeficiente $\beta_2$ representa a diferença entre os grupos quando
+
+$$
+X_i=0.
+$$
+
+Em diversas aplicações, entretanto, o valor zero da covariável não possui significado prático ou sequer pertence à faixa observada dos dados.
+
+Uma estratégia simples consiste em centralizar a covariável:
+
+$$
+X_i^*
+=
+X_i-\bar{X}.
+$$
+
+O modelo passa a ser escrito como
+
+$$
+Y_i
+=
+\beta_0^*
++
+\beta_1X_i^*
++
+\beta_2^*D_i
++
+\beta_3X_i^*D_i
++
+\varepsilon_i.
+$$
+
+A centralização não altera:
+
+-   os valores ajustados;
+-   os resíduos;
+-   o coeficiente de determinação;
+-   os testes de hipóteses;
+-   nem a qualidade do ajuste.
+
+O que muda é a interpretação dos coeficientes. Após a centralização, $\beta_0^*$ passa a corresponder ao valor esperado da resposta quando a covariável assume seu valor médio. De forma análoga, $\beta_2^*$ passa a representar a diferença entre os grupos no valor médio da covariável.
+
+Essa interpretação costuma ser mais informativa do que comparar grupos em $X=0$ [@montgomery2021; @kutner2005].
+
+A tabela a seguir ilustra que a centralização não altera a qualidade do ajuste.
+
+```{r}
+#| label: tbl-ancova-centralizacao
+#| tbl-cap: "Comparação entre o modelo original e o modelo com covariável centralizada."
+#| warning: false
+#| message: false
+#| echo: false
+
+dados_iris_c <- dados_iris |>
+  mutate(
+    Petal.Length_c = Petal.Length - mean(Petal.Length)
+  )
+
+mod_interacao_c <- lm(
+  Sepal.Length ~ Petal.Length_c * Species,
+  data = dados_iris_c
+)
+
+tab_centralizacao <- tibble::tibble(
+  Modelo = c(
+    "Covariável original",
+    "Covariável centralizada"
+  ),
+  `R²` = c(
+    summary(mod_ancova_interacao)$r.squared,
+    summary(mod_interacao_c)$r.squared
+  ),
+  `Erro padrão residual` = c(
+    summary(mod_ancova_interacao)$sigma,
+    summary(mod_interacao_c)$sigma
+  )
+) |>
+  mutate(
+    `R²` = round(`R²`, 4),
+    `Erro padrão residual` =
+      round(`Erro padrão residual`, 4)
+  )
+
+knitr::kable(tab_centralizacao)
+```
+
+Os valores apresentados na tabela são idênticos porque a centralização modifica apenas a parametrização do modelo, sem alterar sua capacidade de ajuste.
+
+## Boas práticas e limitações
+
+### Escolha da covariável
+
+A covariável deve ser selecionada com base no problema científico e não apenas por critérios estatísticos. Em geral, são escolhidas variáveis que possuem relação conhecida com a resposta e cuja inclusão contribui para reduzir variabilidade residual ou controlar diferenças pré-existentes entre grupos [@montgomery2021].
+
+### Paralelismo das retas
+
+O modelo ANCOVA clássico pressupõe que o efeito da covariável é o mesmo em todos os grupos. Essa hipótese deve ser avaliada sempre que houver razões para acreditar que a relação entre $X$ e $Y$ possa variar entre categorias.
+
+Quando essa hipótese não é plausível, termos de interação devem ser considerados.
+
+### Interpretação de interações
+
+Em modelos com interação, os coeficientes principais deixam de possuir interpretação isolada simples. Nesses casos, gráficos, médias ajustadas e contrastes avaliados em valores específicos da covariável costumam fornecer interpretações mais claras do que a análise individual dos coeficientes.
+
+### Estudos observacionais
+
+A ANCOVA permite controlar estatisticamente o efeito de covariáveis observadas. Entretanto, o ajuste por covariáveis não elimina automaticamente problemas de confundimento ou viés de seleção. Em estudos observacionais, a interpretação causal exige hipóteses adicionais sobre o processo de geração dos dados [@kutner2005; @rencher2012].
+
+### Hipóteses do modelo
+
+As hipóteses usuais do MRLM continuam válidas na ANCOVA:
+
+-   linearidade;
+-   independência dos erros;
+-   homocedasticidade;
+-   normalidade dos erros para inferência exata;
+-   ausência de colinearidade perfeita.
+
+Assim, os procedimentos de diagnóstico estudados anteriormente permanecem relevantes.
