@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>19&nbsp; Diagnóstico do Modelo de Regressão</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ap_listas.html" rel="next">
+<link href="./mrlm_qualidade.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2641b481724464e61c86985d8c912b6f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-4c6d65c679321d81af7ec8b61b1d5a24.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2641b481724464e61c86985d8c912b6f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./mrlm_diagnostico.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Diagnóstico do Modelo de Regressão</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./identifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identificação da Disciplina</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Modelagem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução e Panorama dos Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelagem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelagem Estatística e Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Modelo de Regressão Linear Simples (MRLS)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">O MRLS como Modelo para a Média Condicional</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Estimação por Mínimos Quadrados no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Inferência no MRLS com erros normais</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_testes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses e ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_diagnostico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diagnóstico e Avaliação no MRLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_transf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Transformações nas Variáveis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrls_compara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Comparação de Modelos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2_sim.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Trabalho - Estudo de Simulação</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regressão Múltipla</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_emq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Mínimos Quadrados Ordinários no MRLM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Inferência Estatística no MRLM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variáveis Fictícias (<em>Dummies</em>)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_ancova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Análise de Covariância (ANCOVA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_qualidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Qualidade de Ajuste e Comparação de Modelos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mrlm_diagnostico.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Diagnóstico do Modelo de Regressão</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Apêndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_matrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Estrutura Matricial dos Modelos de Regressão Linear</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Distribuição Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_forma_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Formas Lineares e Quadráticas na Normal Multivariada</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_estimadores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Estimadores de Máxima Verossimilhança em Modelos de Regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_limitesEMQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Eficiência Estatística, Distribuição dos Erros e os Limites do MQO</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Inferência Clássica no Modelo de Regressão Linear Múltipla Normal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap_tratamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Tratamento de dados para regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Demonstrações</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part4_ex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#motivação-e-objetivos-do-diagnóstico" id="toc-motivação-e-objetivos-do-diagnóstico" class="nav-link active" data-scroll-target="#motivação-e-objetivos-do-diagnóstico"><span class="header-section-number">19.1</span> Motivação e objetivos do diagnóstico</a></li>
+  <li><a href="#o-que-um-diagnóstico-procura-responder" id="toc-o-que-um-diagnóstico-procura-responder" class="nav-link" data-scroll-target="#o-que-um-diagnóstico-procura-responder"><span class="header-section-number">19.2</span> O que um diagnóstico procura responder?</a></li>
+  <li><a href="#resíduos-e-adequação-do-modelo" id="toc-resíduos-e-adequação-do-modelo" class="nav-link" data-scroll-target="#resíduos-e-adequação-do-modelo"><span class="header-section-number">19.3</span> Resíduos e adequação do modelo</a>
+  <ul class="collapse">
+  <li><a href="#resíduo-ordinário" id="toc-resíduo-ordinário" class="nav-link" data-scroll-target="#resíduo-ordinário"><span class="header-section-number">19.3.1</span> Resíduo ordinário</a></li>
+  <li><a href="#por-que-padronizar-resíduos" id="toc-por-que-padronizar-resíduos" class="nav-link" data-scroll-target="#por-que-padronizar-resíduos"><span class="header-section-number">19.3.2</span> Por que padronizar resíduos?</a></li>
+  <li><a href="#resíduos-padronizados" id="toc-resíduos-padronizados" class="nav-link" data-scroll-target="#resíduos-padronizados"><span class="header-section-number">19.3.3</span> Resíduos padronizados</a></li>
+  <li><a href="#resíduos-studentizados" id="toc-resíduos-studentizados" class="nav-link" data-scroll-target="#resíduos-studentizados"><span class="header-section-number">19.3.4</span> Resíduos studentizados</a></li>
+  </ul></li>
+  <li><a href="#diagnóstico-das-suposições" id="toc-diagnóstico-das-suposições" class="nav-link" data-scroll-target="#diagnóstico-das-suposições"><span class="header-section-number">19.4</span> Diagnóstico das suposições</a>
+  <ul class="collapse">
+  <li><a href="#linearidade" id="toc-linearidade" class="nav-link" data-scroll-target="#linearidade"><span class="header-section-number">19.4.1</span> Linearidade</a></li>
+  <li><a href="#homocedasticidade" id="toc-homocedasticidade" class="nav-link" data-scroll-target="#homocedasticidade"><span class="header-section-number">19.4.2</span> Homocedasticidade</a></li>
+  <li><a href="#teste-de-breuschpagan" id="toc-teste-de-breuschpagan" class="nav-link" data-scroll-target="#teste-de-breuschpagan"><span class="header-section-number">19.4.3</span> Teste de Breusch–Pagan</a></li>
+  <li><a href="#normalidade" id="toc-normalidade" class="nav-link" data-scroll-target="#normalidade"><span class="header-section-number">19.4.4</span> Normalidade</a></li>
+  <li><a href="#teste-de-shapirowilk" id="toc-teste-de-shapirowilk" class="nav-link" data-scroll-target="#teste-de-shapirowilk"><span class="header-section-number">19.4.5</span> Teste de Shapiro–Wilk</a></li>
+  <li><a href="#independência" id="toc-independência" class="nav-link" data-scroll-target="#independência"><span class="header-section-number">19.4.6</span> Independência</a></li>
+  <li><a href="#teste-de-durbinwatson" id="toc-teste-de-durbinwatson" class="nav-link" data-scroll-target="#teste-de-durbinwatson"><span class="header-section-number">19.4.7</span> Teste de Durbin–Watson</a></li>
+  </ul></li>
+  <li><a href="#multicolinearidade" id="toc-multicolinearidade" class="nav-link" data-scroll-target="#multicolinearidade"><span class="header-section-number">19.5</span> Multicolinearidade</a>
+  <ul class="collapse">
+  <li><a href="#fator-de-inflação-da-variância-vif" id="toc-fator-de-inflação-da-variância-vif" class="nav-link" data-scroll-target="#fator-de-inflação-da-variância-vif"><span class="header-section-number">19.5.1</span> Fator de Inflação da Variância (VIF)</a></li>
+  </ul></li>
+  <li><a href="#observações-influentes" id="toc-observações-influentes" class="nav-link" data-scroll-target="#observações-influentes"><span class="header-section-number">19.6</span> Observações influentes</a>
+  <ul class="collapse">
+  <li><a href="#alavancagem" id="toc-alavancagem" class="nav-link" data-scroll-target="#alavancagem"><span class="header-section-number">19.6.1</span> Alavancagem</a></li>
+  <li><a href="#distância-de-cook" id="toc-distância-de-cook" class="nav-link" data-scroll-target="#distância-de-cook"><span class="header-section-number">19.6.2</span> Distância de Cook</a></li>
+  <li><a href="#dfbetas" id="toc-dfbetas" class="nav-link" data-scroll-target="#dfbetas"><span class="header-section-number">19.6.3</span> DFBETAS</a></li>
+  <li><a href="#dffits" id="toc-dffits" class="nav-link" data-scroll-target="#dffits"><span class="header-section-number">19.6.4</span> DFFITS</a></li>
+  <li><a href="#diagnóstico-conjunto" id="toc-diagnóstico-conjunto" class="nav-link" data-scroll-target="#diagnóstico-conjunto"><span class="header-section-number">19.6.5</span> Diagnóstico conjunto</a></li>
+  </ul></li>
+  <li><a href="#síntese-das-ferramentas-diagnósticas" id="toc-síntese-das-ferramentas-diagnósticas" class="nav-link" data-scroll-target="#síntese-das-ferramentas-diagnósticas"><span class="header-section-number">19.7</span> Síntese das ferramentas diagnósticas</a></li>
+  <li><a href="#exemplo-ilustrativo" id="toc-exemplo-ilustrativo" class="nav-link" data-scroll-target="#exemplo-ilustrativo"><span class="header-section-number">19.8</span> Exemplo ilustrativo</a>
+  <ul class="collapse">
+  <li><a href="#linearidade-e-homocedasticidade" id="toc-linearidade-e-homocedasticidade" class="nav-link" data-scroll-target="#linearidade-e-homocedasticidade"><span class="header-section-number">19.8.1</span> Linearidade e homocedasticidade</a></li>
+  <li><a href="#normalidade-1" id="toc-normalidade-1" class="nav-link" data-scroll-target="#normalidade-1"><span class="header-section-number">19.8.2</span> Normalidade</a></li>
+  <li><a href="#independência-1" id="toc-independência-1" class="nav-link" data-scroll-target="#independência-1"><span class="header-section-number">19.8.3</span> Independência</a></li>
+  <li><a href="#multicolinearidade-1" id="toc-multicolinearidade-1" class="nav-link" data-scroll-target="#multicolinearidade-1"><span class="header-section-number">19.8.4</span> Multicolinearidade</a></li>
+  <li><a href="#influência-e-observações-atípicas" id="toc-influência-e-observações-atípicas" class="nav-link" data-scroll-target="#influência-e-observações-atípicas"><span class="header-section-number">19.8.5</span> Influência e observações atípicas</a></li>
+  <li><a href="#influência-sobre-coeficientes-e-previsões" id="toc-influência-sobre-coeficientes-e-previsões" class="nav-link" data-scroll-target="#influência-sobre-coeficientes-e-previsões"><span class="header-section-number">19.8.6</span> Influência sobre coeficientes e previsões</a></li>
+  <li><a href="#síntese-da-análise" id="toc-síntese-da-análise" class="nav-link" data-scroll-target="#síntese-da-análise"><span class="header-section-number">19.8.7</span> Síntese da análise</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./mrlm_diagnostico.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Diagnóstico do Modelo de Regressão</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Diagnóstico do Modelo de Regressão</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="motivação-e-objetivos-do-diagnóstico" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="motivação-e-objetivos-do-diagnóstico"><span class="header-section-number">19.1</span> Motivação e objetivos do diagnóstico</h2>
+<p>Nos capítulos anteriores, estudamos como estimar modelos de regressão, interpretar coeficientes, realizar inferência e comparar modelos concorrentes. Entretanto, mesmo após a escolha de um modelo aparentemente adequado, ainda permanece uma questão importante: as hipóteses utilizadas para justificar os resultados inferenciais são compatíveis com os dados observados?</p>
+<p>Grande parte dos resultados discutidos até aqui depende de hipóteses sobre o comportamento dos erros aleatórios. Quando essas hipóteses não são razoáveis, testes de hipóteses, intervalos de confiança e previsões podem tornar-se menos confiáveis, mesmo que o modelo apresente bom ajuste aos dados observados <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
+<p>A análise de diagnóstico tem como objetivo investigar a adequação do modelo ajustado e identificar possíveis problemas que possam comprometer a interpretação dos resultados. Em particular, busca-se avaliar se:</p>
+<ul>
+<li>a relação entre a resposta e as covariáveis foi adequadamente especificada;</li>
+<li>a variância dos erros pode ser considerada aproximadamente constante;</li>
+<li>a hipótese de normalidade é plausível para fins inferenciais;</li>
+<li>existem observações atípicas ou influentes;</li>
+<li>as conclusões obtidas dependem excessivamente de poucas observações.</li>
+</ul>
+<p>É importante destacar que o diagnóstico não deve ser interpretado como um conjunto de testes destinados a “aprovar” ou “reprovar” um modelo. O objetivo é compreender como o modelo se comporta diante dos dados e identificar situações em que adaptações, transformações ou métodos alternativos possam ser necessários <span class="citation" data-cites="fox2019 cook1982">(<a href="references.html#ref-fox2019" role="doc-biblioref"><strong>fox2019?</strong></a>; <a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>Assim como a estimação e a inferência, o diagnóstico faz parte do processo de modelagem. Na prática, a construção de um modelo costuma envolver sucessivos ciclos de ajuste, avaliação e refinamento até que se obtenha uma representação satisfatória do fenômeno estudado.</p>
+</section>
+<section id="o-que-um-diagnóstico-procura-responder" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="o-que-um-diagnóstico-procura-responder"><span class="header-section-number">19.2</span> O que um diagnóstico procura responder?</h2>
+<p>A análise de diagnóstico procura responder algumas perguntas fundamentais sobre o modelo ajustado.</p>
+<p>A primeira delas é se a forma funcional adotada parece compatível com os dados observados. Mesmo quando os coeficientes são significativos, padrões sistemáticos nos resíduos podem indicar que relações não lineares foram ignoradas.</p>
+<p>Outra questão importante diz respeito à variabilidade dos erros. Muitos procedimentos inferenciais assumem que os erros possuem variância constante. Quando essa hipótese não é razoável, os erros padrão dos estimadores podem tornar-se inadequados.</p>
+<p>Também é comum investigar se a distribuição dos erros apresenta desvios importantes da normalidade. Embora a regressão linear seja relativamente robusta a pequenas violações dessa hipótese, desvios severos podem afetar procedimentos inferenciais em amostras pequenas.</p>
+<p>Além disso, algumas observações podem exercer influência desproporcional sobre os coeficientes estimados. Nessas situações, pequenas alterações nos dados podem produzir mudanças substanciais nos resultados do modelo.</p>
+<p>Essas questões motivam grande parte das ferramentas diagnósticas estudadas em regressão. Algumas são baseadas em resíduos, outras utilizam medidas de influência ou estatísticas derivadas da matriz de projeção. Em todos os casos, o objetivo é compreender melhor o comportamento do modelo ajustado.</p>
+</section>
+<section id="resíduos-e-adequação-do-modelo" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="resíduos-e-adequação-do-modelo"><span class="header-section-number">19.3</span> Resíduos e adequação do modelo</h2>
+<p>Grande parte das ferramentas de diagnóstico em regressão é construída a partir dos resíduos. Por essa razão, o estudo dessas quantidades constitui o ponto de partida para a avaliação da adequação de um modelo ajustado.</p>
+<p>Lembre que, para cada observação, o modelo fornece um valor ajustado</p>
+<p><span class="math display">\[
+\hat Y_i.
+\]</span></p>
+<p>A diferença entre o valor observado e o valor ajustado é denominada resíduo:</p>
+<p><span class="math display">\[
+e_i
+=
+Y_i-\hat Y_i.
+\]</span></p>
+<p>Os resíduos podem ser interpretados como estimativas dos erros aleatórios não observáveis do modelo. Como os erros verdadeiros</p>
+<p><span class="math display">\[
+\varepsilon_i
+\]</span></p>
+<p>não são conhecidos, os resíduos tornam-se a principal fonte de informação para investigar possíveis violações das hipóteses do modelo <span class="citation" data-cites="montgomery2021 seber2003">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>Quando o modelo é adequado, espera-se que os resíduos apresentem comportamento essencialmente aleatório, sem padrões sistemáticos. Em contrapartida, estruturas visíveis nos resíduos frequentemente indicam problemas de especificação, heterocedasticidade ou observações influentes.</p>
+<section id="resíduo-ordinário" class="level3" data-number="19.3.1">
+<h3 data-number="19.3.1" class="anchored" data-anchor-id="resíduo-ordinário"><span class="header-section-number">19.3.1</span> Resíduo ordinário</h3>
+<p>O resíduo ordinário é definido por</p>
+<p><span class="math display">\[
+e_i
+=
+Y_i-\hat Y_i.
+\]</span></p>
+<p>Seu sinal indica se o modelo subestimou ou superestimou a observação:</p>
+<ul>
+<li><span class="math inline">\(e_i&gt;0\)</span>: o valor observado ficou acima do valor ajustado;</li>
+<li><span class="math inline">\(e_i&lt;0\)</span>: o valor observado ficou abaixo do valor ajustado;</li>
+<li><span class="math inline">\(e_i=0\)</span>: coincidência entre observação e ajuste.</li>
+</ul>
+<p>A representação gráfica do resíduo é mostrada na Figura abaixo.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-residuo-geometrico" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-residuo-geometrico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-residuo-geometrico-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-residuo-geometrico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.1: Representação geométrica de um resíduo.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A distância vertical entre o ponto observado e a reta ajustada corresponde ao resíduo da observação.</p>
+<p>Embora os resíduos ordinários sejam úteis para visualização inicial, eles apresentam uma limitação importante: sua variabilidade não é constante entre as observações.</p>
+<p>De fato,</p>
+<p><span class="math display">\[
+Var(e_i)
+=
+\sigma^2(1-h_{ii}),
+\]</span></p>
+<p>em que <span class="math inline">\(h_{ii}\)</span> representa o elemento diagonal da matriz de projeção</p>
+<p><span class="math display">\[
+\mathbf H
+=
+\mathbf X
+(\mathbf X^\top\mathbf X)^{-1}
+\mathbf X^\top.
+\]</span></p>
+<p>Consequentemente, observações diferentes podem possuir resíduos naturalmente mais ou menos variáveis, dificultando comparações diretas entre eles.</p>
+<p>Essa limitação motiva a construção de resíduos padronizados.</p>
+</section>
+<section id="por-que-padronizar-resíduos" class="level3" data-number="19.3.2">
+<h3 data-number="19.3.2" class="anchored" data-anchor-id="por-que-padronizar-resíduos"><span class="header-section-number">19.3.2</span> Por que padronizar resíduos?</h3>
+<p>Em muitas situações, o interesse não está apenas no valor do resíduo, mas em avaliar seu tamanho relativo à variabilidade esperada para aquela observação.</p>
+<p>Considere dois resíduos:</p>
+<p><span class="math display">\[
+e_1 = 10
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+e_2 = 10.
+\]</span></p>
+<p>Embora possuam o mesmo valor numérico, eles podem representar situações bastante distintas. Se a variabilidade esperada do primeiro for muito maior do que a do segundo, o segundo resíduo pode ser considerado mais incomum.</p>
+<p>Essa ideia é semelhante ao uso do escore padronizado em Estatística descritiva. Valores absolutos devem ser interpretados levando em consideração sua dispersão esperada.</p>
+<p>No contexto da regressão, a variância dos resíduos depende da alavancagem da observação por meio do termo</p>
+<p><span class="math display">\[
+1-h_{ii}.
+\]</span></p>
+<p>Por essa razão, resíduos com a mesma magnitude podem ter importâncias diferentes dependendo da posição da observação no espaço das covariáveis.</p>
+<p>A solução consiste em dividir o resíduo por uma estimativa de seu desvio padrão, produzindo resíduos comparáveis em uma escala comum.</p>
+<p>Essa padronização facilita a identificação de observações potencialmente atípicas e constitui a base de diversos procedimentos diagnósticos <span class="citation" data-cites="fox2019 cook1982">(<a href="references.html#ref-fox2019" role="doc-biblioref"><strong>fox2019?</strong></a>; <a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+</section>
+<section id="resíduos-padronizados" class="level3" data-number="19.3.3">
+<h3 data-number="19.3.3" class="anchored" data-anchor-id="resíduos-padronizados"><span class="header-section-number">19.3.3</span> Resíduos padronizados</h3>
+<p>Os resíduos padronizados são definidos por</p>
+<p><span class="math display">\[
+r_i
+=
+\frac{e_i}
+{\hat\sigma\sqrt{1-h_{ii}}},
+\]</span></p>
+<p>em que:</p>
+<ul>
+<li><span class="math inline">\(e_i\)</span> é o resíduo ordinário;</li>
+<li><span class="math inline">\(\hat\sigma\)</span> é o erro padrão residual;</li>
+<li><span class="math inline">\(h_{ii}\)</span> é a alavancagem da observação.</li>
+</ul>
+<p>Essa transformação produz resíduos em uma escala aproximadamente comparável entre diferentes observações.</p>
+<p>Quando as hipóteses do modelo são razoáveis, espera-se que a maioria dos resíduos padronizados esteja concentrada aproximadamente entre</p>
+<p><span class="math display">\[
+-2
+\quad \text{e} \quad
+2.
+\]</span></p>
+<p>Valores mais extremos podem indicar observações atípicas ou possíveis inadequações do modelo.</p>
+<p>A Figura abaixo apresenta um exemplo típico de gráfico de resíduos padronizados.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-residuos-padronizados" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-residuos-padronizados-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-residuos-padronizados-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-residuos-padronizados-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.2: Resíduos padronizados em função dos valores ajustados.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Esse gráfico será utilizado diversas vezes ao longo do capítulo, pois permite investigar simultaneamente possíveis desvios de linearidade, heterocedasticidade e observações discrepantes.</p>
+</section>
+<section id="resíduos-studentizados" class="level3" data-number="19.3.4">
+<h3 data-number="19.3.4" class="anchored" data-anchor-id="resíduos-studentizados"><span class="header-section-number">19.3.4</span> Resíduos studentizados</h3>
+<p>Os resíduos padronizados utilizam uma única estimativa da variância residual, obtida a partir de todas as observações da amostra. Em algumas situações, entretanto, uma observação potencialmente discrepante pode influenciar essa estimativa, dificultando sua própria identificação.</p>
+<p>Para contornar esse problema, utilizam-se os resíduos studentizados, definidos por</p>
+<p><span class="math display">\[
+t_i
+=
+\frac{e_i}
+{\hat\sigma_{(i)}
+\sqrt{1-h_{ii}}},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\hat\sigma_{(i)}
+\]</span></p>
+<p>é a estimativa da variância residual obtida após remover temporariamente a observação <span class="math inline">\(i\)</span> do ajuste.</p>
+<p>Dessa forma, cada observação é avaliada em relação a um modelo que não foi influenciado por ela própria.</p>
+<p>Uma propriedade importante é que, sob as hipóteses do modelo normal,</p>
+<p><span class="math display">\[
+t_i
+\]</span></p>
+<p>segue aproximadamente uma distribuição <span class="math inline">\(t\)</span> de Student com</p>
+<p><span class="math display">\[
+n-p-2
+\]</span></p>
+<p>graus de liberdade <span class="citation" data-cites="montgomery2021 cook1982">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>Essa característica permite utilizar os resíduos studentizados para identificar observações potencialmente discrepantes.</p>
+<p>Como regra prática, valores absolutos superiores a</p>
+<p><span class="math display">\[
+2
+\]</span></p>
+<p>ou</p>
+<p><span class="math display">\[
+3
+\]</span></p>
+<p>merecem investigação mais detalhada.</p>
+<p>Entretanto, assim como ocorre em outros procedimentos diagnósticos, não existe um limite universal capaz de classificar automaticamente uma observação como problemática. O contexto da aplicação e a análise conjunta de outras medidas devem sempre ser considerados.</p>
+<p>Os resíduos studentizados são particularmente úteis quando o objetivo é identificar observações atípicas na direção vertical, isto é, observações cujos valores observados diferem substancialmente daqueles previstos pelo modelo.</p>
+</section>
+</section>
+<section id="diagnóstico-das-suposições" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="diagnóstico-das-suposições"><span class="header-section-number">19.4</span> Diagnóstico das suposições</h2>
+<p>As hipóteses do modelo de regressão não podem ser verificadas diretamente a partir dos erros aleatórios, pois essas quantidades não são observáveis. Em seu lugar, utilizam-se os resíduos, que fornecem informações sobre possíveis inadequações do modelo ajustado.</p>
+<p>A análise diagnóstica não deve ser interpretada como uma sequência de testes independentes destinados a aprovar ou reprovar um modelo. O objetivo é reunir evidências que permitam avaliar se as hipóteses adotadas constituem aproximações razoáveis para os dados observados <span class="citation" data-cites="montgomery2021 fox2019">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-fox2019" role="doc-biblioref"><strong>fox2019?</strong></a>)</span>.</p>
+<p>Em geral, a investigação concentra-se em quatro aspectos principais:</p>
+<ul>
+<li>adequação da forma funcional do modelo;</li>
+<li>constância da variância dos erros;</li>
+<li>normalidade dos erros;</li>
+<li>independência entre observações.</li>
+</ul>
+<p>Embora cada hipótese possa ser avaliada separadamente, os diagnósticos costumam ser interpretados de forma conjunta. Um mesmo padrão residual pode indicar mais de um problema simultaneamente.</p>
+<section id="linearidade" class="level3" data-number="19.4.1">
+<h3 data-number="19.4.1" class="anchored" data-anchor-id="linearidade"><span class="header-section-number">19.4.1</span> Linearidade</h3>
+<p>O Modelo de Regressão Linear Múltipla assume que a média da variável resposta pode ser representada por uma combinação linear dos parâmetros.</p>
+<p>Em termos práticos, isso significa que a forma funcional especificada deve ser capaz de descrever adequadamente a relação entre a resposta e as covariáveis incluídas no modelo.</p>
+<p>Quando essa hipótese é inadequada, os resíduos frequentemente apresentam padrões sistemáticos que indicam a existência de estrutura ainda não capturada pelo modelo.</p>
+<p>O principal instrumento gráfico para investigar essa hipótese é o gráfico de resíduos versus valores ajustados.</p>
+<p>Quando o modelo está adequadamente especificado, espera-se observar uma nuvem aproximadamente aleatória em torno da linha horizontal correspondente ao valor zero.</p>
+<p>Por outro lado, padrões curvilíneos, tendências crescentes ou decrescentes e agrupamentos sistemáticos sugerem que a forma funcional adotada pode ser inadequada.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-linearidade-adequada" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linearidade-adequada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-linearidade-adequada-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linearidade-adequada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.3: Resíduos compatíveis com a hipótese de linearidade.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A Figura abaixo apresenta uma situação distinta, na qual os resíduos exibem um padrão sistemático.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-linearidade-violada" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linearidade-violada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-linearidade-violada-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linearidade-violada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.4: Padrão residual sugerindo inadequação da forma funcional.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A identificação de padrões sistemáticos nos resíduos não implica necessariamente que o modelo esteja incorreto. Entretanto, constitui evidência de que alguma estrutura presente nos dados não está sendo adequadamente representada.</p>
+<p>Entre as alternativas mais comuns para lidar com esse problema estão:</p>
+<ul>
+<li>inclusão de termos polinomiais;</li>
+<li>transformações de variáveis;</li>
+<li>inclusão de novas covariáveis;</li>
+<li>utilização de modelos mais flexíveis.</li>
+</ul>
+<p>A decisão deve sempre considerar o contexto da aplicação e os objetivos da análise.</p>
+</section>
+<section id="homocedasticidade" class="level3" data-number="19.4.2">
+<h3 data-number="19.4.2" class="anchored" data-anchor-id="homocedasticidade"><span class="header-section-number">19.4.2</span> Homocedasticidade</h3>
+<p>Uma das hipóteses centrais do modelo clássico de regressão estabelece que a variância dos erros permanece constante ao longo de todas as observações. Formalmente,</p>
+<p><span class="math display">\[
+Var(\varepsilon_i)
+=
+\sigma^2,
+\qquad
+i=1,\ldots,n.
+\]</span></p>
+<p>Essa propriedade é conhecida como homocedasticidade.</p>
+<p>Quando a variabilidade dos erros depende dos níveis das covariáveis ou dos valores ajustados, ocorre heterocedasticidade. Nessa situação, algumas regiões dos dados apresentam dispersão maior do que outras.</p>
+<p>A presença de heterocedasticidade não introduz viés nos estimadores de mínimos quadrados sob as hipóteses usuais. Entretanto, erros padrão, intervalos de confiança e testes de hipóteses podem tornar-se inadequados, comprometendo a inferência estatística <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
+<p>A forma mais comum de investigar essa hipótese consiste em analisar o gráfico de resíduos versus valores ajustados.</p>
+<p>Quando a homocedasticidade é plausível, espera-se que a dispersão dos resíduos permaneça aproximadamente constante ao longo do gráfico.</p>
+<p>A Figura abaixo apresenta uma situação compatível com essa hipótese.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-homocedasticidade" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-homocedasticidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-homocedasticidade-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-homocedasticidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.5: Padrão compatível com homocedasticidade.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Por outro lado, a Figura abaixo apresenta um padrão clássico de heterocedasticidade.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-heterocedasticidade" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heterocedasticidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-heterocedasticidade-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heterocedasticidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.6: Padrão típico de heterocedasticidade.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Nesse segundo caso, observa-se que a dispersão dos resíduos aumenta à medida que os valores ajustados crescem. O formato em funil é uma das manifestações mais comuns da heterocedasticidade.</p>
+<p>Embora a inspeção gráfica seja extremamente importante, ela pode ser complementada por testes formais.</p>
+</section>
+<section id="teste-de-breuschpagan" class="level3" data-number="19.4.3">
+<h3 data-number="19.4.3" class="anchored" data-anchor-id="teste-de-breuschpagan"><span class="header-section-number">19.4.3</span> Teste de Breusch–Pagan</h3>
+<p>O teste de Breusch–Pagan investiga se a variância dos resíduos permanece constante ou se depende das covariáveis incluídas no modelo <span class="citation" data-cites="breusch1979">(<a href="references.html#ref-breusch1979" role="doc-biblioref"><strong>breusch1979?</strong></a>)</span>.</p>
+<p>As hipóteses são</p>
+<p><span class="math display">\[
+H_0:
+Var(\varepsilon_i)
+=
+\sigma^2,
+\]</span></p>
+<p>contra</p>
+<p><span class="math display">\[
+H_1:
+Var(\varepsilon_i)
+\neq
+\sigma^2.
+\]</span></p>
+<p>Sob a hipótese nula, espera-se que a dispersão dos resíduos não apresente associação sistemática com as variáveis explicativas.</p>
+<p>A aplicação do teste em R pode ser realizada por meio do pacote <code>lmtest</code>.</p>
+<div class="cell">
+<div id="tbl-breusch-pagan" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-breusch-pagan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.1: Resultado do teste de Breusch–Pagan.
+</figcaption>
+<div aria-describedby="tbl-breusch-pagan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">parameter</th>
+<th style="text-align: left;">method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">55.0439</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">studentized Breusch-Pagan test</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Valores-<span class="math inline">\(p\)</span> pequenos indicam evidências contra a hipótese de homocedasticidade.</p>
+<p>Entretanto, assim como ocorre em outros procedimentos diagnósticos, a interpretação não deve depender exclusivamente do resultado do teste. Em amostras muito grandes, pequenas violações podem produzir rejeições da hipótese nula, mesmo quando seu impacto prático é reduzido.</p>
+<p>Por essa razão, recomenda-se interpretar conjuntamente:</p>
+<ul>
+<li>o gráfico de resíduos;</li>
+<li>o contexto da aplicação;</li>
+<li>o resultado do teste formal.</li>
+</ul>
+<p>Quando há evidências consistentes de heterocedasticidade, algumas alternativas incluem:</p>
+<ul>
+<li>transformação da variável resposta;</li>
+<li>transformação de covariáveis;</li>
+<li>mínimos quadrados ponderados;</li>
+<li>modelagem explícita da variância;</li>
+<li>utilização de erros padrão robustos.</li>
+</ul>
+<p>A escolha da estratégia depende dos objetivos da análise e da natureza do problema investigado.</p>
+</section>
+<section id="normalidade" class="level3" data-number="19.4.4">
+<h3 data-number="19.4.4" class="anchored" data-anchor-id="normalidade"><span class="header-section-number">19.4.4</span> Normalidade</h3>
+<p>A hipótese de normalidade dos erros desempenha papel importante na construção de intervalos de confiança e testes de hipóteses em amostras pequenas.</p>
+<p>No modelo clássico de regressão, assume-se que</p>
+<p><span class="math display">\[
+\varepsilon_i
+\sim
+N(0,\sigma^2).
+\]</span></p>
+<p>Sob essa hipótese, diversas estatísticas inferenciais possuem distribuições exatas conhecidas, justificando o uso das distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> estudadas nos capítulos anteriores.</p>
+<p>É importante destacar que a hipótese de normalidade refere-se aos erros aleatórios e não à variável resposta ou às covariáveis. Assim, não é necessário que os dados observados apresentem distribuição normal para que o modelo seja utilizado.</p>
+<p>Além disso, a regressão linear costuma apresentar razoável robustez a desvios moderados da normalidade, especialmente em amostras grandes. Por essa razão, pequenas discrepâncias raramente comprometem uma análise <span class="citation" data-cites="montgomery2021 seber2003">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
+<p>A avaliação da normalidade é geralmente realizada por meio de gráficos e testes formais.</p>
+<p>O gráfico mais utilizado é o gráfico quantil-quantil normal, conhecido como gráfico Q-Q.</p>
+<p>Nesse gráfico, os quantis observados dos resíduos são comparados com os quantis esperados sob uma distribuição normal.</p>
+<p>Quando a hipótese de normalidade é plausível, os pontos tendem a se distribuir próximos da reta de referência.</p>
+<p>A Figura abaixo apresenta um exemplo compatível com normalidade.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-qq-normal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qq-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-qq-normal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qq-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.7: Gráfico Q-Q compatível com a hipótese de normalidade.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Na Figura anterior, os pontos permanecem próximos da reta teórica, sugerindo compatibilidade com a distribuição normal.</p>
+<p>A Figura a seguir apresenta uma situação distinta.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-qq-nao-normal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qq-nao-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-qq-nao-normal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qq-nao-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.8: Desvios sistemáticos da hipótese de normalidade.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Nesse caso, observa-se um afastamento sistemático da reta de referência, principalmente nas extremidades. Esse padrão sugere a presença de caudas mais pesadas do que aquelas previstas pela distribuição normal.</p>
+<p>Embora o gráfico Q-Q seja uma ferramenta extremamente informativa, ele pode ser complementado por testes formais.</p>
+</section>
+<section id="teste-de-shapirowilk" class="level3" data-number="19.4.5">
+<h3 data-number="19.4.5" class="anchored" data-anchor-id="teste-de-shapirowilk"><span class="header-section-number">19.4.5</span> Teste de Shapiro–Wilk</h3>
+<p>O teste de Shapiro–Wilk é um dos procedimentos mais utilizados para avaliar a hipótese de normalidade <span class="citation" data-cites="shapiro1965">(<a href="references.html#ref-shapiro1965" role="doc-biblioref"><strong>shapiro1965?</strong></a>)</span>.</p>
+<p>As hipóteses são</p>
+<p><span class="math display">\[
+H_0:
+\text{os dados são compatíveis com uma distribuição normal},
+\]</span></p>
+<p>contra</p>
+<p><span class="math display">\[
+H_1:
+\text{os dados não seguem distribuição normal}.
+\]</span></p>
+<p>Aplicado aos resíduos do modelo, o teste pode ser realizado em R da seguinte forma.</p>
+<div class="cell">
+<div id="tbl-shapiro-wilk" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-shapiro-wilk-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.2: Resultado do teste de Shapiro–Wilk.
+</figcaption>
+<div aria-describedby="tbl-shapiro-wilk-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: left;">method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.6124</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Shapiro-Wilk normality test</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Valores-<span class="math inline">\(p\)</span> pequenos fornecem evidências contra a hipótese de normalidade.</p>
+<p>Entretanto, assim como ocorre com outros testes diagnósticos, a interpretação exige cautela.</p>
+<p>Em amostras pequenas, o teste pode não detectar desvios relevantes da normalidade. Em amostras muito grandes, pequenas discrepâncias sem importância prática podem produzir rejeições da hipótese nula.</p>
+<p>Por essa razão, recomenda-se interpretar conjuntamente:</p>
+<ul>
+<li>o gráfico Q-Q;</li>
+<li>o contexto da aplicação;</li>
+<li>o resultado do teste formal.</li>
+</ul>
+<p>Em muitos problemas de regressão, desvios moderados da normalidade possuem impacto limitado sobre os resultados inferenciais. Situações envolvendo forte assimetria, caudas pesadas ou presença de observações extremas costumam merecer maior atenção.</p>
+<p>Quando a hipótese de normalidade parece inadequada, algumas alternativas incluem:</p>
+<ul>
+<li>transformações da variável resposta;</li>
+<li>utilização de modelos com distribuições alternativas;</li>
+<li>métodos robustos;</li>
+<li>procedimentos de reamostragem.</li>
+</ul>
+<p>A escolha depende da intensidade da violação observada e dos objetivos da análise.</p>
+</section>
+<section id="independência" class="level3" data-number="19.4.6">
+<h3 data-number="19.4.6" class="anchored" data-anchor-id="independência"><span class="header-section-number">19.4.6</span> Independência</h3>
+<p>Outra hipótese frequentemente assumida no modelo clássico de regressão é a independência dos erros.</p>
+<p>Formalmente,</p>
+<p><span class="math display">\[
+Cov(
+\varepsilon_i,
+\varepsilon_j
+)
+=
+0,
+\qquad
+i \neq j.
+\]</span></p>
+<p>Essa hipótese é particularmente importante em estudos envolvendo séries temporais, dados espaciais ou observações coletadas sequencialmente.</p>
+<p>Quando existe dependência entre os erros, os estimadores de mínimos quadrados podem permanecer não viesados, mas erros padrão, intervalos de confiança e testes de hipóteses podem tornar-se inadequados <span class="citation" data-cites="kutner2005 montgomery2021">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
+<p>A investigação da independência depende do contexto da aplicação.</p>
+<p>Em muitos estudos observacionais ou experimentais obtidos por amostragem aleatória, a independência é uma hipótese plausível. Em contrapartida, em séries temporais, medições repetidas e dados espaciais, a presença de dependência entre observações é relativamente comum.</p>
+<p>Uma forma simples de investigar essa hipótese consiste em analisar os resíduos na ordem em que os dados foram observados.</p>
+<p>Quando a independência é razoável, espera-se que os resíduos oscilem aleatoriamente em torno de zero, sem padrões persistentes.</p>
+<p>A Figura abaixo apresenta uma situação compatível com independência.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-independencia" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-independencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-independencia-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-independencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.9: Resíduos sem padrão aparente ao longo da sequência de observação.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Na Figura anterior, os resíduos alternam-se de forma aparentemente aleatória, sem tendência persistente.</p>
+<p>A Figura a seguir apresenta uma situação distinta.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dependencia" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dependencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-dependencia-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dependencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.10: Padrão residual sugerindo dependência entre observações.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Nesse caso, observa-se a formação de sequências relativamente longas de resíduos positivos e negativos, sugerindo autocorrelação.</p>
+<p>Embora a inspeção visual seja extremamente útil, ela pode ser complementada por testes formais.</p>
+</section>
+<section id="teste-de-durbinwatson" class="level3" data-number="19.4.7">
+<h3 data-number="19.4.7" class="anchored" data-anchor-id="teste-de-durbinwatson"><span class="header-section-number">19.4.7</span> Teste de Durbin–Watson</h3>
+<p>O teste de Durbin–Watson é uma das ferramentas mais utilizadas para investigar autocorrelação de primeira ordem nos resíduos <span class="citation" data-cites="durbin1951">(<a href="references.html#ref-durbin1951" role="doc-biblioref"><strong>durbin1951?</strong></a>)</span>.</p>
+<p>As hipóteses podem ser escritas como</p>
+<p><span class="math display">\[
+H_0:
+\rho = 0,
+\]</span></p>
+<p>contra</p>
+<p><span class="math display">\[
+H_1:
+\rho \neq 0,
+\]</span></p>
+<p>em que <span class="math inline">\(\rho\)</span> representa a correlação entre resíduos consecutivos.</p>
+<p>A estatística do teste é dada por</p>
+<p><span class="math display">\[
+DW
+=
+\frac{
+\sum_{i=2}^{n}
+(e_i-e_{i-1})^2
+}{
+\sum_{i=1}^{n}
+e_i^2
+}.
+\]</span></p>
+<p>Valores próximos de 2 sugerem ausência de autocorrelação.</p>
+<p>Em termos gerais:</p>
+<ul>
+<li>valores próximos de 2 indicam independência;</li>
+<li>valores substancialmente menores que 2 sugerem autocorrelação positiva;</li>
+<li>valores substancialmente maiores que 2 sugerem autocorrelação negativa.</li>
+</ul>
+<p>Em R, o teste pode ser realizado por meio do pacote <code>lmtest</code>.</p>
+<div class="cell">
+<div id="tbl-durbin-watson" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-durbin-watson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.3: Resultado do teste de Durbin–Watson.
+</figcaption>
+<div aria-describedby="tbl-durbin-watson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 25%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: left;">method</th>
+<th style="text-align: left;">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2.0245</td>
+<td style="text-align: right;">0.5708</td>
+<td style="text-align: left;">Durbin-Watson test</td>
+<td style="text-align: left;">true autocorrelation is greater than 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Valores-<span class="math inline">\(p\)</span> pequenos fornecem evidências contra a hipótese de independência.</p>
+<p>Assim como nos demais diagnósticos, o resultado do teste deve ser interpretado juntamente com os gráficos e com o conhecimento do processo de coleta dos dados.</p>
+<p>Quando há evidências de dependência entre observações, algumas alternativas incluem:</p>
+<ul>
+<li>incorporar estruturas de correlação ao modelo;</li>
+<li>utilizar modelos para séries temporais;</li>
+<li>empregar modelos mistos ou longitudinais;</li>
+<li>revisar o processo de amostragem e coleta de dados.</li>
+</ul>
+</section>
+</section>
+<section id="multicolinearidade" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="multicolinearidade"><span class="header-section-number">19.5</span> Multicolinearidade</h2>
+<p>As hipóteses discutidas anteriormente estão relacionadas ao comportamento dos erros aleatórios. A multicolinearidade, por sua vez, está associada à estrutura das covariáveis presentes na matriz de planejamento.</p>
+<p>Esse fenômeno ocorre quando duas ou mais variáveis explicativas apresentam forte associação linear entre si.</p>
+<p>Em situações extremas, uma variável pode ser aproximadamente expressa como combinação linear das demais.</p>
+<p>A presença de multicolinearidade não viola diretamente as hipóteses do modelo nem produz viés nos estimadores de mínimos quadrados. Entretanto, ela pode aumentar substancialmente a variabilidade das estimativas e dificultar a interpretação individual dos coeficientes <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
+<p>Entre as consequências mais comuns destacam-se:</p>
+<ul>
+<li>aumento dos erros padrão;</li>
+<li>ampliação dos intervalos de confiança;</li>
+<li>redução do poder dos testes individuais;</li>
+<li>instabilidade dos coeficientes estimados;</li>
+<li>mudanças expressivas nas estimativas após pequenas alterações nos dados.</li>
+</ul>
+<p>Por essa razão, modelos com elevado <span class="math inline">\(R^2\)</span> podem apresentar coeficientes aparentemente não significativos quando existe forte multicolinearidade.</p>
+<p>Embora o VIF seja uma medida numérica, a multicolinearidade pode ser compreendida geometricamente como uma forte associação linear entre covariáveis.</p>
+<p>A Figura abaixo apresenta uma situação em que duas covariáveis carregam praticamente a mesma informação. Nesses casos, torna-se difícil separar individualmente o efeito de cada variável sobre a resposta, o que aumenta a variabilidade dos coeficientes estimados.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-multicolinearidade" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multicolinearidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-multicolinearidade-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multicolinearidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.11: Exemplo de forte associação linear entre covariáveis.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Observa-se que pequenas alterações em uma das variáveis estão fortemente associadas a alterações na outra. Essa redundância de informação é a principal causa da multicolinearidade.</p>
+<section id="fator-de-inflação-da-variância-vif" class="level3" data-number="19.5.1">
+<h3 data-number="19.5.1" class="anchored" data-anchor-id="fator-de-inflação-da-variância-vif"><span class="header-section-number">19.5.1</span> Fator de Inflação da Variância (VIF)</h3>
+<p>Uma medida amplamente utilizada para investigar multicolinearidade é o Fator de Inflação da Variância (<em>Variance Inflation Factor</em>).</p>
+<p>Para a variável explicativa <span class="math inline">\(X_j\)</span>, define-se</p>
+<p><span class="math display">\[
+VIF_j
+=
+\frac{1}
+{1-R_j^2},
+\]</span></p>
+<p>em que <span class="math inline">\(R_j^2\)</span> corresponde ao coeficiente de determinação obtido ao regredir <span class="math inline">\(X_j\)</span> sobre todas as demais covariáveis do modelo.</p>
+<p>Quando <span class="math inline">\(X_j\)</span> é praticamente independente das demais variáveis, temos</p>
+<p><span class="math display">\[
+R_j^2
+\approx
+0,
+\]</span></p>
+<p>e consequentemente</p>
+<p><span class="math display">\[
+VIF_j
+\approx
+1.
+\]</span></p>
+<p>À medida que a associação entre as covariáveis aumenta, o valor de <span class="math inline">\(R_j^2\)</span> cresce e o VIF torna-se maior.</p>
+<p>Embora não exista um limite universalmente aceito, frequentemente utilizam-se as seguintes referências:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>VIF</th>
+<th>Interpretação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>próximo de 1</td>
+<td>ausência de multicolinearidade relevante</td>
+</tr>
+<tr class="even">
+<td>entre 1 e 5</td>
+<td>associação moderada</td>
+</tr>
+<tr class="odd">
+<td>acima de 5</td>
+<td>possível problema</td>
+</tr>
+<tr class="even">
+<td>acima de 10</td>
+<td>forte evidência de multicolinearidade</td>
+</tr>
+</tbody>
+</table>
+<p>Em R, os VIFs podem ser obtidos por meio do pacote <code>car</code>.</p>
+<div class="cell">
+<div id="tbl-vif" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-vif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.4: Fatores de inflação da variância.
+</figcaption>
+<div aria-describedby="tbl-vif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variável</th>
+<th style="text-align: right;">VIF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x1</td>
+<td style="text-align: right;">36.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x2</td>
+<td style="text-align: right;">36.67</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Valores elevados de VIF não implicam necessariamente que uma variável deva ser removida. Em muitos estudos, covariáveis fortemente correlacionadas possuem importância substantiva e devem permanecer no modelo.</p>
+<p>Além disso, em modelos que incluem termos de interação, polinômios ou variáveis derivadas de outras covariáveis, valores elevados de VIF podem surgir naturalmente devido à própria estrutura do modelo. Nesses casos, a interpretação deve considerar o objetivo da modelagem e não apenas limites numéricos arbitrários.</p>
+<p>O diagnóstico de multicolinearidade deve ser interpretado como um auxílio à compreensão da estabilidade das estimativas e não como um procedimento automático de seleção de variáveis.</p>
+</section>
+</section>
+<section id="observações-influentes" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="observações-influentes"><span class="header-section-number">19.6</span> Observações influentes</h2>
+<p>Nem todas as observações exercem o mesmo impacto sobre o ajuste de um modelo.</p>
+<p>Alguns pontos possuem pouca capacidade de alterar os coeficientes estimados, enquanto outros podem produzir mudanças substanciais mesmo quando removidos individualmente.</p>
+<p>Por essa razão, além da análise dos resíduos, é importante investigar a influência de observações específicas sobre os resultados da regressão.</p>
+<p>Uma observação pode ser considerada influente quando exerce efeito desproporcional sobre:</p>
+<ul>
+<li>os coeficientes estimados;</li>
+<li>os valores ajustados;</li>
+<li>os testes de hipóteses;</li>
+<li>os intervalos de confiança;</li>
+<li>as previsões do modelo.</li>
+</ul>
+<p>É importante distinguir observações influentes de observações atípicas.</p>
+<p>Uma observação pode apresentar grande resíduo sem alterar significativamente o ajuste do modelo. Da mesma forma, uma observação pode exercer forte influência sobre os coeficientes mesmo apresentando resíduo relativamente pequeno.</p>
+<p>Essa distinção motiva o estudo de medidas específicas de influência.</p>
+<section id="alavancagem" class="level3" data-number="19.6.1">
+<h3 data-number="19.6.1" class="anchored" data-anchor-id="alavancagem"><span class="header-section-number">19.6.1</span> Alavancagem</h3>
+<p>A influência potencial de uma observação depende não apenas do tamanho do seu resíduo, mas também de sua posição no espaço das covariáveis.</p>
+<p>Observações localizadas em regiões pouco representadas pelos demais dados possuem maior capacidade de alterar o ajuste do modelo. Essa característica é conhecida como alavancagem.</p>
+<p>A medida de alavancagem da observação <span class="math inline">\(i\)</span> é dada pelo elemento diagonal da matriz de projeção</p>
+<p><span class="math display">\[
+\mathbf H
+=
+\mathbf X
+(\mathbf X^\top\mathbf X)^{-1}
+\mathbf X^\top.
+\]</span></p>
+<p>Denotando por <span class="math inline">\(h_{ii}\)</span> o elemento correspondente à observação <span class="math inline">\(i\)</span>, temos</p>
+<p><span class="math display">\[
+0
+\le
+h_{ii}
+\le
+1.
+\]</span></p>
+<p>Valores elevados indicam observações localizadas em regiões extremas do espaço das covariáveis.</p>
+<p>Uma propriedade importante é</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}
+h_{ii}
+=
+p+1,
+\]</span></p>
+<p>de modo que a alavancagem média é dada por</p>
+<p><span class="math display">\[
+\bar h
+=
+\frac{p+1}{n}.
+\]</span></p>
+<p>Como regra prática, costuma-se investigar observações para as quais</p>
+<p><span class="math display">\[
+h_{ii}
+&gt;
+2\frac{p+1}{n}
+\]</span></p>
+<p>ou</p>
+<p><span class="math display">\[
+h_{ii}
+&gt;
+3\frac{p+1}{n}.
+\]</span></p>
+<p>Entretanto, uma observação com elevada alavancagem não é necessariamente problemática.</p>
+<p>Se ela seguir o mesmo padrão geral dos dados, poderá contribuir positivamente para a estimação dos parâmetros.</p>
+<p>A Figura a seguir ilustra uma observação com elevada alavancagem.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-alavancagem" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-alavancagem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-alavancagem-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-alavancagem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.12: Observação com elevada alavancagem.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distância-de-cook" class="level3" data-number="19.6.2">
+<h3 data-number="19.6.2" class="anchored" data-anchor-id="distância-de-cook"><span class="header-section-number">19.6.2</span> Distância de Cook</h3>
+<p>A distância de Cook combina informações sobre resíduos e alavancagem em uma única medida de influência <span class="citation" data-cites="cook1982">(<a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>Sua ideia central consiste em avaliar o impacto produzido pela remoção de uma observação sobre os coeficientes estimados.</p>
+<p>A distância de Cook da observação <span class="math inline">\(i\)</span> pode ser escrita como</p>
+<p><span class="math display">\[
+D_i
+=
+\frac{
+(\hat{\boldsymbol\beta}
+-
+\hat{\boldsymbol\beta}_{(i)})^\top
+\mathbf X^\top
+\mathbf X
+(\hat{\boldsymbol\beta}
+-
+\hat{\boldsymbol\beta}_{(i)})
+}
+{(p+1)\hat\sigma^2},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}_{(i)}
+\]</span></p>
+<p>representa o vetor de coeficientes obtido após remover a observação <span class="math inline">\(i\)</span>.</p>
+<p>Valores elevados indicam observações capazes de alterar substancialmente o ajuste do modelo.</p>
+<p>Duas referências frequentemente utilizadas são</p>
+<p><span class="math display">\[
+D_i &gt; 1
+\]</span></p>
+<p>ou</p>
+<p><span class="math display">\[
+D_i &gt;
+\frac{4}{n}.
+\]</span></p>
+<p>Esses limites devem ser vistos apenas como orientações iniciais e não como critérios rígidos de decisão.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-cook" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-cook-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.13: Distâncias de Cook para as observações do modelo.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dfbetas" class="level3" data-number="19.6.3">
+<h3 data-number="19.6.3" class="anchored" data-anchor-id="dfbetas"><span class="header-section-number">19.6.3</span> DFBETAS</h3>
+<p>Enquanto a distância de Cook avalia o impacto global de uma observação sobre o modelo, as medidas DFBETAS investigam o efeito sobre cada coeficiente individualmente.</p>
+<p>Para o parâmetro <span class="math inline">\(\beta_j\)</span>, define-se</p>
+<p><span class="math display">\[
+DFBETAS_{ij}
+=
+\frac{
+\hat\beta_j
+-
+\hat\beta_{j(i)}
+}
+{EP(\hat\beta_{j(i)})}.
+\]</span></p>
+<p>Essa medida quantifica o quanto a observação <span class="math inline">\(i\)</span> influencia especificamente o coeficiente <span class="math inline">\(\beta_j\)</span>.</p>
+<p>Valores absolutos elevados indicam observações capazes de alterar substancialmente a interpretação daquele parâmetro.</p>
+<p>Como referência prática, costuma-se investigar observações para as quais</p>
+<p><span class="math display">\[
+|DFBETAS|
+&gt;
+\frac{2}{\sqrt n}.
+\]</span></p>
+<p>As medidas DFBETAS são particularmente úteis quando o interesse está concentrado em parâmetros específicos do modelo.</p>
+</section>
+<section id="dffits" class="level3" data-number="19.6.4">
+<h3 data-number="19.6.4" class="anchored" data-anchor-id="dffits"><span class="header-section-number">19.6.4</span> DFFITS</h3>
+<p>Enquanto as medidas DFBETAS avaliam o impacto sobre os coeficientes, a estatística DFFITS investiga o efeito de uma observação sobre seu próprio valor ajustado.</p>
+<p>Formalmente,</p>
+<p><span class="math display">\[
+DFFITS_i
+=
+\frac{
+\hat Y_i
+-
+\hat Y_{i(i)}
+}
+{
+\hat\sigma_{(i)}
+\sqrt{h_{ii}}
+},
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\hat Y_{i(i)}
+\]</span></p>
+<p>corresponde ao valor ajustado obtido após remover a observação <span class="math inline">\(i\)</span>.</p>
+<p>Valores absolutos elevados indicam observações capazes de alterar substancialmente as previsões produzidas pelo modelo.</p>
+<p>Uma regra prática frequentemente utilizada é</p>
+<p><span class="math display">\[
+|DFFITS|
+&gt;
+2
+\sqrt{
+\frac{p+1}{n}
+}.
+\]</span></p>
+<p>Enquanto a distância de Cook avalia o impacto global de uma observação sobre o ajuste do modelo, o DFFITS concentra-se especificamente em sua influência sobre a própria predição. Assim, duas observações podem apresentar valores semelhantes de distância de Cook e comportamentos distintos em termos de DFFITS.</p>
+<p>Assim como as demais medidas de influência, o DFFITS deve ser interpretado como um indicador de investigação e não como um critério automático para exclusão de observações.</p>
+</section>
+<section id="diagnóstico-conjunto" class="level3" data-number="19.6.5">
+<h3 data-number="19.6.5" class="anchored" data-anchor-id="diagnóstico-conjunto"><span class="header-section-number">19.6.5</span> Diagnóstico conjunto</h3>
+<p>Nenhuma medida diagnóstica deve ser utilizada isoladamente.</p>
+<p>Uma observação pode apresentar:</p>
+<ul>
+<li>resíduo elevado e baixa alavancagem;</li>
+<li>elevada alavancagem e pequeno resíduo;</li>
+<li>grande distância de Cook;</li>
+<li>forte influência apenas sobre determinados coeficientes.</li>
+</ul>
+<p>Por essa razão, a análise conjunta costuma ser mais informativa do que a inspeção individual de cada indicador.</p>
+<p>Uma estratégia frequentemente utilizada consiste em combinar resíduos studentizados e alavancagem em um mesmo gráfico.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-diagnostico-conjunto" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-diagnostico-conjunto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-diagnostico-conjunto-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diagnostico-conjunto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.14: Resíduos studentizados e alavancagem.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Observações localizadas simultaneamente em regiões de elevada alavancagem e elevados resíduos studentizados costumam exercer maior influência sobre o ajuste.</p>
+<p>Entretanto, a identificação de uma observação influente não implica que ela deva ser removida do conjunto de dados.</p>
+<p>Antes de qualquer decisão, recomenda-se investigar:</p>
+<ul>
+<li>possíveis erros de digitação;</li>
+<li>problemas de medição;</li>
+<li>inconsistências no processo de coleta;</li>
+<li>características particulares da unidade observada.</li>
+</ul>
+<p>Em muitas aplicações, observações influentes representam justamente casos de interesse científico e sua remoção pode levar à perda de informações relevantes <span class="citation" data-cites="cook1982 fox2019">(<a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>; <a href="references.html#ref-fox2019" role="doc-biblioref"><strong>fox2019?</strong></a>)</span>.</p>
+</section>
+</section>
+<section id="síntese-das-ferramentas-diagnósticas" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="síntese-das-ferramentas-diagnósticas"><span class="header-section-number">19.7</span> Síntese das ferramentas diagnósticas</h2>
+<p>A Tabela X.X resume as principais ferramentas discutidas neste capítulo.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Objetivo</th>
+<th>Ferramenta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linearidade</td>
+<td>Resíduos × Ajustados</td>
+</tr>
+<tr class="even">
+<td>Homocedasticidade</td>
+<td>Resíduos × Ajustados; Breusch–Pagan</td>
+</tr>
+<tr class="odd">
+<td>Normalidade</td>
+<td>Q-Q Plot; Shapiro–Wilk</td>
+</tr>
+<tr class="even">
+<td>Independência</td>
+<td>Resíduos × Ordem; Durbin–Watson</td>
+</tr>
+<tr class="odd">
+<td>Multicolinearidade</td>
+<td>VIF</td>
+</tr>
+<tr class="even">
+<td>Influência global</td>
+<td>Distância de Cook</td>
+</tr>
+<tr class="odd">
+<td>Influência nos coeficientes</td>
+<td>DFBETAS</td>
+</tr>
+<tr class="even">
+<td>Influência nas previsões</td>
+<td>DFFITS</td>
+</tr>
+<tr class="odd">
+<td>Influência potencial</td>
+<td>Alavancagem</td>
+</tr>
+</tbody>
+</table>
+<p>Nenhuma dessas ferramentas deve ser interpretada isoladamente. O diagnóstico resulta da combinação de evidências gráficas, testes formais e conhecimento do contexto da aplicação.</p>
+</section>
+<section id="exemplo-ilustrativo" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="exemplo-ilustrativo"><span class="header-section-number">19.8</span> Exemplo ilustrativo</h2>
+<p>Para consolidar os conceitos discutidos neste capítulo, utilizaremos a base <code>Credit</code>, disponível no pacote <code>ISLR</code>.</p>
+<p>Nosso objetivo não será interpretar os coeficientes do modelo, mas avaliar sua adequação por meio das ferramentas diagnósticas apresentadas ao longo do capítulo.</p>
+<p>Consideremos o modelo</p>
+<p><span class="math display">\[
+Balance
+=
+\beta_0
++
+\beta_1 Income
++
+\beta_2 Rating
++
+\varepsilon.
+\]</span></p>
+<p>Inicialmente ajustamos o modelo e observamos algumas informações básicas.</p>
+<div class="cell">
+<div id="tbl-resumo-modelo-credit" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-resumo-modelo-credit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.5: Resumo do modelo ajustado à base Credit.
+</figcaption>
+<div aria-describedby="tbl-resumo-modelo-credit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-534.8122</td>
+<td style="text-align: right;">21.6027</td>
+<td style="text-align: right;">-24.7567</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Income</td>
+<td style="text-align: right;">-7.6721</td>
+<td style="text-align: right;">0.3785</td>
+<td style="text-align: right;">-20.2718</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rating</td>
+<td style="text-align: right;">3.9493</td>
+<td style="text-align: right;">0.0862</td>
+<td style="text-align: right;">45.8103</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>O próximo passo consiste em verificar se existem evidências de violação das hipóteses adotadas pelo modelo.</p>
+<section id="linearidade-e-homocedasticidade" class="level3" data-number="19.8.1">
+<h3 data-number="19.8.1" class="anchored" data-anchor-id="linearidade-e-homocedasticidade"><span class="header-section-number">19.8.1</span> Linearidade e homocedasticidade</h3>
+<p>Começamos analisando os resíduos em função dos valores ajustados.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-credit-ajustados-residuos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-credit-ajustados-residuos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-credit-ajustados-residuos-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-credit-ajustados-residuos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.15: Resíduos versus valores ajustados para o modelo Credit.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Nesse gráfico buscamos identificar:</p>
+<ul>
+<li>padrões curvilíneos, que podem indicar inadequação da forma funcional;</li>
+<li>mudanças sistemáticas na dispersão dos resíduos, que podem sugerir heterocedasticidade;</li>
+<li>observações discrepantes.</li>
+</ul>
+<p>A inspeção visual pode ser complementada pelo teste de Breusch–Pagan.</p>
+<div class="cell">
+<div id="tbl-credit-bp" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-credit-bp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.6: Teste de Breusch–Pagan para o modelo Credit.
+</figcaption>
+<div aria-describedby="tbl-credit-bp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">parameter</th>
+<th style="text-align: left;">method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0328</td>
+<td style="text-align: right;">0.9837</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">studentized Breusch-Pagan test</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>A interpretação conjunta do gráfico e do teste permite avaliar se a hipótese de variância constante parece razoável.</p>
+</section>
+<section id="normalidade-1" class="level3" data-number="19.8.2">
+<h3 data-number="19.8.2" class="anchored" data-anchor-id="normalidade-1"><span class="header-section-number">19.8.2</span> Normalidade</h3>
+<p>A seguir, investigamos a compatibilidade dos resíduos com a distribuição normal.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-credit-qqplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-credit-qqplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-credit-qqplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-credit-qqplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.16: Gráfico Q-Q dos resíduos do modelo Credit.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Também podemos utilizar o teste de Shapiro–Wilk.</p>
+<div class="cell">
+<div id="tbl-credit-shapiro" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-credit-shapiro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.7: Teste de Shapiro–Wilk para os resíduos do modelo Credit.
+</figcaption>
+<div aria-describedby="tbl-credit-shapiro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: left;">method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.8908</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Shapiro-Wilk normality test</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>O objetivo não é exigir normalidade perfeita, mas verificar se existem desvios suficientemente fortes para comprometer a inferência baseada nas distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span>.</p>
+</section>
+<section id="independência-1" class="level3" data-number="19.8.3">
+<h3 data-number="19.8.3" class="anchored" data-anchor-id="independência-1"><span class="header-section-number">19.8.3</span> Independência</h3>
+<p>Como a base <code>Credit</code> não corresponde a uma série temporal, a hipótese de independência costuma ser considerada plausível. Ainda assim, podemos ilustrar a aplicação do teste de Durbin–Watson.</p>
+<div class="cell">
+<div id="tbl-credit-dw" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-credit-dw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.8: Teste de Durbin–Watson para o modelo Credit.
+</figcaption>
+<div aria-describedby="tbl-credit-dw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 25%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: left;">method</th>
+<th style="text-align: left;">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1.8957</td>
+<td style="text-align: right;">0.1475</td>
+<td style="text-align: left;">Durbin-Watson test</td>
+<td style="text-align: left;">true autocorrelation is greater than 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Nesse contexto, o teste é apresentado principalmente para fins ilustrativos, uma vez que a hipótese de autocorrelação costuma ser mais relevante em dados coletados sequencialmente no tempo ou no espaço.</p>
+</section>
+<section id="multicolinearidade-1" class="level3" data-number="19.8.4">
+<h3 data-number="19.8.4" class="anchored" data-anchor-id="multicolinearidade-1"><span class="header-section-number">19.8.4</span> Multicolinearidade</h3>
+<p>Em seguida, avaliamos a associação entre as covariáveis por meio do Fator de Inflação da Variância.</p>
+<div class="cell">
+<div id="tbl-credit-vif" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-credit-vif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.9: Fatores de inflação da variância para o modelo Credit.
+</figcaption>
+<div aria-describedby="tbl-credit-vif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variável</th>
+<th style="text-align: right;">VIF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Income</td>
+<td style="text-align: right;">2.676</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rating</td>
+<td style="text-align: right;">2.676</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Valores próximos de 1 indicam baixa associação linear entre as covariáveis. Valores elevados sugerem possível instabilidade nas estimativas dos coeficientes.</p>
+</section>
+<section id="influência-e-observações-atípicas" class="level3" data-number="19.8.5">
+<h3 data-number="19.8.5" class="anchored" data-anchor-id="influência-e-observações-atípicas"><span class="header-section-number">19.8.5</span> Influência e observações atípicas</h3>
+<p>A distância de Cook permite identificar observações com potencial para alterar substancialmente o ajuste do modelo.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-credit-cook" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-credit-cook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-credit-cook-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-credit-cook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.17: Distâncias de Cook para o modelo Credit.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Também podemos combinar resíduos studentizados e alavancagem.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-credit-influencia" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-credit-influencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-credit-influencia-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-credit-influencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.18: Resíduos studentizados e alavancagem.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Observações localizadas simultaneamente em regiões de elevada alavancagem e elevados resíduos studentizados merecem investigação adicional.</p>
+</section>
+<section id="influência-sobre-coeficientes-e-previsões" class="level3" data-number="19.8.6">
+<h3 data-number="19.8.6" class="anchored" data-anchor-id="influência-sobre-coeficientes-e-previsões"><span class="header-section-number">19.8.6</span> Influência sobre coeficientes e previsões</h3>
+<p>Além da distância de Cook, podemos investigar a influência das observações sobre coeficientes específicos e sobre as previsões produzidas pelo modelo.</p>
+<p>A Figura abaixo apresenta os valores absolutos de DFBETAS para o coeficiente associado à variável <code>Rating</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-credit-dfbetas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-credit-dfbetas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-credit-dfbetas-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-credit-dfbetas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.19: Valores absolutos de DFBETAS para o coeficiente de Rating.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A Figura abaixo apresenta os valores absolutos de DFFITS.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-credit-dffits" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-credit-dffits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mrlm_diagnostico_files/figure-html/fig-credit-dffits-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-credit-dffits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.20: Valores absolutos de DFFITS.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Essas medidas complementam a distância de Cook, permitindo identificar observações que afetam parâmetros específicos ou previsões individuais.</p>
+</section>
+<section id="síntese-da-análise" class="level3" data-number="19.8.7">
+<h3 data-number="19.8.7" class="anchored" data-anchor-id="síntese-da-análise"><span class="header-section-number">19.8.7</span> Síntese da análise</h3>
+<p>Uma análise diagnóstica completa raramente depende de uma única medida ou gráfico.</p>
+<p>Neste exemplo, avaliamos:</p>
+<ul>
+<li>linearidade por meio dos resíduos versus ajustados;</li>
+<li>homocedasticidade por inspeção gráfica e teste de Breusch–Pagan;</li>
+<li>normalidade por gráfico Q-Q e teste de Shapiro–Wilk;</li>
+<li>independência por meio do teste de Durbin–Watson;</li>
+<li>multicolinearidade por meio dos VIFs;</li>
+<li>influência global por meio da distância de Cook;</li>
+<li>influência sobre coeficientes por meio dos DFBETAS;</li>
+<li>influência sobre previsões por meio dos DFFITS;</li>
+<li>influência potencial por meio da alavancagem e dos resíduos studentizados.</li>
+</ul>
+<p>O objetivo não é decidir automaticamente se um modelo está correto ou incorreto. O diagnóstico busca identificar possíveis limitações, compreender a qualidade do ajuste e avaliar a robustez das conclusões obtidas.</p>
+<p>Assim como ocorre na seleção de modelos e na inferência estatística, a análise diagnóstica deve ser interpretada à luz do contexto da aplicação, do conhecimento substantivo do problema e dos objetivos do estudo.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-kutner2005" class="csl-entry" role="listitem">
+KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
+</div>
+<div id="ref-montgomery2021" class="csl-entry" role="listitem">
+MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
+</div>
+<div id="ref-seber2003" class="csl-entry" role="listitem">
+SEBER, George A. F.; LEE, Alan J. <strong>Linear Regression Analysis</strong>. 2. ed. Hoboken, NJ: Wiley, 2003.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./mrlm_qualidade.html" class="pagination-link" aria-label="Qualidade de Ajuste e Comparação de Modelos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Qualidade de Ajuste e Comparação de Modelos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ap_listas.html" class="pagination-link" aria-label="Lista de Siglas e Símbolos">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

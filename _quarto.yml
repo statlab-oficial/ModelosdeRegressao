@@ -45,7 +45,7 @@ book:
         - mrlm_dummies.qmd
         - mrlm_ancova.qmd
         - mrlm_qualidade.qmd
-#        - mrlm_diagnostico.qmd
+        - mrlm_diagnostico.qmd
 #        - mrlm_transf.qmd
 #        - mrlm_aplica.qmd
 #        - part3_ex.qmd
