@@ -643,7 +643,7 @@ window.Quarto = {
 <p>Após ajustar um modelo de regressão, surge uma questão natural: quão bem esse modelo descreve os dados observados?</p>
 <p>Em situações simples, essa pergunta pode parecer fácil de responder. Um modelo que produz resíduos menores ou previsões mais próximas dos valores observados parece, intuitivamente, superior a outro. Entretanto, a avaliação de um modelo envolve aspectos adicionais.</p>
 <p>Considere dois modelos ajustados para a mesma variável resposta. O primeiro utiliza apenas uma variável explicativa, enquanto o segundo incorpora diversas covariáveis adicionais. Em geral, o modelo mais complexo apresentará melhor ajuste aos dados observados, pois possui maior flexibilidade para acomodar padrões presentes na amostra. Isso não significa, necessariamente, que ele seja mais útil ou mais adequado <span class="citation" data-cites="montgomery2021 kutner2005">(<a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
-<p>Modelos excessivamente complexos podem capturar flutuações específicas da amostra em vez de representar relações sistemáticas do fenômeno estudado. Esse comportamento é conhecido como sobreajuste (<em>overfitting</em>) e pode comprometer a capacidade preditiva do modelo em novos conjuntos de dados <span class="citation" data-cites="james2021">(<a href="references.html#ref-james2021" role="doc-biblioref"><strong>james2021?</strong></a>)</span>.</p>
+<p>Modelos excessivamente complexos podem capturar flutuações específicas da amostra em vez de representar relações sistemáticas do fenômeno estudado. Esse comportamento é conhecido como sobreajuste (<em>overfitting</em>) e pode comprometer a capacidade preditiva do modelo em novos conjuntos de dados <span class="citation" data-cites="james2021">(<a href="references.html#ref-james2021" role="doc-biblioref">James et al., 2021</a>)</span>.</p>
 <p>Por outro lado, modelos excessivamente simples podem deixar de incorporar variáveis relevantes, produzindo estimativas viesadas, menor poder explicativo ou previsões pouco precisas.</p>
 <p>A comparação entre modelos envolve, portanto, um equilíbrio entre qualidade de ajuste, complexidade e interpretabilidade. Em alguns contextos, o objetivo principal é explicar relações entre variáveis. Em outros, o interesse está na previsão de novas observações. Há ainda situações em que modelos distintos representam hipóteses científicas concorrentes.</p>
 <p>Por essa razão, a escolha de um modelo não deve ser baseada em um único indicador numérico. Diferentes medidas avaliam diferentes aspectos do ajuste e podem conduzir a conclusões distintas <span class="citation" data-cites="burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>)</span>.</p>
@@ -808,7 +808,7 @@ SQ_{Res}
 <li><span class="math inline">\(SQ_R\)</span> mede a parcela explicada pelo modelo;</li>
 <li><span class="math inline">\(SQ_{Res}\)</span> mede a parcela não explicada.</li>
 </ul>
-<p>Quanto menor for <span class="math inline">\(SQ_Res\)</span>, melhor tende a ser o ajuste aos dados observados.</p>
+<p>Quanto menor for <span class="math inline">\(SQ_{Res}\)</span>, melhor tende a ser o ajuste aos dados observados.</p>
 <p>Essa observação, entretanto, deve ser interpretada com cautela. À medida que novas variáveis são incorporadas ao modelo, a soma de quadrados residual nunca aumenta. Em outras palavras, modelos mais complexos quase sempre produzem valores menores de <span class="math inline">\(SQ_{Res}\)</span>.</p>
 <p>Por essa razão, medidas de qualidade de ajuste precisam considerar não apenas a redução dos resíduos, mas também a complexidade do modelo.</p>
 </section>
@@ -1141,7 +1141,7 @@ Y
 <h2 data-number="18.6" class="anchored" data-anchor-id="sobreajuste-parcimônia-e-capacidade-preditiva"><span class="header-section-number">18.6</span> Sobreajuste, parcimônia e capacidade preditiva</h2>
 <p>Uma característica comum dos procedimentos de seleção é a busca por equilíbrio entre ajuste e complexidade.</p>
 <p>À medida que novas variáveis são incorporadas ao modelo, o ajuste aos dados observados tende a melhorar. Entretanto, parte dessa melhoria pode corresponder apenas à adaptação a particularidades da amostra utilizada.</p>
-<p>Esse fenômeno é conhecido como sobreajuste (<em>overfitting</em>) <span class="citation" data-cites="james2021 burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>; <a href="references.html#ref-james2021" role="doc-biblioref"><strong>james2021?</strong></a>)</span>.</p>
+<p>Esse fenômeno é conhecido como sobreajuste (<em>overfitting</em>) <span class="citation" data-cites="james2021 burnham2002">(<a href="references.html#ref-burnham2002" role="doc-biblioref">Burnham; Anderson, 2002</a>; <a href="references.html#ref-james2021" role="doc-biblioref">James et al., 2021</a>)</span>.</p>
 <p>Modelos sobreajustados frequentemente apresentam:</p>
 <ul>
 <li>elevado <span class="math inline">\(R^2\)</span>;</li>
@@ -1335,6 +1335,9 @@ AKAIKE, Hirotugu. A new look at the statistical model identification. <strong>IE
 </div>
 <div id="ref-burnham2002" class="csl-entry" role="listitem">
 BURNHAM, Kenneth P.; ANDERSON, David R. <strong>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</strong>. 2. ed. New York: Springer, 2002.
+</div>
+<div id="ref-james2021" class="csl-entry" role="listitem">
+JAMES, Gareth <em>et al.</em> <strong>An Introduction to Statistical Learning: with Applications in R</strong>. 2. ed. New York: Springer, 2021.
 </div>
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
 KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.

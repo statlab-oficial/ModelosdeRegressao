@@ -590,7 +590,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#resíduo-ordinário" id="toc-resíduo-ordinário" class="nav-link" data-scroll-target="#resíduo-ordinário"><span class="header-section-number">19.3.1</span> Resíduo ordinário</a></li>
   <li><a href="#resíduos-padronizados" id="toc-resíduos-padronizados" class="nav-link" data-scroll-target="#resíduos-padronizados"><span class="header-section-number">19.3.2</span> Resíduos padronizados</a></li>
-  <li><a href="#resíduos-studentizados" id="toc-resíduos-studentizados" class="nav-link" data-scroll-target="#resíduos-studentizados"><span class="header-section-number">19.3.3</span> Resíduos studentizados</a></li>
+  <li><a href="#resíduos-studentizados-externos" id="toc-resíduos-studentizados-externos" class="nav-link" data-scroll-target="#resíduos-studentizados-externos"><span class="header-section-number">19.3.3</span> Resíduos studentizados (externos)</a></li>
   </ul></li>
   <li><a href="#diagnóstico-das-suposições" id="toc-diagnóstico-das-suposições" class="nav-link" data-scroll-target="#diagnóstico-das-suposições"><span class="header-section-number">19.4</span> Diagnóstico das suposições</a>
   <ul class="collapse">
@@ -663,7 +663,7 @@ window.Quarto = {
 <li>existem observações atípicas ou influentes;</li>
 <li>as conclusões obtidas dependem excessivamente de poucas observações.</li>
 </ul>
-<p>É importante destacar que o diagnóstico não deve ser interpretado como um conjunto de testes destinados a “aprovar” ou “reprovar” um modelo. O objetivo é compreender como o modelo se comporta diante dos dados e identificar situações em que adaptações, transformações ou métodos alternativos possam ser necessários <span class="citation" data-cites="fox2019 cook1982">(<a href="references.html#ref-fox2019" role="doc-biblioref">Fox; Weisberg, 2019</a>; <a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>É importante destacar que o diagnóstico não deve ser interpretado como um conjunto de testes destinados a “aprovar” ou “reprovar” um modelo. O objetivo é compreender como o modelo se comporta diante dos dados e identificar situações em que adaptações, transformações ou métodos alternativos possam ser necessários <span class="citation" data-cites="fox2019 cook1982">(<a href="references.html#ref-cook1982" role="doc-biblioref">Cook; Weisberg, 1982</a>; <a href="references.html#ref-fox2019" role="doc-biblioref">Fox; Weisberg, 2019</a>)</span>.</p>
 <p>Assim como a estimação e a inferência, o diagnóstico faz parte do processo de modelagem. Na prática, a construção de um modelo costuma envolver sucessivos ciclos de ajuste, avaliação e refinamento até que se obtenha uma representação satisfatória do fenômeno estudado.</p>
 </section>
 <section id="o-que-um-diagnóstico-procura-responder" class="level2" data-number="19.2">
@@ -782,10 +782,10 @@ Figura&nbsp;19.2: Resíduos padronizados em função dos valores ajustados.
 </div>
 <p>Esse gráfico será utilizado diversas vezes ao longo do capítulo, pois permite investigar simultaneamente possíveis desvios de linearidade, heterocedasticidade e observações discrepantes.</p>
 </section>
-<section id="resíduos-studentizados" class="level3" data-number="19.3.3">
-<h3 data-number="19.3.3" class="anchored" data-anchor-id="resíduos-studentizados"><span class="header-section-number">19.3.3</span> Resíduos studentizados</h3>
+<section id="resíduos-studentizados-externos" class="level3" data-number="19.3.3">
+<h3 data-number="19.3.3" class="anchored" data-anchor-id="resíduos-studentizados-externos"><span class="header-section-number">19.3.3</span> Resíduos studentizados (externos)</h3>
 <p>Os resíduos padronizados utilizam uma única estimativa da variância residual, obtida a partir de todas as observações da amostra. Em algumas situações, entretanto, uma observação potencialmente discrepante pode influenciar essa estimativa, dificultando sua própria identificação.</p>
-<p>Para contornar esse problema, utilizam-se os resíduos studentizados, definidos por</p>
+<p>Para contornar esse problema, utilizam-se os resíduos studentizados externos, definidos por</p>
 <p><span class="math display">\[
 t_i
 =
@@ -807,7 +807,7 @@ t_i
 <p><span class="math display">\[
 n-p-2
 \]</span></p>
-<p>graus de liberdade <span class="citation" data-cites="montgomery2021 cook1982">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>graus de liberdade <span class="citation" data-cites="montgomery2021 cook1982">(<a href="references.html#ref-cook1982" role="doc-biblioref">Cook; Weisberg, 1982</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p>Essa característica permite utilizar os resíduos studentizados para identificar observações potencialmente discrepantes.</p>
 <p>Como regra prática, valores absolutos superiores a</p>
 <p><span class="math display">\[
@@ -824,7 +824,6 @@ n-p-2
 </section>
 <section id="diagnóstico-das-suposições" class="level2" data-number="19.4">
 <h2 data-number="19.4" class="anchored" data-anchor-id="diagnóstico-das-suposições"><span class="header-section-number">19.4</span> Diagnóstico das suposições</h2>
-<p>As hipóteses do modelo de regressão não podem ser verificadas diretamente a partir dos erros aleatórios, pois essas quantidades não são observáveis. Em seu lugar, utilizam-se os resíduos, que fornecem informações sobre possíveis inadequações do modelo ajustado.</p>
 <p>A análise diagnóstica não deve ser interpretada como uma sequência de testes independentes destinados a aprovar ou reprovar um modelo. O objetivo é reunir evidências que permitam avaliar se as hipóteses adotadas constituem aproximações razoáveis para os dados observados <span class="citation" data-cites="montgomery2021 fox2019">(<a href="references.html#ref-fox2019" role="doc-biblioref">Fox; Weisberg, 2019</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
 <p>Em geral, a investigação concentra-se em quatro aspectos principais:</p>
 <ul>
@@ -836,10 +835,8 @@ n-p-2
 <p>Embora cada hipótese possa ser avaliada separadamente, os diagnósticos costumam ser interpretados de forma conjunta. Um mesmo padrão residual pode indicar mais de um problema simultaneamente.</p>
 <section id="linearidade" class="level3" data-number="19.4.1">
 <h3 data-number="19.4.1" class="anchored" data-anchor-id="linearidade"><span class="header-section-number">19.4.1</span> Linearidade</h3>
-<p>O Modelo de Regressão Linear Múltipla assume que a média da variável resposta pode ser representada por uma combinação linear dos parâmetros.</p>
-<p>Em termos práticos, isso significa que a forma funcional especificada deve ser capaz de descrever adequadamente a relação entre a resposta e as covariáveis incluídas no modelo.</p>
-<p>Quando essa hipótese é inadequada, os resíduos frequentemente apresentam padrões sistemáticos que indicam a existência de estrutura ainda não capturada pelo modelo.</p>
-<p>O principal instrumento gráfico para investigar essa hipótese é o gráfico de resíduos versus valores ajustados.</p>
+<p>O Modelo de Regressão Linear Múltipla assume que a média da variável resposta pode ser representada por uma combinação linear dos parâmetros. Em termos práticos, isso significa que a forma funcional especificada deve ser capaz de descrever adequadamente a relação entre a resposta e as covariáveis incluídas no modelo.</p>
+<p>Quando essa hipótese é inadequada, os resíduos frequentemente apresentam padrões sistemáticos que indicam a existência de estrutura ainda não capturada pelo modelo. O principal instrumento gráfico para investigar essa hipótese é o gráfico de resíduos versus valores ajustados.</p>
 <p>Quando o modelo está adequadamente especificado, espera-se observar uma nuvem aproximadamente aleatória em torno da linha horizontal correspondente ao valor zero.</p>
 <p>Por outro lado, padrões curvilíneos, tendências crescentes ou decrescentes e agrupamentos sistemáticos sugerem que a forma funcional adotada pode ser inadequada.</p>
 <div class="cell">
@@ -883,7 +880,7 @@ Figura&nbsp;19.4: Padrão residual sugerindo inadequação da forma funcional.
 </section>
 <section id="homocedasticidade" class="level3" data-number="19.4.2">
 <h3 data-number="19.4.2" class="anchored" data-anchor-id="homocedasticidade"><span class="header-section-number">19.4.2</span> Homocedasticidade</h3>
-<p>Uma das hipóteses centrais do modelo clássico de regressão estabelece que a variância dos erros permanece constante ao longo de todas as observações. Formalmente,</p>
+<p>Uma das hipóteses principais do modelo clássico de regressão estabelece que a variância dos erros permanece constante ao longo de todas as observações. Formalmente,</p>
 <p><span class="math display">\[
 Var(\varepsilon_i)
 =
@@ -948,6 +945,7 @@ Var(\varepsilon_i)
 \]</span></p>
 <p>Sob a hipótese nula, espera-se que a dispersão dos resíduos não apresente associação sistemática com as variáveis explicativas.</p>
 <p>A aplicação do teste em R pode ser realizada por meio do pacote <code>lmtest</code>.</p>
+<p>A tabela a seguir apresenta o resultado do teste de Breusch–Pagan para o modelo que apresentou os residuos heterocedasticos na figura anterior.</p>
 <div class="cell">
 <div id="tbl-breusch-pagan" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -999,7 +997,6 @@ Tabela&nbsp;19.1: Resultado do teste de Breusch–Pagan.
 </section>
 <section id="normalidade" class="level3" data-number="19.4.4">
 <h3 data-number="19.4.4" class="anchored" data-anchor-id="normalidade"><span class="header-section-number">19.4.4</span> Normalidade</h3>
-<p>A hipótese de normalidade dos erros desempenha papel importante na construção de intervalos de confiança e testes de hipóteses em amostras pequenas.</p>
 <p>No modelo clássico de regressão, assume-se que</p>
 <p><span class="math display">\[
 \varepsilon_i
@@ -1009,9 +1006,7 @@ N(0,\sigma^2).
 <p>Sob essa hipótese, diversas estatísticas inferenciais possuem distribuições exatas conhecidas, justificando o uso das distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> estudadas nos capítulos anteriores.</p>
 <p>É importante destacar que a hipótese de normalidade refere-se aos erros aleatórios e não à variável resposta ou às covariáveis. Assim, não é necessário que os dados observados apresentem distribuição normal para que o modelo seja utilizado.</p>
 <p>Além disso, a regressão linear costuma apresentar razoável robustez a desvios moderados da normalidade, especialmente em amostras grandes. Por essa razão, pequenas discrepâncias raramente comprometem uma análise <span class="citation" data-cites="montgomery2021 seber2003">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>; <a href="references.html#ref-seber2003" role="doc-biblioref">Seber; Lee, 2003</a>)</span>.</p>
-<p>A avaliação da normalidade é geralmente realizada por meio de gráficos e testes formais.</p>
-<p>O gráfico mais utilizado é o gráfico quantil-quantil normal, conhecido como gráfico Q-Q.</p>
-<p>Nesse gráfico, os quantis observados dos resíduos são comparados com os quantis esperados sob uma distribuição normal.</p>
+<p>A avaliação da normalidade é geralmente realizada por meio de gráficos e testes formais. O gráfico mais utilizado é o gráfico quantil-quantil normal, conhecido como gráfico Q-Q. Nesse gráfico, os quantis observados dos resíduos são comparados com os quantis esperados sob uma distribuição normal.</p>
 <p>Quando a hipótese de normalidade é plausível, os pontos tendem a se distribuir próximos da reta de referência.</p>
 <p>A Figura abaixo apresenta um exemplo compatível com normalidade.</p>
 <div class="cell">
@@ -1111,7 +1106,6 @@ Tabela&nbsp;19.2: Resultado do teste de Shapiro–Wilk.
 </section>
 <section id="independência" class="level3" data-number="19.4.6">
 <h3 data-number="19.4.6" class="anchored" data-anchor-id="independência"><span class="header-section-number">19.4.6</span> Independência</h3>
-<p>Outra hipótese frequentemente assumida no modelo clássico de regressão é a independência dos erros.</p>
 <p>Formalmente,</p>
 <p><span class="math display">\[
 Cov(
@@ -1360,7 +1354,7 @@ Tabela&nbsp;19.4: Fatores de inflação da variância.
 </figure>
 </div>
 </div>
-<p>Valores elevados de VIF não implicam necessariamente que uma variável deva ser removida. Em muitos estudos, covariáveis fortemente correlacionadas possuem importância substantiva e devem permanecer no modelo.</p>
+<p>Valores elevados de VIF não implicam necessariamente que uma variável deva ser removida. Em muitos estudos, covariáveis fortemente correlacionadas podem ser relevantes e devem permanecer no modelo.</p>
 <p>Além disso, em modelos que incluem termos de interação, polinômios ou variáveis derivadas de outras covariáveis, valores elevados de VIF podem surgir naturalmente devido à própria estrutura do modelo. Nesses casos, a interpretação deve considerar o objetivo da modelagem e não apenas limites numéricos arbitrários.</p>
 <p>O diagnóstico de multicolinearidade deve ser interpretado como um auxílio à compreensão da estabilidade das estimativas e não como um procedimento automático de seleção de variáveis.</p>
 </section>
@@ -1447,7 +1441,7 @@ Figura&nbsp;19.12: Observação com elevada alavancagem.
 </section>
 <section id="distância-de-cook" class="level3" data-number="19.6.2">
 <h3 data-number="19.6.2" class="anchored" data-anchor-id="distância-de-cook"><span class="header-section-number">19.6.2</span> Distância de Cook</h3>
-<p>A distância de Cook combina informações sobre resíduos e alavancagem em uma única medida de influência <span class="citation" data-cites="cook1982">(<a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>A distância de Cook combina informações sobre resíduos e alavancagem em uma única medida de influência <span class="citation" data-cites="cook1982">(<a href="references.html#ref-cook1982" role="doc-biblioref">Cook; Weisberg, 1982</a>)</span>.</p>
 <p>Sua ideia central consiste em avaliar o impacto produzido pela remoção de uma observação sobre os coeficientes estimados.</p>
 <p>A distância de Cook da observação <span class="math inline">\(i\)</span> pode ser escrita como</p>
 <p><span class="math display">\[
@@ -1553,7 +1547,7 @@ DFFITS_i
 }.
 \]</span></p>
 <p>Enquanto a distância de Cook avalia o impacto global de uma observação sobre o ajuste do modelo, o DFFITS concentra-se especificamente em sua influência sobre a própria predição. Assim, duas observações podem apresentar valores semelhantes de distância de Cook e comportamentos distintos em termos de DFFITS.</p>
-<p>Assim como as demais medidas de influência, o DFFITS deve ser interpretado como um indicador de investigação e não como um critério automático para exclusão de observações.</p>
+<p>O DFFITS deve ser interpretado como um indicador de investigação e não como um critério automático para exclusão de observações.</p>
 </section>
 <section id="diagnóstico-conjunto" class="level3" data-number="19.6.5">
 <h3 data-number="19.6.5" class="anchored" data-anchor-id="diagnóstico-conjunto"><span class="header-section-number">19.6.5</span> Diagnóstico conjunto</h3>
@@ -1590,12 +1584,12 @@ Figura&nbsp;19.14: Resíduos studentizados e alavancagem.
 <li>inconsistências no processo de coleta;</li>
 <li>características particulares da unidade observada.</li>
 </ul>
-<p>Em muitas aplicações, observações influentes representam justamente casos de interesse científico e sua remoção pode levar à perda de informações relevantes <span class="citation" data-cites="cook1982 fox2019">(<a href="references.html#ref-fox2019" role="doc-biblioref">Fox; Weisberg, 2019</a>; <a href="references.html#ref-cook1982" role="doc-biblioref"><strong>cook1982?</strong></a>)</span>.</p>
+<p>Em muitas aplicações, observações influentes representam justamente casos de interesse científico e sua remoção pode levar à perda de informações relevantes <span class="citation" data-cites="cook1982 fox2019">(<a href="references.html#ref-cook1982" role="doc-biblioref">Cook; Weisberg, 1982</a>; <a href="references.html#ref-fox2019" role="doc-biblioref">Fox; Weisberg, 2019</a>)</span>.</p>
 </section>
 </section>
 <section id="síntese-das-ferramentas-diagnósticas" class="level2" data-number="19.7">
 <h2 data-number="19.7" class="anchored" data-anchor-id="síntese-das-ferramentas-diagnósticas"><span class="header-section-number">19.7</span> Síntese das ferramentas diagnósticas</h2>
-<p>A Tabela X.X resume as principais ferramentas discutidas neste capítulo.</p>
+<p>A Tabela a seguir resume as principais ferramentas discutidas neste capítulo.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1647,7 +1641,7 @@ Figura&nbsp;19.14: Resíduos studentizados e alavancagem.
 <section id="exemplo-ilustrativo" class="level2" data-number="19.8">
 <h2 data-number="19.8" class="anchored" data-anchor-id="exemplo-ilustrativo"><span class="header-section-number">19.8</span> Exemplo ilustrativo</h2>
 <p>Para consolidar os conceitos discutidos neste capítulo, utilizaremos a base <code>Credit</code>, disponível no pacote <code>ISLR</code>.</p>
-<p>Nosso foco será a avaliação diagnóstica do modelo, e não a interpretação substantiva dos coeficientes estimados. Utilizaremos as ferramentas discutidas ao longo do capítulo para investigar a adequação das principais hipóteses do modelo de regressão.</p>
+<p>Nosso foco será a avaliação diagnóstica do modelo, e não a interpretação dos coeficientes estimados. Utilizaremos as ferramentas discutidas ao longo do capítulo para investigar a adequação das principais hipóteses do modelo de regressão.</p>
 <p>Consideremos o modelo</p>
 <p><span class="math display">\[
 Balance
@@ -1982,6 +1976,9 @@ Figura&nbsp;19.20: Valores absolutos de DFFITS.
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-cook1982" class="csl-entry" role="listitem">
+COOK, R. Dennis; WEISBERG, Sanford. <strong>Residuals and Influence in Regression</strong>. New York: Chapman; Hall, 1982.
+</div>
 <div id="ref-fox2019" class="csl-entry" role="listitem">
 FOX, John; WEISBERG, Sanford. <strong>An R Companion to Applied Regression</strong>. 3. ed. <em>[S.l.: S.n.]</em>.
 </div>

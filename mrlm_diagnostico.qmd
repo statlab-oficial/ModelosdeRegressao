@@ -229,11 +229,11 @@ ggplot(
 
 Esse gráfico será utilizado diversas vezes ao longo do capítulo, pois permite investigar simultaneamente possíveis desvios de linearidade, heterocedasticidade e observações discrepantes.
 
-### Resíduos studentizados
+### Resíduos studentizados (externos)
 
 Os resíduos padronizados utilizam uma única estimativa da variância residual, obtida a partir de todas as observações da amostra. Em algumas situações, entretanto, uma observação potencialmente discrepante pode influenciar essa estimativa, dificultando sua própria identificação.
 
-Para contornar esse problema, utilizam-se os resíduos studentizados, definidos por
+Para contornar esse problema, utilizam-se os resíduos studentizados externos, definidos por
 
 $$
 t_i
@@ -289,8 +289,6 @@ Os resíduos studentizados são particularmente úteis quando o objetivo é iden
 
 ## Diagnóstico das suposições
 
-As hipóteses do modelo de regressão não podem ser verificadas diretamente a partir dos erros aleatórios, pois essas quantidades não são observáveis. Em seu lugar, utilizam-se os resíduos, que fornecem informações sobre possíveis inadequações do modelo ajustado.
-
 A análise diagnóstica não deve ser interpretada como uma sequência de testes independentes destinados a aprovar ou reprovar um modelo. O objetivo é reunir evidências que permitam avaliar se as hipóteses adotadas constituem aproximações razoáveis para os dados observados [@montgomery2021; @fox2019].
 
 Em geral, a investigação concentra-se em quatro aspectos principais:
@@ -304,13 +302,9 @@ Embora cada hipótese possa ser avaliada separadamente, os diagnósticos costuma
 
 ### Linearidade
 
-O Modelo de Regressão Linear Múltipla assume que a média da variável resposta pode ser representada por uma combinação linear dos parâmetros.
+O Modelo de Regressão Linear Múltipla assume que a média da variável resposta pode ser representada por uma combinação linear dos parâmetros. Em termos práticos, isso significa que a forma funcional especificada deve ser capaz de descrever adequadamente a relação entre a resposta e as covariáveis incluídas no modelo.
 
-Em termos práticos, isso significa que a forma funcional especificada deve ser capaz de descrever adequadamente a relação entre a resposta e as covariáveis incluídas no modelo.
-
-Quando essa hipótese é inadequada, os resíduos frequentemente apresentam padrões sistemáticos que indicam a existência de estrutura ainda não capturada pelo modelo.
-
-O principal instrumento gráfico para investigar essa hipótese é o gráfico de resíduos versus valores ajustados.
+Quando essa hipótese é inadequada, os resíduos frequentemente apresentam padrões sistemáticos que indicam a existência de estrutura ainda não capturada pelo modelo. O principal instrumento gráfico para investigar essa hipótese é o gráfico de resíduos versus valores ajustados.
 
 Quando o modelo está adequadamente especificado, espera-se observar uma nuvem aproximadamente aleatória em torno da linha horizontal correspondente ao valor zero.
 
@@ -372,7 +366,7 @@ set.seed(123)
 
 x <- seq(-3,3,length.out = 200)
 
-y <- 3 + 2*x + 1.5*x^2 + rnorm(200)
+y <- 3 + 2*x + 1.0*x^2 + 4*rnorm(200)
 
 mod <- lm(y ~ x)
 
@@ -417,7 +411,7 @@ A decisão deve sempre considerar o contexto da aplicação e os objetivos da an
 
 ### Homocedasticidade
 
-Uma das hipóteses centrais do modelo clássico de regressão estabelece que a variância dos erros permanece constante ao longo de todas as observações. Formalmente,
+Uma das hipóteses principais do modelo clássico de regressão estabelece que a variância dos erros permanece constante ao longo de todas as observações. Formalmente,
 
 $$
 Var(\varepsilon_i)
@@ -550,6 +544,8 @@ Sob a hipótese nula, espera-se que a dispersão dos resíduos não apresente as
 
 A aplicação do teste em R pode ser realizada por meio do pacote `lmtest`.
 
+A tabela a seguir apresenta o resultado do teste de Breusch–Pagan para o modelo que apresentou os residuos heterocedasticos na figura anterior. 
+
 ```{r}
 #| label: tbl-breusch-pagan
 #| tbl-cap: "Resultado do teste de Breusch–Pagan."
@@ -594,7 +590,6 @@ A escolha da estratégia depende dos objetivos da análise e da natureza do prob
 
 ### Normalidade
 
-A hipótese de normalidade dos erros desempenha papel importante na construção de intervalos de confiança e testes de hipóteses em amostras pequenas.
 
 No modelo clássico de regressão, assume-se que
 
@@ -610,11 +605,7 @@ Sob essa hipótese, diversas estatísticas inferenciais possuem distribuições 
 
 Além disso, a regressão linear costuma apresentar razoável robustez a desvios moderados da normalidade, especialmente em amostras grandes. Por essa razão, pequenas discrepâncias raramente comprometem uma análise [@montgomery2021; @seber2003].
 
-A avaliação da normalidade é geralmente realizada por meio de gráficos e testes formais.
-
-O gráfico mais utilizado é o gráfico quantil-quantil normal, conhecido como gráfico Q-Q.
-
-Nesse gráfico, os quantis observados dos resíduos são comparados com os quantis esperados sob uma distribuição normal.
+A avaliação da normalidade é geralmente realizada por meio de gráficos e testes formais. O gráfico mais utilizado é o gráfico quantil-quantil normal, conhecido como gráfico Q-Q. Nesse gráfico, os quantis observados dos resíduos são comparados com os quantis esperados sob uma distribuição normal.
 
 Quando a hipótese de normalidade é plausível, os pontos tendem a se distribuir próximos da reta de referência.
 
@@ -751,8 +742,6 @@ Quando a hipótese de normalidade parece inadequada, algumas alternativas inclue
 A escolha depende da intensidade da violação observada e dos objetivos da análise.
 
 ### Independência
-
-Outra hipótese frequentemente assumida no modelo clássico de regressão é a independência dos erros.
 
 Formalmente,
 
@@ -1075,7 +1064,7 @@ data.frame(
   )
 ```
 
-Valores elevados de VIF não implicam necessariamente que uma variável deva ser removida. Em muitos estudos, covariáveis fortemente correlacionadas possuem importância substantiva e devem permanecer no modelo.
+Valores elevados de VIF não implicam necessariamente que uma variável deva ser removida. Em muitos estudos, covariáveis fortemente correlacionadas podem ser relevantes e devem permanecer no modelo.
 
 Além disso, em modelos que incluem termos de interação, polinômios ou variáveis derivadas de outras covariáveis, valores elevados de VIF podem surgir naturalmente devido à própria estrutura do modelo. Nesses casos, a interpretação deve considerar o objetivo da modelagem e não apenas limites numéricos arbitrários.
 
@@ -1375,7 +1364,7 @@ $$
 
 Enquanto a distância de Cook avalia o impacto global de uma observação sobre o ajuste do modelo, o DFFITS concentra-se especificamente em sua influência sobre a própria predição. Assim, duas observações podem apresentar valores semelhantes de distância de Cook e comportamentos distintos em termos de DFFITS.
 
-Assim como as demais medidas de influência, o DFFITS deve ser interpretado como um indicador de investigação e não como um critério automático para exclusão de observações.
+O DFFITS deve ser interpretado como um indicador de investigação e não como um critério automático para exclusão de observações.
 
 ### Diagnóstico conjunto
 
@@ -1452,7 +1441,7 @@ Em muitas aplicações, observações influentes representam justamente casos de
 
 ## Síntese das ferramentas diagnósticas
 
-A Tabela X.X resume as principais ferramentas discutidas neste capítulo.
+A Tabela a seguir resume as principais ferramentas discutidas neste capítulo.
 
 | Objetivo                    | Ferramenta                           |
 |-----------------------------|--------------------------------------|
@@ -1472,7 +1461,7 @@ Nenhuma dessas ferramentas deve ser interpretada isoladamente. O diagnóstico re
 
 Para consolidar os conceitos discutidos neste capítulo, utilizaremos a base `Credit`, disponível no pacote `ISLR`.
 
-Nosso foco será a avaliação diagnóstica do modelo, e não a interpretação substantiva dos coeficientes estimados. Utilizaremos as ferramentas discutidas ao longo do capítulo para investigar a adequação das principais hipóteses do modelo de regressão.
+Nosso foco será a avaliação diagnóstica do modelo, e não a interpretação dos coeficientes estimados. Utilizaremos as ferramentas discutidas ao longo do capítulo para investigar a adequação das principais hipóteses do modelo de regressão.
 
 Consideremos o modelo
 

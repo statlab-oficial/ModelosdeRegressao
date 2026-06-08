@@ -229,7 +229,7 @@ A interpretação é direta:
 -   $SQ_R$ mede a parcela explicada pelo modelo;
 -   $SQ_{Res}$ mede a parcela não explicada.
 
-Quanto menor for $SQ_Res$, melhor tende a ser o ajuste aos dados observados.
+Quanto menor for $SQ_{Res}$, melhor tende a ser o ajuste aos dados observados.
 
 Essa observação, entretanto, deve ser interpretada com cautela. À medida que novas variáveis são incorporadas ao modelo, a soma de quadrados residual nunca aumenta. Em outras palavras, modelos mais complexos quase sempre produzem valores menores de $SQ_{Res}$.
 
