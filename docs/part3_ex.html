@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index</title>
+<title>21&nbsp; Exercícios e Atividades de Consolidação</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./prefacio.html" rel="next">
+<link href="./ap_listas.html" rel="next">
+<link href="./mrlm_transf.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -74,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -249,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Informações Legais e Declaração de Uso de Inteligência Artificial</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./part3_ex.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -278,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Informações Legais e Declaração de Uso de Inteligência Artificial</span></a>
   </div>
 </li>
@@ -447,7 +477,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link">
+  <a href="./part3_ex.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></span></a>
   </div>
 </li>
@@ -540,40 +570,472 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#informações-legais-e-declaração-de-uso-de-inteligência-artificial" id="toc-informações-legais-e-declaração-de-uso-de-inteligência-artificial" class="nav-link active" data-scroll-target="#informações-legais-e-declaração-de-uso-de-inteligência-artificial">Informações Legais e Declaração de Uso de Inteligência Artificial</a>
+  <li><a href="#exercícios-conceituais-e-teóricos" id="toc-exercícios-conceituais-e-teóricos" class="nav-link active" data-scroll-target="#exercícios-conceituais-e-teóricos"><span class="header-section-number">21.1</span> Exercícios conceituais e teóricos</a>
   <ul class="collapse">
-  <li><a href="#direitos-autorais-e-uso-da-obra" id="toc-direitos-autorais-e-uso-da-obra" class="nav-link" data-scroll-target="#direitos-autorais-e-uso-da-obra">Direitos Autorais e Uso da Obra</a></li>
-  <li><a href="#declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial" id="toc-declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial" class="nav-link" data-scroll-target="#declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial">Declaração sobre o Uso de Ferramentas de Inteligência Artificial</a></li>
+  <li><a href="#modelo-de-regressão-linear-múltipla" id="toc-modelo-de-regressão-linear-múltipla" class="nav-link" data-scroll-target="#modelo-de-regressão-linear-múltipla"><span class="header-section-number">21.1.1</span> Modelo de Regressão Linear Múltipla</a></li>
+  <li><a href="#inferência" id="toc-inferência" class="nav-link" data-scroll-target="#inferência"><span class="header-section-number">21.1.2</span> Inferência</a></li>
+  <li><a href="#variáveis-fictícias" id="toc-variáveis-fictícias" class="nav-link" data-scroll-target="#variáveis-fictícias"><span class="header-section-number">21.1.3</span> Variáveis fictícias</a></li>
+  <li><a href="#ancova" id="toc-ancova" class="nav-link" data-scroll-target="#ancova"><span class="header-section-number">21.1.4</span> ANCOVA</a></li>
+  <li><a href="#qualidade-de-ajuste" id="toc-qualidade-de-ajuste" class="nav-link" data-scroll-target="#qualidade-de-ajuste"><span class="header-section-number">21.1.5</span> Qualidade de ajuste</a></li>
+  <li><a href="#diagnóstico" id="toc-diagnóstico" class="nav-link" data-scroll-target="#diagnóstico"><span class="header-section-number">21.1.6</span> Diagnóstico</a></li>
+  <li><a href="#transformações-lineares" id="toc-transformações-lineares" class="nav-link" data-scroll-target="#transformações-lineares"><span class="header-section-number">21.1.7</span> Transformações lineares</a></li>
+  <li><a href="#integração-dos-conceitos" id="toc-integração-dos-conceitos" class="nav-link" data-scroll-target="#integração-dos-conceitos"><span class="header-section-number">21.1.8</span> Integração dos conceitos</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 
-
-
-
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/capa.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mrlm.html">Parte III — Modelo de Regressão Linear Múltipla (MRLM)</a></li><li class="breadcrumb-item"><a href="./part3_ex.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercícios e Atividades de Consolidação</span></h1>
 </div>
-<section id="informações-legais-e-declaração-de-uso-de-inteligência-artificial" class="level1 unnumbered">
-<h1 class="unnumbered">Informações Legais e Declaração de Uso de Inteligência Artificial</h1>
-<section id="direitos-autorais-e-uso-da-obra" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="direitos-autorais-e-uso-da-obra">Direitos Autorais e Uso da Obra</h2>
-<p>© 2026 — Os autores.</p>
-<p>Todos os direitos reservados. Esta obra é protegida pela legislação brasileira de direitos autorais (Lei nº 9.610/1998). É vedada a reprodução, distribuição, armazenamento ou transmissão total ou parcial deste livro, por qualquer meio ou processo, eletrônico ou mecânico, sem autorização expressa e por escrito dos autores, salvo nos casos permitidos pela legislação vigente para fins exclusivamente acadêmicos e não comerciais, com a devida citação da fonte.</p>
-<p>A utilização do material em ambientes de ensino é permitida desde que preservada a integridade do conteúdo, mencionada a autoria e respeitados os princípios de uso responsável da informação científica. A reprodução para fins comerciais, bem como a modificação substancial do conteúdo sem autorização, constitui violação de direitos autorais.</p>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="exercícios-conceituais-e-teóricos" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="exercícios-conceituais-e-teóricos"><span class="header-section-number">21.1</span> Exercícios conceituais e teóricos</h2>
+<section id="modelo-de-regressão-linear-múltipla" class="level3" data-number="21.1.1">
+<h3 data-number="21.1.1" class="anchored" data-anchor-id="modelo-de-regressão-linear-múltipla"><span class="header-section-number">21.1.1</span> Modelo de Regressão Linear Múltipla</h3>
+<ol type="1">
+<li>Considere o modelo</li>
+</ol>
+<p><span class="math display">\[
+\mathbf Y
+=
+\mathbf X\boldsymbol\beta
++
+\boldsymbol\varepsilon.
+\]</span></p>
+<p>Explique o significado de cada elemento da expressão anterior e discuta o papel da matriz de planejamento <span class="math inline">\(\mathbf X\)</span>.</p>
+<ol start="2" type="1">
+<li>Mostre que o estimador de mínimos quadrados ordinários pode ser escrito como</li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}
+=
+(\mathbf X^\top\mathbf X)^{-1}
+\mathbf X^\top\mathbf Y.
+\]</span></p>
+<p>Indique as condições necessárias para sua existência.</p>
+<ol start="3" type="1">
+<li>Mostre que</li>
+</ol>
+<p><span class="math display">\[
+E(\hat{\boldsymbol\beta})
+=
+\boldsymbol\beta.
+\]</span></p>
+<p>Interprete esse resultado.</p>
+<ol start="4" type="1">
+<li>Obtenha a matriz de variâncias e covariâncias de</li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}.
+\]</span></p>
+<p>Explique como a estrutura de <span class="math inline">\(\mathbf X\)</span> influencia a precisão das estimativas.</p>
+<ol start="5" type="1">
+<li>Supondo normalidade dos erros, determine a distribuição de</li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}.
+\]</span></p>
+<ol start="6" type="1">
+<li>Mostre que, sob normalidade dos erros,</li>
+</ol>
+<p><span class="math display">\[
+\frac{SQ_{Res}}{\sigma^2}
+=
+\frac{\hat{\boldsymbol\varepsilon}^{\top}\hat{\boldsymbol\varepsilon}}
+{\sigma^2}
+\]</span></p>
+<p>possui distribuição qui-quadrado. Determine seus graus de liberdade.</p>
+<ol start="7" type="1">
+<li>Sob normalidade dos erros, discuta a importância da independência entre</li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+SQ_{Res}.
+\]</span></p>
+<p>Como esse resultado contribui para a obtenção das distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span>?</p>
+<ol start="8" type="1">
+<li>Mostre que os valores ajustados podem ser escritos como</li>
+</ol>
+<p><span class="math display">\[
+\hat{\mathbf Y}
+=
+\mathbf H\mathbf Y,
+\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[
+\mathbf H
+=
+\mathbf X(\mathbf X^\top\mathbf X)^{-1}\mathbf X^\top.
+\]</span></p>
+<p>Interprete <span class="math inline">\(\mathbf H\)</span> como matriz de projeção.</p>
 </section>
-<section id="declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="declaração-sobre-o-uso-de-ferramentas-de-inteligência-artificial">Declaração sobre o Uso de Ferramentas de Inteligência Artificial</h2>
-<p>Durante a elaboração deste livro foram utilizadas ferramentas de Inteligência Artificial, em especial sistemas de apoio à escrita e organização textual, como recurso complementar no processo de produção acadêmica.</p>
-<p>O uso de IA teve caráter <strong>estritamente assistivo</strong>, não substituindo o desenvolvimento conceitual, a formulação matemática, a interpretação estatística nem as decisões pedagógicas da obra. Todo conteúdo foi cuidadosamente revisado, validado e adaptado pelos autores, que assumem integral responsabilidade científica e intelectual pelo texto final.</p>
-<p>Não foram delegadas à IA decisões metodológicas, inferenciais ou conclusões analíticas. A elaboração teórica, a seleção de exemplos, a validação matemática e a coerência didática resultam da experiência acadêmica e da atuação dos autores na área de Modelos de Regressão.</p>
-<p>Reafirmamos que o uso responsável de tecnologias emergentes deve sempre preservar o rigor científico, a integridade acadêmica e o protagonismo intelectual humano.</p>
+<section id="inferência" class="level3" data-number="21.1.2">
+<h3 data-number="21.1.2" class="anchored" data-anchor-id="inferência"><span class="header-section-number">21.1.2</span> Inferência</h3>
+<ol start="9" type="1">
+<li>Considere uma combinação linear</li>
+</ol>
+<p><span class="math display">\[
+L
+=
+\mathbf c^\top\boldsymbol\beta.
+\]</span></p>
+<p>Determine a distribuição de</p>
+<p><span class="math display">\[
+\mathbf c^\top\hat{\boldsymbol\beta}
+\]</span></p>
+<p>sob as hipóteses usuais do modelo.</p>
+<ol start="10" type="1">
+<li>Mostre que</li>
+</ol>
+<p><span class="math display">\[
+\frac{\mathbf c^\top\hat{\boldsymbol\beta}-\mathbf c^\top\boldsymbol\beta}
+{\sqrt{\widehat{\mathrm{Var}}(\mathbf c^\top\hat{\boldsymbol\beta})}}
+\]</span></p>
+<p>possui distribuição <span class="math inline">\(t\)</span> sob <span class="math inline">\(H_0\)</span>.</p>
+<ol start="11" type="1">
+<li>Considere a hipótese</li>
+</ol>
+<p><span class="math display">\[
+H_0:\beta_2=\beta_3=0.
+\]</span></p>
+<p>Escreva a hipótese na forma matricial</p>
+<p><span class="math display">\[
+H_0:\mathbf C\boldsymbol\beta=\mathbf d.
+\]</span></p>
+<ol start="12" type="1">
+<li>Considere o modelo</li>
+</ol>
+<p><span class="math display">\[
+Y
+=
+\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\varepsilon.
+\]</span></p>
+<p>Construa matrizes de contraste para testar:</p>
+<ol type="a">
+<li><p><span class="math inline">\(H_0:\beta_2=\beta_3\)</span>;</p></li>
+<li><p><span class="math inline">\(H_0:\beta_1=\beta_2=\beta_3\)</span>;</p></li>
+<li><p><span class="math inline">\(H_0:\beta_1+\beta_2+\beta_3=0\)</span>.</p></li>
+</ol>
+<ol start="13" type="1">
+<li>Apresente a estatística de teste <span class="math inline">\(F\)</span> geral para</li>
+</ol>
+<p><span class="math display">\[
+H_0:\mathbf C\boldsymbol\beta=\mathbf d
+\]</span></p>
+<p>e determine sua distribuição sob <span class="math inline">\(H_0\)</span>.</p>
+<p>Mostre que o teste global do modelo,</p>
+<p><span class="math display">\[
+H_0:
+\beta_1=\beta_2=\cdots=\beta_p=0,
+\]</span></p>
+<p>é um caso particular desse resultado. Escreva a estatística de teste em termos de</p>
+<p><span class="math display">\[
+SQ_R
+\quad\text{e}\quad
+SQ_{Res},
+\]</span></p>
+<p>determine sua distribuição sob <span class="math inline">\(H_0\)</span> e interprete seu significado prático.</p>
+<ol start="14" type="1">
+<li>Considere dois modelos aninhados, um modelo reduzido <span class="math inline">\(M_R\)</span> e um modelo completo <span class="math inline">\(M_C\)</span>.</li>
+</ol>
+<p>Mostre que a soma de quadrados associada à contribuição adicional das variáveis incluídas em <span class="math inline">\(M_C\)</span> pode ser escrita como</p>
+<p><span class="math display">\[
+SQ_{Parcial}
+=
+SQ_{Res}(M_R)
+-
+SQ_{Res}(M_C).
+\]</span></p>
+<p>Determine os graus de liberdade dessa soma de quadrados e apresente a estatística <span class="math inline">\(F\)</span> correspondente.</p>
+</section>
+<section id="variáveis-fictícias" class="level3" data-number="21.1.3">
+<h3 data-number="21.1.3" class="anchored" data-anchor-id="variáveis-fictícias"><span class="header-section-number">21.1.3</span> Variáveis fictícias</h3>
+<ol start="15" type="1">
+<li><p>Considere uma variável qualitativa com quatro categorias <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> e <span class="math inline">\(D\)</span>, sendo <span class="math inline">\(A\)</span> a categoria de referência. Explique o conceito de categoria de referência.</p></li>
+<li><p>O que é a armadilha das dummies? Relacione sua resposta com a invertibilidade de</p></li>
+</ol>
+<p><span class="math display">\[
+\mathbf X^\top\mathbf X.
+\]</span></p>
+<ol start="17" type="1">
+<li>Considere uma variável com quatro categorias.</li>
+</ol>
+<ol type="a">
+<li><p>Quantas dummies são necessárias na presença de intercepto?</p></li>
+<li><p>Escreva uma possível matriz de planejamento.</p></li>
+</ol>
+<ol start="18" type="1">
+<li>Considere um modelo com três grupos.</li>
+</ol>
+<p>Construa contrastes matriciais para testar:</p>
+<ol type="a">
+<li><p>igualdade entre os grupos 1 e 2;</p></li>
+<li><p>igualdade entre os grupos 2 e 3;</p></li>
+<li><p>testar</p></li>
+</ol>
+<p><span class="math display">\[
+H_0:\mu_1=\mu_2=\mu_3.
+\]</span></p>
+<ol start="4" type="a">
+<li>testar se os grupos 1 e 2 possuem média comum diferente do grupo 3.</li>
+</ol>
+</section>
+<section id="ancova" class="level3" data-number="21.1.4">
+<h3 data-number="21.1.4" class="anchored" data-anchor-id="ancova"><span class="header-section-number">21.1.4</span> ANCOVA</h3>
+<ol start="19" type="1">
+<li>Explique a diferença entre:</li>
+</ol>
+<ol type="a">
+<li><p>ANOVA;</p></li>
+<li><p>regressão linear;</p></li>
+<li><p>ANCOVA.</p></li>
+</ol>
+<ol start="20" type="1">
+<li>Considere o modelo ANCOVA com retas paralelas</li>
+</ol>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
+\]</span></p>
+<p>Interprete cada parâmetro.</p>
+<ol start="21" type="1">
+<li>Considere o modelo</li>
+</ol>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3X_iD_i
++
+\varepsilon_i.
+\]</span></p>
+<p>Explique o significado do parâmetro <span class="math inline">\(\beta_3\)</span>.</p>
+<ol start="22" type="1">
+<li><p>Escreva uma hipótese matricial para testar o paralelismo das retas.</p></li>
+<li><p>Considere dois modelos ANCOVA:</p></li>
+</ol>
+<p>Modelo reduzido:</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
+\]</span></p>
+<p>Modelo completo:</p>
+<p><span class="math display">\[
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3X_iD_i
++
+\varepsilon_i.
+\]</span></p>
+<p>Escreva a soma de quadrados associada ao teste de interação e determine seus graus de liberdade.</p>
+<ol start="24" type="1">
+<li><p>Mostre como obter a estatística <span class="math inline">\(F\)</span> para comparar os dois modelos anteriores.</p></li>
+<li><p>Considere os modelos</p></li>
+</ol>
+<p><span class="math display">\[
+M_0: Y_i=\beta_0+\beta_1X_i+\varepsilon_i
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+M_1: Y_i=\beta_0+\beta_1X_i+\beta_2D_i+\varepsilon_i.
+\]</span></p>
+<p>Escreva a soma de quadrados associada ao efeito ajustado do grupo e determine seus graus de liberdade. Explique como essa soma de quadrados está relacionada ao conceito de médias ajustadas.</p>
+<ol start="26" type="1">
+<li>Explique por que o teste do efeito do grupo em ANCOVA deve ser interpretado como um teste de diferenças entre médias ajustadas e não entre médias observadas.</li>
+</ol>
+</section>
+<section id="qualidade-de-ajuste" class="level3" data-number="21.1.5">
+<h3 data-number="21.1.5" class="anchored" data-anchor-id="qualidade-de-ajuste"><span class="header-section-number">21.1.5</span> Qualidade de ajuste</h3>
+<ol start="27" type="1">
+<li>Mostre que, em um modelo com intercepto,</li>
+</ol>
+<p><span class="math display">\[
+SQ_T
+=
+SQ_R
++
+SQ_{Res}.
+\]</span></p>
+<p>Explique o significado de cada componente.</p>
+<ol start="28" type="1">
+<li>Defina:</li>
+</ol>
+<ol type="a">
+<li><p><span class="math inline">\(R^2\)</span>;</p></li>
+<li><p><span class="math inline">\(R^2_{aj}\)</span>.</p></li>
+</ol>
+<p>Discuta as diferenças entre eles.</p>
+<ol start="29" type="1">
+<li><p>Explique por que o valor de <span class="math inline">\(R^2\)</span> nunca diminui quando novas covariáveis são adicionadas ao modelo.</p></li>
+<li><p>Compare os critérios:</p></li>
+</ol>
+<ol type="a">
+<li><p>AIC;</p></li>
+<li><p>BIC;</p></li>
+<li><p><span class="math inline">\(C_p\)</span> de Mallows;</p></li>
+<li><p><span class="math inline">\(R^2_{aj}\)</span>.</p></li>
+</ol>
+<p>Indique as vantagens e limitações de cada um.</p>
+<ol start="31" type="1">
+<li><p>Discuta a diferença entre capacidade explicativa e capacidade preditiva.</p></li>
+<li><p>Considere dois modelos aninhados.</p></li>
+</ol>
+<p>Explique a diferença entre comparar modelos utilizando:</p>
+<ol type="a">
+<li><p>teste <span class="math inline">\(F\)</span> parcial;</p></li>
+<li><p>AIC;</p></li>
+<li><p>BIC.</p></li>
+</ol>
+<p>Em quais situações essas abordagens podem conduzir a conclusões diferentes?</p>
+</section>
+<section id="diagnóstico" class="level3" data-number="21.1.6">
+<h3 data-number="21.1.6" class="anchored" data-anchor-id="diagnóstico"><span class="header-section-number">21.1.6</span> Diagnóstico</h3>
+<ol start="33" type="1">
+<li>Mostre que</li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\varepsilon} = (\mathbf I-\mathbf H)\mathbf Y.
+\]</span></p>
+<ol start="34" type="1">
+<li><p>Apresente e demonstre as principais propriedades algébricas da matriz chapéu <span class="math inline">\(\mathbf H\)</span>.</p></li>
+<li><p>Explique por que resíduos padronizados são mais adequados para detecção de observações atípicas do que resíduos ordinários.</p></li>
+<li><p>Sob normalidade dos erros, explique por que resíduos studentizados podem ser utilizados para identificar observações discrepantes. Qual distribuição é utilizada como referência?</p></li>
+<li><p>Explique o conceito de alavancagem e mostre como ela está relacionada aos elementos diagonais de <span class="math inline">\(\mathbf H\)</span>.</p></li>
+<li><p>Explique como a distância de Cook combina informação sobre resíduo e alavancagem. Por que uma observação com alto resíduo e baixa alavancagem pode ser menos influente do que uma observação com resíduo moderado e alta alavancagem?</p></li>
+<li><p>Diferencie:</p></li>
+</ol>
+<ol type="a">
+<li><p>observação atípica;</p></li>
+<li><p>observação de alta alavancagem;</p></li>
+<li><p>observação influente.</p></li>
+</ol>
+<ol start="40" type="1">
+<li>Explique a lógica dos testes:</li>
+</ol>
+<ol type="a">
+<li><p>Shapiro–Wilk;</p></li>
+<li><p>Breusch–Pagan;</p></li>
+<li><p>Durbin–Watson.</p></li>
+</ol>
+<p>Indique as hipóteses nula e alternativa de cada teste.</p>
+<ol start="41" type="1">
+<li><p>Explique por que testes formais não devem substituir completamente a inspeção gráfica dos resíduos.</p></li>
+<li><p>Explique como a multicolinearidade afeta:</p></li>
+</ol>
+<ol type="a">
+<li><p>os erros padrão;</p></li>
+<li><p>os testes de hipóteses;</p></li>
+<li><p>a interpretação dos coeficientes.</p></li>
+</ol>
+<ol start="43" type="1">
+<li>Explique o significado do Fator de Inflação da Variância (VIF) e sua relação com a multicolinearidade.</li>
+</ol>
+</section>
+<section id="transformações-lineares" class="level3" data-number="21.1.7">
+<h3 data-number="21.1.7" class="anchored" data-anchor-id="transformações-lineares"><span class="header-section-number">21.1.7</span> Transformações lineares</h3>
+<ol start="44" type="1">
+<li>Mostre que a transformação</li>
+</ol>
+<p><span class="math display">\[
+Z
+=
+\frac{X-\bar X}{s_X}
+\]</span></p>
+<p>produz uma variável com média amostral zero e variância amostral unitária.</p>
+<ol start="45" type="1">
+<li><p>Explique a interpretação de coeficientes padronizados.</p></li>
+<li><p>Em quais situações a padronização pode facilitar a comparação entre covariáveis?</p></li>
+<li><p>Considere a regressão ponderada</p></li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}_{WLS}
+=
+(\mathbf X^\top\mathbf W\mathbf X)^{-1}
+\mathbf X^\top\mathbf W\mathbf Y.
+\]</span></p>
+<p>Explique o papel da matriz <span class="math inline">\(\mathbf W\)</span>.</p>
+<ol start="48" type="1">
+<li><p>Mostre que o estimador de MQO é um caso particular do estimador WLS.</p></li>
+<li><p>Sob as hipóteses usuais, determine</p></li>
+</ol>
+<p><span class="math display">\[
+\mathrm{Var}
+\left(
+\hat{\boldsymbol\beta}_{WLS}
+\right).
+\]</span></p>
+<ol start="50" type="1">
+<li>Sob normalidade dos erros e pesos corretamente especificados, determine a distribuição de</li>
+</ol>
+<p><span class="math display">\[
+\hat{\boldsymbol\beta}_{WLS}.
+\]</span></p>
+<ol start="51" type="1">
+<li>Explique como os resultados da análise diagnóstica podem ser utilizados para motivar a adoção de um modelo ponderado.</li>
+</ol>
+</section>
+<section id="integração-dos-conceitos" class="level3" data-number="21.1.8">
+<h3 data-number="21.1.8" class="anchored" data-anchor-id="integração-dos-conceitos"><span class="header-section-number">21.1.8</span> Integração dos conceitos</h3>
+<ol start="52" type="1">
+<li><p>Explique como inferência, qualidade de ajuste e diagnóstico se complementam durante a construção de um modelo de regressão.</p></li>
+<li><p>Considere a afirmação:</p></li>
+</ol>
+<blockquote class="blockquote">
+<p>O modelo apresenta alto <span class="math inline">\(R^2\)</span>, todos os coeficientes são significativos e, portanto, o modelo é adequado.</p>
+</blockquote>
+<p>Discuta criticamente essa conclusão.</p>
+<ol start="54" type="1">
+<li><p>Descreva um fluxo completo de análise utilizando os conceitos estudados nesta parte do livro, desde a especificação do modelo até a avaliação final de sua adequação.</p></li>
+<li><p>Diversos modelos estatísticos podem ser interpretados como extensões do MRLM.</p></li>
+</ol>
+<p>Cite e discuta pelo menos três exemplos, indicando quais hipóteses ou componentes do modelo clássico foram modificados.</p>
 
 
 </section>
@@ -995,10 +1457,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./mrlm_transf.html" class="pagination-link" aria-label="Transformações Lineares em Modelos de Regressão">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Transformações Lineares em Modelos de Regressão</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./prefacio.html" class="pagination-link" aria-label="Prefácio">
-        <span class="nav-page-text">Prefácio</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ap_listas.html" class="pagination-link" aria-label="Lista de Siglas e Símbolos">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lista de Siglas e Símbolos</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

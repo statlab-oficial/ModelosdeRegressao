@@ -1,3 +1,480 @@
 # Exercícios e Atividades de Consolidação
 
-Em breve!!!
+## Exercícios conceituais e teóricos
+
+### Modelo de Regressão Linear Múltipla
+
+1. Considere o modelo
+
+$$
+\mathbf Y
+=
+\mathbf X\boldsymbol\beta
++
+\boldsymbol\varepsilon.
+$$
+
+Explique o significado de cada elemento da expressão anterior e discuta o papel da matriz de planejamento $\mathbf X$.
+
+2. Mostre que o estimador de mínimos quadrados ordinários pode ser escrito como
+
+$$
+\hat{\boldsymbol\beta}
+=
+(\mathbf X^\top\mathbf X)^{-1}
+\mathbf X^\top\mathbf Y.
+$$
+
+Indique as condições necessárias para sua existência.
+
+3. Mostre que
+
+$$
+E(\hat{\boldsymbol\beta})
+=
+\boldsymbol\beta.
+$$
+
+Interprete esse resultado.
+
+4. Obtenha a matriz de variâncias e covariâncias de
+
+$$
+\hat{\boldsymbol\beta}.
+$$
+
+Explique como a estrutura de $\mathbf X$ influencia a precisão das estimativas.
+
+5. Supondo normalidade dos erros, determine a distribuição de
+
+$$
+\hat{\boldsymbol\beta}.
+$$
+
+6. Mostre que, sob normalidade dos erros,
+
+$$
+\frac{SQ_{Res}}{\sigma^2}
+=
+\frac{\hat{\boldsymbol\varepsilon}^{\top}\hat{\boldsymbol\varepsilon}}
+{\sigma^2}
+$$
+
+possui distribuição qui-quadrado. Determine seus graus de liberdade.
+
+7. Sob normalidade dos erros, discuta a importância da independência entre
+
+$$
+\hat{\boldsymbol\beta}
+$$
+
+e
+
+$$
+SQ_{Res}.
+$$
+
+Como esse resultado contribui para a obtenção das distribuições $t$ e $F$?
+
+8. Mostre que os valores ajustados podem ser escritos como
+
+$$
+\hat{\mathbf Y}
+=
+\mathbf H\mathbf Y,
+$$
+
+em que
+
+$$
+\mathbf H
+=
+\mathbf X(\mathbf X^\top\mathbf X)^{-1}\mathbf X^\top.
+$$
+
+Interprete $\mathbf H$ como matriz de projeção.
+
+### Inferência
+
+9. Considere uma combinação linear
+
+$$
+L
+=
+\mathbf c^\top\boldsymbol\beta.
+$$
+
+Determine a distribuição de
+
+$$
+\mathbf c^\top\hat{\boldsymbol\beta}
+$$
+
+sob as hipóteses usuais do modelo.
+
+10. Mostre que
+
+$$
+\frac{\mathbf c^\top\hat{\boldsymbol\beta}-\mathbf c^\top\boldsymbol\beta}
+{\sqrt{\widehat{\mathrm{Var}}(\mathbf c^\top\hat{\boldsymbol\beta})}}
+$$
+
+possui distribuição $t$ sob $H_0$.
+
+11. Considere a hipótese
+
+$$
+H_0:\beta_2=\beta_3=0.
+$$
+
+Escreva a hipótese na forma matricial
+
+$$
+H_0:\mathbf C\boldsymbol\beta=\mathbf d.
+$$
+
+12. Considere o modelo
+
+$$
+Y
+=
+\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\varepsilon.
+$$
+
+Construa matrizes de contraste para testar:
+
+a. $H_0:\beta_2=\beta_3$;
+
+b. $H_0:\beta_1=\beta_2=\beta_3$;
+
+c. $H_0:\beta_1+\beta_2+\beta_3=0$.
+
+13. Apresente a estatística de teste $F$ geral para
+
+$$
+H_0:\mathbf C\boldsymbol\beta=\mathbf d
+$$
+
+e determine sua distribuição sob $H_0$.
+
+Mostre que o teste global do modelo,
+
+$$
+H_0:
+\beta_1=\beta_2=\cdots=\beta_p=0,
+$$
+
+é um caso particular desse resultado. Escreva a estatística de teste em termos de
+
+$$
+SQ_R
+\quad\text{e}\quad
+SQ_{Res},
+$$
+
+determine sua distribuição sob $H_0$ e interprete seu significado prático.
+
+14. Considere dois modelos aninhados, um modelo reduzido $M_R$ e um modelo completo $M_C$.
+
+Mostre que a soma de quadrados associada à contribuição adicional das variáveis incluídas em $M_C$ pode ser escrita como
+
+$$
+SQ_{Parcial}
+=
+SQ_{Res}(M_R)
+-
+SQ_{Res}(M_C).
+$$
+
+Determine os graus de liberdade dessa soma de quadrados e apresente a estatística $F$ correspondente.
+
+### Variáveis fictícias
+
+15. Considere uma variável qualitativa com quatro categorias $A$, $B$, $C$ e $D$, sendo $A$ a categoria de referência. Explique o conceito de categoria de referência.
+
+16. O que é a armadilha das dummies? Relacione sua resposta com a invertibilidade de
+
+$$
+\mathbf X^\top\mathbf X.
+$$
+
+17. Considere uma variável com quatro categorias.
+
+a. Quantas dummies são necessárias na presença de intercepto?
+
+b. Escreva uma possível matriz de planejamento.
+
+18. Considere um modelo com três grupos.
+
+Construa contrastes matriciais para testar:
+
+a. igualdade entre os grupos 1 e 2;
+
+b. igualdade entre os grupos 2 e 3;
+
+c. testar
+
+$$
+H_0:\mu_1=\mu_2=\mu_3.
+$$
+
+d. testar se os grupos 1 e 2 possuem média comum diferente do grupo 3.
+
+
+### ANCOVA
+
+19. Explique a diferença entre:
+
+a. ANOVA;
+
+b. regressão linear;
+
+c. ANCOVA.
+
+20. Considere o modelo ANCOVA com retas paralelas
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
+$$
+
+Interprete cada parâmetro.
+
+21. Considere o modelo
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3X_iD_i
++
+\varepsilon_i.
+$$
+
+Explique o significado do parâmetro $\beta_3$.
+
+22. Escreva uma hipótese matricial para testar o paralelismo das retas.
+
+23. Considere dois modelos ANCOVA:
+
+Modelo reduzido:
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\varepsilon_i.
+$$
+
+Modelo completo:
+
+$$
+Y_i
+=
+\beta_0
++
+\beta_1X_i
++
+\beta_2D_i
++
+\beta_3X_iD_i
++
+\varepsilon_i.
+$$
+
+Escreva a soma de quadrados associada ao teste de interação e determine seus graus de liberdade.
+
+24. Mostre como obter a estatística $F$ para comparar os dois modelos anteriores.
+
+25. Considere os modelos
+
+$$
+M_0: Y_i=\beta_0+\beta_1X_i+\varepsilon_i
+$$
+
+e
+
+$$
+M_1: Y_i=\beta_0+\beta_1X_i+\beta_2D_i+\varepsilon_i.
+$$
+
+Escreva a soma de quadrados associada ao efeito ajustado do grupo e determine seus graus de liberdade. Explique como essa soma de quadrados está relacionada ao conceito de médias ajustadas.
+
+26. Explique por que o teste do efeito do grupo em ANCOVA deve ser interpretado como um teste de diferenças entre médias ajustadas e não entre médias observadas.
+
+### Qualidade de ajuste
+
+27. Mostre que, em um modelo com intercepto,
+
+$$
+SQ_T
+=
+SQ_R
++
+SQ_{Res}.
+$$
+
+Explique o significado de cada componente.
+
+28. Defina:
+
+a. $R^2$;
+
+b. $R^2_{aj}$.
+
+Discuta as diferenças entre eles.
+
+29. Explique por que o valor de $R^2$ nunca diminui quando novas covariáveis são adicionadas ao modelo.
+
+30. Compare os critérios:
+
+a. AIC;
+
+b. BIC;
+
+c. $C_p$ de Mallows;
+
+d. $R^2_{aj}$.
+
+Indique as vantagens e limitações de cada um.
+
+31. Discuta a diferença entre capacidade explicativa e capacidade preditiva.
+
+32. Considere dois modelos aninhados.
+
+Explique a diferença entre comparar modelos utilizando:
+
+a. teste $F$ parcial;
+
+b. AIC;
+
+c. BIC.
+
+Em quais situações essas abordagens podem conduzir a conclusões diferentes?
+
+### Diagnóstico
+
+33. Mostre que
+
+$$
+\hat{\boldsymbol\varepsilon} = (\mathbf I-\mathbf H)\mathbf Y.
+$$
+
+34. Apresente e demonstre as principais propriedades algébricas da matriz chapéu $\mathbf H$.
+
+35. Explique por que resíduos padronizados são mais adequados para detecção de observações atípicas do que resíduos ordinários.
+
+36. Sob normalidade dos erros, explique por que resíduos studentizados podem ser utilizados para identificar observações discrepantes. Qual distribuição é utilizada como referência?
+
+37. Explique o conceito de alavancagem e mostre como ela está relacionada aos elementos diagonais de $\mathbf H$.
+
+38. Explique como a distância de Cook combina informação sobre resíduo e alavancagem. Por que uma observação com alto resíduo e baixa alavancagem pode ser menos influente do que uma observação com resíduo moderado e alta alavancagem?
+
+39. Diferencie:
+
+a. observação atípica;
+
+b. observação de alta alavancagem;
+
+c. observação influente.
+
+40. Explique a lógica dos testes:
+
+a. Shapiro–Wilk;
+
+b. Breusch–Pagan;
+
+c. Durbin–Watson.
+
+Indique as hipóteses nula e alternativa de cada teste.
+
+41. Explique por que testes formais não devem substituir completamente a inspeção gráfica dos resíduos.
+
+42. Explique como a multicolinearidade afeta:
+
+a. os erros padrão;
+
+b. os testes de hipóteses;
+
+c. a interpretação dos coeficientes.
+
+43. Explique o significado do Fator de Inflação da Variância (VIF) e sua relação com a multicolinearidade.
+
+### Transformações lineares
+
+44. Mostre que a transformação
+
+$$
+Z
+=
+\frac{X-\bar X}{s_X}
+$$
+
+produz uma variável com média amostral zero e variância amostral unitária.
+
+45. Explique a interpretação de coeficientes padronizados.
+
+46. Em quais situações a padronização pode facilitar a comparação entre covariáveis?
+
+47. Considere a regressão ponderada
+
+$$
+\hat{\boldsymbol\beta}_{WLS}
+=
+(\mathbf X^\top\mathbf W\mathbf X)^{-1}
+\mathbf X^\top\mathbf W\mathbf Y.
+$$
+
+Explique o papel da matriz $\mathbf W$.
+
+48. Mostre que o estimador de MQO é um caso particular do estimador WLS.
+
+49. Sob as hipóteses usuais, determine
+
+$$
+\mathrm{Var}
+\left(
+\hat{\boldsymbol\beta}_{WLS}
+\right).
+$$
+
+50. Sob normalidade dos erros e pesos corretamente especificados, determine a distribuição de
+
+$$
+\hat{\boldsymbol\beta}_{WLS}.
+$$
+
+51. Explique como os resultados da análise diagnóstica podem ser utilizados para motivar a adoção de um modelo ponderado.
+
+### Integração dos conceitos
+
+52. Explique como inferência, qualidade de ajuste e diagnóstico se complementam durante a construção de um modelo de regressão.
+
+53. Considere a afirmação:
+
+> O modelo apresenta alto $R^2$, todos os coeficientes são significativos e, portanto, o modelo é adequado.
+
+Discuta criticamente essa conclusão.
+
+54. Descreva um fluxo completo de análise utilizando os conceitos estudados nesta parte do livro, desde a especificação do modelo até a avaliação final de sua adequação.
+
+55. Diversos modelos estatísticos podem ser interpretados como extensões do MRLM.
+
+Cite e discuta pelo menos três exemplos, indicando quais hipóteses ou componentes do modelo clássico foram modificados.

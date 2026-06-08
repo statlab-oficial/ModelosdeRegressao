@@ -118,12 +118,13 @@ ggplot(dados,
     ),
     linewidth = 1
   ) +
-  annotate(
-    "text",
-    x = x0 + 0.25,
-    y = (y_hat + y_obs)/2,
-    label = expression(e[i])
-  ) +
+ annotate(
+  "text",
+  x = x0 + 0.25,
+  y = (y_hat + y_obs)/2,
+  label = "e[i]",
+  parse = TRUE
+) +
   theme_minimal(base_size = 13)
 ```
 
@@ -544,7 +545,7 @@ Sob a hipótese nula, espera-se que a dispersão dos resíduos não apresente as
 
 A aplicação do teste em R pode ser realizada por meio do pacote `lmtest`.
 
-A tabela a seguir apresenta o resultado do teste de Breusch–Pagan para o modelo que apresentou os residuos heterocedasticos na figura anterior. 
+A tabela a seguir apresenta o resultado do teste de Breusch–Pagan para o modelo que apresentou os residuos heterocedasticos na figura anterior.
 
 ```{r}
 #| label: tbl-breusch-pagan
@@ -589,7 +590,6 @@ Quando há evidências consistentes de heterocedasticidade, algumas alternativas
 A escolha da estratégia depende dos objetivos da análise e da natureza do problema investigado.
 
 ### Normalidade
-
 
 No modelo clássico de regressão, assume-se que
 
