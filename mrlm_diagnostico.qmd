@@ -8,11 +8,11 @@ Grande parte dos resultados discutidos até aqui depende de hipóteses sobre o c
 
 A análise de diagnóstico tem como objetivo investigar a adequação do modelo ajustado e identificar possíveis problemas que possam comprometer a interpretação dos resultados. Em particular, busca-se avaliar se:
 
-- a relação entre a resposta e as covariáveis foi adequadamente especificada;
-- a variância dos erros pode ser considerada aproximadamente constante;
-- a hipótese de normalidade é plausível para fins inferenciais;
-- existem observações atípicas ou influentes;
-- as conclusões obtidas dependem excessivamente de poucas observações.
+-   a relação entre a resposta e as covariáveis foi adequadamente especificada;
+-   a variância dos erros pode ser considerada aproximadamente constante;
+-   a hipótese de normalidade é plausível para fins inferenciais;
+-   existem observações atípicas ou influentes;
+-   as conclusões obtidas dependem excessivamente de poucas observações.
 
 É importante destacar que o diagnóstico não deve ser interpretado como um conjunto de testes destinados a "aprovar" ou "reprovar" um modelo. O objetivo é compreender como o modelo se comporta diante dos dados e identificar situações em que adaptações, transformações ou métodos alternativos possam ser necessários [@fox2019; @cook1982].
 
@@ -72,9 +72,9 @@ $$
 
 Seu sinal indica se o modelo subestimou ou superestimou a observação:
 
-- $e_i>0$: o valor observado ficou acima do valor ajustado;
-- $e_i<0$: o valor observado ficou abaixo do valor ajustado;
-- $e_i=0$: coincidência entre observação e ajuste.
+-   $e_i>0$: o valor observado ficou acima do valor ajustado;
+-   $e_i<0$: o valor observado ficou abaixo do valor ajustado;
+-   $e_i=0$: coincidência entre observação e ajuste.
 
 A representação gráfica do resíduo é mostrada na Figura abaixo.
 
@@ -166,9 +166,9 @@ $$
 
 em que:
 
-- $e_i$ é o resíduo ordinário;
-- $\hat\sigma$ é o erro padrão residual;
-- $h_{ii}$ é a alavancagem da observação.
+-   $e_i$ é o resíduo ordinário;
+-   $\hat\sigma$ é o erro padrão residual;
+-   $h_{ii}$ é a alavancagem da observação.
 
 Essa transformação produz resíduos em uma escala aproximadamente comparável entre diferentes observações.
 
@@ -295,10 +295,10 @@ A análise diagnóstica não deve ser interpretada como uma sequência de testes
 
 Em geral, a investigação concentra-se em quatro aspectos principais:
 
-- adequação da forma funcional do modelo;
-- constância da variância dos erros;
-- normalidade dos erros;
-- independência entre observações.
+-   adequação da forma funcional do modelo;
+-   constância da variância dos erros;
+-   normalidade dos erros;
+-   independência entre observações.
 
 Embora cada hipótese possa ser avaliada separadamente, os diagnósticos costumam ser interpretados de forma conjunta. Um mesmo padrão residual pode indicar mais de um problema simultaneamente.
 
@@ -408,10 +408,10 @@ A identificação de padrões sistemáticos nos resíduos não implica necessari
 
 Entre as alternativas mais comuns para lidar com esse problema estão:
 
-- inclusão de termos polinomiais;
-- transformações de variáveis;
-- inclusão de novas covariáveis;
-- utilização de modelos mais flexíveis.
+-   inclusão de termos polinomiais;
+-   transformações de variáveis;
+-   inclusão de novas covariáveis;
+-   utilização de modelos mais flexíveis.
 
 A decisão deve sempre considerar o contexto da aplicação e os objetivos da análise.
 
@@ -524,9 +524,9 @@ Nesse segundo caso, observa-se que a dispersão dos resíduos aumenta à medida 
 
 Embora a inspeção gráfica seja extremamente importante, ela pode ser complementada por testes formais.
 
-### Teste de Breusch–Pagan
+### Teste de Breusch--Pagan
 
-O teste de Breusch–Pagan investiga se a variância dos resíduos permanece constante ou se depende das covariáveis incluídas no modelo [@breusch1979].
+O teste de Breusch--Pagan investiga se a variância dos resíduos permanece constante ou se depende das covariáveis incluídas no modelo [@breusch1979].
 
 As hipóteses são
 
@@ -572,24 +572,23 @@ bptest(mod) |>
   knitr::kable()
 ```
 
-
 Valores-$p$ pequenos fornecem evidências de que a variância dos erros pode depender das covariáveis ou dos valores ajustados.
 
 Entretanto, assim como ocorre em outros procedimentos diagnósticos, a interpretação não deve depender exclusivamente do resultado do teste. Em amostras muito grandes, pequenas violações podem produzir rejeições da hipótese nula, mesmo quando seu impacto prático é reduzido.
 
 Por essa razão, recomenda-se interpretar conjuntamente:
 
-- o gráfico de resíduos;
-- o contexto da aplicação;
-- o resultado do teste formal.
+-   o gráfico de resíduos;
+-   o contexto da aplicação;
+-   o resultado do teste formal.
 
 Quando há evidências consistentes de heterocedasticidade, algumas alternativas incluem:
 
-- transformação da variável resposta;
-- transformação de covariáveis;
-- mínimos quadrados ponderados;
-- modelagem explícita da variância;
-- utilização de erros padrão robustos.
+-   transformação da variável resposta;
+-   transformação de covariáveis;
+-   mínimos quadrados ponderados;
+-   modelagem explícita da variância;
+-   utilização de erros padrão robustos.
 
 A escolha da estratégia depende dos objetivos da análise e da natureza do problema investigado.
 
@@ -684,9 +683,9 @@ Nesse caso, observa-se um afastamento sistemático da reta de referência, princ
 
 Embora o gráfico Q-Q seja uma ferramenta extremamente informativa, ele pode ser complementado por testes formais.
 
-### Teste de Shapiro–Wilk
+### Teste de Shapiro--Wilk
 
-O teste de Shapiro–Wilk é um dos procedimentos mais utilizados para avaliar a hipótese de normalidade [@shapiro1965].
+O teste de Shapiro--Wilk é um dos procedimentos mais utilizados para avaliar a hipótese de normalidade [@shapiro1965].
 
 As hipóteses são
 
@@ -736,18 +735,18 @@ Em amostras pequenas, o teste pode não detectar desvios relevantes da normalida
 
 Por essa razão, recomenda-se interpretar conjuntamente:
 
-- o gráfico Q-Q;
-- o contexto da aplicação;
-- o resultado do teste formal.
+-   o gráfico Q-Q;
+-   o contexto da aplicação;
+-   o resultado do teste formal.
 
 Em muitos problemas de regressão, desvios moderados da normalidade possuem impacto limitado sobre os resultados inferenciais. Situações envolvendo forte assimetria, caudas pesadas ou presença de observações extremas costumam merecer maior atenção.
 
 Quando a hipótese de normalidade parece inadequada, algumas alternativas incluem:
 
-- transformações da variável resposta;
-- utilização de modelos com distribuições alternativas;
-- métodos robustos;
-- procedimentos de reamostragem.
+-   transformações da variável resposta;
+-   utilização de modelos com distribuições alternativas;
+-   métodos robustos;
+-   procedimentos de reamostragem.
 
 A escolha depende da intensidade da violação observada e dos objetivos da análise.
 
@@ -863,9 +862,9 @@ Nesse caso, observa-se a formação de sequências relativamente longas de resí
 
 Embora a inspeção visual seja extremamente útil, ela pode ser complementada por testes formais.
 
-### Teste de Durbin–Watson
+### Teste de Durbin--Watson
 
-O teste de Durbin–Watson é uma das ferramentas mais utilizadas para investigar autocorrelação de primeira ordem nos resíduos [@durbin1951].
+O teste de Durbin--Watson é uma das ferramentas mais utilizadas para investigar autocorrelação de primeira ordem nos resíduos [@durbin1951].
 
 As hipóteses podem ser escritas como
 
@@ -901,9 +900,9 @@ Valores próximos de 2 sugerem ausência de autocorrelação. Na prática, o int
 
 Em termos gerais:
 
-- valores próximos de 2 indicam independência;
-- valores substancialmente menores que 2 sugerem autocorrelação positiva;
-- valores substancialmente maiores que 2 sugerem autocorrelação negativa.
+-   valores próximos de 2 indicam independência;
+-   valores substancialmente menores que 2 sugerem autocorrelação positiva;
+-   valores substancialmente maiores que 2 sugerem autocorrelação negativa.
 
 Em R, o teste pode ser realizado por meio do pacote `lmtest`.
 
@@ -936,10 +935,10 @@ Assim como nos demais diagnósticos, o resultado do teste deve ser interpretado 
 
 Quando há evidências de dependência entre observações, algumas alternativas incluem:
 
-- incorporar estruturas de correlação ao modelo;
-- utilizar modelos para séries temporais;
-- empregar modelos mistos ou longitudinais;
-- revisar o processo de amostragem e coleta de dados.
+-   incorporar estruturas de correlação ao modelo;
+-   utilizar modelos para séries temporais;
+-   empregar modelos mistos ou longitudinais;
+-   revisar o processo de amostragem e coleta de dados.
 
 ## Multicolinearidade
 
@@ -953,11 +952,11 @@ A presença de multicolinearidade não viola diretamente as hipóteses do modelo
 
 Entre as consequências mais comuns destacam-se:
 
-- aumento dos erros padrão;
-- ampliação dos intervalos de confiança;
-- redução do poder dos testes individuais;
-- instabilidade dos coeficientes estimados;
-- mudanças expressivas nas estimativas após pequenas alterações nos dados.
+-   aumento dos erros padrão;
+-   ampliação dos intervalos de confiança;
+-   redução do poder dos testes individuais;
+-   instabilidade dos coeficientes estimados;
+-   mudanças expressivas nas estimativas após pequenas alterações nos dados.
 
 Por essa razão, modelos com elevado $R^2$ podem apresentar coeficientes aparentemente não significativos quando existe forte multicolinearidade.
 
@@ -1041,12 +1040,12 @@ $$
 
 Embora não exista um limite universalmente aceito, frequentemente utilizam-se as seguintes referências:
 
-| VIF | Interpretação |
-|------|------|
+| VIF          | Interpretação                            |
+|--------------|------------------------------------------|
 | próximo de 1 | ausência de multicolinearidade relevante |
-| entre 1 e 5 | associação moderada |
-| acima de 5 | possível problema |
-| acima de 10 | forte evidência de multicolinearidade |
+| entre 1 e 5  | associação moderada                      |
+| acima de 5   | possível problema                        |
+| acima de 10  | forte evidência de multicolinearidade    |
 
 Em R, os VIFs podem ser obtidos por meio do pacote `car`.
 
@@ -1092,11 +1091,11 @@ Por essa razão, além da análise dos resíduos, é importante investigar a inf
 
 Uma observação pode ser considerada influente quando exerce efeito desproporcional sobre:
 
-- os coeficientes estimados;
-- os valores ajustados;
-- os testes de hipóteses;
-- os intervalos de confiança;
-- as previsões do modelo.
+-   os coeficientes estimados;
+-   os valores ajustados;
+-   os testes de hipóteses;
+-   os intervalos de confiança;
+-   as previsões do modelo.
 
 É importante distinguir observações influentes de observações atípicas.
 
@@ -1384,10 +1383,10 @@ Nenhuma medida diagnóstica deve ser utilizada isoladamente.
 
 Uma observação pode apresentar:
 
-- resíduo elevado e baixa alavancagem;
-- elevada alavancagem e pequeno resíduo;
-- grande distância de Cook;
-- forte influência apenas sobre determinados coeficientes.
+-   resíduo elevado e baixa alavancagem;
+-   elevada alavancagem e pequeno resíduo;
+-   grande distância de Cook;
+-   forte influência apenas sobre determinados coeficientes.
 
 Por essa razão, a análise conjunta costuma ser mais informativa do que a inspeção individual de cada indicador.
 
@@ -1444,10 +1443,10 @@ Entretanto, a identificação de uma observação influente não implica que ela
 
 Antes de qualquer decisão, recomenda-se investigar:
 
-- possíveis erros de digitação;
-- problemas de medição;
-- inconsistências no processo de coleta;
-- características particulares da unidade observada.
+-   possíveis erros de digitação;
+-   problemas de medição;
+-   inconsistências no processo de coleta;
+-   características particulares da unidade observada.
 
 Em muitas aplicações, observações influentes representam justamente casos de interesse científico e sua remoção pode levar à perda de informações relevantes [@cook1982; @fox2019].
 
@@ -1455,17 +1454,17 @@ Em muitas aplicações, observações influentes representam justamente casos de
 
 A Tabela X.X resume as principais ferramentas discutidas neste capítulo.
 
-| Objetivo | Ferramenta |
-|-----------|-----------|
-| Linearidade | Resíduos × Ajustados |
-| Homocedasticidade | Resíduos × Ajustados; Breusch–Pagan |
-| Normalidade | Q-Q Plot; Shapiro–Wilk |
-| Independência | Resíduos × Ordem; Durbin–Watson |
-| Multicolinearidade | VIF |
-| Influência global | Distância de Cook |
-| Influência nos coeficientes | DFBETAS |
-| Influência nas previsões | DFFITS |
-| Influência potencial | Alavancagem |
+| Objetivo                    | Ferramenta                           |
+|-----------------------------|--------------------------------------|
+| Linearidade                 | Resíduos × Ajustados                 |
+| Homocedasticidade           | Resíduos × Ajustados; Breusch--Pagan |
+| Normalidade                 | Q-Q Plot; Shapiro--Wilk              |
+| Independência               | Resíduos × Ordem; Durbin--Watson     |
+| Multicolinearidade          | VIF                                  |
+| Influência global           | Distância de Cook                    |
+| Influência nos coeficientes | DFBETAS                              |
+| Influência nas previsões    | DFFITS                               |
+| Influência potencial        | Alavancagem                          |
 
 Nenhuma dessas ferramentas deve ser interpretada isoladamente. O diagnóstico resulta da combinação de evidências gráficas, testes formais e conhecimento do contexto da aplicação.
 
@@ -1559,11 +1558,11 @@ ggplot(
 
 Nesse gráfico buscamos identificar:
 
-- padrões curvilíneos, que podem indicar inadequação da forma funcional;
-- mudanças sistemáticas na dispersão dos resíduos, que podem sugerir heterocedasticidade;
-- observações discrepantes.
+-   padrões curvilíneos, que podem indicar inadequação da forma funcional;
+-   mudanças sistemáticas na dispersão dos resíduos, que podem sugerir heterocedasticidade;
+-   observações discrepantes.
 
-A inspeção visual pode ser complementada pelo teste de Breusch–Pagan.
+A inspeção visual pode ser complementada pelo teste de Breusch--Pagan.
 
 ```{r}
 #| label: tbl-credit-bp
@@ -1610,7 +1609,7 @@ qqline(
 )
 ```
 
-Também podemos utilizar o teste de Shapiro–Wilk.
+Também podemos utilizar o teste de Shapiro--Wilk.
 
 ```{r}
 #| label: tbl-credit-shapiro
@@ -1637,7 +1636,7 @@ O objetivo não é exigir normalidade perfeita, mas verificar se existem desvios
 
 ### Independência
 
-Como a base `Credit` não corresponde a uma série temporal, a hipótese de independência costuma ser considerada plausível. Ainda assim, podemos ilustrar a aplicação do teste de Durbin–Watson.
+Como a base `Credit` não corresponde a uma série temporal, a hipótese de independência costuma ser considerada plausível. Ainda assim, podemos ilustrar a aplicação do teste de Durbin--Watson.
 
 ```{r}
 #| label: tbl-credit-dw
@@ -1836,15 +1835,15 @@ Uma análise diagnóstica completa raramente depende de uma única medida ou gr�
 
 Neste exemplo, avaliamos:
 
-- linearidade por meio dos resíduos versus ajustados;
-- homocedasticidade por inspeção gráfica e teste de Breusch–Pagan;
-- normalidade por gráfico Q-Q e teste de Shapiro–Wilk;
-- independência por meio do teste de Durbin–Watson;
-- multicolinearidade por meio dos VIFs;
-- influência global por meio da distância de Cook;
-- influência sobre coeficientes por meio dos DFBETAS;
-- influência sobre previsões por meio dos DFFITS;
-- influência potencial por meio da alavancagem e dos resíduos studentizados.
+-   linearidade por meio dos resíduos versus ajustados;
+-   homocedasticidade por inspeção gráfica e teste de Breusch--Pagan;
+-   normalidade por gráfico Q-Q e teste de Shapiro--Wilk;
+-   independência por meio do teste de Durbin--Watson;
+-   multicolinearidade por meio dos VIFs;
+-   influência global por meio da distância de Cook;
+-   influência sobre coeficientes por meio dos DFBETAS;
+-   influência sobre previsões por meio dos DFFITS;
+-   influência potencial por meio da alavancagem e dos resíduos studentizados.
 
 O objetivo não é decidir automaticamente se um modelo está correto ou incorreto. O diagnóstico busca identificar possíveis limitações, compreender a qualidade do ajuste e avaliar a robustez das conclusões obtidas.
 
