@@ -1,404 +1,161 @@
 # Exercícios e Atividades de Consolidação
 
-## Exercícios conceituais
+Os exercícios desta seção têm como objetivo consolidar os conceitos desenvolvidos na Parte I do livro. Em geral, não existe uma única resposta correta. Procure justificar suas respostas de forma clara, utilizando argumentos estatísticos, exemplos e interpretações dos conceitos apresentados ao longo dos capítulos.
 
-1.  Ao transformar um problema do mundo real em um modelo matemático ou estatístico, é necessário definir variáveis e relações formais.
+## Bloco 1 – Compreendendo a modelagem estatística
 
-    a)  O que significa "traduzir um problema real" em linguagem matemática?\
-    b)  Como a escolha das variáveis influencia o tipo de resposta que o modelo pode oferecer?\
-    c)  Dê um exemplo em que a escolha inadequada das variáveis leve a conclusões limitadas ou equivocadas.
+### Questão 1
 
-2.  Considere um problema de crescimento populacional ao longo do tempo.
+Um pesquisador afirma que "modelar é encontrar uma equação que descreve perfeitamente a realidade".
 
-    a)  Explique a diferença conceitual entre um modelo estático e um modelo dinâmico nesse contexto.\
-    b)  Por que a inclusão explícita do tempo altera a estrutura matemática do modelo?
+Discuta criticamente essa afirmação. Em sua resposta, explique o que significa construir um modelo estatístico, por que todo modelo envolve simplificações e quais fatores podem limitar sua capacidade de representar um fenômeno real.
 
-3.  Em muitos fenômenos reais, diferentes modelos podem ser propostos para descrever o mesmo problema.
+### Questão 2
 
-    a)  Quais critérios podem ser utilizados para escolher entre dois modelos concorrentes?\
-    b)  Explique como o critério da parcimônia atua nesse processo de escolha.\
-    c)  Por que modelos excessivamente complexos podem ser problemáticos, mesmo quando ajustam melhor os dados?
+Considere o problema de investigar o desempenho acadêmico de estudantes universitários.
 
-4.  Explique a afirmação: "um modelo não é a realidade; é uma aproximação útil".
+Proponha uma estratégia de modelagem indicando:
 
-    a)  O que significa equilíbrio entre realismo e simplicidade?\
-    b)  Por que todo modelo envolve escolhas e simplificações?\
-    c)  Dê um exemplo em que um modelo necessariamente ignora parte da complexidade do fenômeno.
+- uma possível variável resposta;
+- pelo menos três variáveis explicativas;
+- um fator que poderia influenciar o desempenho, mas que dificilmente seria observado ou mensurado;
+- o principal objetivo do modelo (compreensão, previsão ou apoio à decisão).
 
-5.  Considere as duas estruturas apresentadas no capítulo:
+Explique suas escolhas.
 
-    $$Y = 2X$$
+### Questão 3
 
-    e
+Considere que dois pesquisadores utilizam a mesma base de dados para estudar o consumo de energia elétrica em residências.
 
-    $$Y = 2X + \varepsilon.$$
+O primeiro ajusta um modelo utilizando apenas a área construída do imóvel como variável explicativa. O segundo incorpora, além da área, o número de moradores, a renda familiar, a quantidade de aparelhos elétricos e o uso de sistemas de climatização.
 
-    a)  Diferencie conceitualmente modelo determinístico e modelo estatístico.\
-    b)  Explique o papel de $\varepsilon$ na segunda equação.\
-    c)  Liste três possíveis fontes para $\varepsilon$.\
-    d)  Por que, no modelo estatístico, buscamos uma tendência média e não uma igualdade exata?
+Discuta as possíveis vantagens e limitações de cada abordagem. Em sua resposta, considere aspectos como simplicidade, interpretação dos resultados, disponibilidade de dados, objetivo da análise e possíveis ganhos ou perdas ao incluir um número maior de variáveis.
 
-6.  O capítulo afirma que a regressão modela a média condicional:
+## Bloco 2 – Modelos estatísticos e variabilidade
 
-    $$E(Y \mid X).$$
+### Questão 4
 
-    a)  Explique o que significa média condicional em linguagem intuitiva.\
-    b)  Mostre como a ideia de $E(Y \mid X)$ está relacionada à decomposição
+Considere os modelos
 
-    $$Y = \text{sinal} + \text{ruído}.$$
+$$
+Y = 2X
+$$
 
-    c)  É possível que um valor observado de $Y$ esteja distante de $E(Y \mid X)$ e, ainda assim, o modelo esteja adequado? Justifique.
+e
 
-7.  O texto apresenta duas formas gerais de modelagem:
+$$
+Y = 2X + \varepsilon.
+$$
 
-    $$Y = f(X) + \varepsilon$$
+Explique as diferenças entre essas duas representações e discuta por que a segunda costuma ser mais adequada para descrever fenômenos observados em aplicações reais.
 
-    e
+### Questão 5
 
-    $$Y = f(X)\cdot \varepsilon.$$
+Dois indivíduos apresentam exatamente o mesmo valor da variável explicativa, mas respostas diferentes para a variável de interesse.
 
-    a)  Diferencie erro aditivo e erro multiplicativo.\
-    b)  Em que tipo de fenômeno o erro tende a ser proporcional ao nível médio?
+Explique por que essa situação é compatível com um modelo de regressão e relacione sua resposta com os conceitos de média condicional e componente aleatória.
 
-8.  Sobre o ciclo da modelagem:
+### Questão 6
 
-    a)  Explique por que o processo de modelagem é iterativo.\
-    b)  Diferencie estimação, validação e análise de sensibilidade.\
-    c)  Dê um exemplo de situação em que, após ajustar o modelo, seria necessário voltar e modificar hipóteses ou forma funcional.
+Um estudante afirma:
 
-9.  O capítulo mostra que nem toda relação entre $X$ e $Y$ é linear.
+> "Se existe ruído nos dados, então o modelo está errado."
 
-    a)  Por que correlação linear elevada não garante especificação correta do modelo?\
-    b)  Dê um exemplo conceitual de relação não linear em que o coeficiente de correlação de Pearson possa ser próximo de zero.\
-    c)  O que significa dizer que há "erro sistemático ao longo de $X$"?
+Avalie essa afirmação e explique qual é o papel da variabilidade aleatória na modelagem estatística.
 
-10. Sobre associação e causalidade:
+## Bloco 3 – Interpretação de gráficos e pensamento estatístico
 
-```{=html}
-<!-- -->
-```
-a)  Explique a diferença entre associação estatística e causalidade.\
-b)  Liste duas razões pelas quais um coeficiente estimado pode ser estatisticamente significativo e ainda não representar um efeito causal.\
-c)  Que tipo de informação adicional (teórica ou experimental) seria necessária para sustentar uma interpretação causal?
+### Questão 7
 
-```{=html}
-<!-- -->
-```
-11. Sobre previsão e extrapolação:
+Retorne às figuras apresentadas no Capítulo 2 que ilustram diferentes padrões de relacionamento entre duas variáveis.
 
-```{=html}
-<!-- -->
-```
-a)  Diferencie interpolação e extrapolação.\
-b)  Por que extrapolar pode ser arriscado mesmo quando o ajuste parece bom no intervalo observado?\
-c)  Dê um exemplo aplicado em que extrapolação seria particularmente problemática.
+Escolha dois dos cenários apresentados e discuta:
 
-```{=html}
-<!-- -->
-```
-12. Escolha um dos contextos aplicados citados no capítulo.
+- se um modelo linear parece adequado;
+- quais evidências visuais sustentam essa conclusão;
+- quais dificuldades poderiam surgir caso um modelo linear fosse utilizado.
 
-```{=html}
-<!-- -->
-```
-a)  Defina uma variável resposta $Y$ e pelo menos três variáveis explicativas $X_1, X_2, X_3$.\
-b)  Indique se o modelo conceitual seria mais plausivelmente aditivo ou multiplicativo e justifique.\
-c)  Liste duas suposições que você consideraria críticas para interpretar os resultados.
-
-```{=html}
-<!-- -->
-```
-13. Reflita sobre a seguinte estrutura geral:
-
-$$Y = f(X) + \varepsilon.$$
-
-a)  O que significa assumir que $E(\varepsilon \mid X) = 0$?\
-b)  Por que essa hipótese é central para interpretar os coeficientes como efeitos médios condicionais?\
-c)  O que pode acontecer se essa hipótese não for satisfeita?
-
-As respostas devem ser redigidas de forma argumentativa, conectando explicitamente os conceitos apresentados no capítulo.
-
-## Atividades computacionais
-
-Esta atividade tem como objetivo consolidar os conceitos estudados ao longo do capítulo 2 por meio de **simulações controladas**. A proposta é investigar, de forma sistemática, como diferentes estruturas funcionais (linear, quadrática, exponencial e potência) se comportam sob ruído e como o ajuste por mínimos quadrados responde a essas situações.
-
-Em todos os exercícios:
-
--   Gere os dados conforme indicado no código.
--   Produza os gráficos solicitados.
--   Ajuste os modelos especificados.
--   Responda às questões de forma **argumentativa**, conectando os resultados aos conceitos de sinal, ruído, forma funcional e especificação do modelo.
-
-**Objetivo:** simular dados sob diferentes modelos, visualizar dispersões, calcular correlações e ajustar modelos via **MQO** (OLS), comparando a **curva verdadeira** que gerou os dados com o **ajuste estimado**.
-
-1.  Preparação do Ambiente
-
-```{r}
-#| label: 2.CHUNK_01
-#| echo: true
-#| warning: false
-#| message: false
-
-# Preparação do ambiente (simples e reprodutível)
-set.seed(0)
-```
-
-2.  Simular dados lineares simples
-
-```{r}
-#| label: 2.CHUNK_02
-#| echo: true
-#| warning: false
-#| message: false
-
-# 2) Simular dados lineares simples
-n <- 30
-x <- seq(0, 10, length.out = n)
-beta0 <- 2
-beta1 <- 3
-sigma <- 5
-
-sinal <- beta0 + beta1*x
-y <- sinal + rnorm(n, mean = 0, sd = sigma)
-
-# Visualização: pontos + reta verdadeira
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Linear: sinal + ruído")
-lines(x, sinal, col = "red", lwd = 2)
-legend("topleft", legend = c("dados", "reta verdadeira"),
-       pch = c(19, NA), lty = c(NA, 1), col = c("black", "red"), bty = "n")
-
-# Correlação
-cor_xy <- cor(x, y)
-cor_xy
-```
-
-3.  Ajustar reta por MQO
-
-```{r}
-#| label: 2.CHUNK_03
-#| echo: true
-#| warning: false
-#| message: false
-
-# 3) Ajustar reta por MQO (OLS)
-mod_lin <- lm(y ~ x)
-
-# Resumo do ajuste
-summary(mod_lin)
-
-# Visualização: dados + reta verdadeira + reta ajustada
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Linear: reta verdadeira vs MQO")
-lines(x, sinal, col = "red", lwd = 2)
-lines(x, fitted(mod_lin), col = "darkgreen", lwd = 2, lty = 2)
-
-legend("topleft",
-       legend = c("dados", "reta verdadeira", "ajuste MQO"),
-       pch = c(19, NA, NA),
-       lty = c(NA, 1, 2),
-       col = c("black", "red", "darkgreen"),
-       bty = "n")
-```
-
-Perguntas -- linear a) A correlação está próxima de 1? Por quê?\
-b) O coeficiente estimado da inclinação $\beta_1$ ficou próximo do valor verdadeiro?\
-c) Experimente:\
-- Aumente o ruído para `rnorm(30, mean = 0, sd = 10)` e veja o que acontece com a correlação e o ajuste.\
-- Reduza o ruído para `rnorm(30, mean = 0, sd = 2)` e observe a diferença.
-
-4.  Modelo polinomial quadrático
-
-```{r}
-#| label: 2.CHUNK_04
-#| echo: true
-#| warning: false
-#| message: false
-
-# 4) Modelo polinomial quadrático (sinal não linear)
-n <- 30
-x <- seq(-3, 3, length.out = n)
-sigma <- 2
-
-sinal <- 1 + 2*x - 0.05*x^2
-y <- sinal + rnorm(n, mean = 0, sd = sigma)
-
-# Visualização: pontos + curva verdadeira
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Quadrático: sinal + ruído")
-lines(x, sinal, col = "red", lwd = 2)
-legend("topleft", legend = c("dados", "curva verdadeira"),
-       pch = c(19, NA), lty = c(NA, 1), col = c("black", "red"), bty = "n")
-
-# Correlação (linear) pode enganar em relação não linear
-cor(x, y)
-```
-
-Perguntas -- Quadrático a) A correlação de Pearson reflete bem a relação entre `x` e `y` neste caso? é linear?\
-b) Aumente o coeficiente do termo quadrático: troque `-0.05` por `-0.5`. E agora?\
-c) Altere o sinal do termo quadrático: use `+0.5`. Como fica a concavidade da curva?\
-d) Aumente o ruído (ex.: `sigma <- 4`). O que acontece com a correlação e a visualização da curva?
-
-5.  Modelo Exponencial
-
-```{r}
-#| label: 2.CHUNK_05
-#| echo: true
-#| warning: false
-#| message: false
-
-# 5) Modelo exponencial com ruído multiplicativo
-n <- 30
-x <- seq(0, 3, length.out = n)
-
-a <- 2
-b <- 0.2
-sigma_log <- 0.2  # ruído no log (multiplicativo em Y)
-
-sinal <- a * exp(b*x)
-y <- sinal * exp(rnorm(n, mean = 0, sd = sigma_log))
-
-# Visualização
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Exponencial: sinal + ruído multiplicativo")
-lines(x, sinal, col = "red", lwd = 2)
-legend("topleft", legend = c("dados", "curva verdadeira"),
-       pch = c(19, NA), lty = c(NA, 1), col = c("black", "red"), bty = "n")
-
-# Correlação
-cor(x, y)
-```
-
-Perguntas -- Exponencial a) A curva gerada com $b = 0.2$ parece linear? A correlação confirma isso?\
-b) Aumente o parâmetro de crescimento para $b = 0.8$. A curva agora se afasta de uma reta?\
-c) Aumente ainda mais para $b = 1.5$. Como fica a forma da curva e a correlação de Pearson?\
-d) Reduza o ruído (`0.2 → 0.05`). O que muda na dispersão e na clareza da forma exponencial?
-
-6.  Modelo Potência
-
-```{r}
-#| label: 2.CHUNK_06
-#| echo: true
-#| warning: false
-#| message: false
-
-# 6) Modelo potência com ruído multiplicativo
-n <- 30
-x <- seq(0.5, 3, length.out = n)
-
-alpha <- 1.5
-expoente <- 1.1
-sigma_log <- 0.1
-
-sinal <- alpha * (x^expoente)
-y <- sinal * exp(rnorm(n, mean = 0, sd = sigma_log))
-
-# Visualização
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Potência: sinal + ruído multiplicativo")
-lines(x, sinal, col = "red", lwd = 2)
-legend("topleft", legend = c("dados", "curva verdadeira"),
-       pch = c(19, NA), lty = c(NA, 1), col = c("black", "red"), bty = "n")
-
-# Correlação
-cor(x, y)
-```
-
-Perguntas -- Potência a) Com expoente $1.1$, a curva parece linear? A correlação confirma isso?\
-b) Aumente o expoente para $2.5$. A curva agora se distancia de uma reta?\
-c) Teste com um expoente ainda maior, por exemplo $3.5$. O que muda na curvatura e na dispersão dos pontos?\
-d) Dobre o ruído (`0.1 → 0.2`). O que acontece com a clareza da curva e com a correlação de Pearson?
-
-7.  Exponencial --- linear vs. polinomial
-
-```{r}
-#| label: 2.CHUNK_07
-#| echo: true
-#| warning: false
-#| message: false
-
-# 7) Exponencial — comparar ajuste linear vs polinomial (grau 2)
-n <- 30
-x <- seq(0, 3, length.out = n)
-
-a <- 2.0
-b <- 0.2        # depois teste 0.8 e 1.5
-sigma_log <- 0.1
-
-sinal <- a * exp(b*x)
-y <- sinal * exp(rnorm(n, mean = 0, sd = sigma_log))
-
-# Ajustes
-mod_lin <- lm(y ~ x)
-mod_poly <- lm(y ~ x + I(x^2))
-
-# Comparação visual
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Exponencial: linear vs polinomial (2)")
-lines(x, sinal, col = "red", lwd = 2)
-lines(x, fitted(mod_lin), lwd = 2, lty = 2)
-lines(x, fitted(mod_poly), lwd = 2, lty = 3)
-
-legend("topleft",
-       legend = c("dados", "verdade", "linear", "polinomial (2)"),
-       pch = c(19, NA, NA, NA),
-       lty = c(NA, 1, 2, 3),
-       col = c("black", "red", "black", "black"),
-       bty = "n")
-
-# R² (comparação rápida)
-c(R2_linear = summary(mod_lin)$r.squared,
-  R2_polinomial2 = summary(mod_poly)$r.squared)
-```
-
-Perguntas --- Exponencial (começando quase reta) a) Com **b = 0.2**, os ajustes **linear** e **polinomial (2)** parecem semelhantes? O R² confirma? b) Aumente **b** para **0.8** e depois **1.5**. Como mudam o gráfico e os R²? Qual ajuste passa a representar melhor a curva? c) Reduza o ruído para `sigma_log <- 0.05`. Fica mais fácil perceber a diferença entre o linear e o polinomial quando **b** é maior?
-
-8.  Potência --- linear vs. polinomial
-
-```{r}
-#| label: 2.CHUNK_08
-#| echo: true
-#| warning: false
-#| message: false
-
-# 8) Potência — comparar ajuste linear vs polinomial (grau 2)
-n <- 30
-x <- seq(0.5, 3, length.out = n)
-
-alpha <- 1.5
-expoente <- 1.1   # depois teste 2.5 e 3.5
-sigma_log <- 0.1
-
-sinal <- alpha * (x^expoente)
-y <- sinal * exp(rnorm(n, mean = 0, sd = sigma_log))
-
-# Ajustes
-mod_lin <- lm(y ~ x)
-mod_poly <- lm(y ~ x + I(x^2))
-
-# Comparação visual
-plot(x, y, pch = 19, xlab = "X", ylab = "Y",
-     main = "Potência: linear vs polinomial (2)")
-lines(x, sinal, col = "red", lwd = 2)
-lines(x, fitted(mod_lin), lwd = 2, lty = 2)
-lines(x, fitted(mod_poly), lwd = 2, lty = 3)
-
-legend("topleft",
-       legend = c("dados", "verdade", "linear", "polinomial (2)"),
-       pch = c(19, NA, NA, NA),
-       lty = c(NA, 1, 2, 3),
-       col = c("black", "red", "black", "black"),
-       bty = "n")
-
-# R² (comparação rápida)
-c(R2_linear = summary(mod_lin)$r.squared,
-  R2_polinomial2 = summary(mod_poly)$r.squared)
-```
-
-Perguntas --- Potência (começando quase reta)
-
-a)  Com **expoente = 1.1**, os ajustes **linear** e **polinomial (2)** parecem semelhantes? O R² confirma?
-
-b)  Aumente o **expoente** para **2.5** e depois **3.5**. Como mudam o gráfico e os R²? Qual ajuste passa a representar melhor a curva?
-
-c)  Dobre o ruído para `sigma_log <- 0.2`. Fica mais difícil perceber a diferença entre o linear e o polinomial quando o expoente é maior?
+### Questão 8
+
+Ao analisar um diagrama de dispersão antes do ajuste de um modelo de regressão, quais características você considera importante observar?
+
+Comente aspectos como tendência geral, direção da associação, possíveis curvaturas, dispersão dos pontos, observações atípicas e presença de agrupamentos.
+
+### Questão 9
+
+Um pesquisador ajusta um modelo linear a um conjunto de dados cuja relação entre as variáveis é claramente não linear.
+
+Explique por que essa decisão pode levar a interpretações inadequadas, mesmo que o modelo aparente fornecer um ajuste razoável em parte dos dados.
+
+## Bloco 4 – Interpretação e limitações dos modelos
+
+### Questão 10
+
+Em uma determinada cidade, observa-se que incêndios de maior prejuízo costumam contar com maior número de bombeiros no local.
+
+Um jornal publica a manchete:
+
+> "Mais bombeiros provocam maiores prejuízos."
+
+Explique por que essa interpretação é inadequada e discuta a diferença entre associação estatística e causalidade.
+
+### Questão 11
+
+Explique a diferença entre um estudo observacional e um estudo experimental.
+
+Em seguida, apresente um exemplo de cada tipo de estudo que poderia utilizar um modelo de regressão e discuta como essa distinção influencia a interpretação dos resultados, especialmente quando o objetivo é investigar possíveis relações de causa e efeito.
+
+### Questão 12
+
+Suponha que um modelo tenha sido ajustado utilizando apenas observações para valores de $X$ entre 10 e 50.
+
+Um pesquisador pretende utilizá-lo para prever a resposta correspondente a $X=200$.
+
+Discuta por que essa previsão deve ser interpretada com cautela e explique a diferença entre interpolação e extrapolação.
+
+
+## Bloco 5 – Integrando conceitos
+
+### Questão 13
+
+Considere os seguintes problemas:
+
+- estimar a renda anual de trabalhadores de uma empresa;
+- estudar o número diário de atendimentos em um pronto-socorro;
+- analisar se um estudante foi aprovado ou reprovado em uma disciplina;
+- investigar o tempo até a ocorrência de uma falha em um equipamento.
+
+Explique por que esses problemas podem exigir modelos de regressão diferentes. Em sua resposta, discuta como a natureza da variável resposta influencia a escolha do modelo estatístico e por que o Modelo de Regressão Linear Simples deve ser entendido como um caso particular dentro de uma família mais ampla de modelos de regressão.
+
+### Questão 14
+
+Ao longo deste capítulo, foi destacado que a regressão constitui uma família de modelos estatísticos e não apenas uma única técnica.
+
+Explique por que diferentes problemas podem exigir modelos distintos. Em sua resposta, discuta como a natureza da variável resposta e as características dos dados podem influenciar a escolha do modelo mais adequado, justificando por que o Modelo de Regressão Linear Simples deve ser entendido como um caso particular dentro de um conjunto mais amplo de métodos de regressão.
+
+### Questão 15
+
+Elabore uma proposta de estudo utilizando um modelo de regressão para investigar um problema de sua área de interesse ou de um tema de relevância social, científica ou econômica.
+
+Em sua resposta, apresente e justifique:
+
+- o problema ou fenômeno que se deseja estudar;
+- a principal pergunta que se pretende responder;
+- a variável resposta;
+- pelo menos três possíveis variáveis explicativas;
+- se os dados seriam provenientes de um estudo observacional ou experimental, justificando sua resposta;
+- o principal objetivo da modelagem (compreensão, previsão ou apoio à decisão);
+- possíveis fatores não observados que poderiam influenciar a variável resposta;
+- limitações esperadas do modelo proposto.
+
+Por fim, explique por que o modelo elaborado deve ser entendido como uma representação simplificada do fenômeno estudado e não como uma descrição exata da realidade.
+
+### Questão 16
+
+Escreva um texto curto respondendo à seguinte pergunta:
+
+> O que significa pensar como um modelador estatístico?
+
+Em sua resposta, procure integrar os principais conceitos discutidos nesta parte do livro, incluindo a formulação do problema de interesse, a definição de objetivos claros para a análise, a escolha das variáveis, o papel das simplificações adotadas, a interpretação da média condicional, a presença de variabilidade inerente aos dados, a influência do contexto em que as informações foram produzidas e as limitações dos modelos estatísticos.
+
+Sempre que considerar pertinente, utilize exemplos para ilustrar seus argumentos.

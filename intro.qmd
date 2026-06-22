@@ -1,10 +1,11 @@
 # Introdução e Panorama dos Modelos de Regressão
 
-Este livro é dedicado aos estudos de **Modelos de Regressão**, desde a formulação clássica até extensões modernas. O material apoia as disciplinas Modelos de Regressão I (CC0290) e Modelagem Estatística (CC0452), ambas com implementação no software R. Ao longo do semestre, o estudante terá contato tanto com a fundamentação matemática e estatística quanto com aplicações práticas em diferentes áreas, utilizando ferramentas computacionais para explorar dados reais.
+Este livro apresenta os modelos de regressão como instrumentos para compreender relações entre variáveis, explicar fenômenos, realizar previsões e apoiar tomadas de decisão baseadas em dados. Ao longo dos capítulos, a regressão é tratada como parte de um processo de modelagem estatística que envolve a formulação do problema, a especificação do modelo, a estimação dos parâmetros, a avaliação das hipóteses adotadas e a interpretação dos resultados. A abordagem combina fundamentos matemáticos e estatísticos com aplicações em diferentes áreas e implementação computacional no software R.
 
-O curso está estruturado de forma progressiva: parte-se da regressão linear simples, como porta de entrada ao raciocínio de modelagem, avança-se para a regressão linear múltipla, inclusão de variáveis categóricas e técnicas de seleção de variáveis e análise de diagnóstico. Tópicos adicionais como modelos lineares generalizados (MLGs), extensões não lineares e métodos de regularização também serão apresentados.
+O conteúdo é desenvolvido de forma progressiva. Inicialmente, é apresentado o modelo de regressão linear simples, que permite introduzir os principais conceitos de modelagem estatística. Em seguida, são estudados modelos com múltiplas variáveis explicativas, variáveis categóricas, técnicas de diagnóstico, seleção de modelos e outros temas que ampliam o campo de aplicação da regressão. Ao final, são discutidas extensões como modelos lineares generalizados, modelos não lineares e métodos de regularização.
 
-Mais do que aprender procedimentos técnicos, o objetivo é desenvolver a capacidade de interpretar resultados, avaliar a adequação dos modelos e comunicar conclusões de forma clara. A ênfase está tanto na teoria quanto na prática, de modo que o estudante seja capaz de aplicar a modelagem estatística em contextos multidisciplinares.
+O objetivo é desenvolver a capacidade de interpretar resultados, avaliar a adequação dos modelos, comunicar conclusões de forma clara e aplicar a modelagem estatística em diferentes contextos. Para isso, os capítulos integram fundamentos teóricos, métodos estatísticos e atividades computacionais no software R.
+
 
 ## A centralidade da regressão
 
@@ -14,37 +15,37 @@ A análise de regressão ocupa posição central na Estatística e, em especial,
 
 Essa afirmação reflete o fato de que praticamente toda modelagem econométrica, seja para estimar elasticidades, avaliar políticas públicas, medir impactos ou testar teorias, passa, de alguma forma, por um modelo de regressão.
 
-Mas essa centralidade não é exclusiva da economia. Na saúde, a regressão mede risco e associações; na engenharia, modela desempenho; nas ciências ambientais, estima impactos; nas ciências sociais, investiga relações estruturais; na ciência de dados, permanece como ferramenta interpretável diante de modelos mais complexos.
+Além de suas aplicações em diferentes áreas, a regressão fornece um arcabouço comum para diversos métodos estatísticos. Comparações entre médias, análise de variância, análise de covariância e modelos com múltiplas variáveis podem ser formulados dentro de uma mesma estrutura de modelagem, diferindo principalmente na forma de representar as variáveis explicativas e interpretar os parâmetros.
 
-A regressão tornou-se, portanto, uma linguagem universal para responder a uma pergunta fundamental:
+Em muitos problemas, o interesse está em compreender como mudanças em uma ou mais variáveis estão associadas às mudanças observadas em outra variável. Essa ideia pode ser resumida pela seguinte pergunta:
 
 > Como varia uma quantidade quando outra varia?
 
-Essa pergunta é simples. A resposta exige matemática, probabilidade, inferência e interpretação.
+Embora a pergunta seja simples, sua resposta envolve a construção de modelos estatísticos, a estimação de parâmetros, a avaliação da variabilidade dos dados e a interpretação dos resultados obtidos.
+
 
 ## Objetivos do livro
 
 -   Contextualizar historicamente os modelos de regressão;\
 -   Compreender a lógica da modelagem estatística: componente sistemático, componente aleatório e relação entre estes;\
--   Apresentar e discutir os principais modelos abordados na disciplina;\
--   Conectar a teoria com aplicações em economia, saúde, engenharia, ciências sociais e ambientais;\
+-   Apresentar os principais modelos de regressão e suas aplicações;\
+-   Relacionar os conceitos teóricos com aplicações em economia, saúde, engenharia, ciências sociais e ambientais;\
 -   Discutir potenciais e limitações de cada abordagem, reconhecendo as hipóteses subjacentes;\
--   Desenvolver a capacidade de usar ferramentas computacionais para ajuste, diagnóstico e interpretação de modelos.
+-   Utilizar ferramentas computacionais para ajuste, diagnóstico, comparação e interpretação de modelos.
 
-Este material é concebido como uma jornada pela família dos modelos de regressão. Partimos de um problema simples, como relacionar uma variável resposta a uma variável explicativa, e avançamos gradualmente até modelos capazes de lidar com múltiplos fatores, variáveis categóricas, dados de contagem, proporções e situações em que as hipóteses clássicas do modelo deixam de ser válidas.
+Os capítulos foram organizados de forma progressiva. Inicialmente, é estudada a regressão linear simples e, em seguida, são introduzidos modelos com múltiplas variáveis explicativas, variáveis categóricas e outras extensões. Ao longo do livro também são discutidos modelos para dados de contagem, proporções e situações em que as hipóteses do modelo linear clássico não são adequadas.
 
-A ideia central é que, ao final do semestre, o estudante seja capaz de compreender não apenas **como ajustar** um modelo, mas também **quando e por que** usá-lo, avaliando sua adequação e reconhecendo seus limites.
+Ao final do estudo, espera-se que o leitor seja capaz de formular problemas de regressão, ajustar modelos, interpretar seus resultados, avaliar sua adequação e reconhecer suas limitações.
 
 ## Breve História da Regressão
 
-A regressão, como hoje a entendemos, não surgiu como uma teoria pronta nem como um capítulo isolado da Estatística. Ela é resultado de um processo histórico longo, no qual problemas práticos de mensuração, questões científicas sobre relações entre variáveis e desenvolvimentos matemáticos em teoria dos erros foram progressivamente convergindo. Sua consolidação exigiu mais de um século de elaboração conceitual e técnica.
+A regressão, como hoje a entendemos, resulta de um processo histórico no qual problemas práticos de mensuração, estudos sobre relações entre variáveis e desenvolvimentos em teoria dos erros convergiram para a construção de uma estrutura comum de modelagem estatística. Sua consolidação ocorreu ao longo de mais de um século.
 
-Embora o termo “regressão” tenha sido introduzido apenas na segunda metade do século XIX, os fundamentos matemáticos que tornariam possível sua formalização remontam ao início do século XIX. A regressão nasce da interseção de três necessidades intelectuais: **(i)** resumir relações empíricas entre grandezas observáveis, **(ii)** estabelecer critérios objetivos para ajustar modelos a dados imperfeitos e **(iii)** desenvolver uma estrutura probabilística que permitisse quantificar a incerteza associada a esses ajustes.
+Embora o termo "regressão" tenha sido introduzido apenas na segunda metade do século XIX, os fundamentos matemáticos que tornariam possível sua formalização remontam ao início do século XIX. O desenvolvimento da regressão pode ser compreendido a partir da convergência de três necessidades: **(i)** resumir relações empíricas entre grandezas observáveis, **(ii)** estabelecer critérios objetivos para ajustar modelos a dados imperfeitos e **(iii)** desenvolver uma estrutura probabilística que permitisse quantificar a incerteza associada a esses ajustes.
 
-Essa história começa antes da biologia e antes da hereditariedade. Ela começa na astronomia e na geodésia.
+Essa história não começa na biologia nem nos estudos sobre hereditariedade. Seus primeiros desenvolvimentos ocorreram na astronomia e na geodésia.
 
-
-### Antes do nome “regressão”: o ajuste por mínimos quadrados (1805–1809)
+### Antes do nome "regressão": o ajuste por mínimos quadrados (1805--1809)
 
 No final do século XVIII e início do século XIX, astrônomos enfrentavam um problema técnico crucial: diferentes observações de um mesmo fenômeno, por exemplo, a posição de um planeta, produziam valores ligeiramente discrepantes. A questão não era apenas calcular uma média, mas determinar qual conjunto de parâmetros melhor explicava um sistema de observações inconsistentes.
 
@@ -52,23 +53,25 @@ Em 1805, Adrien-Marie Legendre publica formalmente o método dos mínimos quadra
 
 Em 1809, Carl Friedrich Gauss publica *Theoria motus corporum coelestium*, no qual também utiliza o método e afirma empregá-lo desde 1795 [@gauss1809]. Gauss relaciona o método à teoria dos erros e mostra que, sob hipóteses específicas de distribuição Normal para os erros, o estimador de mínimos quadrados coincide com o estimador de máxima verossimilhança. A reconstrução histórica desse desenvolvimento e da controvérsia de prioridade entre Legendre e Gauss é analisada detalhadamente em @plackett1972, @stigler1981 e @stigler1986.
 
-O debate sobre prioridade é parte constitutiva da história da Estatística. Mais importante do que a controvérsia é o fato de que, nesse período, o ajuste por mínimos quadrados passa a ser entendido como princípio sistemático para extrair estrutura de dados imperfeitos.
+O debate sobre prioridade faz parte da história da Estatística. Mais importante do que a controvérsia é o fato de que, nesse período, o ajuste por mínimos quadrados passa a ser entendido como princípio sistemático para extrair estrutura de dados imperfeitos.
 
 Esse desenvolvimento foi decisivo. Quando, décadas depois, cientistas começaram a investigar relações entre características observáveis, como estatura, peso, rendimento agrícola ou desempenho fisiológico, já existia um método matemático capaz de ajustar uma linha média a um conjunto de pontos. O que ainda faltava era interpretar essa linha como descrição de uma relação entre variáveis.
 
+A ideia de utilizar um modelo para representar a tendência média de uma variável em função de outra ainda estava em formação. Esse passo seria dado nas décadas seguintes com os estudos sobre hereditariedade conduzidos por Francis Galton.
+
 É nesse ponto que a história muda de domínio: da mecânica celeste para a variabilidade biológica e social.
 
-### Francis Galton (1822–1911): regressão à mediocridade como padrão empírico (1886)
+### Francis Galton (1822--1911): regressão à mediocridade como padrão empírico (1886)
 
 ![Francis Galton](images/galton.jpg){width="35%"}
 
 Em 1886, Francis Galton publica dois trabalhos fundamentais sobre estatura e semelhança familiar [@galton1886a; @galton1886b]. Ao comparar alturas de pais e filhos, identifica um padrão estatístico sistemático: descendentes de pais muito altos tendem, em média, a apresentar estaturas menos extremas; descendentes de pais muito baixos tendem, igualmente em média, a aproximar-se da média populacional.
 
-Galton denominou esse fenômeno *regression toward mediocrity*. O termo “mediocridade” referia-se à média estatística da população. O que estava sendo descrito era uma propriedade da associação imperfeita entre variáveis: quando a correlação é menor que um, valores extremos tendem a ser seguidos por valores menos extremos.
+Galton denominou esse fenômeno *regression toward mediocrity*, expressão posteriormente abreviada para o termo "regressão", hoje utilizado em Estatística. O termo "mediocridade" referia-se à média estatística da população. O que estava sendo descrito era uma propriedade da associação imperfeita entre variáveis: quando a correlação é menor que um, valores extremos tendem a ser seguidos por valores menos extremos.
 
 Galton utilizou representações gráficas e procedimentos geométricos para estimar a tendência média. Não formulou, contudo, um procedimento geral de estimação com propriedades probabilísticas explicitadas nem apresentou uma teoria formal da regressão linear no sentido moderno. A formalização matemática rigorosa viria na geração seguinte.
 
-### Karl Pearson (1857–1936): formalização matemática da regressão
+### Karl Pearson (1857--1936): formalização matemática da regressão
 
 ![Karl Pearson](images/pearson.jpg){width="35%"}
 
@@ -78,7 +81,9 @@ Em 1903, Pearson e Alice Lee ampliam essa abordagem no estudo das leis de heran�
 
 Em 1901, juntamente com W. F. R. Weldon e com apoio de Galton, funda a revista *Biometrika*, central na institucionalização da Estatística como disciplina científica.
 
-### Udny Yule (1871–1951): regressão múltipla e ampliação do escopo aplicado
+A partir desse momento, regressão e correlação passam a constituir ferramentas centrais para o estudo quantitativo das relações entre variáveis.
+
+### Udny Yule (1871--1951): regressão múltipla e ampliação do escopo aplicado
 
 ![Udny Yule](images/yule.jpg){width="35%"}
 
@@ -86,8 +91,7 @@ Udny Yule contribuiu decisivamente para a sistematização da regressão múltip
 
 A regressão deixa de ser instrumento predominantemente biométrico e passa a integrar um conjunto mais amplo de métodos quantitativos aplicáveis a diversas áreas empíricas.
 
-
-### Ronald A. Fisher (1890–1962): integração com inferência e planejamento experimental
+### Ronald A. Fisher (1890--1962): integração com inferência e planejamento experimental
 
 ![Ronald Fisher](images/fisher.jpg){width="35%"}
 
@@ -95,7 +99,7 @@ Ronald A. Fisher não cria a regressão linear, mas redefine seu estatuto cient�
 
 A decomposição da variabilidade já estava implícita na teoria dos mínimos quadrados. O mérito de Fisher foi sistematizar essa decomposição no contexto da análise de variância e integrá-la a um sistema coerente de inferência. A regressão passa a ser entendida como modelo probabilístico com hipóteses explícitas sobre estrutura de erro e distribuição.
 
-### Jerzy Neyman (1894–1981) e Egon S. Pearson (1895–1980): estrutura formal da decisão estatística
+### Jerzy Neyman (1894--1981) e Egon S. Pearson (1895--1980): estrutura formal da decisão estatística
 
 ![Jerzy Neyman & Egon Pearson](images/neyman_pearson.jpg){width="55%"}
 
@@ -103,14 +107,15 @@ Em 1933, Neyman e Egon Pearson estabelecem a teoria formal dos testes de hipóte
 
 A partir desse arcabouço, estimativas em modelos lineares passam a ser acompanhadas por testes com propriedades explicitamente definidas. Posteriormente, Neyman introduz a formulação moderna de intervalos de confiança [@neyman1937], completando a estrutura inferencial que passa a integrar naturalmente a análise de regressão.
 
-
-### John W. Tukey (1915–2000): análise exploratória e diagnóstico
+### John W. Tukey (1915--2000): análise exploratória e diagnóstico
 
 ![John Tukey](images/tukey.jpg){width="40%"}
 
 Técnicas de inspeção de resíduos já eram conhecidas, mas John Tukey sistematiza a análise exploratória como etapa metodológica autônoma. Em *Exploratory Data Analysis* (1977) [@tukey1977], defende a distinção entre análise exploratória e confirmatória.
 
 No contexto da regressão, isso implica examinar resíduos, identificar não linearidades, heterocedasticidade e pontos influentes como parte integrante da modelagem. O diagnóstico deixa de ser etapa auxiliar e passa a constituir componente essencial do processo estatístico.
+
+Essa perspectiva permanece atual e será adotada ao longo deste livro, no qual o diagnóstico é tratado como parte integrante da construção e avaliação dos modelos.
 
 ### Nelder, Wedderburn, McCullagh: generalização estrutural da regressão
 
@@ -120,45 +125,60 @@ Em 1972, Nelder e Wedderburn introduzem os Modelos Lineares Generalizados, ampli
 
 A estrutura central permanece a modelagem da média condicional, mas o arcabouço probabilístico torna-se mais geral.
 
+Apesar dessas extensões, muitos dos princípios discutidos nos capítulos iniciais, como especificação do modelo, interpretação dos parâmetros e avaliação do ajuste, continuam presentes.
+
 ### Regularização e expansão computacional
 
 Em 1970, Hoerl e Kennard propõem a ridge regression como solução para problemas de colinearidade e instabilidade numérica em sistemas não ortogonais [@hoerlkennard1970]. O objetivo original não era a alta dimensionalidade no sentido contemporâneo, mas a redução da variância do estimador sob multicolinearidade.
 
 Em 1996, Tibshirani introduz o LASSO [@tibshirani1996], incorporando penalização $\ell_1$ e seleção automática de variáveis, ampliando o alcance da regressão para cenários com grande número de preditores.
 
+Atualmente, técnicas de penalização fazem parte do conjunto de ferramentas utilizadas em problemas de modelagem e predição envolvendo grande número de variáveis explicativas.
+
 ### Contexto histórico e responsabilidade
 
-Parte do desenvolvimento inicial da biometria esteve associada a ideias eugenistas. Galton cunhou o termo “eugenia” em 1883. Pearson e Fisher expressaram posições alinhadas a esse movimento em determinados momentos históricos.
+Parte do desenvolvimento inicial da biometria esteve associada a ideias eugenistas. Galton cunhou o termo "eugenia" em 1883. Pearson e Fisher expressaram posições alinhadas a esse movimento em determinados momentos históricos.
 
-O reconhecimento desse contexto é necessário para compreender o ambiente intelectual no qual a Estatística se institucionalizou. O método estatístico, entretanto, não é intrinsecamente vinculado a tais agendas. Sua aplicação exige responsabilidade ética e consciência histórica.
+O reconhecimento desse contexto contribui para compreender o ambiente intelectual no qual parte desses trabalhos foi desenvolvida. O método estatístico, entretanto, não é intrinsecamente vinculado a tais agendas. Sua aplicação exige responsabilidade ética e consciência histórica.
 
 ## Consolidação como pilar da Estatística moderna
 
-A regressão consolidou-se por sucessivas ampliações conceituais:
+Ao longo de sua evolução, a regressão deixou de ser um procedimento voltado ao ajuste de observações sujeitas a erro e passou a constituir uma estrutura geral de modelagem estatística. Nesse processo, incorporou a interpretação de relações médias entre variáveis, o desenvolvimento de modelos com múltiplos preditores, métodos de inferência, técnicas de diagnóstico, extensões para diferentes distribuições de probabilidade e procedimentos modernos de regularização e seleção de modelos.
 
-1. Ajuste sistemático sob erro observacional;  
-2. Identificação empírica da relação média condicional;  
-3. Formalização matemática e desenvolvimento da regressão múltipla;  
-4. Inserção no arcabouço inferencial;  
-5. Consolidação do diagnóstico e da análise exploratória;  
-6. Generalização probabilística;  
-7. Regularização e expansão computacional.
-
-Apesar das transformações metodológicas profundas, permanece a mesma questão fundamental:
-
-> Qual é a estrutura da relação média entre uma variável resposta e seus preditores, e como quantificar a incerteza associada a essa descrição?
+Apesar da diversidade de abordagens atualmente disponíveis, a ideia central permanece a mesma: compreender como uma variável resposta se relaciona com uma ou mais variáveis explicativas e quantificar a incerteza associada a essa relação. Essa perspectiva unifica grande parte dos métodos estudados em Estatística Aplicada e fundamenta o uso da regressão em diferentes áreas do conhecimento.
 
 ## Panorama dos Modelos de Regressão
 
-Tendo em mente os objetivos, estruturas e suposições discutidos anteriormente, é possível visualizar o **panorama dos modelos de regressão** que compõem esta disciplina. A ideia é seguir uma trajetória progressiva: partir de modelos simples e intuitivos, que permitem enxergar diretamente a relação entre duas variáveis, e avançar gradualmente para estruturas mais sofisticadas, capazes de lidar com múltiplos fatores, respostas não normais e bases de dados complexas.
+Os capítulos deste livro apresentam os modelos de regressão de forma progressiva. Inicialmente são estudados os conceitos fundamentais da regressão linear e, em seguida, são introduzidas extensões que ampliam sua capacidade de representar problemas encontrados em diferentes contextos.
 
-O percurso do curso está organizado em quatro blocos principais:
+De forma geral, os conteúdos podem ser organizados em quatro grupos principais:
 
-1.  **Fundamentos** --- regressão linear simples (MRLS), que introduz a lógica de média condicional, estimação por mínimos quadrados e análise de resíduos.\
-2.  **Modelos com múltiplos fatores** --- regressão linear múltipla (MRLM), inclusão de variáveis categóricas e interpretação de efeitos parciais.\
-3.  **Validação e escolha de modelos** --- métodos de diagnóstico, análise de resíduos, critérios de seleção de variáveis e regularização.\
-4.  **Extensões** --- modelos lineares generalizados (GLMs), regressão polinomial, modelos não lineares e métodos modernos de regularização (Ridge e LASSO), fundamentais na era dos grandes volumes de dados.
+1. **Fundamentos:** regressão linear simples, média condicional, estimação por mínimos quadrados, inferência e análise inicial dos resíduos.
 
-Em cada etapa, o modelo será apresentado de forma integrada: sua **fundamentação teórica**, as **suposições** que o tornam válido, exemplos de **interpretação prática** e **aplicações reais** em áreas como economia, saúde, engenharia, ciências ambientais e ciência de dados.
+2. **Modelagem linear:** regressão linear múltipla, inclusão de variáveis categóricas, interações e interpretação dos parâmetros.
 
-Assim, o panorama da disciplina funciona como um **mapa de navegação**: consolidamos primeiro os alicerces da regressão, depois exploramos aplicações mais complexas e, por fim, avançamos até modelos modernos que dialogam diretamente com os desafios atuais da análise de dados.
+3. **Avaliação dos modelos:** verificação de pressupostos, análise de resíduos, comparação entre modelos, diagnóstico e seleção de variáveis.
+
+4. **Extensões:** modelos lineares generalizados, regressão polinomial, modelos não lineares e métodos de regularização, como Ridge e LASSO.
+
+Essa organização permite desenvolver os conceitos de forma gradual. Os modelos apresentados nos capítulos iniciais fornecem a base para compreender técnicas mais gerais e aplicações mais complexas, preservando a mesma lógica de formulação, ajuste, avaliação e interpretação.
+
+Embora os modelos estudados ao longo do livro possuam características próprias, todos compartilham uma estrutura comum de trabalho. Em cada situação, é necessário definir o problema de interesse, identificar as variáveis relevantes, especificar um modelo adequado, estimar seus parâmetros, avaliar sua adequação aos dados e interpretar os resultados no contexto da aplicação. Essa sequência constitui o processo de modelagem estatística que orienta toda a obra.
+
+## Preparando-se para estudar modelos de regressão
+
+Os modelos de regressão integram conceitos provenientes de diferentes áreas da Estatística e da Matemática. Embora este livro apresente esses conceitos de forma gradual, alguns conhecimentos prévios facilitam a compreensão dos capítulos seguintes.
+
+Entre os tópicos mais importantes estão:
+
+- interpretação de tabelas e gráficos;
+- álgebra elementar e manipulação de equações;
+- noções de funções e suas representações gráficas;
+- estatística descritiva;
+- conceitos básicos de probabilidade;
+- distribuição Normal e variáveis aleatórias;
+- fundamentos de inferência estatística.
+
+Leitores que não dominem completamente esses assuntos não precisam interromper a leitura. Sempre que necessário, recomenda-se consultar os apêndices deste livro, que apresentam revisões de diversos conceitos matemáticos e estatísticos utilizados ao longo do texto.
+
+Mais importante do que memorizar fórmulas é desenvolver a capacidade de interpretar dados, compreender o contexto do problema e raciocinar sobre as hipóteses adotadas em cada modelo. Essa postura constitui a base para o estudo da regressão e da modelagem estatística em geral.

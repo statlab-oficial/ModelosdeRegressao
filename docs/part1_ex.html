@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.23">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,9 +39,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-2641b481724464e61c86985d8c912b6f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -605,8 +570,37 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#exercícios-conceituais" id="toc-exercícios-conceituais" class="nav-link active" data-scroll-target="#exercícios-conceituais"><span class="header-section-number">3.1</span> Exercícios conceituais</a></li>
-  <li><a href="#atividades-computacionais" id="toc-atividades-computacionais" class="nav-link" data-scroll-target="#atividades-computacionais"><span class="header-section-number">3.2</span> Atividades computacionais</a></li>
+  <li><a href="#bloco-1-compreendendo-a-modelagem-estatística" id="toc-bloco-1-compreendendo-a-modelagem-estatística" class="nav-link active" data-scroll-target="#bloco-1-compreendendo-a-modelagem-estatística"><span class="header-section-number">3.1</span> Bloco 1 – Compreendendo a modelagem estatística</a>
+  <ul class="collapse">
+  <li><a href="#questão-1" id="toc-questão-1" class="nav-link" data-scroll-target="#questão-1"><span class="header-section-number">3.1.1</span> Questão 1</a></li>
+  <li><a href="#questão-2" id="toc-questão-2" class="nav-link" data-scroll-target="#questão-2"><span class="header-section-number">3.1.2</span> Questão 2</a></li>
+  <li><a href="#questão-3" id="toc-questão-3" class="nav-link" data-scroll-target="#questão-3"><span class="header-section-number">3.1.3</span> Questão 3</a></li>
+  </ul></li>
+  <li><a href="#bloco-2-modelos-estatísticos-e-variabilidade" id="toc-bloco-2-modelos-estatísticos-e-variabilidade" class="nav-link" data-scroll-target="#bloco-2-modelos-estatísticos-e-variabilidade"><span class="header-section-number">3.2</span> Bloco 2 – Modelos estatísticos e variabilidade</a>
+  <ul class="collapse">
+  <li><a href="#questão-4" id="toc-questão-4" class="nav-link" data-scroll-target="#questão-4"><span class="header-section-number">3.2.1</span> Questão 4</a></li>
+  <li><a href="#questão-5" id="toc-questão-5" class="nav-link" data-scroll-target="#questão-5"><span class="header-section-number">3.2.2</span> Questão 5</a></li>
+  <li><a href="#questão-6" id="toc-questão-6" class="nav-link" data-scroll-target="#questão-6"><span class="header-section-number">3.2.3</span> Questão 6</a></li>
+  </ul></li>
+  <li><a href="#bloco-3-interpretação-de-gráficos-e-pensamento-estatístico" id="toc-bloco-3-interpretação-de-gráficos-e-pensamento-estatístico" class="nav-link" data-scroll-target="#bloco-3-interpretação-de-gráficos-e-pensamento-estatístico"><span class="header-section-number">3.3</span> Bloco 3 – Interpretação de gráficos e pensamento estatístico</a>
+  <ul class="collapse">
+  <li><a href="#questão-7" id="toc-questão-7" class="nav-link" data-scroll-target="#questão-7"><span class="header-section-number">3.3.1</span> Questão 7</a></li>
+  <li><a href="#questão-8" id="toc-questão-8" class="nav-link" data-scroll-target="#questão-8"><span class="header-section-number">3.3.2</span> Questão 8</a></li>
+  <li><a href="#questão-9" id="toc-questão-9" class="nav-link" data-scroll-target="#questão-9"><span class="header-section-number">3.3.3</span> Questão 9</a></li>
+  </ul></li>
+  <li><a href="#bloco-4-interpretação-e-limitações-dos-modelos" id="toc-bloco-4-interpretação-e-limitações-dos-modelos" class="nav-link" data-scroll-target="#bloco-4-interpretação-e-limitações-dos-modelos"><span class="header-section-number">3.4</span> Bloco 4 – Interpretação e limitações dos modelos</a>
+  <ul class="collapse">
+  <li><a href="#questão-10" id="toc-questão-10" class="nav-link" data-scroll-target="#questão-10"><span class="header-section-number">3.4.1</span> Questão 10</a></li>
+  <li><a href="#questão-11" id="toc-questão-11" class="nav-link" data-scroll-target="#questão-11"><span class="header-section-number">3.4.2</span> Questão 11</a></li>
+  <li><a href="#questão-12" id="toc-questão-12" class="nav-link" data-scroll-target="#questão-12"><span class="header-section-number">3.4.3</span> Questão 12</a></li>
+  </ul></li>
+  <li><a href="#bloco-5-integrando-conceitos" id="toc-bloco-5-integrando-conceitos" class="nav-link" data-scroll-target="#bloco-5-integrando-conceitos"><span class="header-section-number">3.5</span> Bloco 5 – Integrando conceitos</a>
+  <ul class="collapse">
+  <li><a href="#questão-13" id="toc-questão-13" class="nav-link" data-scroll-target="#questão-13"><span class="header-section-number">3.5.1</span> Questão 13</a></li>
+  <li><a href="#questão-14" id="toc-questão-14" class="nav-link" data-scroll-target="#questão-14"><span class="header-section-number">3.5.2</span> Questão 14</a></li>
+  <li><a href="#questão-15" id="toc-questão-15" class="nav-link" data-scroll-target="#questão-15"><span class="header-section-number">3.5.3</span> Questão 15</a></li>
+  <li><a href="#questão-16" id="toc-questão-16" class="nav-link" data-scroll-target="#questão-16"><span class="header-section-number">3.5.4</span> Questão 16</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -633,456 +627,152 @@ window.Quarto = {
 </header>
 
 
-<section id="exercícios-conceituais" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="exercícios-conceituais"><span class="header-section-number">3.1</span> Exercícios conceituais</h2>
-<ol type="1">
-<li><p>Ao transformar um problema do mundo real em um modelo matemático ou estatístico, é necessário definir variáveis e relações formais.</p>
-<ol type="a">
-<li>O que significa “traduzir um problema real” em linguagem matemática?<br>
-</li>
-<li>Como a escolha das variáveis influencia o tipo de resposta que o modelo pode oferecer?<br>
-</li>
-<li>Dê um exemplo em que a escolha inadequada das variáveis leve a conclusões limitadas ou equivocadas.</li>
-</ol></li>
-<li><p>Considere um problema de crescimento populacional ao longo do tempo.</p>
-<ol type="a">
-<li>Explique a diferença conceitual entre um modelo estático e um modelo dinâmico nesse contexto.<br>
-</li>
-<li>Por que a inclusão explícita do tempo altera a estrutura matemática do modelo?</li>
-</ol></li>
-<li><p>Em muitos fenômenos reais, diferentes modelos podem ser propostos para descrever o mesmo problema.</p>
-<ol type="a">
-<li>Quais critérios podem ser utilizados para escolher entre dois modelos concorrentes?<br>
-</li>
-<li>Explique como o critério da parcimônia atua nesse processo de escolha.<br>
-</li>
-<li>Por que modelos excessivamente complexos podem ser problemáticos, mesmo quando ajustam melhor os dados?</li>
-</ol></li>
-<li><p>Explique a afirmação: “um modelo não é a realidade; é uma aproximação útil”.</p>
-<ol type="a">
-<li>O que significa equilíbrio entre realismo e simplicidade?<br>
-</li>
-<li>Por que todo modelo envolve escolhas e simplificações?<br>
-</li>
-<li>Dê um exemplo em que um modelo necessariamente ignora parte da complexidade do fenômeno.</li>
-</ol></li>
-<li><p>Considere as duas estruturas apresentadas no capítulo:</p>
-<p><span class="math display">\[Y = 2X\]</span></p>
-<p>e</p>
-<p><span class="math display">\[Y = 2X + \varepsilon.\]</span></p>
-<ol type="a">
-<li>Diferencie conceitualmente modelo determinístico e modelo estatístico.<br>
-</li>
-<li>Explique o papel de <span class="math inline">\(\varepsilon\)</span> na segunda equação.<br>
-</li>
-<li>Liste três possíveis fontes para <span class="math inline">\(\varepsilon\)</span>.<br>
-</li>
-<li>Por que, no modelo estatístico, buscamos uma tendência média e não uma igualdade exata?</li>
-</ol></li>
-<li><p>O capítulo afirma que a regressão modela a média condicional:</p>
-<p><span class="math display">\[E(Y \mid X).\]</span></p>
-<ol type="a">
-<li>Explique o que significa média condicional em linguagem intuitiva.<br>
-</li>
-<li>Mostre como a ideia de <span class="math inline">\(E(Y \mid X)\)</span> está relacionada à decomposição</li>
-</ol>
-<p><span class="math display">\[Y = \text{sinal} + \text{ruído}.\]</span></p>
-<ol start="3" type="a">
-<li>É possível que um valor observado de <span class="math inline">\(Y\)</span> esteja distante de <span class="math inline">\(E(Y \mid X)\)</span> e, ainda assim, o modelo esteja adequado? Justifique.</li>
-</ol></li>
-<li><p>O texto apresenta duas formas gerais de modelagem:</p>
-<p><span class="math display">\[Y = f(X) + \varepsilon\]</span></p>
-<p>e</p>
-<p><span class="math display">\[Y = f(X)\cdot \varepsilon.\]</span></p>
-<ol type="a">
-<li>Diferencie erro aditivo e erro multiplicativo.<br>
-</li>
-<li>Em que tipo de fenômeno o erro tende a ser proporcional ao nível médio?</li>
-</ol></li>
-<li><p>Sobre o ciclo da modelagem:</p>
-<ol type="a">
-<li>Explique por que o processo de modelagem é iterativo.<br>
-</li>
-<li>Diferencie estimação, validação e análise de sensibilidade.<br>
-</li>
-<li>Dê um exemplo de situação em que, após ajustar o modelo, seria necessário voltar e modificar hipóteses ou forma funcional.</li>
-</ol></li>
-<li><p>O capítulo mostra que nem toda relação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> é linear.</p>
-<ol type="a">
-<li>Por que correlação linear elevada não garante especificação correta do modelo?<br>
-</li>
-<li>Dê um exemplo conceitual de relação não linear em que o coeficiente de correlação de Pearson possa ser próximo de zero.<br>
-</li>
-<li>O que significa dizer que há “erro sistemático ao longo de <span class="math inline">\(X\)</span>”?</li>
-</ol></li>
-<li><p>Sobre associação e causalidade:</p></li>
-</ol>
-<!-- -->
-<ol type="a">
-<li>Explique a diferença entre associação estatística e causalidade.<br>
-</li>
-<li>Liste duas razões pelas quais um coeficiente estimado pode ser estatisticamente significativo e ainda não representar um efeito causal.<br>
-</li>
-<li>Que tipo de informação adicional (teórica ou experimental) seria necessária para sustentar uma interpretação causal?</li>
-</ol>
-<!-- -->
-<ol start="11" type="1">
-<li>Sobre previsão e extrapolação:</li>
-</ol>
-<!-- -->
-<ol type="a">
-<li>Diferencie interpolação e extrapolação.<br>
-</li>
-<li>Por que extrapolar pode ser arriscado mesmo quando o ajuste parece bom no intervalo observado?<br>
-</li>
-<li>Dê um exemplo aplicado em que extrapolação seria particularmente problemática.</li>
-</ol>
-<!-- -->
-<ol start="12" type="1">
-<li>Escolha um dos contextos aplicados citados no capítulo.</li>
-</ol>
-<!-- -->
-<ol type="a">
-<li>Defina uma variável resposta <span class="math inline">\(Y\)</span> e pelo menos três variáveis explicativas <span class="math inline">\(X_1, X_2, X_3\)</span>.<br>
-</li>
-<li>Indique se o modelo conceitual seria mais plausivelmente aditivo ou multiplicativo e justifique.<br>
-</li>
-<li>Liste duas suposições que você consideraria críticas para interpretar os resultados.</li>
-</ol>
-<!-- -->
-<ol start="13" type="1">
-<li>Reflita sobre a seguinte estrutura geral:</li>
-</ol>
-<p><span class="math display">\[Y = f(X) + \varepsilon.\]</span></p>
-<ol type="a">
-<li>O que significa assumir que <span class="math inline">\(E(\varepsilon \mid X) = 0\)</span>?<br>
-</li>
-<li>Por que essa hipótese é central para interpretar os coeficientes como efeitos médios condicionais?<br>
-</li>
-<li>O que pode acontecer se essa hipótese não for satisfeita?</li>
-</ol>
-<p>As respostas devem ser redigidas de forma argumentativa, conectando explicitamente os conceitos apresentados no capítulo.</p>
+<p>Os exercícios desta seção têm como objetivo consolidar os conceitos desenvolvidos na Parte I do livro. Em geral, não existe uma única resposta correta. Procure justificar suas respostas de forma clara, utilizando argumentos estatísticos, exemplos e interpretações dos conceitos apresentados ao longo dos capítulos.</p>
+<section id="bloco-1-compreendendo-a-modelagem-estatística" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="bloco-1-compreendendo-a-modelagem-estatística"><span class="header-section-number">3.1</span> Bloco 1 – Compreendendo a modelagem estatística</h2>
+<section id="questão-1" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="questão-1"><span class="header-section-number">3.1.1</span> Questão 1</h3>
+<p>Um pesquisador afirma que “modelar é encontrar uma equação que descreve perfeitamente a realidade”.</p>
+<p>Discuta criticamente essa afirmação. Em sua resposta, explique o que significa construir um modelo estatístico, por que todo modelo envolve simplificações e quais fatores podem limitar sua capacidade de representar um fenômeno real.</p>
 </section>
-<section id="atividades-computacionais" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="atividades-computacionais"><span class="header-section-number">3.2</span> Atividades computacionais</h2>
-<p>Esta atividade tem como objetivo consolidar os conceitos estudados ao longo do capítulo 2 por meio de <strong>simulações controladas</strong>. A proposta é investigar, de forma sistemática, como diferentes estruturas funcionais (linear, quadrática, exponencial e potência) se comportam sob ruído e como o ajuste por mínimos quadrados responde a essas situações.</p>
-<p>Em todos os exercícios:</p>
+<section id="questão-2" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="questão-2"><span class="header-section-number">3.1.2</span> Questão 2</h3>
+<p>Considere o problema de investigar o desempenho acadêmico de estudantes universitários.</p>
+<p>Proponha uma estratégia de modelagem indicando:</p>
 <ul>
-<li>Gere os dados conforme indicado no código.</li>
-<li>Produza os gráficos solicitados.</li>
-<li>Ajuste os modelos especificados.</li>
-<li>Responda às questões de forma <strong>argumentativa</strong>, conectando os resultados aos conceitos de sinal, ruído, forma funcional e especificação do modelo.</li>
+<li>uma possível variável resposta;</li>
+<li>pelo menos três variáveis explicativas;</li>
+<li>um fator que poderia influenciar o desempenho, mas que dificilmente seria observado ou mensurado;</li>
+<li>o principal objetivo do modelo (compreensão, previsão ou apoio à decisão).</li>
 </ul>
-<p><strong>Objetivo:</strong> simular dados sob diferentes modelos, visualizar dispersões, calcular correlações e ajustar modelos via <strong>MQO</strong> (OLS), comparando a <strong>curva verdadeira</strong> que gerou os dados com o <strong>ajuste estimado</strong>.</p>
-<ol type="1">
-<li>Preparação do Ambiente</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preparação do ambiente (simples e reprodutível)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ol start="2" type="1">
-<li>Simular dados lineares simples</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Simular dados lineares simples</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length.out =</span> n)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>sinal <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sinal <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização: pontos + reta verdadeira</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Linear: sinal + ruído"</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"reta verdadeira"</span>),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_02-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlação</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cor_xy <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cor_xy</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8794497</code></pre>
-</div>
-</div>
-<ol start="3" type="1">
-<li>Ajustar reta por MQO</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Ajustar reta por MQO (OLS)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mod_lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumo do ajuste</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_lin)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = y ~ x)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--8.6607 -2.8240 -0.1325  3.0743 11.4207 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   3.4090     1.6321   2.089   0.0459 *  
-x             2.7402     0.2803   9.777 1.58e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 4.582 on 28 degrees of freedom
-Multiple R-squared:  0.7734,    Adjusted R-squared:  0.7653 
-F-statistic: 95.58 on 1 and 28 DF,  p-value: 1.581e-10</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização: dados + reta verdadeira + reta ajustada</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Linear: reta verdadeira vs MQO"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">fitted</span>(mod_lin), <span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"reta verdadeira"</span>, <span class="st">"ajuste MQO"</span>),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"darkgreen"</span>),</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_03-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Perguntas – linear a) A correlação está próxima de 1? Por quê?<br>
-b) O coeficiente estimado da inclinação <span class="math inline">\(\beta_1\)</span> ficou próximo do valor verdadeiro?<br>
-c) Experimente:<br>
-- Aumente o ruído para <code>rnorm(30, mean = 0, sd = 10)</code> e veja o que acontece com a correlação e o ajuste.<br>
-- Reduza o ruído para <code>rnorm(30, mean = 0, sd = 2)</code> e observe a diferença.</p>
-<ol start="4" type="1">
-<li>Modelo polinomial quadrático</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Modelo polinomial quadrático (sinal não linear)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">length.out =</span> n)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>sinal <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sinal <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização: pontos + curva verdadeira</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Quadrático: sinal + ruído"</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"curva verdadeira"</span>),</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_04-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlação (linear) pode enganar em relação não linear</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8480377</code></pre>
-</div>
-</div>
-<p>Perguntas – Quadrático a) A correlação de Pearson reflete bem a relação entre <code>x</code> e <code>y</code> neste caso? é linear?<br>
-b) Aumente o coeficiente do termo quadrático: troque <code>-0.05</code> por <code>-0.5</code>. E agora?<br>
-c) Altere o sinal do termo quadrático: use <code>+0.5</code>. Como fica a concavidade da curva?<br>
-d) Aumente o ruído (ex.: <code>sigma &lt;- 4</code>). O que acontece com a correlação e a visualização da curva?</p>
-<ol start="5" type="1">
-<li>Modelo Exponencial</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Modelo exponencial com ruído multiplicativo</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="at">length.out =</span> n)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>sigma_log <span class="ot">&lt;-</span> <span class="fl">0.2</span>  <span class="co"># ruído no log (multiplicativo em Y)</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>sinal <span class="ot">&lt;-</span> a <span class="sc">*</span> <span class="fu">exp</span>(b<span class="sc">*</span>x)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sinal <span class="sc">*</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma_log))</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Exponencial: sinal + ruído multiplicativo"</span>)</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"curva verdadeira"</span>),</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_05-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlação</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8255609</code></pre>
-</div>
-</div>
-<p>Perguntas – Exponencial a) A curva gerada com <span class="math inline">\(b = 0.2\)</span> parece linear? A correlação confirma isso?<br>
-b) Aumente o parâmetro de crescimento para <span class="math inline">\(b = 0.8\)</span>. A curva agora se afasta de uma reta?<br>
-c) Aumente ainda mais para <span class="math inline">\(b = 1.5\)</span>. Como fica a forma da curva e a correlação de Pearson?<br>
-d) Reduza o ruído (<code>0.2 → 0.05</code>). O que muda na dispersão e na clareza da forma exponencial?</p>
-<ol start="6" type="1">
-<li>Modelo Potência</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) Modelo potência com ruído multiplicativo</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">3</span>, <span class="at">length.out =</span> n)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>expoente <span class="ot">&lt;-</span> <span class="fl">1.1</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>sigma_log <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>sinal <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (x<span class="sc">^</span>expoente)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sinal <span class="sc">*</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma_log))</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Potência: sinal + ruído multiplicativo"</span>)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"curva verdadeira"</span>),</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_06-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlação</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9769569</code></pre>
-</div>
-</div>
-<p>Perguntas – Potência a) Com expoente <span class="math inline">\(1.1\)</span>, a curva parece linear? A correlação confirma isso?<br>
-b) Aumente o expoente para <span class="math inline">\(2.5\)</span>. A curva agora se distancia de uma reta?<br>
-c) Teste com um expoente ainda maior, por exemplo <span class="math inline">\(3.5\)</span>. O que muda na curvatura e na dispersão dos pontos?<br>
-d) Dobre o ruído (<code>0.1 → 0.2</code>). O que acontece com a clareza da curva e com a correlação de Pearson?</p>
-<ol start="7" type="1">
-<li>Exponencial — linear vs.&nbsp;polinomial</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Exponencial — comparar ajuste linear vs polinomial (grau 2)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="at">length.out =</span> n)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">2.0</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">0.2</span>        <span class="co"># depois teste 0.8 e 1.5</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>sigma_log <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>sinal <span class="ot">&lt;-</span> a <span class="sc">*</span> <span class="fu">exp</span>(b<span class="sc">*</span>x)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sinal <span class="sc">*</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma_log))</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustes</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>mod_lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>mod_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparação visual</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Exponencial: linear vs polinomial (2)"</span>)</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">fitted</span>(mod_lin), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">fitted</span>(mod_poly), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"verdade"</span>, <span class="st">"linear"</span>, <span class="st">"polinomial (2)"</span>),</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"black"</span>, <span class="st">"black"</span>),</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_07-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R² (comparação rápida)</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">R2_linear =</span> <span class="fu">summary</span>(mod_lin)<span class="sc">$</span>r.squared,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">R2_polinomial2 =</span> <span class="fu">summary</span>(mod_poly)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     R2_linear R2_polinomial2 
-     0.7751012      0.7760694 </code></pre>
-</div>
-</div>
-<p>Perguntas — Exponencial (começando quase reta) a) Com <strong>b = 0.2</strong>, os ajustes <strong>linear</strong> e <strong>polinomial (2)</strong> parecem semelhantes? O R² confirma? b) Aumente <strong>b</strong> para <strong>0.8</strong> e depois <strong>1.5</strong>. Como mudam o gráfico e os R²? Qual ajuste passa a representar melhor a curva? c) Reduza o ruído para <code>sigma_log &lt;- 0.05</code>. Fica mais fácil perceber a diferença entre o linear e o polinomial quando <strong>b</strong> é maior?</p>
-<ol start="8" type="1">
-<li>Potência — linear vs.&nbsp;polinomial</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) Potência — comparar ajuste linear vs polinomial (grau 2)</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">3</span>, <span class="at">length.out =</span> n)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>expoente <span class="ot">&lt;-</span> <span class="fl">1.1</span>   <span class="co"># depois teste 2.5 e 3.5</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>sigma_log <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>sinal <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (x<span class="sc">^</span>expoente)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sinal <span class="sc">*</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma_log))</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustes</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>mod_lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>mod_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparação visual</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Potência: linear vs polinomial (2)"</span>)</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, sinal, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">fitted</span>(mod_lin), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">fitted</span>(mod_poly), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"dados"</span>, <span class="st">"verdade"</span>, <span class="st">"linear"</span>, <span class="st">"polinomial (2)"</span>),</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"black"</span>, <span class="st">"black"</span>),</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="part1_ex_files/figure-html/2.CHUNK_08-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R² (comparação rápida)</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">R2_linear =</span> <span class="fu">summary</span>(mod_lin)<span class="sc">$</span>r.squared,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">R2_polinomial2 =</span> <span class="fu">summary</span>(mod_poly)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     R2_linear R2_polinomial2 
-     0.9422860      0.9487419 </code></pre>
-</div>
-</div>
-<p>Perguntas — Potência (começando quase reta)</p>
-<ol type="a">
-<li><p>Com <strong>expoente = 1.1</strong>, os ajustes <strong>linear</strong> e <strong>polinomial (2)</strong> parecem semelhantes? O R² confirma?</p></li>
-<li><p>Aumente o <strong>expoente</strong> para <strong>2.5</strong> e depois <strong>3.5</strong>. Como mudam o gráfico e os R²? Qual ajuste passa a representar melhor a curva?</p></li>
-<li><p>Dobre o ruído para <code>sigma_log &lt;- 0.2</code>. Fica mais difícil perceber a diferença entre o linear e o polinomial quando o expoente é maior?</p></li>
-</ol>
+<p>Explique suas escolhas.</p>
+</section>
+<section id="questão-3" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="questão-3"><span class="header-section-number">3.1.3</span> Questão 3</h3>
+<p>Considere que dois pesquisadores utilizam a mesma base de dados para estudar o consumo de energia elétrica em residências.</p>
+<p>O primeiro ajusta um modelo utilizando apenas a área construída do imóvel como variável explicativa. O segundo incorpora, além da área, o número de moradores, a renda familiar, a quantidade de aparelhos elétricos e o uso de sistemas de climatização.</p>
+<p>Discuta as possíveis vantagens e limitações de cada abordagem. Em sua resposta, considere aspectos como simplicidade, interpretação dos resultados, disponibilidade de dados, objetivo da análise e possíveis ganhos ou perdas ao incluir um número maior de variáveis.</p>
+</section>
+</section>
+<section id="bloco-2-modelos-estatísticos-e-variabilidade" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="bloco-2-modelos-estatísticos-e-variabilidade"><span class="header-section-number">3.2</span> Bloco 2 – Modelos estatísticos e variabilidade</h2>
+<section id="questão-4" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="questão-4"><span class="header-section-number">3.2.1</span> Questão 4</h3>
+<p>Considere os modelos</p>
+<p><span class="math display">\[
+Y = 2X
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+Y = 2X + \varepsilon.
+\]</span></p>
+<p>Explique as diferenças entre essas duas representações e discuta por que a segunda costuma ser mais adequada para descrever fenômenos observados em aplicações reais.</p>
+</section>
+<section id="questão-5" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="questão-5"><span class="header-section-number">3.2.2</span> Questão 5</h3>
+<p>Dois indivíduos apresentam exatamente o mesmo valor da variável explicativa, mas respostas diferentes para a variável de interesse.</p>
+<p>Explique por que essa situação é compatível com um modelo de regressão e relacione sua resposta com os conceitos de média condicional e componente aleatória.</p>
+</section>
+<section id="questão-6" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="questão-6"><span class="header-section-number">3.2.3</span> Questão 6</h3>
+<p>Um estudante afirma:</p>
+<blockquote class="blockquote">
+<p>“Se existe ruído nos dados, então o modelo está errado.”</p>
+</blockquote>
+<p>Avalie essa afirmação e explique qual é o papel da variabilidade aleatória na modelagem estatística.</p>
+</section>
+</section>
+<section id="bloco-3-interpretação-de-gráficos-e-pensamento-estatístico" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="bloco-3-interpretação-de-gráficos-e-pensamento-estatístico"><span class="header-section-number">3.3</span> Bloco 3 – Interpretação de gráficos e pensamento estatístico</h2>
+<section id="questão-7" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="questão-7"><span class="header-section-number">3.3.1</span> Questão 7</h3>
+<p>Retorne às figuras apresentadas no Capítulo 2 que ilustram diferentes padrões de relacionamento entre duas variáveis.</p>
+<p>Escolha dois dos cenários apresentados e discuta:</p>
+<ul>
+<li>se um modelo linear parece adequado;</li>
+<li>quais evidências visuais sustentam essa conclusão;</li>
+<li>quais dificuldades poderiam surgir caso um modelo linear fosse utilizado.</li>
+</ul>
+</section>
+<section id="questão-8" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="questão-8"><span class="header-section-number">3.3.2</span> Questão 8</h3>
+<p>Ao analisar um diagrama de dispersão antes do ajuste de um modelo de regressão, quais características você considera importante observar?</p>
+<p>Comente aspectos como tendência geral, direção da associação, possíveis curvaturas, dispersão dos pontos, observações atípicas e presença de agrupamentos.</p>
+</section>
+<section id="questão-9" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="questão-9"><span class="header-section-number">3.3.3</span> Questão 9</h3>
+<p>Um pesquisador ajusta um modelo linear a um conjunto de dados cuja relação entre as variáveis é claramente não linear.</p>
+<p>Explique por que essa decisão pode levar a interpretações inadequadas, mesmo que o modelo aparente fornecer um ajuste razoável em parte dos dados.</p>
+</section>
+</section>
+<section id="bloco-4-interpretação-e-limitações-dos-modelos" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="bloco-4-interpretação-e-limitações-dos-modelos"><span class="header-section-number">3.4</span> Bloco 4 – Interpretação e limitações dos modelos</h2>
+<section id="questão-10" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="questão-10"><span class="header-section-number">3.4.1</span> Questão 10</h3>
+<p>Em uma determinada cidade, observa-se que incêndios de maior prejuízo costumam contar com maior número de bombeiros no local.</p>
+<p>Um jornal publica a manchete:</p>
+<blockquote class="blockquote">
+<p>“Mais bombeiros provocam maiores prejuízos.”</p>
+</blockquote>
+<p>Explique por que essa interpretação é inadequada e discuta a diferença entre associação estatística e causalidade.</p>
+</section>
+<section id="questão-11" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="questão-11"><span class="header-section-number">3.4.2</span> Questão 11</h3>
+<p>Explique a diferença entre um estudo observacional e um estudo experimental.</p>
+<p>Em seguida, apresente um exemplo de cada tipo de estudo que poderia utilizar um modelo de regressão e discuta como essa distinção influencia a interpretação dos resultados, especialmente quando o objetivo é investigar possíveis relações de causa e efeito.</p>
+</section>
+<section id="questão-12" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="questão-12"><span class="header-section-number">3.4.3</span> Questão 12</h3>
+<p>Suponha que um modelo tenha sido ajustado utilizando apenas observações para valores de <span class="math inline">\(X\)</span> entre 10 e 50.</p>
+<p>Um pesquisador pretende utilizá-lo para prever a resposta correspondente a <span class="math inline">\(X=200\)</span>.</p>
+<p>Discuta por que essa previsão deve ser interpretada com cautela e explique a diferença entre interpolação e extrapolação.</p>
+</section>
+</section>
+<section id="bloco-5-integrando-conceitos" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="bloco-5-integrando-conceitos"><span class="header-section-number">3.5</span> Bloco 5 – Integrando conceitos</h2>
+<section id="questão-13" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="questão-13"><span class="header-section-number">3.5.1</span> Questão 13</h3>
+<p>Considere os seguintes problemas:</p>
+<ul>
+<li>estimar a renda anual de trabalhadores de uma empresa;</li>
+<li>estudar o número diário de atendimentos em um pronto-socorro;</li>
+<li>analisar se um estudante foi aprovado ou reprovado em uma disciplina;</li>
+<li>investigar o tempo até a ocorrência de uma falha em um equipamento.</li>
+</ul>
+<p>Explique por que esses problemas podem exigir modelos de regressão diferentes. Em sua resposta, discuta como a natureza da variável resposta influencia a escolha do modelo estatístico e por que o Modelo de Regressão Linear Simples deve ser entendido como um caso particular dentro de uma família mais ampla de modelos de regressão.</p>
+</section>
+<section id="questão-14" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="questão-14"><span class="header-section-number">3.5.2</span> Questão 14</h3>
+<p>Ao longo deste capítulo, foi destacado que a regressão constitui uma família de modelos estatísticos e não apenas uma única técnica.</p>
+<p>Explique por que diferentes problemas podem exigir modelos distintos. Em sua resposta, discuta como a natureza da variável resposta e as características dos dados podem influenciar a escolha do modelo mais adequado, justificando por que o Modelo de Regressão Linear Simples deve ser entendido como um caso particular dentro de um conjunto mais amplo de métodos de regressão.</p>
+</section>
+<section id="questão-15" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="questão-15"><span class="header-section-number">3.5.3</span> Questão 15</h3>
+<p>Elabore uma proposta de estudo utilizando um modelo de regressão para investigar um problema de sua área de interesse ou de um tema de relevância social, científica ou econômica.</p>
+<p>Em sua resposta, apresente e justifique:</p>
+<ul>
+<li>o problema ou fenômeno que se deseja estudar;</li>
+<li>a principal pergunta que se pretende responder;</li>
+<li>a variável resposta;</li>
+<li>pelo menos três possíveis variáveis explicativas;</li>
+<li>se os dados seriam provenientes de um estudo observacional ou experimental, justificando sua resposta;</li>
+<li>o principal objetivo da modelagem (compreensão, previsão ou apoio à decisão);</li>
+<li>possíveis fatores não observados que poderiam influenciar a variável resposta;</li>
+<li>limitações esperadas do modelo proposto.</li>
+</ul>
+<p>Por fim, explique por que o modelo elaborado deve ser entendido como uma representação simplificada do fenômeno estudado e não como uma descrição exata da realidade.</p>
+</section>
+<section id="questão-16" class="level3" data-number="3.5.4">
+<h3 data-number="3.5.4" class="anchored" data-anchor-id="questão-16"><span class="header-section-number">3.5.4</span> Questão 16</h3>
+<p>Escreva um texto curto respondendo à seguinte pergunta:</p>
+<blockquote class="blockquote">
+<p>O que significa pensar como um modelador estatístico?</p>
+</blockquote>
+<p>Em sua resposta, procure integrar os principais conceitos discutidos nesta parte do livro, incluindo a formulação do problema de interesse, a definição de objetivos claros para a análise, a escolha das variáveis, o papel das simplificações adotadas, a interpretação da média condicional, a presença de variabilidade inerente aos dados, a influência do contexto em que as informações foram produzidas e as limitações dos modelos estatísticos.</p>
+<p>Sempre que considerar pertinente, utilize exemplos para ilustrar seus argumentos.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

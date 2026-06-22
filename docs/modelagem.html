@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.23">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -59,9 +59,9 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-2641b481724464e61c86985d8c912b6f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -592,16 +592,32 @@ window.Quarto = {
   <ul>
   <li><a href="#introdução-à-modelagem" id="toc-introdução-à-modelagem" class="nav-link active" data-scroll-target="#introdução-à-modelagem"><span class="header-section-number">2.1</span> Introdução à Modelagem</a>
   <ul class="collapse">
-  <li><a href="#modelo-matemático-versus-modelo-estatístico" id="toc-modelo-matemático-versus-modelo-estatístico" class="nav-link" data-scroll-target="#modelo-matemático-versus-modelo-estatístico"><span class="header-section-number">2.1.1</span> Modelo matemático versus modelo estatístico</a></li>
-  <li><a href="#classificações-didáticas-de-modelos" id="toc-classificações-didáticas-de-modelos" class="nav-link" data-scroll-target="#classificações-didáticas-de-modelos"><span class="header-section-number">2.1.2</span> Classificações didáticas de modelos</a></li>
+  <li><a href="#modelos-começam-com-perguntas" id="toc-modelos-começam-com-perguntas" class="nav-link" data-scroll-target="#modelos-começam-com-perguntas"><span class="header-section-number">2.1.1</span> Modelos começam com perguntas</a></li>
+  <li><a href="#modelo-matemático-versus-modelo-estatístico" id="toc-modelo-matemático-versus-modelo-estatístico" class="nav-link" data-scroll-target="#modelo-matemático-versus-modelo-estatístico"><span class="header-section-number">2.1.2</span> Modelo matemático versus modelo estatístico</a></li>
   <li><a href="#o-ciclo-da-modelagem" id="toc-o-ciclo-da-modelagem" class="nav-link" data-scroll-target="#o-ciclo-da-modelagem"><span class="header-section-number">2.1.3</span> O ciclo da modelagem</a></li>
   <li><a href="#exemplos-de-modelagem" id="toc-exemplos-de-modelagem" class="nav-link" data-scroll-target="#exemplos-de-modelagem"><span class="header-section-number">2.1.4</span> Exemplos de modelagem</a></li>
   </ul></li>
-  <li><a href="#introduçao-à-regressão" id="toc-introduçao-à-regressão" class="nav-link" data-scroll-target="#introduçao-à-regressão"><span class="header-section-number">2.2</span> Introduçao à Regressão</a>
+  <li><a href="#introdução-à-regressão" id="toc-introdução-à-regressão" class="nav-link" data-scroll-target="#introdução-à-regressão"><span class="header-section-number">2.2</span> Introdução à Regressão</a>
   <ul class="collapse">
-  <li><a href="#interpretação-conceitual-sinal-e-ruído" id="toc-interpretação-conceitual-sinal-e-ruído" class="nav-link" data-scroll-target="#interpretação-conceitual-sinal-e-ruído"><span class="header-section-number">2.2.1</span> Interpretação conceitual: sinal e ruído</a></li>
-  <li><a href="#objetivos-e-estruturas-do-modelo-da-regressão" id="toc-objetivos-e-estruturas-do-modelo-da-regressão" class="nav-link" data-scroll-target="#objetivos-e-estruturas-do-modelo-da-regressão"><span class="header-section-number">2.2.2</span> Objetivos e Estruturas do Modelo da Regressão</a></li>
+  <li><a href="#decomposição-em-componente-sistemática-e-componente-aleatória" id="toc-decomposição-em-componente-sistemática-e-componente-aleatória" class="nav-link" data-scroll-target="#decomposição-em-componente-sistemática-e-componente-aleatória"><span class="header-section-number">2.2.1</span> Decomposição em componente sistemática e componente aleatória</a></li>
+  <li><a href="#formulação-aditiva" id="toc-formulação-aditiva" class="nav-link" data-scroll-target="#formulação-aditiva"><span class="header-section-number">2.2.2</span> Formulação aditiva</a></li>
+  <li><a href="#formulação-multiplicativa" id="toc-formulação-multiplicativa" class="nav-link" data-scroll-target="#formulação-multiplicativa"><span class="header-section-number">2.2.3</span> Formulação multiplicativa</a></li>
+  <li><a href="#uma-visão-mais-geral-da-regressão" id="toc-uma-visão-mais-geral-da-regressão" class="nav-link" data-scroll-target="#uma-visão-mais-geral-da-regressão"><span class="header-section-number">2.2.4</span> Uma visão mais geral da regressão</a></li>
+  <li><a href="#interpretação-conceitual-sinal-e-ruído" id="toc-interpretação-conceitual-sinal-e-ruído" class="nav-link" data-scroll-target="#interpretação-conceitual-sinal-e-ruído"><span class="header-section-number">2.2.5</span> Interpretação conceitual: sinal e ruído</a></li>
+  <li><a href="#variáveis-não-observadas" id="toc-variáveis-não-observadas" class="nav-link" data-scroll-target="#variáveis-não-observadas"><span class="header-section-number">2.2.6</span> Variáveis não observadas</a></li>
+  <li><a href="#diferentes-padrões-de-relacionamento-entre-variáveis" id="toc-diferentes-padrões-de-relacionamento-entre-variáveis" class="nav-link" data-scroll-target="#diferentes-padrões-de-relacionamento-entre-variáveis"><span class="header-section-number">2.2.7</span> Diferentes padrões de relacionamento entre variáveis</a></li>
   </ul></li>
+  <li><a href="#objetivos-e-estruturas-dos-modelos-de-regressão" id="toc-objetivos-e-estruturas-dos-modelos-de-regressão" class="nav-link" data-scroll-target="#objetivos-e-estruturas-dos-modelos-de-regressão"><span class="header-section-number">2.3</span> Objetivos e estruturas dos modelos de regressão</a>
+  <ul class="collapse">
+  <li><a href="#estudos-observacionais-e-experimentais" id="toc-estudos-observacionais-e-experimentais" class="nav-link" data-scroll-target="#estudos-observacionais-e-experimentais"><span class="header-section-number">2.3.1</span> Estudos observacionais e experimentais</a></li>
+  <li><a href="#uma-interpretação-probabilística-da-regressão" id="toc-uma-interpretação-probabilística-da-regressão" class="nav-link" data-scroll-target="#uma-interpretação-probabilística-da-regressão"><span class="header-section-number">2.3.2</span> Uma interpretação probabilística da regressão</a></li>
+  <li><a href="#regressão-previsão-e-causalidade" id="toc-regressão-previsão-e-causalidade" class="nav-link" data-scroll-target="#regressão-previsão-e-causalidade"><span class="header-section-number">2.3.3</span> Regressão, previsão e causalidade</a></li>
+  <li><a href="#o-contexto-é-parte-do-modelo" id="toc-o-contexto-é-parte-do-modelo" class="nav-link" data-scroll-target="#o-contexto-é-parte-do-modelo"><span class="header-section-number">2.3.4</span> O contexto é parte do modelo</a></li>
+  <li><a href="#uma-pergunta-para-reflexão" id="toc-uma-pergunta-para-reflexão" class="nav-link" data-scroll-target="#uma-pergunta-para-reflexão"><span class="header-section-number">2.3.5</span> Uma pergunta para reflexão</a></li>
+  <li><a href="#aplicações-da-regressão" id="toc-aplicações-da-regressão" class="nav-link" data-scroll-target="#aplicações-da-regressão"><span class="header-section-number">2.3.6</span> Aplicações da regressão</a></li>
+  <li><a href="#um-cuidado-importante-interpolar-não-é-extrapolar" id="toc-um-cuidado-importante-interpolar-não-é-extrapolar" class="nav-link" data-scroll-target="#um-cuidado-importante-interpolar-não-é-extrapolar"><span class="header-section-number">2.3.7</span> Um cuidado importante: interpolar não é extrapolar</a></li>
+  </ul></li>
+  <li><a href="#a-regressão-como-uma-família-de-modelos" id="toc-a-regressão-como-uma-família-de-modelos" class="nav-link" data-scroll-target="#a-regressão-como-uma-família-de-modelos"><span class="header-section-number">2.4</span> A regressão como uma família de modelos</a></li>
   </ul>
 </nav>
     </div>
@@ -630,39 +646,78 @@ window.Quarto = {
 
 <section id="introdução-à-modelagem" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="introdução-à-modelagem"><span class="header-section-number">2.1</span> Introdução à Modelagem</h2>
-<p>Antes de estudarmos a regressão em si, é importante entender que ela faz parte de um campo mais amplo chamado <strong>modelagem matemática/estatística</strong>. Modelar é o ato de construir representações formais de fenômenos reais com o objetivo de descrevê-los, explicá-los, prever seu comportamento ou orientar decisões.</p>
-<p>Em termos conceituais, modelar significa responder à seguinte pergunta:</p>
+<p>A construção de um modelo estatístico começa com a definição do problema que se deseja estudar. Antes da escolha de métodos ou algoritmos, é necessário estabelecer quais perguntas se pretende responder, quais informações estão disponíveis e quais dados podem ser utilizados para investigá-las. Nesse contexto, a regressão constitui uma das ferramentas empregadas dentro do processo mais amplo de modelagem estatística.</p>
+<p>Modelar consiste em construir uma representação simplificada de um fenômeno real com o objetivo de compreendê-lo, descrevê-lo, realizar previsões ou apoiar decisões. Essa representação utiliza variáveis, relações matemáticas e hipóteses para destacar aspectos relevantes do problema analisado.</p>
+<section id="modelos-começam-com-perguntas" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="modelos-começam-com-perguntas"><span class="header-section-number">2.1.1</span> Modelos começam com perguntas</h3>
+<p>A modelagem estatística tem início com uma pergunta sobre um fenômeno de interesse. Perguntas como “quais fatores estão associados ao desempenho escolar?”, “como a produtividade agrícola varia com a quantidade de chuva?” ou “como o consumo de energia depende da temperatura ambiente?” motivam a construção de modelos capazes de organizar informações e orientar a análise dos dados.</p>
+<p>Uma mesma base de dados pode responder a perguntas diferentes e, por isso, dar origem a modelos distintos. A definição do objetivo da análise influencia a escolha das variáveis, a forma de representar o fenômeno e a interpretação dos resultados obtidos.</p>
+<p>Em termos gerais, a modelagem estatística procura responder à seguinte questão:</p>
 <blockquote class="blockquote">
-<p>Como posso representar, de maneira estruturada, um fenômeno complexo do mundo real por meio de variáveis e relações formais?</p>
+<p>Como representar um fenômeno de interesse de forma suficientemente simples para ser estudado e, ao mesmo tempo, suficientemente fiel para fornecer respostas úteis ao problema investigado?</p>
 </blockquote>
-<p>De forma geral, a modelagem matemática/estatística consiste na tentativa de traduzir um problema do mundo real em termos matemáticos ou estatísticos, estruturando hipóteses, equações e relações que permitam analisar e responder à pergunta proposta. Ela está presente em diversas áreas, como física, química, biologia, economia, engenharia e ciências sociais.</p>
-<p>É fundamental compreender que <strong>um modelo não é a realidade</strong>. Ele é uma aproximação útil. Todo modelo envolve simplificações, suposições e escolhas: quais variáveis considerar, quais ignorar, que tipo de relação assumir, qual grau de precisão é necessário. Assim, modelar é sempre um exercício de equilíbrio entre realismo e simplicidade.</p>
-<p>Alguns exemplos de fenômenos que podem ser descritos por modelos matemáticos incluem:<br>
-- Crescimento populacional;<br>
-- Reações químicas;<br>
-- Sistemas mecânicos e eletrônicos;<br>
-- Previsão do clima;<br>
-- Dinâmica do tráfego e da logística;<br>
-- Estratégias econômicas e financeiras;<br>
-- Mudanças ambientais e climáticas.</p>
-<section id="modelo-matemático-versus-modelo-estatístico" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="modelo-matemático-versus-modelo-estatístico"><span class="header-section-number">2.1.1</span> Modelo matemático versus modelo estatístico</h3>
-<p>Uma distinção conceitual importante é a diferença entre:</p>
+<p>A modelagem estatística procura representar fenômenos do mundo real por meio de estruturas que possam ser estudadas com o auxílio dos dados. Esse processo envolve definir objetivos, selecionar variáveis, estabelecer relações entre elas, formular hipóteses e avaliar se o modelo construído é adequado para responder à pergunta que motivou a análise.</p>
+<p>É importante compreender que <strong>um modelo não é a realidade</strong>. Trata-se de uma representação simplificada, construída para destacar aspectos relevantes do problema analisado. Todo modelo envolve escolhas, como quais variáveis incluir, quais fatores deixar de fora e qual estrutura utilizar para descrever as relações observadas. Essas decisões dependem do objetivo da análise, dos dados disponíveis e do contexto em que o problema está inserido.</p>
+<p>À medida que um modelo incorpora mais detalhes do fenômeno estudado, tende a aproximar-se melhor da realidade, mas também pode tornar-se mais complexo, difícil de interpretar e exigir informações que nem sempre estão disponíveis. Por outro lado, modelos muito simples podem deixar de representar aspectos importantes do problema.</p>
+<p>Na prática, a construção de um modelo envolve buscar um equilíbrio entre simplicidade e capacidade de representação. O objetivo não é reproduzir perfeitamente a realidade, mas desenvolver uma aproximação suficientemente adequada para responder às perguntas de interesse e apoiar a análise dos dados.</p>
+<p>Um mesmo conjunto de dados pode ser utilizado para responder perguntas diferentes. Em algumas situações, o objetivo é compreender como variáveis estão associadas; em outras, realizar previsões ou subsidiar decisões. Assim, a escolha de um modelo depende da finalidade da análise e não apenas dos dados disponíveis.</p>
+<p>A Tabela a seguir apresenta alguns exemplos de problemas que podem ser estudados por meio de modelos estatísticos.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Área</th>
+<th>Exemplo de problema</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Educação</td>
+<td>Investigar fatores associados ao desempenho dos estudantes</td>
+</tr>
+<tr class="even">
+<td>Economia</td>
+<td>Avaliar a relação entre renda e anos de escolaridade</td>
+</tr>
+<tr class="odd">
+<td>Saúde</td>
+<td>Estudar fatores relacionados à incidência de uma doença</td>
+</tr>
+<tr class="even">
+<td>Engenharia</td>
+<td>Modelar o consumo de energia de um equipamento</td>
+</tr>
+<tr class="odd">
+<td>Meio ambiente</td>
+<td>Relacionar precipitação e produtividade agrícola</td>
+</tr>
+</tbody>
+</table>
+<p>Observe que todos esses exemplos compartilham uma característica comum: existe uma variável de interesse cujo comportamento se deseja compreender ou prever a partir de outras informações disponíveis. Essa é precisamente a situação em que os modelos de regressão se tornam ferramentas particularmente úteis.</p>
+</section>
+<section id="modelo-matemático-versus-modelo-estatístico" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="modelo-matemático-versus-modelo-estatístico"><span class="header-section-number">2.1.2</span> Modelo matemático versus modelo estatístico</h3>
+<p>Em muitas situações, é possível descrever um fenômeno por meio de relações matemáticas exatas. Por exemplo, em determinadas condições físicas, a distância percorrida por um objeto pode ser calculada diretamente a partir da velocidade e do tempo. Nesses casos, conhecendo as variáveis envolvidas, o resultado é completamente determinado.</p>
+<p>Entretanto, fenômenos observados em áreas como economia, saúde, educação e ciências sociais raramente apresentam esse comportamento. Mesmo indivíduos ou unidades com características semelhantes podem produzir respostas diferentes em razão de fatores não observados, erros de medição ou variabilidade inerente ao processo estudado. Essa diferença motiva a distinção entre modelos determinísticos e modelos estatísticos.</p>
+<p>De forma simplificada:</p>
 <ul>
-<li><strong>Modelo matemático (determinístico)</strong>: descreve uma relação funcional exata entre variáveis. Para cada valor de entrada, existe um único valor de saída.<br>
-</li>
-<li><strong>Modelo estatístico (estocástico)</strong>: descreve uma relação média ou probabilística, reconhecendo a presença de variabilidade não explicada pelas variáveis observadas.</li>
+<li><p><strong>Modelo determinístico:</strong> estabelece uma relação funcional em que o valor da resposta é completamente determinado pelas variáveis de entrada.</p></li>
+<li><p><strong>Modelo estatístico:</strong> admite que parte da variabilidade observada não pode ser explicada pelas variáveis incluídas no modelo e incorpora explicitamente uma componente aleatória para representar essa incerteza.</p></li>
 </ul>
-<p>No modelo determinístico, escreve-se algo como:</p>
+<p>Suponha que o custo de um produto seja exatamente R$ 2,00 por unidade. Nesse caso,</p>
 <p><span class="math display">\[
-Y = 2X
+Y = 2X,
 \]</span></p>
-<p>Aqui, se <span class="math inline">\(X=5\)</span>, então necessariamente <span class="math inline">\(Y=10\)</span>. Não há variação possível.</p>
-<p>Já em um modelo estatístico, reconhecemos que fenômenos reais sofrem influência de fatores não observados, erros de mensuração, flutuações naturais ou variáveis omitidas. Assim, escreve-se:</p>
+<p>em que <span class="math inline">\(X\)</span> representa a quantidade adquirida e <span class="math inline">\(Y\)</span> o valor total pago. Se forem compradas cinco unidades, o custo será necessariamente R$ 10,00. Nesse exemplo, o valor de <span class="math inline">\(Y\)</span> é completamente determinado pelo valor de <span class="math inline">\(X\)</span>, sem incerteza ou variabilidade.</p>
+<p>Em muitos problemas, entretanto, duas observações com o mesmo valor de <span class="math inline">\(X\)</span> não apresentam necessariamente o mesmo valor de <span class="math inline">\(Y\)</span>. Por exemplo, dois estudantes que dedicam cinco horas semanais aos estudos podem obter notas diferentes em razão de fatores como qualidade do ensino, hábitos de estudo, motivação ou características individuais que não foram observadas.</p>
+<p>Nesse caso, o modelo procura descrever a tendência geral observada nos dados, reconhecendo que nem toda a variabilidade pode ser explicada pelas variáveis incluídas na análise. Uma forma simples de representar essa situação é escrever</p>
 <p><span class="math display">\[
 Y = 2X + \varepsilon,
 \]</span></p>
-<p>em que <span class="math inline">\(\varepsilon\)</span> representa a componente aleatória (ruído).</p>
+<p>em que <span class="math inline">\(\varepsilon\)</span> representa a parcela da variabilidade que não é explicada pela relação sistemática entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
 <p>A diferença entre essas duas estruturas pode ser visualizada na simulação abaixo.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -672,240 +727,164 @@ Y = 2X + \varepsilon,
 <img src="modelagem_files/figure-html/fig-modelo-matematico-vs-estatistico-1.png" class="img-fluid figure-img" width="960">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modelo-matematico-vs-estatistico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2.1: Modelo matemático (determinístico) versus modelo estatístico (com ruído): no primeiro, a relação é funcional; no segundo, observa-se uma tendência média com variabilidade aleatória.
+Figura&nbsp;2.1: Comparação entre um modelo determinístico e um modelo estatístico. À esquerda, cada valor de <span class="math inline">\(X\)</span> determina exatamente um único valor de <span class="math inline">\(Y\)</span>. À direita, as observações apresentam variabilidade, mas permanecem distribuídas em torno de uma tendência sistemática.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Observe que, no modelo estatístico, não buscamos uma igualdade exata, mas uma <strong>tendência média</strong> em torno da qual os dados se distribuem.</p>
-<p>Essa diferença é central para compreender a regressão.</p>
-</section>
-<section id="classificações-didáticas-de-modelos" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="classificações-didáticas-de-modelos"><span class="header-section-number">2.1.2</span> Classificações didáticas de modelos</h3>
-<p>De forma didática, modelos matemáticos/estatísticos podem ser classificados em:</p>
-<ol type="1">
-<li><p><strong>Determinísticos ou estocásticos (estatísticos)</strong><br>
-Dependendo se o acaso está explicitamente presente na formulação.</p></li>
-<li><p><strong>Discretos ou contínuos</strong><br>
-Dependendo da natureza das variáveis envolvidas. Contagens são discretas; altura, peso e temperatura são contínuos.</p></li>
-<li><p><strong>Dinâmicos ou estáticos</strong><br>
-Dependendo se o tempo é incorporado explicitamente na estrutura do modelo.</p></li>
-</ol>
-<p>Essas classificações são discutidas em livros clássicos de modelagem matemática, como <span class="citation" data-cites="meerschaert2013">Meerschaert (<a href="references.html#ref-meerschaert2013" role="doc-biblioref">2013</a>)</span> e <span class="citation" data-cites="giordano2013">Giordano; Fox; Horton (<a href="references.html#ref-giordano2013" role="doc-biblioref">2013</a>)</span>. Elas ajudam a organizar o tipo de pergunta que estamos fazendo e a estrutura matemática adequada para respondê-la.</p>
+<p>Observe que, no modelo estatístico, os pontos não coincidem exatamente com uma única reta. Ainda assim, eles se distribuem em torno de uma tendência bem definida. O objetivo do modelo não é reproduzir perfeitamente cada observação individual, mas representar o comportamento geral do fenômeno e quantificar a relação existente entre as variáveis.</p>
+<p>Antes de ajustar qualquer modelo, é recomendável examinar os dados graficamente. Diagramas de dispersão frequentemente revelam tendências, curvaturas, agrupamentos e observações atípicas que orientam a escolha de uma representação adequada.</p>
 </section>
 <section id="o-ciclo-da-modelagem" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="o-ciclo-da-modelagem"><span class="header-section-number">2.1.3</span> O ciclo da modelagem</h3>
-<p>O processo de modelagem geralmente envolve as seguintes etapas:</p>
+<p>A construção de um modelo estatístico pode ser vista como um processo composto por várias etapas interdependentes. Embora diferentes autores proponham organizações distintas, uma sequência típica envolve:</p>
 <ol type="1">
-<li>Formular a pergunta em termos matemáticos.<br>
-</li>
-<li>Selecionar uma abordagem de modelagem.<br>
-</li>
-<li>Construir o modelo com base nas variáveis e hipóteses do problema.<br>
-</li>
-<li>Resolver o modelo matemático (ou ajustá-lo aos dados, no caso estatístico).<br>
-</li>
-<li>Interpretar a solução em termos do fenômeno real.</li>
+<li>Definir o problema e os objetivos da análise;</li>
+<li>Identificar as variáveis relevantes e obter os dados;</li>
+<li>Escolher uma representação adequada para o fenômeno estudado;</li>
+<li>Estimar os parâmetros do modelo com base nos dados disponíveis;</li>
+<li>Avaliar se o modelo descreve adequadamente o problema de interesse;</li>
+<li>Interpretar os resultados e comunicar as conclusões.</li>
 </ol>
-<p>Esse ciclo é <strong>iterativo</strong>: muitas vezes o modelo precisa ser ajustado ou refinado conforme novas informações surgem. Ao confrontar o modelo com dados, podem surgir questões como:</p>
-<ul>
-<li>A forma funcional escolhida faz sentido?</li>
-<li>Variáveis importantes foram omitidas?</li>
-<li>O comportamento dos resíduos está de acordo com as hipóteses?</li>
-<li>O modelo mantém desempenho em novos dados?</li>
-</ul>
-<p>Modelagem não é um procedimento linear; é um processo de aproximações sucessivas.</p>
-<p>Além disso, três elementos costumam acompanhar o ciclo de modelagem:</p>
-<ul>
-<li><strong>Estimação ou calibração</strong>: ajuste de parâmetros com base em dados observados.</li>
-<li><strong>Validação</strong>: verificação da qualidade do ajuste.</li>
-<li><strong>Análise de sensibilidade</strong>: avaliação do impacto de pequenas mudanças nas hipóteses ou nos dados.</li>
-</ul>
+<p>Na prática, essas etapas raramente são executadas apenas uma vez. A análise dos resultados pode indicar a necessidade de revisar hipóteses, incluir novas variáveis, modificar a estrutura do modelo ou até mesmo reformular a pergunta inicial. Por esse motivo, a modelagem estatística é frequentemente descrita como um processo iterativo.</p>
 </section>
 <section id="exemplos-de-modelagem" class="level3" data-number="2.1.4">
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="exemplos-de-modelagem"><span class="header-section-number">2.1.4</span> Exemplos de modelagem</h3>
+<p>Modelos estatísticos são utilizados em diferentes áreas para compreender relações entre variáveis, produzir previsões e apoiar decisões. Alguns exemplos incluem:</p>
 <ul>
-<li><strong>Problema de otimização</strong>: determinar o momento ideal de venda de um animal de criação, considerando ganho de peso, custo de manutenção e preço de mercado.<br>
-</li>
-<li><strong>Problema de crescimento populacional</strong>: prever a evolução da população de um país ou espécie a partir de dados censitários.</li>
+<li>investigar fatores associados ao desempenho escolar;</li>
+<li>estudar a relação entre renda e escolaridade;</li>
+<li>analisar como condições climáticas influenciam a produtividade agrícola;</li>
+<li>estimar o consumo de energia de um equipamento a partir de suas características de operação;</li>
+<li>avaliar fatores relacionados à incidência de uma determinada doença.</li>
 </ul>
-<p>Dentro desse panorama mais amplo, a regressão ocupa um papel específico: ela é uma técnica estatística voltada para modelar a <strong>média condicional</strong> de uma variável resposta em função de variáveis explicativas. Em outras palavras, ela formaliza matematicamente a ideia de que parte da variação observada pode ser explicada sistematicamente, enquanto outra parte permanece como ruído.</p>
-<p>Modelagem é, portanto, a linguagem que conecta teoria, dados e inferência. A regressão é uma de suas expressões mais importantes.</p>
-<section id="exemplos-de-modelagem-em-diferentes-áreas" class="level4" data-number="2.1.4.1">
-<h4 data-number="2.1.4.1" class="anchored" data-anchor-id="exemplos-de-modelagem-em-diferentes-áreas"><span class="header-section-number">2.1.4.1</span> Exemplos de modelagem em diferentes áreas</h4>
-<p>A modelagem matemática e estatística é utilizada para descrever e prever o comportamento de fenômenos em uma grande variedade de contextos. Alguns exemplos ilustrativos incluem:</p>
-<ul>
-<li><strong>Epidemiologia</strong>: modelos SIR (Susceptíveis–Infectados–Recuperados) para descrever a propagação de doenças infecciosas ao longo do tempo.</li>
-<li><strong>Engenharia de Pesca</strong>: relação entre esforço de pesca (dias de mar, número de embarcações) e o estoque pesqueiro disponível.</li>
-<li><strong>Ciência de Dados</strong>: previsão da demanda de energia elétrica a partir de temperatura, hora do dia e perfil de consumo.</li>
-<li><strong>Economia</strong>: modelos de oferta e demanda que relacionam preços e quantidades em equilíbrio de mercado.</li>
-<li><strong>Climatologia</strong>: simulações que conectam emissão de gases de efeito estufa, temperatura média global e regimes de precipitação.</li>
-<li><strong>Educação</strong>: análise da relação entre investimento em ensino e desempenho em exames padronizados.</li>
-<li><strong>Oceanografia</strong>: modelos que descrevem correntes marinhas em função de gradientes de temperatura e salinidade.</li>
-</ul>
-<p>Esses exemplos mostram que <strong>modelagem é uma linguagem comum em ciência e tecnologia</strong>. A regressão estatística é uma forma particular de modelagem que foca em quantificar relações entre variáveis observáveis, buscando separar o <strong>sinal</strong> (estrutura determinística) do <strong>ruído</strong> (componente aleatória).</p>
+<p>Embora esses problemas pertençam a áreas distintas, todos envolvem a tentativa de representar quantitativamente um fenômeno de interesse utilizando dados observados.</p>
 </section>
 </section>
-</section>
-<section id="introduçao-à-regressão" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="introduçao-à-regressão"><span class="header-section-number">2.2</span> Introduçao à Regressão</h2>
-<p>Regressão é um <strong>modelo matemático-estatístico</strong> que busca relacionar uma <strong>variável resposta</strong> (<span class="math inline">\(Y\)</span>) com uma ou mais <strong>variáveis explicativas</strong>. De forma conceitual, a regressão parte da ideia de que o comportamento médio de <span class="math inline">\(Y\)</span> pode ser descrito condicionalmente às variáveis explicativas <span class="math inline">\(X\)</span>.</p>
-<p>Em termos mais precisos, o que a regressão modela não é simplesmente <span class="math inline">\(Y\)</span>, mas a <strong>média condicional</strong>:</p>
+<section id="introdução-à-regressão" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="introdução-à-regressão"><span class="header-section-number">2.2</span> Introdução à Regressão</h2>
+<p>Os modelos de regressão constituem uma classe de modelos estatísticos desenvolvidos para investigar como uma variável resposta, denotada por <span class="math inline">\(Y\)</span>, está relacionada a uma ou mais variáveis explicativas. Seu objetivo pode ser descrever associações, compreender padrões presentes nos dados, produzir previsões ou apoiar processos de tomada de decisão.</p>
+<p>Em muitos problemas práticos, entretanto, não esperamos que uma variável explicativa determine exatamente o valor da variável resposta. Dois estudantes que estudam durante cinco horas por semana podem obter notas diferentes; duas propriedades rurais submetidas às mesmas condições climáticas podem apresentar produtividades distintas; dois pacientes com características semelhantes podem responder de forma diferente a um tratamento. A existência dessa variabilidade é uma característica natural dos fenômenos observados.</p>
+<p>Por esse motivo, a regressão procura modelar o <strong>comportamento médio</strong> da variável resposta para determinados valores das variáveis explicativas. Essa ideia é formalizada pelo conceito de <strong>média condicional</strong>,</p>
 <p><span class="math display">\[
-E(Y \mid X)
+E(Y \mid X),
 \]</span></p>
-<p>Essa perspectiva é central nos textos clássicos de regressão e econometria <span class="citation" data-cites="charnet2008 hoffmann2006 gujarati2006">(<a href="references.html#ref-charnet2008" role="doc-biblioref">Charnet et al., 2008</a>; <a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>. O objetivo não é afirmar que <span class="math inline">\(X\)</span> determina exatamente <span class="math inline">\(Y\)</span>, mas que existe uma <strong>estrutura sistemática média</strong> associada às variáveis explicativas.</p>
-<p>A ideia fundamental é que a variação observada em um fenômeno pode ser decomposta em duas partes:</p>
+<p>que representa o valor esperado de <span class="math inline">\(Y\)</span> entre todas as unidades que compartilham um mesmo valor de <span class="math inline">\(X\)</span>.</p>
+<p>Assim, o objetivo da regressão não é reproduzir exatamente cada observação individual, mas descrever como o valor médio esperado da variável resposta varia em função das variáveis explicativas. Essa perspectiva constitui um dos pilares da regressão moderna e está presente em textos clássicos de Estatística e Econometria <span class="citation" data-cites="charnet2008 hoffmann2006 gujarati2006">(<a href="references.html#ref-charnet2008" role="doc-biblioref">Charnet et al., 2008</a>; <a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>.</p>
+<p>É importante destacar que a regressão modela a média condicional e não relações determinísticas. Consequentemente, diferenças entre valores observados e valores esperados não representam necessariamente falhas do modelo, mas refletem a variabilidade inerente aos dados e a influência de fatores que não foram incorporados à análise.</p>
+<section id="decomposição-em-componente-sistemática-e-componente-aleatória" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="decomposição-em-componente-sistemática-e-componente-aleatória"><span class="header-section-number">2.2.1</span> Decomposição em componente sistemática e componente aleatória</h3>
+<p>Uma forma conveniente de representar essa ideia consiste em decompor cada observação em duas partes:</p>
 <ol type="1">
-<li>Uma <strong>estrutura determinística</strong> (ou componente sistemática), que representa o sinal da relação entre as variáveis;</li>
-<li>Uma <strong>componente aleatória</strong>, representada pelo ruído <span class="math inline">\(\varepsilon\)</span>, que captura variações não explicadas pelo modelo.</li>
+<li>uma <strong>componente sistemática</strong>, responsável por descrever a estrutura média da relação entre as variáveis; e</li>
+<li>uma <strong>componente aleatória</strong>, responsável por representar a variabilidade que permanece mesmo após consideradas as variáveis explicativas.</li>
 </ol>
-<p>Essa decomposição aparece de forma recorrente na literatura de regressão aplicada <span class="citation" data-cites="draper1998 kutner2005 montgomery2021">(<a href="references.html#ref-draper1998" role="doc-biblioref">Draper; Smith, 1998</a>; <a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span> como a base conceitual do modelo linear.</p>
-<p>De forma geral, existem duas representações usuais para essa ideia. - <strong>Modelo Aditivo</strong> (o mais utilizado):</p>
+<p>Essa decomposição aparece de forma recorrente na literatura de regressão aplicada e constitui a base conceitual de diversos modelos estatísticos <span class="citation" data-cites="draper1998 kutner2005 montgomery2021">(<a href="references.html#ref-draper1998" role="doc-biblioref">Draper; Smith, 1998</a>; <a href="references.html#ref-kutner2005" role="doc-biblioref">Kutner et al., 2005</a>; <a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>.</p>
+<p>A presença de uma componente aleatória não significa que o modelo esteja incorreto ou incompleto. Pelo contrário, ela reconhece explicitamente que fenômenos reais são influenciados por inúmeros fatores difíceis de observar ou medir. Além disso, mesmo processos aparentemente idênticos apresentam flutuações naturais decorrentes de sua própria variabilidade.</p>
+</section>
+<section id="formulação-aditiva" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="formulação-aditiva"><span class="header-section-number">2.2.2</span> Formulação aditiva</h3>
+<p>A representação mais conhecida dessa decomposição é o <strong>modelo aditivo</strong>,</p>
 <p><span class="math display">\[
-Y = \mu(X) + \varepsilon
+Y = \mu(X) + \varepsilon,
 \]</span></p>
+<p>em que:</p>
 <ul>
-<li><strong>Modelo Multiplicativo</strong> (útil em contextos onde a variabilidade é proporcional ao nível médio):</li>
+<li><span class="math inline">\(\mu(X)\)</span> representa a componente sistemática ou função de regressão;</li>
+<li><span class="math inline">\(\varepsilon\)</span> representa a componente aleatória.</li>
 </ul>
-<p><span class="math display">\[
-Y = \mu(X) \cdot \varepsilon
-\]</span></p>
-<p>com:</p>
-<ul>
-<li><span class="math inline">\(\mu(X)\)</span> → parte determinística (estrutura média);</li>
-<li><span class="math inline">\(\varepsilon\)</span> → componente aleatória (ruído), que pode ser aditivo ou multiplicativo.</li>
-</ul>
-<p>O sinal <span class="math inline">\(\mu(X)\)</span> também é denominado de função de regressão.</p>
 <p>No modelo aditivo clássico, assume-se que</p>
 <p><span class="math display">\[
-E(\varepsilon \mid X) = 0,
+E(\varepsilon \mid X)=0.
 \]</span></p>
-<p>isto é, o erro não carrega informação sistemática adicional sobre <span class="math inline">\(Y\)</span> além da já contida em <span class="math inline">\(X\)</span>. Essa condição garante que <span class="math inline">\(E(Y \mid X) = \mu(X)\)</span>, permitindo interpretar <span class="math inline">\(\mu(X)\)</span> como a <strong>média condicional de</strong> <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>. Essa hipótese é central para a interpretação dos coeficientes como efeitos médios condicionais <span class="citation" data-cites="hoffmann2006 gujarati2006">(<a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>.</p>
-<p>No caso do <strong>modelo multiplicativo</strong>, a condição análoga é</p>
+<p>Sob essa hipótese,</p>
 <p><span class="math display">\[
-E(\varepsilon \mid X) = 1.
+E(Y \mid X)=\mu(X),
 \]</span></p>
-<p>Nesse caso, temos <span class="math inline">\(E(Y \mid X) = \mu(X)\,E(\varepsilon \mid X) = \mu(X)\)</span>, de modo que <span class="math inline">\(\mu(X)\)</span> continua representando a média condicional de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>.</p>
-<p>A diferença fundamental entre as duas formulações é estrutural. No modelo aditivo, o erro representa um <strong>deslocamento absoluto</strong> em torno da média condicional: a variação aleatória soma-se ao valor esperado, produzindo oscilações cuja magnitude, em princípio, não depende do nível médio. Já no modelo multiplicativo, o erro atua como um <strong>fator proporcional</strong>, ampliando ou reduzindo o valor médio de acordo com sua própria intensidade. Nesse caso, a variabilidade está intrinsecamente ligada ao nível esperado da variável resposta.</p>
-<p>Essa distinção tem implicações relevantes. Em estruturas aditivas, concebe-se a variabilidade como relativamente independente da escala do fenômeno; em estruturas multiplicativas, a dispersão tende a crescer ou decrescer proporcionalmente ao valor médio. Fenômenos econômicos, biológicos e ambientais frequentemente apresentam esse comportamento proporcional, por exemplo, renda, produção, crescimento populacional ou biomassa, o que torna a formulação multiplicativa conceitualmente mais adequada em muitos contextos.</p>
-<p>A escolha entre uma estrutura aditiva ou multiplicativa envolve considerações teóricas e empíricas. Modelos econômicos frequentemente sugerem relações proporcionais, enquanto a inspeção gráfica dos dados pode revelar padrões de variância crescente. Assim, a definição da forma funcional e da natureza da variação depende da teoria utilizada, da escala de mensuração das variáveis e do comportamento empírico observado nos dados <span class="citation" data-cites="gujarati2006 hoffmann2006">(<a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>.</p>
-<p>No caso do modelo aditivo clássico, a hipótese de que o erro não carrega informação sistemática adicional além da contida nas variáveis explicativas é central para a interpretação dos coeficientes como efeitos médios condicionais. Essa perspectiva, segundo a qual a regressão modela a média condicional e não valores individuais, constitui um dos pilares da regressão aplicada e da econometria tradicional <span class="citation" data-cites="hoffmann2006 gujarati2006">(<a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>.</p>
-<section id="interpretação-conceitual-sinal-e-ruído" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="interpretação-conceitual-sinal-e-ruído"><span class="header-section-number">2.2.1</span> Interpretação conceitual: sinal e ruído</h3>
-<p>A regressão parte do reconhecimento de que fenômenos reais são influenciados por múltiplos fatores, muitos dos quais não são observáveis ou mensuráveis. Assim, mesmo que exista uma relação estrutural entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, os dados observados não estarão perfeitamente alinhados sobre uma curva.</p>
-<p>O modelo assume que:</p>
-<p><span class="math display">\[
-Y = \text{sinal} + \text{ruído}
-\]</span></p>
-<p>O sinal representa a parte explicável pelas variáveis incluídas no modelo; o ruído representa:</p>
-<ul>
-<li>variáveis omitidas,</li>
-<li>erros de mensuração,</li>
-<li>flutuações naturais,</li>
-<li>fatores aleatórios não controlados.</li>
-</ul>
-<p>Essa separação entre componente sistemática e erro é um dos pilares da regressão linear clássica <span class="citation" data-cites="draper1998">(<a href="references.html#ref-draper1998" role="doc-biblioref">Draper; Smith, 1998</a>)</span>.</p>
-<section id="exemplo-ilustrativo-sinal-ruído" class="level4" data-number="2.2.1.1">
-<h4 data-number="2.2.1.1" class="anchored" data-anchor-id="exemplo-ilustrativo-sinal-ruído"><span class="header-section-number">2.2.1.1</span> Exemplo ilustrativo: Sinal + Ruído</h4>
-<p>A seguir, simulamos um conjunto de dados artificiais para ilustrar a lógica central da regressão: <strong>um sinal determinístico mais um componente de ruído</strong>.</p>
-<p>Considere a relação:</p>
-<p><span class="math display">\[
-Y = 3 + 2X + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 5^2),
-\]</span></p>
-<p>com <span class="math inline">\(X \in \{ 1, 2, \dots, 30\}\)</span>. A reta <span class="math inline">\(Y = 3 + 2X\)</span> representa o <strong>sinal verdadeiro</strong>, enquanto os pontos observados <span class="math inline">\((X, Y)\)</span> incluem a variabilidade aleatória do ruído <span class="math inline">\(\varepsilon\)</span>.</p>
-<p>O gráfico abaixo mostra a dispersão dos dados simulados juntamente com a curva verdadeira. Essa visualização reforça a ideia de que a regressão busca recuperar a estrutura determinística do fenômeno em meio à aleatoriedade introduzida pelos ruídos (erros ou fonte de variação).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="modelagem_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>de modo que a função <span class="math inline">\(\mu(X)\)</span> pode ser interpretada como a média condicional da variável resposta.</p>
+<p>Essa interpretação possui grande importância prática. Em vez de tentar explicar cada observação individualmente, o modelo descreve a tendência média do fenômeno para diferentes valores das variáveis explicativas. Desse modo, observações individuais podem situar-se acima ou abaixo da curva média sem que isso comprometa a validade do modelo.</p>
 </section>
-<section id="exemplo-ilustrativo-sinal-ruído-homoscedástico-vs-heteroscedástico" class="level4" data-number="2.2.1.2">
-<h4 data-number="2.2.1.2" class="anchored" data-anchor-id="exemplo-ilustrativo-sinal-ruído-homoscedástico-vs-heteroscedástico"><span class="header-section-number">2.2.1.2</span> Exemplo ilustrativo: Sinal + Ruído (homoscedástico vs heteroscedástico)</h4>
-<p>Neste exemplo, comparamos dois cenários de regressão linear que diferem apenas na <strong>dispersão dos ruídos</strong>:</p>
-<ul>
-<li><strong>Homoscedástico</strong>: a variância dos erros é constante em todos os valores de <span class="math inline">\(X\)</span>. Nesse caso, a nuvem de pontos se distribui de forma aproximadamente uniforme em torno da reta verdadeira, independentemente da posição no eixo <span class="math inline">\(X\)</span>.<br>
-</li>
-<li><strong>Heteroscedástico</strong>: a variância cresce com <span class="math inline">\(X\)</span>. Assim, para valores pequenos de <span class="math inline">\(X\)</span> os pontos estão mais concentrados, enquanto para valores grandes de <span class="math inline">\(X\)</span> a dispersão aumenta.</li>
-</ul>
-<p>Esse contraste é fundamental: se a homoscedasticidade não for respeitada, os estimadores de mínimos quadrados continuam <strong>não viesados</strong>, mas deixam de ser eficientes (ou seja, não são os de menor variância). Isso motiva o uso de métodos alternativos, como os mínimos quadrados ponderados (WLS) ou transformações nos dados.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="modelagem_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="840"></p>
-<figcaption>Sinal + ruído: (esq.) variância constante; (dir.) variância crescente (heteroscedasticidade).</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="exemplo-ilustrativo-possibilidades-de-relações-ente-x-e-y" class="level4" data-number="2.2.1.3">
-<h4 data-number="2.2.1.3" class="anchored" data-anchor-id="exemplo-ilustrativo-possibilidades-de-relações-ente-x-e-y"><span class="header-section-number">2.2.1.3</span> Exemplo ilustrativo: Possibilidades de relações ente X e Y</h4>
-<p>Observe que nem toda relação entre duas variáveis é <strong>linear e forte</strong>. Considere algums possibilidades comuns:</p>
-<ul>
-<li><strong>(a) Sem correlação</strong>: não existe padrão claro entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>; conhecer <span class="math inline">\(X\)</span> não ajuda a prever <span class="math inline">\(Y\)</span>.<br>
-</li>
-<li><strong>(b) Correlação linear fraca</strong>: existe uma tendência positiva, mas com grande dispersão ao redor da reta.<br>
-</li>
-<li><strong>(c) Correlação linear forte</strong>: os pontos seguem de perto uma tendência linear; <span class="math inline">\(X\)</span> <em>explica</em> grande parte da variabilidade em <span class="math inline">\(Y\)</span>.<br>
-</li>
-<li><strong>(d) Relação não linear</strong>: <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> se relacionam, mas a forma não é bem descrita por uma reta (por exemplo, uma parábola).</li>
-</ul>
-<p>Esse exemplo mostra que a <strong>correlação linear</strong> é apenas um caso particular dentro de uma variedade de possíveis dependências entre variáveis. Por isso, ao analisar dados, é sempre importante, quando possível, <strong>visualizar os diagramas de dispersão</strong> antes de ajustar um modelo, evitando conclusões equivocadas sobre linearidade.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="modelagem_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="720"></p>
-<figcaption>Correlação entre X e Y: (a) nenhuma, (b) linear fraca, (c) linear forte, (d) não linear.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="exemplo-ilustrativo-relação-não-linear-entre-x-e-y" class="level4" data-number="2.2.1.4">
-<h4 data-number="2.2.1.4" class="anchored" data-anchor-id="exemplo-ilustrativo-relação-não-linear-entre-x-e-y"><span class="header-section-number">2.2.1.4</span> Exemplo ilustrativo: Relação não linear entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span></h4>
-<p>Até agora, discutimos a regressão sob a perspectiva de relações lineares. No entanto, nem todo fenômeno real apresenta comportamento aproximadamente linear. Em muitos contextos, como crescimento biológico, processos de absorção, liberação acumulada de substâncias ou resposta a doses, a relação entre as variáveis pode apresentar <strong>curvatura</strong>, <strong>saturação</strong> ou <strong>pontos de inflexão</strong>.</p>
-<p>Neste exemplo, construiremos artificialmente uma base de dados cujo <strong>sinal verdadeiro não é linear</strong>. O comportamento adotado será do tipo <strong>crescimento com saturação</strong>: inicialmente, pequenos aumentos em <span class="math inline">\(X\)</span> produzem grandes aumentos em <span class="math inline">\(Y\)</span>; à medida que <span class="math inline">\(X\)</span> cresce, o efeito marginal diminui e a curva tende a estabilizar.</p>
-<p>Essa estrutura pode ser representada genericamente por uma função do tipo:</p>
+<section id="formulação-multiplicativa" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="formulação-multiplicativa"><span class="header-section-number">2.2.3</span> Formulação multiplicativa</h3>
+<p>Em alguns contextos, é mais apropriado representar a variabilidade de forma proporcional ao nível esperado da resposta. Nesses casos, utiliza-se uma estrutura multiplicativa,</p>
 <p><span class="math display">\[
-Y = f(X) + \varepsilon
+Y = \mu(X)\,\varepsilon,
 \]</span></p>
-<p>em que <span class="math inline">\(f(X)\)</span> é não linear e <span class="math inline">\(\varepsilon\)</span> representa o componente aleatório.</p>
-<p>O objetivo aqui é didático: comparar dois cenários sobre os mesmos dados observados:</p>
-<ol type="1">
-<li>Ajustar um <strong>modelo linear</strong>, mesmo sabendo que o sinal não é linear;</li>
-<li>Comparar esse ajuste com a <strong>curva verdadeira</strong> que gerou os dados.</li>
-</ol>
-<p>Essa comparação permite visualizar um ponto conceitual central da modelagem:</p>
-<blockquote class="blockquote">
-<p>Um modelo pode estar corretamente estimado sob suas hipóteses e, ainda assim, estar incorretamente especificado.</p>
-</blockquote>
-<p>Ou seja, o problema pode não estar na estimação, mas na <strong>forma funcional escolhida</strong>.</p>
-<p>Ao observar os gráficos, procure refletir:</p>
+<p>assumindo-se</p>
+<p><span class="math display">\[
+E(\varepsilon \mid X)=1.
+\]</span></p>
+<p>Assim,</p>
+<p><span class="math display">\[
+E(Y \mid X)=\mu(X),
+\]</span></p>
+<p>preservando a interpretação da função de regressão como média condicional.</p>
+<p>A principal diferença entre as formulações aditiva e multiplicativa está na maneira como a variabilidade atua sobre o fenômeno. No modelo aditivo, o erro produz desvios absolutos em torno da média. Já no modelo multiplicativo, o erro atua como um fator proporcional, fazendo com que a dispersão aumente ou diminua juntamente com o nível esperado da resposta.</p>
+<p>Fenômenos econômicos, biológicos e ambientais frequentemente apresentam esse comportamento proporcional, razão pela qual modelos multiplicativos podem oferecer representações mais adequadas em determinadas aplicações.</p>
+</section>
+<section id="uma-visão-mais-geral-da-regressão" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="uma-visão-mais-geral-da-regressão"><span class="header-section-number">2.2.4</span> Uma visão mais geral da regressão</h3>
+<p>As formulações aditiva e multiplicativa desempenham papel importante na construção da intuição sobre modelos de regressão, mas não representam todas as possibilidades existentes.</p>
+<p>Em abordagens mais gerais, a aleatoriedade é incorporada diretamente pela distribuição probabilística da variável resposta. Em vez de escrever explicitamente um termo de erro, especifica-se que</p>
+<p><span class="math display">\[
+Y \mid X \sim \mathcal{F}(\mu,\phi),
+\]</span></p>
+<p>em que <span class="math inline">\(\mathcal{F}\)</span> representa uma distribuição apropriada para o problema em estudo e <span class="math inline">\(\mu\)</span> corresponde à média condicional.</p>
+<p>Essa perspectiva é adotada, por exemplo, nos Modelos Lineares Generalizados. Sob esse ponto de vista, o modelo de regressão linear simples pode ser interpretado como um caso particular em que a variável resposta possui distribuição Normal e sua média é descrita por uma função linear das variáveis explicativas.</p>
+<p>Ao longo deste livro, a formulação aditiva será utilizada como ponto de partida por seu valor didático e por fornecer a base para o desenvolvimento do modelo de regressão linear simples. Entretanto, é importante reconhecer que ela faz parte de um conjunto mais amplo de estratégias de modelagem estatística, todas fundamentadas na ideia de representar o comportamento médio da variável resposta respeitando sua natureza probabilística.</p>
+<p>A diferença fundamental entre as formulações aditiva e multiplicativa está na forma como a variabilidade é incorporada ao modelo. No modelo aditivo, o erro representa um <strong>deslocamento absoluto</strong> em torno da média condicional: a componente aleatória soma-se ao valor esperado, produzindo oscilações cuja magnitude, em princípio, não depende do nível médio da resposta. Já no modelo multiplicativo, o erro atua como um <strong>fator proporcional</strong>, ampliando ou reduzindo o valor esperado de acordo com sua própria intensidade. Nesse caso, a variabilidade tende a acompanhar a escala do fenômeno.</p>
+<p>Essa distinção possui importantes implicações práticas. Em estruturas aditivas, admite-se que a dispersão permaneça aproximadamente constante ao longo da faixa de valores da resposta. Em estruturas multiplicativas, por outro lado, é comum que a dispersão aumente ou diminua proporcionalmente ao nível médio. Fenômenos econômicos, biológicos e ambientais frequentemente apresentam esse comportamento, como ocorre em medidas de renda, produção, crescimento populacional e biomassa.</p>
+<p>A escolha entre uma estrutura aditiva ou multiplicativa depende tanto de argumentos teóricos quanto das características observadas nos dados. Em algumas situações, modelos fundamentados na teoria sugerem relações proporcionais; em outras, inspeções gráficas ou análises exploratórias indicam que a variabilidade cresce com o valor esperado da resposta. Assim, a forma funcional adotada deve refletir o conhecimento sobre o fenômeno estudado e o comportamento empírico dos dados <span class="citation" data-cites="gujarati2006 hoffmann2006">(<a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>.</p>
+<p>É importante observar que as formulações aditiva e multiplicativa representam maneiras distintas de introduzir a componente aleatória no modelo, mas ambas preservam o mesmo objetivo fundamental: descrever a média condicional da variável resposta em função das variáveis explicativas. Sob essa perspectiva, a regressão procura explicar o comportamento médio do fenômeno, e não reproduzir exatamente cada observação individual.</p>
+</section>
+<section id="interpretação-conceitual-sinal-e-ruído" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="interpretação-conceitual-sinal-e-ruído"><span class="header-section-number">2.2.5</span> Interpretação conceitual: sinal e ruído</h3>
+<p>Uma das ideias centrais da regressão é que os dados observados podem ser entendidos como a combinação entre uma <strong>estrutura sistemática</strong> e uma <strong>componente aleatória</strong>. Em outras palavras, assume-se que parte do comportamento da variável resposta pode ser explicada pelas variáveis incluídas no modelo, enquanto outra parte permanece sujeita a variações que não são completamente previsíveis.</p>
+<p>De forma esquemática,</p>
+<p><span class="math display">\[
+Y = \text{sinal} + \text{ruído}.
+\]</span></p>
+<p>O <strong>sinal</strong> representa a parcela do fenômeno que pode ser descrita pelo modelo estatístico. Já o <strong>ruído</strong> corresponde à variabilidade que permanece mesmo após consideradas as variáveis explicativas. Essa variabilidade pode estar associada, por exemplo, a:</p>
 <ul>
-<li>O modelo linear captura adequadamente o padrão médio?</li>
-<li>Há evidências visuais de curvatura?</li>
-<li>O erro parece sistemático ao longo de <span class="math inline">\(X\)</span>?</li>
-<li>O que aconteceria com os resíduos nesse caso?</li>
+<li>variáveis que não foram observadas ou incluídas na análise;</li>
+<li>erros de mensuração;</li>
+<li>diferenças individuais entre unidades aparentemente semelhantes;</li>
+<li>flutuações naturais do processo estudado;</li>
+<li>outras fontes de variabilidade inerentes ao fenômeno.</li>
 </ul>
-<p>Esse tipo de análise visual é uma etapa importante antes da formalização do modelo. A regressão linear é uma ferramenta poderosa, mas sua adequação depende da coerência entre a estrutura assumida e o comportamento real dos dados.</p>
+<p>É importante destacar que a existência de ruído <strong>não significa que o modelo esteja incorreto</strong>. Pelo contrário, reconhecer explicitamente essa variabilidade constitui uma das principais diferenças entre modelos estatísticos e modelos puramente determinísticos. Em aplicações reais, mesmo quando existe uma relação bem definida entre as variáveis, dificilmente todas as observações estarão exatamente sobre uma mesma curva.</p>
+<p>Essa interpretação também ajuda a compreender por que a regressão procura modelar o comportamento médio da variável resposta. Ainda que seja possível identificar uma tendência clara nos dados, observações individuais podem apresentar valores acima ou abaixo dessa tendência em razão da variabilidade inerente ao fenômeno estudado.</p>
+<section id="exemplo-ilustrativo-sinal-e-ruído" class="level4" data-number="2.2.5.1">
+<h4 data-number="2.2.5.1" class="anchored" data-anchor-id="exemplo-ilustrativo-sinal-e-ruído"><span class="header-section-number">2.2.5.1</span> Exemplo ilustrativo: sinal e ruído</h4>
+<p>Considere o modelo</p>
+<p><span class="math display">\[
+Y = 3 + 2X + \varepsilon,
+\qquad
+\varepsilon \sim N(0,5^2).
+\]</span></p>
+<p>Nesse exemplo, a reta</p>
+<p><span class="math display">\[
+Y = 3 + 2X
+\]</span></p>
+<p>representa o sinal verdadeiro do fenômeno, enquanto o termo <span class="math inline">\(\varepsilon\)</span> introduz variabilidade aleatória em torno dessa tendência.</p>
+<p>O gráfico abaixo mostra dados simulados segundo esse modelo. Observe que os pontos não coincidem exatamente com a reta, mas permanecem distribuídos ao seu redor. Essa configuração é típica de muitos problemas reais e ilustra uma mensagem importante: a presença de dispersão não impede a existência de um padrão sistemático.</p>
+<p>Ao interpretar a figura, vale a pena refletir sobre algumas questões:</p>
+<ul>
+<li>Se o ruído fosse menor, como mudaria a dispersão dos pontos em torno da reta?</li>
+<li>Se o ruído fosse maior, ainda seria possível identificar a tendência linear?</li>
+<li>Caso fossem coletadas novas observações, elas coincidiriam exatamente com as atuais ou apenas apresentariam comportamento semelhante?</li>
+</ul>
+<p>Essas perguntas reforçam a ideia de que a regressão não busca reproduzir perfeitamente cada observação individual, mas identificar a estrutura média que governa o fenômeno.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-linear-vs-nao-linear" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-sinal-ruido" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-linear-vs-nao-linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="modelagem_files/figure-html/fig-linear-vs-nao-linear-1.png" class="img-fluid figure-img" width="960">
+<div aria-describedby="fig-sinal-ruido-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modelagem_files/figure-html/fig-sinal-ruido-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linear-vs-nao-linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2.2: Exemplo com sinal não linear: (esq.) ajuste linear; (dir.) sinal verdadeiro que gerou os dados.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sinal-ruido-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.2: Dados simulados segundo um modelo composto por um sinal linear e uma componente aleatória.
 </figcaption>
 </figure>
 </div>
@@ -913,114 +892,171 @@ Figura&nbsp;2.2: Exemplo com sinal não linear: (esq.) ajuste linear; (dir.) sin
 </div>
 </section>
 </section>
-<section id="objetivos-e-estruturas-do-modelo-da-regressão" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="objetivos-e-estruturas-do-modelo-da-regressão"><span class="header-section-number">2.2.2</span> Objetivos e Estruturas do Modelo da Regressão</h3>
-<p>Depois de explorar exemplos visuais de associação entre variáveis, é importante consolidar uma visão mais conceitual sobre a regressão. A regressão não é simplesmente uma técnica de ajuste de curvas; ela é uma estrutura formal para modelar a <strong>relação média entre variáveis observáveis</strong>.</p>
-<p>Em termos conceituais, a regressão procura compreender como o comportamento médio de <span class="math inline">\(Y\)</span> varia em função de <span class="math inline">\(X\)</span>. Isto é, ela organiza a seguinte pergunta:</p>
-<blockquote class="blockquote">
-<p>Como a variável resposta se comporta, em média, quando as variáveis explicativas variam?</p>
-</blockquote>
-<section id="objetivos-centrais" class="level4" data-number="2.2.2.1">
-<h4 data-number="2.2.2.1" class="anchored" data-anchor-id="objetivos-centrais"><span class="header-section-number">2.2.2.1</span> Objetivos centrais</h4>
-<p>A regressão pode ser compreendida a partir de três grandes finalidades:</p>
-<ol type="1">
-<li><p><strong>Explicar</strong><br>
-Identificar quais fatores estão associados à variável resposta e quantificar a magnitude dessas associações.</p></li>
-<li><p><strong>Predizer</strong><br>
-Utilizar o modelo ajustado para estimar valores futuros ou não observados de <span class="math inline">\(Y\)</span>.</p></li>
-<li><p><strong>Controlar</strong><br>
-Avaliar o efeito de uma variável mantendo as demais constantes, permitindo interpretações condicionais.</p></li>
-</ol>
-<p>Esses objetivos aparecem de maneira combinada na prática. Em econometria, frequentemente busca-se compreender relações estruturais entre variáveis macroeconômicas <span class="citation" data-cites="gujarati2006 hoffmann2006">(<a href="references.html#ref-gujarati2006" role="doc-biblioref">Gujarati, 2006</a>; <a href="references.html#ref-hoffmann2006" role="doc-biblioref">Hoffmann, 2006</a>)</span>. Em engenharia e estatística aplicada, pode haver maior ênfase na capacidade preditiva do modelo <span class="citation" data-cites="montgomery2021">(<a href="references.html#ref-montgomery2021" role="doc-biblioref">Montgomery; Peck; Vining, 2021</a>)</span>. Em estudos científicos em geral, explicar e prever caminham juntos.</p>
+<section id="variáveis-não-observadas" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="variáveis-não-observadas"><span class="header-section-number">2.2.6</span> Variáveis não observadas</h3>
+<p>Na prática, dificilmente é possível medir todos os fatores que influenciam um fenômeno. Características individuais, condições ambientais, erros de mensuração ou aspectos simplesmente desconhecidos podem afetar a variável resposta sem estarem explicitamente representados no modelo.</p>
+<p>Esses fatores contribuem para a componente aleatória e ajudam a explicar por que duas unidades com valores idênticos das variáveis explicativas podem apresentar respostas diferentes.</p>
+<p>Reconhecer essa limitação não diminui a utilidade da regressão. Pelo contrário, a modelagem estatística admite explicitamente que parte da variabilidade permanece não explicada, buscando representar da melhor forma possível a estrutura sistemática presente nos dados.</p>
 </section>
-<section id="observações-conceituais-importantes" class="level4" data-number="2.2.2.2">
-<h4 data-number="2.2.2.2" class="anchored" data-anchor-id="observações-conceituais-importantes"><span class="header-section-number">2.2.2.2</span> Observações conceituais importantes</h4>
-<p>Antes de avançarmos para a formalização do modelo linear simples, duas observações merecem destaque.</p>
-<p><strong>1. Correlação significativa e ajuste linear</strong></p>
-<p>Em geral, quando existe correlação linear significativa entre variável explicativa e variável resposta, é razoável esperar que o Modelo de Regressão Linear Simples produza um ajuste satisfatório. Isso ocorre porque a correlação mede o grau de associação linear entre duas variáveis. Se essa associação é forte, a reta ajustada tende a capturar uma parcela substancial da variabilidade observada.</p>
-<p>Entretanto, correlação elevada não garante que o modelo esteja corretamente especificado. Pode haver curvatura, variância não constante ou outros padrões estruturais não capturados por uma reta. A inspeção gráfica continua sendo essencial.</p>
-<p><strong>2. Associação estatística não implica causa e efeito</strong></p>
-<p>Uma relação estatística entre variáveis não implica automaticamente causalidade.Mesmo que um coeficiente estimado seja estatisticamente significativo, isso não significa que uma variável cause a outra. A interpretação causal:</p>
+<section id="diferentes-padrões-de-relacionamento-entre-variáveis" class="level3" data-number="2.2.7">
+<h3 data-number="2.2.7" class="anchored" data-anchor-id="diferentes-padrões-de-relacionamento-entre-variáveis"><span class="header-section-number">2.2.7</span> Diferentes padrões de relacionamento entre variáveis</h3>
+<p>Nem toda associação entre duas variáveis segue uma relação linear simples. Em alguns casos, praticamente não existe associação; em outros, a relação linear é evidente; também existem situações em que o padrão é curvilíneo ou assume formas mais complexas.</p>
+<p>A Figura a seguir apresenta quatro cenários frequentes.</p>
 <ul>
-<li>não pode se basear apenas na amostra considerada;</li>
-<li>deve estar apoiada em teoria ou conhecimento empírico;</li>
-<li>pode exigir desenho experimental ou hipóteses estruturais adicionais.</li>
+<li><strong>(a) Ausência de relação aparente:</strong> conhecer o valor de <span class="math inline">\(X\)</span> fornece pouca ou nenhuma informação sobre <span class="math inline">\(Y\)</span>.</li>
+<li><strong>(b) Relação linear fraca:</strong> existe uma tendência geral, porém acompanhada de elevada dispersão.</li>
+<li><strong>(c) Relação linear forte:</strong> os pontos permanecem próximos de uma reta, indicando uma associação linear bem definida.</li>
+<li><strong>(d) Relação não linear:</strong> existe dependência entre as variáveis, mas uma reta não descreve adequadamente o comportamento observado.</li>
 </ul>
-<p>Exemplos clássicos ilustram essa distinção:</p>
+<p>Esses exemplos ilustram que o primeiro passo da modelagem consiste em compreender como as variáveis se relacionam antes mesmo da escolha de um modelo estatístico. Em muitas aplicações, uma simples inspeção visual já fornece indícios importantes sobre a presença de tendências, curvaturas, agrupamentos ou ausência de associação.</p>
+<p>Ao analisar a figura, procure responder às seguintes perguntas:</p>
 <ul>
-<li><strong>Despesas de consumo pessoal e renda pessoal disponível</strong> — aqui, a teoria econômica sustenta a direção causal.</li>
-<li><strong>Ganho de peso e consumo de calorias</strong> — a evidência empírica e experimental apoia a interpretação causal.</li>
+<li>Em quais painéis uma reta parece representar adequadamente o comportamento médio dos dados?</li>
+<li>Em quais situações o conhecimento de <span class="math inline">\(X\)</span> contribui pouco para prever <span class="math inline">\(Y\)</span>?</li>
+<li>Em qual cenário existe uma relação evidente entre as variáveis, mas uma reta provavelmente não é a melhor representação?</li>
 </ul>
-<p>Sem essa base teórica ou experimental, a regressão revela associação, não mecanismo causal.</p>
-</section>
-<section id="duas-características-fundamentais-do-modelo-de-regressão" class="level4" data-number="2.2.2.3">
-<h4 data-number="2.2.2.3" class="anchored" data-anchor-id="duas-características-fundamentais-do-modelo-de-regressão"><span class="header-section-number">2.2.2.3</span> Duas características fundamentais do modelo de regressão</h4>
-<p>Do ponto de vista probabilístico, um modelo de regressão possui duas características essenciais:</p>
-<ol type="1">
-<li><p>Para cada nível fixado de <span class="math inline">\(X\)</span>, existe uma <strong>distribuição de probabilidade de</strong> <span class="math inline">\(Y\)</span>.</p></li>
-<li><p>As médias dessas distribuições variam de forma sistemática com <span class="math inline">\(X\)</span>.</p></li>
-</ol>
-<p>Essa segunda característica é o coração da regressão: modelar como a média de <span class="math inline">\(Y\)</span> se altera quando <span class="math inline">\(X\)</span> varia.</p>
-<p>Visualmente, isso significa que, para cada valor de <span class="math inline">\(X\)</span>, não há um único valor possível de <span class="math inline">\(Y\)</span>, mas sim uma distribuição de valores possíveis. O modelo descreve o comportamento médio dessas distribuições.</p>
+<p>Essas reflexões mostram que a regressão linear é uma ferramenta poderosa, mas sua utilização pressupõe que a forma funcional escolhida seja compatível com o comportamento observado nos dados. Nos capítulos seguintes, serão discutidos métodos para avaliar essa adequação e, quando necessário, considerar estruturas mais apropriadas.</p>
+<p>Também é importante lembrar que uma associação estatística, por mais forte que seja, não implica necessariamente uma relação de causa e efeito. A interpretação dos resultados depende do contexto científico, do delineamento do estudo, da forma como os dados foram obtidos e das hipóteses adotadas na análise.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="modelagem_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="624"></p>
-<figcaption>Como as observações são geradas em regressão linear.</figcaption>
+<div id="fig-padroes-relacao" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-padroes-relacao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modelagem_files/figure-html/fig-padroes-relacao-1.png" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-padroes-relacao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.3: Exemplos de possíveis padrões de relacionamento entre duas variáveis quantitativas: ausência de associação aparente, relação linear fraca, relação linear forte e relação não linear.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Essa perspectiva probabilística será formalizada no próximo capítulo, quando introduzirmos o Modelo de Regressão Linear Simples (MRLS).</p>
+<p>A inspeção visual de gráficos de dispersão costuma ser uma das primeiras etapas de uma análise de regressão. Em muitos casos, ela permite identificar tendências aproximadamente lineares, relações curvilíneas, agrupamentos, mudanças na variabilidade, observações atípicas e outros padrões que dificilmente seriam percebidos apenas por meio de tabelas ou medidas-resumo.</p>
+<p>Embora a inspeção gráfica não substitua procedimentos formais de modelagem, ela frequentemente fornece informações valiosas para orientar a escolha de modelos e evitar especificações inadequadas.</p>
+<section id="o-que-observar-em-um-diagrama-de-dispersão" class="level4" data-number="2.2.7.1">
+<h4 data-number="2.2.7.1" class="anchored" data-anchor-id="o-que-observar-em-um-diagrama-de-dispersão"><span class="header-section-number">2.2.7.1</span> O que observar em um diagrama de dispersão?</h4>
+<p>Antes de ajustar qualquer modelo de regressão, é recomendável examinar cuidadosamente o diagrama de dispersão entre as variáveis. Muitas decisões importantes sobre a modelagem podem ser orientadas por essa inspeção inicial.</p>
+<p>Ao observar um gráfico desse tipo, algumas perguntas podem servir como guia:</p>
+<ul>
+<li>Existe algum padrão visível de associação entre as variáveis ou os pontos parecem distribuídos aleatoriamente?</li>
+<li>Uma reta parece representar adequadamente a tendência média dos dados ou há indícios de curvatura?</li>
+<li>A associação, quando presente, parece positiva ou negativa?</li>
+<li>A dispersão dos pontos em torno da tendência parece aproximadamente constante ou varia ao longo do domínio de <span class="math inline">\(X\)</span>?</li>
+<li>Existem observações isoladas que possam merecer investigação mais detalhada?</li>
+<li>Há grupos distintos de observações que possam indicar populações diferentes ou fatores não considerados na análise?</li>
+</ul>
+<p>Responder a essas perguntas não exige cálculos ou testes estatísticos. Muitas vezes, uma inspeção gráfica cuidadosa já fornece informações valiosas sobre o comportamento dos dados e auxilia na escolha de modelos mais adequados.</p>
+<p>Portanto, a regressão não consiste simplesmente em ajustar uma reta aos dados. Ela faz parte de um processo de modelagem estatística que envolve compreender o fenômeno de interesse, analisar os padrões presentes nas observações e escolher uma representação compatível com os objetivos do estudo e com as características dos dados disponíveis.</p>
+<p>Vale destacar que uma associação forte entre duas variáveis não implica, por si só, que uma seja a causa da outra. Em muitos casos, ambas podem estar relacionadas a um terceiro fator não observado ou a coincidências presentes nos dados. Da mesma forma, uma associação aparentemente fraca não significa ausência de informação útil, pois relações não lineares ou efeitos combinados com outras variáveis podem não ser evidentes em uma análise bivariada simples.</p>
+<p>Por esse motivo, os gráficos de dispersão devem ser interpretados como ferramentas exploratórias que auxiliam na compreensão inicial dos dados, mas não substituem a construção, avaliação e interpretação cuidadosa de modelos estatísticos.</p>
 </section>
-<section id="estrutura-conceitual-da-regressão" class="level4" data-number="2.2.2.4">
-<h4 data-number="2.2.2.4" class="anchored" data-anchor-id="estrutura-conceitual-da-regressão"><span class="header-section-number">2.2.2.4</span> Estrutura conceitual da regressão</h4>
-<p>Independentemente da área, a regressão parte de uma ideia fundamental:</p>
+</section>
+</section>
+<section id="objetivos-e-estruturas-dos-modelos-de-regressão" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="objetivos-e-estruturas-dos-modelos-de-regressão"><span class="header-section-number">2.3</span> Objetivos e estruturas dos modelos de regressão</h2>
+<p>Ao longo deste capítulo, vimos que a regressão procura representar a relação entre uma variável resposta e uma ou mais variáveis explicativas. Entretanto, essa representação pode ser utilizada com finalidades distintas, dependendo do problema investigado.</p>
+<p>De modo geral, os modelos de regressão atendem a três grandes objetivos.</p>
+<ol type="1">
+<li><p><strong>Descrever e compreender relações entre variáveis.</strong><br>
+Busca-se identificar como a variável resposta tende a variar quando as variáveis explicativas se modificam, quantificando essas associações por meio de parâmetros do modelo.</p></li>
+<li><p><strong>Realizar previsões.</strong><br>
+Uma vez ajustado o modelo, ele pode ser utilizado para estimar valores da variável resposta para novas observações ou para situações ainda não observadas.</p></li>
+<li><p><strong>Apoiar decisões e comparações.</strong><br>
+Em muitas aplicações, o interesse está em avaliar o efeito de uma variável levando em consideração outras características do problema, permitindo comparações condicionais e subsidiando decisões baseadas em evidências.</p></li>
+</ol>
+<p>Na prática, esses objetivos frequentemente aparecem de forma combinada. Um pesquisador pode ajustar um modelo para compreender um fenômeno e, ao mesmo tempo, utilizá-lo para realizar previsões ou avaliar cenários alternativos.</p>
+<p>Mais importante do que decorar essas finalidades é compreender que todas elas dependem da capacidade do modelo de representar adequadamente a estrutura presente nos dados.</p>
+<section id="estudos-observacionais-e-experimentais" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="estudos-observacionais-e-experimentais"><span class="header-section-number">2.3.1</span> Estudos observacionais e experimentais</h3>
+<p>A interpretação de um modelo de regressão depende não apenas dos dados disponíveis, mas também da forma como esses dados foram obtidos.</p>
+<p>Em um <strong>estudo observacional</strong>, o pesquisador apenas registra informações sobre as unidades analisadas, sem interferir nas condições em que elas se encontram. Pesquisas econômicas, levantamentos populacionais e estudos epidemiológicos são exemplos comuns dessa situação.</p>
+<p>Já em um <strong>estudo experimental</strong>, o pesquisador controla deliberadamente algum fator de interesse, como um tratamento, uma dose ou uma intervenção, e observa seus efeitos sobre a variável resposta. Ensaios clínicos randomizados e experimentos agrícolas são exemplos típicos.</p>
+<p>Essa distinção é importante porque influencia o tipo de conclusão que pode ser obtida. Em estudos observacionais, a regressão identifica padrões de associação entre variáveis, mas a interpretação causal exige hipóteses adicionais e conhecimento do contexto. Em estudos experimentais bem planejados, o controle sobre a atribuição dos tratamentos pode fornecer evidências mais fortes sobre relações de causa e efeito.</p>
+<p>Assim, antes mesmo de ajustar um modelo, é essencial compreender como os dados foram produzidos e quais perguntas científicas eles permitem responder.</p>
+</section>
+<section id="uma-interpretação-probabilística-da-regressão" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="uma-interpretação-probabilística-da-regressão"><span class="header-section-number">2.3.2</span> Uma interpretação probabilística da regressão</h3>
+<p>Até este ponto, discutimos a regressão como uma ferramenta para identificar tendências médias. Essa mesma ideia pode ser interpretada sob uma perspectiva probabilística.</p>
+<p>Para um mesmo valor das variáveis explicativas, a variável resposta não assume necessariamente um único valor. Em geral, diferentes unidades com características semelhantes apresentam respostas diferentes em razão da variabilidade inerente ao fenômeno estudado.</p>
+<p>Assim, para cada valor fixado de <span class="math inline">\(X\)</span>, podemos imaginar uma distribuição de possíveis valores para <span class="math inline">\(Y\)</span>. O papel do modelo de regressão é descrever como essas distribuições se comportam e, principalmente, como suas médias variam quando <span class="math inline">\(X\)</span> se modifica.</p>
+<p>Essa interpretação complementa a formulação</p>
 <p><span class="math display">\[
-Y = \text{parte sistemática} + \text{parte não explicada}
+Y=\mu(X)+\varepsilon,
 \]</span></p>
-<p>A parte sistemática representa o padrão médio associado às variáveis explicativas. A parte não explicada representa variações adicionais que não são capturadas pelo modelo, seja por fatores não observados, limitações de mensuração ou variabilidade inerente ao fenômeno.</p>
-<p>A regressão organiza essa decomposição de maneira formal e mensurável. Ela não elimina a variabilidade; ela a estrutura.</p>
+<p>mostrando que o termo aleatório representa justamente a diferença entre uma observação individual e o comportamento médio esperado para aquele valor de <span class="math inline">\(X\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="modelagem_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="624"></p>
+<figcaption>Representação probabilística da regressão: para cada valor de X existe uma distribuição de possíveis valores de Y, cuja média é descrita pela função de regressão.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A interpretação dessa figura merece atenção.</p>
+<p>Cada linha tracejada vertical corresponde a um valor específico da variável explicativa. Para esse valor de <span class="math inline">\(X\)</span>, não existe um único resultado possível para <span class="math inline">\(Y\)</span>, mas sim uma distribuição de resultados que poderiam ser observados caso o processo fosse repetido diversas vezes.</p>
+<p>O círculo vazio sobre a reta representa a média condicional dessa distribuição. Já o ponto preenchido corresponde a uma realização particular, isto é, um valor efetivamente observado.</p>
+<p>Se novas observações fossem coletadas para o mesmo valor de <span class="math inline">\(X\)</span>, provavelmente seriam obtidos valores diferentes de <span class="math inline">\(Y\)</span>, mas todos tenderiam a se concentrar em torno da mesma média condicional.</p>
+<p>Essa interpretação evidencia uma característica essencial da regressão: o modelo procura explicar o comportamento médio da variável resposta, reconhecendo explicitamente a existência de variabilidade entre observações individuais.</p>
+<p>Observe também que a largura das distribuições desenhadas ao longo da reta representa a variabilidade existente para cada valor de <span class="math inline">\(X\)</span>. Quanto maior essa dispersão, maior tende a ser a dificuldade de prever valores individuais de <span class="math inline">\(Y\)</span>, ainda que a tendência média esteja corretamente representada pelo modelo.</p>
+<p>Em outras palavras, um modelo pode descrever muito bem a média condicional e, ao mesmo tempo, apresentar grande incerteza nas observações individuais. Essa distinção é fundamental para interpretar corretamente os resultados de uma análise de regressão.</p>
 </section>
-<section id="alguns-exemplos-que-mostram-a-importância-prática" class="level4" data-number="2.2.2.5">
-<h4 data-number="2.2.2.5" class="anchored" data-anchor-id="alguns-exemplos-que-mostram-a-importância-prática"><span class="header-section-number">2.2.2.5</span> Alguns exemplos que mostram a importância prática</h4>
-<p>A utilidade da regressão torna-se mais clara quando observamos aplicações concretas.</p>
-<ul>
-<li><p><strong>Economia</strong><br>
-Modelos de regressão são usados para analisar como variáveis como taxa de juros, câmbio e nível de consumo se associam à inflação. O objetivo pode ser compreender o mecanismo econômico (explicação) ou projetar cenários futuros (previsão).</p></li>
-<li><p><strong>Saúde</strong><br>
-Em estudos clínicos, a regressão permite avaliar a relação entre tratamento e resposta terapêutica, controlando por idade, sexo ou comorbidades. Aqui, a regressão organiza a comparação entre grupos e ajuda a quantificar diferenças médias.</p></li>
-<li><p><strong>Engenharia</strong><br>
-Na modelagem da resistência de materiais, regressões relacionam tensão aplicada e deformação observada, permitindo prever limites operacionais.</p></li>
-<li><p><strong>Esportes</strong><br>
-Pode-se modelar o desempenho de uma equipe em função de variáveis como investimento, tempo de posse de bola ou eficiência ofensiva, identificando padrões associados ao resultado final.</p></li>
-<li><p><strong>Pesca e aquicultura</strong><br>
-Relações entre esforço de pesca e biomassa capturada, ou entre tempo de cultivo e ganho de peso, podem ser analisadas por regressão para apoiar decisões produtivas.</p></li>
-<li><p><strong>Políticas públicas</strong><br>
-Avaliações de impacto utilizam regressão para investigar como programas sociais se associam a indicadores como renda, escolaridade ou emprego.</p></li>
-</ul>
-<p>Esses exemplos mostram que regressão não é apenas um instrumento matemático; é uma ferramenta de organização do raciocínio quantitativo em contextos reais.</p>
+<section id="regressão-previsão-e-causalidade" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="regressão-previsão-e-causalidade"><span class="header-section-number">2.3.3</span> Regressão, previsão e causalidade</h3>
+<p>Os modelos de regressão podem ser utilizados com diferentes finalidades. Em muitas aplicações, o interesse está em compreender como determinadas variáveis estão associadas à variável resposta. Em outras, o principal objetivo é produzir previsões para novas observações ou apoiar processos de tomada de decisão.</p>
+<p>É importante destacar que um modelo pode ser extremamente útil para previsão mesmo quando não existe interesse em estabelecer relações de causa e efeito entre as variáveis. Por exemplo, características do histórico de compras de um cliente podem contribuir para prever futuras aquisições, ainda que essas características não sejam, por si só, as causas do comportamento observado.</p>
+<p>Da mesma forma, a existência de uma associação estatística entre duas variáveis não implica automaticamente uma relação causal. A interpretação causal depende do conhecimento do problema, do desenho do estudo, da forma como os dados foram coletados e de hipóteses adicionais que vão além do ajuste do modelo estatístico.</p>
+<p>Assim, antes de interpretar os resultados de uma regressão, é sempre recomendável perguntar não apenas <strong>o que os dados mostram</strong>, mas também <strong>como esses dados foram produzidos</strong> e <strong>qual é o objetivo da análise</strong>.</p>
 </section>
-<section id="potenciais-e-limites" class="level4" data-number="2.2.2.6">
-<h4 data-number="2.2.2.6" class="anchored" data-anchor-id="potenciais-e-limites"><span class="header-section-number">2.2.2.6</span> Potenciais e limites</h4>
-<p>A regressão possui algumas virtudes que explicam sua ampla utilização:</p>
+<section id="o-contexto-é-parte-do-modelo" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="o-contexto-é-parte-do-modelo"><span class="header-section-number">2.3.4</span> O contexto é parte do modelo</h3>
+<p>Modelos estatísticos não são construídos apenas a partir de números. O conhecimento sobre o fenômeno estudado desempenha papel fundamental em todas as etapas da análise, desde a escolha das variáveis até a interpretação dos resultados.</p>
+<p>Dois conjuntos de dados podem apresentar estruturas semelhantes e, ainda assim, exigir modelos diferentes em razão de aspectos específicos do problema, como a forma de coleta das informações, a qualidade das medições, a existência de limitações operacionais ou os objetivos do estudo.</p>
+<p>Por esse motivo, a modelagem estatística combina evidências empíricas e conhecimento substantivo. Os dados orientam a análise, mas sua interpretação depende do contexto em que foram produzidos.</p>
+</section>
+<section id="uma-pergunta-para-reflexão" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="uma-pergunta-para-reflexão"><span class="header-section-number">2.3.5</span> Uma pergunta para reflexão</h3>
+<p>Ao observar um diagrama de dispersão, é natural tentar imaginar uma reta ou uma curva que passe exatamente por todos os pontos. Entretanto, essa raramente é a finalidade de um modelo de regressão.</p>
+<p>Reflita sobre as seguintes questões:</p>
 <ul>
-<li>Permite quantificar efeitos médios;</li>
-<li>Oferece interpretação relativamente direta dos coeficientes;</li>
-<li>Estrutura a análise de dados de forma sistemática;</li>
-<li>Serve como base para extensões mais sofisticadas.</li>
+<li>Se dois indivíduos possuem exatamente o mesmo valor de <span class="math inline">\(X\)</span>, eles necessariamente apresentarão o mesmo valor de <span class="math inline">\(Y\)</span>?</li>
+<li>Caso uma nova observação fosse coletada nas mesmas condições, ela repetiria exatamente um valor já observado ou apenas tenderia a seguir o mesmo padrão geral?</li>
+<li>Um modelo que não passa por todos os pontos pode, ainda assim, representar adequadamente o comportamento médio do fenômeno?</li>
 </ul>
-<p>Ao mesmo tempo, é importante reconhecer que:</p>
+<p>Responder a essas perguntas ajuda a compreender por que a regressão é formulada em termos de médias condicionais e distribuições de probabilidade, e não como uma relação determinística entre variáveis.</p>
+</section>
+<section id="aplicações-da-regressão" class="level3" data-number="2.3.6">
+<h3 data-number="2.3.6" class="anchored" data-anchor-id="aplicações-da-regressão"><span class="header-section-number">2.3.6</span> Aplicações da regressão</h3>
+<p>Os modelos de regressão são empregados em praticamente todas as áreas do conhecimento. Alguns exemplos incluem:</p>
 <ul>
-<li>A qualidade da conclusão depende da qualidade dos dados;</li>
-<li>A forma funcional escolhida influencia os resultados;</li>
-<li>Modelos podem ser mal especificados;</li>
-<li>Associação estatística não é automaticamente causalidade.</li>
+<li>investigar fatores associados ao desempenho escolar;</li>
+<li>relacionar consumo e renda em estudos econômicos;</li>
+<li>avaliar a resposta de pacientes a tratamentos médicos;</li>
+<li>estudar o efeito de condições ambientais sobre a produtividade agrícola;</li>
+<li>analisar o crescimento de organismos ou populações;</li>
+<li>modelar demanda de energia, transporte ou recursos naturais;</li>
+<li>subsidiar avaliações de políticas públicas.</li>
 </ul>
-<p>Reconhecer essas dimensões faz parte da maturidade estatística.</p>
-<p>A regressão é, portanto, uma ferramenta que conecta <strong>teoria, dados e decisão</strong>. Ela organiza a variabilidade observada em uma estrutura interpretável e mensurável.</p>
-<p>No próximo capítulo, iniciaremos o estudo formal do <strong>Modelo de Regressão Linear Simples (MRLS)</strong>, que constitui o ponto de partida para compreender, com rigor matemático, como essa estrutura é estimada e quais propriedades possui.</p>
+<p>Embora os contextos sejam bastante distintos, todos esses problemas compartilham uma mesma ideia: compreender como a variável resposta se comporta em função de outras variáveis observadas e utilizar essa relação para gerar conhecimento ou apoiar decisões.</p>
+<p>A regressão não procura eliminar a variabilidade dos dados. Ela procura compreender essa variabilidade, identificando a parcela que pode ser explicada pelas variáveis observadas e reconhecendo explicitamente a incerteza que permanece.</p>
+</section>
+<section id="um-cuidado-importante-interpolar-não-é-extrapolar" class="level3" data-number="2.3.7">
+<h3 data-number="2.3.7" class="anchored" data-anchor-id="um-cuidado-importante-interpolar-não-é-extrapolar"><span class="header-section-number">2.3.7</span> Um cuidado importante: interpolar não é extrapolar</h3>
+<p>Modelos de regressão costumam fornecer estimativas confiáveis para valores das variáveis explicativas semelhantes aos observados durante sua construção. Entretanto, utilizar o modelo para fazer previsões muito além dessa faixa pode levar a resultados inadequados.</p>
+<p>Por exemplo, se um modelo foi ajustado com dados referentes a estudantes que dedicam entre 2 e 8 horas semanais aos estudos, utilizá-lo para prever o desempenho de alguém que estuda 30 horas por semana envolve uma extrapolação cuja validade depende de hipóteses adicionais sobre o comportamento do fenômeno.</p>
+<p>Por esse motivo, previsões devem sempre ser interpretadas à luz do contexto em que o modelo foi construído e dos dados efetivamente disponíveis.</p>
+<p>Em síntese, a regressão oferece uma forma estruturada de estudar como uma variável resposta se relaciona com outras variáveis observadas. Seu objetivo não é reproduzir exatamente cada observação, mas representar padrões médios, quantificar associações e fornecer uma base para interpretação, previsão e tomada de decisão.</p>
+<p>Ao longo deste livro, veremos como essas ideias podem ser formalizadas matematicamente, estimadas a partir de dados e avaliadas criticamente quanto à sua adequação e às suas limitações.</p>
+</section>
+</section>
+<section id="a-regressão-como-uma-família-de-modelos" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="a-regressão-como-uma-família-de-modelos"><span class="header-section-number">2.4</span> A regressão como uma família de modelos</h2>
+<p>Ao longo deste capítulo, utilizamos exemplos simples para apresentar as ideias fundamentais da regressão. No entanto, é importante compreender que a regressão não corresponde a um único modelo específico, mas a uma família de modelos estatísticos desenvolvidos para responder a diferentes tipos de perguntas e lidar com diferentes características dos dados.</p>
+<p>Em todos esses modelos existe um elemento comum: busca-se compreender como uma variável resposta se relaciona com uma ou mais variáveis explicativas, distinguindo uma componente sistemática da variabilidade que permanece não explicada. O que muda entre os diferentes modelos é a forma como essa relação é representada e as hipóteses adotadas para descrever os dados.</p>
+<p>Por exemplo, algumas aplicações envolvem variáveis resposta contínuas, como renda, temperatura ou altura. Outras trabalham com contagens, proporções, categorias ou tempos até a ocorrência de um evento. Há ainda situações em que a relação entre as variáveis não pode ser adequadamente representada por uma reta ou em que as observações apresentam estruturas de dependência mais complexas.</p>
+<p>Apesar dessa diversidade, muitos conceitos permanecem os mesmos. Ideias como média condicional, variáveis explicativas, parâmetros, variabilidade, ajuste do modelo e interpretação dos resultados aparecem, com diferentes adaptações, em grande parte dos modelos de regressão utilizados na prática.</p>
+<p>Neste livro, iniciaremos esse estudo pelo <strong>Modelo de Regressão Linear Simples (MRLS)</strong>. Além de sua importância histórica e prática, ele fornece uma base sólida para compreender princípios que serão reutilizados em modelos mais gerais. Por esse motivo, o MRLS pode ser visto como um ponto de partida para o estudo da modelagem estatística por regressão, e não como seu ponto de chegada.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
@@ -1029,9 +1065,6 @@ CHARNET, Reinaldo <em>et al.</em> <strong>Análise de Modelos de Regressão Line
 </div>
 <div id="ref-draper1998" class="csl-entry" role="listitem">
 DRAPER, Norman R.; SMITH, Harry. <strong>Applied Regression Analysis</strong>. 3. ed. New York: John Wiley &amp; Sons, 1998.
-</div>
-<div id="ref-giordano2013" class="csl-entry" role="listitem">
-GIORDANO, Frank R.; FOX, William P.; HORTON, Steven B. <strong>A First Course in Mathematical Modeling</strong>. <em>[S.l.]</em>: Cengage Learning, 2013.
 </div>
 <div id="ref-gujarati2006" class="csl-entry" role="listitem">
 GUJARATI, Damodar N. <strong>Econometria Básica</strong>. 4. ed. Rio de Janeiro: Elsevier Campus, 2006.
@@ -1042,15 +1075,10 @@ HOFFMANN, Rodolfo. <strong>Análise de Regressão: Uma Introdução à Econometr
 <div id="ref-kutner2005" class="csl-entry" role="listitem">
 KUTNER, Michael H. <em>et al.</em> <strong>Applied Linear Statistical Models</strong>. 5. ed. New York: McGraw-Hill, 2005.
 </div>
-<div id="ref-meerschaert2013" class="csl-entry" role="listitem">
-MEERSCHAERT, Mark M. <strong>Mathematical Modeling</strong>. 4. ed. <em>[S.l.]</em>: Academic Press, 2013.
-</div>
 <div id="ref-montgomery2021" class="csl-entry" role="listitem">
 MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. <strong>Introduction to Linear Regression Analysis</strong>. 6. ed. Hoboken: John Wiley &amp; Sons, 2021.
 </div>
 </div>
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
