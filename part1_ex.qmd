@@ -16,10 +16,10 @@ Considere o problema de investigar o desempenho acadêmico de estudantes univers
 
 Proponha uma estratégia de modelagem indicando:
 
-- uma possível variável resposta;
-- pelo menos três variáveis explicativas;
-- um fator que poderia influenciar o desempenho, mas que dificilmente seria observado ou mensurado;
-- o principal objetivo do modelo (compreensão, previsão ou apoio à decisão).
+-   uma possível variável resposta;
+-   pelo menos três variáveis explicativas;
+-   um fator que poderia influenciar o desempenho, mas que dificilmente seria observado ou mensurado;
+-   o principal objetivo do modelo (compreensão, previsão ou apoio à decisão).
 
 Explique suas escolhas.
 
@@ -71,9 +71,9 @@ Retorne às figuras apresentadas no Capítulo 2 que ilustram diferentes padrões
 
 Escolha dois dos cenários apresentados e discuta:
 
-- se um modelo linear parece adequado;
-- quais evidências visuais sustentam essa conclusão;
-- quais dificuldades poderiam surgir caso um modelo linear fosse utilizado.
+-   se um modelo linear parece adequado;
+-   quais evidências visuais sustentam essa conclusão;
+-   quais dificuldades poderiam surgir caso um modelo linear fosse utilizado.
 
 ### Questão 8
 
@@ -113,17 +113,16 @@ Um pesquisador pretende utilizá-lo para prever a resposta correspondente a $X=2
 
 Discuta por que essa previsão deve ser interpretada com cautela e explique a diferença entre interpolação e extrapolação.
 
-
 ## Bloco 5 – Integrando conceitos
 
 ### Questão 13
 
 Considere os seguintes problemas:
 
-- estimar a renda anual de trabalhadores de uma empresa;
-- estudar o número diário de atendimentos em um pronto-socorro;
-- analisar se um estudante foi aprovado ou reprovado em uma disciplina;
-- investigar o tempo até a ocorrência de uma falha em um equipamento.
+-   estimar a renda anual de trabalhadores de uma empresa;
+-   estudar o número diário de atendimentos em um pronto-socorro;
+-   analisar se um estudante foi aprovado ou reprovado em uma disciplina;
+-   investigar o tempo até a ocorrência de uma falha em um equipamento.
 
 Explique por que esses problemas podem exigir modelos de regressão diferentes. Em sua resposta, discuta como a natureza da variável resposta influencia a escolha do modelo estatístico e por que o Modelo de Regressão Linear Simples deve ser entendido como um caso particular dentro de uma família mais ampla de modelos de regressão.
 
@@ -139,14 +138,14 @@ Elabore uma proposta de estudo utilizando um modelo de regressão para investiga
 
 Em sua resposta, apresente e justifique:
 
-- o problema ou fenômeno que se deseja estudar;
-- a principal pergunta que se pretende responder;
-- a variável resposta;
-- pelo menos três possíveis variáveis explicativas;
-- se os dados seriam provenientes de um estudo observacional ou experimental, justificando sua resposta;
-- o principal objetivo da modelagem (compreensão, previsão ou apoio à decisão);
-- possíveis fatores não observados que poderiam influenciar a variável resposta;
-- limitações esperadas do modelo proposto.
+-   o problema ou fenômeno que se deseja estudar;
+-   a principal pergunta que se pretende responder;
+-   a variável resposta;
+-   pelo menos três possíveis variáveis explicativas;
+-   se os dados seriam provenientes de um estudo observacional ou experimental, justificando sua resposta;
+-   o principal objetivo da modelagem (compreensão, previsão ou apoio à decisão);
+-   possíveis fatores não observados que poderiam influenciar a variável resposta;
+-   limitações esperadas do modelo proposto.
 
 Por fim, explique por que o modelo elaborado deve ser entendido como uma representação simplificada do fenômeno estudado e não como uma descrição exata da realidade.
 
@@ -159,3 +158,11 @@ Escreva um texto curto respondendo à seguinte pergunta:
 Em sua resposta, procure integrar os principais conceitos discutidos nesta parte do livro, incluindo a formulação do problema de interesse, a definição de objetivos claros para a análise, a escolha das variáveis, o papel das simplificações adotadas, a interpretação da média condicional, a presença de variabilidade inerente aos dados, a influência do contexto em que as informações foram produzidas e as limitações dos modelos estatísticos.
 
 Sempre que considerar pertinente, utilize exemplos para ilustrar seus argumentos.
+
+## Atividade complementar em notebook
+
+Além dos exercícios conceituais desta seção, há uma atividade complementar em R/Google Colab dedicada à exploração visual de modelos de regressão.
+
+Nessa atividade, o estudante poderá simular diferentes estruturas, alterar parâmetros e observar como sinal, ruído, forma funcional e tipo de variável resposta influenciam os padrões observados nos dados.
+
+Acesse a atividade pelo link: [Notebook da Parte I — Modelagem e Regressão](https://drive.google.com/file/d/1gRHRwrNC6jCfLWic0ykDwS9MM9-NyRsY/view?usp=sharing)
